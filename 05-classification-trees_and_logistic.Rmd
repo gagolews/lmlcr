@@ -1,0 +1,1130 @@
+# Classification with Trees and Linear Models
+
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
+
+# Introduction
+
+## Classification Task
+
+---
+
+Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
+that consists of $n$ points in a $p$-dimensional space.
+
+In other words, we have a database on $n$ objects, each of which
+being described by means of $p$ numerical features.
+
+\[
+\mathbf{X}=
+\left[
+\begin{array}{cccc}
+x_{1,1} & x_{1,2} & \cdots & x_{1,p} \\
+x_{2,1} & x_{2,2} & \cdots & x_{2,p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
+\end{array}
+\right]
+\]
+
+
+---
+
+
+
+- Recall that in supervised learning,
+apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
+
+- With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
+
+
+- In this lecture we are still  interested in  **classification** tasks;
+we assume that each $y_i$ is a discrete label.
+
+
+---
+
+In this part we assume that we are faced with **binary classification** tasks.
+
+Hence, there are only two possible labels that we traditionally denote with $0$s and $1$s.
+
+For example:
+
+0       | 1
+--------|------------
+no      | yes
+false   | true
+failure | success
+healthy | ill
+
+
+
+
+---
+
+```{r,echo=FALSE,fig.height=6}
+par(mar=c(4,4,0.5,0.5))
+set.seed(123)
+n0 <- 50 # n0 points in class 0
+n1 <- 50 # n0 points in class 0
+Xs <- rbind(
+    cbind(rnorm(n0, -1, 1), rnorm(n0, 0, 1)), # N( (-1, 0), (1, 1) )
+    cbind(rnorm(n1, +1, 1), rnorm(n1, 0, 1))  # N( (+1, 0), (1, 1) )
+)
+Ys <- factor(rep(c("0", "1"), c(n0, n1)))
+
+plot(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys], las=1, xlab="X1", ylab="X2", asp=1)
+legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"))
+abline(v=0, lty=3, col="blue")
+```
+
+
+
+
+
+
+
+
+## Data
+
+---
+
+For illustration, let's consider the `wines` dataset again.
+
+
+```{r}
+# See: http://www.gagolewski.com/resources/data/
+wines <- read.csv("winequality-all.csv", comment="#")
+(n <- nrow(wines)) # number of samples
+```
+
+---
+
+The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
+consists of all the numeric variables:
+
+```{r}
+X <- as.matrix(wines[,1:11])
+dim(X)
+head(X, 2) # first two rows
+```
+
+
+
+---
+
+The `response` variable is an ordinal one,
+giving each wine's rating as assigned by a sommelier.
+
+Here: 0 == a very bad wine, 10 == a very good one.
+
+We will convert this dependent variable to a binary one:
+
+- 0 == `response  < 5` == bad
+- 1  == `response >= 5` == good
+
+```{r}
+# recall that TRUE == 1
+Y <- as.integer(wines$response >= 5)
+table(Y)
+```
+
+
+Now $(\mathbf{X},\mathbf{y})$ is a basis for an interesting
+binary classification task.
+
+
+
+
+---
+
+70/30% train-test split:
+
+```{R}
+set.seed(123) # reproducibility matters
+random_indexes <- sample(n)
+head(random_indexes) # preview
+# first 70% of the indexes (they are arranged randomly)
+# will constitute the train sample:
+train_indexes <- random_indexes[1:floor(n*0.7)]
+X_train <- X[train_indexes,]
+Y_train <- Y[train_indexes]
+# the remaining indexes (30%) go to the test sample:
+X_test  <- X[-train_indexes,]
+Y_test  <- Y[-train_indexes]
+```
+
+
+
+---
+
+Let's also compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
+and `X_test`, respectively.
+
+```{r}
+means <- apply(X, 2, mean) # column means
+sds   <- apply(X, 2, sd)   # column standard deviations
+Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
+Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
+```
+
+
+
+
+## Discussed Methods
+
+---
+
+We are soon going to discuss the following simple and educational (yet practically useful)
+classification algorithms:
+
+- *Decision trees*
+- *Logistic regression*
+
+---
+
+Before that happens, let's go back to the K-NN algorithm.
+
+```{r}
+library("FNN")
+Y_knn5   <- knn(X_train, X_test, Y_train, k=5)
+Y_knn10  <- knn(X_train, X_test, Y_train, k=10)
+Y_knn5s  <- knn(Z_train, Z_test, Y_train, k=5)
+Y_knn10s <- knn(Z_train, Z_test, Y_train, k=10)
+c(
+    mean(Y_test == Y_knn5),
+    mean(Y_test == Y_knn10),
+    mean(Y_test == Y_knn5s),
+    mean(Y_test == Y_knn10s)
+)
+```
+
+
+We should answer the question regarding the optimal choice of $K$ first.
+
+How should we do that?
+
+
+
+
+# Model Assessment and Selection
+
+## Performance Metrics
+
+---
+
+
+Recall that $y_i$ denotes the true label associated with the $i$-th observation.
+
+Let $\hat{y}_i$ denote the classifier's output for a given $\mathbf{x}_{i,\cdot}$.
+
+Ideally, we'd wish that $\hat{y}_i=y_i$.
+
+Sadly, in practice we will make errors.
+
+Here are the 4 possible situations (true vs. predicted label):
+
+
+.              | $y_i=0$                        | $y_i=1$
+---------------|--------------------------------|-------------
+$\hat{y}_i=0$  | **True Negative**              | False Negative (Type II error)
+$\hat{y}_i=1$  | False Positive (Type I error)  | **True Positive**
+
+Note that the terms **positive** and **negative** refer the the classifier's output, i.e., occur when $\hat{y}_i$ is equal to $1$ and $0$, respectively.
+
+
+---
+
+A **confusion matrix** is used to summarise
+the correctness of predictions for the whole sample:
+
+
+```{r}
+Y_pred <- Y_knn10s
+(C <- table(Y_pred, Y_test))
+```
+
+For example,
+
+```{r}
+C[1,1] # number of TNs
+C[2,1] # number of FPs
+```
+
+
+---
+
+
+**Accuracy** is the ratio of the correctly classified instances
+to all the instances.
+
+In other words, it is the probability of making a correct prediction.
+
+\[
+\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}
+= \frac{1}{n} \sum_{i=1}^n \mathbb{I}\left(
+y_i = \hat{y}_i
+\right)
+\]
+where $\mathbb{I}$ is the indicator function,
+$\mathbb{I}(l)=1$ if logical condition $l$ is true and $0$ otherwise.
+
+```{r}
+mean(Y_test == Y_pred) # accuracy
+(C[1,1]+C[2,2])/sum(C) # equivalently
+```
+
+---
+
+In many applications we are dealing with **unbalanced problems**, where
+the case $y_i=1$ is relatively rare,
+yet predicting it  correctly is much more important than being
+accurate with respect to class $0$.
+
+> Think of medical applications, e.g., HIV testing
+or tumour diagnosis.
+
+In such a case, *accuracy* as a metric fails to quantify what we are aiming for.
+
+> If only 1% of the cases have true $y_i=1$,
+then a dummy classifier that always
+outputs $\hat{y}_i=0$ has 99% accuracy.
+
+Metrics such as precision and recall (and their aggregated version, F-measure)
+aim to address this problem.
+
+
+
+
+
+---
+
+**Precision**
+
+
+
+\[
+\text{Precision} = \frac{TP}{TP+FP}
+\]
+
+
+If the classifier outputs $1$,
+what is the probability that this is indeed true?
+
+```{r}
+C[2,2]/(C[2,2]+C[2,1]) # Precision
+```
+
+---
+
+**Recall** (a.k.a. sensitivity, hit rate or true positive rate)
+
+\[
+\text{Recall} = \frac{TP}{TP+FN}
+\]
+
+If the true class is $1$, what is the probability that the classifier
+will detect it?
+
+
+```{r}
+C[2,2]/(C[2,2]+C[1,2]) # Recall
+```
+
+
+---
+
+> Precision or recall? It depends on an application.
+> Think of medical diagnosis, medical screening, plagiarism detection, etc.
+> --- which measure is more important in each of the settings listed?
+
+
+
+
+As a compromise, we can use the **F-measure**
+(a.k.a. $F_1$-measure),
+which is the harmonic mean of precision
+and recall:
+
+\[
+\text{F} = \frac{1}{
+    \frac{
+        \frac{1}{\text{Precision}}+\frac{1}{\text{Recall}}
+    }{2}
+}
+=
+\left(
+\frac{1}{2}
+\left(
+\text{Precision}^{-1}+\text{Recall}^{-1}
+\right)
+\right)^{-1}
+=
+\frac{TP}{TP + \frac{FP + FN}{2}}
+\]
+
+
+> Show that the above equality holds.
+
+```{r}
+C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]) # F
+```
+
+
+---
+
+
+```{r}
+get_metrics <- function(Y_test, Y_pred)
+{
+    C <- table(Y_pred, Y_test) # confusion matrix
+    c(Acc=(C[1,1]+C[2,2])/sum(C), # accuracy
+      Prec=C[2,2]/(C[2,2]+C[2,1]), # precision
+      Rec=C[2,2]/(C[2,2]+C[1,2]), # recall
+      F=C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]), # F-measure
+      # Confusion matrix items:
+      TN=C[1,1], FN=C[1,2],
+      FP=C[2,1], TP=C[2,2]
+    ) # return a named vector
+}
+```
+
+
+## How to Choose K for K-NN Classification?
+
+---
+
+We haven't yet considered the question which $K$ yields *the best*
+classifier.
+
+Best == one that has the highest *predictive power*.
+
+Best == with respect to some chosen metric (accuracy, recall, precision, F-measure, ...)
+
+Let us study how the metrics on the test set change as functions of the number of nearest neighbours considered, $K$.
+
+---
+
+
+Auxiliary function:
+
+```{r}
+knn_metrics <- function(k, X_train, X_test, Y_train, Y_test)
+{
+    Y_pred <- knn(X_train, X_test, Y_train, k=k) # classify
+    get_metrics(Y_test, Y_pred)
+}
+```
+
+For example:
+
+```{r,cache=TRUE}
+knn_metrics(5, Z_train, Z_test, Y_train, Y_test)
+```
+
+
+---
+
+
+Example call to evaluate metrics as a function of different $K$s:
+
+```{r,cache=TRUE}
+Ks <- 1:10
+Ps <- as.data.frame(t(
+    sapply(Ks, # on each element in this vector
+        knn_metrics,     # apply this function
+        Z_train, Z_test, Y_train, Y_test # aux args
+    )))
+```
+
+
+> Note that `sapply(X, f, arg1, arg2, ...)`
+outputs a list `Y` such that
+`Y[[i]] = f(X[i], arg1, arg2, ...)`
+which is then simplified to a matrix.
+
+> We transpose this result, `t()`, in order to get each metric
+corresponding to different columns in the result.
+
+> As usual, if you keep wondering, e.g.,  why `t()`, play with the code yourself -- it's fun fun fun.
+
+
+---
+
+
+Example results:
+
+```{r}
+round(cbind(K=Ks, Ps), 2)
+```
+
+A picture is worth a thousand tables though (see `?matplot` in R).
+
+
+
+---
+
+
+```{r,echo=FALSE,cache=TRUE,fig.height=6}
+Ks <- 1:50
+Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
+  knn_metrics,     # apply this function
+  Z_train, Z_test, Y_train, Y_test # also passing these as args
+)))
+par(mar=c(4,4,2.5,0.5))
+matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Standardised Data (Z_train, Z_test)")
+legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
+```
+
+
+
+
+---
+
+
+```{r,echo=FALSE,cache=TRUE,fig.height=6}
+Ks <- 1:50
+Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
+  knn_metrics,     # apply this function
+  X_train, X_test, Y_train, Y_test # also passing these as args
+)))
+par(mar=c(4,4,2.5,0.5))
+matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Raw Data (X_train, X_test)")
+legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
+```
+
+<!--
+
+(\*) **ROC** (Receiver Operating Characteristic) curve:
+
+```{r,fig.height=5}
+TPR <- Ps$TP/(Ps$TP+Ps$FN) # True Positive Rate (recall)
+FPR <- Ps$FP/(Ps$FP+Ps$TN) # False Positive Rate
+plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1), las=1)
+abline(a=0, b=1, lty=3)
+```
+
+-->
+
+
+
+
+
+## Training, Validation and Test sets
+
+---
+
+
+In the $K$-NN classification task, there are many hyperparameters to tune up:
+
+- Which $K$ should we choose?
+
+- Should we standardise the dataset?
+
+- Which variables should be taken into account when computing the Euclidean metric?
+
+- Which metric should be used?
+
+
+> **If we select the best hyperparameter set based on test
+sample error, we will run into the trap of overfitting again**.
+
+> This time we'll be overfitting to the test set --- the model that is optimal
+for a given test sample doesn't have to generalise well to other test samples (!).
+
+---
+
+
+In order to overcome this problem,
+we can perform a random **train-validation-test split** of the original dataset:
+
+- *training sample*  (e.g., 60%) -- used to construct the models
+- *validation sample* (e.g., 20%) -- used to tune the hyperparameters of the classifier
+- *test sample* (e.g., 20%) -- used to assess the goodness of fit
+
+> (\*) If our dataset is too small,
+we can use various *crossvalidation* techniques
+instead of a train-validate-test split. These will be explored
+in a dedicated Machine Learning unit.
+
+
+<!--By the way, this is how most data mining competitions are assessed --
+you will never have access to the final test sample used to determine the winner.
+The best you can do is to "guess".-->
+
+
+---
+
+An example way to perform a train-validation-test split:
+
+```{R}
+set.seed(123) # reproducibility matters
+random_indexes <- sample(n)
+n1 <- floor(n*0.6)
+n2 <- floor(n*0.8)
+X2_train <- X[1:n1,]
+Y2_train <- Y[1:n1]
+X2_valid <- X[(n1+1):n2,]
+Y2_valid <- Y[(n1+1):n2]
+X2_test  <- X[(n2+1):n,]
+Y2_test  <- Y[(n2+1):n]
+stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
+    == nrow(X))
+```
+
+
+
+
+
+
+
+# Decision Trees
+
+## Introduction
+
+---
+
+
+
+Note that a K-NN classifier is **model-free**.
+The whole training set must be stored and referred to at all times.
+
+Therefore, it doesn't *explain* the data we have -- we may use it solely
+for the purpose of *prediction*.
+
+
+Perhaps one of the most interpretable (and hence human-friendly) models
+consist of decision rules of the form:
+
+**IF $x_{i,j_1}\le v_1$ AND ... AND $x_{i,j_r}\le v_r$ THEN $\hat{y}_i=1$.**
+
+These can be organised into a **hierarchy** for greater readability.
+
+This idea inspired the notion of **decision trees** (Breiman et al., 1984)
+
+
+---
+
+
+```{r,echo=FALSE,out.width='100%',fig.width=10,fig.height=5}
+
+library("rpart")
+library("rpart.plot")
+set.seed(123)
+
+
+
+plot_rpart <- function(ts, XYs) {
+  xx1 <- seq(-4, 4, length.out=250)
+  xx2 <- seq(-4, 4, length.out=250)
+  xx <- expand.grid(xx1, xx2)
+
+  dimnames(xx)[[2]] <- names(XYs)[1:2]
+
+  yy <- predict(ts, data.frame(xx, names=c("V1", "V2")), type="class")
+  par(mar=c(4,4,2.5,0.5))
+  image(xx1, xx2, matrix(as.numeric(yy)-1, nrow=length(xx1), ncol=length(xx2)),
+        col=c("#00000044", "#ff000044"), las=1, xlab="X1", ylab="X2", asp=1,
+        main=sprintf("Decision Tree Class Bounds, cp=%g", cp))
+
+
+  points(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys])
+  legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"), bg="white")
+  abline(v=0, lty=3, col="blue")
+  par(mar=c(0,0,0,0))
+}
+
+
+XYs <- as.data.frame(cbind(Xs, Y=as.numeric(as.character(Ys))))
+names(XYs) <- c("X1", "X2", "Y")
+cp <- 0.5
+ts <- rpart(Y~., data=XYs, method="class", cp=cp)
+par(mfrow=c(1,2))
+plot_rpart(ts, XYs)
+rpart.plot(ts)
+```
+
+
+Each tree node reports 3 pieces of information:
+
+- dominating class (0 or 1)
+- (relative) proportion of 1s  represented in a node
+- (absolute) proportion of all observations in a node
+
+
+
+---
+
+
+```{r,echo=FALSE,out.width='100%',fig.width=10,fig.height=5}
+cp <- 0.01
+ts <- rpart(Y~., data=XYs, method="class", cp=cp)
+par(mfrow=c(1,2))
+plot_rpart(ts, XYs)
+rpart.plot(ts)
+```
+
+
+---
+
+
+```{r,echo=FALSE,out.width='100%',fig.width=10,fig.height=5}
+cp <- 0.001
+control <- list(minsplit=1, minbucket=5)
+ts <- rpart(Y~., data=XYs, method="class", cp=cp, control=control)
+par(mfrow=c(1,2))
+plot_rpart(ts, XYs)
+rpart.plot(ts, tweak=1.3)
+```
+
+
+
+
+
+
+## Example in R
+
+---
+
+
+
+We will use the `rpart()` function from the `rpart` package
+to build a classification tree.
+
+```{r}
+library("rpart")
+library("rpart.plot")
+set.seed(123)
+```
+
+`rpart()` uses a formula (`~`) interface, hence it will be easier
+to feed it with data in a data.frame form.
+
+```{r}
+XY_train <- as.data.frame(cbind(X_train, Y=Y_train))
+XY_test <- as.data.frame(cbind(X_test, Y=Y_test))
+```
+
+---
+
+
+Fit and plot a decision tree:
+
+```{r,echo=-1}
+par(mar=c(0,0,0,0))
+t1 <- rpart(Y~., data=XY_train, method="class")
+rpart.plot(t1)
+```
+
+---
+
+The fitted model is rather... simple.
+
+Only the `alcohol` variable is taken into account.
+
+
+Well note how these two distributions are shifted:
+
+```{r,echo=-1}
+par(mar=c(4,4,0.5,0.5))
+vioplot::vioplot(alcohol~Y, data=XY_train,
+    horizontal=TRUE, las=1)
+```
+
+
+
+
+---
+
+
+Make predictions:
+
+```{r}
+Y_pred <- predict(t1, XY_test, type="class")
+get_metrics(Y_test, Y_pred)
+```
+
+---
+
+> (\*) Interestingly, `rpart()` also provides us with information
+about the importance degrees of each independent variable.
+
+```{r}
+t1$variable.importance/sum(t1$variable.importance)
+```
+
+---
+
+We can build a much more complex tree by playing
+with the `cp` parameter.
+
+```{r,out.width='100%',fig.width=10,fig.height=5}
+# cp = complexity parameter, smaller → more complex tree
+t2 <- rpart(Y~., data=XY_train, method="class", cp=0.007)
+rpart.plot(t2, tweak=2.5, compress=FALSE)
+```
+
+
+---
+
+```{r}
+Y_pred <- predict(t2, XY_test, type="class")
+get_metrics(Y_test, Y_pred)
+```
+
+
+
+## A Note on Decision Tree Learning
+
+---
+
+Learning an optimal decision tree is a computationally hard problem
+-- we need some heuristics.
+
+Examples:
+
+* ID3 (Iterative Dichotomiser 3) by Ross Quinlan, 1986
+* C4.5 algorithm  by Ross Quinlan, 1993
+* C5.0, 1997
+* CART by Leo Breiman et al., 1984
+
+Decision trees are most often constructed by a *greedy*, *top-down*
+*recursive partitioning*.
+
+These should be discussed in more detail in a dedicated unit on Machine Learning.
+
+
+
+
+
+
+<!--
+
+## @TODO@ Random Forests and XGBoost
+
+## ...
+
+---
+
+
+just show how to use it
+
+boosting
+
+bagging
+
+```{r}
+#library("randomForest")
+#rf <- randomForest(X_train, Y_train)
+#Y_pred <- predict(rf, X_test)
+#get_metrics(Y_test, Y_pred)
+```
+
+
+---
+
+
+```{r}
+#library("xgboost")
+#xg <- xgboost(X_train, Y_train)
+#Y_pred <- predict(xg, X_test)
+#get_metrics(Y_test, Y_pred)
+```
+
+-->
+
+
+
+
+
+
+# Binary Logistic Regression
+
+## Motivation
+
+---
+
+
+Recall that for a regression task, we fitted a very simple family of models
+-- the linear ones -- by minimising the sum of squared residuals.
+
+This approach was pretty effective.
+
+Theoretically, we could treat the class labels as numeric $0$s and $1$s
+and apply regression models in a binary classification task.
+
+
+
+```{r}
+XY_train_r <- as.data.frame(cbind(X_train,
+    Y=as.numeric(as.character(Y_train)) # 0.0 or 1.0
+))
+f <- lm(Y~., data=XY_train_r)
+```
+
+---
+
+```{r}
+Y_pred <- predict(f, as.data.frame(X_test))
+summary(Y_pred)
+```
+
+The predicted outputs, $\hat{Y}$, are arbitrary real numbers,
+but we can convert them to binary ones by checking if, e.g., $\hat{Y}>0.5$.
+
+```{r}
+Y_pred <- as.integer(Y_pred>0.5)
+get_metrics(Y_test, Y_pred)
+```
+
+---
+
+The threshold $T=0.5$  could even be treated as a free parameter
+we optimise for (w.r.t. different metrics over the validation sample).
+
+```{r,echo=FALSE,cache=TRUE,fig.height=5}
+par(mar=c(4,4,0.5,0.5))
+Y_pred <- predict(f, XY_test)
+Ts <- seq(0.05, 0.95, length.out=101)
+Ps <- as.data.frame(t(sapply(Ts, function(t) {
+  Y_pred <- as.integer(Y_pred>=t)
+  get_metrics(Y_test, Y_pred)
+})))
+
+matplot(Ts, Ps[,1:4], las=1, xlab="T", ylab="Metric", type="l", ylim=c(0,1))
+legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
+```
+
+
+## Logistic Model
+
+---
+
+Inspired by this idea, we could try modelling
+the ***probability* that a given point belongs to class $1$**.
+
+This could also provide us with the *confidence* in our prediction.
+
+Probability is a number in $[0,1]$, but $Y\in \mathbb{R}$.
+
+However, we could transform the real-valued outputs by means
+of some function $\phi:\mathbb{R}\to[0,1]$ (preferably S-shaped == sigmoid),
+so as to get:
+
+$\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)$
+
+> The above reads as "Probability that $Y$ is from class 1 given $\mathbf{X}$
+and $\boldsymbol\beta$".
+
+---
+
+A popular choice is the **logistic sigmoid function**,
+
+\[
+\phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
+\]
+
+```{r,echo=FALSE,cache=TRUE,fig.height=5}
+par(mar=c(4,4,0.5,0.5))
+xxx <- seq(-3, 3, length.out=101)
+yyy <- 1/(1+exp(-xxx))
+plot(xxx, yyy, type='l', xlab='y', ylab=expression(phi(y)), las=1, ylim=c(0,1))
+abline(v=0, lty=3)
+abline(h=c(0, 0.5, 1), lty=3)
+```
+
+
+---
+
+Hence our model becomes:
+
+\[
+Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
+\]
+
+We call it a **generalised linear model** (glm).
+
+
+## Example in R
+
+---
+
+Let us first fit
+a simple  (i.e., $p=1$) logistic regression model
+using the `alcohol` variable.
+
+> "logit" below denotes the inverse of the logistic sigmoid function.
+
+
+```{r}
+f <- glm(Y~alcohol, data=XY_train, family=binomial("logit"))
+summary(f)
+```
+
+---
+
+```{r,echo=FALSE,cache=TRUE,fig.height=5}
+par(mar=c(4,4,0.5,0.5))
+xxx <- seq(min(XY_train$alcohol), max(XY_train$alcohol), length.out=101)
+yyy <- 1/(1+exp(-(f$coef[1]+f$coef[2]*xxx)))
+plot(xxx, yyy, type='l', xlab='alcohol', ylab="P(Y=1|alcohol)", las=1, ylim=c(0,1))
+points(XY_train$alcohol, jitter(as.integer(as.character(XY_train$Y)), 0.1), col=
+    c("#00000011", "#ff000011")[XY_train$Y+1], pch=16)
+abline(h=c(0, 0.5, 1), lty=3)
+legend(8, 0.95, legend=sprintf("1/(1+exp(-(%+g%+g*alcohol))", f$coef[1], f$coef[2]), lty=1)
+```
+
+---
+
+Some predicted probabilities:
+
+
+```{r}
+head(predict(f, XY_test, type="response"))
+```
+
+We classify $Y$ as 1 if the corresponding membership probability
+is greater than $0.5$.
+
+```{r}
+Y_pred <- as.integer(predict(f, XY_test, type="response")>0.5)
+get_metrics(Y_test, Y_pred)
+```
+
+---
+
+And now a fit based on all the input variables:
+
+```{r}
+f <- glm(Y~., data=XY_train, family=binomial("logit"))
+Y_pred <- as.integer(predict(f, XY_test, type="response")>0.5)
+get_metrics(Y_test, Y_pred)
+```
+
+
+## Loss Function
+
+---
+
+The fitting of the model can be written as an optimisation task:
+
+\[
+\min_{\beta_0, \beta_1,\dots, \beta_p\in\mathbb{R}}
+\frac{1}{n} \sum_{i=1}^n
+e\left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}, y_i \right)
+\]
+
+where $e(\hat{y}, y)$ denotes the penalty that measures the
+"difference" between the true $y$ and its predicted version $\hat{y}$.
+
+In the ordinary regression, we use the squared residual $e(\hat{y}, y) = (\hat{y}-y)^2$.
+
+In **logistic regression** (the kind of a classifier we are interested in right now), we use
+the **cross-entropy** (a.k.a. **log-loss**),
+
+\[
+e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
+\]
+
+The corresponding loss function has not only nice statistical properties
+(see a dedicated unit on ML) but also an intuitive interpretation.
+
+---
+
+Note that the predicted $\hat{y}$ is in $(0,1)$ and the true $y$ equals to either 0 or 1.
+
+Recall also that $\log t\in(-\infty, 0)$ for $t\in (0,1)$.
+
+
+\[
+e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
+\]
+
+
+- if true $y=1$, then the penalty becomes $e(\hat{y}, 1) = -\log(\hat{y})$
+
+    - $\hat{y}$ is the probability that the classified input is indeed from class $1$
+    - we'd be happy if the classifier outputted $\hat{y}\simeq 1$ in this case;
+    this is not  penalised as $-\log(t)\to 0$ as $t\to 1$
+    - however, if the classifier is totally wrong, i.e., it thinks that
+    $\hat{y}\simeq 0$, then the penalty will be very high, as $-\log(t)\to+\infty$
+    as $t\to 0$
+
+
+- if true $y=0$, then the penalty becomes $e(\hat{y}, 0) = -\log(1-\hat{y})$
+
+    - $1-\hat{y}$ is the predicted probability that the input is from class $0$
+    - we penalise heavily the case where $1-\hat{y}$ is small (we'd be happy
+    if the classifier was sure that $1-\hat{y}\simeq 1$, because this is the ground-truth)
+
+---
+
+> (\*) Interestingly, there is no analytical formula
+for the optimal set of parameters ($\beta_0,\beta_1,\dots,\beta_p$)
+minimising the log-loss.
+
+> In a lecture on optimisation, we shall see that
+the solution to the logistic regression can be solved numerically
+by means of quite simple iterative algorithms.
+
+# Outro
+
+## Remarks
+
+---
+
+Other prominent classification algorithms:
+
+- Naive Bayes and other probabilistic approaches
+- Support Vector Machines (SVMs) and other kernel methods
+- (Artificial) (Deep) Neural Networks
+
+
+---
+
+- Interestingly, in the next lecture we will  note that the logistic regression model
+is a special case of a *feed-forward single layer neural network*.
+
+- We will also generalise the binary logistic regression to the case of
+a multiclass classification.
+
+
+- The state-of-the art classifiers called
+*Random Forests* and *XGBoost* (see also: *AdaBoost*) are based on decision trees.
+They tend to be more accurate but -- at the same time -- they fail to
+exhibit the decision trees' important feature: interpretability.
+
+- Trees can also be used for regression tasks, see R package `rpart`.
+
+
+
+## References and Further Reading
+
+---
+
+
+Recommended further reading:
+
+- G. James, D. Witten, T. Hastie, R. Tibshirani,
+    *An Introduction to Statistical Learning with Applications in R*, Springer, 2017
+    -- Chapters 4 and 8
+
+    > Freely available at
+    http://faculty.marshall.usc.edu/gareth-james/ISL/
+
+---
+
+Other references:
+
+- T. Hastie, R. Tibshirani, J. Friedman,
+    *The Elements of Statistical Learning*, Springer, 2017
+    -- Chapters 4 and 7 as well as (*) Chapters 9,  10,  13, 15
+
+    > Freely available at
+    https://web.stanford.edu/~hastie/ElemStatLearn/
+- S. Russell, P. Norvig,
+    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
+    -- Sections 18.2, 18.3, 18.4,
+- T.M. Therneau, An Introduction to Recursive Partitioning Using the RPART Routines, 2019.
+    https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf.
+

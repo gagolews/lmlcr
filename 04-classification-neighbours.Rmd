@@ -1,0 +1,945 @@
+# Classification with K-Nearest Neighbours
+
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
+
+
+# Introduction
+
+## Classification Task
+
+---
+
+
+Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
+that consists of $n$ points in a $p$-dimensional space.
+
+In other words, we have a database on $n$ objects, each of which
+being described by means of $p$ numerical features.
+
+\[
+\mathbf{X}=
+\left[
+\begin{array}{cccc}
+x_{1,1} & x_{1,2} & \cdots & x_{1,p} \\
+x_{2,1} & x_{2,2} & \cdots & x_{2,p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
+\end{array}
+\right]
+\]
+
+
+---
+
+
+- Recall that in supervised learning,
+apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
+
+- With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
+
+
+- In this lecture we are interested in  **classification** tasks;
+we assume that each $y_i$ is a discrete label.
+
+---
+
+Most commonly, we are faced with **binary classification** tasks
+where there are only two possible labels.
+
+We traditionally denote them with $0$s and $1$s.
+
+For example:
+
+0       | 1
+--------|------------
+no      | yes
+false   | true
+failure | success
+healthy | ill
+
+
+On the other hand, in **multiclass classification**,
+we assume that each $y_i$ takes more than two possible values.
+
+---
+
+```{r,echo=FALSE,fig.height=5}
+par(mar=c(4,4,0.5,0.5))
+set.seed(123)
+n0 <- 50 # n0 points in class 0
+n1 <- 50 # n1 points in class 1
+Xs <- rbind(
+    cbind(rnorm(n0, -1, 1), rnorm(n0, 0, 1)), # N( (-1, 0), (1, 1) )
+    cbind(rnorm(n1, +1, 1), rnorm(n1, 0, 1))  # N( (+1, 0), (1, 1) )
+)
+Ys <- factor(rep(c("0", "1"), c(n0, n1)))
+
+plot(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys], las=1, xlab="X1", ylab="X2", asp=1)
+legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"))
+abline(v=0, lty=3, col="blue")
+```
+
+## Factor Data Type
+
+---
+
+On a side note,
+`factor` type in R is a very convenient means to store categorical data.
+
+```{r}
+x <- c("yes", "no", "no", "yes", "no")
+f <- factor(x, levels=c("no", "yes"))
+f
+table(f) # counts
+```
+
+---
+
+Internally, objects of type `factor` are represented as integer vectors
+with elements in $\{1,\dots,M\}$, where $M$ is the number of possible levels.
+
+
+Labels, used to "decipher" the numeric codes, are stored separately.
+
+```{r}
+as.integer(f) # 2nd label, 1st label, 1st label etc.
+levels(f)
+nlevels(f)
+levels(f) <- c("failure", "success") # re-encode
+f
+```
+
+
+
+
+
+## Data
+
+---
+
+For illustration, let's consider the `wines` dataset.
+
+```{r}
+# See: http://www.gagolewski.com/resources/data/
+wines <- read.csv("winequality-all.csv", comment="#")
+(n <- nrow(wines)) # number of samples
+```
+
+---
+
+The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
+consists of all the numeric variables:
+
+```{r}
+X <- as.matrix(wines[,1:11])
+dim(X)
+head(X, 2) # first two rows
+```
+
+
+
+
+---
+
+The `response` variable is an ordinal one,
+giving each wine's rating as assigned by a sommelier.
+
+Here: 0 == a very bad wine, 10 == a very good one.
+
+We will convert this dependent variable to a binary one:
+
+- 0 == `response  < 5` == bad
+- 1  == `response >= 5` == good
+
+```{r}
+# recall that TRUE == 1
+Y <- factor(as.integer(wines$response >= 5))
+table(Y)
+```
+
+
+Now $(\mathbf{X},\mathbf{y})$ is a basis for an interesting
+binary classification task.
+
+
+
+
+
+## Training and Test Sets
+
+---
+
+Recall that we are genuinely  interested in the construction of supervised learning models for the two following purposes:
+
+- **description** -- to explain a given dataset in simpler terms,
+- **prediction** -- to forecast the values of the dependent variable
+for inputs that are yet to be observed.
+
+In the latter case:
+
+- we want our models to *generalise* well
+to new data,
+- we don't want our models to  *overfit* to current data.
+
+One way to assess if a model has sufficient predictive power is based
+on a random **train-test split** of the original dataset:
+
+- *training sample*  (usually 60-80% of the observations) -- used to construct a model,
+- *test sample* (remaining 40-20%) -- used to assess the goodness of fit.
+
+> **Test sample must not be used in the training phase!** (No cheating!)
+
+
+---
+
+70/30% train-test split in R:
+
+```{R}
+set.seed(123) # reproducibility matters
+random_indexes <- sample(n)
+head(random_indexes) # preview
+# first 70% of the indexes (they are arranged randomly)
+# will constitute the train sample:
+train_indexes <- random_indexes[1:floor(n*0.7)]
+X_train <- X[train_indexes,]
+Y_train <- Y[train_indexes]
+# the remaining indexes (30%) go to the test sample:
+X_test  <- X[-train_indexes,]
+Y_test  <- Y[-train_indexes]
+```
+
+
+
+
+
+## Discussed Methods
+
+---
+
+We will discuss 3 simple and educational (yet practically useful)
+classification algorithms:
+
+- *K-nearest neighbour scheme* -- this part
+- *Decision trees* -- the next lecture
+- *Logistic regression* -- the next lecture
+
+
+
+# K-nearest Neighbour Classifier
+
+## Introduction
+
+---
+
+> "If you don't know what to do in a situation, just act like the people around you"
+
+For some integer $K\ge 1$, the **K-Nearest Neighbour  (*K-NN*) Classifier**
+proceeds as follows.
+
+To classify a new point $\mathbf{x}'$:
+
+1. find the $K$ nearest neighbours of a given point $\mathbf{x}'$ amongst the points in the train set,
+denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$:
+    a. compute the Euclidean distances between $\mathbf{x}'$ and each $\mathbf{x}_{i,\cdot}$ form the train set,
+    \[d_i = \|\mathbf{x}'-\mathbf{x}_{i,\cdot}\|\]
+    b. order $d_i$s in increasing order,
+    $d_{i_1} \le d_{i_2} \le \dots \le d_{i_K}$
+    c. pick first $K$ indexes (these are the *nearest* neighbours)
+2. fetch the corresponding reference labels $y_{i_1}, \dots, y_{i_K}$
+3. return their *mode* as a result, i.e., the most frequently occurring label (a.k.a. *majority vote*)
+
+<!-- > If a mode is not unique, return a randomly chosen mode (ties are broken at random). -->
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r,echo=FALSE,plot_knn,cache=TRUE}
+plot_knn <- function(K) {
+    xx1 <- seq(-4, 4, length.out=250)
+    xx2 <- seq(-4, 4, length.out=250)
+    xx <- expand.grid(xx1, xx2)
+    yy <- FNN::knn(Xs, xx, Ys, k=K)
+    par(mar=c(4,4,2.5,0.5))
+    image(xx1, xx2, matrix(as.numeric(yy)-1, nrow=length(xx1), ncol=length(xx2)),
+          col=c("#00000044", "#ff000044"), las=1, xlab="X1", ylab="X2", asp=1,
+          main=sprintf("K-NN Class Bounds, K=%d", K))
+
+
+    points(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys])
+    legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"), bg="white")
+    abline(v=0, lty=3, col="blue")
+}
+```
+
+
+
+```{r,echo=FALSE,fig.height=5,cache=TRUE,dependson='plot_knn'}
+plot_knn(1)
+```
+
+---
+
+
+```{r,echo=FALSE,fig.height=5,cache=TRUE,dependson='plot_knn'}
+plot_knn(3)
+```
+
+---
+
+
+```{r,echo=FALSE,fig.height=5,cache=TRUE,dependson='plot_knn'}
+plot_knn(25)
+```
+
+
+
+
+
+## Example in R
+
+---
+
+
+
+We shall be calling the `knn()` function from package `FNN`
+to classify the points from the test sample
+extracted from the `wines` dataset:
+
+```{r,message=FALSE}
+library("FNN")
+```
+
+
+Let us make prediction using the 5-nn classifier:
+
+```{r}
+Y_knn5 <- knn(X_train, X_test, Y_train, k=5)
+head(Y_test, 28) # True Ys
+head(Y_knn5, 28) # Predicted Ys
+mean(Y_test == Y_knn5) # accuracy
+```
+
+
+---
+
+
+10-nn classifier:
+
+```{r}
+Y_knn10 <- knn(X_train, X_test, Y_train, k=10)
+head(Y_test, 28) # True Ys
+head(Y_knn10, 28) # Predicted Ys
+mean(Y_test == Y_knn10) # accuracy
+```
+
+
+
+
+
+
+
+## Different Metrics (\*)
+
+---
+
+The Euclidean distance is just one particular example
+of many possible **metrics**.
+
+Mathematically, we say that $d$ is a metric on a set $X$
+(e.g., $\mathbb{R}^p$), whenever
+it is a function $d:X\times X\to [0,\infty]$ such that for all $x,x',x''\in X$:
+
+- $d(x, x') = 0$ if and only if $x=x'$,
+- $d(x, x') = d(x', x)$ (it is symmetric)
+- $d(x, x'') \le d(x, x') + d(x', x'')$ (it fulfils the triangle inequality)
+
+
+> (*) Not all the properties are required in all the applications;
+sometimes we might need a few additional ones.
+
+We can easily generalise the way we introduced the K-NN method
+to have a classifier that is based on a point's neighbourhood
+with respect to any metric.
+
+---
+
+Example metrics on $\mathbb{R}^p$:
+
+- **Euclidean**
+\[
+d_2(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \| = \| \mathbf{x}-\mathbf{x}' \|_2 = \sqrt{ \sum_{i=1}^p (x_i-x_i')^2 }
+\]
+- **Manhattan** (taxicab)
+\[
+d_1(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_1 = { \sum_{i=1}^p |x_i-x_i'| }
+\]
+- **Chebyshev** (maximum)
+\[
+d_\infty(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_\infty = \max_{i=1,\dots,p} |x_i-x_i'|
+\]
+
+<!--
+These are all examples of $L_p$ metrics, $p\ge 1$:
+\[
+d_p(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_p = \left( \sum_{i=1}^p |x_i-x_i'|^p \right)^{1/p}
+\]
+-->
+
+---
+
+We can define metrics on different spaces too.
+
+For example, the **Levenshtein distance** is a popular choice
+for comparing character strings (also DNA sequences etc.)
+
+It is an *edit distance* -- it measures the minimal number of
+single-character insertions, deletions or substitutions to change
+one string into another.
+
+
+For instance:
+
+```{r}
+adist("happy", "nap")
+```
+
+This is because we need 1 substitution and 2 deletions,
+
+happy → nappy → napp → nap.
+
+
+---
+
+
+
+
+See also:
+
+- The Hamming distance for categorical vectors (or strings of equal lengths)
+- The Jaccard distance for sets
+- The Kendall tau rank distance for rankings
+
+Moreover, R package `stringdist` includes implementations
+of numerous string metrics.
+
+
+<!-- Mahalanobis distance -->
+
+
+## Standardisation of Independent Variables
+
+---
+
+Note that the Euclidean distance that we used above
+implicitly assumes that every feature (independent variable)
+is on the same scale.
+
+However, when dealing with, e.g., physical quantities,
+we often perform conversions of units of measurement (kg → g, feet → m etc.).
+
+Transforming a single feature may drastically change the metric structure of the dataset
+and therefore highly affect the obtained predictions.
+
+---
+
+To "bring data to the same scale", we often apply a trick called **standardization**.
+
+Computing the so-called **Z-scores** of the $j$-th feature, $\mathbf{x}_{\cdot,j}$,
+is done by subtracting from each observation the sample mean and dividing the result by the sample
+standard deviation:
+
+\[z_{i,j} = \frac{x_{i,j}-\bar{x}_{\cdot,j}}{s_{x_{\cdot,j}}}\]
+
+This a new feature $\mathbf{z}_{\cdot,j}$ that always has mean 0 and standard deviation of 1.
+
+Moreover, it is *unit-less* (e.g., we divide a value in kgs by a value in kgs,
+the units are cancelled out).
+
+
+Z-scores are easy to interpret, e.g., 0.5 denotes an observation
+that is 0.5 standard deviations above the mean.
+
+---
+
+Let us compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
+and `X_test`, respectively.
+
+```{r}
+means <- apply(X, 2, mean) # column means
+sds   <- apply(X, 2, sd)   # column standard deviations
+Z_train <- X_train # to be done
+Z_test  <- X_test  # to be done
+for (j in 1:ncol(X)) {
+    Z_train[,j] <- (Z_train[,j]-means[j])/sds[j]
+    Z_test[,j]  <- (Z_test[,j] -means[j])/sds[j]
+}
+```
+
+
+Alternatively:
+
+```{r}
+Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
+Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
+```
+
+
+---
+
+Let us compute the accuracy of K-NN classifiers acting on standardised data.
+
+```{r,message=FALSE}
+Y_knn5s <- knn(Z_train, Z_test, Y_train, k=5)
+mean(Y_test == Y_knn5s) # accuracy
+Y_knn10s <- knn(Z_train, Z_test, Y_train, k=10)
+mean(Y_test == Y_knn10s) # accuracy
+```
+
+
+
+
+
+# Implementing a K-NN Classifier (\*)
+
+## Main Routine (\*)
+
+---
+
+Let us implement a K-NN classifier ourselves
+by using a top-bottom approach.
+
+We will start with a general description of the admissible inputs
+and the expected output.
+
+Then we will arrange the processing of data into
+conveniently manageable chunks.
+
+The function's declaration will look like:
+
+```{r,eval=FALSE}
+our_knn <- function(X_train, X_test, Y_train, k=1) {
+    # k=1 denotes a parameter with a default value
+    # ...
+}
+```
+
+---
+
+First, we should specify the type and form of the arguments
+we're expecting:
+
+```{r,eval=FALSE,our_knn_paramchecks}
+# this is the body of our_knn() - part 1
+stopifnot(is.numeric(X_train), is.matrix(X_train))
+stopifnot(is.numeric(X_test), is.matrix(X_test))
+stopifnot(is.factor(Y_train))
+stopifnot(ncol(X_train) == ncol(X_test))
+stopifnot(nrow(X_train) == length(Y_train))
+stopifnot(k >= 1)
+n_train <- nrow(X_train)
+n_test  <- nrow(X_test)
+p <- ncol(X_train)
+M <- nlevels(Y_train)
+```
+
+Therefore,
+
+$\mathtt{X\_train}\in\mathbb{R}^{\mathtt{n\_train}\times \mathtt{p}}$,
+$\mathtt{X\_test}\in\mathbb{R}^{\mathtt{n\_test}\times \mathtt{p}}$ and
+$\mathtt{Y\_train}\in\{1,\dots,M\}^{\mathtt{n\_train}}$
+
+> Recall that R `factor` objects are internally encoded as integer vectors.
+
+---
+
+Next, we will call the (to-be-done) function `our_get_knnx()`,
+which seeks nearest neighbours of all the points:
+
+```{r,eval=FALSE,our_knn_flow1}
+# our_get_knnx returns a matrix nn_indexes of size n_test*k,
+# where nn_indexes[i,j] denotes the index of
+# X_test[i,]'s j-th nearest neighbour in X_train.
+# (It is the point X_train[nn_indexes[i,j],]).
+nn_indexes <- our_get_knnx(X_train, X_test, k)
+```
+
+
+---
+
+Then, for each point in `X_test`,
+we fetch the labels corresponding to its nearest neighbours
+and compute their mode:
+
+```{r,eval=FALSE,our_knn_flow2}
+Y_pred <- integer(n_test) # vector of length n_test
+# For now we will operate on the integer labels in {1,...,M}
+Y_train_int <- as.integer(Y_train)
+for (i in 1:n_test) {
+    # Get the labels of the NNs of the i-th point:
+    nn_labels_i <- Y_train_int[nn_indexes[i,]]
+    # Compute the mode (majority vote):
+    Y_pred[i] <- our_mode(nn_labels_i) # in {1,...,M}
+}
+```
+
+Finally, we should convert the resulting integer vector
+to an object of type `factor`:
+
+```{r,eval=FALSE,our_knn_flow3}
+# Convert Y_pred to factor:
+return(factor(Y_pred, labels=levels(Y_train)))
+```
+
+
+
+```{r,echo=FALSE}
+our_knn <- function(X_train, X_test, Y_train, k=1) {
+
+    <<our_knn_paramchecks>>
+    <<our_knn_flow1>>
+    <<our_knn_flow2>>
+    <<our_knn_flow3>>
+}
+```
+
+
+
+<!--
+**Test-driven development** -- before writing
+
+```{r}
+test_our_knn <- function() {
+    # ...
+}
+```
+
+
+```{r}
+test_our_mode <- function() {
+    stopifnot(our_mode(c(1, 1, 1, 1)) == 1)
+    stopifnot(our_mode(c(2, 2, 2, 2)) == 2)
+    stopifnot(our_mode(c(3, 1, 3, 3)) == 3)
+    stopifnot(our_mode(c(1, 1, 3, 3, 2)) %in% c(1, 3))
+}
+```
+
+
+-->
+
+## Mode
+
+---
+
+To implement the mode, we can use the `tabulate()` function.
+
+> Read the function's man page, see `?tabulate`.
+
+For example:
+
+```{R}
+tabulate(c(1, 2, 1, 1, 1, 5, 2))
+```
+
+---
+
+There might be multiple modes -- in such a case, we should pick one at random.
+
+For that, we can use the `sample()` function.
+
+> Read the function's man page, see `?sample`.
+> Note that its behaviour is different when it's first argument is a vector of length 1.
+
+
+---
+
+An example implementation:
+
+```{r}
+our_mode <- function(Y) {
+    # tabulate() will take care of
+    # checking the correctness of Y
+    t <- tabulate(Y)
+    mode_candidates <- which(t == max(t))
+    if (length(mode_candidates) == 1) return(mode_candidates)
+    else return(sample(mode_candidates, 1))
+}
+```
+
+---
+
+```{r,echo=-1}
+set.seed(7)
+our_mode(c(1, 1, 1, 1))
+our_mode(c(2, 2, 2, 2))
+our_mode(c(3, 1, 3, 3))
+our_mode(c(1, 1, 3, 3, 2))
+our_mode(c(1, 1, 3, 3, 2))
+```
+
+
+
+
+##  NN Search Routines (\*)
+
+---
+
+Last but not least, we should implement the `our_get_knnx()` function.
+
+It is the function responsible for seeking the indexes of nearest neighbours.
+
+It turns out this function will  actually constitute the K-NN classifier's performance
+bottleneck in case of big data samples.
+
+```{r}
+# our_get_knnx returns a matrix nn_indexes of size n_test*k,
+# where nn_indexes[i,j] denotes the index of
+# X_test[i,]'s j-th nearest neighbour in X_train.
+# (It is the point X_train[nn_indexes[i,j],]).
+our_get_knnx <- function(X_train, X_test, k) {
+    # ...
+}
+```
+
+
+---
+
+
+A naive approach to `our_get_knnx()` relies on computing all pairwise distances,
+and sorting them.
+
+```{r}
+our_get_knnx <- function(X_train, X_test, k) {
+    n_test <- nrow(X_test)
+    nn_indexes <- matrix(NA_real_, nrow=n_test, ncol=k)
+    for (i in 1:n_test) {
+        d <- apply(X_train, 1, function(x)
+            sqrt(sum((x-X_test[i,])^2)))
+        # now d[j] is the distance
+        # between X_train[j,] and X_test[i,]
+        nn_indexes[i,] <- order(d)[1:k]
+    }
+    nn_indexes
+}
+```
+
+
+
+---
+
+A comparison with `FNN:knn()`:
+
+```{r,cache=TRUE}
+system.time(Ya <- knn(X_train, X_test, Y_train, k=5))
+system.time(Yb <- our_knn(X_train, X_test, Y_train, k=5))
+mean(Ya == Yb) # 1.0 on perfect match
+```
+
+Both functions return identical results but our implementation is "slightly" slower.
+
+---
+
+
+
+`FNN:knn()` is efficiently written in C++, which is a compiled programming language.
+
+R, on the other hand (just like Python and Matlab) is interpreted, therefore
+as a rule of thumb we should consider it an order of magnitude slower (see, however, the Julia language).
+
+Let us substitute our naive implementation with the equivalent one,
+but written in C++ (available in the `FNN` package).
+
+> (\*) Note that we could write a C++ implementation ourselves,
+see the Rcpp package for seamless R and C++ integration.
+
+---
+
+```{r,cache=TRUE}
+our_get_knnx <- function(X_train, X_test, k) {
+    # this is used by our_knn()
+    FNN::get.knnx(X_train, X_test, k, algorithm="brute")$nn.index
+}
+system.time(Ya <- knn(X_train, X_test, Y_train, k=5))
+system.time(Yb <- our_knn(X_train, X_test, Y_train, k=5))
+mean(Ya == Yb) # 1.0 on perfect match
+```
+
+---
+
+Note that our solution requires $c\cdot n_\text{test}\cdot n_\text{train}\cdot p$
+arithmetic operations for some $c>1$.
+The overall cost of sorting is at least $d\cdot n_\text{test}\cdot n_\text{train}\cdot\log n_\text{train}$
+for some $d>1$.
+
+This does not scale well with both $n_\text{test}$ and $n_\text{train}$
+(think -- big data).
+
+. . .
+
+It turns out that there are special **spatial data structures**
+-- such as *metric trees* -- that aim to speed up searching for nearest
+neighbours in *low-dimensional spaces* (for small $p$).
+
+> (\*) Searching in high-dimensional spaces is hard due to the so-called
+curse of dimensionality. A dedicated unit on machine learning should
+explore this topic further.
+
+
+For example, `FNN::get.knnx()` also implements the so-called
+kd-trees.
+
+---
+
+
+```{r,test_speed,cache=TRUE}
+library("microbenchmark")
+test_speed <- function(n, p, k) {
+    A <- matrix(runif(n*p), nrow=n, ncol=p)
+    s <- summary(microbenchmark(
+        brute=FNN::get.knnx(A, A, k, algorithm="brute"),
+        kd_tree=FNN::get.knnx(A, A, k, algorithm="kd_tree"),
+        times=3
+    ), unit="s")
+    # minima of 3 time measurements:
+    structure(s$min, names=as.character(s$expr))
+}
+```
+
+
+---
+
+```{r,cache=TRUE,dependson='test_speed'}
+test_speed(10000, 2, 5)
+test_speed(10000, 5, 5)
+test_speed(10000, 10, 5)
+test_speed(10000, 20, 5)
+```
+
+
+
+
+
+
+
+# Outro
+
+## Remarks
+
+---
+
+Note that K-NN is suitable for any kind of multiclass classification.
+
+Some algorithms we are going to discuss in the next part are
+restricted to binary (0/1) outputs. They will have to be extended
+somehow to allow for more classes.
+
+
+In the next part we will try to answer the question
+of how to choose the best $K$, and hence how to evaluate and pick the best model.
+
+
+We will also discuss some other noteworthy classifiers:
+
+- *Decision trees*
+- *Logistic regression*
+
+
+
+
+## Side Note: K-NN Regression
+
+---
+
+The K-Nearest Neighbour scheme is intuitively pleasing.
+
+No wonder it has inspired a similar approach for solving a regression task.
+
+In order to make a prediction for a new point $\mathbf{x}'$:
+
+1. find the K-nearest neighbours of  $\mathbf{x}'$ amongst the points in the train set,
+denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$,
+2. fetch the corresponding reference outputs $y_{i_1}, \dots, y_{i_K}$,
+3. return their arithmetic mean as a result,
+\[\hat{y}=\frac{1}{K} \sum_{j=1}^K y_{i_j}.\]
+
+
+
+
+
+---
+
+Recall our modelling of the Credit Rating ($Y$)
+as a function of the average Credit Card Balance ($X$)
+based on the `ISLR::Credit` data set.
+
+
+
+```{r}
+library("ISLR") # Credit dataset
+Xc <- as.matrix(as.numeric(Credit$Balance[Credit$Balance>0]))
+Yc <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
+```
+
+
+
+```{r,message=FALSE}
+library("FNN") # knn.reg function
+x <- as.matrix(seq(min(Xc), max(Xc), length.out=101))
+y1  <- knn.reg(Xc, x, Yc, k=1)$pred
+y5  <- knn.reg(Xc, x, Yc, k=5)$pred
+y25 <- knn.reg(Xc, x, Yc, k=25)$pred
+```
+
+---
+
+```{r, fig.height=5,message=FALSE,echo=-1}
+par(mar=c(4,4,0.5,0.5))
+plot(Xc, Yc, las=1, col="#666666c0",
+    xlab="Balance", ylab="Rating")
+lines(x, y1,  col=2, lwd=3)
+lines(x, y5,  col=3, lwd=3)
+lines(x, y25, col=4, lwd=3)
+```
+
+
+
+
+
+
+## References and Further Reading
+
+---
+
+
+Recommended further reading:
+
+- T. Hastie, R. Tibshirani, J. Friedman,
+    *The Elements of Statistical Learning*, Springer, 2017
+    -- Section 13.3
+
+    > Freely available at
+    https://web.stanford.edu/~hastie/ElemStatLearn/
+
+
+Other references:
+
+
+- S. Russell, P. Norvig,
+    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
+    -- Sections 18.2
+
+

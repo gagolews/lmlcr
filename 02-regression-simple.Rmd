@@ -1,0 +1,1668 @@
+# Simple Linear Regression
+
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
+
+# Machine Learning
+
+## What is Machine Learning?
+
+---
+
+- Recall that an **algorithm** is a well-defined sequence of instructions that,
+for a given sequence of input arguments,
+yields some desired output.
+
+- In other words, it is a specific recipe for a **function**.
+
+- Developing algorithms is a tedious task.
+
+- In **machine learning**, we build and study computer algorithms
+that make *predictions* or *decisions* but which are not
+manually programmed.
+
+- **Learning** needs some material based upon new knowledge will be acquired.
+We need **data**.
+
+
+
+## Main Types of Machine Learning Problems
+
+---
+
+
+- **Supervised learning** -- for every input point (e.g., a photo)
+there is an associated desired output (e.g., whether it depicts a crosswalk)
+
+- **Unsupervised learning** -- inputs are unlabelled, the aim is to discover
+the underlying structure in the data (e.g., automatically group customers
+w.r.t. common behavioural patterns)
+
+- **Semi-supervised learning** -- some inputs are labelled, the others
+are not (definitely a cheaper scenario)
+
+
+- **Reinforcement learning** -- learn to act based on a post-factum
+feedback on the decision made
+(e.g., learn to play The Witcher 7)
+
+
+
+
+# Supervised Learning
+
+## Formalism
+
+---
+
+- Let $\mathbf{X}=\{\mathfrak{X}^{(1)},\dots,\mathfrak{X}^{(n)}\}$
+be an input sample ("a database")
+that consists of $n$ objects.
+
+
+
+- Most often we assume that each object $\mathfrak{X}_i$
+is represented using $p$ numbers for some $p$.
+
+- We denote this fact as $\mathfrak{X}_i\in \mathbb{R}^p$
+(it is *a $p$-dimensional real vector* or
+*a sequence of $p$ numbers* or
+*a point in a $p$-dimensional real space*
+or *an element of a reap $p$-space* etc.).
+
+. . .
+
+Of course, this setting is *abstract* in the way that
+there might be different realities hidden behind those symbols.
+
+This is what maths is for -- creating *abstractions* or *models*
+of complex entities/phenomena so that they can be much more easily manipulated
+or understood.
+
+> This is very powerful -- let's spend a moment
+contemplating how many real-world situations fit into this framework.
+
+---
+
+- If we have "complex" objects on input,
+we can try representing them as **feature vectors** (e.g.,
+come up with numeric attributes that best describe them in a task at hand).
+
+    > How would you represent a patient in a clinic?
+
+    > How would you represent a car in an insurance company's database?
+
+    > How would you represent a student in an university?
+
+- But, e.g., 1920×1080 pixel image
+can be "unwound" to a "flat" vector of length 2,073,600.
+
+- (\*) There are some algorithms such as Multidimensional Scaling,
+Locally Linear Embedding, IsoMap etc.
+that can do that automagically.
+
+
+---
+
+
+
+
+In cases such as this we say that we deal with *structured (tabular) data*\
+-- $\mathbf{X}$ can be written as an ($n\times p$)-matrix:
+\[
+\mathbf{X}=
+\left[
+\begin{array}{cccc}
+x_{1,1} & x_{1,2} & \cdots & x_{1,p} \\
+x_{2,1} & x_{2,2} & \cdots & x_{2,p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
+\end{array}
+\right]
+\]
+Mathematically, we denote this as $\mathbf{X}\in\mathbb{R}^{n\times d}$.
+
+> Structured data == think: Excel/Calc spreadsheets, SQL tables etc.
+
+
+
+
+---
+
+
+**Example**: The famous Fisher's Iris flower dataset, see `?iris` in R
+and https://en.wikipedia.org/wiki/Iris_flower_data_set.
+
+```{R}
+X <- iris[1:6, 1:4] # first 6 rows and 4 columns
+X         # or: print(X)
+dim(X)    # gives n and p
+dim(iris) # for the full dataset
+```
+
+---
+
+$x_{i,j}\in\mathbb{R}$
+represents the $j$-th feature of the $i$-th observation,
+$j=1,\dots,p$, $i=1,\dots,n$.
+
+For instance:
+
+```{r}
+X[3, 2] # 3rd row, 2nd column
+```
+
+
+---
+
+The third observation (data point, row in $\mathbf{X}$)
+consists of items $(x_{3,1}, \dots, x_{3,p})$ that can be extracted by calling:
+
+```{R}
+X[3,]
+as.numeric(X[3,]) # drops names
+```
+
+```{R}
+length(X[3,])
+```
+
+---
+
+Moreover, the second feature/variable/column
+is comprised of
+$(x_{1,2}, x_{2,2}, \dots, x_{n,2})$:
+
+```{r}
+X[,2]
+length(X[,2])
+```
+
+
+---
+
+We will sometimes use the following notation to emphasise that
+the $\mathbf{X}$ matrix  consists of $n$ rows
+or $p$ columns:
+
+\[
+\mathbf{X}=\left[
+\begin{array}{c}
+\mathbf{x}_{1,\cdot} \\
+\mathbf{x}_{2,\cdot} \\
+\vdots\\
+\mathbf{x}_{n,\cdot} \\
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cccc}
+\mathbf{x}_{\cdot,1} &
+\mathbf{x}_{\cdot,2} &
+\cdots &
+\mathbf{x}_{\cdot,p} \\
+\end{array}
+\right].
+\]
+
+---
+
+Here, $\mathbf{x}_{i,\cdot}$ is a *row vector* of length $p$,
+i.e., a $(1\times p)$-matrix:
+
+\[
+\mathbf{x}_{i,\cdot} = \left[
+\begin{array}{cccc}
+x_{i,1} &
+x_{i,2} &
+\cdots &
+x_{i,p} \\
+\end{array}
+\right].
+\]
+
+Moreover, $\mathbf{x}_{\cdot,j}$ is a *column vector* of length $n$,
+i.e., an $(n\times 1)$-matrix:
+
+\[
+\mathbf{x}_{\cdot,j} = \left[
+\begin{array}{cccc}
+x_{1,j} &
+x_{2,j} &
+\cdots &
+x_{n,j} \\
+\end{array}
+\right]^T=\left[
+\begin{array}{c}
+{x}_{1,j} \\
+{x}_{2,j} \\
+\vdots\\
+{x}_{n,j} \\
+\end{array}
+\right],
+\]
+
+where $\cdot^T$ denotes the *transpose* of a given matrix --
+think of this as a kind of rotation; it allows us to introduce a set of
+"vertically stacked" objects using a single inline formula.
+
+
+
+## Desired Outputs
+
+---
+
+- In supervised learning,
+apart from the inputs we are also given the corresponding
+reference/desired outputs.
+
+> The aim of supervised learning is to try to create an "algorithm" that,
+given an input point, generates an output that is as close to the desired one
+as possible. The given data sample will be used to "train" this "model".
+
+- Usually, the reference outputs are encoded as single numbers (scalars)
+or textual labels.
+
+- In other words, with each input $\mathbf{x}_{i,\cdot}$ we associate
+the desired output $y_i$:
+
+```{r, echo=-1}
+set.seed(123)
+# in iris, iris[, 5] gives the Ys
+iris[sample(nrow(iris), 3), ]  # three random rows
+```
+
+---
+
+
+Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
+where each object is represented as a row vector
+$[\mathbf{x}_{i,\cdot}\ y_i]$, $i=1,\dots,n$:
+
+\[
+[\mathbf{X}\ \mathbf{y}]=
+\left[
+\begin{array}{ccccc}
+x_{1,1} & x_{1,2} & \cdots & x_{1,p} & y_1\\
+x_{2,1} & x_{2,2} & \cdots & x_{2,p} & y_2\\
+\vdots & \vdots & \ddots & \vdots    & \vdots\\
+x_{n,1} & x_{n,2} & \cdots & x_{n,p} & y_n\\
+\end{array}
+\right],
+\]
+
+where
+
+\[
+\mathbf{y} = \left[
+\begin{array}{cccc}
+y_{1} &
+y_{2} &
+\cdots &
+y_{n} \\
+\end{array}
+\right]^T=\left[
+\begin{array}{c}
+{y}_{1} \\
+{y}_{2} \\
+\vdots\\
+{y}_{n} \\
+\end{array}
+\right].
+\]
+
+
+## Types of Supervised Learning Problems
+
+---
+
+Depending on the type of the elements in $\mathbf{y}$
+(the domain of $\mathbf{y}$),
+supervised learning problems are usually
+classified as:
+
+- **regression** -- each $y_i$ is a real number
+
+    > e.g., $y_i=$ future market stock price
+    with $\mathbf{x}_{i,\cdot}=$ prices from $p$ previous days
+
+- **classification** -- each $y_i$ is a discrete label
+
+    > e.g., $y_i=$ 0/healthy or 1/ill
+    with $\mathbf{x}_{i,\cdot}=$ a patient's health data
+
+
+- **ordinal regression** (a.k.a. ordinal classification) -- each $y_i$ is a rank
+
+    > e.g., $y_i=$ rating of a product on the scale 1--5
+    with $\mathbf{x}_{i,\cdot}=$ ratings of $p$ most similar products
+
+---
+
+### Example Problems -- Discussion
+
+> Which of the following are instances of classification problems? Which of them are regression tasks?
+
+> What kind of data should you gather in order to tackle them?
+
+- Email spam detection
+- Market stock price prediction
+- Predict the likeability of a new ad
+- Credit risk assessment
+- Detect existence of tumour tissues in medical images
+- Predict time-to-recovery of cancer patients
+- Recognise smiling faces on photographs
+- Detect unattended luggage in airport security camera footage
+- Turn on emergency braking to avoid collisions with pedestrians
+
+---
+
+### Hybrid Nature of Datasets
+
+A single dataset can become an instance of many different ML problems.
+
+Example -- the `wines` dataset.
+
+```{r,echo=-1}
+set.seed(123)
+# See: http://www.gagolewski.com/resources/data/
+wines <- read.csv("winequality-all.csv", comment="#")
+wines[1,]
+```
+
+---
+
+
+```{r,echo=-1}
+par(mar=c(4,4,1,1))
+summary(wines$alcohol) # continuous variable
+hist(wines$alcohol, las=1, main=""); box()
+```
+
+---
+
+
+```{r,echo=-1}
+par(mar=c(4,4,1,1))
+table(wines$color) # binary variable
+barplot(table(wines$color), las=1)
+```
+
+---
+
+
+```{r,echo=-1}
+par(mar=c(4,4,1,1))
+table(wines$response) # ordinal variable
+barplot(table(wines$response), las=1)
+```
+
+
+
+
+# Simple Regression
+
+## Introduction
+
+---
+
+- **Simple regression** is the easiest setting to start with -- let's assume
+$p=1$, i.e., all inputs are 1-dimensional.
+Denote $x_i=x_{i,1}$.
+
+- We will use it to build many intuitions, for example, it'll be easy
+to illustrate the concepts graphically.
+
+```{r,echo=-1}
+par(mar=c(4,4,1,1))
+library("ISLR") # Credit dataset
+plot(Credit$Balance, Credit$Rating, las=1) # scatter plot
+```
+
+---
+
+In what follows we will be modelling the Credit Rating ($Y$)
+as a function of the average Credit Card Balance ($X$) in USD
+for customers with positive Balance only.
+
+```{r}
+X <- as.matrix(as.numeric(Credit$Balance[Credit$Balance>0]))
+Y <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
+```
+
+---
+
+```{r,echo=-1}
+par(mar=c(4,4,1,1))
+plot(X, Y, las=1)
+```
+
+- Our aim is to construct a function $f$ that
+**models** Rating as a function of Balance,
+$f(X)=Y$.
+
+- We are equipped with $n=`r length(X)`$ reference (observed) Ratings
+$\mathbf{y}=[y_1\ \cdots\ y_n]^T$
+for particular Balances $\mathbf{x}=[x_1\ \cdots\ x_n]^T$.
+
+---
+
+### Naming Convention
+
+Variable types:
+
+- $X$ -- independent/explanatory/predictor variable
+
+- $Y$ -- dependent/response/predicted variable
+
+Also note that:
+
+- $Y$ -- idealisation (any possible Rating)
+
+- $\mathbf{y}=[y_1\ \cdots\ y_n]^T$ -- values actually observed
+
+
+
+
+---
+
+### Prediction vs. Description (Inference)
+
+The model will not be ideal, but it might be usable:
+
+- We will be able to **predict** the rating of any new client.
+
+
+    > What should be the rating of a client with Balance of 1500?\
+    > What should be the rating of a client with Balance of 2500?
+
+- We will be able to **describe** (understand) this reality using a single mathematical formula
+so as to infer that there is an association between $X$ and $Y$
+
+    > Think of "data compression" and laws of physics, e.g., $E=mc^2$
+    or ${\displaystyle i\hbar {\frac {d}{dt}}\vert \Psi (t)\rangle ={\hat {H}}\vert \Psi (t)\rangle }$
+
+
+
+
+---
+
+
+### Observations are Subject to Error
+
+- Mathematically, we will assume that there is some "true" function that models data
+(true relationship between $Y$ and $X$),
+but the observed outputs are subject to **additive error**:
+\[Y=f(X)+\varepsilon.\]
+
+
+- $\varepsilon$ is a random term, classically we assume that
+errors are independent of each other,
+have expected value of $0$ (there is no systematic error = unbiased)
+and that they follow a normal distribution.
+
+---
+
+- We denote this as $\varepsilon\sim\mathcal{N}(0, \sigma)$
+(read: random variable $\varepsilon$ follows a normal distribution
+with expect value of $0$ and standard deviation of $\sigma$ for some $\sigma\ge 0$).
+
+- $\sigma$ controls the amount of noise (and hence, uncertainty).
+Here is the plot of the probability distribution function (PDFs, densities)
+of $\mathcal{N}(0, \sigma)$ for different $\sigma$s:
+
+```{r,echo=FALSE, echo=FALSE, message=FALSE}
+par(mar=c(3,3,1,1))
+y <- seq(-3,3,length.out=101)
+plot(y, dnorm(y, mean=0), type='l', ann=FALSE, las=1, ylim=c(0,dnorm(0,0,0.5)))
+lines(y, dnorm(y, mean=0, sd=0.5), type='l', col=2, lty=2)
+legend("topleft", lty=c(1,2), col=c(1,2), legend=expression(sigma*"="*1, sigma*"="*0.5))
+abline(v=0)
+```
+
+
+## Search Space and Objective
+
+---
+
+- There are many different functions that can be **fitted** into
+the observed $(\mathbf{x},\mathbf{y})$
+
+```{r, echo=FALSE, message=FALSE}
+par(mar=c(4,4,1,1))
+plot(X, Y, las=1, col="#00000044")
+
+#library("mda")
+#f <- mars(as.matrix(X), Y, degree=5)
+#x <- seq(min(X), max(X), length.out=101)
+#y <- predict(f, x)
+#lines(x,y,col=4,lty=4,lwd=2)
+
+f <- lm(Y~poly(X, 2))
+x <- seq(min(X), max(X), length.out=101)
+y <- predict(f, data.frame(X=x))
+lines(x,y,col=4,lty=1,lwd=3)
+
+f <- lm(Y~poly(X, 15))
+x <- seq(min(X), max(X), length.out=101)
+y <- predict(f, data.frame(X=x))
+lines(x,y,col=3,lty=1,lwd=3)
+
+lines(X[order(X)], Y[order(Y)],col=6,lty=1,lwd=3)
+
+abline(lm(Y~X), col=2,lwd=3)
+
+```
+
+- Thus, we need a **model selection criterion**.
+
+
+
+---
+
+
+- Usually, we will be interested in a model
+that minimises appropriately aggregated **residuals**
+$f(x_i)-y_i$, i.e.,
+**predicted outputs minus observed outputs**,
+often denoted with $\hat{y}_i-y_i$.
+
+```{r, echo=FALSE, message=FALSE}
+par(mar=c(4,4,1,1))
+plot(X, Y, las=1, col=1, xlim=c(1500,2000), ylim=c(400, 1000))
+f <- lm(Y~poly(X, 2))
+Y2 <- predict(f, data.frame(X=X))
+points(X, Y2, pch=4, col=2)
+x <- seq(min(X), max(X), length.out=101)
+y <- predict(f, data.frame(X=x))
+lines(x,y,col=2,lty=1,lwd=2)
+segments(X, Y, X, Y2, lty=2)
+legend("bottomright", legend=c("observed Y", "predicted Y"), pch=c(1,4), col=c(1, 2))
+```
+
+---
+
+
+- Top choice: sum of squared residuals
+\[
+\begin{array}{rl}
+\mathrm{SSR}(f|\mathbf{x},\mathbf{y})
+& = \left( f(x_1)-y_1 \right)^2 + \dots + \left( f(x_n)-y_n \right)^2 \\
+& =
+\displaystyle\sum_{i=1}^n \left( f(x_i)-y_i \right)^2
+\end{array}
+\]
+
+    > Read "$\sum_{i=1}^n z_i$" as "the sum of $z_i$ for $i$ from $1$ to $n$";
+    this is just a shorthand for $z_1+z_2+\dots+z_n$.
+
+    > The notation $\mathrm{SSR}(f|\mathbf{x},\mathbf{y})$ means that
+    it is the error measure
+    corresponding to the model $(f)$ *given* our data.\
+    > We could've  denoted it  with $\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)$
+    or even $\mathrm{SSR}(f)$ to emphasise that $\mathbf{x},\mathbf{y}$
+    are just fixed  values and we are not  interested
+    in changing them at all.
+
+---
+
+We enjoy SSR because (amongst others):
+
+- larger errors are penalised much more than smaller ones
+
+    > (this can be considered a drawback as well)
+
+
+
+- (\*\*) statistically speaking, this has a clear underlying interpretation
+
+    > (which we will study
+    in our Machine Learning unit = assuming errors are normally distributed,
+    finding a model minimising the SSR is equivalent to maximum likelihood estimation)
+
+- the models minimising the SSR can often be found easily
+
+    > (corresponding optimisation tasks have an analytic solution --
+    studied already by Gauss in the late 18th century)
+
+
+(\*\*) Other choices (not studied in this unit == it's too early for this):
+
+- regularised SSR (for regression with multiple input variables)
+- sum or median of absolute values (robust regression)
+
+
+
+---
+
+
+
+Fitting a model to data can be written as an optimisation problem:
+
+\[
+\min_{f\in\mathcal{F}} \mathrm{SSR}(f|\mathbf{x},\mathbf{y}),
+\]
+
+i.e., find $f$ minimising the SSR **(seek "best" $f$)**\
+amongst the set of admissible models $\mathcal{F}$.
+
+
+Example $\mathcal{F}$s:
+
+- $\mathcal{F}=\{\text{All possible functions of one variable}\}$  --  if there are no repeated
+$x_i$'s, this corresponds to data *interpolation*; note that there
+are many functions that give SSR of $0$.
+
+- $\mathcal{F}=\{ x\mapsto x^2, x\mapsto \cos(x), x\mapsto \exp(2x+7)-9 \}$ -- obviously
+an ad-hoc choice but you can easily choose the best amongst the 3 by computing 3 sums of squares.
+
+- $\mathcal{F}=\{ x\mapsto ax+b\}$ -- the space of linear functions of one variable
+
+- etc.
+
+
+(e.g., $x\mapsto x^2$ is read "$x$ maps to $x^2$" and is
+an elegant way to define an inline function $f$ such that $f(x)=x^2$)
+
+
+
+
+## Simple Linear Regression
+
+---
+
+If the family of admissible models $\mathcal{F}$ consists only of all linear functions of one variable,
+we deal with a **simple linear regression**.
+
+Our problem becomes:
+
+
+\[
+\min_{a,b\in\mathbb{R}} \sum_{i=1}^n \left(
+ax_i+b-y_i
+\right)^2
+\]
+
+
+In other words, we seek best fitting line in terms of the squared residuals.
+
+This is the **method of least squares**.
+
+This is particularly nice, because our search space
+is just $\mathbb{R}^2$ -- easy to handle both analytically and numerically.
+
+---
+
+```{r,echo=FALSE,fig.height=6}
+par(mar=c(4,4,1,1))
+plot(X, Y, las=1, col="#00000044")
+m1 <- lm(Y~X)
+abline(m1, col=2,lwd=3)
+m2 <- lm(Y~X+0)
+abline(m2, col=3,lwd=3)
+m3 <- L1pack::lad(Y~X)
+abline(m3, col=4,lwd=3)
+legend("topleft",
+    lty=1,
+    col=c(2,3,4),
+    legend=c(
+        sprintf("y=%.3fx+%03.0f; SSR=%03g",m1$coefficients[2],m1$coefficients[1], sum(m1$residuals^2)),
+        sprintf("y=%.3fx+%03.0f; SSR=%03g",m2$coefficients[1],0, sum(m2$residuals^2)),
+        sprintf("y=%.3fx+%03.0f; SSR=%03g",m3$coefficients[2],m3$coefficients[1], sum(m3$residuals^2))
+    ))
+```
+
+> Which of these is the least squares solution?
+
+
+## Solution in R
+
+---
+
+Let's fit the linear model minimising the SSR in R.
+For convenience, let us store both $\mathbf{x}$ and $\mathbf{y}$
+in a data frame:
+
+```{r}
+XY <- data.frame(X=X, Y=Y)
+head(XY, 3)
+```
+
+The `lm()` function (`l`inear `m`odels) has a convenient *formula*-based interface.
+
+> In R, the expression "`Y~X`" denotes a formula, which we read as:
+variable `Y` is a function of `X`.
+Note that the dependent variable is on the left side of the formula.
+
+
+
+```{r}
+f <- lm(Y~X, data=XY)
+```
+
+> Note that here `X` and `Y` refer to column names in the `XY` data frame.
+
+---
+
+```{r}
+print(f)
+```
+
+Hence, the fitted model is:
+\[
+Y = f(X) = `r f$coefficient[2]`X+`r f$coefficient[1]`
+\qquad (+ \varepsilon)
+\]
+
+---
+
+Coefficient $a$ (slope):
+
+```{r}
+f$coefficient[2]
+```
+
+Coefficient $b$ (intercept):
+
+```{r}
+f$coefficient[1]
+```
+
+---
+
+SSR:
+
+```{r}
+sum(f$residuals^2)
+sum((f$coefficient[2]*X+f$coefficient[1]-Y)^2) # equivalent
+```
+
+---
+
+To make a prediction:
+
+```{r}
+Xnew <- data.frame(X=c(1500, 2000, 2500))
+f$coefficient[2]*Xnew$X + f$coefficient[1]
+```
+
+
+or:
+
+```{r}
+predict(f, Xnew)
+```
+
+---
+
+However:
+
+```{r}
+predict(f, data.frame(X=c(5000)))
+```
+
+This is more than the highest possible rating -- we have been extrapolating
+way beyond the observable data range.
+
+---
+
+Plotting:
+
+```{r,echo=-1}
+par(mar=c(4,4,1,1))
+plot(X, Y, col="#000000aa", las=1)
+abline(f, col=2, lwd=3)
+```
+
+
+
+
+---
+
+
+Note that our $Y=aX+b$ model is **interpretable**
+and **well-behaving**
+
+> (not all machine learning models will have this feature, think: deep neural networks,
+which we rather conceive as *black boxes*)
+
+* we know that by increasing $X$ by a small amount,
+$Y$ will also increase (positive correlation)
+
+* the model is continuous -- small change in $X$
+doesn't yield any drastic change in $Y$
+
+* we know what will happen if we increase or decrease $X$ by, say, $100$
+
+* the function is invertible -- if we want Rating of $500$,
+we can compute the associated preferred Balance that should yield it
+(provided that the model is valid)
+
+
+
+
+## Derivation of the Solution (\*\*)
+
+---
+
+> (You can safely skip this part if you are yet to know
+how to search for a minimum of a function of many variables
+and what are partial derivatives)
+
+Denote with
+
+\[
+E(a,b)=\mathrm{SSR}(x\mapsto ax+b|\mathbf{x},\mathbf{y})
+=\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2
+\]
+
+We seek the minimum of $E$ w.r.t. both $a,b$.
+
+
+
+Theorem.
+
+: If $E$ has a (local) minimum at $(a^*,b^*)$,
+then its partial derivatives vanish therein,
+i.e., $E_a'(a^*, b^*) = 0$ and $E_b'(a^*, b^*)=0$.
+
+
+---
+
+We have:
+
+\[
+E(a,b)   = \displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2
+\]
+
+We need to compute the partial derivatives $\partial E/\partial a$ (derivative of $E$
+w.r.t. variable $a$ -- all other terms treated as constants)
+and $\partial E/\partial b$ (w.r.t. $b$).
+
+Useful rules -- derivatives w.r.t. $a$ (denote $f'(a)=(f(a))'$):
+
+- $(f(a)+g(a))'=f'(a)+g'(a)$ (derivative of sum is sum of derivatives)
+- $(f(a) g(a))' = f'(a)g(a) + f(a)g'(a)$ (derivative of product)
+- $(f(g(a)))' = f'(g(a)) g'(a)$ (chain rule)
+- $(c)' = 0$ for any constant $c$ (expression not involving $a$)
+- $(a^p)' = pa^{p-1}$ for any $p$
+- in particular: $(c a^2+d)'=2ca$, $(ca)'=c$, $((ca+d)^2)'=2(ca+d)c$ (application of the above rules)
+
+
+<!--\[
+\begin{array}{rl}
+E_a'(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) x_i \\
+E_b'(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) \\
+\end{array}
+\]-->
+
+We seek $a,b$ such that $\frac{\partial E}{\partial a}(a,b) = 0$
+and $\frac{\partial E}{\partial b}(a,b)=0$.
+
+---
+
+\[
+\left\{
+\begin{array}{rl}
+\frac{\partial E}{\partial a}(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) x_i = 0 \\
+\frac{\partial E}{\partial b}(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) = 0\\
+\end{array}
+\right.
+\]
+
+This is a system of 2 linear equations. Easy.
+
+Rearranging like back in the school days:
+
+\[
+\left\{
+\begin{array}{rl}
+a \displaystyle\sum_{i=1}^n x_i x_i + b \displaystyle\sum_{i=1}^n x_i = & \displaystyle\sum_{i=1}^n x_i y_i \\
+a \displaystyle\sum_{i=1}^n x_i+ b n = & \displaystyle\sum_{i=1}^n  y_i  \\
+\end{array}
+\right.
+\]
+
+---
+
+It is left as an exercise to show that the solution is:
+
+\[
+\left\{
+\begin{array}{rl}
+a^*  = & \dfrac{
+n \displaystyle\sum_{i=1}^n x_i y_i - \displaystyle\sum_{i=1}^n  y_i \displaystyle\sum_{i=1}^n x_i
+}{
+n \displaystyle\sum_{i=1}^n x_i x_i -   \displaystyle\sum_{i=1}^n x_i\displaystyle\sum_{i=1}^n x_i
+}\\
+b^* = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a^*  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+\end{array}
+\right.
+\]
+
+
+
+(we should additionally perform the second derivative test
+to assure that this is the minimum of $E$ -- which is exactly the case though)
+
+<!-- @TODO rewrite nicely with means and correlation coefficients etc.
+
+Pearson's r introduced in the next lecture though
+
+(a <- cor(x,y)*sd(y)/sd(x))
+(b <- mean(y)-a*mean(x))
+-->
+
+
+
+---
+
+Sanity check:
+
+```{r}
+n <- length(X)
+a <- (n*sum(X*Y)-sum(X)*sum(Y))/(n*sum(X*X)-sum(X)^2)
+b <- mean(Y)-a*mean(X)
+c(a, b) # the same as f$coefficients
+```
+
+
+---
+
+(\*\*) In the next lecture, we will introduce the notion of Pearson's
+linear coefficient, $r$ (see `cor()` in R). It might be shown that
+$a$ and $b$ can also be rewritten as:
+
+```{r}
+(a <- cor(X,Y)*sd(Y)/sd(X))
+(b <- mean(Y)-a*mean(X))
+```
+
+<!-- @TODO show optim() -->
+
+
+
+
+
+
+#  Vector and Matrix Algebra Basics
+
+## Motivation
+
+---
+
+Vector and matrix algebra provides us with a convenient language for
+expressing computations on tabular data.
+
+Vector and matrix algebra operations are supported by every
+major programming language -- either natively (e.g., R, Matlab, GNU Octave, Mathematica)
+or via an additional library/package (e.g, Python with numpy, tensorflow or pytorch;
+C++ with Eigen/Armadillo; C, C++ or Fortran with LAPACK).
+
+Using matrix notation leads to a more concise and readable code.
+It might also be faster to compute.
+
+---
+
+For instance, given two vectors $\boldsymbol{x}=(x_1,\dots,x_n)$
+and $\boldsymbol{y}=(y_1,\dots,y_n)$ like:
+
+```{r}
+x <- c(1.5, 3.5, 2.3,-6.5)
+y <- c(2.9, 8.2,-0.1, 0.8)
+```
+
+Instead of writing:
+
+```{r}
+s <- 0
+n <- length(x)
+for (i in 1:n)
+    s <- s + (x[i]-y[i])^2
+sqrt(s/n)
+```
+
+to mean:
+
+\[
+\sqrt{\frac{1}{n} \sum_{i=1}^n (x_i-y_i)^2}
+\]
+
+---
+
+we'd rather write:
+
+```{r}
+sqrt(mean((x-y)^2))
+```
+
+or even:
+
+\[
+\frac{1}{\sqrt{n}} \|\boldsymbol{x}-\boldsymbol{y}\|_2
+\]
+
+
+In order to be able to read such a notation,
+we only have to get to know the "building blocks". There are just a few
+of them, but it takes some time to become comfortable with them.
+
+
+---
+
+Also note that vectorised code is much faster and much more readable than the `for` loop-based one:
+
+```{r,cache=TRUE,benchmarkvectorised}
+library("microbenchmark")
+x <- runif(10000) # 10000 random numbers in [0,1]
+y <- runif(10000)
+print(microbenchmark(
+    t1={s <- 0; n <- length(x);
+        for (i in 1:n) s <- s + (x[i]-y[i])^2; sqrt(s/n)},
+    t2=sqrt(mean((x-y)^2))
+), signif=3, unit='relative')
+```
+
+
+
+
+
+## Vector-Scalar Operations
+
+---
+
+Vector-scalar arithmetic operations
+such as $s\boldsymbol{x}$ (multiplication of a vector $\boldsymbol{x}=(x_1,\dots, x_n)$
+by a scalar $s$) result in a vector $\boldsymbol{y}$ such that $y_i=s x_i$, $i=1,\dots,n$.
+
+The same rule holds for, e.g., $s+\boldsymbol{x}$, $\boldsymbol{x}-s$, $\boldsymbol{x}/s$.
+
+
+```{r}
+0.5 * c(1, 10, 100)
+10 + 1:5
+seq(0, 10, by=2)/10
+```
+
+---
+
+By $-\boldsymbol{x}$ we will mean $(-1)\boldsymbol{x}$:
+
+```{r}
+-seq(0, 1, length.out=5)
+```
+
+---
+
+Note that in R the same rule applies for exponentiation:
+
+```{r}
+(0:5)^2 # synonym: (1:5)**2
+2^(0:5)
+```
+
+However, in mathematics, we are **not** used  to writing
+$2^{\boldsymbol{x}}$ or $\boldsymbol{x}^2$.
+
+
+
+## Vector-Vector Operations
+
+---
+
+Let $\boldsymbol{x}=(x_1,\dots,x_n)$ and $\boldsymbol{y}=(y_1,\dots,y_n)$ be two vectors of identical lengths.
+
+Arithmetic operations $\boldsymbol{x}+\boldsymbol{y}$ and $\boldsymbol{x}-\boldsymbol{y}$ are performed *elementwise*,
+i.e., they result in a vector $\boldsymbol{z}$ such that
+$z_i=x_i+y_i$ and $z_i=x_i-y_i$, respectively, $i=1,\dots,n$.
+
+```{r}
+x <- c(1,  2,   3,    4)
+y <- c(1, 10, 100, 1000)
+x+y
+x-y
+```
+
+---
+
+Although in mathematics we are **not** used to using any special notation
+for elementwise multiplication, division and exponentiation, this is available in R.
+
+```{r}
+x*y
+x/y
+y^x
+```
+
+---
+
+Moreover, in R the **recycling rule** is applied if we perform elementwise
+operations on vectors of *different* lengths -- the shorter
+vector is recycled as many times as needed to match the length of the longer
+vectors, just as if we were performing:
+
+```{r}
+rep(1:3, length.out=12) # recycle 1,2,3 to get 12 values
+```
+
+---
+
+```{r}
+1:6 * c(1)
+1:6 * c(1,10)
+1:6 * c(1,10,100)
+1:6 * c(1,10,100,1000)
+```
+
+Note that a warning is not an error  -- we still get a sensible result.
+
+
+---
+
+In R,
+
+* comparison operators such as `<` (less than), `<=` (less than or equal),
+`==` (equal), `!=` (not equal), `>` (greater than), `>=` (greater than or equal)
+as well as
+* logical operators like `&` (and) as well as `|` (or)
+
+are performed in the same manner as above, i.e.:
+
+* they are elementwise operations and
+* recycling rule is applied if necessary.
+
+However, they return *logical* vectors in result.
+
+---
+
+
+```{r}
+1:2 == 1:4 # c(1,2,1,2) == c(1,2,3,4)
+z <- c(0, 3, -1, 1, 0.5)
+(z >= 0) & (z <= 1)
+```
+
+Also note that in R there are 3 (!) logical values:
+`TRUE`, `FALSE` and `NA` (not available, missing, null).
+
+
+---
+
+
+
+Generally, operations on `NA`s yield `NA` in result unless other solution
+makes sense.
+
+```{r}
+c(0, NA, 2)*c(1, 10, 100)
+u <- c(TRUE, FALSE, NA)
+v <- c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, NA, NA, NA)
+u & v # elementwise AND (conjunction)
+u | v # elementwise OR  (disjunction)
+!u    # elementwise NOT (negation)
+```
+
+## Other Vector Operations
+
+---
+
+R implement a couple of *aggregation* functions:
+
+* `sum(x)` = $\sum_{i=1}^n x_i=x_1+x_2+\dots+x_n$
+* `prod(x)` = $\prod_{i=1}^n x_i=x_1 x_2 \dots x_n$
+* `mean(x)` = $\frac{1}{n}\sum_{i=1}^n x_i$ -- arithmetic mean
+* `var(x)` = `sum((x-mean(x))^2)/(length(x)-1)` =
+$\frac{1}{n-1} \sum_{i=1}^n \left(x_i - \frac{1}{n}\sum_{j=1}^n x_j \right)^2$
+-- variance
+* `sd(x)` = `sqrt(var(x))` -- standard deviation
+
+see also: `min()`, `max()`, `median()`, `quantile()`.
+
+> Remember that you can always access the R manual by typing
+`?functionname`, e.g., `?quantile`.
+
+---
+
+Mathematically, we will also be interested in the following norms:
+
+* Euclidean norm:
+\[
+\|\boldsymbol{x}\| = \|\boldsymbol{x}\|_2 = \sqrt{ \sum_{i=1}^n x_i^2 }
+\]
+this is nothing else than the *length* of the vector $\boldsymbol{x}$
+* Manhattan (taxicab) norm:
+\[
+\|\boldsymbol{x}\|_1 = \sum_{i=1}^n |x_i|
+\]
+* Chebyshev (maximum) norm:
+\[
+\|\boldsymbol{x}\|_\infty = \max_{i=1,\dots,n} |x_i|
+= \max\{ |x_1|, |x_2|, \dots, |x_n| \}
+\]
+
+---
+
+```{r}
+z <- c(1, 2)
+sqrt(sum(z^2)) # or norm(z, "2"); Euclidean
+sum(abs(z))    # Manhattan
+max(abs(z))    # Chebyshev
+```
+
+---
+
+Also note that:
+
+\[
+\| \boldsymbol{x}-\boldsymbol{y} \| = \sqrt{
+\sum_{i=1}^n \left(x_i-y_i\right)^2
+}
+\]
+
+gives the *Euclidean distance* (metric) between the two vectors.
+
+```{r}
+u <- c(1, 0)
+v <- c(1, 1)
+sqrt(sum((u-v)^2))
+```
+
+
+---
+
+What is more, given two vectors of identical lengths,
+$\boldsymbol{x}$ and $\boldsymbol{y}$,
+we define their *dot product* (a.k.a. *scalar, inner product*) as:
+
+\[
+\boldsymbol{x}\cdot\boldsymbol{y} = \sum_{i=1}^n x_i y_i.
+\]
+
+> This is not the same as elementwise vector multiplication in R.
+
+```{r}
+u <- c(1, 0)
+v <- c(1, 1)
+sum(u*v)
+```
+
+> (\*) Note that the squared Euclidean norm of a vector is equal to the dot
+product of the vector and itself,
+$\|\boldsymbol{x}\|^2 = \boldsymbol{x}\cdot\boldsymbol{x}$.
+
+---
+
+Interestingly, a dot product has a nice geometrical interpretation:
+
+\[
+\boldsymbol{x}\cdot\boldsymbol{y} = \|\boldsymbol{x}\| \|\boldsymbol{y}\|
+\cos\alpha
+\]
+where $\alpha$ is the angle between the two vectors.
+
+> Read: it is the product of the lengths of the two vectors
+and the cosine of the angle between them.
+
+> You can get the cosine part by computing the dot product of the *normalised*
+vectors, i.e., such that their lengths are equal to 1.
+
+---
+
+
+```{r,echo=FALSE}
+par(mar=c(2.5,2,0.5,0.5))
+plot(rbind(u,v), xlim=c(0,1), ylim=c(0,1), las=1, ann=FALSE, asp=1)
+arrows(0, 0, u[1], u[2])
+arrows(0, 0, v[1], v[2])
+text(u[1], u[2], sprintf("[%d,%d]", u[1], u[2]), pos=4)
+text(v[1], v[2], sprintf("[%d,%d]", v[1], v[2]), pos=4)
+```
+
+```{r}
+len_u <- sqrt(sum(u^2)); len_v <- sqrt(sum(v^2))
+(cos_angle_uv <- (sum(u*v)/(len_u*len_v)))
+acos(cos_angle_uv)*180/pi # angle in degs
+```
+
+
+---
+
+Furthermore, R supports numerous mathematical functions, e.g.,
+`sqrt()`, `abs()`, `round()`, `log()`, `exp()`, `cos()`, `sin()`.
+
+All of them are vectorised -- when applied on a vector of length $n$,
+they yield a vector of length $n$ in result.
+
+```{r}
+sqrt(1:9)
+```
+
+---
+
+Also note the following operations on *logical* vectors:
+
+```{r}
+z <- 1:10
+all(z >= 5) # are all values TRUE?
+any(z >= 5) # is there any value TRUE?
+sum(z >= 5) # how many TRUE values are there?
+mean(z >= 5) # what is the proportion of TRUE values?
+```
+
+The behaviour of `sum()` and `mean()` is dictated by the fact
+that, when interpreted in numeric terms, `TRUE==1`  and `FALSE==0`.
+
+## Matrices
+
+---
+
+Vectors are 1-dimensional objects -- they represent sequences of values.
+
+Matrices are 2-dimensional objects -- they represent tabular data.
+
+```{r}
+A <- matrix(c(1, 2, 3, 4, 5, 6), byrow=TRUE, nrow=2)
+dim(A) # number of rows, number of columns
+A
+```
+
+Using mathematical notation, above we have defined $\mathbf{A}\in\mathbb{R}^{2\times 3}$:
+
+\[
+\mathbf{A}=
+\left[
+\begin{array}{cccc}
+a_{1,1} & a_{1,2} & a_{1,3} \\
+a_{2,1} & a_{2,2} & a_{2,3} \\
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cccc}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\end{array}
+\right]
+\]
+
+---
+
+Other ways to create a matrix:
+
+```{r}
+rbind(1:3, 4:6, 7:9) # row bind
+rbind(1:3, 4:6, 7:9) # column bind
+```
+
+
+On a side note, R `data.frame`s are similar to matrices but are used
+to store tabular data of potentially different types in each column.
+
+---
+
+Note that the omission of `byrow=TRUE` yields the following default behaviour
+of the `matrix()` function:
+
+```{r}
+matrix(c(1, 2, 3, 4, 5, 6), nrow=2)
+```
+
+In other words, elements are read in a column-major manner.
+
+> (\*) This is exactly how R stores the underlying data in RAM.
+
+
+---
+
+Also take notice of the fact that "flat" vectors are promoted
+to column vectors, i.e., matrices with one column:
+
+```{r}
+as.matrix(1:3)
+```
+
+---
+
+$\mathbf{A}^T$ denotes the matrix *transpose*:
+
+```{r}
+t(A)
+```
+
+Hence, $\mathbf{B}=\mathbf{A}^T$ is a matrix such that $b_{i,j}=a_{j,i}$.
+
+In other words, in the transposed matrix, rows become columns and columns become rows.
+
+## Matrix-Scalar Operations
+
+---
+
+Operations such as $s\mathbf{A}$ (multiplication of a matrix
+by a scalar), $-\mathbf{A}$, $s+\mathbf{A}$ etc.
+are applied on each element of the input matrix:
+
+```{r}
+(-1)*A
+```
+
+
+## Matrix-Matrix Operations
+
+---
+
+
+
+If $\mathbf{A},\mathbf{B}\in\mathbb{R}^{n\times p}$
+are two matrices of the same sizes, then
+$\mathbf{A}+\mathbf{B}$ and
+$\mathbf{A}-\mathbf{B}$ are understood elementwise,
+i.e., they result in $\mathbf{C}\in\mathbb{R}^{n\times p}$
+such that $c_{i,j}=a_{i,j}\pm b_{i,j}$.
+
+```{r}
+A-A
+```
+
+---
+
+In R (but not when we use mathematical notation),
+all other arithmetic, logical and comparison operators are also
+applied in an elementwise fashion.
+
+```{r}
+A*A
+(A>2) & (A<=5)
+```
+
+
+## Matrix Multiplication (\*)
+
+---
+
+Mathematically, $\mathbf{A}\mathbf{B}$
+denotes the **matrix multiplication**. It is a very different operation
+to the elementwise multiplication.
+
+
+```{r}
+(A <- rbind(c(1, 2), c(3, 4)))
+(I <- rbind(c(1, 0), c(0, 1)))
+A %*% I # matrix multiplication
+```
+
+This is not the same as the elementwise `A*I`.
+
+---
+
+Matrix multiplication can only be performed on two matrices of
+*compatible sizes* -- the number of columns in the left matrix must match
+the number of rows in the right operand.
+
+Given $\mathbf{A}\in\mathbb{R}^{n\times p}$
+and $\mathbf{B}\in\mathbb{R}^{p\times m}$, their multiply is a matrix
+$\mathbf{C}=\mathbf{A}\mathbf{B}\in\mathbb{R}^{n\times m}$
+such that $c_{i,j}$ is the dot product of the $i$-th row in $\mathbf{A}$
+and the $j$-th column in $\mathbf{B}$:
+\[
+c_{i,j} = \mathbf{a}_{i,\cdot} \cdot \mathbf{b}_{\cdot,j}
+= \sum_{k=1}^p a_{i,k} b_{k, j}
+\]
+for $i=1,\dots,n$ and $j=1,\dots,m$.
+
+---
+
+> (\*) Note that $\mathbf{A}^T \mathbf{A}$
+gives the matrix that consists of the dot products of all the pairs
+of columns in $\mathbf{A}$.
+
+```{r}
+crossprod(A) # same as t(A) %*% A
+```
+
+In the next lecture, we will learn about the Pearson linear
+correlation coefficient which can be beautifully expressed this way.
+
+
+> (\*) As an exercise, I recommend that you multiply
+a few simple matrices of sizes $2\times 2$, $2\times 3$, $3\times 2$ etc.
+using pen and paper and check the results in R. This will become easy
+once you get some practice.
+
+<!-- TODO: graphical interpretation -->
+
+
+---
+
+Also remember that, mathematically,
+*squaring* a matrix is done in terms of matrix multiplication,
+i.e., $\mathbf{A}^2 = \mathbf{A}\mathbf{A}$.
+
+It can only be performed on *square* matrices, i.e., ones with the same number
+of rows and columns.
+
+This is again different than R's elementwise `A^2`.
+
+
+<!-- TODO? Matrix inverse?? Do we need it? we might for linear regression, but it's already too much -->
+
+<!-- TODO? Matrix ops and the recycling rule -->
+
+
+## Matrix-Vector Operations
+
+---
+
+Mathematically, there is no generally agreed upon
+convention defining arithmetic operations between matrices and vectors.
+
+(\*) The only exception is the  matrix -- vector multiplication in the case
+where a vector is a column or a row vector, i.e., in fact, a matrix.
+
+Hence, given $\mathbf{A}\in\mathbb{R}^{n\times p}$ we may write
+$\mathbf{A}\mathbf{x}$
+only if $\mathbf{x}\in\mathbb{R}^{p\times 1}$ is a column vector.
+
+Similarly, $\mathbf{y}\mathbf{A}$ makes only sense
+whenever $\mathbf{y}\in\mathbb{R}^{1\times n}$ is a row vector.
+
+> Please take notice of the fact that we consistently
+discriminate between different bold math fonts and letter cases:
+$\mathbf{X}$ is a matrix, $\mathbf{x}$ is a row or column vector
+(still a matrix, but a sequence-like one)
+and $\boldsymbol{x}$ is an ordinary vector (1-dimensional sequence).
+
+> This is why, e.g., the $i$-th row of $\mathbf{X}$ is denoted
+with $\mathbf{x}_{i,\cdot}$ -- to emphasise that it is a row vector.
+
+<!-- in R an object of type vector gets promoted to a column vector, i.e., a matrix with 1 column -->
+
+
+
+---
+
+However, in R, we might sometimes wish to vectorise
+an arithmetic operation between a matrix and a vector in a row- or column-wise
+fashion.
+
+For example, if $\mathbf{A}\in\mathbb{R}^{n\times p}$
+and $\mathbf{m}\in\mathbb{R}^{1\times p}$ is a row vector,
+we might want to subtract $m_i$ from each element in the $i$-th column.
+
+Here, the `apply()` function comes in handy:
+
+* `apply(A, 1, f)` applies a given function $f$ on each *row* of $\mathbf{A}$.
+* `apply(A, 2, f)` applies a given function $f$ on each *column* of $\mathbf{A}$.
+
+Usually, either $f$ returns a single value (when we wish to aggregate
+all the elements in a row/column) or returns the same number of values
+(when we wish to transform a row/column).
+
+---
+
+Example: to create a *centred* version of a given matrix,
+we need to subtract from each element the arithmetic mean of its column.
+
+```{r}
+(A <- cbind(c(1, 2), c(2, 4), c(5, 8)))
+(m <- apply(A, 2, mean)) # same as colMeans(A)
+t(apply(A, 1, function(r) r-m)) # note the transpose here
+```
+
+---
+
+The above is equivalent to:
+
+```{r}
+apply(A, 2, function(c) c-mean(c))
+```
+
+
+
+# Outro
+
+## Remarks
+
+---
+
+- In supervised learning, with each input point,
+there's an associated reference output value.
+
+- Learning a model = constructing a function that approximates
+(minimising some error measure) the given data.
+
+- Regression = the output variable $Y$ is continuous.
+
+- We studied linear models with a single independent variable based on
+the least squares (SSR) fit.
+
+- In the next part we will extend this setting to the case
+of many variables, i.e., $p>1$, called multiple regression.
+
+
+
+## References and Further Reading
+
+---
+
+
+Recommended further reading:
+
+- G. James, D. Witten, T. Hastie, R. Tibshirani,
+    *An Introduction to Statistical Learning with Applications in R*, Springer, 2017
+    -- Chapters 1, 2 and 3.
+
+    > Freely available at
+    http://faculty.marshall.usc.edu/gareth-james/ISL/
+
+Other references:
+
+- T. Hastie, R. Tibshirani, J. Friedman,
+    *The Elements of Statistical Learning*, Springer, 2017
+    -- Chapter 1, Sections 3.2 and 3.3
+    > Freely available at
+    https://web.stanford.edu/~hastie/ElemStatLearn/
+- S. Russell, P. Norvig,
+    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
+    -- Sections 18.1, 18.2, 18.6.
+
+
