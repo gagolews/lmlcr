@@ -16,14 +16,20 @@ RMD_SOURCES = \
 VPATH=.
 HTML_OUTDIR=out-html
 BEAMER_OUTDIR=out-beamer
+BOOKDOWN_GITBOOK_OUTDIR=out-bookdown-gitbook
+BOOKDOWN_GITBOOK_TMPDIR=tmp-bookdown-gitbook
 HTML_OUTPUTS=$(patsubst %.Rmd,$(HTML_OUTDIR)/%.html,$(RMD_SOURCES))
 BEAMER_OUTPUTS=$(patsubst %.Rmd,$(BEAMER_OUTDIR)/%.pdf,$(RMD_SOURCES))
+BOOKDOWN_GITBOOK_OUTPUTS=$(patsubst %.Rmd,$(BOOKDOWN_GITBOOK_TMPDIR)/%.Rmd,$(RMD_SOURCES))
 
-all: html beamer
+all: please_specify_build_target_manually
+#all: html beamer
 
 html: $(HTML_OUTPUTS)
 
 beamer: $(BEAMER_OUTPUTS)
+
+bookdown_gitbook: $(BOOKDOWN_GITBOOK_OUTPUTS)
 
 $(BEAMER_OUTDIR)/%.pdf: %.Rmd
 	build-beamer/compile.sh "$<"
@@ -31,3 +37,5 @@ $(BEAMER_OUTDIR)/%.pdf: %.Rmd
 $(HTML_OUTDIR)/%.html: %.Rmd
 	build-html/compile.sh "$<"
 
+$(BOOKDOWN_GITBOOK_TMPDIR)/%.Rmd: %.Rmd
+	build-bookdown-gitbook/compile.sh "$<"

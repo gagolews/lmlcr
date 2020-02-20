@@ -1,0 +1,13 @@
+---
+title: "Lightweight Machine Learning Classics with R"
+author: "Marek Gagolewski"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [bibliography.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: gagolews/lmlcr
+description: "@TODO@ description @TODO@"
+---
