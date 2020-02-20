@@ -1,0 +1,9 @@
+# Welcome!
+
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
+![](figures/cover)
+
+This is a draft version of the forthcoming book
+*Lightweight Machine Learning Classics with R*
+by [Marek Gagolewski](https://www.gagolewski.com).

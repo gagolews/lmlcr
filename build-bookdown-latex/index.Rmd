@@ -4,10 +4,8 @@ author: "Marek Gagolewski"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:
-    bookdown::gitbook:
-        pandoc_args: ["--default-image-extension=.png",
-            "--highlight-style=tango", "--email-obfuscation=none",
-            "--section-divs"]
+    bookdown::pdf_book:
+        pandoc_args: ["--default-image-extension=.pdf"]
 documentclass: book
 bibliography: [bibliography.bib]
 biblio-style: apalike
