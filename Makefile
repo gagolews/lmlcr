@@ -4,13 +4,26 @@ RMD_SOURCES = \
     01-regression-simple.Rmd                     \
     02-regression-multiple.Rmd                   \
     03-classification-neighbours.Rmd             \
-    04-classification-trees_and_logistic.Rmd
-#     06-classification-nnets.Rmd                \
-#     07-optimisation-iterative.Rmd              \
-#     08-clustering.Rmd                          \
-#     09-optimisation-genetic.Rmd                \
-#     10-recommenders.Rmd                        \
-#     11-postscript.Rmd
+    04-classification-trees_and_logistic.Rmd     \
+    05-classification-nnets.Rmd                  \
+    06-optimisation-iterative.Rmd                \
+    07-clustering.Rmd                            \
+    08-optimisation-genetic.Rmd                  \
+    09-recommenders.Rmd                          \
+    10-postscript.Rmd
+
+SVG_SOURCES = \
+    figures/combination1.svg                     \
+    figures/combination2.svg                     \
+    figures/combination3.svg                     \
+    figures/convex_concave.svg                   \
+    figures/convex_function.svg                  \
+    figures/convex_set.svg                       \
+    figures/cover.svg                            \
+    figures/crossover.svg                        \
+    figures/neuron.svg                           \
+    figures/perceptron.svg
+
 
 VPATH=.
 HTML_OUTDIR=out-html
@@ -24,7 +37,11 @@ BEAMER_OUTPUTS=$(patsubst %.Rmd,$(BEAMER_OUTDIR)/%.pdf,$(RMD_SOURCES))
 BOOKDOWN_GITBOOK_OUTPUTS=$(patsubst %.Rmd,$(BOOKDOWN_GITBOOK_TMPDIR)/%.Rmd,$(RMD_SOURCES))
 BOOKDOWN_LATEX_OUTPUTS=$(patsubst %.Rmd,$(BOOKDOWN_LATEX_TMPDIR)/%.Rmd,$(RMD_SOURCES))
 
-.PHONY: all clean purge html beamer bookdown_gitbook bookdown_latex
+PDF_OUTPUTS=$(patsubst %.svg,%.pdf,$(SVG_SOURCES))
+PNG_OUTPUTS=$(patsubst %.svg,%.png,$(SVG_SOURCES))
+
+
+.PHONY: all clean purge html beamer bookdown-gitbook bookdown-latex figures
 
 all: please_specify_build_target_manually
 #all: html beamer
@@ -33,9 +50,11 @@ html: $(HTML_OUTPUTS)
 
 beamer: $(BEAMER_OUTPUTS)
 
-bookdown_gitbook: $(BOOKDOWN_GITBOOK_OUTPUTS)
+bookdown-gitbook: $(BOOKDOWN_GITBOOK_OUTPUTS)
 
-bookdown_latex: $(BOOKDOWN_LATEX_OUTPUTS)
+bookdown-latex: $(BOOKDOWN_LATEX_OUTPUTS)
+
+figures: $(PDF_OUTPUTS) $(PNG_OUTPUTS)
 
 clean:
 	rm -f -r tmp-bookdown-gitbook/*.Rmd \
@@ -56,3 +75,9 @@ $(BOOKDOWN_GITBOOK_TMPDIR)/%.Rmd: %.Rmd
 
 $(BOOKDOWN_LATEX_TMPDIR)/%.Rmd: %.Rmd
 	build-bookdown-latex/compile.sh "$<"
+
+%.png: %.svg
+	inkscape "$<" --without-gui --export-dpi=150 --export-png="$@"
+
+figures/%.pdf: figures/%.svg
+	inkscape "$<" --without-gui --export-pdf="$@"

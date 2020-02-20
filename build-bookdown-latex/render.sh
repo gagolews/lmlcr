@@ -14,12 +14,9 @@ cp -f ../bibliography.bib .
 cat ../00-introduction.Rmd >> index.Rmd
 
 mkdir -p figures/
-for f in ../figures/*.svg; do
-    if [ ! -f "${f/%.svg/.pdf}" ]; then
-        # @TODO !!!!
-        inkscape $f --without-gui --export-pdf=${f/%.svg/.pdf} && cp ${f/%.svg/.pdf} figures/
-    fi
-done
+cp -f ../figures/*.pdf figures
 
 Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::pdf_book",
     output_dir="../out-bookdown-latex")'
+
+mv -f ../out-bookdown-latex/_main.pdf ../out-bookdown-latex/lmlcr.pdf
