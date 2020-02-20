@@ -1,4 +1,5 @@
 tmp-*
+out-*
 *.nav
 *.snm
 .kile
@@ -6,7 +7,6 @@ tmp-*
 *.synctex.gz
 .ipynb_checkpoints
 __pycache__
-cache-knitr*
 *.Rproj
 *.brf
 *.aux

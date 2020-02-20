@@ -41,6 +41,9 @@
 \usefonttheme{professionalfonts}
 \usepackage{bm}
 
+\AtBeginPart{
+    % just ignore it
+}
 
 \AtBeginSubsection{
 %   \frame{\subsectionpage}
@@ -99,7 +102,8 @@
 
 \useinnertheme{circles}
 \useoutertheme{infolines}
-\hypersetup{pdfstartview={FitH},bookmarks=true,unicode=true,colorlinks=false,linkcolor=blue,citecolor=gray}
+\hypersetup{pdfstartview={FitH},bookmarks=true,unicode=true,%
+    colorlinks=false,linkcolor=blue,citecolor=gray}
 \setbeamertemplate{footline}[frame number]{}
 \setbeamertemplate{navigation symbols}{}
 % \setbeamertemplate{headline}{}
@@ -134,7 +138,16 @@
 
 \thispagestyle{empty}
 
-\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{marek_slides_background.pdf}}
+\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{build-beamer/marek_slides_background.pdf}}
 \author{Marek Gagolewski}
 \title{LMLCR}
 \date{\today}
+
+
+\let\oldtitlepage\titlepage
+\renewcommand{\titlepage}{\oldtitlepage\ignorespaces
+Based on the book by Marek Gagolewski,
+\textit{Lightweight Machine Learning Classics with R},
+2021, doi:@TODO, \url{https://www.gagolewski.com/@TODO}
+}
+

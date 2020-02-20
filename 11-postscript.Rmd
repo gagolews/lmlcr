@@ -4,12 +4,299 @@
 
 
 
-## One
+## @TODO@
 
-### Two
+### @TODO@
 
 ---
 
-* T
-* B
-* D
+* T.
+* B.
+* D.
+
+## Notation Convention, Abbreviations etc.
+
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
+
+### Abbreviations
+
+#### {.allowframebreaks}
+
+
+a.k.a. == also known as
+
+w.r.t. == with respect to
+
+s.t. == such that
+
+iff == if and only if
+
+AI == artificial intelligence
+
+ML == machine learning
+
+GD == gradient descent
+
+SGD == stochastic gradient descent
+
+e.g. == for example (Latin: exempli gratia)
+
+i.e. == that is (Latin: id est)
+
+etc. == and so forth (Latin: et cetera)
+
+
+
+
+### Logic and Set Theory
+
+#### {.allowframebreaks}
+
+
+$\forall$ -- for all
+
+$\exists$ -- exists
+
+
+
+By writing $x \in \{a, b, c\}$  we mean that
+"$x$ is in a set that consists of $a$, $b$ and $c$"
+or "$x$ is either $a$, $b$ or $c$"
+
+$A\subseteq B$ -- set $A$ is a subset of set $B$
+(every element in $A$ belongs to $B$,
+$x\in A$ implies that $x\in B$)
+
+
+
+
+$A\cup B$ -- union (sum) of two sets,
+$x\in A\cup B$ iff $x\in A$ or $x\in B$
+
+$A\cap B$ -- intersection (sum) of two sets,
+$x\in A\cap B$ iff $x\in A$ and $x\in B$
+
+$A\setminus B$ -- difference of two sets,
+$x\in A\setminus B$ iff $x\in A$ and $x\not\in B$
+
+$A\times B$ -- Cartesian product of two sets,
+$A\times B = \{ (a,b): a\in A, b\in B \}$
+
+$A^p = A\prod A \prod \dots\prod A$ ($p$ times) for any $p$
+
+
+
+### Symbols
+
+#### {.allowframebreaks}
+
+
+
+$\mathbf{X,Y,A,I,C}$ -- bold (I use it for denoting vectors and matrices)
+
+$\mathbb{X,Y,A,I,C}$ -- blackboard bold (I sometimes use it for sets)
+
+$\mathcal{X,Y,A,I,C}$ -- calligraphic (I use it for set families = sets of sets)
+
+Greek letters (make sure you know all of them)
+
+| $\alpha$ | $\beta$ | $\gamma$ | $\delta$ | $\varepsilon$ | $\zeta$ | $\eta$ | $\theta$ | $\iota$ | $\kappa$ |
+|----------|---------|----------|----------|---------------|---------|--------|----------|---------|----------|
+| $A$      | $B$     | $\Gamma$ | $\Delta$ | $E$           | $Z$     | $H$    | $\Theta$ | $I$     | $K$      |
+
+<!--  $\lambda$ | $\mu$ | $\nu$ | $\xi$ | $o$ | $\pi$ | $\varrho$ | $\sigma$ | $\tau$ | $\upsilon$ | $\varphi$ | $\chi$ | $\psi$ | $\omega$ -->
+<!--  $\Lambda$ | $M  $ | $N  $ | $\Xi$ | $O$ | $\Pi$ | $P      $ | $\Sigma$ | $T   $ | $\Upsilon$ | $\Phi   $ | $X   $ | $\Psi$ | $\Omega$ -->
+
+$X, x, \mathbf{X}$ -- inputs (usually)
+
+$Y, y, \mathbf{Y}$ -- outputs
+
+$\hat{Y}, \hat{y}, \hat{\mathbf{Y}}$ -- usually for predicted outputs
+
+
+- $X$ -- independent/explanatory/predictor variable
+
+- $Y$ -- dependent/response/predicted variable
+
+
+$\mathbb{R}$ -- the set of real numbers, $\mathbb{R}=(-\infty, \infty)$
+
+$\mathbb{N}$ -- the set of natural numbers, $\mathbb{N}=\{1,2,3,\dots\}$
+
+$\mathbb{N}_0$ -- the set of natural numbers including zero, $\mathbb{N}_0=\mathbb{N}\cup\{0\}$
+
+$\mathbb{Z}$ -- the set of integer numbers, $\mathbb{Z}=\{\dots,-2,-1,0,1,2,\dots\}$
+
+
+
+$\boldsymbol{x}=(x_1,\dots,x_n)$ -- a sequence of $n$ elements ($n$-ary sequence/vector)
+
+if it consists of real numbers, we write $\boldsymbol{x}\in\mathbb{R}^n$
+
+$\mathbf{X}\in\mathbb{R}^{n\times p}$ -- matrix with $n$ row and $p$ columns
+
+$x_{i,j}$ -- element at $i$-th row, $j$-th column
+
+
+
+- Let $\mathbf{X}=(\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)})^T$ be an input sample
+that consists of $n$ points.
+
+\[
+\mathbf{X}=\left[
+\begin{array}{c}
+\mathbf{x}^{(1)} \\
+\mathbf{x}^{(2)} \\
+\vdots\\
+\mathbf{x}^{(n)} \\
+\end{array}
+\right]
+\]
+
+
+
+- Usually we assume that each $\mathbf{x}^{(i)}\in \mathbb{R}^p$,
+i.e., it is a $p$-dimensional real vector (a sequence of $p$ numbers) for some $p$.
+
+- In other words, $\mathbf{x}^{(i)}=(x_1^{(i)}, \dots, x_p^{(i)})$,\
+$x_j^{(i)}\in\mathbb{R}$ for each $j=1,\dots,p$ and $i=1,\dots,n$.
+
+
+
+- In cases such as this we say that we deal with *structured (tabular) data*\
+-- $\mathbf{X}$ can be represented as an $n\times p$-matrix:
+
+\[
+\mathbf{X}=\left[
+\begin{array}{c}
+\mathbf{x}^{(1)} \\
+\mathbf{x}^{(2)} \\
+\vdots\\
+\mathbf{x}^{(n)} \\
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cccc}
+x_1^{(1)} & x_2^{(1)} & \cdots & x_p^{(1)}\\
+x_1^{(2)} & x_2^{(2)} & \cdots & x_p^{(2)}\\
+\vdots & \vdots & \ddots & \vdots \\
+x_1^{(n)} & x_2^{(n)} & \cdots & x_p^{(n)}\\
+\end{array}
+\right]
+\]
+
+- Mathematically, we'd write that $\mathbf{X}\in\mathbb{R}^{n\times d}$:
+
+\[
+\mathbf{X}=
+\left[
+\begin{array}{cccc}
+x_{1,1} & x_{1,2} & \cdots & x_{1,p} \\
+x_{2,1} & x_{2,2} & \cdots & x_{2,p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
+\end{array}
+\right]
+\]
+
+
+
+
+min vs argmin
+
+
+$f:X\to Y$ means
+
+$x\mapsto x^2$
+`function(x) x^2` in R
+
+
+recall notation for input matrix etc.
+
+
+multiplication
+
+transpose, ${}^T$
+
+
+display (stand-alone) vs text (in-line) style
+$\displaystyle\sum_{i=1}^n x_i$
+vs $\textstyle\sum_{i=1}^n x_i$
+
+$\sum_{i=1}^n x_i$...
+
+also $\sum_{i=1,\dots,n} x_i$
+
+also $\sum_{i\in\{1,\dots,n\}} x_i$
+
+$\prod_{i=1}^n x_i$...
+
+
+
+$\exp x = e^x$ -- exponential function with base $e\simeq 2.718$
+
+$\log x$ -- natural logarithm (base $e$)
+
+It holds $e^x = y$ iff $\log y = x$
+
+$\log ab = \log a + \log b$
+
+$\log a^c = c\log a$
+
+$\log a/b = \log a - \log b$
+
+
+$\log 1 = 0$
+
+$\log e = 1$
+
+hence $\log e^x = x$
+
+
+
+...derivatives...
+chain rule etc.
+
+
+
+* Euclidean norm:
+\[
+\|\boldsymbol{x}\| = \|\boldsymbol{x}\|_2 = \sqrt{ \sum_{i=1}^n x_i^2 }
+\]
+this is nothing else than the *length* of the vector $\boldsymbol{x}$
+* Manhattan (taxicab) norm:
+\[
+\|\boldsymbol{x}\|_1 = \sum_{i=1}^n |x_i|
+\]
+* Chebyshev (maximum) norm:
+\[
+\|\boldsymbol{x}\|_\infty = \max_{i=1,\dots,n} |x_i|
+= \max\{ |x_1|, |x_2|, \dots, |x_n| \}
+\]
+
+$\nabla f$ -- Gradient of $f:\mathbb{R}^p\to\mathbb{R}$,
+denoted $\nabla f:\mathbb{R}^p\to\mathbb{R}^p$
+is the vector of all its partial derivatives,
+($\nabla$ -- nabla symbol = differential operator)
+\[
+\nabla f(\mathbf{x}) = \left[
+\begin{array}{c}
+\frac{\partial f}{\partial x_1}(\mathbf{x})\\
+\vdots\\
+\frac{\partial f}{\partial x_p}(\mathbf{x})
+\end{array}
+\right]
+\]
+
+
+
+$\frac{\partial f}{\partial x_i}$ --
+the partial derivative of a function $f(x_1,...,x_p)$ w.r.t. the i-th variable
+-- is like an ordinary derivative w.r.t. $x_i$
+where $x_1,...,x_{i-1},x_{i+1},...,x_p$ are assumed constant.
+
+
+Euclidean distance
+

@@ -3,9 +3,9 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-# Machine Learning
+## Machine Learning
 
-## What is Machine Learning?
+### What is Machine Learning?
 
 ---
 
@@ -26,7 +26,7 @@ We need **data**.
 
 
 
-## Main Types of Machine Learning Problems
+### Main Types of Machine Learning Problems
 
 ---
 
@@ -49,9 +49,9 @@ feedback on the decision made
 
 
 
-# Supervised Learning
+## Supervised Learning
 
-## Formalism
+### Formalism
 
 ---
 
@@ -248,7 +248,7 @@ think of this as a kind of rotation; it allows us to introduce a set of
 
 
 
-## Desired Outputs
+### Desired Outputs
 
 ---
 
@@ -312,7 +312,7 @@ y_{n} \\
 \]
 
 
-## Types of Supervised Learning Problems
+### Types of Supervised Learning Problems
 
 ---
 
@@ -337,9 +337,10 @@ classified as:
     > e.g., $y_i=$ rating of a product on the scale 1--5
     with $\mathbf{x}_{i,\cdot}=$ ratings of $p$ most similar products
 
+
 ---
 
-### Example Problems -- Discussion
+#### Example Problems -- Discussion
 
 > Which of the following are instances of classification problems? Which of them are regression tasks?
 
@@ -357,7 +358,7 @@ classified as:
 
 ---
 
-### Hybrid Nature of Datasets
+#### Hybrid Nature of Datasets
 
 A single dataset can become an instance of many different ML problems.
 
@@ -365,8 +366,7 @@ Example -- the `wines` dataset.
 
 ```{r,echo=-1}
 set.seed(123)
-# See: http://www.gagolewski.com/resources/data/
-wines <- read.csv("winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines[1,]
 ```
 
@@ -400,9 +400,9 @@ barplot(table(wines$response), las=1)
 
 
 
-# Simple Regression
+## Simple Regression
 
-## Introduction
+### Introduction
 
 ---
 
@@ -447,7 +447,7 @@ for particular Balances $\mathbf{x}=[x_1\ \cdots\ x_n]^T$.
 
 ---
 
-### Naming Convention
+#### Naming Convention
 
 Variable types:
 
@@ -466,7 +466,7 @@ Also note that:
 
 ---
 
-### Prediction vs. Description (Inference)
+#### Prediction vs. Description (Inference)
 
 The model will not be ideal, but it might be usable:
 
@@ -488,7 +488,7 @@ so as to infer that there is an association between $X$ and $Y$
 ---
 
 
-### Observations are Subject to Error
+#### Observations are Subject to Error
 
 - Mathematically, we will assume that there is some "true" function that models data
 (true relationship between $Y$ and $X$),
@@ -521,7 +521,7 @@ abline(v=0)
 ```
 
 
-## Search Space and Objective
+### Search Space and Objective
 
 ---
 
@@ -667,7 +667,7 @@ an elegant way to define an inline function $f$ such that $f(x)=x^2$)
 
 
 
-## Simple Linear Regression
+### Simple Linear Regression
 
 ---
 
@@ -715,7 +715,7 @@ legend("topleft",
 > Which of these is the least squares solution?
 
 
-## Solution in R
+### Solution in R
 
 ---
 
@@ -841,7 +841,7 @@ we can compute the associated preferred Balance that should yield it
 
 
 
-## Derivation of the Solution (\*\*)
+### Derivation of the Solution (\*\*)
 
 ---
 
@@ -985,9 +985,9 @@ $a$ and $b$ can also be rewritten as:
 
 
 
-#  Vector and Matrix Algebra Basics
+##  Vector and Matrix Algebra Basics
 
-## Motivation
+### Motivation
 
 ---
 
@@ -1067,7 +1067,7 @@ print(microbenchmark(
 
 
 
-## Vector-Scalar Operations
+### Vector-Scalar Operations
 
 ---
 
@@ -1106,7 +1106,7 @@ $2^{\boldsymbol{x}}$ or $\boldsymbol{x}^2$.
 
 
 
-## Vector-Vector Operations
+### Vector-Vector Operations
 
 ---
 
@@ -1202,7 +1202,7 @@ u | v # elementwise OR  (disjunction)
 !u    # elementwise NOT (negation)
 ```
 
-## Other Vector Operations
+### Other Vector Operations
 
 ---
 
@@ -1352,7 +1352,7 @@ mean(z >= 5) # what is the proportion of TRUE values?
 The behaviour of `sum()` and `mean()` is dictated by the fact
 that, when interpreted in numeric terms, `TRUE==1`  and `FALSE==0`.
 
-## Matrices
+### Matrices
 
 ---
 
@@ -1433,7 +1433,7 @@ Hence, $\mathbf{B}=\mathbf{A}^T$ is a matrix such that $b_{i,j}=a_{j,i}$.
 
 In other words, in the transposed matrix, rows become columns and columns become rows.
 
-## Matrix-Scalar Operations
+### Matrix-Scalar Operations
 
 ---
 
@@ -1446,7 +1446,7 @@ are applied on each element of the input matrix:
 ```
 
 
-## Matrix-Matrix Operations
+### Matrix-Matrix Operations
 
 ---
 
@@ -1475,7 +1475,7 @@ A*A
 ```
 
 
-## Matrix Multiplication (\*)
+### Matrix Multiplication (\*)
 
 ---
 
@@ -1548,7 +1548,7 @@ This is again different than R's elementwise `A^2`.
 <!-- TODO? Matrix ops and the recycling rule -->
 
 
-## Matrix-Vector Operations
+### Matrix-Vector Operations
 
 ---
 
@@ -1618,9 +1618,9 @@ apply(A, 2, function(c) c-mean(c))
 
 
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -1640,7 +1640,7 @@ of many variables, i.e., $p>1$, called multiple regression.
 
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 
