@@ -616,9 +616,9 @@ We enjoy SSR because (amongst others):
 
 - (\*\*) statistically speaking, this has a clear underlying interpretation
 
-    > (which we will study
-    in our Machine Learning unit = assuming errors are normally distributed,
-    finding a model minimising the SSR is equivalent to maximum likelihood estimation)
+    > (assuming errors are normally distributed,
+    finding a model minimising the SSR is equivalent
+    to maximum likelihood estimation)
 
 - the models minimising the SSR can often be found easily
 
@@ -626,9 +626,9 @@ We enjoy SSR because (amongst others):
     studied already by Gauss in the late 18th century)
 
 
-(\*\*) Other choices (not studied in this unit == it's too early for this):
+(\*\*) Other choices:
 
-- regularised SSR (for regression with multiple input variables)
+- regularised SSR, e.g., lasso or ridge regression (in the case of multiple input variables)
 - sum or median of absolute values (robust regression)
 
 
@@ -947,7 +947,7 @@ to assure that this is the minimum of $E$ -- which is exactly the case though)
 
 <!-- @TODO rewrite nicely with means and correlation coefficients etc.
 
-Pearson's r introduced in the next lecture though
+Pearson's r introduced in the next chapter though
 
 (a <- cor(x,y)*sd(y)/sd(x))
 (b <- mean(y)-a*mean(x))
@@ -969,7 +969,7 @@ c(a, b) # the same as f$coefficients
 
 ---
 
-(\*\*) In the next lecture, we will introduce the notion of Pearson's
+(\*\*) In the next chapter, we will introduce the notion of Pearson's
 linear coefficient, $r$ (see `cor()` in R). It might be shown that
 $a$ and $b$ can also be rewritten as:
 
@@ -1519,7 +1519,7 @@ of columns in $\mathbf{A}$.
 crossprod(A) # same as t(A) %*% A
 ```
 
-In the next lecture, we will learn about the Pearson linear
+In the next chapter we will learn about the Pearson linear
 correlation coefficient which can be beautifully expressed this way.
 
 

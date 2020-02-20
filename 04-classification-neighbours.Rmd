@@ -4,9 +4,9 @@
 
 
 
-# Introduction
+## Introduction
 
-## Classification Task
+### Classification Task
 
 ---
 
@@ -39,7 +39,7 @@ apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
 - With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 
-- In this lecture we are interested in  **classification** tasks;
+- In this chapter we are interested in  **classification** tasks;
 we assume that each $y_i$ is a discrete label.
 
 ---
@@ -80,7 +80,7 @@ legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"))
 abline(v=0, lty=3, col="blue")
 ```
 
-## Factor Data Type
+### Factor Data Type
 
 ---
 
@@ -114,15 +114,14 @@ f
 
 
 
-## Data
+### Data
 
 ---
 
 For illustration, let's consider the `wines` dataset.
 
 ```{r}
-# See: http://www.gagolewski.com/resources/data/
-wines <- read.csv("winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv", comment="#")
 (n <- nrow(wines)) # number of samples
 ```
 
@@ -166,7 +165,7 @@ binary classification task.
 
 
 
-## Training and Test Sets
+### Training and Test Sets
 
 ---
 
@@ -213,22 +212,22 @@ Y_test  <- Y[-train_indexes]
 
 
 
-## Discussed Methods
+### Discussed Methods
 
 ---
 
 We will discuss 3 simple and educational (yet practically useful)
 classification algorithms:
 
-- *K-nearest neighbour scheme* -- this part
-- *Decision trees* -- the next lecture
-- *Logistic regression* -- the next lecture
+- *K-nearest neighbour scheme* -- this chapter
+- *Decision trees* -- the next chapter
+- *Logistic regression* -- the next chapter
 
 
 
-# K-nearest Neighbour Classifier
+## K-nearest Neighbour Classifier
 
-## Introduction
+### Introduction
 
 ---
 
@@ -310,7 +309,7 @@ plot_knn(25)
 
 
 
-## Example in R
+### Example in R
 
 ---
 
@@ -353,7 +352,7 @@ mean(Y_test == Y_knn10) # accuracy
 
 
 
-## Different Metrics (\*)
+### Different Metrics (\*)
 
 ---
 
@@ -441,7 +440,7 @@ of numerous string metrics.
 <!-- Mahalanobis distance -->
 
 
-## Standardisation of Independent Variables
+### Standardisation of Independent Variables
 
 ---
 
@@ -514,9 +513,9 @@ mean(Y_test == Y_knn10s) # accuracy
 
 
 
-# Implementing a K-NN Classifier (\*)
+## Implementing a K-NN Classifier (\*)
 
-## Main Routine (\*)
+### Main Routine (\*)
 
 ---
 
@@ -641,7 +640,7 @@ test_our_mode <- function() {
 
 -->
 
-## Mode
+### Mode
 
 ---
 
@@ -694,7 +693,7 @@ our_mode(c(1, 1, 3, 3, 2))
 
 
 
-##  NN Search Routines (\*)
+###  NN Search Routines (\*)
 
 ---
 
@@ -795,8 +794,7 @@ It turns out that there are special **spatial data structures**
 neighbours in *low-dimensional spaces* (for small $p$).
 
 > (\*) Searching in high-dimensional spaces is hard due to the so-called
-curse of dimensionality. A dedicated unit on machine learning should
-explore this topic further.
+curse of dimensionality.
 
 
 For example, `FNN::get.knnx()` also implements the so-called
@@ -835,9 +833,9 @@ test_speed(10000, 20, 5)
 
 
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -860,7 +858,7 @@ We will also discuss some other noteworthy classifiers:
 
 
 
-## Side Note: K-NN Regression
+### Side Note: K-NN Regression
 
 ---
 
@@ -920,7 +918,7 @@ lines(x, y25, col=4, lwd=3)
 
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 

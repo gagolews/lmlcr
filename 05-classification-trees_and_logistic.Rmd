@@ -3,9 +3,9 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-# Introduction
+## Introduction
 
-## Classification Task
+### Classification Task
 
 ---
 
@@ -38,7 +38,7 @@ apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
 - With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 
-- In this lecture we are still  interested in  **classification** tasks;
+- In this chapter we are still  interested in  **classification** tasks;
 we assume that each $y_i$ is a discrete label.
 
 
@@ -85,7 +85,7 @@ abline(v=0, lty=3, col="blue")
 
 
 
-## Data
+### Data
 
 ---
 
@@ -93,8 +93,7 @@ For illustration, let's consider the `wines` dataset again.
 
 
 ```{r}
-# See: http://www.gagolewski.com/resources/data/
-wines <- read.csv("winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv", comment="#")
 (n <- nrow(wines)) # number of samples
 ```
 
@@ -171,7 +170,7 @@ Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 
 
 
-## Discussed Methods
+### Discussed Methods
 
 ---
 
@@ -207,9 +206,9 @@ How should we do that?
 
 
 
-# Model Assessment and Selection
+## Model Assessment and Selection
 
-## Performance Metrics
+### Performance Metrics
 
 ---
 
@@ -390,7 +389,7 @@ get_metrics <- function(Y_test, Y_pred)
 ```
 
 
-## How to Choose K for K-NN Classification?
+### How to Choose K for K-NN Classification?
 
 ---
 
@@ -510,7 +509,7 @@ abline(a=0, b=1, lty=3)
 
 
 
-## Training, Validation and Test sets
+### Training, Validation and Test sets
 
 ---
 
@@ -544,8 +543,7 @@ we can perform a random **train-validation-test split** of the original dataset:
 
 > (\*) If our dataset is too small,
 we can use various *crossvalidation* techniques
-instead of a train-validate-test split. These will be explored
-in a dedicated Machine Learning unit.
+instead of a train-validate-test split.
 
 
 <!--By the way, this is how most data mining competitions are assessed --
@@ -578,9 +576,9 @@ stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
 
 
 
-# Decision Trees
+## Decision Trees
 
-## Introduction
+### Introduction
 
 ---
 
@@ -682,7 +680,7 @@ rpart.plot(ts, tweak=1.3)
 
 
 
-## Example in R
+### Example in R
 
 ---
 
@@ -774,7 +772,7 @@ get_metrics(Y_test, Y_pred)
 
 
 
-## A Note on Decision Tree Learning
+### A Note on Decision Tree Learning
 
 ---
 
@@ -788,10 +786,8 @@ Examples:
 * C5.0, 1997
 * CART by Leo Breiman et al., 1984
 
-Decision trees are most often constructed by a *greedy*, *top-down*
+(\*\*) Decision trees are most often constructed by a *greedy*, *top-down*
 *recursive partitioning*.
-
-These should be discussed in more detail in a dedicated unit on Machine Learning.
 
 
 
@@ -838,9 +834,9 @@ bagging
 
 
 
-# Binary Logistic Regression
+## Binary Logistic Regression
 
-## Motivation
+### Motivation
 
 ---
 
@@ -896,7 +892,7 @@ legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
 ```
 
 
-## Logistic Model
+### Logistic Model
 
 ---
 
@@ -945,7 +941,7 @@ Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
 We call it a **generalised linear model** (glm).
 
 
-## Example in R
+### Example in R
 
 ---
 
@@ -1002,7 +998,7 @@ get_metrics(Y_test, Y_pred)
 ```
 
 
-## Loss Function
+### Loss Function
 
 ---
 
@@ -1026,8 +1022,8 @@ the **cross-entropy** (a.k.a. **log-loss**),
 e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
 \]
 
-The corresponding loss function has not only nice statistical properties
-(see a dedicated unit on ML) but also an intuitive interpretation.
+The corresponding loss function has not only nice statistical properties (\*\*)
+but also an intuitive interpretation.
 
 ---
 
@@ -1063,13 +1059,13 @@ e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
 for the optimal set of parameters ($\beta_0,\beta_1,\dots,\beta_p$)
 minimising the log-loss.
 
-> In a lecture on optimisation, we shall see that
+> In the chapter on optimisation, we shall see that
 the solution to the logistic regression can be solved numerically
 by means of quite simple iterative algorithms.
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -1082,7 +1078,7 @@ Other prominent classification algorithms:
 
 ---
 
-- Interestingly, in the next lecture we will  note that the logistic regression model
+- Interestingly, in the next chapter we will  note that the logistic regression model
 is a special case of a *feed-forward single layer neural network*.
 
 - We will also generalise the binary logistic regression to the case of
@@ -1098,7 +1094,7 @@ exhibit the decision trees' important feature: interpretability.
 
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 
