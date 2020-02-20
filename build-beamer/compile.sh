@@ -24,6 +24,8 @@ echo "Title='${title}'"
 
 rm -f "${knitrfile}"
 rm -f "${outfile}"
+rm -f "${tmpfile}"
+rm -f "${tmpfile/%.Rmd/.md}"
 rm -f "${tmpfile/%.Rmd/.pdf}"
 rm -f "${tmpfile/%.Rmd/.tex}"
 rm -f "${tmpfile/%.Rmd/.log}"

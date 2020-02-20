@@ -2,49 +2,82 @@
 
 # Copyright (C) 2020, Marek Gagolewski, https://www.gagolewski.com
 
-echo "Compiling ${1} → ${1/%Rmd/html}..."
 set -e
 
-rm -f "${1/%Rmd/html}"
+if [ ! -f "${1}" ]; then
+    echo "input file does not exist or no input provided"
+    exit 1
+fi
 
-echo "\`\`\`{r,echo=FALSE}" > "tmp-html-${1/%.Rmd/}.Rmd"
-cat knit2html-options.R >> "tmp-html-${1/%.Rmd/}.Rmd"
-echo "\`\`\`" >> "tmp-html-${1/%.Rmd/}.Rmd"
-echo "" >> "tmp-html-${1/%.Rmd/}.Rmd"
-cat "${1}" >> "tmp-html-${1/%.Rmd/}.Rmd"
+keepsources=true
+tmpdir="tmp-html/${1/%.Rmd/}"
+outdir="out-html"
+knitrfile="./tmp-html-${1}"
+tmpfile="${tmpdir}/${1}"
+outfile="${outdir}/${1/%.Rmd/.html}"
 
+echo "Compiling ${1} → ${outfile}..."
+
+title=`grep -m 1 -oP '(?<=^# ).*$' "${1}"`
+date="$(date '+%Y-%m-%d %H:%M:%S') (`git rev-parse --short HEAD`)"
+echo "Title='${title}'"
+
+rm -f "${knitrfile}"
+rm -f "${outfile}"
+rm -f "${tmpfile}"
+rm -f "${tmpfile/%.Rmd/.md}"
+rm -f "${tmpfile/%.Rmd/.html}"
+
+mkdir -p "${outdir}"
+mkdir -p "${tmpdir}"
+
+echo "\`\`\`{r,echo=FALSE}" > "${knitrfile}"
+cat build-html/options.R >> "${knitrfile}"
+echo "\`\`\`" >> "${knitrfile}"
+echo "" >> "${knitrfile}"
+cat "${1}" >> "${knitrfile}"
+#sed -e 's@^---$@<p></p>@g' "${1}" >> "${knitrfile}"
 
 
 Rscript -e "\
     library('knitr');                              \
-    opts_knit\$set(progress=FALSE, verbose=FALSE); \
+    opts_knit\$set(progress=FALSE, verbose=TRUE); \
     opts_chunk\$set(                               \
-        cache.path='tmp-html-${1/%.Rmd/}/cache/',    \
-        fig.path='tmp-html-${1/%.Rmd/}/figures/'     \
+        cache.path='${tmpdir}/cache/',    \
+        fig.path='${tmpdir}/figures/'     \
     );                                             \
-    knit('tmp-html-${1/%.Rmd/}.Rmd', 'tmp-html-${1/%Rmd/md}')
+    knit('${knitrfile}', '${tmpfile/%.Rmd/.md}')
 "
 
+mv "${knitrfile}" "${tmpfile}"
+
 /opt/anaconda3/bin/pandoc +RTS -K512m -RTS \
-    "tmp-html-${1/%Rmd/md}" \
-    --output "${1/%Rmd/html}" \
+    "${tmpfile/%.Rmd/.md}" \
+    --output "${outfile}" \
     --from markdown+autolink_bare_uris+tex_math_single_backslash+tex_math_dollars+smart-implicit_figures \
     --to html5 \
-    --template knit2html-template.html \
+    --template build-html/template.html \
     --highlight-style tango \
     --variable 'theme:flatly' \
     --variable 'mathjax-url:https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' \
-    --default-image-extension .svg \
+    --default-image-extension .png \
     --email-obfuscation none \
     --number-sections \
     --self-contained \
     --standalone \
     --section-divs \
     --table-of-contents \
-    --toc-depth 2 \
+    --toc-depth 3 \
+    --top-level-division=part \
+    -V title="${title}" \
+    -V pagetitle="${title}" \
+    -V author="Marek Gagolewski" \
+    -V date="${date}" \
     --mathjax
 
-rm -f "tmp-html-${1/%.Rmd/}.Rmd"
-rm -f "tmp-html-${1/%Rmd/md}"
+if [ "$keepsources" = false ]; then
+    rm -f "${tmpfile}"
+    rm -f "${tmpfile/%.Rmd/.md}"
+fi
 
-echo "Finished compiling ${1} → ${1/%Rmd/html}. OK."
+echo "Finished compiling ${1} → ${outfile}. OK."

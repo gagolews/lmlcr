@@ -16,7 +16,7 @@ RMD_SOURCES = \
 VPATH=.
 HTML_OUTDIR=out-html
 BEAMER_OUTDIR=out-beamer
-HTML_OUTPUTS=$(RMD_SOURCES:.Rmd=.html)
+HTML_OUTPUTS=$(patsubst %.Rmd,$(HTML_OUTDIR)/%.html,$(RMD_SOURCES))
 BEAMER_OUTPUTS=$(patsubst %.Rmd,$(BEAMER_OUTDIR)/%.pdf,$(RMD_SOURCES))
 
 all: html beamer
