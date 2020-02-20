@@ -46,9 +46,9 @@ plot_metrics_digits <- function(res, acc, main) {
 }
 ```
 
-# Introduction
+## Introduction
 
-## Binary Logistic Regression: Recap
+### Binary Logistic Regression: Recap
 
 ---
 
@@ -177,7 +177,7 @@ In this lecture we will generalise the binary logistic regression model:
 case of a feed-forward neural network.
 
 
-## Data
+### Data
 
 ---
 
@@ -311,9 +311,9 @@ legend("topleft", bg="white",
 
 
 
-# Multinomial Logistic Regression
+## Multinomial Logistic Regression
 
-## A Note on Data Representation
+### A Note on Data Representation
 
 ---
 
@@ -342,7 +342,7 @@ Hence, now we're back in our "comfort zone".
 
 
 
-## Extending Logistic Regression
+### Extending Logistic Regression
 
 ---
 
@@ -412,7 +412,7 @@ if we fix $\beta_{0,0}=\beta_{1,0}=\dots=\beta_{p,0}=0$
 as $e^0=1$.
 
 
-## Softmax Function
+### Softmax Function
 
 ---
 
@@ -433,7 +433,7 @@ round(rbind(
     softmax(c(0, 0, 10, 0, 0, 0, 9,  0, 0, 8))), 2)
 ```
 
-## One-Hot Encoding and Decoding
+### One-Hot Encoding and Decoding
 
 ---
 
@@ -531,7 +531,7 @@ Y_test2 <- one_hot_encode(Y_test)
 
 
 
-## Cross-entropy Revisited
+### Cross-entropy Revisited
 
 ---
 
@@ -608,7 +608,7 @@ sum(y2*log(y_pred))
 ```
 
 
-##  @TODO Solution in Matrix Form  (\*)
+###  @TODO Solution in Matrix Form  (\*)
 
 ---
 
@@ -618,9 +618,13 @@ sum(y2*log(y_pred))
 -- copy-paste from @OPTIMISATION@
 
 
-# Artificial Neural Networks
 
-## Artificial Neuron
+
+
+
+## Artificial Neural Networks
+
+### Artificial Neuron
 
 ---
 
@@ -629,7 +633,7 @@ A neuron as a mathematical function:
 
 ![Source: https://en.wikipedia.org/wiki/File:Neuron3.png
 by Egm4313.s12 at English Wikipedia, licensed under
-the Creative Commons Attribution-Share Alike 3.0 Unported license.](Neuron3.png)
+the Creative Commons Attribution-Share Alike 3.0 Unported license.](figures/neuron)
 
 
 
@@ -639,13 +643,13 @@ the Creative Commons Attribution-Share Alike 3.0 Unported license.](Neuron3.png)
 The **perceptron** (Frank Rosenblatt, 1958) was amongst the first
 models of artificial neurons:
 
-![](perceptron.png)
+![](figures/perceptron)
 
 
 
 
 
-## Logistic Regression as a Neural Network
+### Logistic Regression as a Neural Network
 
 ---
 
@@ -682,7 +686,7 @@ that uses the softmax as the activation function.
 
 
 
-## Example in R
+### Example in R
 
 ---
 
@@ -753,9 +757,9 @@ plot_metrics_digits(res_logistic, mean(Y_test == Y_pred), "Multinomial Logistic 
 ---
 
 
-# Deep Neural Networks
+## Deep Neural Networks
 
-## Introduction
+### Introduction
 
 ---
 
@@ -767,7 +771,7 @@ We could try aligning neurons into many interconnected layers.
 @TODO@ depict
 
 
-## Activation Functions
+### Activation Functions
 
 ---
 
@@ -799,7 +803,7 @@ $$\psi(z)=\max(z, 0)$$
 
 
 
-## Example in R - 2 Layers
+### Example in R - 2 Layers
 
 ---
 
@@ -838,7 +842,7 @@ plot_metrics_digits(res_2, mean(Y_test == Y_pred), "2-layer net 784-800-10 [relu
 ```
 
 
-## Example in R - 6 Layers
+### Example in R - 6 Layers
 
 ---
 
@@ -884,9 +888,9 @@ plot_metrics_digits(res_6, mean(Y_test == Y_pred), "6-layer net 784-2500-2000-15
 
 
 
-# Preprocessing of Data
+## Preprocessing of Data
 
-## Introduction
+### Introduction
 
 ---
 
@@ -909,7 +913,7 @@ will be provided in the test test.
 
 
 
-## Image Deskewing
+### Image Deskewing
 
 ---
 
@@ -1048,9 +1052,9 @@ res_6_deskewed <- data.frame(t(sapply(0:9, function(i) {
 
 
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -1094,7 +1098,7 @@ listed in the References section.
 
 
 
-## Beyond MNIST
+### Beyond MNIST
 
 ---
 
@@ -1156,7 +1160,7 @@ or at ImageNet (http://image-net.org/index) for an even greater challenge.
 
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 

@@ -43,9 +43,9 @@ plot_metrics_digits <- function(res, acc, main) {
 ```
 
 
-# Introduction
+## Introduction
 
-## Optimisation Problem
+### Optimisation Problem
 
 ---
 
@@ -78,7 +78,7 @@ i.e., we will assume the search space is $D=\mathbb{R}^p$ for some $p$.
 
 
 
-## Example Problems in Machine Learning
+### Example Problems in Machine Learning
 
 ---
 
@@ -101,7 +101,7 @@ In **binary logistic regression** we were minimising the cross-entropy:
 
 
 
-## Types of Minima and Maxima
+### Types of Minima and Maxima
 
 ---
 
@@ -244,7 +244,7 @@ legend("bottom", ncol=3, legend=c("smooth", "non-smooth", "noisy"), lty=c(1,2,4)
 
 
 
-## Example Objective over a 2D Domain
+### Example Objective over a 2D Domain
 
 ---
 
@@ -367,9 +367,9 @@ Golden section search
 -->
 
 
-# Iterative Methods
+## Iterative Methods
 
-## Introduction
+### Introduction
 
 ---
 
@@ -411,7 +411,7 @@ Note that there are two stopping criteria, based on:
 
 
 
-## Example in R
+### Example in R
 
 ---
 
@@ -507,7 +507,7 @@ res <- optim(x12_init, g_vectorised_plot, method="BFGS")
 
 
 
-## Convergence to Local Optima
+### Convergence to Local Optima
 
 ---
 
@@ -564,7 +564,7 @@ col=c("#00000066", "#ff000066", "#00ff0066", "#0000ff66")[cc], length=0.01)
 
 
 
-## Random Restarts
+### Random Restarts
 
 ---
 
@@ -614,9 +614,9 @@ Can we guarantee that the global minimum will be found within $N$ tries? **No.**
 
 
 
-#  Gradient Descent
+##  Gradient Descent
 
-## Function Gradient (\*)
+### Function Gradient (\*)
 
 ---
 
@@ -689,7 +689,7 @@ grad_g_vectorised <- function(x) {
 ```
 
 
-## Three Facts on the Gradient
+### Three Facts on the Gradient
 
 ---
 
@@ -806,7 +806,7 @@ is positive-definite.
 
 
 
-## Gradient Descent Algorithm (GD)
+### Gradient Descent Algorithm (GD)
 
 ---
 
@@ -929,7 +929,7 @@ and minimise oscillations
 
 
 
-## Example: MNIST
+### Example: MNIST
 
 ---
 
@@ -1149,7 +1149,7 @@ accuracy(Y_test2,  nn_predict(B, X_test1))
 
 
 
-## Stochastic Gradient Descent (SGD)
+### Stochastic Gradient Descent (SGD)
 
 ---
 
@@ -1339,9 +1339,9 @@ batch_size <- 128
 
 
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -1404,7 +1404,7 @@ gradient descent or higher-order methods like the ones available in `optim()`.
 
 
 
-## Optimisers in Keras
+### Optimisers in Keras
 
 ---
 
@@ -1434,7 +1434,7 @@ good intuitions!
 
 
 
-## Note on Search Spaces
+### Note on Search Spaces
 
 ---
 
@@ -1459,7 +1459,7 @@ problem can be:
 
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 

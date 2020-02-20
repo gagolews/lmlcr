@@ -17,9 +17,9 @@
 
 
 
-# Unsupervised Learning
+## Unsupervised Learning
 
-## Introduction
+### Introduction
 
 ---
 
@@ -38,7 +38,7 @@ plot(iris[,3], iris[,2], las=1, ann=FALSE)
 Our aim now is to discover the **underlying structure in the data**.
 
 
-## Main Types of Unsupervised Learning Problems
+### Main Types of Unsupervised Learning Problems
 
 
 
@@ -49,7 +49,7 @@ In **dimensionality reduction** we seek a meaningful *projection* of a high dime
 space (think: many variables/columns).
 
 ```{r,echo=FALSE, out.width='50%', fig.width=5, fig.height=5}
-wines <- read.csv("winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines <- wines[wines$color=='red',]
 p <- princomp(wines[,c(11, 4, 12)])
 biplot(p, las=1, col=c("#ff000033",1), pch=1, main="Red Wines", xlim=c(-0.05, 0.23))
@@ -98,7 +98,7 @@ For example, these may be customers having different shopping patterns
 
 
 
-## Clustering
+### Clustering
 
 ---
 
@@ -196,10 +196,10 @@ of nested data partitions
 
 
 
-# K-means Clustering
+## K-means Clustering
 
 
-## Example in R
+### Example in R
 
 ---
 
@@ -247,7 +247,7 @@ The discovered partition matches the original one very well.
 
 
 
-## Problem Statement
+### Problem Statement
 
 ---
 
@@ -333,7 +333,7 @@ all(km$cluster == idx) # sanity check
 ```
 
 
-## Algorithms for the k-means Problem
+### Algorithms for the k-means Problem
 
 ---
 
@@ -393,7 +393,7 @@ but increases the likelihood of such.
 
 ---
 
-### Lloyd's $k$-means Algorithm
+#### Lloyd's $k$-means Algorithm
 
 Lloyd's algorithm (1957) is sometimes referred to as "the" k-means algorithm:
 
@@ -478,10 +478,10 @@ alternatively, DBSCAN or PCA or MDS or ...
 
 
 
-# Hierarchical Methods
+## Hierarchical Methods
 
 
-## Introduction
+### Introduction
 
 ---
 
@@ -512,7 +512,7 @@ we select a pair of clusters to be merged.
 
 
 
-## Example in R
+### Example in R
 
 ---
 
@@ -561,7 +561,7 @@ plot(h)
 ```
 
 
-## Agglomerative Hierarchical Clustering
+### Agglomerative Hierarchical Clustering
 
 
 ---
@@ -591,7 +591,7 @@ of **nested** partitions of $\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)}\}$
 with $\mathcal{C}^{(n-1)}=\left\{ \left\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)} \right\} \right\}$.
 
 
-## Linkage Functions
+### Linkage Functions
 
 ---
 
@@ -813,9 +813,9 @@ $-->
 
 
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -876,7 +876,7 @@ useful to fit separate models to each cluster.
 
 
 
-## Other Noteworthy Clustering Algorithms
+### Other Noteworthy Clustering Algorithms
 
 ---
 
@@ -892,7 +892,7 @@ in the dedicated Machine Learning unit:
 
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 

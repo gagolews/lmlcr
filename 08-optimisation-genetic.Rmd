@@ -19,9 +19,9 @@
 
 
 
-# Introduction
+## Introduction
 
-## Recap
+### Recap
 
 
 ---
@@ -80,7 +80,7 @@ one -- it involves a nested search for the closest cluster, with the use of the 
 
 
 
-## K-means Revisited
+### K-means Revisited
 
 ---
 
@@ -131,7 +131,7 @@ kmeans(X, centers=k, nstart=10)
 ```
 
 
-## optim() vs. kmeans()
+### optim() vs. kmeans()
 
 ---
 
@@ -331,9 +331,9 @@ Are you really looking for the global minimum?
 
 
 
-# A Note on Convex Optimisation (\*)
+## A Note on Convex Optimisation (\*)
 
-## Introduction
+### Introduction
 
 ---
 
@@ -352,7 +352,7 @@ Note that this doesn't mean that we know an **analytic solution**.
 
 
 
-## Convex Combinations (\*)
+### Convex Combinations (\*)
 
 ---
 
@@ -369,7 +369,7 @@ and $\theta_1+\theta_2+\dots+\theta_n=1$.
 
 ---
 
-![](combination1){width=50%}
+![](figures/combination1){width=50%}
 
 The set of all convex combinations of two points $x_1,x_2\in D$:
 \[\{\theta x_{1}+(1-\theta)x_{2}: \theta\in [0,1]\}\]
@@ -379,7 +379,7 @@ is just the line segment between these two points.
 
 
 
-![](combination2){width=50%}
+![](figures/combination2){width=50%}
 
 The set of all convex combinations
 of 3 points yields a triangle
@@ -388,7 +388,7 @@ of 3 points yields a triangle
 ---
 
 
-![](combination3){width=50%}
+![](figures/combination3){width=50%}
 
 More generally, we get the *convex hull* of a set of points --
 the smallest set $C$ enclosing all the points that is convex,
@@ -402,11 +402,11 @@ like a fence.
 ---
 
 
-![](convex_set){width=75%}
+![](figures/convex_set){width=75%}
 
 
 
-## Convex Functions (\*)
+### Convex Functions (\*)
 
 
 ---
@@ -418,14 +418,14 @@ f(\theta x_{1}+(1-\theta)x_{2})\leq \theta f(x_{1})+(1-\theta)f(x_{2})
 \]
 
 
-![](convex_function){width=75%}
+![](figures/convex_function){width=75%}
 
 (function value at any convex combination of two points
 is not greater than that combination of the function values at these two points)
 
 ---
 
-![](convex_concave){width=75%}
+![](figures/convex_concave){width=75%}
 
 
 Convex: $f(\theta x_{1}+(1-\theta)x_{2})\leq \theta f(x_{1})+(1-\theta)f(x_{2})$
@@ -458,7 +458,7 @@ for a more general problem of minimisation with constraints.
 
 
 
-## Examples
+### Examples
 
 ---
 
@@ -478,9 +478,9 @@ $w_1,w_2\ge 0$.
 
 
 
-# Genetic Algorithms
+## Genetic Algorithms
 
-## Introduction
+### Introduction
 
 ---
 
@@ -528,7 +528,7 @@ that you will likely explore in a dedicated AI unit.
 
 
 
-## Overview of the Method
+### Overview of the Method
 
 ---
 
@@ -561,7 +561,7 @@ e.g., $n_\text{pop}=128$
 
 
 
-## Example Implementation - GA for k-means
+### Example Implementation - GA for k-means
 
 ---
 
@@ -633,7 +633,7 @@ crossover <- function(pop, pairs, k, p) {
 
 ---
 
-![](crossover){width=75%}
+![](figures/crossover){width=75%}
 
 ---
 
@@ -756,9 +756,9 @@ of all the input points belonging to that cluster.
 
 
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -814,12 +814,12 @@ Other interesting algorithms:
 * Simulated annealing
 * CMA-ES
 * Tabu search
-* Particle swarm optimization
-* Artificial bee/ant colony optimization
+* Particle swarm optimisation
+* Artificial bee/ant colony optimisation
 * Cuckoo Search
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 

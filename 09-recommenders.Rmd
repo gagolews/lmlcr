@@ -25,9 +25,9 @@ options(stringsAsFactors=FALSE)
 
 
 
-# Introduction
+## Introduction
 
-## What is a Recommender System?
+### What is a Recommender System?
 
 ---
 
@@ -52,7 +52,7 @@ Ricci et al. (2011) list the following functions of recommender systems:
 - better understand what users want
 
 
-## The Netflix Prize
+### The Netflix Prize
 
 ---
 
@@ -95,7 +95,7 @@ achieving the winning RMSE of 0.8567 on the test subset.
 
 
 
-## Main Approaches
+### Main Approaches
 
 ---
 
@@ -148,7 +148,7 @@ Netflix Prize FAQ https://web.archive.org/web/20070821194257/http://www.netflixp
 
 
 
-## Formalism
+### Formalism
 
 ---
 
@@ -184,9 +184,9 @@ $r_{u,i}=0$.
 
 
 
-# Collaborative Filtering
+## Collaborative Filtering
 
-## Example
+### Example
 
 ---
 
@@ -241,7 +241,7 @@ R
 ```
 
 
-## Similarity Measures
+### Similarity Measures
 
 ---
 
@@ -275,7 +275,7 @@ see also the `use` argument to the `cor()` function.
 
 
 
-## User-Based Collaborative Filtering
+### User-Based Collaborative Filtering
 
 ---
 
@@ -343,7 +343,7 @@ mean(R[sim[1:K], "Spinach"])
 
 
 
-## Item-Based Collaborative Filtering
+### Item-Based Collaborative Filtering
 
 ---
 
@@ -413,9 +413,9 @@ mean(R["Sera", sim[1:K]])
 
 
 
-# (\*) MovieLens - 9/2018 - Small
+## MovieLens Dataset (\*)
 
-## Dataset
+### Dataset
 
 ---
 
@@ -443,7 +443,7 @@ See also https://movielens.org/ and (Harper, Konstan, 2015).
 
 ```{r,cache=TRUE}
 options(stringsAsFactors=FALSE)
-movies <- read.csv("ml-9-2018-small/movies.csv")
+movies <- read.csv("datasets/ml-9-2018-small/movies.csv")
 head(movies, 4)
 nrow(movies)
 ```
@@ -452,14 +452,14 @@ nrow(movies)
 
 
 ```{r,cache=TRUE}
-ratings <- read.csv("ml-9-2018-small/ratings.csv")
+ratings <- read.csv("datasets/ml-9-2018-small/ratings.csv")
 head(ratings, 4)
 nrow(ratings)
 table(ratings$rating)
 ```
 
 
-## Data Cleansing
+### Data Cleansing
 
 ---
 
@@ -512,7 +512,7 @@ RML[1:6, 1:18]
 ```
 
 
-## Item-item Similarities
+### Item-item Similarities
 
 ---
 
@@ -561,7 +561,7 @@ SI[is.nan(SI)] <- 0 # there were some divisions by zero
 `tcrossprod(A,B)` gives $\mathbf{A} \mathbf{B}^T$
 
 
-## Example Recommendations
+### Example Recommendations
 
 ---
 
@@ -591,7 +591,7 @@ recommend(1, 10, SI, movies)
 ...and so on.
 
 
-## Clustering
+### Clustering
 
 ---
 
@@ -635,9 +635,9 @@ cat(i, strwrap(paste(head(movies$title[c==5], 20), collapse=", ")), sep="\n")
 
 
 
-# Outro
+## Outro
 
-## Remarks
+### Remarks
 
 ---
 
@@ -651,7 +651,7 @@ information of the Netflix Prize winners.
 - Recommender systems are an interesting fusion of the techniques we
 have already studied -- linear models, $K$-nearest neighbours etc.
 
-## Issues
+### Issues
 
 ---
 
@@ -701,7 +701,7 @@ to promote or inhibit selected items.
 
 
 
-## References and Further Reading
+### References and Further Reading
 
 ---
 
