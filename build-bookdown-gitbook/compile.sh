@@ -22,10 +22,10 @@ echo "Title='${title}'"
 rm -f "${knitrfile}"
 rm -f "${outfile}"
 
-mkdir -p "${tmpdir}"
+mkdir -p "tmp-bookdown-gitbook"
 
 echo "\`\`\`{r,echo=FALSE}" > "${knitrfile}"
-cat build-html/options.R >> "${knitrfile}"
+cat build-bookdown-gitbook/options.R >> "${knitrfile}"
 echo "\`\`\`" >> "${knitrfile}"
 echo "" >> "${knitrfile}"
 cat "${1}" >> "${knitrfile}"

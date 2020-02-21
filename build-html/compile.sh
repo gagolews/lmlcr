@@ -67,6 +67,7 @@ mv "${knitrfile}" "${tmpfile}"
     --standalone \
     --section-divs \
     --table-of-contents \
+    --bibliography=bibliography.bib \
     --toc-depth 3 \
     --top-level-division=part \
     -V title="${title}" \

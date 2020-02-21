@@ -2,8 +2,14 @@
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
-![](figures/cover)
-
 This is a draft version of the forthcoming book
 *Lightweight Machine Learning Classics with R*
 by [Marek Gagolewski](https://www.gagolewski.com).
+
+Copyright (C) 2020, [Marek Gagolewski](https://www.gagolewski.com)
+
+This material is licensed under the Creative Commons
+[Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+License (CC BY-NC-ND 4.0).
+
+![](figures/cover)

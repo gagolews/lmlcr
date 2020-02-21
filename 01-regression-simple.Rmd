@@ -9,19 +9,19 @@
 
 ---
 
-- Recall that an **algorithm** is a well-defined sequence of instructions that,
+An **algorithm** is a well-defined sequence of instructions that,
 for a given sequence of input arguments,
 yields some desired output.
 
-- In other words, it is a specific recipe for a **function**.
+In other words, it is a specific recipe for a **function**.
 
-- Developing algorithms is a tedious task.
+Developing algorithms is a tedious task.
 
-- In **machine learning**, we build and study computer algorithms
+In **machine learning**, we build and study computer algorithms
 that make *predictions* or *decisions* but which are not
 manually programmed.
 
-- **Learning** needs some material based upon new knowledge will be acquired.
+**Learning** needs some material based upon new knowledge will be acquired.
 We need **data**.
 
 
@@ -30,6 +30,7 @@ We need **data**.
 
 ---
 
+Machine Learning Problems include, but are not limited to:
 
 - **Supervised learning** -- for every input point (e.g., a photo)
 there is an associated desired output (e.g., whether it depicts a crosswalk)
@@ -55,20 +56,20 @@ feedback on the decision made
 
 ---
 
-- Let $\mathbf{X}=\{\mathfrak{X}^{(1)},\dots,\mathfrak{X}^{(n)}\}$
+Let $\mathbf{X}=\{\mathfrak{X}^{(1)},\dots,\mathfrak{X}^{(n)}\}$
 be an input sample ("a database")
 that consists of $n$ objects.
 
 
 
-- Most often we assume that each object $\mathfrak{X}_i$
+Most often we assume that each object $\mathfrak{X}_i$
 is represented using $p$ numbers for some $p$.
 
-- We denote this fact as $\mathfrak{X}_i\in \mathbb{R}^p$
+We denote this fact as $\mathfrak{X}_i\in \mathbb{R}^p$
 (it is *a $p$-dimensional real vector* or
 *a sequence of $p$ numbers* or
 *a point in a $p$-dimensional real space*
-or *an element of a reap $p$-space* etc.).
+or *an element of a real $p$-space* etc.).
 
 . . .
 
@@ -84,20 +85,20 @@ contemplating how many real-world situations fit into this framework.
 
 ---
 
-- If we have "complex" objects on input,
+If we have "complex" objects on input,
 we can try representing them as **feature vectors** (e.g.,
 come up with numeric attributes that best describe them in a task at hand).
 
-    > How would you represent a patient in a clinic?
+> How would you represent a patient in a clinic?
 
-    > How would you represent a car in an insurance company's database?
+> How would you represent a car in an insurance company's database?
 
-    > How would you represent a student in an university?
+> How would you represent a student in an university?
 
-- But, e.g., 1920×1080 pixel image
+But, e.g., 1920×1080 pixel image
 can be "unwound" to a "flat" vector of length 2,073,600.
 
-- (\*) There are some algorithms such as Multidimensional Scaling,
+(\*) There are some algorithms such as Multidimensional Scaling,
 Locally Linear Embedding, IsoMap etc.
 that can do that automagically.
 
@@ -252,7 +253,7 @@ think of this as a kind of rotation; it allows us to introduce a set of
 
 ---
 
-- In supervised learning,
+In supervised learning,
 apart from the inputs we are also given the corresponding
 reference/desired outputs.
 
@@ -260,10 +261,10 @@ reference/desired outputs.
 given an input point, generates an output that is as close to the desired one
 as possible. The given data sample will be used to "train" this "model".
 
-- Usually, the reference outputs are encoded as single numbers (scalars)
+Usually the reference outputs are encoded as single numbers (scalars)
 or textual labels.
 
-- In other words, with each input $\mathbf{x}_{i,\cdot}$ we associate
+In other words, with each input $\mathbf{x}_{i,\cdot}$ we associate
 the desired output $y_i$:
 
 ```{r, echo=-1}
@@ -340,29 +341,27 @@ classified as:
 
 ---
 
-#### Example Problems -- Discussion
+Example Problems -- Discussion:
 
 > Which of the following are instances of classification problems? Which of them are regression tasks?
-
+>
 > What kind of data should you gather in order to tackle them?
-
-- Email spam detection
-- Market stock price prediction
-- Predict the likeability of a new ad
-- Credit risk assessment
-- Detect existence of tumour tissues in medical images
-- Predict time-to-recovery of cancer patients
-- Recognise smiling faces on photographs
-- Detect unattended luggage in airport security camera footage
-- Turn on emergency braking to avoid collisions with pedestrians
+>
+> - Email spam detection
+> - Market stock price prediction
+> - Predict the likeability of a new ad
+> - Credit risk assessment
+> - Detect existence of tumour tissues in medical images
+> - Predict time-to-recovery of cancer patients
+> - Recognise smiling faces on photographs
+> - Detect unattended luggage in airport security camera footage
+> - Turn on emergency braking to avoid collisions with pedestrians
 
 ---
 
-#### Hybrid Nature of Datasets
-
 A single dataset can become an instance of many different ML problems.
 
-Example -- the `wines` dataset.
+Examples -- the `wines` dataset:
 
 ```{r,echo=-1}
 set.seed(123)
@@ -406,11 +405,11 @@ barplot(table(wines$response), las=1)
 
 ---
 
-- **Simple regression** is the easiest setting to start with -- let's assume
+**Simple regression** is the easiest setting to start with -- let's assume
 $p=1$, i.e., all inputs are 1-dimensional.
 Denote $x_i=x_{i,1}$.
 
-- We will use it to build many intuitions, for example, it'll be easy
+We will use it to build many intuitions, for example, it'll be easy
 to illustrate the concepts graphically.
 
 ```{r,echo=-1}
@@ -437,36 +436,35 @@ par(mar=c(4,4,1,1))
 plot(X, Y, las=1)
 ```
 
-- Our aim is to construct a function $f$ that
+Our aim is to construct a function $f$ that
 **models** Rating as a function of Balance,
 $f(X)=Y$.
 
-- We are equipped with $n=`r length(X)`$ reference (observed) Ratings
+We are equipped with $n=`r length(X)`$ reference (observed) Ratings
 $\mathbf{y}=[y_1\ \cdots\ y_n]^T$
 for particular Balances $\mathbf{x}=[x_1\ \cdots\ x_n]^T$.
 
 ---
 
-#### Naming Convention
 
-Variable types:
+Note the following naming conventions:
 
-- $X$ -- independent/explanatory/predictor variable
+* Variable types:
 
-- $Y$ -- dependent/response/predicted variable
+    - $X$ -- independent/explanatory/predictor variable
 
-Also note that:
+    - $Y$ -- dependent/response/predicted variable
 
-- $Y$ -- idealisation (any possible Rating)
+* Also note that:
 
-- $\mathbf{y}=[y_1\ \cdots\ y_n]^T$ -- values actually observed
+    - $Y$ -- idealisation (any possible Rating)
+
+    - $\mathbf{y}=[y_1\ \cdots\ y_n]^T$ -- values actually observed
 
 
 
 
 ---
-
-#### Prediction vs. Description (Inference)
 
 The model will not be ideal, but it might be usable:
 
@@ -488,26 +486,24 @@ so as to infer that there is an association between $X$ and $Y$
 ---
 
 
-#### Observations are Subject to Error
-
-- Mathematically, we will assume that there is some "true" function that models data
+Mathematically, we will assume that there is some "true" function that models data
 (true relationship between $Y$ and $X$),
 but the observed outputs are subject to **additive error**:
 \[Y=f(X)+\varepsilon.\]
 
 
-- $\varepsilon$ is a random term, classically we assume that
+$\varepsilon$ is a random term, classically we assume that
 errors are independent of each other,
 have expected value of $0$ (there is no systematic error = unbiased)
 and that they follow a normal distribution.
 
 ---
 
-- We denote this as $\varepsilon\sim\mathcal{N}(0, \sigma)$
+We denote this as $\varepsilon\sim\mathcal{N}(0, \sigma)$
 (read: random variable $\varepsilon$ follows a normal distribution
 with expect value of $0$ and standard deviation of $\sigma$ for some $\sigma\ge 0$).
 
-- $\sigma$ controls the amount of noise (and hence, uncertainty).
+$\sigma$ controls the amount of noise (and hence, uncertainty).
 Here is the plot of the probability distribution function (PDFs, densities)
 of $\mathcal{N}(0, \sigma)$ for different $\sigma$s:
 
@@ -525,7 +521,7 @@ abline(v=0)
 
 ---
 
-- There are many different functions that can be **fitted** into
+There are many different functions that can be **fitted** into
 the observed $(\mathbf{x},\mathbf{y})$
 
 ```{r, echo=FALSE, message=FALSE}
@@ -554,14 +550,14 @@ abline(lm(Y~X), col=2,lwd=3)
 
 ```
 
-- Thus, we need a **model selection criterion**.
+Thus, we need a **model selection criterion**.
 
 
 
 ---
 
 
-- Usually, we will be interested in a model
+Usually, we will be interested in a model
 that minimises appropriately aggregated **residuals**
 $f(x_i)-y_i$, i.e.,
 **predicted outputs minus observed outputs**,
@@ -583,7 +579,7 @@ legend("bottomright", legend=c("observed Y", "predicted Y"), pch=c(1,4), col=c(1
 ---
 
 
-- Top choice: sum of squared residuals
+Top choice: sum of squared residuals:
 \[
 \begin{array}{rl}
 \mathrm{SSR}(f|\mathbf{x},\mathbf{y})
@@ -593,16 +589,16 @@ legend("bottomright", legend=c("observed Y", "predicted Y"), pch=c(1,4), col=c(1
 \end{array}
 \]
 
-    > Read "$\sum_{i=1}^n z_i$" as "the sum of $z_i$ for $i$ from $1$ to $n$";
-    this is just a shorthand for $z_1+z_2+\dots+z_n$.
+> Read "$\sum_{i=1}^n z_i$" as "the sum of $z_i$ for $i$ from $1$ to $n$";
+this is just a shorthand for $z_1+z_2+\dots+z_n$.
 
-    > The notation $\mathrm{SSR}(f|\mathbf{x},\mathbf{y})$ means that
-    it is the error measure
-    corresponding to the model $(f)$ *given* our data.\
-    > We could've  denoted it  with $\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)$
-    or even $\mathrm{SSR}(f)$ to emphasise that $\mathbf{x},\mathbf{y}$
-    are just fixed  values and we are not  interested
-    in changing them at all.
+> The notation $\mathrm{SSR}(f|\mathbf{x},\mathbf{y})$ means that
+it is the error measure
+corresponding to the model $(f)$ *given* our data.\
+> We could've  denoted it  with $\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)$
+or even $\mathrm{SSR}(f)$ to emphasise that $\mathbf{x},\mathbf{y}$
+are just fixed  values and we are not  interested
+in changing them at all.
 
 ---
 
@@ -821,22 +817,22 @@ abline(f, col=2, lwd=3)
 
 
 Note that our $Y=aX+b$ model is **interpretable**
-and **well-behaving**
+and **well-behaving**:
 
 > (not all machine learning models will have this feature, think: deep neural networks,
 which we rather conceive as *black boxes*)
 
 * we know that by increasing $X$ by a small amount,
-$Y$ will also increase (positive correlation)
+$Y$ will also increase (positive correlation),
 
 * the model is continuous -- small change in $X$
-doesn't yield any drastic change in $Y$
+doesn't yield any drastic change in $Y$,
 
-* we know what will happen if we increase or decrease $X$ by, say, $100$
+* we know what will happen if we increase or decrease $X$ by, say, $100$,
 
 * the function is invertible -- if we want Rating of $500$,
 we can compute the associated preferred Balance that should yield it
-(provided that the model is valid)
+(provided that the model is valid).
 
 
 
@@ -849,11 +845,11 @@ we can compute the associated preferred Balance that should yield it
 how to search for a minimum of a function of many variables
 and what are partial derivatives)
 
-Denote with
+Denote with:
 
 \[
 E(a,b)=\mathrm{SSR}(x\mapsto ax+b|\mathbf{x},\mathbf{y})
-=\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2
+=\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2.
 \]
 
 We seek the minimum of $E$ w.r.t. both $a,b$.
@@ -872,7 +868,7 @@ i.e., $E_a'(a^*, b^*) = 0$ and $E_b'(a^*, b^*)=0$.
 We have:
 
 \[
-E(a,b)   = \displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2
+E(a,b)   = \displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2.
 \]
 
 We need to compute the partial derivatives $\partial E/\partial a$ (derivative of $E$
@@ -1159,12 +1155,12 @@ Note that a warning is not an error  -- we still get a sensible result.
 
 ---
 
-In R,
+In R:
 
 * comparison operators such as `<` (less than), `<=` (less than or equal),
-`==` (equal), `!=` (not equal), `>` (greater than), `>=` (greater than or equal)
+`==` (equal), `!=` (not equal), `>` (greater than) and `>=` (greater than or equal)
 as well as
-* logical operators like `&` (and) as well as `|` (or)
+* logical operators like `&` (and) and `|` (or)
 
 are performed in the same manner as above, i.e.:
 
@@ -1624,19 +1620,20 @@ apply(A, 2, function(c) c-mean(c))
 
 ---
 
-- In supervised learning, with each input point,
+In supervised learning, with each input point,
 there's an associated reference output value.
 
-- Learning a model = constructing a function that approximates
+Learning a model = constructing a function that approximates
 (minimising some error measure) the given data.
 
-- Regression = the output variable $Y$ is continuous.
+Regression = the output variable $Y$ is continuous.
 
-- We studied linear models with a single independent variable based on
+We studied linear models with a single independent variable based on
 the least squares (SSR) fit.
 
-- In the next part we will extend this setting to the case
+In the next part we will extend this setting to the case
 of many variables, i.e., $p>1$, called multiple regression.
+
 
 
 
@@ -1644,25 +1641,15 @@ of many variables, i.e., $p>1$, called multiple regression.
 
 ---
 
-
 Recommended further reading:
 
-- G. James, D. Witten, T. Hastie, R. Tibshirani,
-    *An Introduction to Statistical Learning with Applications in R*, Springer, 2017
-    -- Chapters 1, 2 and 3.
+- (@islr; Chapters 1, 2 and 3)
 
-    > Freely available at
-    http://faculty.marshall.usc.edu/gareth-james/ISL/
+Other:
 
-Other references:
+- (@esl; Chapter 1, Sections 3.2 and 3.3)
 
-- T. Hastie, R. Tibshirani, J. Friedman,
-    *The Elements of Statistical Learning*, Springer, 2017
-    -- Chapter 1, Sections 3.2 and 3.3
-    > Freely available at
-    https://web.stanford.edu/~hastie/ElemStatLearn/
-- S. Russell, P. Norvig,
-    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
-    -- Sections 18.1, 18.2, 18.6.
+---
 
-
+::: {#refs}
+:::

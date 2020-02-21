@@ -65,6 +65,7 @@ mv "${knitrfile}" "${tmpfile}"
     --self-contained \
     --include-in-header build-beamer/header.tex \
     --top-level-division=chapter \
+    --bibliography=bibliography.bib \
     -V title="${title}" \
     -V subtitle="SIT114" \
     -V author="Marek Gagolewski" \

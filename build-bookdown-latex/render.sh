@@ -13,6 +13,9 @@ cp -f ../build-bookdown-latex/index.Rmd .
 cp -f ../bibliography.bib .
 cat ../00-introduction.Rmd >> index.Rmd
 
+date="DRAFT v0.9 $(date '+%Y-%m-%d %H:%M') (`git rev-parse --short HEAD`)"
+sed -i -e "s/@DATE@/${date}/g" index.Rmd
+
 mkdir -p figures/
 cp -f ../figures/*.pdf figures
 

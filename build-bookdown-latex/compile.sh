@@ -22,14 +22,14 @@ echo "Title='${title}'"
 rm -f "${knitrfile}"
 rm -f "${outfile}"
 
-mkdir -p "${tmpdir}"
+mkdir -p "tmp-bookdown-latex"
 
 echo "\`\`\`{r,echo=FALSE}" > "${knitrfile}"
-cat build-html/options.R >> "${knitrfile}"
+cat build-bookdown-latex/options.R >> "${knitrfile}"
 echo "\`\`\`" >> "${knitrfile}"
 echo "" >> "${knitrfile}"
-cat "${1}" >> "${knitrfile}"
-#sed -e 's@^---$@<p></p>@g' "${1}" >> "${knitrfile}"
+#cat "${1}" >> "${knitrfile}"
+sed -e 's@^---$@\\bigskip@g' "${1}" >> "${knitrfile}"
 
 
 Rscript -e "\
