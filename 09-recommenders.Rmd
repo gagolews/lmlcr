@@ -706,7 +706,7 @@ to promote or inhibit selected items.
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:
 

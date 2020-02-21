@@ -1096,7 +1096,7 @@ Trees can also be used for regression tasks, see R package `rpart`.
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:
 

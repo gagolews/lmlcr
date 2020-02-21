@@ -821,7 +821,7 @@ Other interesting algorithms:
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:
 

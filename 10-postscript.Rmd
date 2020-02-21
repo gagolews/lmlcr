@@ -6,7 +6,7 @@
 
 ## Abbreviations
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 a.k.a. == also known as
@@ -45,7 +45,7 @@ SGD == stochastic gradient descent
 
 ### Logic and Set Theory
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 $\forall$ -- for all
@@ -83,7 +83,7 @@ $A^p = A\prod A \prod \dots\prod A$ ($p$ times) for any $p$
 
 ### Symbols
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 
@@ -129,7 +129,7 @@ $\mathbb{Z}$ -- the set of integer numbers, $\mathbb{Z}=\{\dots,-2,-1,0,1,2,\dot
 
 ### Vectors and Matrices
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 $\boldsymbol{x}=(x_1,\dots,x_n)$ -- a sequence of $n$ elements ($n$-ary sequence/vector)
@@ -244,7 +244,7 @@ Euclidean distance
 
 ### Functions
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 $f:X\to Y$ means
 
@@ -290,7 +290,7 @@ gradient
 
 ### Sums and Products
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 
@@ -311,7 +311,7 @@ $\prod_{i=1}^n x_i$...
 
 ### Other
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 min vs argmin

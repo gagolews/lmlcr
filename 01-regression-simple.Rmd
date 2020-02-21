@@ -1639,7 +1639,7 @@ of many variables, i.e., $p>1$, called multiple regression.
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:
 

@@ -920,7 +920,7 @@ lines(x, y25, col=4, lwd=3)
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:
 

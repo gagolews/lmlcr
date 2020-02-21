@@ -393,8 +393,6 @@ but increases the likelihood of such.
 
 ---
 
-#### Lloyd's $k$-means Algorithm
-
 Lloyd's algorithm (1957) is sometimes referred to as "the" k-means algorithm:
 
 1. Start with random cluster centres $\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)}$.
@@ -894,7 +892,7 @@ in a more advanced Machine Learning unit:
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 Recommended further reading:

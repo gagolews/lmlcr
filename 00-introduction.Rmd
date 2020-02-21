@@ -28,8 +28,11 @@ In this book we will take a deep dive into some of the most fundamental
 algorithms that stood the test of time and that still form
 the basis for the state-of-the-art solutions of the modern-era AI,
 which is principally (big) data-driven.
-We will learn how to use the R language for implementing various stages
+We will learn how to use the R language [@rpoject]
+for implementing various stages
 of data processing and modelling activities.
+For a more in-depth treatment of R, see,
+for instance, [@rprogdatascience; @r4ds].
 
 We will provide solid underpinnings for further studies
 related to statistical learning, machine learning
@@ -58,3 +61,5 @@ t.b.d.
 During the writing of this book, I've been mostly listening to the music
 featuring John Coltrane, Krzysztof Komeda,
 Henry Threadgill, Albert Ayler, Paco de Lucia and Tomatito.
+
+TODO: R packages...

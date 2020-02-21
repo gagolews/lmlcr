@@ -1163,7 +1163,7 @@ or at ImageNet (http://image-net.org/index) for an even greater challenge.
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:
 

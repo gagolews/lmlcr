@@ -512,7 +512,7 @@ and the residuals.
 
 ---
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 ```{r}
 summary(f12)
@@ -691,7 +691,7 @@ whose side effect is variable selection.
 
 ---
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 ```{r}
@@ -704,7 +704,7 @@ step(lm(Rating~1, data=C), # empty model
 ```
 
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 ```{r}
@@ -715,7 +715,7 @@ step(lm(Rating~., data=C), # full model
 
 
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 ```{r}
@@ -728,7 +728,7 @@ step(lm(Rating~1, data=C), # empty model
 ```
 
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 
 ```{r}
@@ -1300,7 +1300,7 @@ round(t(C_normalised) %*% C_normalised, 3)
 
 ### Further Reading
 
-#### {.allowframebreaks}
+#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:
 
