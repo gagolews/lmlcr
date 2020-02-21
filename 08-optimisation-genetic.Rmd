@@ -35,7 +35,7 @@ that minimises or maximises an **objective function** $f:D\to\mathbb{R}$:
 \]
 
 
-In Lecture 7, we were dealing with
+In one of the previous chapters, we were dealing with
 **unconstrained continuous optimisation**,
 i.e., we assumed the search space is $D=\mathbb{R}^p$ for some $p$.
 
@@ -48,7 +48,7 @@ or cross-entropy in logistic regression.
 
 ---
 
-The class of general-purpose iterative algorithms we studied in Lecture 7
+The class of general-purpose iterative algorithms we've previously studied
 fit into the following scheme:
 
 
@@ -99,7 +99,7 @@ to each point's cluster centre:
 This is an (NP-)hard problem!
 There is no efficient exact algorithm.
 
-We need approximations. In the last lecture, we have
+We need approximations. In the last chapter, we have
 discussed the iterative Lloyd's algorithm (1957),
 which is amongst a few procedures implemented in the `kmeans()` function.
 
@@ -341,9 +341,8 @@ Are there cases where we are sure that a local minimum is the global minimum?
 
 Yes. For example when we minimise *convex objective functions*.
 
-> This topic will covered extensively in a class on Mathematical
-Modelling/Calculus. Here is just a very brief overview for the interested,
-see also (Boyd, Vandenberghe, 2004).
+> Here is just a very brief overview of the topic for the interested,
+see also [@boyd_vandenberghe] for more.
 
 For example, the linear regression or the logistic regression
 have convex objectives -- they are very well-behaving.
@@ -450,7 +449,7 @@ Methods such as gradient descent or BFGS should work very well
 
 
 > (\*\*) There is a special class of constrained optimisation problems called linear
-and quadratic programming that involves convex functions, see a lecture in Mathematical Modelling.
+and quadratic programming that involves convex functions, see [@nocedal_wright;@fletcher]
 
 > (\*\*\*) See also the Karush–Kuhn–Tucker (KKT) conditions
 for a more general problem of minimisation with constraints.
@@ -497,8 +496,8 @@ Most of them rely on clever randomised search.
 ---
 
 There is a wide class of **nature-inspired** algorithms (that traditionally
-belong to the subfield of AI called *computational intelligence* or *soft computing*)
-that you will likely explore in a dedicated AI unit.
+belong to the subfield of AI called *computational intelligence* or *soft computing*);
+see, e.g, [@evolution]:
 
 * evolutionary algorithms -- inspired by the principle of natural selection
 

@@ -80,6 +80,10 @@ $A\times B = \{ (a,b): a\in A, b\in B \}$
 $A^p = A\prod A \prod \dots\prod A$ ($p$ times) for any $p$
 
 
+$(a, b)$ -- an open interval; $x\in(a,b)$ iff $a < x < b$ for some $a< b$
+
+$[a, b]$ -- a closed interval; $x\in[a,b]$ iff $a \le x \le b$ for some $a\le b$
+
 
 ### Symbols
 
@@ -124,6 +128,8 @@ $\mathbb{N}$ -- the set of natural numbers, $\mathbb{N}=\{1,2,3,\dots\}$
 $\mathbb{N}_0$ -- the set of natural numbers including zero, $\mathbb{N}_0=\mathbb{N}\cup\{0\}$
 
 $\mathbb{Z}$ -- the set of integer numbers, $\mathbb{Z}=\{\dots,-2,-1,0,1,2,\dots\}$
+
+$[0,1]$ -- the unit interval
 
 
 

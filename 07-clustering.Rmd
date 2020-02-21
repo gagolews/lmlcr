@@ -215,7 +215,7 @@ km$cluster # assigned labels
 ```
 
 > Later we'll see that `nstart` is responsible for random restarting the
-(local) optimisation procedure, just like we did in the previous lecture.
+(local) optimisation procedure, just like we did in the previous chapter.
 
 
 ---
@@ -365,7 +365,7 @@ Expanding the above yields:
 
 Unfortunately, the $\min$ operator in the objective function
 makes this optimisation problem not tractable
-with the methods discussed in the previous lecture.
+with the methods discussed in the previous chapter.
 
 
 ---
@@ -831,7 +831,8 @@ combine the (sub)clusters into more meaningful groups
 using other methods.
 
 Iterative $k$-means algorithms are very fast even for large data sets,
-but they may fail to find a desirable solution, see the next lecture.
+but they may fail to find a desirable solution, see the next chapter
+for discussion.
 
 
 ---
@@ -879,8 +880,7 @@ useful to fit separate models to each cluster.
 ---
 
 
-Other clustering approaches that we might explore
-in a more advanced Machine Learning unit:
+Other noteworthy clustering approaches:
 
 - Genie (see R package `genie`)
 - DBSCAN, HDBSCAN*

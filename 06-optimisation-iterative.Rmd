@@ -72,7 +72,7 @@ that minimises or maximises $f$:
 \]
 
 
-> In this lecture, we will deal with **unconstrained continuous optimisation**,
+> In this chapter, we will deal with **unconstrained continuous optimisation**,
 i.e., we will assume the search space is $D=\mathbb{R}^p$ for some $p$.
 
 
@@ -425,8 +425,8 @@ is smooth -- the [guessed direction] is determined by computing
 the (partial) derivatives (or their finite-difference approximations).
 However, they might work well even if this is not the case.
 You will be able to derive similar algorithms (called quasi-Newton ones) yourself
-once you get to know about Taylor series approximation, see
-the unit on Calculus/Mathematical Modelling.
+once you get to know about Taylor series approximation
+by taking a course on calculus.
 
 ---
 
@@ -652,8 +652,7 @@ where $x_1,...,x_{i-1},x_{i+1},...,x_p$ are assumed constant.
 
 > Function differentiation is an important concept -- see how it's referred to
 in, e.g., the Keras manual at https://keras.rstudio.com/reference/fit.html.
-Don't worry though! This will be covered in the unit dedicated to Mathematical Modelling/Calculus.
-We take our time on this -- Melbourne wasn't built in a day.
+Don't worry though We take our time with this -- Melbourne wasn't built in a day.
 
 ---
 
@@ -933,7 +932,7 @@ and minimise oscillations
 
 ---
 
-Recall that in the previous lecture we have
+Recall that in the previous chapter we've
 studied the MNIST dataset.
 
 Let us go back to the task of fitting a multiclass logistic regression model.
@@ -1108,7 +1107,6 @@ grad_cross_entropy <- function(X, Y_true, Y_pred) {
 ```
 
 > Luckily, we are not overwhelmed with the above, because
--- patiently pining for the Calculus/Mathematical Modelling unit --
 we can always substitute the gradient
 with the finite differences (yet, these will be slower). :)
 
@@ -1367,8 +1365,8 @@ fitting a logistic regression model to MNIST with `optim()`'s BFGS -- there are 
 
 Training deep neural networks with SGD is slow too,
 but there is a trick to propagate weight updates layer by layer,
-called *backpropagation* (actually used in every neural network library).
-See the dedicated AI unit.
+called *backpropagation* (actually used in every neural network library),
+see, e.g.,  [@deeplearn].
 
 \ \
 
@@ -1428,8 +1426,9 @@ These are all fancy variations of the pure stochastic GD.
 Some of them are just tricks that work well in some examples and destroy the convergence
 on other ones.
 
-You will get into their details in a dedicated unit covering
-deep neural networks in more detail, but you already have developed some
+You will get into their details in a dedicated course covering
+deep neural networks in more detail (see, e.g., [@deeplearn]),
+but you already have developed some
 good intuitions!
 
 

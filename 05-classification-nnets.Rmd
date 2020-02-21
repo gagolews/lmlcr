@@ -3,21 +3,6 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-
-
-TODO: change notation $x_i\to x_i$
-
-TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
-
-
-TODO: fig.height=4,     fig.width=5
-
-TODO: par(mar=..smaller..)
-
-TODO: logistic regression depict
-
-TODO: nnet depict
-
 TODO: logistic regression matrix form
 
 
@@ -48,14 +33,14 @@ plot_metrics_digits <- function(res, acc, main) {
 }
 ```
 
+
+
+
 ## Introduction
 
 ### Binary Logistic Regression: Recap
 
 ---
-
-
-
 
 Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
 that consists of $n$ points in a $p$-dimensional space.
@@ -75,7 +60,7 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
 \right]
 \]
 
-- With each input $\mathbf{x}_{i,\cdot}$ we associate the desired output
+With each input $\mathbf{x}_{i,\cdot}$ we associate the desired output
 $y_i$ which is a categorical label -- hence we
 will be dealing with **classification** tasks again.
 
@@ -104,7 +89,6 @@ It holds:
 ---
 
 The fitting of the model was performed by minimising the cross-entropy (log-loss):
-
 \[
 \min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
 -\frac{1}{n} \sum_{i=1}^n
@@ -115,7 +99,6 @@ Note that for each $i$,
 either the left or the right term (in the bracketed expression) vanishes.
 
 Hence, we may also write the above as:
-
 \[
 \min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
 -\frac{1}{n} \sum_{i=1}^n
@@ -171,7 +154,7 @@ $\log e^{a} = a$ and $\log 1 = 0$, we can rewrite the above as:-->
 ---
 
 
-In this lecture we will generalise the binary logistic regression model:
+In this chapter we will generalise the binary logistic regression model:
 
 - First we will consider the case of multiclass classification.
 
@@ -188,10 +171,10 @@ We will study the famous classic -- the MNIST image classification dataset.
 > == Modified National Institute of Standards and Technology database,
 see http://yann.lecun.com/exdb/mnist/
 
-$28\times 28$ pixel images of handwritten digits
+It consists of 28×28 pixel images of handwritten digits:
 
-* `train`: 60,000 training images:
-* `t10k`: 10,000 testing images
+* `train`: 60,000 training images,
+* `t10k`: 10,000 testing images.
 
 There are 10 unique digits, so this is a multiclass classification problem.
 
@@ -223,7 +206,7 @@ for (i in 0:9) {
 ---
 
 Accessing MNIST via the `keras` package
-(which we will use throughout this lecture anyway) is easy:
+(which we will use throughout this chapter anyway) is easy:
 
 
 
@@ -258,7 +241,7 @@ for (file in files) {
 
 ---
 
-`X_train` and `X_test` consist of $28\times 28$ pixel images.
+`X_train` and `X_test` consist of 28×28 pixel images.
 
 ```{r,cache=TRUE,mnist_info}
 dim(X_train)
@@ -266,7 +249,7 @@ dim(X_test)
 ```
 
 > `X_train` and `X_test` are 3-dimensional arrays, think
-of them as vectors of 60000 and 10000 matrices of size $28\times 28$, respectively.
+of them as vectors of 60000 and 10000 matrices of size 28×28, respectively.
 
 These are greyscale images, with 0 = black, ..., 255 = white:
 
@@ -297,7 +280,7 @@ table(Y_test)  # label distribution in test sample
 
 ---
 
-```{r,cache=TRUE,mnist_info2b,fig.height=6,fig.width=6,out.width='50%',echo=-1}
+```{r,cache=TRUE,mnist_info2b,fig.height=5,echo=-1}
 par(mar=c(0,0,0,0))
 id <- 123 # which image to show
 image(z=t(X_train[id,,]), col=grey.colors(256, 0, 1),
@@ -325,7 +308,7 @@ this seems so complicated!".
 
 For a computer, (almost) everything is just numbers.
 
-Instead of playing with $n$ matrices, each of size $28\times 28$,
+Instead of playing with $n$ matrices, each of size 28×28,
 we may "flatten" the images so as to get
 $n$ "long" vectors of length $p=784$.
 
@@ -337,9 +320,10 @@ X_test2  <- matrix(X_test, ncol=28*28)
 The classifiers studied here do not take the "spatial" positioning of
 the pixels into account anyway.
 
-> (*) See, however, convolutional neural networks (CNNs).
+> (*) See, however, convolutional neural networks (CNNs),
+e.g., in [@deeplearn].
 
-Hence, now we're back in our "comfort zone".
+Hence, now we're back to our "comfort zone".
 
 
 
@@ -350,9 +334,9 @@ Hence, now we're back in our "comfort zone".
 
 
 Let us generalise the binary logistic regression model
-to a 10-class classification one.
+to a 10-class one.
 
-This time, we will be modelling ten probabilities,
+This time we will be modelling ten probabilities,
 with
 $\Pr(Y=i|\mathbf{X},\boldsymbol\beta)$ denoting the *confidence* that a given image $\mathbf{X}$
 is in fact the $i$-th digit:
@@ -382,8 +366,8 @@ is given as a function of
 \[\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_{p,i} X_{p}.\]
 
 Therefore, instead of a parameter vector of length $(p+1)$,
-we will need a matrix of size $(p+1)\times 10$
-for representing the model's definition.
+we will need a parameter matrix of size $(p+1)\times 10$
+ representing the model's definition.
 
 Then, these 10 numbers will have to be normalised
 so as to they are positive and sum to $1$.
@@ -392,14 +376,14 @@ so as to they are positive and sum to $1$.
 
 To maintain the spirit of the original model,
 we can apply $e^{-(\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_{p,i} X_{p})}$
-to get a positive value.
+to get a positive value,
+because the co-domain of the exponential function $t\mapsto e^t$
+is $(0,\infty)$.
 
 Then, dividing each output by the sum of all the outputs will guarantee that
 the total sum equals 1.
 
 This leads to:
-
-
 \[
 \begin{array}{lcl}
 \Pr(Y=0|\mathbf{X},\boldsymbol\beta)&=&\displaystyle\frac{e^{-(\beta_{0,0} + \beta_{1,0} X_{1} +  \dots + \beta_{p,0} X_{p})}}{\sum_{i=0}^9 e^{-(\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_p X_{p,i})}}\\
@@ -439,9 +423,9 @@ round(rbind(
 
 ---
 
-The ten class belongingness degrees can be decoded
+The ten class-belongingness-degrees can be decoded
 to obtain a single label by simply choosing
-the class that corresponds to the highest probability.
+the class that is assigned the highest probability.
 
 
 
@@ -453,7 +437,7 @@ which.max(y_pred)-1 # 1..10 -> 0..9
 
 > `which.max(x)` returns an index `i` such that
 `x[i]==max(i)` (recall that in R the first element in a vector is at index `1`).
-Mathematically, we denote this operation as $\text{arg}\max_{i=1,\dots,n} x_i$.
+Mathematically, we denote this operation as $\mathrm{arg}\max_{i=1,\dots,n} x_i$.
 
 ---
 
@@ -462,7 +446,7 @@ To make processing the outputs of a logistic regression model more convenient,
 we will apply the **one-hot-encoding** of the labels.
 
 Here, each label will be represented as a 0-1 probability vector
--- with probability 1 corresponding only to the true class.
+-- with probability 1 corresponding to the true class only.
 
 For example:
 
@@ -557,12 +541,13 @@ already handles the case of multiclass classification:
 \[
 E(\boldsymbol\beta) =
 -\frac{1}{n} \sum_{i=1}^n
-\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\boldsymbol\beta)
+\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\boldsymbol\beta).
 \]
 The smaller the probability corresponding to the ground-truth class
 outputted by the classifier, the higher the penalty:
 
 ```{r,echo=FALSE}
+par(mar=c(4,4,0.5,0.5))
 x <- seq(0.1, 1, length.out=101)
 y <- -log(x)
 plot(x, y, xlab="probability outputted by the classifier", ylab="penalty = -log(probability)", las=1, type="l")
@@ -576,16 +561,14 @@ plot(x, y, xlab="probability outputted by the classifier", ylab="penalty = -log(
 
 
 To sum up, we will be solving the optimisation problem:
-
 \[
 \min_{\boldsymbol\beta\in\mathbb{R}^{(p+1)\times 10}}
 -\frac{1}{n} \sum_{i=1}^n
-\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\boldsymbol\beta)
+\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\boldsymbol\beta).
 \]
-
 This has no analytical solution,
 but can be solved using iterative methods
-(see a lecture on optimisation).
+(see the chapter on optimisation).
 
 
 ---
@@ -598,10 +581,14 @@ but can be solved using iterative methods
 given:
 
 * `y_pred` -- a vector of 10 probabilities
-generated by the model,
-$[\Pr(Y=0|\mathbf{x}_{i,\cdot},\boldsymbol\beta), \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta), \dots, \Pr(Y=9|\mathbf{x}_{i,\cdot},\boldsymbol\beta)]$
+generated by the model:
+\[
+\left[\Pr(Y=0|\mathbf{x}_{i,\cdot},\boldsymbol\beta)\  \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)\ \cdots\ \Pr(Y=9|\mathbf{x}_{i,\cdot},\boldsymbol\beta)\right]
+\]
 * `y2`  -- a one-hot-encoded version of the true label, $y_i$, of the form
-$[0, 0, \dots, 0, 1, 0, \dots, 0]$
+\[
+\left[0\ 0\ \cdots\ 0\ 1\ 0\ \cdots\ 0\right]
+\]
 
 can be computed as:
 
@@ -634,7 +621,7 @@ A neuron as a mathematical function:
 
 ![Source: https://en.wikipedia.org/wiki/File:Neuron3.png
 by Egm4313.s12 at English Wikipedia, licensed under
-the Creative Commons Attribution-Share Alike 3.0 Unported license.](figures/neuron)
+the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuron)
 
 
 
@@ -661,23 +648,22 @@ We determine a linear combination (a weighted sum) of 784 inputs
 and then transform it using the logistic sigmoid "activation" function.
 
 
-TODO Illustration
+![](figures/logistic_regression_binary)
 
 
 ---
 
 A multiclass logistic regression can be depicted as:
 
-
-
-TODO Illustration
+![](figures/logistic_regression_multiclass)
 
 ---
 
+
 This is an instance of a:
 
-- **single layer** (there is only one processing step that consists of 10 units)
-- **densely connected** (all the inputs are connected to all the neurons)
+- **single layer** (there is only one processing step that consists of 10 units),
+- **densely connected** (all the inputs are connected to all the neurons),
 - **feed-forward** (outputs are generated by processing the inputs directly,
 there are no loops in the graph etc.)
 
@@ -704,7 +690,7 @@ model <- keras_model_sequential()
 # Add a single layer with 10 units and softmax activation
 layer_dense(model, units=10, activation='softmax')
 # We will be minimising the cross-entropy,
-# sgd == stochastic gradient descent, see another Lecture
+# sgd == stochastic gradient descent, see the next chapter
 compile(model, optimizer='sgd',
         loss='categorical_crossentropy')
 # Fit the model
@@ -755,7 +741,10 @@ colMeans(res_logistic[2:5])
 plot_metrics_digits(res_logistic, mean(Y_test == Y_pred), "Multinomial Logistic Regression")
 ```
 
----
+
+
+
+
 
 
 ## Deep Neural Networks
@@ -769,13 +758,18 @@ In a brain, a neuron's output is an input to another neuron.
 
 We could try aligning neurons into many interconnected layers.
 
-TODO depict
+![](figures/nnet)
+
 
 
 ### Activation Functions
 
 ---
 
+
+Each layer's outputs should be transformed by some non-linear
+activation function. Otherwise, we'd end up with linear combinations of linear combinations,
+which are linear combinations themselves.
 
 <!-- Apart from `softmax` -->
 
@@ -787,13 +781,11 @@ Example activation functions
 that can be used in hidden (inner) layers:
 
 * `relu` -- The rectified linear unit:
-$$\psi(z)=\max(z, 0)$$
-
-
-* `sigmoid` -- The logistic sigmoid: $$\phi(z)=1 / (1 + \exp(-x))$$
-
-
-* `tanh` -- The hyperbolic function: $$\mathrm{tanh}(x) = (\exp(x) - \exp(-x)) / (\exp(x) + \exp(-x))$$
+\[\psi(z)=\max(z, 0),\]
+* `sigmoid` -- The logistic sigmoid:
+\[\phi(z)=1 / (1 + \exp(-x)),\]
+* `tanh` -- The hyperbolic function:
+\[\mathrm{tanh}(x) = (\exp(x) - \exp(-x)) / (\exp(x) + \exp(-x)).\]
 
 
 
@@ -1076,24 +1068,23 @@ are being considered in theory and in practice, e.g.:
 
 - convolutional neural networks apply a series of signal (e.g., image)
 transformations in first layers, they might actually "discover"
-deskewing automatically etc.
+deskewing automatically etc.;
 - recurrent neural networks can  imitate  long short-term memory
-that  can be used for speech synthesis and time series prediction
+that  can be used for speech synthesis and time series prediction.
 
 ---
 
 Main drawbacks of deep neural networks:
 
-- learning is very slow, especially with very deep architectures (days, weeks)
-- models are not explainable (black boxes) and hard to debug
+- learning is very slow, especially with very deep architectures (days, weeks);
+- models are not explainable (black boxes) and hard to debug;
 - finding good architectures is more art than science
-(maybe: more of a craftsmanship even)
+(maybe: more of a craftsmanship even);
 - sometimes using deep neural network is just an excuse for being too lazy
-too do proper data cleansing and pre-processing
+to do proper data cleansing and pre-processing.
 
-There are many issues and challenges that will be tackled in a more advanced
-AI/ML unit, in the meantime, if you are interested, take a look at the *Deep Learning Book*
-listed in the References section.
+There are many issues and challenges that will be tackled in more advanced
+AI/ML courses and books, such as [@deeplearn].
 
 
 
@@ -1104,7 +1095,7 @@ listed in the References section.
 ---
 
 
-```{r,cache=TRUE,globalsum,dependson=c('deep_deskew','deskew6','deep63','deep23','logistic6'),echo=FALSE,fig.height=6}
+```{r,cache=TRUE,globalsum,dependson=c('deep_deskew','deskew6','deep63','deep23','logistic6'),echo=FALSE,fig.height=5,fig.width=6}
 res_F_combined <- as.data.frame(cbind("Logistic"=res_logistic$F,
     "Logistic [deskewed]"=res_logistic_deskewed$F,
     "2-Layer"=res_2$F,
@@ -1122,7 +1113,7 @@ legend("bottom", legend=names(res_F_combined), lty=c(1,2,1,2,1,2), col=c(1,1,2,2
 
 ---
 
-```{r,cache=TRUE,globalsum2,dependson=c('globalsum'),echo=FALSE,fig.height=6}
+```{r,cache=TRUE,globalsum2,dependson=c('globalsum'),echo=FALSE,fig.height=5,fig.width=6}
 par(mar=c(3,10,2,1))
 image(0:9, 1:length(res_F_combined), z=as.matrix(res_F_combined), axes=FALSE, ann=FALSE,
 xlab="digit", main="F-measures Heatmap"
@@ -1141,10 +1132,10 @@ for (i in 0:9)
 
 The MNIST dataset is a classic, although its use in research is discouraged nowadays
 -- the dataset is not considered challenging anymore -- state of the art classifiers
-can reach $99.8\%$ accuracy
+can reach $99.8\%$ accuracy.
 
 See Zalando's Fashion-MNIST (by Kashif Rasul & Han Xiao) at
-https://github.com/zalandoresearch/fashion-mnist for a modern replacement.
+https://github.com/zalandoresearch/fashion-mnist for a modern replacement..
 
 Alternatively, take a look at CIFAR-10 and CIFAR-100 (https://www.cs.toronto.edu/~kriz/cifar.html)
 by A. Krizhevsky et al.

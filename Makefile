@@ -24,6 +24,9 @@ SVG_SOURCES = \
     figures/cover.svg                            \
     figures/crossover.svg                        \
     figures/neuron.svg                           \
+    figures/logistic_regression_binary.svg       \
+    figures/logistic_regression_multiclass.svg   \
+    figures/nnet.svg                             \
     figures/perceptron.svg
 
 
