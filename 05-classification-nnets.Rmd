@@ -5,20 +5,22 @@
 
 
 
-@TODO: change notation $x_i\to x_i$
+TODO: change notation $x_i\to x_i$
 
-@TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
+TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
 
 
-@TODO: fig.height=4,     fig.width=5
+TODO: fig.height=4,     fig.width=5
 
-@TODO: par(mar=..smaller..)
+TODO: par(mar=..smaller..)
 
-@TODO: logistic regression depict
+TODO: logistic regression depict
 
-@TODO: nnet depict
+TODO: nnet depict
 
-@TODO: logistic regression matrix form
+TODO: logistic regression matrix form
+
+
 
 
 ```{r,cache=TRUE,metrics,echo=FALSE}
@@ -608,14 +610,13 @@ sum(y2*log(y_pred))
 ```
 
 
-###  @TODO Solution in Matrix Form  (\*)
+###  TODO Solution in Matrix Form  (\*)
 
 ---
 
-@TODO@ state the problem in matrix form
+TODO state the problem in matrix form
 
-@TODO@ Some R examples
--- copy-paste from @OPTIMISATION@
+TODO Some R examples
 
 
 
@@ -660,7 +661,7 @@ We determine a linear combination (a weighted sum) of 784 inputs
 and then transform it using the logistic sigmoid "activation" function.
 
 
-@TODO Illustration
+TODO Illustration
 
 
 ---
@@ -669,7 +670,7 @@ A multiclass logistic regression can be depicted as:
 
 
 
-@TODO Illustration
+TODO Illustration
 
 ---
 
@@ -768,7 +769,7 @@ In a brain, a neuron's output is an input to another neuron.
 
 We could try aligning neurons into many interconnected layers.
 
-@TODO@ depict
+TODO depict
 
 
 ### Activation Functions
@@ -1059,38 +1060,38 @@ res_6_deskewed <- data.frame(t(sapply(0:9, function(i) {
 ---
 
 
-- We have discussed a multinomial logistic regression model
+We have discussed a multinomial logistic regression model
 as a generalisation of the binary one.
 
-- This in turn is a special case of feed-forward neural networks.
+This in turn is a special case of feed-forward neural networks.
 
-- There's hype for deep neural networks in many applications,
+There's a lot of hype (again...) for deep neural networks in many applications,
 including vision, self-driving cars, natural language processing,
 speech recognition etc.
 
 ---
 
-- Many different architectures of neural networks and types of units
-are being considered in theory and in practice, e.g.,
+Many different architectures of neural networks and types of units
+are being considered in theory and in practice, e.g.:
 
-    - convolutional neural networks apply a series of signal (e.g., image)
-    transformations in first layers, they might actually "discover"
-    deskewing automatically etc.
-    - recurrent neural networks can  imitate  long short-term memory
-    that  can be used for speech synthesis and time series prediction
+- convolutional neural networks apply a series of signal (e.g., image)
+transformations in first layers, they might actually "discover"
+deskewing automatically etc.
+- recurrent neural networks can  imitate  long short-term memory
+that  can be used for speech synthesis and time series prediction
 
 ---
 
-- Main drawbacks of deep neural networks:
+Main drawbacks of deep neural networks:
 
-    - learning is very slow, especially with very deep architectures (days, weeks)
-    - models are not explainable (black boxes) and hard to debug
-    - finding good architectures is more art than science
-    (maybe: more of a craftsmanship even)
-    - sometimes using deep neural network is just an excuse for being too lazy
-    too do proper data cleansing and pre-processing
+- learning is very slow, especially with very deep architectures (days, weeks)
+- models are not explainable (black boxes) and hard to debug
+- finding good architectures is more art than science
+(maybe: more of a craftsmanship even)
+- sometimes using deep neural network is just an excuse for being too lazy
+too do proper data cleansing and pre-processing
 
-- There are many issues and challenges that will be tackled in a more advanced
+There are many issues and challenges that will be tackled in a more advanced
 AI/ML unit, in the meantime, if you are interested, take a look at the *Deep Learning Book*
 listed in the References section.
 
@@ -1160,34 +1161,16 @@ or at ImageNet (http://image-net.org/index) for an even greater challenge.
 
 
 
-### References and Further Reading
+### Further Reading
 
----
-
+#### {.allowframebreaks}
 
 Recommended further reading:
 
-- T. Hastie, R. Tibshirani, J. Friedman,
-    *The Elements of Statistical Learning*, Springer, 2017
-    -- Chapter 11
+- [@islr: Chapter 11]
+- [@deeplearn]
 
-    > Freely available at
-    https://web.stanford.edu/~hastie/ElemStatLearn/
-
----
-
-Other references:
-
-
-- S. Russell, P. Norvig,
-    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
-    -- Sections 18.7
-
-- I. Goodfellow, Y. Bengio, A. Courville,
-    *Deep Learning*, MIT Press, 2016.
-
-    > Freely available at
-    https://www.deeplearningbook.org/
+Other:
 
 - `keras` package tutorials available at:
     https://cran.r-project.org/web/packages/keras/index.html

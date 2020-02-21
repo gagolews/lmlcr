@@ -5,14 +5,14 @@
 
 
 
-@TODO: change notation $x^{(i)}\to x_i$
+TODO: change notation $x^{(i)}\to x_i$
 
-@TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
+TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
 
 
-@TODO: fig.height=4,     fig.width=5
+TODO: fig.height=4,     fig.width=5
 
-@TODO: par(mar=..smaller..)
+TODO: par(mar=..smaller..)
 
 
 
@@ -460,14 +460,14 @@ km$center # result of kmeans()
 
 <!--
 
-# @TODO: k-medoids???
+# TODO: k-medoids???
 
-## @TODO
+## TODO
 
 ---
 
-@TODO@ need more slides -- maybe k-medoids, nice for optimisation
-plus they now different metrics
+TODO maybe k-medoids, nice for optimisation
+plus they allow for different metrics
 
 alternatively, DBSCAN or PCA or MDS or ...
 
@@ -586,7 +586,7 @@ C_{v+1}^{(j)},\dots,C_{n-j}^{(j)}
 \]
 
 
-   Thus, $(\mathcal{C}^{(0)}, \mathcal{C}^{(1)}, \dots, \mathcal{C}^{(n-1)})$ is a sequence
+Thus, $(\mathcal{C}^{(0)}, \mathcal{C}^{(1)}, \dots, \mathcal{C}^{(n-1)})$ is a sequence
 of **nested** partitions of $\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)}\}$
 with $\mathcal{C}^{(n-1)}=\left\{ \left\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)} \right\} \right\}$.
 
@@ -819,35 +819,35 @@ $-->
 
 ---
 
-- The aim of $k$-means is to find
+The aim of $k$-means is to find
 $k$ clusters based on the notion of the points' closeness
 to the cluster centres.
 
-- $k$ must be set in advance.
+Remember that $k$ must be set in advance.
 
-- By definition (* via its relation to Voronoi diagrams), all clusters will be of convex shapes.
+By definition (\* via its relation to Voronoi diagrams), all clusters will be of convex shapes.
 
-- However, we may try applying $k'$-means for $k' \gg  k$
+However, we may try applying $k'$-means for $k' \gg  k$
 to obtained a "fine grained" data compression and then
 combine the (sub)clusters into more meaningful groups
 using other methods.
 
-- Iterative $k$-means algorithms are very fast even for large data sets,
+Iterative $k$-means algorithms are very fast even for large data sets,
 but they may fail to find a desirable solution, see the next lecture.
 
 
 ---
 
-- On the other hand, hierarchical methods output
+On the other hand, hierarchical methods output
 a whole family of mutually nested partitions, which may provide us
 with insight into the underlying data structure.
 
-- Unfortunately, there is no easy way to assign new points
+Unfortunately, there is no easy way to assign new points
 to existing clusters.
 
-- Linkage scheme must be chosen with care.
+Linkage scheme must be chosen with care.
 
-- These are generally slow -- $O(n^2)$ to $O(n^3)$ complexity.
+These are generally slow -- $O(n^2)$ to $O(n^3)$ complexity.
 
 > Note that the `fastcluster` package provides a more efficient
 implementation of some methods available via a call to `hclust()`.
@@ -881,8 +881,8 @@ useful to fit separate models to each cluster.
 ---
 
 
-Other clustering approaches   that we will explore
-in the dedicated Machine Learning unit:
+Other clustering approaches that we might explore
+in a more advanced Machine Learning unit:
 
 - Genie (see R package `genie`)
 - DBSCAN, HDBSCAN*
@@ -892,33 +892,15 @@ in the dedicated Machine Learning unit:
 
 
 
-### References and Further Reading
+### Further Reading
 
----
+#### {.allowframebreaks}
 
 
 Recommended further reading:
 
-- G. James, D. Witten, T. Hastie, R. Tibshirani,
-    *An Introduction to Statistical Learning with Applications in R*, Springer, 2017
-    -- Section 10.3.
+- [@islr: Section 10.3]
 
-    > Freely available at
-    http://faculty.marshall.usc.edu/gareth-james/ISL/
+Other:
 
-Other references:
-
-- T. Hastie, R. Tibshirani, J. Friedman,
-    *The Elements of Statistical Learning*, Springer, 2017
-    -- Section 14.3
-
-    > Freely available at
-    https://web.stanford.edu/~hastie/ElemStatLearn/
-
-
-
-
-
-
-
-
+- [@esl: Section 14.3]

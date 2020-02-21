@@ -2,15 +2,17 @@
 
 RMD_SOURCES = \
     01-regression-simple.Rmd                     \
-    10-postscript.Rmd
-#     02-regression-multiple.Rmd                   \
-#     03-classification-neighbours.Rmd             \
-#     04-classification-trees_and_logistic.Rmd     \
-#     05-classification-nnets.Rmd                  \
-#     06-optimisation-iterative.Rmd                \
-#     07-clustering.Rmd                            \
-#     08-optimisation-genetic.Rmd                  \
-#     09-recommenders.Rmd                          \
+    02-regression-multiple.Rmd                   \
+    03-classification-neighbours.Rmd             \
+    04-classification-trees_and_logistic.Rmd     \
+    05-classification-nnets.Rmd                  \
+    06-optimisation-iterative.Rmd                \
+    07-clustering.Rmd                            \
+    08-optimisation-genetic.Rmd                  \
+    09-recommenders.Rmd                          \
+    10-postscript.Rmd                            \
+    99-references.Rmd
+
 
 SVG_SOURCES = \
     figures/combination1.svg                     \

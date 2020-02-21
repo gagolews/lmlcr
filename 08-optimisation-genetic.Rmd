@@ -5,14 +5,14 @@
 
 
 
-@TODO: change notation $x^{(i)}\to x_i$
+TODO: change notation $x^{(i)}\to x_i$
 
-@TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
+TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
 
 
-@TODO: fig.height=4,     fig.width=5
+TODO: fig.height=4,     fig.width=5
 
-@TODO: par(mar=..smaller..)
+TODO: par(mar=..smaller..)
 
 
 
@@ -819,20 +819,15 @@ Other interesting algorithms:
 * Cuckoo Search
 
 
-### References and Further Reading
+### Further Reading
 
----
+#### {.allowframebreaks}
 
+Recommended further reading:
 
-References:
+- [@genetic]
 
-- D.E. Goldberg, *Genetic Algorithms in Search, Optimization & Machine Learning*,
-Addison-Wesley, Reading, MA, 1989
+Other:
 
-- D. Simon, *Evolutionary Optimization Algorithms: Biologically-Inspired
-and Population-Based Approaches to Computer Intelligence*, John Wiley & Sons, 2013
-
-
-- S.P. Boyd, L. Vandenberghe, *Convex Optimization*, Cambridge University Press, 2004.
-
-    > Freely available at https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf.
+- [@evolution]
+- [@boyd_vandenberghe]

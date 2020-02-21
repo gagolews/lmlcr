@@ -12,5 +12,4 @@ bibliography: [bibliography.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: gagolews/lmlcr
-description: "@TODO@ description @TODO@"
 ---

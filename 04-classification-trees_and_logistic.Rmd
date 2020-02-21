@@ -779,7 +779,7 @@ get_metrics(Y_test, Y_pred)
 Learning an optimal decision tree is a computationally hard problem
 -- we need some heuristics.
 
-Examples:
+Examples:  CITE!!!!!!!!!!!!!!!!!!!!!!!!
 
 * ID3 (Iterative Dichotomiser 3) by Ross Quinlan, 1986
 * C4.5 algorithm  by Ross Quinlan, 1993
@@ -787,7 +787,7 @@ Examples:
 * CART by Leo Breiman et al., 1984
 
 (\*\*) Decision trees are most often constructed by a *greedy*, *top-down*
-*recursive partitioning*.
+*recursive partitioning*, see., e.g., [@rpart].
 
 
 
@@ -796,7 +796,7 @@ Examples:
 
 <!--
 
-## @TODO@ Random Forests and XGBoost
+## TODO Random Forests and XGBoost
 
 ## ...
 
@@ -1071,56 +1071,37 @@ by means of quite simple iterative algorithms.
 
 Other prominent classification algorithms:
 
-- Naive Bayes and other probabilistic approaches
-- Support Vector Machines (SVMs) and other kernel methods
-- (Artificial) (Deep) Neural Networks
+- Naive Bayes and other probabilistic approaches,
+- Support Vector Machines (SVMs) and other kernel methods,
+- (Artificial) (Deep) Neural Networks.
 
 
 ---
 
-- Interestingly, in the next chapter we will  note that the logistic regression model
+Interestingly, in the next chapter we will  note that the logistic regression model
 is a special case of a *feed-forward single layer neural network*.
 
-- We will also generalise the binary logistic regression to the case of
+We will also generalise the binary logistic regression to the case of
 a multiclass classification.
 
 
-- The state-of-the art classifiers called
+The state-of-the art classifiers called
 *Random Forests* and *XGBoost* (see also: *AdaBoost*) are based on decision trees.
 They tend to be more accurate but -- at the same time -- they fail to
 exhibit the decision trees' important feature: interpretability.
 
-- Trees can also be used for regression tasks, see R package `rpart`.
+Trees can also be used for regression tasks, see R package `rpart`.
 
 
 
-### References and Further Reading
+### Further Reading
 
----
-
+#### {.allowframebreaks}
 
 Recommended further reading:
 
-- G. James, D. Witten, T. Hastie, R. Tibshirani,
-    *An Introduction to Statistical Learning with Applications in R*, Springer, 2017
-    -- Chapters 4 and 8
+- [@islr: Chapters 4 and 8]
 
-    > Freely available at
-    http://faculty.marshall.usc.edu/gareth-james/ISL/
+Other:
 
----
-
-Other references:
-
-- T. Hastie, R. Tibshirani, J. Friedman,
-    *The Elements of Statistical Learning*, Springer, 2017
-    -- Chapters 4 and 7 as well as (*) Chapters 9,  10,  13, 15
-
-    > Freely available at
-    https://web.stanford.edu/~hastie/ElemStatLearn/
-- S. Russell, P. Norvig,
-    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
-    -- Sections 18.2, 18.3, 18.4,
-- T.M. Therneau, An Introduction to Recursive Partitioning Using the RPART Routines, 2019.
-    https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf.
-
+- [@esl: Chapters 4 and 7 as well as (\*) Chapters 9,  10,  13, 15]

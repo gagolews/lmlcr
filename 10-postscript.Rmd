@@ -1,25 +1,10 @@
-# Postscript
+# \}
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
 
-## @TODO@
-
-### @TODO@
-
----
-
-* T.
-* B.
-* D.
-
-## Notation Convention, Abbreviations etc.
-
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
-
-
-### Abbreviations
+## Abbreviations
 
 #### {.allowframebreaks}
 
@@ -32,22 +17,31 @@ s.t. == such that
 
 iff == if and only if
 
+e.g. == for example (Latin: *exempli gratia)
+
+i.e. == that is (Latin: *id est*)
+
+etc. == and so forth (Latin: *et cetera*)
+
 AI == artificial intelligence
 
-ML == machine learning
+GA == genetic algorithm
 
 GD == gradient descent
 
+GLM == generalised linear model
+
+ML == machine learning
+
+NN == neural network
+
 SGD == stochastic gradient descent
 
-e.g. == for example (Latin: exempli gratia)
-
-i.e. == that is (Latin: id est)
-
-etc. == and so forth (Latin: et cetera)
 
 
 
+
+## Notation Convention
 
 ### Logic and Set Theory
 
@@ -99,6 +93,9 @@ $\mathbb{X,Y,A,I,C}$ -- blackboard bold (I sometimes use it for sets)
 
 $\mathcal{X,Y,A,I,C}$ -- calligraphic (I use it for set families = sets of sets)
 
+
+
+
 Greek letters (make sure you know all of them)
 
 | $\alpha$ | $\beta$ | $\gamma$ | $\delta$ | $\varepsilon$ | $\zeta$ | $\eta$ | $\theta$ | $\iota$ | $\kappa$ |
@@ -108,11 +105,11 @@ Greek letters (make sure you know all of them)
 <!--  $\lambda$ | $\mu$ | $\nu$ | $\xi$ | $o$ | $\pi$ | $\varrho$ | $\sigma$ | $\tau$ | $\upsilon$ | $\varphi$ | $\chi$ | $\psi$ | $\omega$ -->
 <!--  $\Lambda$ | $M  $ | $N  $ | $\Xi$ | $O$ | $\Pi$ | $P      $ | $\Sigma$ | $T   $ | $\Upsilon$ | $\Phi   $ | $X   $ | $\Psi$ | $\Omega$ -->
 
-$X, x, \mathbf{X}$ -- inputs (usually)
+$X, x, \mathbf{X}, \mathbf{x}$ -- inputs (usually)
 
-$Y, y, \mathbf{Y}$ -- outputs
+$Y, y, \mathbf{Y}, \mathbf{t}$ -- outputs
 
-$\hat{Y}, \hat{y}, \hat{\mathbf{Y}}$ -- usually for predicted outputs
+$\hat{Y}, \hat{y}, \hat{\mathbf{Y}}, \hat{\mathbf{y}}$ --  predicted outputs (usually)
 
 
 - $X$ -- independent/explanatory/predictor variable
@@ -130,64 +127,23 @@ $\mathbb{Z}$ -- the set of integer numbers, $\mathbb{Z}=\{\dots,-2,-1,0,1,2,\dot
 
 
 
+### Vectors and Matrices
+
+#### {.allowframebreaks}
+
+
 $\boldsymbol{x}=(x_1,\dots,x_n)$ -- a sequence of $n$ elements ($n$-ary sequence/vector)
 
 if it consists of real numbers, we write $\boldsymbol{x}\in\mathbb{R}^n$
 
-$\mathbf{X}\in\mathbb{R}^{n\times p}$ -- matrix with $n$ row and $p$ columns
+$\mathbf{x}=[x_1\ x_2\ \dots\ x_p]$ -- a row vector, $\mathbf{x}\in\mathbb{R}^{1\times p}$
+(a matrix with 1 row)
 
-$x_{i,j}$ -- element at $i$-th row, $j$-th column
+$\mathbf{x}=[x_1\ x_2\ \dots\ x_n]^T$ -- a column vector, $\mathbf{x}\in\mathbb{R}^{n\times 1}$
+(a matrix with 1 column)
 
+$\mathbf{X}\in\mathbb{R}^{n\times p}$ -- matrix with $n$ rows and $p$ columns
 
-
-- Let $\mathbf{X}=(\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)})^T$ be an input sample
-that consists of $n$ points.
-
-\[
-\mathbf{X}=\left[
-\begin{array}{c}
-\mathbf{x}^{(1)} \\
-\mathbf{x}^{(2)} \\
-\vdots\\
-\mathbf{x}^{(n)} \\
-\end{array}
-\right]
-\]
-
-
-
-- Usually we assume that each $\mathbf{x}^{(i)}\in \mathbb{R}^p$,
-i.e., it is a $p$-dimensional real vector (a sequence of $p$ numbers) for some $p$.
-
-- In other words, $\mathbf{x}^{(i)}=(x_1^{(i)}, \dots, x_p^{(i)})$,\
-$x_j^{(i)}\in\mathbb{R}$ for each $j=1,\dots,p$ and $i=1,\dots,n$.
-
-
-
-- In cases such as this we say that we deal with *structured (tabular) data*\
--- $\mathbf{X}$ can be represented as an $n\times p$-matrix:
-
-\[
-\mathbf{X}=\left[
-\begin{array}{c}
-\mathbf{x}^{(1)} \\
-\mathbf{x}^{(2)} \\
-\vdots\\
-\mathbf{x}^{(n)} \\
-\end{array}
-\right]
-=
-\left[
-\begin{array}{cccc}
-x_1^{(1)} & x_2^{(1)} & \cdots & x_p^{(1)}\\
-x_1^{(2)} & x_2^{(2)} & \cdots & x_p^{(2)}\\
-\vdots & \vdots & \ddots & \vdots \\
-x_1^{(n)} & x_2^{(n)} & \cdots & x_p^{(n)}\\
-\end{array}
-\right]
-\]
-
-- Mathematically, we'd write that $\mathbf{X}\in\mathbb{R}^{n\times d}$:
 
 \[
 \mathbf{X}=
@@ -201,11 +157,94 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
 \right]
 \]
 
+$x_{i,j}$ -- element in the $i$-th row, $j$-th column
+
+$\mathbf{x}_{i,\cdot}$ -- the $i$-th row of $\mathbf{X}$
+
+$\mathbf{x}_{\cdot,j}$ -- the $j$-th column of $\mathbf{X}$
+
+\[
+\mathbf{X}=\left[
+\begin{array}{c}
+\mathbf{x}_{1,\cdot} \\
+\mathbf{x}_{2,\cdot} \\
+\vdots\\
+\mathbf{x}_{n,\cdot} \\
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cccc}
+\mathbf{x}_{\cdot,1} &
+\mathbf{x}_{\cdot,2} &
+\cdots &
+\mathbf{x}_{\cdot,p} \\
+\end{array}
+\right].
+\]
+
+\[
+\mathbf{x}_{i,\cdot} = \left[
+\begin{array}{cccc}
+x_{i,1} &
+x_{i,2} &
+\cdots &
+x_{i,p} \\
+\end{array}
+\right].
+\]
+
+\[
+\mathbf{x}_{\cdot,j} = \left[
+\begin{array}{cccc}
+x_{1,j} &
+x_{2,j} &
+\cdots &
+x_{n,j} \\
+\end{array}
+\right]^T=\left[
+\begin{array}{c}
+{x}_{1,j} \\
+{x}_{2,j} \\
+\vdots\\
+{x}_{n,j} \\
+\end{array}
+\right],
+\]
 
 
 
-min vs argmin
+${}^T$ denotes the matrix transpose;
+$\mathbf{B}=\mathbf{A}^T$ is a matrix such that $b_{i,j}=a_{j,i}$.
 
+matrix multiplication
+
+dot product
+
+
+* Euclidean norm:
+\[
+\|\boldsymbol{x}\| = \|\boldsymbol{x}\|_2 = \sqrt{ \sum_{i=1}^n x_i^2 }
+\]
+this is nothing else than the *length* of the vector $\boldsymbol{x}$
+* Manhattan (taxicab) norm:
+\[
+\|\boldsymbol{x}\|_1 = \sum_{i=1}^n |x_i|
+\]
+* Chebyshev (maximum) norm:
+\[
+\|\boldsymbol{x}\|_\infty = \max_{i=1,\dots,n} |x_i|
+= \max\{ |x_1|, |x_2|, \dots, |x_n| \}
+\]
+
+
+Euclidean distance
+
+
+
+### Functions
+
+#### {.allowframebreaks}
 
 $f:X\to Y$ means
 
@@ -213,25 +252,6 @@ $x\mapsto x^2$
 `function(x) x^2` in R
 
 
-recall notation for input matrix etc.
-
-
-multiplication
-
-transpose, ${}^T$
-
-
-display (stand-alone) vs text (in-line) style
-$\displaystyle\sum_{i=1}^n x_i$
-vs $\textstyle\sum_{i=1}^n x_i$
-
-$\sum_{i=1}^n x_i$...
-
-also $\sum_{i=1,\dots,n} x_i$
-
-also $\sum_{i\in\{1,\dots,n\}} x_i$
-
-$\prod_{i=1}^n x_i$...
 
 
 
@@ -256,47 +276,46 @@ hence $\log e^x = x$
 
 
 
-...derivatives...
+derivative
+
+
 chain rule etc.
 
 
+partial derivative
 
-* Euclidean norm:
-\[
-\|\boldsymbol{x}\| = \|\boldsymbol{x}\|_2 = \sqrt{ \sum_{i=1}^n x_i^2 }
-\]
-this is nothing else than the *length* of the vector $\boldsymbol{x}$
-* Manhattan (taxicab) norm:
-\[
-\|\boldsymbol{x}\|_1 = \sum_{i=1}^n |x_i|
-\]
-* Chebyshev (maximum) norm:
-\[
-\|\boldsymbol{x}\|_\infty = \max_{i=1,\dots,n} |x_i|
-= \max\{ |x_1|, |x_2|, \dots, |x_n| \}
-\]
-
-$\nabla f$ -- Gradient of $f:\mathbb{R}^p\to\mathbb{R}$,
-denoted $\nabla f:\mathbb{R}^p\to\mathbb{R}^p$
-is the vector of all its partial derivatives,
-($\nabla$ -- nabla symbol = differential operator)
-\[
-\nabla f(\mathbf{x}) = \left[
-\begin{array}{c}
-\frac{\partial f}{\partial x_1}(\mathbf{x})\\
-\vdots\\
-\frac{\partial f}{\partial x_p}(\mathbf{x})
-\end{array}
-\right]
-\]
+gradient
 
 
 
-$\frac{\partial f}{\partial x_i}$ --
-the partial derivative of a function $f(x_1,...,x_p)$ w.r.t. the i-th variable
--- is like an ordinary derivative w.r.t. $x_i$
-where $x_1,...,x_{i-1},x_{i+1},...,x_p$ are assumed constant.
+### Sums and Products
+
+#### {.allowframebreaks}
 
 
-Euclidean distance
 
+display (stand-alone) vs text (in-line) style
+$\displaystyle\sum_{i=1}^n x_i$
+vs $\textstyle\sum_{i=1}^n x_i$
+
+$\sum_{i=1}^n x_i$...
+
+also $\sum_{i=1,\dots,n} x_i$
+
+also $\sum_{i\in\{1,\dots,n\}} x_i$
+
+$\prod_{i=1}^n x_i$...
+
+
+
+
+### Other
+
+#### {.allowframebreaks}
+
+
+min vs argmin
+
+
+
+$r(\boldsymbol{x},\boldsymbol{y})$ Pearson's $r$ -- linear correlation coefficient

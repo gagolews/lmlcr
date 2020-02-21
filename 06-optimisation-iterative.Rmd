@@ -5,14 +5,14 @@
 
 
 
-@TODO: change notation $x^{(i)}\to x_i$
+TODO: change notation $x^{(i)}\to x_i$
 
-@TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
+TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
 
 
-@TODO: fig.height=4,     fig.width=5
+TODO: fig.height=4,     fig.width=5
 
-@TODO: par(mar=..smaller..)
+TODO: par(mar=..smaller..)
 
 
 
@@ -1459,13 +1459,11 @@ problem can be:
 
 
 
-### References and Further Reading
+### Further Reading
 
----
+#### {.allowframebreaks}
 
+Recommended further reading:
 
-References:
-
-- J. Nocedal, S.J. Wright, *Numerical Optimization*, Springer, 2006.
-
-- R. Fletcher, *Practical Methods of Optimization*, Wiley, 2008.
+- [@nocedal_wright]
+- [@fletcher]

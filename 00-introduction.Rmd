@@ -1,6 +1,7 @@
-# Welcome!
+# \{
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
 
 This is a draft version of the forthcoming book
 *Lightweight Machine Learning Classics with R*
@@ -12,4 +13,48 @@ This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 License (CC BY-NC-ND 4.0).
 
-![](figures/cover)
+<!-- ![](figures/cover) -->
+
+
+#### Aim and Scope  {.unnumbered}
+
+Machine learning has numerous exciting real-world applications,
+including game playing, stock market prediction, speech recognition,
+computer-aided medical diagnosis, content and product recommendation,
+anomaly detection in security camera footages,
+autonomous vehicle operation, amongst many others.
+
+In this book we will take a deep dive into some of the most fundamental
+algorithms that stood the test of time and that still form
+the basis for the state-of-the-art solutions of the modern-era AI,
+which is principally (big) data-driven.
+We will learn how to use the R language for implementing various stages
+of data processing and modelling activities.
+
+We will provide solid underpinnings for further studies
+related to statistical learning, machine learning
+data science, data analytics and artificial intelligence,
+including [@islr; @esl; @bishop].
+We will appreciate the vital role of mathematics as a commonly accepted
+language for formalising data-intense problems and communicating their solutions.
+The book is aimed at a reader that is yet to be fluent with
+university-level linear algebra, calculus and probability theory,
+such as a 1st year undergrad.
+
+
+
+
+
+#### About Me  {.unnumbered}
+
+t.b.d.
+
+
+
+#### Acknowledgements  {.unnumbered}
+
+t.b.d.
+
+During the writing of this book, I've been mostly listening to the music
+featuring John Coltrane, Krzysztof Komeda,
+Henry Threadgill, Albert Ayler, Paco de Lucia and Tomatito.

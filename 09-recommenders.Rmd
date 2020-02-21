@@ -4,14 +4,14 @@
 
 
 
-@TODO: change notation $x^{(i)}\to x_i$
+TODO: change notation $x^{(i)}\to x_i$
 
-@TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
+TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
 
 
-@TODO: fig.height=4,     fig.width=5
+TODO: fig.height=4,     fig.width=5
 
-@TODO: par(mar=..smaller..)
+TODO: par(mar=..smaller..)
 
 
 
@@ -43,7 +43,7 @@ For example:
 
 ---
 
-Ricci et al. (2011) list the following functions of recommender systems:
+[@ricci_etal] list the following functions of recommender systems:
 
 - increase the number of items sold
 - sell more diverse items
@@ -61,21 +61,23 @@ it helped boost the research on algorithms in this field.
 
 See https://www.kaggle.com/netflix-inc/netflix-prize-data
 
-Data archived at https://web.archive.org/web/20090925184737/http://archive.ics.uci.edu/ml/datasets/Netflix+Prize and https://archive.org/details/nf_prize_dataset.tar
+Data archived at
+https://web.archive.org/web/20090925184737/http://archive.ics.uci.edu/ml/datasets/Netflix+Prize
+and https://archive.org/details/nf_prize_dataset.tar
 
 
-In 2006 Netflix provided a data set consisting of:
+In 2006 Netflix provided a data set that consists of:
 
 - 480,189 users
 - 17,770 movies
-- 100,480,507 ratings in the training sample
+- 100,480,507 ratings in the training sample:
 
     - `MovieID`
     - `CustomerID`
-    - `Rating` from 1 to 5.
+    - `Rating` from 1 to 5
     - `Title`
-    - `YearOfRelease` [1890..2005]
-    - `Date` of rating in the range 1998-11-01 to 2005-12-31.
+    - `YearOfRelease` from 1890 to 2005
+    - `Date` of rating in the range 1998-11-01 to 2005-12-31
 
 > Note that up until 2010, Netflix was mainly a DVD rental company.
 
@@ -90,7 +92,8 @@ performance metric.
 
 The *test set* of 1,408,789 ratings was used to determine the winner.
 
-On 21 Sept. 2009, the grand prize of US\$1,000,000 was given to the BellKor's Pragmatic Chaos team which improved over the Netflix's *Cinematch* algorithm  by 10.06%,
+On 21 Sept. 2009, the grand prize of US\$1,000,000 was given
+to the BellKor's Pragmatic Chaos team which improved over the Netflix's *Cinematch* algorithm  by 10.06%,
 achieving the winning RMSE of 0.8567 on the test subset.
 
 
@@ -102,8 +105,8 @@ achieving the winning RMSE of 0.8567 on the test subset.
 Current recommender systems are quite complex and use a fusion
 of various approaches, also those based on external knowledge bases.
 
-However, we may distinguish at least two core approaches
-(see Ricci et al., 2011 for more) :
+However, we may distinguish at least two core approaches,
+see [@ricci_etal] for more:
 
 - *Collaborative Filtering*
 
@@ -434,7 +437,7 @@ The following examples are a bit more difficult to follow
 we mark them with (\*).
 
 
-See also https://movielens.org/ and (Harper, Konstan, 2015).
+See also https://movielens.org/ and [@movielens].
 
 
 
@@ -641,44 +644,44 @@ cat(i, strwrap(paste(head(movies$title[c==5], 20), collapse=", ")), sep="\n")
 
 ---
 
-- Good recommender systems are perfect tools to increase the revenue
+Good recommender systems are perfect tools to increase the revenue
 of any user-centric enterprise.
 
-- Not a single algorithm, but an ensemble (a proper combination) of different approaches
+Not a single algorithm, but an ensemble (a proper combination) of different approaches
 is often used in practice, see the Further Reading section below for the detailed
 information of the Netflix Prize winners.
 
-- Recommender systems are an interesting fusion of the techniques we
+Recommender systems are an interesting fusion of the techniques we
 have already studied -- linear models, $K$-nearest neighbours etc.
 
 ### Issues
 
 ---
 
-- Building recommender systems is challenging, because
+Building recommender systems is challenging, because
 data is large yet often sparse;
 
-    > Here is the ratio of available ratings
-    vs. all possible user-item valuations for the Netflix Prize
-    (obviously, it is just a sample of
-    the complete data set that Netflix has):
+> Here is the ratio of available ratings
+vs. all possible user-item valuations for the Netflix Prize
+(obviously, it is just a sample of
+the complete data set that Netflix has):
 
-    ```{r}
-    100480507/(480189*17770)
-    ```
+```{r}
+100480507/(480189*17770)
+```
 
-- *Sparse matrix* (many "zeros" = unassigned ratings) data structure is
+*Sparse matrix* (many "zeros" = unassigned ratings) data structure is
 often used for storing of and computing over such data  effectively.
 
 ---
 
-- Some users are *biased* in the sense that they are more critical or enthusiastic than
+Some users are *biased* in the sense that they are more critical or enthusiastic than
 average users.
 
-> Is 3 stars is a "bad", "fair enough" or "good" rating for you?
+> Is 3 stars a "bad", "fair enough" or "good" rating for you?
 > Would you go to a bar/restaurant ranked 3.0 by the  Google Maps community?
 
-- It is particularly challenging to predict the preferences of users
+It is particularly challenging to predict the preferences of users
 that cast few ratings, e.g., those who just signed up (*the cold start problem*).
 
 
@@ -687,54 +690,36 @@ that cast few ratings, e.g., those who just signed up (*the cold start problem*)
 
 
 
-- "Hill  et  al.  [1995]  have  shown  that  users  provide  inconsistent  ratings  when  asked  to  rate  the  same  movie  at  different  times.  They suggest that an algorithm cannot be more accurate than the variance in a user’s ratings for the same item." (Herlocker et al., 2004, p. 6)
+"Hill  et  al.  [1995]  have  shown  that  users  provide  inconsistent  ratings  when  asked  to  rate  the  same  movie  at  different  times.  They suggest that an algorithm cannot be more accurate than the variance in a user’s ratings for the same item." [@herlocker_etal: p. 6]
 
-- It is good to take the temporal characteristics of data
+It is good to take the temporal characteristics of data
 as well as external knowledge
 into account (e.g., how long ago a rating was cast,
 what is a film's genre).
 
-- The presented approaches are vulnerable to attacks -- bots may be used
+The presented approaches are vulnerable to attacks -- bots may be used
 to promote or inhibit selected items.
 
 
 
 
 
-### References and Further Reading
+### Further Reading
 
----
+#### {.allowframebreaks}
 
+Recommended further reading:
 
-References:
+- [@herlocker_etal]
+- [@ricci_etal]
+- [@lu_etal]
+- [@movielens]
 
-- F. Ricci et al. (eds.), Recommender Systems Handbook, Springer, 2011,
-http://www.inf.unibz.it/~ricci/papers/intro-rec-sys-handbook.pdf
-- L. Lü, M. Medo, C.H. Yeung, Y.C. Zhang, Z.K. Zhang, T. Zhou, Recommender systems,
-*Physics Reports* **519**, 2012, pp. 1-49.
-https://arxiv.org/pdf/1202.1112.pdf
-- J. Herlocker, J. Konstan, L. Terveen, J. Riedl, Evaluating Collaborative Filtering Recommender Systems. *ACM Transactions on Information Systems* **22**, 2004, pp. 5-53,
-https://web.archive.org/web/20070306161407/http://web.engr.oregonstate.edu/~herlock/papers/eval_tois.pdf
-- F.M. Harper and J.A. Konstan,
-The MovieLens Datasets: History and Context,
-*ACM Transactions on Interactive Intelligent Systems* **5**, 2015, 19:1–19:19, doi:10.1145/2827872.
+Other:
 
-
-<!--  http://www.cs.umd.edu/~samir/498/Amazon-Recommendations.pdf -->
-
----
-
-
-
-- Y. Koren, *The BellKor Solution to the Netflix Grand Prize*, 2009,
-https://netflixprize.com/assets/GrandPrize2009_BPC_BellKor.pdf
-- A. Toescher, M. Jahrer, R.M. Bell,
-*The BigChaos Solution to the Netflix Grand Prize*, 2009,
-https://netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf
-- M. Piotte, M. Chabbert,
-*The Pragmatic Theory solution to the Netflix Grand Prize*, 2009,
-https://netflixprize.com/assets/GrandPrize2009_BPC_PragmaticTheory.pdf
-
+- [@bellkor_netflix]
+- [@bigchaos_netflix]
+- [@pragmatictheory_netflix]
 
 Also don't forget to take a look at the R package `recommenderlab` (amongst others).
 

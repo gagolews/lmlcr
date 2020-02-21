@@ -30,15 +30,14 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
 ---
 
 
-- Recall that in supervised learning,
-apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
+Recall that in supervised learning,
+apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$;
+with each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
-- With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
-
-- In this chapter we are still interested in  **regression** tasks;
+In this chapter we are still interested in  **regression** tasks;
 hence, we assume that each $y_i\in\mathbb{R}$, i.e., it is a real number.
 
-- Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
+Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
 where each object is represented as a row vector
 $[\mathbf{x}_{i,\cdot}\ y_i]$, $i=1,\dots,n$:
 
@@ -336,6 +335,8 @@ summary(f2$residuals)
 
 ---
 
+The outputs include:
+
 - `Min.` -- sample minimum
 - `1st Qu.` -- 1st quartile == 25th percentile == quantile of order 0.25
 - `Median` -- median == 50th percentile == quantile of order 0.5
@@ -404,13 +405,10 @@ segments(q1-1.5*iqr, 0, q1-1.5*iqr, 1, lty=3)
 text(q1-1.5*iqr, 0, "Q1 - 1.5 IQR")
 ```
 
-IQR = Interquartile range = Q3$-$Q1 (box width)
-
-The box contains 50\% of the "most typical" observations
-
-Box and whiskers altogether have width $\le$ 4 IQR
-
-Outliers == observations potentially worth inspecting (is it a bug or a feature?)
+* IQR == Interquartile range == Q3$-$Q1 (box width)
+* The box contains 50\% of the "most typical" observations
+* Box and whiskers altogether have width $\le$ 4 IQR
+* Outliers == observations potentially worth inspecting (is it a bug or a feature?)
 
 ---
 
@@ -566,13 +564,15 @@ r(\boldsymbol{x},\boldsymbol{y}) = \frac{
 }.
 \]
 
-It holds $r\in[-1,1]$.
+It holds $r\in[-1,1]$, where:
 
-$r=1$ -- positive linear dependence ($y$ increases as $x$ increases)
+* $r=1$ -- positive linear dependence ($y$ increases as $x$ increases)
+* $r=1$ -- negative linear dependence ($y$ decreases as $x$ increases)
+* $r\simeq 0$ -- uncorrelated or non-linearly dependent
 
-$r=1$ -- negative linear dependence ($y$ decreases as $x$ increases)
+<!-- TODO anscombe -->
 
-$r\simeq 0$ -- uncorrelated or non-linearly dependent
+
 
 ---
 
@@ -818,7 +818,7 @@ Clearly (based on our expert knowledge), the `Rating` shouldn't decrease as Bala
 In other words, `f1_14` gives a better fit to actually observed data,
 but fails to produce good results for the points that are yet to come.
 
-We say, that it **generalises** poorly to unseen data.
+We say that it **generalises** poorly to unseen data.
 
 
 ---
@@ -949,10 +949,16 @@ e.g., 60-20-20\%.
 
 ---
 
-- Multiple regression is simple, fast to apply and interpretable.
-- Linear models go beyond fitting just straight lines and other hyperplanes!
-- A complex model may overfit and hence generalise poorly to unobserved inputs.
-- Note that the SSR criterion makes the models sensitive to outliers.
+Multiple regression is simple, fast to apply and interpretable.
+
+
+Linear models go beyond fitting of straight lines and other hyperplanes!
+
+
+A complex model may overfit and hence generalise poorly to unobserved inputs.
+
+
+Note that the SSR criterion makes the models sensitive to outliers.
 
 
 
@@ -977,14 +983,14 @@ more revenue, your boss' happiness, your startup's growth etc.
 
 Other example approaches to regression:
 
-- ridge regression
-- lasso regression
-- least absolute deviations (LAD) regression
-- multiadaptive regression splines (MARS)
-- K-nearest neighbour (K-NN) regression, see `FNN::knn.reg()` in R.
-- regression trees
-- support-vector regression (SVR)
-- neural networks (also deep) for regression
+- ridge regression,
+- lasso regression,
+- least absolute deviations (LAD) regression,
+- multiadaptive regression splines (MARS),
+- K-nearest neighbour (K-NN) regression, see `FNN::knn.reg()` in R,
+- regression trees,
+- support-vector regression (SVR),
+- neural networks (also deep) for regression.
 
 
 
@@ -1292,29 +1298,14 @@ round(t(C_normalised) %*% C_normalised, 3)
 ```
 
 
-### References and Further Reading
+### Further Reading
 
----
-
+#### {.allowframebreaks}
 
 Recommended further reading:
 
-- G. James, D. Witten, T. Hastie, R. Tibshirani,
-    *An Introduction to Statistical Learning with Applications in R*, Springer, 2017
-    -- Chapters 1, 2 and 3.
+- [@islr: Chapters 1, 2 and 3]
 
-    > Freely available at
-    http://faculty.marshall.usc.edu/gareth-james/ISL/
+Other:
 
-Other references:
-
-- T. Hastie, R. Tibshirani, J. Friedman,
-    *The Elements of Statistical Learning*, Springer, 2017
-    -- Chapter 1, Sections 3.2 and 3.3
-    > Freely available at
-    https://web.stanford.edu/~hastie/ElemStatLearn/
-- S. Russell, P. Norvig,
-    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
-    -- Sections 18.1, 18.2, 18.6.
-
-
+- [@esl: Chapter 1, Sections 3.2 and 3.3]

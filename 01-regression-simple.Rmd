@@ -941,7 +941,7 @@ b^* = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a^*  \dfrac{1}{n} \displays
 (we should additionally perform the second derivative test
 to assure that this is the minimum of $E$ -- which is exactly the case though)
 
-<!-- @TODO rewrite nicely with means and correlation coefficients etc.
+<!-- TODO rewrite nicely with means and correlation coefficients etc.
 
 Pearson's r introduced in the next chapter though
 
@@ -974,7 +974,7 @@ $a$ and $b$ can also be rewritten as:
 (b <- mean(Y)-a*mean(X))
 ```
 
-<!-- @TODO show optim() -->
+<!-- TODO show optim() -->
 
 
 
@@ -1637,19 +1637,14 @@ of many variables, i.e., $p>1$, called multiple regression.
 
 
 
-### References and Further Reading
+### Further Reading
 
----
+#### {.allowframebreaks}
 
 Recommended further reading:
 
-- (@islr; Chapters 1, 2 and 3)
+- [@islr: Chapters 1, 2 and 3]
 
 Other:
 
-- (@esl; Chapter 1, Sections 3.2 and 3.3)
-
----
-
-::: {#refs}
-:::
+- [@esl: Chapter 1, Sections 3.2 and 3.3]

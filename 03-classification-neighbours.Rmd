@@ -918,26 +918,10 @@ lines(x, y25, col=4, lwd=3)
 
 
 
-### References and Further Reading
+### Further Reading
 
----
-
+#### {.allowframebreaks}
 
 Recommended further reading:
 
-- T. Hastie, R. Tibshirani, J. Friedman,
-    *The Elements of Statistical Learning*, Springer, 2017
-    -- Section 13.3
-
-    > Freely available at
-    https://web.stanford.edu/~hastie/ElemStatLearn/
-
-
-Other references:
-
-
-- S. Russell, P. Norvig,
-    *Artificial Intelligence. A Modern Approach*, Prentice Hall, 2010
-    -- Sections 18.2
-
-
+- [@esl: Section 13.3]
