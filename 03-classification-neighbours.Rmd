@@ -33,13 +33,13 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
 ---
 
 
-- Recall that in supervised learning,
+Recall that in supervised learning,
 apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
 
-- With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
+With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 
-- In this chapter we are interested in  **classification** tasks;
+In this chapter we are interested in  **classification** tasks;
 we assume that each $y_i$ is a discrete label.
 
 ---
@@ -219,9 +219,9 @@ Y_test  <- Y[-train_indexes]
 We will discuss 3 simple and educational (yet practically useful)
 classification algorithms:
 
-- *K-nearest neighbour scheme* -- this chapter
-- *Decision trees* -- the next chapter
-- *Logistic regression* -- the next chapter
+- *K-nearest neighbour scheme* -- this chapter,
+- *Decision trees* -- the next chapter,
+- *Logistic regression* -- the next chapter.
 
 
 
@@ -429,9 +429,9 @@ happy → nappy → napp → nap.
 
 See also:
 
-- The Hamming distance for categorical vectors (or strings of equal lengths)
-- The Jaccard distance for sets
-- The Kendall tau rank distance for rankings
+- the Hamming distance for categorical vectors (or strings of equal lengths),
+- the Jaccard distance for sets,
+- the Kendall tau rank distance for rankings.
 
 Moreover, R package `stringdist` includes implementations
 of numerous string metrics.

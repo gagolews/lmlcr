@@ -32,13 +32,13 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
 
 
 
-- Recall that in supervised learning,
+Recall that in supervised learning,
 apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
 
-- With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
+With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 
-- In this chapter we are still  interested in  **classification** tasks;
+In this chapter we are still  interested in  **classification** tasks;
 we assume that each $y_i$ is a discrete label.
 
 
@@ -177,8 +177,8 @@ Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 We are soon going to discuss the following simple and educational (yet practically useful)
 classification algorithms:
 
-- *Decision trees*
-- *Logistic regression*
+- *decision trees*,
+- *logistic regression*.
 
 ---
 
@@ -229,7 +229,8 @@ Here are the 4 possible situations (true vs. predicted label):
 $\hat{y}_i=0$  | **True Negative**              | False Negative (Type II error)
 $\hat{y}_i=1$  | False Positive (Type I error)  | **True Positive**
 
-Note that the terms **positive** and **negative** refer the the classifier's output, i.e., occur when $\hat{y}_i$ is equal to $1$ and $0$, respectively.
+Note that the terms **positive** and **negative** refer to
+the classifier's output, i.e., occur when $\hat{y}_i$ is equal to $1$ and $0$, respectively.
 
 
 ---
@@ -598,7 +599,7 @@ consist of decision rules of the form:
 
 These can be organised into a **hierarchy** for greater readability.
 
-This idea inspired the notion of **decision trees** (Breiman et al., 1984)
+This idea inspired the notion of **decision trees** [@cart].
 
 
 ---
@@ -779,12 +780,11 @@ get_metrics(Y_test, Y_pred)
 Learning an optimal decision tree is a computationally hard problem
 -- we need some heuristics.
 
-Examples:  CITE!!!!!!!!!!!!!!!!!!!!!!!!
+Examples:
 
-* ID3 (Iterative Dichotomiser 3) by Ross Quinlan, 1986
-* C4.5 algorithm  by Ross Quinlan, 1993
-* C5.0, 1997
-* CART by Leo Breiman et al., 1984
+* ID3 (Iterative Dichotomiser 3) [@id3]
+* C4.5 algorithm [@c45]
+* CART by Leo Breiman et al., [@cart]
 
 (\*\*) Decision trees are most often constructed by a *greedy*, *top-down*
 *recursive partitioning*, see., e.g., [@rpart].
