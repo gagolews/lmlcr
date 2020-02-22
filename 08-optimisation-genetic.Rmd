@@ -4,21 +4,6 @@
 
 
 
-
-TODO: change notation $x^{(i)}\to x_i$
-
-TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
-
-
-TODO: fig.height=4,     fig.width=5
-
-TODO: par(mar=..smaller..)
-
-
-
-
-
-
 ## Introduction
 
 ### Recap

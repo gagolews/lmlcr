@@ -4,34 +4,6 @@
 
 
 
-```{r,cache=TRUE,metrics,echo=FALSE}
-get_metrics <- function(Y_test, Y_pred)
-{
-    C <- table(Y_pred, Y_test) # confusion matrix
-    c(Acc=(C[1,1]+C[2,2])/sum(C), # accuracy
-      Prec=C[2,2]/(C[2,2]+C[2,1]), # precision
-      Rec=C[2,2]/(C[2,2]+C[1,2]), # recall
-      F=C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]), # F-measure
-      # Confusion matrix items:
-      TN=C[1,1], FN=C[1,2],
-      FP=C[2,1], TP=C[2,2]
-    ) # return a named vector
-}
-
-
-plot_metrics_digits <- function(res, acc, main) {
-  matplot(res$i, res[,3:5], type='b', las=1,
-          xlab='digit', ylab='metric', lty=c(4,2,1), col=c(4,2,1),
-          pch=c(4,2,1), ylim=c(0.8, 1.0), main=main, sub=sprintf("Accuracy=%.3f", acc))
-  legend("bottom", legend=names(res)[3:5], lty=c(4,2,1), col=c(4,2,1), pch=c(4,2,1), ncol=3)
-  abline(h=colMeans(res[3:5]), lty=c(4,2,1), col=c("#0000ff33", "#00ff0033", "#00000033"))
-  abline(h=acc, col="#00000066")
-}
-```
-
-
-
-
 ## Introduction
 
 ### Binary Logistic Regression: Recap
@@ -759,6 +731,35 @@ that uses the softmax as the activation function.
 ### Example in R
 
 ---
+
+
+
+```{r,cache=TRUE,metrics,echo=FALSE}
+get_metrics <- function(Y_test, Y_pred)
+{
+    C <- table(Y_pred, Y_test) # confusion matrix
+    c(Acc=(C[1,1]+C[2,2])/sum(C), # accuracy
+      Prec=C[2,2]/(C[2,2]+C[2,1]), # precision
+      Rec=C[2,2]/(C[2,2]+C[1,2]), # recall
+      F=C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]), # F-measure
+      # Confusion matrix items:
+      TN=C[1,1], FN=C[1,2],
+      FP=C[2,1], TP=C[2,2]
+    ) # return a named vector
+}
+
+
+plot_metrics_digits <- function(res, acc, main) {
+  matplot(res$i, res[,3:5], type='b', las=1,
+          xlab='digit', ylab='metric', lty=c(4,2,1), col=c(4,2,1),
+          pch=c(4,2,1), ylim=c(0.8, 1.0), main=main, sub=sprintf("Accuracy=%.3f", acc))
+  legend("bottom", legend=names(res)[3:5], lty=c(4,2,1), col=c(4,2,1), pch=c(4,2,1), ncol=3)
+  abline(h=colMeans(res[3:5]), lty=c(4,2,1), col=c("#0000ff33", "#00ff0033", "#00000033"))
+  abline(h=acc, col="#00000066")
+}
+```
+
+
 
 
 To train such a neural network (fit a multinomial logistic regression model),

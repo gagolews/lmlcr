@@ -3,28 +3,6 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-
-TODO: change notation $x^{(i)}\to x_i$
-
-TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
-
-
-TODO: fig.height=4,     fig.width=5
-
-TODO: par(mar=..smaller..)
-
-
-
-
-```{r,echo=FALSE}
-set.seed(666)
-options(width=64)
-options(stringsAsFactors=FALSE)
-```
-
-
-
-
 ## Introduction
 
 ### What is a Recommender System?
@@ -36,9 +14,9 @@ is a method to predict the rating a **user** would give to an **item**.
 
 For example:
 
-- Playlist generators at Spotify, YouTube or Netflix
-- Content recommendations on Facebook, Instagram, Twitter or Apple News
-- Product recommendations at Amazon or Alibaba
+- Playlist generators at Spotify, YouTube or Netflix,
+- Content recommendations on Facebook, Instagram, Twitter or Apple News,
+- Product recommendations at Amazon or Alibaba.
 
 
 ---
