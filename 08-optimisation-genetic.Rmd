@@ -14,7 +14,6 @@
 Recall that an **optimisation task** deals with finding an element ${x}$
 in a **search space** $D$,
 that minimises or maximises an **objective function** $f:D\to\mathbb{R}$:
-
 \[
 \min_{{x}\in D} f({x}) \quad\text{or}\quad\max_{{x}\in D} f({x}),
 \]
@@ -70,14 +69,14 @@ one -- it involves a nested search for the closest cluster, with the use of the 
 ---
 
 
-In **k-means clustering** we are minimising the squared Euclidean distance
+In **K-means clustering** we are minimising the squared Euclidean distance
 to each point's cluster centre:
 \[
-\min_{\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)} \in \mathbb{R}^p}
+\min_{\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot} \in \mathbb{R}^p}
 \sum_{i=1}^n \left(
-\min_{j=1,\dots,k}
-\sum_{\ell=1}^p \left(x_\ell^{(i)}-\mu_\ell^{(j)}\right)^2
-\right)
+\min_{k=1,\dots,K}
+\sum_{j=1}^p \left(x_{i,j}-\mu_{k,j}\right)^2
+\right).
 \]
 
 
@@ -93,14 +92,14 @@ which is amongst a few procedures implemented in the `kmeans()` function.
 ---
 
 
-To recall, Lloyd's algorithm (1957) is sometimes referred to as "the" k-means algorithm:
+To recall, Lloyd's algorithm (1957) is sometimes referred to as "the" K-means algorithm:
 
-1. Start with random cluster centres $\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)}$.
+1. Start with random cluster centres $\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$.
 
-2. For each point $\mathbf{x}^{(i)}$, determine its closest centre $C(\mathbf{x}^{(i)})\in\{1,\dots,k\}$.
+2. For each point $\mathbf{x}_{i,\cdot}$, determine its closest centre $C(i)\in\{1,\dots,K\}$.
 
-3. For each cluster $j\in\{1,\dots,k\}$, compute the new cluster centre $\boldsymbol\mu^{(j)}$ as the componentwise arithmetic mean
-of the coordinates of all the points such that $C(\mathbf{x}^{(i)})=j$.
+3. For each cluster $k\in\{1,\dots,K\}$, compute the new cluster centre $\boldsymbol\mu_{k,\cdot}$ as the componentwise arithmetic mean
+of the coordinates of all the point indexes $i$ such that $C(i)=k$.
 
 4. If the cluster centres changed since last iteration, go to step 2, otherwise stop and return the result.
 
@@ -162,16 +161,16 @@ p  <- 32
 Ns <- c(50, 100, 20)
 Ms <- c(0, 1, 2)
 s  <- 1.5*p
-k  <- length(Ns)
+K  <- length(Ns)
 
-X <- lapply(1:k, function(i)
-    gen_cluster(Ns[i], p, rep(Ms[i], p), s))
+X <- lapply(1:K, function(k)
+    gen_cluster(Ns[k], p, rep(Ms[k], p), s))
 X <- do.call(rbind, X) # rbind(X[[1]], X[[2]], X[[3]])
 ```
 
 ---
 
-The objective function for the k-means clustering problem:
+The objective function for the K-means clustering problem:
 
 ```{r,dependson='gendata2',gendata3,cache=TRUE}
 library("FNN")
@@ -182,7 +181,7 @@ get_fitness <- function(mu, X) {
 
     # compute the sum of squared distances
     # between each point and its closes cluster centre:
-    sum((X-mu[memb,])**2)
+    sum((X-mu[memb,])^2)
 }
 ```
 
@@ -196,12 +195,10 @@ min_HartiganWong <- function(mu0, X)
         # algorithm="Hartigan-Wong"
         kmeans(X, mu0, iter.max=100)$centers,
     X)
-
 min_Lloyd <- function(mu0, X)
     get_fitness(
         kmeans(X, mu0, iter.max=100, algorithm="Lloyd")$centers,
     X)
-
 min_optim <- function(mu0, X)
     optim(mu0,
         function(mu, X) {
@@ -218,7 +215,7 @@ Running the simulation:
 nstart <- 100
 set.seed(123)
 res <- replicate(nstart, {
-  mu0 <- X[sample(nrow(X), k),]
+  mu0 <- X[sample(nrow(X), K),]
     c(
         HartiganWong=min_HartiganWong(mu0, X),
         Lloyd=min_Lloyd(mu0, X),
@@ -273,7 +270,7 @@ is the most reliable one of the three:
 ```{r,dependson='gendata3b',gendata4b,cache=TRUE}
 library("microbenchmark")
 set.seed(123)
-mu0 <- X[sample(nrow(X), k),]
+mu0 <- X[sample(nrow(X), K),]
 summary(microbenchmark(
     HartiganWong=min_HartiganWong(mu0, X),
     Lloyd=min_Lloyd(mu0, X),
@@ -299,7 +296,7 @@ Did we put enough effort to find it?
 > Well, maybe. We can try more random restarts:
 
 ```{r,dependson='gendata6',gendata7,cache=TRUE}
-res_tried_very_hard <- kmeans(X, k, nstart=100000, iter.max=10000)$centers
+res_tried_very_hard <- kmeans(X, K, nstart=100000, iter.max=10000)$centers
 print(get_fitness(res_tried_very_hard, X))
 ```
 
@@ -397,7 +394,7 @@ like a fence.
 
 We call a function $f:D\to\mathbb{R}$ **convex**, whenever:
 \[
-(forall x_{1},x_{2}\in D) (\forall \theta\in [0,1])\quad
+(\forall x_{1},x_{2}\in D) (\forall \theta\in [0,1])\quad
 f(\theta x_{1}+(1-\theta)x_{2})\leq \theta f(x_{1})+(1-\theta)f(x_{2})
 \]
 
@@ -434,7 +431,7 @@ Methods such as gradient descent or BFGS should work very well
 
 
 > (\*\*) There is a special class of constrained optimisation problems called linear
-and quadratic programming that involves convex functions, see [@nocedal_wright;@fletcher]
+and quadratic programming that involves convex functions, see [@nocedal_wright;@fletcher].
 
 > (\*\*\*) See also the Karush–Kuhn–Tucker (KKT) conditions
 for a more general problem of minimisation with constraints.
@@ -447,11 +444,11 @@ for a more general problem of minimisation with constraints.
 ---
 
 * $x^2, |x|, e^x$ are all convex.
-* $|x|^p$ is convex for app $p\ge 1$.
+* $|x|^p$ is convex for all $p\ge 1$.
 * if $f$ is convex, then $-f$ is concave.
 * if $f_1$ and $f_2$ are convex, then $w_1 f_1 + w_2 f_2$ are convex for any
 $w_1,w_2\ge 0$.
-* if $f_1$ and $f_2$ are convex, then $\max\{f_1, f_2\}$ are convex.
+* if $f_1$ and $f_2$ are convex, then $\max\{f_1, f_2\}$ is convex.
 * if $f$ and $g$ are convex and $g$ is non-decreasing, then $g(f(x))$ is convex.
 * Sum of squared residuals in linear regression is a convex function of the underlying parameters.
 * Cross-entropy in logistic regression  is a convex function of the underlying parameters.
@@ -477,6 +474,9 @@ There are a couple of useful *metaheuristics* in the literature
 that can serve this purpose.
 
 Most of them rely on clever randomised search.
+
+They are slow to run and don't guarantee anything, but yet they still might be useful -- better
+a solution than no solution at all.
 
 ---
 
@@ -510,13 +510,15 @@ see, e.g, [@evolution]:
     * memetic algorithm
     * firefly algorithm
 
+All of these sound fancy, but the general ideas behind them are pretty simple.
+
 
 
 ### Overview of the Method
 
 ---
 
-Genetic algorithms (GAs) are amongst the simplest evolutionary approaches.
+Genetic algorithms (GAs) are amongst the most popular evolutionary approaches.
 
 They are based on Charles Darwin's work on evolution by natural selection.
 
@@ -534,18 +536,18 @@ over a given domain $D$.
 1. Generate a random initial population of individuals -- $n_\text{pop}$ points in $D$,
 e.g., $n_\text{pop}=128$
 
-2. Repeat until converged:
+2. Repeat until some convergence criterion is not met:
 
     a. evaluate the fitness of each individual
     b. select the pairs of the individuals for reproduction, the fitter
     should be selected more eagerly
     c. apply crossover operations to create offspring
-    d. mutate randomly selected individuals slightly
+    d. slightly mutate randomly selected individuals
     e. replace the old population with the new one
 
 
 
-### Example Implementation - GA for k-means
+### Example Implementation - GA for K-means
 
 ---
 
@@ -559,7 +561,7 @@ npop <- 32
 niter <- 100
 
 # randomly generate an initial population of size `npop`:
-pop <- lapply(1:npop, function(i) X[sample(nrow(X), k),])
+pop <- lapply(1:npop, function(i) X[sample(nrow(X), K),])
 
 # evaluate fitness of each individual:
 cur_fitness <- sapply(pop, get_fitness, X)
@@ -567,13 +569,13 @@ cur_best_fitness <- min(cur_fitness)
 best_fitness <- cur_best_fitness
 ```
 
-Each individual in the population is just the set of $k$
-candidate cluster centres represented as a matrix in $\mathbb{R}^{k\times p}$.
+Each individual in the population is just the set of $K$
+candidate cluster centres represented as a matrix in $\mathbb{R}^{K\times p}$.
 
 ---
 
 
-Let's assume that the fitness of each individual should a function of
+Let's assume that the fitness of each individual should be a function of
 the rank of the objective function's value
 (smallest objective == highest rank == best fit).
 
@@ -601,13 +603,14 @@ and the remaining ones from the "right" parent (see below for an illustration):
 
 
 ```{r,dependson='genetic2',genetic3,cache=TRUE}
-crossover <- function(pop, pairs, k, p) {
+crossover <- function(pop, pairs, K, p) {
     old_pop <- pop
     pop <- pop[pairs[,2]]
     for (j in 1:length(pop)) {
-        wh <- sample(p-1, k, replace=TRUE)
-        for (l in 1:k)
-            pop[[j]][l,1:wh[l]] <- old_pop[[pairs[j,1]]][l,1:wh[l]]
+        wh <- sample(p-1, K, replace=TRUE)
+        for (l in 1:K)
+            pop[[j]][l,1:wh[l]] <-
+                old_pop[[pairs[j,1]]][l,1:wh[l]]
     }
     pop
 }
@@ -626,10 +629,10 @@ substitutes some cluster centre with a random vector from the input dataset.
 
 
 ```{r,dependson='genetic3',genetic4,cache=TRUE}
-mutate <- function(pop, X, k) {
+mutate <- function(pop, X, K) {
     for (j in 1:length(pop)) {
         if (runif(1) < 0.025) {
-            szw <- sample(1:k, 1)
+            szw <- sample(1:K, 1)
             pop[[j]][szw,] <- X[sample(nrow(X), length(szw)),]
         }
     }
@@ -642,7 +645,7 @@ mutate <- function(pop, X, k) {
 We also need a function that checks if
 the new cluster centres aren't too far away from the input points.
 
-If it will happen that we have empty clusters, our solution is degenerate and
+If it happens that we have empty clusters, our solution is degenerate and
 we must correct it.
 
 All "bad" cluster centres will be substituted with randomly chosen points from $\mathbf{X}$.
@@ -654,39 +657,39 @@ of the closest points, just like in Lloyd's algorithm, to speed up convergence.
 
 
 ```{r,dependson='genetic4',genetic4b,cache=TRUE}
-recompute_mus <- function(pop, X, k) {
-    for (j in 1:length(pop)) {
-        # get nearest cluster centres for each point:
-        memb <- get.knnx(pop[[j]], X, 1)$nn.index
-        sz <- tabulate(memb, k) # number of points in each cluster
-        # if there are empty clusters, fix them:
-        szw <- which(sz==0)
-        if (length(szw)>0) { # random points in X will be new cluster centres
-            pop[[j]][szw,] <- X[sample(nrow(X), length(szw)),]
-            memb <- FNN::get.knnx(pop[[j]], X, 1)$nn.index
-            sz <- tabulate(memb, k)
-        }
-        # recompute cluster centres - componentwise average:
-        pop[[j]][,] <- 0
-        for (l in 1:nrow(X))
-            pop[[j]][memb[l],] <- pop[[j]][memb[l],]+X[l,]
-        pop[[j]] <- pop[[j]]/sz
+recompute_mus <- function(pop, X, K) {
+  for (j in 1:length(pop)) {
+    # get nearest cluster centres for each point:
+    memb <- get.knnx(pop[[j]], X, 1)$nn.index
+    sz <- tabulate(memb, K) # number of points in each cluster
+    # if there are empty clusters, fix them:
+    szw <- which(sz==0)
+    if (length(szw)>0) { # random points in X will be new cluster centres
+        pop[[j]][szw,] <- X[sample(nrow(X), length(szw)),]
+        memb <- FNN::get.knnx(pop[[j]], X, 1)$nn.index
+        sz <- tabulate(memb, K)
     }
-    pop
+    # recompute cluster centres - componentwise average:
+    pop[[j]][,] <- 0
+    for (l in 1:nrow(X))
+        pop[[j]][memb[l],] <- pop[[j]][memb[l],]+X[l,]
+    pop[[j]] <- pop[[j]]/sz
+  }
+  pop
 }
 ```
 
 ---
 
 
-We are ready to build our genetic algorithm to solve a k-means clustering  problem:
+We are ready to build our genetic algorithm to solve the K-means clustering  problem:
 
 ```{r,dependson='genetic4b',genetic5,cache=TRUE,eval=FALSE}
 for (i in 1:niter) {
     pairs <- selection(cur_fitness)
-    pop <- crossover(pop, pairs, k, p)
-    pop <- mutate(pop, X, k)
-    pop <- recompute_mus(pop, X, k)
+    pop <- crossover(pop, pairs, K, p)
+    pop <- mutate(pop, X, K)
+    pop <- recompute_mus(pop, X, K)
     # re-evaluate fitness:
     cur_fitness <- sapply(pop, get_fitness, X)
     cur_best_fitness <- min(cur_fitness)
@@ -789,6 +792,10 @@ in terms of speed and reliability.
 
 All in all, we prefer a suboptimal solution obtained by means of heuristics
 to no solution at all.
+
+Problems that you could try solving with GAs include variable selection
+in multiple regression -- finding the subset of features optimising the AIC
+(this is a hard problem to and forward selection was just a simple greed heuristic).
 
 ---
 
