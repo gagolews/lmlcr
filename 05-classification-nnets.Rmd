@@ -3,10 +3,6 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-TODO: logistic regression matrix form
-
-
-
 
 ```{r,cache=TRUE,metrics,echo=FALSE}
 get_metrics <- function(Y_test, Y_pred)
@@ -334,23 +330,23 @@ Hence, now we're back to our "comfort zone".
 
 
 Let us generalise the binary logistic regression model
-to a 10-class one.
+to a 10-class one (or, more generally, $K$-class one).
 
 This time we will be modelling ten probabilities,
 with
-$\Pr(Y=i|\mathbf{X},\boldsymbol\beta)$ denoting the *confidence* that a given image $\mathbf{X}$
-is in fact the $i$-th digit:
+$\Pr(Y=k|\mathbf{X},\mathbf{B})$ denoting the *confidence* that a given image $\mathbf{X}$
+is in fact the $k$-th digit:
 
 \[
 \begin{array}{lcl}
-\Pr(Y=0|\mathbf{X},\boldsymbol\beta)&=&\dots\\
-\Pr(Y=1|\mathbf{X},\boldsymbol\beta)&=&\dots\\
+\Pr(Y=0|\mathbf{X},\mathbf{B})&=&\dots\\
+\Pr(Y=1|\mathbf{X},\mathbf{B})&=&\dots\\
 &\vdots&\\
-\Pr(Y=9|\mathbf{X},\boldsymbol\beta)&=&\dots\\
+\Pr(Y=9|\mathbf{X},\mathbf{B})&=&\dots\\
 \end{array}
 \]
 
-where $\boldsymbol\beta$ is the set of underlying model parameters
+where $\mathbf{B}$ is the set of underlying model parameters
 (to be determined soon).
 
 
@@ -361,21 +357,25 @@ the class probabilities are obtained by "cleverly normalising"
 the outputs of a linear model (so that we obtain a value in $[0,1]$).
 
 In the multinomial case, we can use a separate linear model for each digit
-so that $\Pr(Y=i|\mathbf{X},\boldsymbol\beta)$
+so that $\Pr(Y=k|\mathbf{X},\mathbf{B})$
 is given as a function of
-\[\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_{p,i} X_{p}.\]
+\[\beta_{0,k} + \beta_{1,k} X_{1} +  \dots + \beta_{p,k} X_{p}.\]
 
 Therefore, instead of a parameter vector of length $(p+1)$,
 we will need a parameter matrix of size $(p+1)\times 10$
  representing the model's definition.
 
+> Side note: upper case of $\beta$ is $B$.
+
 Then, these 10 numbers will have to be normalised
 so as to they are positive and sum to $1$.
+
+
 
 ---
 
 To maintain the spirit of the original model,
-we can apply $e^{-(\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_{p,i} X_{p})}$
+we can apply $e^{-(\beta_{0,k} + \beta_{1,k} X_{1} +  \dots + \beta_{p,k} X_{p})}$
 to get a positive value,
 because the co-domain of the exponential function $t\mapsto e^t$
 is $(0,\infty)$.
@@ -386,16 +386,19 @@ the total sum equals 1.
 This leads to:
 \[
 \begin{array}{lcl}
-\Pr(Y=0|\mathbf{X},\boldsymbol\beta)&=&\displaystyle\frac{e^{-(\beta_{0,0} + \beta_{1,0} X_{1} +  \dots + \beta_{p,0} X_{p})}}{\sum_{i=0}^9 e^{-(\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_p X_{p,i})}}\\
-\Pr(Y=1|\mathbf{X},\boldsymbol\beta)&=&\displaystyle\frac{e^{-(\beta_{0,1} + \beta_{1,1} X_{1} +  \dots + \beta_{p,1} X_{p})}}{\sum_{i=0}^9 e^{-(\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_p X_{p,i})}}\\
+\Pr(Y=0|\mathbf{X},\mathbf{B})&=&\displaystyle\frac{e^{-(\beta_{0,0} + \beta_{1,0} X_{1} +  \dots + \beta_{p,0} X_{p})}}{\sum_{k=0}^9 e^{-(\beta_{0,k} + \beta_{1,k} X_{1} +  \dots + \beta_{p,k} X_p)}},\\
+\Pr(Y=1|\mathbf{X},\mathbf{B})&=&\displaystyle\frac{e^{-(\beta_{0,1} + \beta_{1,1} X_{1} +  \dots + \beta_{p,1} X_{p})}}{\sum_{k=0}^9 e^{-(\beta_{0,k} + \beta_{1,k} X_{1} +  \dots + \beta_{p,k} X_{p})}},\\
 &\vdots&\\
-\Pr(Y=9|\mathbf{X},\boldsymbol\beta)&=&\displaystyle\frac{e^{-(\beta_{0,9} + \beta_{1,9} X_{1} +  \dots + \beta_{p,9} X_{p})}}{\sum_{i=0}^9 e^{-(\beta_{0,i} + \beta_{1,i} X_{1} +  \dots + \beta_p X_{p,i})}}\\
+\Pr(Y=9|\mathbf{X},\mathbf{B})&=&\displaystyle\frac{e^{-(\beta_{0,9} + \beta_{1,9} X_{1} +  \dots + \beta_{p,9} X_{p})}}{\sum_{k=0}^9 e^{-(\beta_{0,k} + \beta_{1,k} X_{1} +  \dots + \beta_{p,k} X_{p})}}.\\
 \end{array}
 \]
 
 Note that we get the binary logistic regression
 if we fix $\beta_{0,0}=\beta_{1,0}=\dots=\beta_{p,0}=0$
-as $e^0=1$.
+as $e^0=1$ and consider only the classes $0$ and $1$.
+
+
+
 
 
 ### Softmax Function
@@ -408,9 +411,9 @@ is called the **softmax** function (or *softargmax*).
 
 
 ```{r}
-softmax <- function(P) {
-    P2 <- exp(P) # ignore the minus sign above
-    P2/sum(P2)
+softmax <- function(T) {
+    T2 <- exp(T) # ignore the minus sign above
+    T2/sum(T2)
 }
 round(rbind(
     softmax(c(0, 0, 10, 0, 0, 0, 0,  0, 0, 0)),
@@ -418,6 +421,8 @@ round(rbind(
     softmax(c(0, 0, 10, 0, 0, 0, 9,  0, 0, 0)),
     softmax(c(0, 0, 10, 0, 0, 0, 9,  0, 0, 8))), 2)
 ```
+
+
 
 ### One-Hot Encoding and Decoding
 
@@ -435,9 +440,9 @@ round(y_pred, 2) # probabilities of class 0, 1, 2, ..., 9
 which.max(y_pred)-1 # 1..10 -> 0..9
 ```
 
-> `which.max(x)` returns an index `i` such that
-`x[i]==max(i)` (recall that in R the first element in a vector is at index `1`).
-Mathematically, we denote this operation as $\mathrm{arg}\max_{i=1,\dots,n} x_i$.
+> `which.max(y)` returns an index `k` such that
+`y[k]==max(y)` (recall that in R the first element in a vector is at index `1`).
+Mathematically, we denote this operation as $\mathrm{arg}\max_{k=1,\dots,K} y_k$.
 
 ---
 
@@ -460,7 +465,7 @@ y2  # one-hot-encoded y
 ---
 
 To one-hot encode the reference outputs in R,
-we start with a matrix of size $n\times 10$ filled with "0"s:
+we start with a matrix of size $n\times 10$ populated with "0"s:
 
 ```{r,cache=TRUE,mnist_onehot}
 Y_train2 <- matrix(0, nrow=length(Y_train), ncol=10)
@@ -539,9 +544,9 @@ y2
 It turns out that one of the definitions of cross-entropy introduced above
 already handles the case of multiclass classification:
 \[
-E(\boldsymbol\beta) =
+E(\mathbf{B}) =
 -\frac{1}{n} \sum_{i=1}^n
-\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\boldsymbol\beta).
+\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\mathbf{B}).
 \]
 The smaller the probability corresponding to the ground-truth class
 outputted by the classifier, the higher the penalty:
@@ -562,9 +567,9 @@ plot(x, y, xlab="probability outputted by the classifier", ylab="penalty = -log(
 
 To sum up, we will be solving the optimisation problem:
 \[
-\min_{\boldsymbol\beta\in\mathbb{R}^{(p+1)\times 10}}
+\min_{\mathbf{B}\in\mathbb{R}^{(p+1)\times 10}}
 -\frac{1}{n} \sum_{i=1}^n
-\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\boldsymbol\beta).
+\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\mathbf{B}).
 \]
 This has no analytical solution,
 but can be solved using iterative methods
@@ -576,14 +581,14 @@ but can be solved using iterative methods
 
 (*) Side note: A single term in the above formula,
 \[
-\log \Pr(Y=y_i|\mathbf{x}_i,\boldsymbol\beta)
+\log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\mathbf{B})
 \]
 given:
 
 * `y_pred` -- a vector of 10 probabilities
 generated by the model:
 \[
-\left[\Pr(Y=0|\mathbf{x}_{i,\cdot},\boldsymbol\beta)\  \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)\ \cdots\ \Pr(Y=9|\mathbf{x}_{i,\cdot},\boldsymbol\beta)\right]
+\left[\Pr(Y=0|\mathbf{x}_{i,\cdot},\mathbf{B})\  \Pr(Y=1|\mathbf{x}_{i,\cdot},\mathbf{B})\ \cdots\ \Pr(Y=9|\mathbf{x}_{i,\cdot},\mathbf{B})\right]
 \]
 * `y2`  -- a one-hot-encoded version of the true label, $y_i$, of the form
 \[
@@ -597,15 +602,91 @@ sum(y2*log(y_pred))
 ```
 
 
-###  TODO Solution in Matrix Form  (\*)
+###  Problem Formulation in Matrix Form  (\*\*)
 
 ---
 
-TODO state the problem in matrix form
+The definition of a multinomial logistic regression
+model for a multiclass classification task involving classes $\{1,2,\dots,K\}$
+is slightly bloated.
 
-TODO Some R examples
+Assuming that $\mathbf{X}\in\mathbb{R}^{n\times p}$ is the input matrix,
+to compute the $K$ predicted probabilities for the $i$-th input,
+\[
+\left[
+\hat{y}_{i,1}\ \hat{y}_{i,2}\ \cdots\ \hat{y}_{i,K}
+\right],
+\]
+given a parameter matrix $\mathbf{B}^{(p+1)\times K}$, we apply:
+\[
+\begin{array}{lcl}
+\hat{y}_{i,1}=\Pr(Y=1|\mathbf{x}_{i,\cdot},\mathbf{B})&=&\displaystyle\frac{e^{-(\beta_{0,1} + \beta_{1,1} x_{i,1} +  \dots + \beta_{p,1} x_{i,p})}}{\sum_{k=1}^K e^{-(\beta_{0,k} + \beta_{1,k} x_{i,1} +  \dots + \beta_{p,k} x_{i,p})}},\\
+&\vdots&\\
+\hat{y}_{i,K}=\Pr(Y=K|\mathbf{x}_{i,\cdot},\mathbf{B})&=&\displaystyle\frac{e^{-(\beta_{0,K} + \beta_{1,K} x_{i,1} +  \dots + \beta_{p,K} x_{i,p})}}{\sum_{k=1}^K e^{-(\beta_{0,k} + \beta_{1,k} x_{i,1} +  \dots + \beta_{p,k} x_{i,p})}}.\\
+\end{array}
+\]
 
+It turns out we can make use of matrix notation
+to tidy the above formulas.
 
+---
+
+Denote the linear combinations prior to computing the softmax function with:
+\[
+\begin{array}{lcl}
+t_{i,1}&=&-(\beta_{0,1} + \beta_{1,1} x_{i,1} +  \dots + \beta_{p,1} x_{i,p})\\
+&\vdots&\\
+t_{i,K}&=&-(\beta_{0,K} + \beta_{1,K} x_{i,1} +  \dots + \beta_{p,K} x_{i,p})\\
+\end{array}
+\]
+
+We have:
+
+* $x_{i,j}$ -- $i$-th observation, $j$-th feature;
+* $\hat{y}_{i,k}$ -- $i$-th observation, $k$-th class probability;
+* $\beta_{j,k}$ -- coefficient for the $j$-th feature when computing the $k$-th class.
+
+Note that by augmenting $\mathbf{\dot{X}}=[\boldsymbol{1}\ \mathbf{X}]\in\mathbb{R}^{n\times (p+1)}$,
+where $\dot{x}_{i,0}=1$ and $\dot{x}_{i,j}=x_{i,j}$ for all $j\ge 1$ and all $i$, we can write the above as:
+\[
+\begin{array}{lclcl}
+t_{i,1}&=&-\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,1} &=& -\dot{\mathbf{x}}_{i,\cdot}\, \boldsymbol\beta_{\cdot,1}\\
+&\vdots&\\
+t_{i,K}&=&-\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,K} &=& -\dot{\mathbf{x}}_{i,\cdot}\, \boldsymbol\beta_{\cdot,K}\\
+\end{array}
+\]
+
+---
+
+We can get the $K$ linear combinations all at once
+in the form of a row vector by writing:
+\[
+\left[
+t_{i,1}\ t_{i,2}\ \cdots\ t_{i,K}
+\right]
+=
+{\mathbf{x}_{i,\cdot}}\, \mathbf{B}
+\]
+
+Moreover, we can do that for all the $n$ inputs by writing:
+\[
+\mathbf{T}=\dot{\mathbf{X}}\,\mathbf{B}
+\]
+Yes, this is a single matrix multiplication,
+we have $\mathbf{T}\in\mathbb{R}^{n\times K}$.
+
+To obtain $\hat{\mathbf{Y}}$, we have to apply the softmax function
+on every row of $\mathbf{T}$:
+\[
+\hat{\mathbf{Y}}=\mathrm{softmax}\left(
+\dot{\mathbf{X}}\,\mathbf{B}
+\right).
+\]
+
+That's it. Take some time to appreciate the elegance of this notation.
+
+Methods for minimising crossentropy expressed in matrix form
+will be discussed in the next chapter.
 
 
 
@@ -632,7 +713,6 @@ The **perceptron** (Frank Rosenblatt, 1958) was amongst the first
 models of artificial neurons:
 
 ![](figures/perceptron)
-
 
 
 
@@ -699,7 +779,7 @@ fit(model, X_train2, Y_train2, epochs=5)
 
 ---
 
-Make predictions over the test set and one-hot-decode the output probabilities:
+Predict over the test set and one-hot-decode the output probabilities:
 
 ```{r,cache=TRUE,logistic2,dependson='logistic1'}
 Y_pred2 <- predict(model, X_test2)
@@ -781,12 +861,14 @@ Example activation functions
 that can be used in hidden (inner) layers:
 
 * `relu` -- The rectified linear unit:
-\[\psi(z)=\max(z, 0),\]
+\[\psi(t)=\max(t, 0),\]
 * `sigmoid` -- The logistic sigmoid:
-\[\phi(z)=1 / (1 + \exp(-x)),\]
+\[\phi(t)=1 / (1 + \exp(-t)),\]
 * `tanh` -- The hyperbolic function:
-\[\mathrm{tanh}(x) = (\exp(x) - \exp(-x)) / (\exp(x) + \exp(-x)).\]
+\[\mathrm{tanh}(t) = (\exp(t) - \exp(-t)) / (\exp(t) + \exp(-t)).\]
 
+There is not much difference between them, but some might be more convenient
+to handle numerically than the others, depending on the implementation.
 
 
 
@@ -890,14 +972,14 @@ plot_metrics_digits(res_6, mean(Y_test == Y_pred), "6-layer net 784-2500-2000-15
 Do not underestimate the power of appropriate data preprocessing ---
 deep neural networks are not a universal replacement for a data engineer's hard work!
 
-On the top of that, they are not interpretable -- they are black-boxes.
+On top of that, they are not interpretable -- those are merely black-boxes.
 
 Among the typical transformations of the input images we can find:
 
-- normalisation of colours (setting brightness, stretching contrast, etc.)
-- repositioning of the image (centring)
-- deskewing (see below)
-- denoising (e.g., by blurring)
+- normalisation of colours (setting brightness, stretching contrast, etc.),
+- repositioning of the image (centring),
+- deskewing (see below),
+- denoising (e.g., by blurring).
 
 Another frequently applied technique concerns an expansion of the training data
 --- we can add "artificially contaminated" images to the training
@@ -955,6 +1037,7 @@ is its deskewed version.
 
 ---
 
+Deskew everything:
 
 ```{r,cache=TRUE,deskew3,dependson='deskew2'}
 Z_train <- X_train
@@ -973,6 +1056,8 @@ Z_test2 <- matrix(Z_test, ncol=28*28)
 
 
 ---
+
+Multinomial logistic regression model (1-layer NN):
 
 
 ```{r,cache=TRUE,deskew4,dependson='deskew3'}
@@ -1135,7 +1220,7 @@ The MNIST dataset is a classic, although its use in research is discouraged nowa
 can reach $99.8\%$ accuracy.
 
 See Zalando's Fashion-MNIST (by Kashif Rasul & Han Xiao) at
-https://github.com/zalandoresearch/fashion-mnist for a modern replacement..
+https://github.com/zalandoresearch/fashion-mnist for a modern replacement.
 
 Alternatively, take a look at CIFAR-10 and CIFAR-100 (https://www.cs.toronto.edu/~kriz/cifar.html)
 by A. Krizhevsky et al.

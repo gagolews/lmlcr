@@ -1200,9 +1200,9 @@ This can be restated as:
 \left\{
 \begin{array}{rcl}
 \left(\mathbf{\dot{x}}_{\cdot,0}^T \mathbf{\dot{X}}\right)\, \boldsymbol\beta &=& \mathbf{\dot{x}}_{\cdot,0}^T \mathbf{y} \\
-\beta_0 \mathbf{\dot{x}}_{\cdot,1}^T \mathbf{\dot{x}}_{\cdot,0} + \beta_1 \mathbf{\dot{x}}_{\cdot,1}^T \mathbf{\dot{x}}_{\cdot,1}+\dots+\beta_p \mathbf{\dot{x}}_{\cdot,1}^T \mathbf{\dot{x}}_{\cdot,p} &=& \mathbf{\dot{x}}_{\cdot,1}^T \mathbf{y} \\
+\left(\mathbf{\dot{x}}_{\cdot,1}^T \mathbf{\dot{X}}\right)\, \boldsymbol\beta  &=& \mathbf{\dot{x}}_{\cdot,1}^T \mathbf{y} \\
 \vdots\\
-\beta_0 \mathbf{\dot{x}}_{\cdot,p}^T \mathbf{\dot{x}}_{\cdot,0} + \beta_1 \mathbf{\dot{x}}_{\cdot,p}^T \mathbf{\dot{x}}_{\cdot,1}+\dots+\beta_p \mathbf{\dot{x}}_{\cdot,p}^T \mathbf{\dot{x}}_{\cdot,p} &=& \mathbf{\dot{x}}_{\cdot,p}^T \mathbf{y}\\
+\left(\mathbf{\dot{x}}_{\cdot,p}^T \mathbf{\dot{X}}\right)\, \boldsymbol\beta  &=& \mathbf{\dot{x}}_{\cdot,p}^T \mathbf{y}\\
 \end{array}
 \right.
 \]

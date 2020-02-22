@@ -979,19 +979,20 @@ Recall that the output of the logistic regression model
 in the matrix form as:
 \[
 \hat{\mathbf{Y}}=\mathrm{softmax}\left(
-\tilde{\mathbf{X}}\boldsymbol{\beta}
+\mathbf{\dot{X}}\,\mathbf{B}
 \right),
 \]
 where
-$\tilde{\mathbf{X}}\in\mathbb{R}^{n\times 785}$ is a matrix
+$\mathbf{\dot{X}}\in\mathbb{R}^{n\times 785}$ is a matrix
 representing $n$ images of size $28\times 28$, augmented with a column of $1$s,
 and
-$\boldsymbol{\beta}\in\mathbb{R}^{785\times 10}$ is the coefficients matrix.
+$\mathbf{B}\in\mathbb{R}^{785\times 10}$ is the coefficients matrix
+and $\mathrm{softmax}$ is applied on each matrix row separately.
 
 Of course, by the definition of matrix multiplication,
 $\hat{\mathbf{Y}}$ will be a matrix of size
-$n\times 10$, where $\hat{y}_{i,j}$ represents the predicted probability
-that the $i$-th image depicts the $j$-th digit.
+$n\times 10$, where $\hat{y}_{i,k}$ represents the predicted probability
+that the $i$-th image depicts the $k$-th digit.
 
 ```{r,cache=TRUE,mnist_download3,dependson='mnist_download2'}
 # convert to matrices of size n*784
@@ -1003,9 +1004,9 @@ X_test1  <- cbind(1.0, matrix(X_test, ncol=28*28))
 ---
 
 ```{r,cache=TRUE,mnist_download4,dependson='mnist_download3'}
-softmax <- function(Z) {
-    Z <- exp(Z)
-    Z/rowSums(Z)
+softmax <- function(T) {
+    T <- exp(T)
+    T/rowSums(T)
 }
 
 nn_predict <- function(B, X) {
