@@ -25,17 +25,22 @@ TODO: par(mar=..smaller..)
 
 
 In **unsupervised learning** (learning without a teacher),
-the input data points $\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)}$
+the input data points $\mathbf{x}_{1,\cdot},\dots,\mathbf{x}_{n,\cdot}$
 are not assigned any reference labels.
 
 
 
 
-```{r,echo=FALSE, fig.height=5}
+```{r,echo=FALSE}
+par(mar=c(2,2,0.5,0.5))
 plot(iris[,3], iris[,2], las=1, ann=FALSE)
 ```
 
 Our aim now is to discover the **underlying structure in the data**.
+
+
+
+
 
 
 ### Main Types of Unsupervised Learning Problems
@@ -48,7 +53,8 @@ Our aim now is to discover the **underlying structure in the data**.
 In **dimensionality reduction** we seek a meaningful *projection* of a high dimensional
 space (think: many variables/columns).
 
-```{r,echo=FALSE, out.width='50%', fig.width=5, fig.height=5}
+```{r,echo=FALSE,fig.height=5}
+par(mar=c(4,4,3.5,2))
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines <- wines[wines$color=='red',]
 p <- princomp(wines[,c(11, 4, 12)])
@@ -73,7 +79,8 @@ In **anomaly detection**, out task is to identify rare, suspicious, ab-normal
 or out-standing items.
 
 
-```{r,echo=FALSE, fig.height=5}
+```{r,echo=FALSE}
+par(mar=c(2,2,0.5,0.5))
 plot(iris[,3], iris[,2], las=1, ann=FALSE)
 idx <- c(61, 42, 16, 118, 132)
 points(iris[idx,3], iris[idx,2], cex=3, pch=4, col=2)
@@ -88,7 +95,8 @@ The aim of **clustering** is to automatically discover some *naturally occurring
 subgroups in the data set.
 
 
-```{r,echo=FALSE, fig.height=5}
+```{r,echo=FALSE}
+par(mar=c(2,2,0.5,0.5))
 plot(iris[,3], iris[,2], las=1, ann=FALSE, col=as.integer(iris[,5]), pch=as.integer(iris[,5]))
 ```
 
@@ -102,21 +110,23 @@ For example, these may be customers having different shopping patterns
 
 ---
 
-More formally, given $k\ge 2$, **clustering** aims is to find a *special kind*
-of a **$k$-partition** of the input data set $\mathcal{X}=\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)}\}$.
+More formally, given $K\ge 2$, **clustering** aims is to find a *special kind*
+of a **$K$-partition** of the input data set $\mathbf{X}$.
 
-$\mathcal{C}=\{C_1,\dots,C_k\}$ is a $k$-partition of $\mathcal{X}$ whenever:
-
-
-- $C_i\neq\emptyset$ for all $i$ (each set is nonempty),
-- $C_i\cap C_j=\emptyset$ for all $i\neq j$ (sets are pairwise disjoint),
-- $\bigcup_{i=1}^k C_i=\mathcal{X}$ (no point is neglected).
+$\mathcal{C}=\{C_1,\dots,C_K\}$ is a $K$-partition of  $\mathbf{X}$ of size $n$,
+whenever:
 
 
-This can also be thought of as assigning each point a unique label $\{1,\dots,k\}$
+- $C_k\neq\emptyset$ for all $k$ (each set is nonempty),
+- $C_k\cap C_l=\emptyset$ for all $k\neq l$ (sets are pairwise disjoint),
+- $\bigcup_{k=1}^K C_k=\{1,\dots,n\}$ (no point is neglected).
+
+
+This can also be thought of as assigning each point a unique label $\{1,\dots,K\}$
 (think: colouring of the points, where each number has a colour).
 
-> "$\mathbf{x}^{(i)}$ is labelled $j$ iff it belongs to cluster $C_j$."
+> "$\mathbf{x}_{i,\cdot}$ is labelled $j$ iff it belongs to cluster $C_j$,
+i.e., $i\in C_j$".
 
 ---
 
@@ -144,11 +154,11 @@ Example applications of clustering:
 
 
 
-The number of possible $k$-partitions of a set with $n$ elements is given by
+The number of possible $K$-partitions of a set with $n$ elements is given by
 *the Stirling number of the second kind*:
 
 \[
-\left\{{n \atop k}\right\}={\frac  {1}{k!}}\sum _{{j=0}}^{{k}}(-1)^{{k-j}}{\binom  {k}{j}}j^{n};
+\left\{{n \atop K}\right\}={\frac  {1}{K!}}\sum _{{j=0}}^{{K}}(-1)^{{K-j}}{\binom  {K}{j}}j^{n};
 \]
 
 e.g., already $\left\{{n \atop 2}\right\}=2^{n-1}-1$
@@ -160,23 +170,21 @@ However, even one of the most famous textbooks provides us with only a vague hin
 
 > Clustering concerns "segmenting a collection of objects into subsets
 so that those within each cluster are more **closely related**
-to one another than objects assigned to different clusters".
-[*Elements of Statistical Learning*
-by Hastie, Tibshirani and Friedman]
+to one another than objects assigned to different clusters" [@esl].
 
 
 ---
 
-Two types of clustering algorithms:
+There are two main types of clustering algorithms:
 
 
 - **parametric** (model-based):
     - find clusters of specific shapes, or following specific multidimensional
     probability distributions,
-    - e.g., $k$-means, expectation-maximization for Gaussian mixtures (EM),
+    - e.g., $K$-means, expectation-maximization for Gaussian mixtures (EM),
     average linkage agglomerative clustering;
 - **nonparametric** (model-free):
-    - identify high-density, or well-separable regions,
+    - identify high-density or well-separable regions,
     perhaps in the presence of noise points,
     - e.g., single linkage agglomerative clustering, Genie, (H)DBSCAN, BIRCH.
 
@@ -186,10 +194,10 @@ Two types of clustering algorithms:
 
 
 
-Today we'll take a look at two clustering approaches:
+In this chapter we'll take a look at two clustering approaches:
 
-- *$k$-means clustering* that looks for a specific number of clusters
-- *(agglomerative) hierarchical clustering*, that outputs a whole hierarchy
+- *K-means clustering* that looks for a specific number of clusters
+- *(agglomerative) hierarchical clustering* that outputs a whole hierarchy
 of nested data partitions
 
 
@@ -203,7 +211,7 @@ of nested data partitions
 
 ---
 
-Let us apply $k$-means clustering to find $k=3$ groups
+Let us apply $K$-means clustering to find $K=3$ groups
 in the famous Fisher's `iris` data set (variables `Sepal.Width`
 and `Petal.Length` variables only)
 
@@ -220,7 +228,8 @@ km$cluster # assigned labels
 
 ---
 
-```{r}
+```{r,echo=-1}
+par(mar=c(4,4,0.5,0.5))
 plot(X, col=km$cluster, pch=as.integer(iris$Species), las=1)
 ```
 
@@ -251,31 +260,29 @@ The discovered partition matches the original one very well.
 
 ---
 
-The aim of $k$-means clustering is to find "good" $k$ cluster centres
-$\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)}$.
+The aim of $K$-means clustering is to find $K$ "good" cluster centres
+$\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$.
 
 
-Then, a point $\mathbf{x}^{(i)}$ will be assigned to the
+Then, a point $\mathbf{x}_{i,\cdot}$ will be assigned to the
 cluster represented by the closest centre.
 
 Closest == w.r.t. the squared Euclidean distance.
 
 Assuming all the points are in a $p$-dimensional space, $\mathbb{R}^p$,
 \[
-d(\mathbf{x}^{(i)}, \boldsymbol\mu^{(j)}) = \| \mathbf{x}^{(i)} - \boldsymbol\mu^{(j)} \|^2 =  \sum_{\ell=1}^p \left(x_\ell^{(i)}-\mu_\ell^{(j)}\right)^2
+d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}) = \| \mathbf{x}_{i,\cdot} - \boldsymbol\mu_{k,\cdot} \|^2 =  \sum_{j=1}^p \left(x_{i,j}-\mu_{k,j}\right)^2
 \]
 
-> For the ordinary Euclidean metric, take the square root...
 
 ---
 
-A point's cluster is determined by
-
+The $i$-th point's cluster is determined by:
 \[
-\mathrm{C}(\mathbf{x}^{(i)}) = \mathrm{arg}\min_{j=1,\dots,k}
-d(\mathbf{x}^{(i)}, \boldsymbol\mu^{(j)}),
+\mathrm{C}(i) = \mathrm{arg}\min_{k=1,\dots,K}
+d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}),
 \]
-where $\mathrm{arg}\min$ == argument minimum == the index $j$ that minimises
+where $\mathrm{arg}\min$ == argument minimum == the index $k$ that minimises
 the given expression.
 
 
@@ -285,7 +292,8 @@ the given expression.
 
 In the previous example, we have:
 
-```{r}
+```{r,echo=-1}
+par(mar=c(4,4,0.5,0.5))
 km$centers
 plot(X, col=km$cluster, las=1, asp=1) # asp=1 gives the same scale on both axes
 points(km$centers, cex=2, col=4, pch=16)
@@ -297,7 +305,8 @@ points(km$centers, cex=2, col=4, pch=16)
 Here is the partition of the whole $\mathbb{R}^2$ space
 into clusters based on the closeness to the three cluster centres:
 
-```{r,echo=FALSE, fig.height=6}
+```{r,echo=FALSE, fig.height=5}
+par(mar=c(0,0,0,0))
 x <- seq(0, 8, length.out=250)
 y <- seq(1.5, 5.0, length.out=250)
 z <- matrix(NA_real_, length(x), length(y))
@@ -333,36 +342,32 @@ all(km$cluster == idx) # sanity check
 ```
 
 
-### Algorithms for the k-means Problem
+### Algorithms for the K-means Problem
 
 ---
 
 How to find "good" cluster centres?
 
-In the $k$-means clustering, we wish to find $\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)}$
+In the $K$-means clustering, we wish to find $\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$
 that minimise the total within-cluster distances (distances from each point
 to each own cluster centre):
-
-
-
 \[
-\min_{\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)} \in \mathbb{R}^p}
+\min_{\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot} \in \mathbb{R}^p}
 \sum_{i=1}^n
-d(\mathbf{x}^{(i)}, \boldsymbol\mu^{(\mathrm{C}(\mathbf{x}^{(i)}))})
+d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{C(i),\cdot}),
 \]
-Note that the $\boldsymbol\mu$s are "hidden" inside $\mathrm{C}$.
+Note that the $\boldsymbol\mu$s are also "hidden" inside the point-to-cluster
+belongingness mapping, $\mathrm{C}$.
 
 
 Expanding the above yields:
-
 \[
-\min_{\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)} \in \mathbb{R}^p}
+\min_{\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot} \in \mathbb{R}^p}
 \sum_{i=1}^n \left(
-\min_{j=1,\dots,k}
-\sum_{\ell=1}^p \left(x_\ell^{(i)}-\mu_\ell^{(j)}\right)^2
+\min_{k=1,\dots,K}
+\sum_{j=1}^p \left(x_{i,j}-\mu_{k,j}\right)^2
 \right).
 \]
-
 Unfortunately, the $\min$ operator in the objective function
 makes this optimisation problem not tractable
 with the methods discussed in the previous chapter.
@@ -379,8 +384,8 @@ Therefore, in practice we use various heuristics to solve it.
 `kmeans()` in R implements the Hartigan-Wong, Lloyd, Forgy and MacQueen
 algorithms.
 
-> (*) Technically, there is no such thing as "the $k$-means algorithm" --
-all the above are particular heuristic approaches to solving the $k$-means
+> (*) Technically, there is no such thing as "the K-means algorithm" --
+all the above are particular heuristic approaches to solving the K-means
 clustering problem as specified by the aforementioned optimisation task.
 >
 > By setting `nstart = 10` above, we ask the (Hartigan-Wong) algorithm
@@ -393,14 +398,14 @@ but increases the likelihood of such.
 
 ---
 
-Lloyd's algorithm (1957) is sometimes referred to as "the" k-means algorithm:
+Lloyd's algorithm (1957) is sometimes referred to as "the" K-means algorithm:
 
-1. Start with random cluster centres $\boldsymbol\mu^{(1)}, \dots, \boldsymbol\mu^{(k)}$.
+1. Start with random cluster centres $\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$.
 
-2. For each point $\mathbf{x}^{(i)}$, determine its closest centre $C(\mathbf{x}^{(i)})\in\{1,\dots,k\}$.
+2. For each point $\mathbf{x}_{i,\cdot}$, determine its closest centre $C(i)\in\{1,\dots,K\}$.
 
-3. For each cluster $j\in\{1,\dots,k\}$, compute the new cluster centre $\boldsymbol\mu^{(j)}$ as the componentwise arithmetic mean
-of the coordinates of all the points such that $C(\mathbf{x}^{(i)})=j$.
+3. For each cluster $k\in\{1,\dots,K\}$, compute the new cluster centre $\boldsymbol\mu_{k,\cdot}$ as the componentwise arithmetic mean
+of the coordinates of all the point indexes $i$ such that $C(i)=k$.
 
 4. If the cluster centres changed since last iteration, go to step 2, otherwise stop and return the result.
 
@@ -410,15 +415,15 @@ of the coordinates of all the points such that $C(\mathbf{x}^{(i)})=j$.
 
 ```{r,echo=-1}
 set.seed(123)
-k <- 3
+K <- 3
 
 # Random initial cluster centres
-M <- jitter(X[sample(1:nrow(X), k),])
+M <- jitter(X[sample(1:nrow(X), K),])
 M
 ```
 
 ```{r}
-# Let D[i,j] bet the distance between the i-th point and the j-th centre:
+# Let D[i,k] bet the distance between the i-th point and the k-th centre:
 D <- as.matrix(pdist(X, M))
 # Let idx[i] be the centre closest to the i-th point
 idx <- apply(D, 1, which.min)
@@ -431,7 +436,7 @@ idx <- apply(D, 1, which.min)
 repeat {
     # Previous cluster belongingness:
     old_idx <- idx
-    # Split X into a list of k data frames based on old_idx info
+    # Split X into a list of K data frames based on old_idx info
     X_split <- split(as.data.frame(X), old_idx)
     # Compute componentwise arithmetic means of each data frame - new centres
     M <- t(sapply(X_split, colMeans))
@@ -483,16 +488,16 @@ alternatively, DBSCAN or PCA or MDS or ...
 
 ---
 
-In $k$-means, we need to specify the number of clusters, $k$, in advance.
+In K-means, we need to specify the number of clusters, $K$, in advance.
 
 What if we don't know it?
 
-There is no guarantee that a $k+1$-partition is "similar" to the $k$-one.
+There is no guarantee that a $(K+1)$-partition is "similar" to the $K$-one.
 
 Hierarchical methods, on the other hand, output a whole hierarchy
 of mutually *nested* partitions, which increase the interpretability of the results.
 
-A $k$-partition for any $k$ can be extracted later.
+A $K$-partition for any $K$ can be extracted later.
 
 
 ---
@@ -534,7 +539,7 @@ cutree(h, k=3) # extract the 3-partition
 
 Different cuts of the hierarchy:
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.height=5}
 par(mfrow=c(2,2))
 par(mar=c(2,2.5,0.1,0.1))
 plot(X, col=cutree(h, k=5), ann=FALSE, las=1)
@@ -554,7 +559,8 @@ A **dendrogram** depicts the distances (* as defined by the linkage function)
 between the clusters merged at every stage. This can provide us with the insight
 into the underlying data structure.
 
-```{r}
+```{r,echo=-1}
+par(mar=c(4,4,2,0.5))
 plot(h)
 ```
 
@@ -564,39 +570,39 @@ plot(h)
 
 ---
 
-Initially,  $\mathcal{C}^{(0)}=\{\{\mathbf{x}^{(1)}\},\dots,\{\mathbf{x}^{(n)}\}\}$,
+Initially,  $\mathcal{C}^{(0)}=\{\{1\},\dots,\{n\}\}$,
 i.e., each point is a member of its own cluster.
 
 While a **hierarchical agglomerative clustering** algorithm is being computed,
-there are $n-j$ clusters at the $j$-th step of the procedure,
-$\mathcal{C}^{(j)}=\{C_1^{(j)},\dots,C_{n-j}^{(j)}\}$.
+there are $n-k$ clusters at the $k$-th step of the procedure,
+$\mathcal{C}^{(k)}=\{C_1^{(k)},\dots,C_{n-k}^{(k)}\}$.
 
 
-When proceeding from step $j$ to $j+1$, we determine $C_u^{(j)}$ and $C_v^{(j)}$, $u<v$,
+When proceeding from step $k$ to $k+1$, we determine $C_u^{(k)}$ and $C_v^{(k)}$, $u<v$,
 to be **merged** together so that we get:
 \[
-\mathcal{C}^{(j+1)} = \left\{
-C_1^{(j)},\dots,C_{u-1}^{(j)},
-C_u^{(j)}{\cup C_v^{(j)}},
-C_{u+1}^{(j)},\dots,C_{v-1}^{(j)},
-C_{v+1}^{(j)},\dots,C_{n-j}^{(j)}
+\mathcal{C}^{(k+1)} = \left\{
+C_1^{(k)},\dots,C_{u-1}^{(k)},
+C_u^{(k)}{\cup C_v^{(k)}},
+C_{u+1}^{(k)},\dots,C_{v-1}^{(k)},
+C_{v+1}^{(k)},\dots,C_{n-k}^{(k)}
 \right\}.
 \]
 
 
 Thus, $(\mathcal{C}^{(0)}, \mathcal{C}^{(1)}, \dots, \mathcal{C}^{(n-1)})$ is a sequence
-of **nested** partitions of $\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)}\}$
-with $\mathcal{C}^{(n-1)}=\left\{ \left\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(n)} \right\} \right\}$.
+of **nested** partitions of $\{1,2,\dots,n\}$
+with $\mathcal{C}^{(n-1)}=\left\{ \{1,2,\dots,n\} \right\}$.
 
 
 ### Linkage Functions
 
 ---
 
-A pair of clusters $C_u^{(j)}$ and $C_v^{(j)}$ to be merged with each other
+A pair of clusters $C_u^{(k)}$ and $C_v^{(k)}$ to be merged with each other
 is determined by:
 \[
-\mathrm{arg}\min_{u < v} d^*(C_u^{(j)}, C_v^{(j)}),
+\mathrm{arg}\min_{u < v} d^*(C_u^{(k)}, C_v^{(k)}),
 \]
 where $d^*(A,B)$ is the *distance* between two clusters $A$ and $B$.
 
@@ -606,8 +612,8 @@ not sets of points.
 $d^*$ is a suitable extension of a pointwise distance $d$ (usually the Euclidean metric)
 to whole sets.
 
-We will assume that $d^*(\{\mathbf{x}^{(i)}\},\{\mathbf{x}^{(j)}\})=
-d(\mathbf{x}^{(i)},\mathbf{x}^{(j)})$, i.e., the distance between
+We will assume that $d^*(\{\mathbf{x}_{i,\cdot}\},\{\mathbf{x}_{j,\cdot}\})=
+d(\mathbf{x}_{i,\cdot},\mathbf{x}_{j,\cdot})$, i.e., the distance between
 singleton clusters is the same as the distance between the points themselves.
 
 
@@ -634,7 +640,7 @@ d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\m
 
 Computing linkages -- an illustration:
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.width=10,fig.height=5, out.width='100%'}
 
 set.seed(123)
 X <- jitter(t(as.matrix(iris[,2:3])))
@@ -699,7 +705,7 @@ points(X[1,], X[2,], col=y, pch=y)
 
 Complete linkage (again):
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.height=5}
 X <- as.matrix(iris[,c(3,2)])
 D <- dist(X)
 
@@ -719,7 +725,8 @@ legend("top", legend="k=2")
 ---
 
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.height=5}
+par(mar=c(5,4,2,0.5))
 plot(h)
 ```
 
@@ -727,7 +734,7 @@ plot(h)
 
 Average linkage:
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.height=5}
 h <- hclust(D, method="average")
 par(mfrow=c(2,2))
 par(mar=c(2,2.5,0.1,0.1))
@@ -744,7 +751,8 @@ legend("top", legend="k=2")
 ---
 
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.height=5}
+par(mar=c(5,4,2,0.5))
 plot(h)
 ```
 
@@ -753,7 +761,7 @@ plot(h)
 
 Single linkage (this is a typical behaviour!):
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.height=5}
 h <- hclust(D, method="single")
 par(mfrow=c(2,2))
 par(mar=c(2,2.5,0.1,0.1))
@@ -770,7 +778,8 @@ legend("top", legend="k=2")
 ---
 
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.height=5}
+par(mar=c(5,4,2,0.5))
 plot(h)
 ```
 
@@ -817,20 +826,20 @@ $-->
 
 ---
 
-The aim of $k$-means is to find
-$k$ clusters based on the notion of the points' closeness
+The aim of K-means is to find
+$K$ clusters based on the notion of the points' closeness
 to the cluster centres.
 
-Remember that $k$ must be set in advance.
+Remember that $K$ must be set in advance.
 
 By definition (\* via its relation to Voronoi diagrams), all clusters will be of convex shapes.
 
-However, we may try applying $k'$-means for $k' \gg  k$
+However, we may try applying $K'$-means for $K' \gg  K$
 to obtained a "fine grained" data compression and then
 combine the (sub)clusters into more meaningful groups
 using other methods.
 
-Iterative $k$-means algorithms are very fast even for large data sets,
+Iterative K-means algorithms are very fast even for large data sets,
 but they may fail to find a desirable solution, see the next chapter
 for discussion.
 
@@ -850,6 +859,8 @@ These are generally slow -- $O(n^2)$ to $O(n^3)$ complexity.
 
 > Note that the `fastcluster` package provides a more efficient
 implementation of some methods available via a call to `hclust()`.
+See also the `genie` package for a robust algorithm
+based on the minimum spanning tree, which can be computed quickly.
 
 
 
