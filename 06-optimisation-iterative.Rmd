@@ -5,18 +5,6 @@
 
 
 
-TODO: change notation $x^{(i)}\to x_i$
-
-TODO: $\mathbf{X}$, $\mathbf{y}$, $\mathbf{x}$
-
-
-TODO: fig.height=4,     fig.width=5
-
-TODO: par(mar=..smaller..)
-
-
-
-
 ```{r,cache=TRUE,metrics,echo=FALSE}
 get_metrics <- function(Y_test, Y_pred)
 {
@@ -78,15 +66,15 @@ i.e., we will assume the search space is $D=\mathbb{R}^p$ for some $p$.
 
 
 
-### Example Problems in Machine Learning
+### Example Optimisation Problems in Machine Learning
 
 ---
 
 In **multiple linear regression** we were minimising
 the sum of squared residuals
 \[
-\min_{(\beta_0, \beta_1,\dots, \beta_p)\in\mathbb{R}^{p+1}}
-\sum_{i=1}^n \left( \beta_0 + \beta_1 x_1^{(i)}+\dots+\beta_p x_p^{(i)} - y^{(i)} \right) ^2
+\min_{\beta_0, \beta_1,\dots, \beta_p\in\mathbb{R}}
+\sum_{i=1}^n \left( \beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p} - y_i \right)^2.
 \]
 
 In **binary logistic regression** we were minimising the cross-entropy:
@@ -94,9 +82,9 @@ In **binary logistic regression** we were minimising the cross-entropy:
 \min_{(\beta_0, \beta_1,\dots, \beta_p)\in\mathbb{R}^{(p+1)}}
 -\frac{1}{n} \sum_{i=1}^n
 \left(\begin{array}{cc}
-     y^{(i)} \log \left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_1^{(i)}+\dots+\beta_p x_p^{(i)})}}                                                        \right)+\\
-+ (1-y^{(i)})\log \left(\frac{e^{-(\beta_0 + \beta_1 x_1^{(i)}+\dots+\beta_p x_p^{(i)}}}{1+e^{-(\beta_0 + \beta_1 x_1^{(i)}+\dots+\beta_p x_p^{(i)})}}\right)
-\end{array}\right)
+     y_i \log \left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}}}                                                        \right)+\\
++ (1-y_i)\log \left(\frac{e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}}}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}\right)
+\end{array}\right).
 \]
 
 
@@ -127,7 +115,8 @@ that has a minimum at ${x}^*=1$
 with $f(x^*)=-2$.
 
 
-```{r,echo=FALSE, fig.height=5}
+```{r,echo=FALSE}
+par(mar=c(4,4,0.5,0.5))
 x <- seq(-2, 5, length.out=101)
 y <- (x-1)^2-2
 plot(x, y, type='l', xlab='x', ylab='f(x)', las=1, ylim=c(-5, 8))
@@ -158,7 +147,9 @@ that has multiple minima; every ${x}^*\in[1-\sqrt{2},1+\sqrt{2}]$
 yields $f(x^*)=0$.
 
 
-```{r,echo=FALSE, fig.height=5}
+
+```{r,echo=FALSE}
+par(mar=c(4,4,0.5,0.5))
 x <- seq(-2, 5, length.out=101)
 y <- pmax(0, (x-1)^2-2)
 plot(x, y, type='l', xlab='x', ylab='f(x)', las=1, ylim=c(-5, 8))
@@ -171,11 +162,19 @@ text(5, 0, expression(f(x^"*")), pos=1)
 legend("topleft", lty=1, legend=expression(f(x)*"="*"max(0,"*(x-1)^2-2*")"), bg="white")
 ```
 
+
+
+> If this was the case of some machine learning problem, it'd mean
+that we could have many equally well-performing models,
+and hence many equivalent explanations of the same phenomenon.
+
 ---
 
 Moreover, it may happen that a function has **multiple local minima**.
 
-```{r,echo=FALSE, fig.height=5}
+
+```{r,echo=FALSE}
+par(mar=c(4,4,0.5,0.5))
 x <- seq(-2, 3, length.out=101)
 ff <- function(x) x*(x+1)*(x-1)^2-2
 plot(x, ff(x), type='l', xlab='x', ylab='f(x)', las=1, ylim=c(-5, 8))
@@ -220,9 +219,9 @@ The existence of local minima is problematic
 as most of the optimisation methods might get stuck there
 and fail to return the global one.
 
-Moreover, we  cannot often be sure the result returned by an algorithm
-is indeed a global minimum. Maybe there exist a better solution
-that hasn't been considered?
+Moreover, we  cannot often be sure if the result returned by an algorithm
+is indeed a global minimum. Maybe there exists a better solution
+that hasn't been considered yet?
 
 
 ---
@@ -231,7 +230,9 @@ that hasn't been considered?
 Smooth vs non-smooth vs noisy objectives:
 
 
-```{r,echo=FALSE, fig.height=5}
+
+```{r,echo=FALSE}
+par(mar=c(4,4,0.5,0.5))
 x <- seq(-2, 5, length.out=250)
 set.seed(123)
 xx <- seq(-2, 5, length.out=66)
@@ -276,7 +277,7 @@ y  <- outer(x1, x2, g)
 
 ---
 
-There are 4 local minima:
+There are four local minima:
 
 ```{r,echo=FALSE,cache=TRUE}
 g_vectorised <- function(x12) g(x12[1], x12[2])
@@ -308,7 +309,8 @@ Let's explore various ways of depicting $f$.
 
 A contour plot:
 
-```{r,fig.height=6, fig.width=6,out.width='50%'}
+```{r,fig.height=5,echo=-1}
+par(mar=c(4,4,0.5,0.5))
 contour(x1, x2, y, las=1, nlevels=25)
 points(-1.54226, 2.15641, col=2, pch=3)
 ```
@@ -320,7 +322,8 @@ points(-1.54226, 2.15641, col=2, pch=3)
 
 A filled contour plot (a heatmap):
 
-```{r,fig.height=6, fig.width=6,out.width='50%'}
+```{r,fig.height=5,echo=-1}
+par(mar=c(4,4,0.5,0.5))
 filled.contour(x1, x2, y, las=1)
 ```
 
@@ -329,7 +332,8 @@ filled.contour(x1, x2, y, las=1)
 
 Alternatively:
 
-```{r,fig.height=6, fig.width=6,out.width='50%'}
+```{r,fig.height=5,echo=-1}
+par(mar=c(4,4,0.5,0.5))
 image(x1, x2, y, las=1)
 contour(x1, x2, y, add=TRUE)
 ```
@@ -340,7 +344,8 @@ contour(x1, x2, y, add=TRUE)
 
 A perspective plot:
 
-```{r,fig.height=6}
+```{r,fig.height=5,echo=-1}
+par(mar=c(0,0,0,0))
 par(mfrow=c(1,2)) # 2 in 1
 persp(x1, x2, y, las=1, phi=30, theta=-5, shade=2, border=NA)
 persp(x1, x2, y, las=1, phi=30, theta=75, shade=2, border=NA)
@@ -433,7 +438,7 @@ by taking a course on calculus.
 Here, we shall use the BFGS as a *black-box* continuous optimisation method,
 i.e., without going into how it has been defined (it's too early for this).
 However, this will still enable us to identify a few interesting
-behavioural pattern.
+behavioural patterns.
 
 
 
@@ -486,7 +491,7 @@ We can even depict the points that the algorithm is "visiting":
 > (\*) Technically, the algorithm needs to evaluate a few more points
 in order to make the decision on where to go next (BFGS approximates the Hessian matrix).
 
-```{r,echo=-1,warning=FALSE,fig.height=6, fig.width=6,out.width='50%',gbfgsvisit,fig.keep='none',cache=TRUE}
+```{r,echo=-1,warning=FALSE,gbfgsvisit,fig.keep='none',cache=TRUE}
 set.seed(123)
 g_vectorised_plot <- function(x12) {
     points(x12[1], x12[2], col=2, pch=3) # draw
@@ -500,7 +505,8 @@ res <- optim(x12_init, g_vectorised_plot, method="BFGS")
 
 
 
-```{r,echo=-1,warning=FALSE,fig.height=6, fig.width=6,out.width='50%',echo=FALSE,cache=TRUE}
+```{r,echo=-1,warning=FALSE,fig.height=5,echo=FALSE,cache=TRUE}
+par(mar=c(2,2,0.5,0.5))
 <<gbfgsvisit>>
 ```
 
@@ -535,7 +541,8 @@ We find the global minimum only in $\sim 25\%$ cases! :(
 
 ---
 
-```{r,cache=TRUE}
+```{r,cache=TRUE,echo=-1}
+par(mar=c(4,4,2,0.5))
 hist(res_value, las=1, breaks=100)
 box()
 ```
@@ -546,7 +553,8 @@ box()
 Here is a depiction of all the random starting points and where
 do we converge from them:
 
-```{r,echo=FALSE,cache=TRUE, fig.height=6}
+```{r,echo=FALSE,cache=TRUE, fig.height=5}
+par(mar=c(2,2,0.5,0.5))
 set.seed(123)
 res <- replicate(1000, {
     # this will be iterated 100 times
@@ -580,9 +588,9 @@ and pick the best solution amongst the identified local optima.
 
 ```{r,echo=-1,cache=TRUE}
 set.seed(123)
-#' @param N             number of restarts
-#' @param par_generator a function generating initial guesses
-#' @param ...           further arguments to optim()
+# N             - number of restarts
+# par_generator - a function generating initial guesses
+# ...           - further arguments to optim()
 optim_with_restarts <- function(par_generator, ..., N=10) {
     res_best <- list(value=Inf) # cannot be worse than this
     for (i in 1:N) {
@@ -642,7 +650,7 @@ is the vector of all its partial derivatives,
 \right]
 \]
 If we have a function $f(x_1,...,x_p)$,
-the partial derivative w.r.t. the i-th variable,
+the partial derivative w.r.t. the $i$-th variable,
 denoted
 $\frac{\partial f}{\partial x_i}$
 is like an ordinary derivative w.r.t. $x_i$
@@ -652,7 +660,7 @@ where $x_1,...,x_{i-1},x_{i+1},...,x_p$ are assumed constant.
 
 > Function differentiation is an important concept -- see how it's referred to
 in, e.g., the Keras manual at https://keras.rstudio.com/reference/fit.html.
-Don't worry though We take our time with this -- Melbourne wasn't built in a day.
+Don't worry though -- we take our time with this -- Melbourne wasn't built in a day.
 
 ---
 
@@ -709,7 +717,8 @@ we can rely on its finite differences approximation:
     \delta
 }
 \]
-for some small $\delta>0$.
+for some small $\delta>0$, say, $\delta=10^{-6}$.
+
 
 ---
 
@@ -750,7 +759,7 @@ grad_g_vectorised(c(-1.542255693, 2.15640528979))
 ```
 
 
-BTW, there is also the `grad()` function in package `numDeriv`
+BTW, there is also the `grad()` function in package numDeriv
 that might be a little more accurate (uses a different approximation).
 
 
@@ -813,12 +822,12 @@ is positive-definite.
 An implementation of the gradient descent algorithm:
 
 ```{r}
-#' @param par   initial guess
-#' @param fn    a function to be minimised
-#' @param gr    a function to return the gradient of fn
-#' @param eta   learning rate
-#' @param maxit maximum number of iterations
-#' @param tol   convergence tolerance
+# par   - initial guess
+# fn    - a function to be minimised
+# gr    - a function to return the gradient of fn
+# eta   - learning rate
+# maxit - maximum number of iterations
+# tol   - convergence tolerance
 ```
 
 ---
@@ -856,7 +865,8 @@ optim_gd(c(-3,1), g_vectorised, grad_g_vectorised, eta=eta)
 Zooming in the contour plot to see the actual path ($\eta=`r eta`$):
 
 
-```{r,echo=-1,warning=FALSE,fig.height=6, fig.width=6,out.width='50%',echo=FALSE,cache=TRUE,dependson='etadef1',etastepplot}
+```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef1',etastepplot}
+par(mar=c(2,2,0.5,0.5))
 set.seed(123)
 g_vectorised_plot <- function(x12) {
     points(x12[1], x12[2], col=2, pch=3) # draw
@@ -877,7 +887,8 @@ Now with $\eta=`r eta`$:
 
 
 
-```{r,warning=FALSE,fig.height=6, fig.width=6,out.width='50%',echo=FALSE,cache=TRUE,dependson='etadef2'}
+```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef2'}
+par(mar=c(2,2,0.5,0.5))
 <<etastepplot>>
 ```
 
@@ -892,7 +903,8 @@ And now with $\eta=`r eta`$:
 
 
 
-```{r,warning=FALSE,fig.height=6, fig.width=6,out.width='50%',echo=FALSE,cache=TRUE,dependson='etadef3'}
+```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef3'}
+par(mar=c(2,2,0.5,0.5))
 <<etastepplot>>
 ```
 
@@ -903,25 +915,25 @@ If the learning rate $\eta$ is too small, the convergence might be too slow
 and we might get stuck in a plateau.
 
 On the other hand, if $\eta$ is too large, we might be overshooting
-and keep bouncing around the minimum.
+and end up bouncing around the minimum.
 
 
 \ \
 
-This is why many optimisation libraries (including keras) implement some
+This is why many optimisation libraries (including keras/TensorFlow) implement some
 of the following ideas:
 
 * *learning rate decay* -- start with large $\eta$,
-decreasing it in every operation, say, by some percent
+decreasing it in every iteration, say, by some percent;
 
 * *line search* -- determine optimal $\eta$ in every step
 by solving a 1-dimensional optimisation problem w.r.t.
-$\eta\in[0,\eta_{\max}]$
+$\eta\in[0,\eta_{\max}]$;
 
 * *momentum* -- the update step is based on a combination of the gradient direction
 and the previous change of the parameters, $\Delta\mathbf{x}$;
 can be used too accelerate search in the relevant direction
-and minimise oscillations
+and minimise oscillations.
 
 
 
@@ -1038,31 +1050,31 @@ cross_entropy <- function(Y_true, Y_pred) {
 ---
 
 (\*) Cross-entropy in non-matrix form
-($n$ -- number of samples, $k$ -- number of classes,
-$p$ -- number of model parameters;
-in our case $k=10$ and $p=785$):
+($n$ -- number of samples, $K$ -- number of classes,
+$p+1$ -- number of model parameters;
+in our case $K=10$ and $p=784$):
 
 \[
 \begin{array}{rcl}
-E(\boldsymbol\beta) &=& -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \displaystyle\sum_{j=1}^k y_{i,j}
+E(\mathbf{B}) &=& -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \displaystyle\sum_{k=1}^K y_{i,k}
 \log\left(
 \frac{
 \exp\left(
-\displaystyle\sum_{u=1}^p x_{iu} \beta_{uj}
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
 \right)
 }{
-\displaystyle\sum_{c=1}^k \exp\left(
-\displaystyle\sum_{u=1}^p x_{iu} \beta_{uc}
+\displaystyle\sum_{c=1}^K \exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,c}
 \right)
 }
 \right)\\
 &=&
 \displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n
 \left(
-\log \left(\displaystyle\sum_{c=1}^k \exp\left(
-\displaystyle\sum_{u=1}^p x_{iu} \beta_{uc}
+\log \left(\displaystyle\sum_{k=1}^K \exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
 \right)\right)
-- \displaystyle\sum_{j=1}^k y_{i,j} \displaystyle\sum_{u=1}^p x_{iu} \beta_{uj}
+- \displaystyle\sum_{k=1}^K y_{i,k} \displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
 \right)
 \end{array}
 \]
@@ -1073,22 +1085,22 @@ E(\boldsymbol\beta) &=& -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \dis
 
 \[
 \begin{array}{rcl}
-\displaystyle\frac{\partial E}{\partial \beta_{a,b}}(\boldsymbol\beta) &=&
-\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n x_{i,a}
+\displaystyle\frac{\partial E}{\partial \beta_{a,b}}(\mathbf{B}) &=&
+\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \dot{x}_{i,a}
 \left(
 \frac{
 \exp\left(
-\displaystyle\sum_{u=1}^p x_{iu} \beta_{ub}
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,b}
 \right)
 }{
-\displaystyle\sum_{c=1}^k \exp\left(
-\displaystyle\sum_{u=1}^p x_{iu} \beta_{uc}
+\displaystyle\sum_{k=1}^K \exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
 \right)
 }
 - y_{i,b}
 \right)\\
 &=&
-\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n x_{i,a}
+\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \dot{x}_{i,a}
 \left(
 \hat{y}_{i,b} - y_{i,b}
 \right)
@@ -1097,9 +1109,13 @@ E(\boldsymbol\beta) &=& -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \dis
 
 ---
 
-It may be shown (\*\*\*) that the gradient of cross-entropy
-(with respect to the parameter matrix $\boldsymbol\beta$)
+It may be shown (\*) that the gradient of cross-entropy
+(with respect to the parameter matrix $\mathbf{B}$)
 can be expressed in the matrix form as:
+
+\[
+\frac{1}{n} \mathbf{\dot{X}}^T\, (\mathbf{\hat{Y}}-\mathbf{Y})
+\]
 
 ```{r,cache=TRUE,mnist_download6,dependson='mnist_download5'}
 grad_cross_entropy <- function(X, Y_true, Y_pred) {
@@ -1170,9 +1186,9 @@ digits out there in the world".
 
 Looking at the objective (cross-entropy):
 \[
-E(\boldsymbol\beta) =
--\frac{1}{n_\text{train}} \sum_{i=1}^n
-\log \Pr(Y=y_\text{train}^{(i)}|\mathbf{x}_\text{train}^{(i)},\boldsymbol\beta)
+E(\mathbf{B}) =
+-\frac{1}{n^\text{train}} \sum_{i=1}^{n^\text{train}}
+\log \Pr(Y=y_i^\text{train}|\mathbf{x}_{i,\cdot}^\text{train},\mathbf{B}).
 \]
 
 How about we try fitting to different random samples of the train set
@@ -1180,9 +1196,9 @@ in each iteration of the gradient descent method
 instead of fitting to the whole train set?
 
 \[
-E(\boldsymbol\beta) =
+E(\mathbf{B}) =
 -\frac{1}{b} \sum_{i=1}^b
-\log \Pr(Y=y_\text{train}^{(\text{random\_index}_i)}|\mathbf{x}_\text{train}^{(\text{random\_index}_i)},\boldsymbol\beta)
+\log \Pr(Y=y_{\text{random\_index}_i}^\text{train}|\mathbf{x}_{\text{random\_index}_i,\cdot}^\text{train},\mathbf{B}),
 \]
 
 where $b$ is some fixed batch size.
@@ -1270,7 +1286,7 @@ maxit <- 10000
 batch_size <- 32
 ```
 
-```{r,cache=TRUE,mnist_sgd,dependson='mnist_sgd1',echo=FALSE,fig.height=5}
+```{r,cache=TRUE,mnist_sgd,dependson='mnist_sgd1',echo=FALSE,fig.height=5,fig.width=10,out.width='100%'}
 set.seed(123)
 # random matrix of size 785x10 - initial guess
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)), nrow=ncol(X_train1))
@@ -1323,7 +1339,7 @@ maxit <- 10000
 batch_size <- 128
 ```
 
-```{r,cache=TRUE,mnist_sgd2b,dependson='mnist_sgd2',echo=FALSE,fig.height=5}
+```{r,cache=TRUE,mnist_sgd2b,dependson='mnist_sgd2',echo=FALSE,fig.height=5,fig.width=10,out.width='100%'}
 <<mnist_sgd>>
 ```
 

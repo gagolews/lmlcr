@@ -201,7 +201,7 @@ for (i in 0:9) {
 
 ---
 
-Accessing MNIST via the `keras` package
+Accessing MNIST via the keras package
 (which we will use throughout this chapter anyway) is easy:
 
 
@@ -620,11 +620,14 @@ to compute the $K$ predicted probabilities for the $i$-th input,
 given a parameter matrix $\mathbf{B}^{(p+1)\times K}$, we apply:
 \[
 \begin{array}{lcl}
-\hat{y}_{i,1}=\Pr(Y=1|\mathbf{x}_{i,\cdot},\mathbf{B})&=&\displaystyle\frac{e^{-(\beta_{0,1} + \beta_{1,1} x_{i,1} +  \dots + \beta_{p,1} x_{i,p})}}{\sum_{k=1}^K e^{-(\beta_{0,k} + \beta_{1,k} x_{i,1} +  \dots + \beta_{p,k} x_{i,p})}},\\
+\hat{y}_{i,1}=\Pr(Y=1|\mathbf{x}_{i,\cdot},\mathbf{B})&=&\displaystyle\frac{e^{\beta_{0,1} + \beta_{1,1} x_{i,1} +  \dots + \beta_{p,1} x_{i,p}}}{\sum_{k=1}^K e^{\beta_{0,k} + \beta_{1,k} x_{i,1} +  \dots + \beta_{p,k} x_{i,p}}},\\
 &\vdots&\\
-\hat{y}_{i,K}=\Pr(Y=K|\mathbf{x}_{i,\cdot},\mathbf{B})&=&\displaystyle\frac{e^{-(\beta_{0,K} + \beta_{1,K} x_{i,1} +  \dots + \beta_{p,K} x_{i,p})}}{\sum_{k=1}^K e^{-(\beta_{0,k} + \beta_{1,k} x_{i,1} +  \dots + \beta_{p,k} x_{i,p})}}.\\
+\hat{y}_{i,K}=\Pr(Y=K|\mathbf{x}_{i,\cdot},\mathbf{B})&=&\displaystyle\frac{e^{\beta_{0,K} + \beta_{1,K} x_{i,1} +  \dots + \beta_{p,K} x_{i,p}}}{\sum_{k=1}^K e^{\beta_{0,k} + \beta_{1,k} x_{i,1} +  \dots + \beta_{p,k} x_{i,p}}}.\\
 \end{array}
 \]
+
+> We have dropped the minus sign in the exponentiation for the brevity of notation.
+Note that we can always map $b_{j,k}'=-b_{j,k}$.
 
 It turns out we can make use of matrix notation
 to tidy the above formulas.
@@ -634,9 +637,9 @@ to tidy the above formulas.
 Denote the linear combinations prior to computing the softmax function with:
 \[
 \begin{array}{lcl}
-t_{i,1}&=&-(\beta_{0,1} + \beta_{1,1} x_{i,1} +  \dots + \beta_{p,1} x_{i,p})\\
+t_{i,1}&=&\beta_{0,1} + \beta_{1,1} x_{i,1} +  \dots + \beta_{p,1} x_{i,p}\\
 &\vdots&\\
-t_{i,K}&=&-(\beta_{0,K} + \beta_{1,K} x_{i,1} +  \dots + \beta_{p,K} x_{i,p})\\
+t_{i,K}&=&\beta_{0,K} + \beta_{1,K} x_{i,1} +  \dots + \beta_{p,K} x_{i,p}\\
 \end{array}
 \]
 
@@ -650,9 +653,9 @@ Note that by augmenting $\mathbf{\dot{X}}=[\boldsymbol{1}\ \mathbf{X}]\in\mathbb
 where $\dot{x}_{i,0}=1$ and $\dot{x}_{i,j}=x_{i,j}$ for all $j\ge 1$ and all $i$, we can write the above as:
 \[
 \begin{array}{lclcl}
-t_{i,1}&=&-\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,1} &=& -\dot{\mathbf{x}}_{i,\cdot}\, \boldsymbol\beta_{\cdot,1}\\
+t_{i,1}&=&\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,1} &=& \dot{\mathbf{x}}_{i,\cdot}\, \boldsymbol\beta_{\cdot,1}\\
 &\vdots&\\
-t_{i,K}&=&-\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,K} &=& -\dot{\mathbf{x}}_{i,\cdot}\, \boldsymbol\beta_{\cdot,K}\\
+t_{i,K}&=&\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,K} &=& \dot{\mathbf{x}}_{i,\cdot}\, \boldsymbol\beta_{\cdot,K}\\
 \end{array}
 \]
 
@@ -759,8 +762,8 @@ that uses the softmax as the activation function.
 
 
 To train such a neural network (fit a multinomial logistic regression model),
-we will use the  `keras` package,
-a wrapper around the state-of-the-art, GPU-enabled `tensorflow` library.
+we will use the  keras package,
+a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.
 
 
 ```{r,cache=TRUE,logistic1,dependson='mnist_onehot_final',echo=-1}
@@ -1248,6 +1251,6 @@ Recommended further reading:
 
 Other:
 
-- `keras` package tutorials available at:
+- keras package tutorials available at:
     https://cran.r-project.org/web/packages/keras/index.html
    and https://keras.rstudio.com
