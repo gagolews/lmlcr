@@ -17,7 +17,7 @@ s.t. == such that
 
 iff == if and only if
 
-e.g. == for example (Latin: *exempli gratia)
+e.g. == for example (Latin: *exempli gratia*)
 
 i.e. == that is (Latin: *id est*)
 
@@ -77,12 +77,7 @@ $x\in A\setminus B$ iff $x\in A$ and $x\not\in B$
 $A\times B$ -- Cartesian product of two sets,
 $A\times B = \{ (a,b): a\in A, b\in B \}$
 
-$A^p = A\prod A \prod \dots\prod A$ ($p$ times) for any $p$
-
-
-$(a, b)$ -- an open interval; $x\in(a,b)$ iff $a < x < b$ for some $a< b$
-
-$[a, b]$ -- a closed interval; $x\in[a,b]$ iff $a \le x \le b$ for some $a\le b$
+$A^p = A\times A \times \dots\times A$ ($p$ times) for any $p$
 
 
 ### Symbols
@@ -99,19 +94,22 @@ $\mathcal{X,Y,A,I,C}$ -- calligraphic (I use it for set families = sets of sets)
 
 
 
-
+<!--
 Greek letters (make sure you know all of them)
 
 | $\alpha$ | $\beta$ | $\gamma$ | $\delta$ | $\varepsilon$ | $\zeta$ | $\eta$ | $\theta$ | $\iota$ | $\kappa$ |
 |----------|---------|----------|----------|---------------|---------|--------|----------|---------|----------|
 | $A$      | $B$     | $\Gamma$ | $\Delta$ | $E$           | $Z$     | $H$    | $\Theta$ | $I$     | $K$      |
 
-<!--  $\lambda$ | $\mu$ | $\nu$ | $\xi$ | $o$ | $\pi$ | $\varrho$ | $\sigma$ | $\tau$ | $\upsilon$ | $\varphi$ | $\chi$ | $\psi$ | $\omega$ -->
-<!--  $\Lambda$ | $M  $ | $N  $ | $\Xi$ | $O$ | $\Pi$ | $P      $ | $\Sigma$ | $T   $ | $\Upsilon$ | $\Phi   $ | $X   $ | $\Psi$ | $\Omega$ -->
+ $\lambda$ | $\mu$ | $\nu$ | $\xi$ | $o$ | $\pi$ | $\varrho$ | $\sigma$ | $\tau$ | $\upsilon$ | $\varphi$ | $\chi$ | $\psi$ | $\omega$
+$\Lambda$ | $M  $ | $N  $ | $\Xi$ | $O$ | $\Pi$ | $P      $ | $\Sigma$ | $T   $ | $\Upsilon$ | $\Phi   $ | $X   $ | $\Psi$ | $\Omega$
+
+
+-->
 
 $X, x, \mathbf{X}, \mathbf{x}$ -- inputs (usually)
 
-$Y, y, \mathbf{Y}, \mathbf{t}$ -- outputs
+$Y, y, \mathbf{Y}, \mathbf{y}$ -- outputs
 
 $\hat{Y}, \hat{y}, \hat{\mathbf{Y}}, \hat{\mathbf{y}}$ --  predicted outputs (usually)
 
@@ -130,6 +128,11 @@ $\mathbb{N}_0$ -- the set of natural numbers including zero, $\mathbb{N}_0=\math
 $\mathbb{Z}$ -- the set of integer numbers, $\mathbb{Z}=\{\dots,-2,-1,0,1,2,\dots\}$
 
 $[0,1]$ -- the unit interval
+
+
+$(a, b)$ -- an open interval; $x\in(a,b)$ iff $a < x < b$ for some $a< b$
+
+$[a, b]$ -- a closed interval; $x\in[a,b]$ iff $a \le x \le b$ for some $a\le b$
 
 
 
@@ -223,28 +226,14 @@ x_{n,j} \\
 ${}^T$ denotes the matrix transpose;
 $\mathbf{B}=\mathbf{A}^T$ is a matrix such that $b_{i,j}=a_{j,i}$.
 
-matrix multiplication
+<!-- matrix multiplication -->
 
-dot product
-
-
-* Euclidean norm:
-\[
-\|\boldsymbol{x}\| = \|\boldsymbol{x}\|_2 = \sqrt{ \sum_{i=1}^n x_i^2 }
-\]
-this is nothing else than the *length* of the vector $\boldsymbol{x}$
-* Manhattan (taxicab) norm:
-\[
-\|\boldsymbol{x}\|_1 = \sum_{i=1}^n |x_i|
-\]
-* Chebyshev (maximum) norm:
-\[
-\|\boldsymbol{x}\|_\infty = \max_{i=1,\dots,n} |x_i|
-= \max\{ |x_1|, |x_2|, \dots, |x_n| \}
-\]
+<!-- dot product -->
 
 
-Euclidean distance
+$\|\boldsymbol{x}\| = \|\boldsymbol{x}\|_2 = \sqrt{ \sum_{i=1}^n x_i^2 }$ -- the Euclidean norm
+
+
 
 
 
@@ -252,20 +241,18 @@ Euclidean distance
 
 #### {.allowframebreaks .unnumbered}
 
-$f:X\to Y$ means
+$f:X\to Y$ means that $f$ is a function mapping inputs from set $X$ (the domain of $f$)
+to elements of $Y$ (the codomain)
 
-$x\mapsto x^2$
-`function(x) x^2` in R
-
-
-
+$x\mapsto x^2$ denotes a (inline) function mapping $x$ to $x^2$,
+equivalent to `function(x) x^2` in R
 
 
 $\exp x = e^x$ -- exponential function with base $e\simeq 2.718$
 
 $\log x$ -- natural logarithm (base $e$)
 
-It holds $e^x = y$ iff $\log y = x$
+it holds $e^x = y$ iff $\log y = x$
 
 $\log ab = \log a + \log b$
 
@@ -281,7 +268,7 @@ $\log e = 1$
 hence $\log e^x = x$
 
 
-
+<!--
 derivative
 
 
@@ -291,29 +278,28 @@ chain rule etc.
 partial derivative
 
 gradient
-
+-->
 
 
 ### Sums and Products
 
 #### {.allowframebreaks .unnumbered}
 
+$\sum_{i=1}^n x_i=x_1+x_2+\dots+x_n$
 
+$\sum_{i=1,\dots,n} x_i$ -- the same
 
-display (stand-alone) vs text (in-line) style
-$\displaystyle\sum_{i=1}^n x_i$
-vs $\textstyle\sum_{i=1}^n x_i$
+$\sum_{i\in\{1,\dots,n\}} x_i$  -- the same
 
-$\sum_{i=1}^n x_i$...
+note display (stand-alone) $\displaystyle\sum_{i=1}^n x_i$ vs text (in-line) $\textstyle\sum_{i=1}^n x_i$ style
 
-also $\sum_{i=1,\dots,n} x_i$
-
-also $\sum_{i\in\{1,\dots,n\}} x_i$
-
-$\prod_{i=1}^n x_i$...
+$\prod_{i=1}^n x_i = x_1 x_2 \dots x_n$
 
 
 
+
+
+<!--
 
 ### Other
 
@@ -325,3 +311,6 @@ min vs argmin
 
 
 $r(\boldsymbol{x},\boldsymbol{y})$ Pearson's $r$ -- linear correlation coefficient
+
+
+-->

@@ -3,15 +3,22 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-This is a draft version of the forthcoming book
+> **This is a draft version of the forthcoming book
 *Lightweight Machine Learning Classics with R*
-by [Marek Gagolewski](https://www.gagolewski.com).
+by [Marek Gagolewski](https://www.gagolewski.com).**
 
-Copyright (C) 2020, [Marek Gagolewski](https://www.gagolewski.com)
+> **Please submit any feature requests, remarks and bug fixes
+via the project site at [github](https://github.com/gagolews/lmlcr/issues)
+or by [email](https://www.gagolewski.com). Thanks!**
 
+
+Copyright (C) 2020, [Marek Gagolewski](https://www.gagolewski.com).
 This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 License (CC BY-NC-ND 4.0).
+
+
+
 
 <!-- ![](figures/cover) -->
 
@@ -50,16 +57,45 @@ such as a 1st year undergrad.
 
 #### About Me  {.unnumbered}
 
-t.b.d.
+
+I'm currently a Senior Lecturer in Applied AI at Deakin University
+in Melbourne, Australia
+and an Associate Professor in Data Science at Warsaw University of Technology,
+Poland, where I taught various courses related to
+R and Python programming, algorithms,
+data science and machine learning.
+This book was also inspired by my experience as a teacher at
+[Data Science Retreat](https://datascienceretreat.com) in Berlin, Germany.
+
+I'm an author of several R and Python packages, including stringi,
+which is among the top 20 most often downloaded R extensions.
+I'm an author of more than 70 publications, my research interests include
+machine learning and optimisation algorithms, data aggregation and clustering,
+statistical modelling and scientific computing.
 
 
 
 #### Acknowledgements  {.unnumbered}
 
-t.b.d.
+This book has been made with Markdown and pandoc.
+R code chunks have been processed with knitr.
+A little help of bookdown and good ol' Makefiles and shell scripts
+did the trick.
+
+
+```{r,echo=FALSE}
+library("knitr")
+library("bookdown")
+library("stringi")
+fs <- list.files("..", "\\.Rmd$", full=TRUE)
+pkgs <- stri_unique(stri_sort(unlist(lapply(fs, function(f)
+    na.omit(stri_match_first_regex(
+        readLines(f), "^library\\(['\"]?(.*?)['\"]?\\)")[,2])))))
+```
+
+The following R packages are used or referred to in the text:
+`r stri_flatten(pkgs, collapse=", ")`.
 
 During the writing of this book, I've been mostly listening to the music
 featuring John Coltrane, Krzysztof Komeda,
 Henry Threadgill, Albert Ayler, Paco de Lucia and Tomatito.
-
-TODO: R packages...

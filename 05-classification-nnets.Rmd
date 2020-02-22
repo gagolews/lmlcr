@@ -1245,6 +1245,13 @@ or at ImageNet (http://image-net.org/index) for an even greater challenge.
 
 #### {.allowframebreaks .unnumbered}
 
+
+
+```{R,echo=FALSE}
+library("tensorflow")
+```
+
+
 Recommended further reading:
 
 - [@islr: Chapter 11]

@@ -71,10 +71,14 @@ purge:
 	rm -f -r tmp-beamer tmp-bookdown-gitbook tmp-bookdown-latex tmp-html \
 	         out-beamer out-bookdown-gitbook out-bookdown-latex out-html
 
-out-bookdown-latex/lmlcr.pdf: $(BOOKDOWN_LATEX_OUTPUTS)
+out-bookdown-latex/lmlcr.pdf: $(BOOKDOWN_LATEX_OUTPUTS) \
+		00-introduction.Rmd \
+		build-bookdown-latex/index.Rmd
 	build-bookdown-latex/render.sh
 
-out-bookdown-gitbook/index.html: $(BOOKDOWN_GITBOOK_OUTPUTS)
+out-bookdown-gitbook/index.html: $(BOOKDOWN_GITBOOK_OUTPUTS) \
+		00-introduction.Rmd \
+		build-bookdown-gitbook/index.Rmd
 	build-bookdown-gitbook/render.sh
 
 $(BEAMER_OUTDIR)/%.pdf: %.Rmd
