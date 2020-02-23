@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Optimisation with Iterative Algorithms | Lightweight Machine Learning Classics with R</title>
+  <meta name="description" content="7 Optimisation with Iterative Algorithms | Lightweight Machine Learning Classics with R" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Optimisation with Iterative Algorithms | Lightweight Machine Learning Classics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="gagolews/lmlcr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Optimisation with Iterative Algorithms | Lightweight Machine Learning Classics with R" />
+  
+  
+  
+
+<meta name="author" content="Marek Gagolewski" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="outro-4.html"/>
+<link rel="next" href="introduction-9.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li style='font-style: italic' ><a href="./">LMLCR</a></li>
+<li style='font-size: smaller' ><a href="https://www.gagolewski.com">Marek Gagolewski</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> {</a></li>
+<li class="chapter" data-level="2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>2</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>2.1</b> Machine Learning</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="machine-learning.html"><a href="machine-learning.html#what-is-machine-learning"><i class="fa fa-check"></i><b>2.1.1</b> What is Machine Learning?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="machine-learning.html"><a href="machine-learning.html#main-types-of-machine-learning-problems"><i class="fa fa-check"></i><b>2.1.2</b> Main Types of Machine Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>2.2</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="supervised-learning.html"><a href="supervised-learning.html#formalism"><i class="fa fa-check"></i><b>2.2.1</b> Formalism</a></li>
+<li class="chapter" data-level="2.2.2" data-path="supervised-learning.html"><a href="supervised-learning.html#desired-outputs"><i class="fa fa-check"></i><b>2.2.2</b> Desired Outputs</a></li>
+<li class="chapter" data-level="2.2.3" data-path="supervised-learning.html"><a href="supervised-learning.html#types-of-supervised-learning-problems"><i class="fa fa-check"></i><b>2.2.3</b> Types of Supervised Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="simple-regression.html"><a href="simple-regression.html"><i class="fa fa-check"></i><b>2.3</b> Simple Regression</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="simple-regression.html"><a href="simple-regression.html#introduction"><i class="fa fa-check"></i><b>2.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.3.2" data-path="simple-regression.html"><a href="simple-regression.html#search-space-and-objective"><i class="fa fa-check"></i><b>2.3.2</b> Search Space and Objective</a></li>
+<li class="chapter" data-level="2.3.3" data-path="simple-regression.html"><a href="simple-regression.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>2.3.3</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="2.3.4" data-path="simple-regression.html"><a href="simple-regression.html#solution-in-r"><i class="fa fa-check"></i><b>2.3.4</b> Solution in R</a></li>
+<li class="chapter" data-level="2.3.5" data-path="simple-regression.html"><a href="simple-regression.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>2.3.5</b> Derivation of the Solution (**)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html"><i class="fa fa-check"></i><b>2.4</b> Vector and Matrix Algebra Basics</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#motivation"><i class="fa fa-check"></i><b>2.4.1</b> Motivation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#vector-scalar-operations"><i class="fa fa-check"></i><b>2.4.2</b> Vector-Scalar Operations</a></li>
+<li class="chapter" data-level="2.4.3" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#vector-vector-operations"><i class="fa fa-check"></i><b>2.4.3</b> Vector-Vector Operations</a></li>
+<li class="chapter" data-level="2.4.4" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#other-vector-operations"><i class="fa fa-check"></i><b>2.4.4</b> Other Vector Operations</a></li>
+<li class="chapter" data-level="2.4.5" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#matrices"><i class="fa fa-check"></i><b>2.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="2.4.6" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>2.4.6</b> Matrix-Scalar Operations</a></li>
+<li class="chapter" data-level="2.4.7" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>2.4.7</b> Matrix-Matrix Operations</a></li>
+<li class="chapter" data-level="2.4.8" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#matrix-multiplication"><i class="fa fa-check"></i><b>2.4.8</b> Matrix Multiplication (*)</a></li>
+<li class="chapter" data-level="2.4.9" data-path="vector-and-matrix-algebra-basics.html"><a href="vector-and-matrix-algebra-basics.html#matrix-vector-operations"><i class="fa fa-check"></i><b>2.4.9</b> Matrix-Vector Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="outro.html"><a href="outro.html"><i class="fa fa-check"></i><b>2.5</b> Outro</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="outro.html"><a href="outro.html#remarks"><i class="fa fa-check"></i><b>2.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="2.5.2" data-path="outro.html"><a href="outro.html#further-reading"><i class="fa fa-check"></i><b>2.5.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>3</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-1.html"><a href="introduction-1.html#formalism-1"><i class="fa fa-check"></i><b>3.1.1</b> Formalism</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-1.html"><a href="introduction-1.html#simple-linear-regression---recap"><i class="fa fa-check"></i><b>3.1.2</b> Simple Linear Regression - Recap</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>3.2</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>3.2.1</b> Problem Formulation</a></li>
+<li class="chapter" data-level="3.2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#fitting-a-linear-model-in-r"><i class="fa fa-check"></i><b>3.2.2</b> Fitting a Linear Model in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html"><i class="fa fa-check"></i><b>3.3</b> Finding the Best Model</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>3.3.1</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>3.3.2</b> Variable Selection</a></li>
+<li class="chapter" data-level="3.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>3.3.3</b> Variable Transformation</a></li>
+<li class="chapter" data-level="3.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.descriptive-power"><i class="fa fa-check"></i><b>3.3.4</b> Predictive vs. Descriptive Power</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>3.4</b> Outro</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>3.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="3.4.2" data-path="outro-1.html"><a href="outro-1.html#other-methods-for-regression"><i class="fa fa-check"></i><b>3.4.2</b> Other Methods for Regression</a></li>
+<li class="chapter" data-level="3.4.3" data-path="outro-1.html"><a href="outro-1.html#derivation-of-the-solution-1"><i class="fa fa-check"></i><b>3.4.3</b> Derivation of the Solution (**)</a></li>
+<li class="chapter" data-level="3.4.4" data-path="outro-1.html"><a href="outro-1.html#solution-in-matrix-form"><i class="fa fa-check"></i><b>3.4.4</b> Solution in Matrix Form (***)</a></li>
+<li class="chapter" data-level="3.4.5" data-path="outro-1.html"><a href="outro-1.html#pearsons-r-in-matrix-form"><i class="fa fa-check"></i><b>3.4.5</b> Pearson’s r in Matrix Form (**)</a></li>
+<li class="chapter" data-level="3.4.6" data-path="outro-1.html"><a href="outro-1.html#further-reading-1"><i class="fa fa-check"></i><b>3.4.6</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>4</b> Classification with K-Nearest Neighbours</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="introduction-2.html"><a href="introduction-2.html#classification-task"><i class="fa fa-check"></i><b>4.1.1</b> Classification Task</a></li>
+<li class="chapter" data-level="4.1.2" data-path="introduction-2.html"><a href="introduction-2.html#factor-data-type"><i class="fa fa-check"></i><b>4.1.2</b> Factor Data Type</a></li>
+<li class="chapter" data-level="4.1.3" data-path="introduction-2.html"><a href="introduction-2.html#data"><i class="fa fa-check"></i><b>4.1.3</b> Data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="introduction-2.html"><a href="introduction-2.html#training-and-test-sets"><i class="fa fa-check"></i><b>4.1.4</b> Training and Test Sets</a></li>
+<li class="chapter" data-level="4.1.5" data-path="introduction-2.html"><a href="introduction-2.html#discussed-methods"><i class="fa fa-check"></i><b>4.1.5</b> Discussed Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html"><i class="fa fa-check"></i><b>4.2</b> K-nearest Neighbour Classifier</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#introduction-3"><i class="fa fa-check"></i><b>4.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#example-in-r"><i class="fa fa-check"></i><b>4.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="4.2.3" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#different-metrics"><i class="fa fa-check"></i><b>4.2.3</b> Different Metrics (*)</a></li>
+<li class="chapter" data-level="4.2.4" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#standardisation-of-independent-variables"><i class="fa fa-check"></i><b>4.2.4</b> Standardisation of Independent Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html"><i class="fa fa-check"></i><b>4.3</b> Implementing a K-NN Classifier (*)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#main-routine"><i class="fa fa-check"></i><b>4.3.1</b> Main Routine (*)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#mode"><i class="fa fa-check"></i><b>4.3.2</b> Mode</a></li>
+<li class="chapter" data-level="4.3.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#nn-search-routines"><i class="fa fa-check"></i><b>4.3.3</b> NN Search Routines (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="outro-2.html"><a href="outro-2.html"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="outro-2.html"><a href="outro-2.html#remarks-2"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="outro-2.html"><a href="outro-2.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>4.4.2</b> Side Note: K-NN Regression</a></li>
+<li class="chapter" data-level="4.4.3" data-path="outro-2.html"><a href="outro-2.html#further-reading-2"><i class="fa fa-check"></i><b>4.4.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>5</b> Classification with Trees and Linear Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="introduction-4.html"><a href="introduction-4.html#classification-task-1"><i class="fa fa-check"></i><b>5.1.1</b> Classification Task</a></li>
+<li class="chapter" data-level="5.1.2" data-path="introduction-4.html"><a href="introduction-4.html#data-1"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="introduction-4.html"><a href="introduction-4.html#discussed-methods-1"><i class="fa fa-check"></i><b>5.1.3</b> Discussed Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html"><i class="fa fa-check"></i><b>5.2</b> Model Assessment and Selection</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#performance-metrics"><i class="fa fa-check"></i><b>5.2.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="5.2.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>5.2.2</b> How to Choose K for K-NN Classification?</a></li>
+<li class="chapter" data-level="5.2.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>5.2.3</b> Training, Validation and Test sets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>5.3</b> Decision Trees</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-5"><i class="fa fa-check"></i><b>5.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.3.2" data-path="decision-trees.html"><a href="decision-trees.html#example-in-r-1"><i class="fa fa-check"></i><b>5.3.2</b> Example in R</a></li>
+<li class="chapter" data-level="5.3.3" data-path="decision-trees.html"><a href="decision-trees.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>5.3.3</b> A Note on Decision Tree Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html"><i class="fa fa-check"></i><b>5.4</b> Binary Logistic Regression</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#motivation-1"><i class="fa fa-check"></i><b>5.4.1</b> Motivation</a></li>
+<li class="chapter" data-level="5.4.2" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#logistic-model"><i class="fa fa-check"></i><b>5.4.2</b> Logistic Model</a></li>
+<li class="chapter" data-level="5.4.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#example-in-r-2"><i class="fa fa-check"></i><b>5.4.3</b> Example in R</a></li>
+<li class="chapter" data-level="5.4.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#loss-function"><i class="fa fa-check"></i><b>5.4.4</b> Loss Function</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="outro-3.html"><a href="outro-3.html"><i class="fa fa-check"></i><b>5.5</b> Outro</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="outro-3.html"><a href="outro-3.html#remarks-3"><i class="fa fa-check"></i><b>5.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="5.5.2" data-path="outro-3.html"><a href="outro-3.html#further-reading-3"><i class="fa fa-check"></i><b>5.5.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="neural-networks.html"><a href="neural-networks.html"><i class="fa fa-check"></i><b>6</b> Neural Networks</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-6.html"><a href="introduction-6.html"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="introduction-6.html"><a href="introduction-6.html#binary-logistic-regression-recap"><i class="fa fa-check"></i><b>6.1.1</b> Binary Logistic Regression: Recap</a></li>
+<li class="chapter" data-level="6.1.2" data-path="introduction-6.html"><a href="introduction-6.html#data-2"><i class="fa fa-check"></i><b>6.1.2</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> Multinomial Logistic Regression</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#a-note-on-data-representation"><i class="fa fa-check"></i><b>6.2.1</b> A Note on Data Representation</a></li>
+<li class="chapter" data-level="6.2.2" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#extending-logistic-regression"><i class="fa fa-check"></i><b>6.2.2</b> Extending Logistic Regression</a></li>
+<li class="chapter" data-level="6.2.3" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#softmax-function"><i class="fa fa-check"></i><b>6.2.3</b> Softmax Function</a></li>
+<li class="chapter" data-level="6.2.4" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#one-hot-encoding-and-decoding"><i class="fa fa-check"></i><b>6.2.4</b> One-Hot Encoding and Decoding</a></li>
+<li class="chapter" data-level="6.2.5" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#cross-entropy-revisited"><i class="fa fa-check"></i><b>6.2.5</b> Cross-entropy Revisited</a></li>
+<li class="chapter" data-level="6.2.6" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#problem-formulation-in-matrix-form"><i class="fa fa-check"></i><b>6.2.6</b> Problem Formulation in Matrix Form (**)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html"><i class="fa fa-check"></i><b>6.3</b> Artificial Neural Networks</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html#artificial-neuron"><i class="fa fa-check"></i><b>6.3.1</b> Artificial Neuron</a></li>
+<li class="chapter" data-level="6.3.2" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html#logistic-regression-as-a-neural-network"><i class="fa fa-check"></i><b>6.3.2</b> Logistic Regression as a Neural Network</a></li>
+<li class="chapter" data-level="6.3.3" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html#example-in-r-3"><i class="fa fa-check"></i><b>6.3.3</b> Example in R</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html"><i class="fa fa-check"></i><b>6.4</b> Deep Neural Networks</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#introduction-7"><i class="fa fa-check"></i><b>6.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.4.2" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#activation-functions"><i class="fa fa-check"></i><b>6.4.2</b> Activation Functions</a></li>
+<li class="chapter" data-level="6.4.3" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#example-in-r---2-layers"><i class="fa fa-check"></i><b>6.4.3</b> Example in R - 2 Layers</a></li>
+<li class="chapter" data-level="6.4.4" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#example-in-r---6-layers"><i class="fa fa-check"></i><b>6.4.4</b> Example in R - 6 Layers</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="preprocessing-of-data.html"><a href="preprocessing-of-data.html"><i class="fa fa-check"></i><b>6.5</b> Preprocessing of Data</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="preprocessing-of-data.html"><a href="preprocessing-of-data.html#introduction-8"><i class="fa fa-check"></i><b>6.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.5.2" data-path="preprocessing-of-data.html"><a href="preprocessing-of-data.html#image-deskewing"><i class="fa fa-check"></i><b>6.5.2</b> Image Deskewing</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="outro-4.html"><a href="outro-4.html"><i class="fa fa-check"></i><b>6.6</b> Outro</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="outro-4.html"><a href="outro-4.html#remarks-4"><i class="fa fa-check"></i><b>6.6.1</b> Remarks</a></li>
+<li class="chapter" data-level="6.6.2" data-path="outro-4.html"><a href="outro-4.html#beyond-mnist"><i class="fa fa-check"></i><b>6.6.2</b> Beyond MNIST</a></li>
+<li class="chapter" data-level="6.6.3" data-path="outro-4.html"><a href="outro-4.html#further-reading-4"><i class="fa fa-check"></i><b>6.6.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>7</b> Optimisation with Iterative Algorithms</a><ul>
+<li class="chapter" data-level="7.1" data-path="introduction-9.html"><a href="introduction-9.html"><i class="fa fa-check"></i><b>7.1</b> Introduction</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="introduction-9.html"><a href="introduction-9.html#optimisation-problem"><i class="fa fa-check"></i><b>7.1.1</b> Optimisation Problem</a></li>
+<li class="chapter" data-level="7.1.2" data-path="introduction-9.html"><a href="introduction-9.html#example-optimisation-problems-in-machine-learning"><i class="fa fa-check"></i><b>7.1.2</b> Example Optimisation Problems in Machine Learning</a></li>
+<li class="chapter" data-level="7.1.3" data-path="introduction-9.html"><a href="introduction-9.html#types-of-minima-and-maxima"><i class="fa fa-check"></i><b>7.1.3</b> Types of Minima and Maxima</a></li>
+<li class="chapter" data-level="7.1.4" data-path="introduction-9.html"><a href="introduction-9.html#example-objective-over-a-2d-domain"><i class="fa fa-check"></i><b>7.1.4</b> Example Objective over a 2D Domain</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="iterative-methods.html"><a href="iterative-methods.html"><i class="fa fa-check"></i><b>7.2</b> Iterative Methods</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="iterative-methods.html"><a href="iterative-methods.html#introduction-10"><i class="fa fa-check"></i><b>7.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2.2" data-path="iterative-methods.html"><a href="iterative-methods.html#example-in-r-4"><i class="fa fa-check"></i><b>7.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="7.2.3" data-path="iterative-methods.html"><a href="iterative-methods.html#convergence-to-local-optima"><i class="fa fa-check"></i><b>7.2.3</b> Convergence to Local Optima</a></li>
+<li class="chapter" data-level="7.2.4" data-path="iterative-methods.html"><a href="iterative-methods.html#random-restarts"><i class="fa fa-check"></i><b>7.2.4</b> Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="gradient-descent.html"><a href="gradient-descent.html"><i class="fa fa-check"></i><b>7.3</b> Gradient Descent</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="gradient-descent.html"><a href="gradient-descent.html#function-gradient"><i class="fa fa-check"></i><b>7.3.1</b> Function Gradient (*)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="gradient-descent.html"><a href="gradient-descent.html#three-facts-on-the-gradient"><i class="fa fa-check"></i><b>7.3.2</b> Three Facts on the Gradient</a></li>
+<li class="chapter" data-level="7.3.3" data-path="gradient-descent.html"><a href="gradient-descent.html#gradient-descent-algorithm-gd"><i class="fa fa-check"></i><b>7.3.3</b> Gradient Descent Algorithm (GD)</a></li>
+<li class="chapter" data-level="7.3.4" data-path="gradient-descent.html"><a href="gradient-descent.html#example-mnist"><i class="fa fa-check"></i><b>7.3.4</b> Example: MNIST</a></li>
+<li class="chapter" data-level="7.3.5" data-path="gradient-descent.html"><a href="gradient-descent.html#stochastic-gradient-descent-sgd"><i class="fa fa-check"></i><b>7.3.5</b> Stochastic Gradient Descent (SGD)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="outro-5.html"><a href="outro-5.html"><i class="fa fa-check"></i><b>7.4</b> Outro</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="outro-5.html"><a href="outro-5.html#remarks-5"><i class="fa fa-check"></i><b>7.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="7.4.2" data-path="outro-5.html"><a href="outro-5.html#optimisers-in-keras"><i class="fa fa-check"></i><b>7.4.2</b> Optimisers in Keras</a></li>
+<li class="chapter" data-level="7.4.3" data-path="outro-5.html"><a href="outro-5.html#note-on-search-spaces"><i class="fa fa-check"></i><b>7.4.3</b> Note on Search Spaces</a></li>
+<li class="chapter" data-level="7.4.4" data-path="outro-5.html"><a href="outro-5.html#further-reading-5"><i class="fa fa-check"></i><b>7.4.4</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>8</b> Clustering</a><ul>
+<li class="chapter" data-level="8.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html"><i class="fa fa-check"></i><b>8.1</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#introduction-11"><i class="fa fa-check"></i><b>8.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.1.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#main-types-of-unsupervised-learning-problems"><i class="fa fa-check"></i><b>8.1.2</b> Main Types of Unsupervised Learning Problems</a></li>
+<li class="chapter" data-level="8.1.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#clustering-1"><i class="fa fa-check"></i><b>8.1.3</b> Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>8.2</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-in-r-5"><i class="fa fa-check"></i><b>8.2.1</b> Example in R</a></li>
+<li class="chapter" data-level="8.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#problem-statement"><i class="fa fa-check"></i><b>8.2.2</b> Problem Statement</a></li>
+<li class="chapter" data-level="8.2.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#algorithms-for-the-k-means-problem"><i class="fa fa-check"></i><b>8.2.3</b> Algorithms for the K-means Problem</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html"><i class="fa fa-check"></i><b>8.3</b> Hierarchical Methods</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#introduction-12"><i class="fa fa-check"></i><b>8.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.3.2" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#example-in-r-6"><i class="fa fa-check"></i><b>8.3.2</b> Example in R</a></li>
+<li class="chapter" data-level="8.3.3" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#agglomerative-hierarchical-clustering"><i class="fa fa-check"></i><b>8.3.3</b> Agglomerative Hierarchical Clustering</a></li>
+<li class="chapter" data-level="8.3.4" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#linkage-functions"><i class="fa fa-check"></i><b>8.3.4</b> Linkage Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="outro-6.html"><a href="outro-6.html"><i class="fa fa-check"></i><b>8.4</b> Outro</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="outro-6.html"><a href="outro-6.html#remarks-6"><i class="fa fa-check"></i><b>8.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="8.4.2" data-path="outro-6.html"><a href="outro-6.html#other-noteworthy-clustering-algorithms"><i class="fa fa-check"></i><b>8.4.2</b> Other Noteworthy Clustering Algorithms</a></li>
+<li class="chapter" data-level="8.4.3" data-path="outro-6.html"><a href="outro-6.html#further-reading-6"><i class="fa fa-check"></i><b>8.4.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>9</b> Optimisation with Genetic Algorithms</a><ul>
+<li class="chapter" data-level="9.1" data-path="introduction-13.html"><a href="introduction-13.html"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="introduction-13.html"><a href="introduction-13.html#recap"><i class="fa fa-check"></i><b>9.1.1</b> Recap</a></li>
+<li class="chapter" data-level="9.1.2" data-path="introduction-13.html"><a href="introduction-13.html#k-means-revisited"><i class="fa fa-check"></i><b>9.1.2</b> K-means Revisited</a></li>
+<li class="chapter" data-level="9.1.3" data-path="introduction-13.html"><a href="introduction-13.html#optim-vs.kmeans"><i class="fa fa-check"></i><b>9.1.3</b> optim() vs. kmeans()</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>9.2</b> A Note on Convex Optimisation (*)</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-14"><i class="fa fa-check"></i><b>9.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#convex-combinations"><i class="fa fa-check"></i><b>9.2.2</b> Convex Combinations (*)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#convex-functions"><i class="fa fa-check"></i><b>9.2.3</b> Convex Functions (*)</a></li>
+<li class="chapter" data-level="9.2.4" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#examples"><i class="fa fa-check"></i><b>9.2.4</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html"><i class="fa fa-check"></i><b>9.3</b> Genetic Algorithms</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html#introduction-15"><i class="fa fa-check"></i><b>9.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.3.2" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html#overview-of-the-method"><i class="fa fa-check"></i><b>9.3.2</b> Overview of the Method</a></li>
+<li class="chapter" data-level="9.3.3" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html#example-implementation---ga-for-k-means"><i class="fa fa-check"></i><b>9.3.3</b> Example Implementation - GA for K-means</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="outro-7.html"><a href="outro-7.html"><i class="fa fa-check"></i><b>9.4</b> Outro</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="outro-7.html"><a href="outro-7.html#remarks-7"><i class="fa fa-check"></i><b>9.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="9.4.2" data-path="outro-7.html"><a href="outro-7.html#further-reading-7"><i class="fa fa-check"></i><b>9.4.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="recommender-systems.html"><a href="recommender-systems.html"><i class="fa fa-check"></i><b>10</b> Recommender Systems</a><ul>
+<li class="chapter" data-level="10.1" data-path="introduction-16.html"><a href="introduction-16.html"><i class="fa fa-check"></i><b>10.1</b> Introduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="introduction-16.html"><a href="introduction-16.html#what-is-a-recommender-system"><i class="fa fa-check"></i><b>10.1.1</b> What is a Recommender System?</a></li>
+<li class="chapter" data-level="10.1.2" data-path="introduction-16.html"><a href="introduction-16.html#the-netflix-prize"><i class="fa fa-check"></i><b>10.1.2</b> The Netflix Prize</a></li>
+<li class="chapter" data-level="10.1.3" data-path="introduction-16.html"><a href="introduction-16.html#main-approaches"><i class="fa fa-check"></i><b>10.1.3</b> Main Approaches</a></li>
+<li class="chapter" data-level="10.1.4" data-path="introduction-16.html"><a href="introduction-16.html#formalism-2"><i class="fa fa-check"></i><b>10.1.4</b> Formalism</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html"><i class="fa fa-check"></i><b>10.2</b> Collaborative Filtering</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#example"><i class="fa fa-check"></i><b>10.2.1</b> Example</a></li>
+<li class="chapter" data-level="10.2.2" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#similarity-measures"><i class="fa fa-check"></i><b>10.2.2</b> Similarity Measures</a></li>
+<li class="chapter" data-level="10.2.3" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#user-based-collaborative-filtering"><i class="fa fa-check"></i><b>10.2.3</b> User-Based Collaborative Filtering</a></li>
+<li class="chapter" data-level="10.2.4" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#item-based-collaborative-filtering"><i class="fa fa-check"></i><b>10.2.4</b> Item-Based Collaborative Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="movielens-dataset.html"><a href="movielens-dataset.html"><i class="fa fa-check"></i><b>10.3</b> MovieLens Dataset (*)</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="movielens-dataset.html"><a href="movielens-dataset.html#dataset"><i class="fa fa-check"></i><b>10.3.1</b> Dataset</a></li>
+<li class="chapter" data-level="10.3.2" data-path="movielens-dataset.html"><a href="movielens-dataset.html#data-cleansing"><i class="fa fa-check"></i><b>10.3.2</b> Data Cleansing</a></li>
+<li class="chapter" data-level="10.3.3" data-path="movielens-dataset.html"><a href="movielens-dataset.html#item-item-similarities"><i class="fa fa-check"></i><b>10.3.3</b> Item-item Similarities</a></li>
+<li class="chapter" data-level="10.3.4" data-path="movielens-dataset.html"><a href="movielens-dataset.html#example-recommendations"><i class="fa fa-check"></i><b>10.3.4</b> Example Recommendations</a></li>
+<li class="chapter" data-level="10.3.5" data-path="movielens-dataset.html"><a href="movielens-dataset.html#clustering-2"><i class="fa fa-check"></i><b>10.3.5</b> Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="outro-8.html"><a href="outro-8.html"><i class="fa fa-check"></i><b>10.4</b> Outro</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="outro-8.html"><a href="outro-8.html#remarks-8"><i class="fa fa-check"></i><b>10.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="10.4.2" data-path="outro-8.html"><a href="outro-8.html#issues"><i class="fa fa-check"></i><b>10.4.2</b> Issues</a></li>
+<li class="chapter" data-level="10.4.3" data-path="outro-8.html"><a href="outro-8.html#further-reading-8"><i class="fa fa-check"></i><b>10.4.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-15.html"><a href="section-15.html"><i class="fa fa-check"></i><b>11</b> }</a></li>
+<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+<li class="divider"></li>
+<li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-02-23 11:47 (94b2505)</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lightweight Machine Learning Classics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="optimisation-with-iterative-algorithms" class="section level1">
+<h1><span class="header-section-number">7</span> Optimisation with Iterative Algorithms</h1>
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com --> 
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="outro-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-9.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
