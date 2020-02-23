@@ -11,9 +11,11 @@ rm -f _main.Rmd
 mkdir -p ../out-bookdown-gitbook/
 cp -f ../build-bookdown-gitbook/index.Rmd .
 cp -f ../bibliography.bib .
+cp -f ../98-convention.Rmd .
+cp -f ../99-references.Rmd .
 cat ../00-introduction.Rmd >> index.Rmd
 
-date="DRAFT v0.9 $(date '+%Y-%m-%d %H:%M') (`git rev-parse --short HEAD`)"
+date="DRAFT v0.1 $(date '+%Y-%m-%d %H:%M') (`git rev-parse --short HEAD`)"
 sed -ie "s/@DATE@/${date}/g" index.Rmd
 
 mkdir -p figures/

@@ -9,9 +9,7 @@ RMD_SOURCES = \
     06-optimisation-iterative.Rmd                \
     07-clustering.Rmd                            \
     08-optimisation-genetic.Rmd                  \
-    09-recommenders.Rmd                          \
-    10-postscript.Rmd                            \
-    99-references.Rmd
+    09-recommenders.Rmd
 
 
 SVG_SOURCES = \
@@ -48,7 +46,7 @@ PDF_OUTPUTS=$(patsubst %.svg,%.pdf,$(SVG_SOURCES))
 PNG_OUTPUTS=$(patsubst %.svg,%.png,$(SVG_SOURCES))
 
 
-.PHONY: all clean purge html beamer bookdown-gitbook bookdown-latex figures
+.PHONY: all public clean purge html beamer bookdown-gitbook bookdown-latex figures
 
 all: please_specify_build_target_manually
 
@@ -60,7 +58,11 @@ bookdown-gitbook: out-bookdown-gitbook/index.html
 
 bookdown-latex: out-bookdown-latex/lmlcr.pdf
 
-
+public: bookdown-gitbook bookdown-latex
+	rm -f -r docs
+	mkdir docs
+	cp -f -r out-bookdown-gitbook/* docs/
+	cp -f -r out-bookdown-latex/* docs/
 
 figures: $(PDF_OUTPUTS) $(PNG_OUTPUTS)
 
@@ -73,11 +75,15 @@ purge:
 
 out-bookdown-latex/lmlcr.pdf: $(BOOKDOWN_LATEX_OUTPUTS) \
 		00-introduction.Rmd \
+		98-convention.Rmd \
+		99-references.Rmd \
 		build-bookdown-latex/index.Rmd
 	build-bookdown-latex/render.sh
 
 out-bookdown-gitbook/index.html: $(BOOKDOWN_GITBOOK_OUTPUTS) \
 		00-introduction.Rmd \
+		98-convention.Rmd \
+		99-references.Rmd \
 		build-bookdown-gitbook/index.Rmd
 	build-bookdown-gitbook/render.sh
 

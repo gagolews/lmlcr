@@ -4,9 +4,7 @@
 
 
 
-## Abbreviations
-
-#### {.allowframebreaks .unnumbered}
+#### Abbreviations  {.allowframebreaks .unnumbered}
 
 
 a.k.a. == also known as
@@ -41,11 +39,8 @@ SGD == stochastic gradient descent
 
 
 
-## Notation Convention
+#### Notation Convention -- Logic and Set Theory {.allowframebreaks .unnumbered}
 
-### Logic and Set Theory
-
-#### {.allowframebreaks .unnumbered}
 
 
 $\forall$ -- for all
@@ -80,9 +75,7 @@ $A\times B = \{ (a,b): a\in A, b\in B \}$
 $A^p = A\times A \times \dots\times A$ ($p$ times) for any $p$
 
 
-### Symbols
-
-#### {.allowframebreaks .unnumbered}
+#### Notation Convention -- Symbols  {.allowframebreaks .unnumbered}
 
 
 
@@ -136,9 +129,7 @@ $[a, b]$ -- a closed interval; $x\in[a,b]$ iff $a \le x \le b$ for some $a\le b$
 
 
 
-### Vectors and Matrices
-
-#### {.allowframebreaks .unnumbered}
+#### Notation Convention -- Vectors and Matrices  {.allowframebreaks .unnumbered}
 
 
 $\boldsymbol{x}=(x_1,\dots,x_n)$ -- a sequence of $n$ elements ($n$-ary sequence/vector)
@@ -237,9 +228,9 @@ $\|\boldsymbol{x}\| = \|\boldsymbol{x}\|_2 = \sqrt{ \sum_{i=1}^n x_i^2 }$ -- the
 
 
 
-### Functions
+#### Notation Convention -- Functions  {.allowframebreaks .unnumbered}
 
-#### {.allowframebreaks .unnumbered}
+
 
 $f:X\to Y$ means that $f$ is a function mapping inputs from set $X$ (the domain of $f$)
 to elements of $Y$ (the codomain)
@@ -281,9 +272,8 @@ gradient
 -->
 
 
-### Sums and Products
+#### Notation Convention -- Sums and Products  {.allowframebreaks .unnumbered}
 
-#### {.allowframebreaks .unnumbered}
 
 $\sum_{i=1}^n x_i=x_1+x_2+\dots+x_n$
 
