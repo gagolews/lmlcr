@@ -1,5 +1,8 @@
 # Lightweight Machine Learning Classics with R
 
+[![DOI](https://zenodo.org/badge/241531232.svg)](https://zenodo.org/badge/latestdoi/241531232)
+
+
 > **This is a draft version of the forthcoming book
 *Lightweight Machine Learning Classics with R*
 by [Marek Gagolewski](https://www.gagolewski.com).**
