@@ -4,6 +4,13 @@
 *Lightweight Machine Learning Classics with R*
 by [Marek Gagolewski](https://www.gagolewski.com).**
 
+This repository hosts the source code of the book.
+You can read the book at:
+
+* TODO: HTML
+* TODO: PDF
+
+
 > **Please submit any feature requests, remarks and bug fixes
 via the project site at [github](https://github.com/gagolews/lmlcr/issues)
 or by [email](https://www.gagolewski.com). Thanks!**
@@ -17,7 +24,7 @@ License (CC BY-NC-ND 4.0).
 
 
 
-#### Aim and Scope  {.unnumbered}
+## Aim and Scope
 
 Machine learning has numerous exciting real-world applications,
 including stock market prediction, speech recognition,
@@ -45,7 +52,7 @@ such as a 1st year undergrad.
 
 
 
-## About Me  {.unnumbered}
+## About Me
 
 
 I'm currently a Senior Lecturer in Applied AI at Deakin University
