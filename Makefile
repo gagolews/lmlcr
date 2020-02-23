@@ -63,6 +63,7 @@ public: bookdown-gitbook bookdown-latex
 	mkdir docs
 	cp -f -r out-bookdown-gitbook/* docs/
 	cp -f -r out-bookdown-latex/* docs/
+	cp -f build-bookdown-gitbook/CNAME.tpl docs/CNAME
 
 figures: $(PDF_OUTPUTS) $(PNG_OUTPUTS)
 
