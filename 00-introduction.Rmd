@@ -17,13 +17,18 @@ This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 License (CC BY-NC-ND 4.0).
 
+You can access this book at:
+
+* https://lmlcr.gagolewski.com/ (a browser-friendly version)
+* https://lmlcr.gagolewski.com/lmlcr.pdf (PDF)
+* https://github.com/gagolews/lmlcr (source code)
 
 
 
 <!-- ![](figures/cover) -->
 
 
-#### Aim and Scope  {.unnumbered}
+#### Aims and Scope  {.unnumbered}
 
 
 Machine learning has numerous exciting real-world applications,
@@ -33,7 +38,7 @@ anomaly detection in security camera footages, game playing,
 autonomous vehicle operation and many others.
 
 In this book we will take a deep dive into some of the most fundamental
-algorithms that stood the test of time and that still form
+algorithms which stood the test of time and which still form
 the basis for the state-of-the-art solutions of the modern-era AI,
 which is principally (big) data-driven.
 We will learn how to use the R language [@rpoject]
@@ -48,12 +53,11 @@ data science, data analytics and artificial intelligence,
 including [@islr; @esl; @bishop].
 We will appreciate the vital role of mathematics as a commonly accepted
 language for formalising data-intense problems and communicating their solutions.
-The book is aimed at a reader that is yet to be fluent with
+The book is aimed at readers who are yet to be fluent with
 university-level linear algebra, calculus and probability theory,
-such as a 1st year undergrad.
-
-
-
+such as 1st year undergrads or those who have forgotten
+all the maths they have learned and need a gentle, non-invasive,
+yet rigorous enough, introduction to the topic.
 
 
 
@@ -64,7 +68,7 @@ such as a 1st year undergrad.
 I'm currently a Senior Lecturer in Applied AI at Deakin University
 in Melbourne, Australia
 and an Associate Professor in Data Science at Warsaw University of Technology,
-Poland, where I taught various courses related to
+Poland, where I teach various courses related to
 R and Python programming, algorithms,
 data science and machine learning.
 This book was also inspired by my teaching experience at
@@ -81,7 +85,7 @@ statistical modelling and scientific computing.
 
 #### Acknowledgements  {.unnumbered}
 
-This book has been made with pandoc, Markdown and GitBook.
+This book has been prepared with pandoc, Markdown and GitBook.
 R code chunks have been processed with knitr.
 A little help of bookdown and good ol' Makefiles and shell scripts
 did the trick.

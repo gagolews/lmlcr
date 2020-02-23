@@ -12,7 +12,7 @@ or by [email](https://www.gagolewski.com). Thanks!**
 
 ## About the Book
 
-Take a deep dive into some of the most fundamental algorithms which stood the test of time and which still form the basis for the state-of-the-art solutions of the modern-era AI, which is principally (big) data-driven. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate the vital role of mathematics as a commonly accepted language for formalising data-intense problems and communicating their solutions. The book is for you if you're yet to be fluent with university-level linear algebra, calculus and probability theory or you've forgotten all the maths you've learned and need a gentle, non-invasive, yet rigorous enough, introduction to the topic.
+Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you're yet to be fluent with university-level linear algebra, calculus and probability theory or you've forgotten all the maths you've ever learned, and are seeking a gentle, yet thorough, introduction to the topic.
 
 
 
