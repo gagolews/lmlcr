@@ -2,6 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/241531232.svg)](https://zenodo.org/badge/latestdoi/241531232)
 
+Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you're yet to be fluent with university-level linear algebra, calculus and probability theory or you've forgotten all the maths you've ever learned, and are seeking a gentle, yet thorough, introduction to the topic.
 
 > **This is a draft version of the forthcoming book
 *Lightweight Machine Learning Classics with R*
@@ -10,13 +11,6 @@ by [Marek Gagolewski](https://www.gagolewski.com).**
 > **Please submit any feature requests, remarks and bug fixes
 via the project site at [github](https://github.com/gagolews/lmlcr/issues)
 or by [email](https://www.gagolewski.com). Thanks!**
-
-
-
-## About the Book
-
-Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you're yet to be fluent with university-level linear algebra, calculus and probability theory or you've forgotten all the maths you've ever learned, and are seeking a gentle, yet thorough, introduction to the topic.
-
 
 
 ## About the Author
