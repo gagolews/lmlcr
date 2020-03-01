@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 14:48 (e066e08)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 16:04 (56335b9)</a></li>
 
 </ul>
 
@@ -422,14 +422,14 @@ It might also be faster to compute.</p>
 <hr />
 <p>For instance, given two vectors <span class="math inline">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>
 and <span class="math inline">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span> like:</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">3.5</span>, <span class="fl">2.3</span>,<span class="op">-</span><span class="fl">6.5</span>)</a>
-<a class="sourceLine" id="cb549-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">2.9</span>, <span class="fl">8.2</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">3.5</span>, <span class="fl">2.3</span>,<span class="op">-</span><span class="fl">6.5</span>)</a>
+<a class="sourceLine" id="cb547-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">2.9</span>, <span class="fl">8.2</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.8</span>)</a></code></pre></div>
 <p>Instead of writing:</p>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" data-line-number="1">s &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb550-2" data-line-number="2">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb550-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)</a>
-<a class="sourceLine" id="cb550-4" data-line-number="4">    s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb550-5" data-line-number="5"><span class="kw">sqrt</span>(s<span class="op">/</span>n)</a></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" data-line-number="1">s &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb548-2" data-line-number="2">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb548-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)</a>
+<a class="sourceLine" id="cb548-4" data-line-number="4">    s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb548-5" data-line-number="5"><span class="kw">sqrt</span>(s<span class="op">/</span>n)</a></code></pre></div>
 <pre><code>## [1] 4.55796</code></pre>
 <p>to mean:</p>
 <p><span class="math display">\[
@@ -437,7 +437,7 @@ and <span class="math inline">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span> like:</p
 \]</span></p>
 <hr />
 <p>we’d rather write:</p>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" data-line-number="1"><span class="kw">sqrt</span>(<span class="kw">mean</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" data-line-number="1"><span class="kw">sqrt</span>(<span class="kw">mean</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 4.55796</code></pre>
 <p>or even:</p>
 <p><span class="math display">\[
@@ -448,14 +448,14 @@ we only have to get to know the “building blocks”. There are just a few
 of them, but it takes some time to become comfortable with them.</p>
 <hr />
 <p>Also note that vectorised code is much faster and much more readable than the <code>for</code> loop-based one:</p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
-<a class="sourceLine" id="cb554-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10000</span>) <span class="co"># 10000 random numbers in [0,1]</span></a>
-<a class="sourceLine" id="cb554-3" data-line-number="3">y &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10000</span>)</a>
-<a class="sourceLine" id="cb554-4" data-line-number="4"><span class="kw">print</span>(<span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb554-5" data-line-number="5">    <span class="dt">t1=</span>{s &lt;-<span class="st"> </span><span class="dv">0</span>; n &lt;-<span class="st"> </span><span class="kw">length</span>(x);</a>
-<a class="sourceLine" id="cb554-6" data-line-number="6">        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span>; <span class="kw">sqrt</span>(s<span class="op">/</span>n)},</a>
-<a class="sourceLine" id="cb554-7" data-line-number="7">    <span class="dt">t2=</span><span class="kw">sqrt</span>(<span class="kw">mean</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb554-8" data-line-number="8">), <span class="dt">signif=</span><span class="dv">3</span>, <span class="dt">unit=</span><span class="st">&#39;relative&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
+<a class="sourceLine" id="cb552-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10000</span>) <span class="co"># 10000 random numbers in [0,1]</span></a>
+<a class="sourceLine" id="cb552-3" data-line-number="3">y &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb552-4" data-line-number="4"><span class="kw">print</span>(<span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb552-5" data-line-number="5">    <span class="dt">t1=</span>{s &lt;-<span class="st"> </span><span class="dv">0</span>; n &lt;-<span class="st"> </span><span class="kw">length</span>(x);</a>
+<a class="sourceLine" id="cb552-6" data-line-number="6">        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span>; <span class="kw">sqrt</span>(s<span class="op">/</span>n)},</a>
+<a class="sourceLine" id="cb552-7" data-line-number="7">    <span class="dt">t2=</span><span class="kw">sqrt</span>(<span class="kw">mean</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb552-8" data-line-number="8">), <span class="dt">signif=</span><span class="dv">3</span>, <span class="dt">unit=</span><span class="st">&#39;relative&#39;</span>)</a></code></pre></div>
 <pre><code>## Unit: relative
 ##  expr  min   lq mean median   uq  max neval
 ##    t1 84.7 82.9 72.3   78.1 62.5 51.4   100

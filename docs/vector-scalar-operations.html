@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 14:48 (e066e08)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 16:04 (56335b9)</a></li>
 
 </ul>
 
@@ -415,21 +415,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 such as <span class="math inline">\(s\boldsymbol{x}\)</span> (multiplication of a vector <span class="math inline">\(\boldsymbol{x}=(x_1,\dots, x_n)\)</span>
 by a scalar <span class="math inline">\(s\)</span>) result in a vector <span class="math inline">\(\boldsymbol{y}\)</span> such that <span class="math inline">\(y_i=s x_i\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>.</p>
 <p>The same rule holds for, e.g., <span class="math inline">\(s+\boldsymbol{x}\)</span>, <span class="math inline">\(\boldsymbol{x}-s\)</span>, <span class="math inline">\(\boldsymbol{x}/s\)</span>.</p>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" data-line-number="1"><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" data-line-number="1"><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1]  0.5  5.0 50.0</code></pre>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" data-line-number="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" data-line-number="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></a></code></pre></div>
 <pre><code>## [1] 11 12 13 14 15</code></pre>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">by=</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" data-line-number="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">by=</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">10</span></a></code></pre></div>
 <pre><code>## [1] 0.0 0.2 0.4 0.6 0.8 1.0</code></pre>
 <hr />
 <p>By <span class="math inline">\(-\boldsymbol{x}\)</span> we will mean <span class="math inline">\((-1)\boldsymbol{x}\)</span>:</p>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" data-line-number="1"><span class="op">-</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" data-line-number="1"><span class="op">-</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## [1]  0.00 -0.25 -0.50 -0.75 -1.00</code></pre>
 <hr />
 <p>Note that in R the same rule applies for exponentiation:</p>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" data-line-number="1">(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span> <span class="co"># synonym: (1:5)**2</span></a></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" data-line-number="1">(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span> <span class="co"># synonym: (1:5)**2</span></a></code></pre></div>
 <pre><code>## [1]  0  1  4  9 16 25</code></pre>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" data-line-number="1"><span class="dv">2</span><span class="op">^</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" data-line-number="1"><span class="dv">2</span><span class="op">^</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## [1]  1  2  4  8 16 32</code></pre>
 <p>However, in mathematics, we are <strong>not</strong> used to writing
 <span class="math inline">\(2^{\boldsymbol{x}}\)</span> or <span class="math inline">\(\boldsymbol{x}^2\)</span>.</p>

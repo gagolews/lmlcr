@@ -7,7 +7,7 @@ output:
     bookdown::gitbook:
         pandoc_args: ["--default-image-extension=.png",
             "--highlight-style=tango", "--email-obfuscation=none",
-            "--section-divs"]
+            "--section-divs", "--csl=bibstyle.csl"]
         fig_caption: false
         split_by: section
         config:

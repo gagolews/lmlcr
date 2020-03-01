@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 14:48 (e066e08)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 16:04 (56335b9)</a></li>
 
 </ul>
 
@@ -450,19 +450,19 @@ all the elements in a row/column) or returns the same number of values
 <hr />
 <p>Example: to create a <em>centred</em> version of a given matrix,
 we need to subtract from each element the arithmetic mean of its column.</p>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" data-line-number="1">(A &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb653-1" data-line-number="1">(A &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>)))</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    5
 ## [2,]    2    4    8</code></pre>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" data-line-number="1">(m &lt;-<span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">2</span>, mean)) <span class="co"># same as colMeans(A)</span></a></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" data-line-number="1">(m &lt;-<span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">2</span>, mean)) <span class="co"># same as colMeans(A)</span></a></code></pre></div>
 <pre><code>## [1] 1.5 3.0 6.5</code></pre>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb659-1" data-line-number="1"><span class="kw">t</span>(<span class="kw">apply</span>(A, <span class="dv">1</span>, <span class="cf">function</span>(r) r<span class="op">-</span>m)) <span class="co"># note the transpose here</span></a></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" data-line-number="1"><span class="kw">t</span>(<span class="kw">apply</span>(A, <span class="dv">1</span>, <span class="cf">function</span>(r) r<span class="op">-</span>m)) <span class="co"># note the transpose here</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] -0.5   -1 -1.5
 ## [2,]  0.5    1  1.5</code></pre>
 <hr />
 <p>The above is equivalent to:</p>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb661-1" data-line-number="1"><span class="kw">apply</span>(A, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb659-1" data-line-number="1"><span class="kw">apply</span>(A, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] -0.5   -1 -1.5
 ## [2,]  0.5    1  1.5</code></pre>

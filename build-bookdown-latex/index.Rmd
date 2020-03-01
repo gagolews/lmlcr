@@ -5,7 +5,9 @@ date: "@DATE@"
 site: bookdown::bookdown_site
 output:
     bookdown::pdf_book:
-        pandoc_args: ["--default-image-extension=.pdf", "--toc-depth=3"]
+        pandoc_args: ["--default-image-extension=.pdf",
+            "--toc-depth=3",
+            "--csl=bibstyle.csl"]
         fig_caption: false
 documentclass: book
 bibliography: [bibliography.bib]

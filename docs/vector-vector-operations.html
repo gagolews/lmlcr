@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 14:48 (e066e08)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 16:04 (56335b9)</a></li>
 
 </ul>
 
@@ -415,36 +415,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Arithmetic operations <span class="math inline">\(\boldsymbol{x}+\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{x}-\boldsymbol{y}\)</span> are performed <em>elementwise</em>,
 i.e., they result in a vector <span class="math inline">\(\boldsymbol{z}\)</span> such that
 <span class="math inline">\(z_i=x_i+y_i\)</span> and <span class="math inline">\(z_i=x_i-y_i\)</span>, respectively, <span class="math inline">\(i=1,\dots,n\)</span>.</p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb568-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">2</span>,   <span class="dv">3</span>,    <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb568-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb568-3" data-line-number="3">x<span class="op">+</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">2</span>,   <span class="dv">3</span>,    <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb566-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb566-3" data-line-number="3">x<span class="op">+</span>y</a></code></pre></div>
 <pre><code>## [1]    2   12  103 1004</code></pre>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" data-line-number="1">x<span class="op">-</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb568-1" data-line-number="1">x<span class="op">-</span>y</a></code></pre></div>
 <pre><code>## [1]    0   -8  -97 -996</code></pre>
 <hr />
 <p>Although in mathematics we are <strong>not</strong> used to using any special notation
 for elementwise multiplication, division and exponentiation, this is available in R.</p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb572-1" data-line-number="1">x<span class="op">*</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" data-line-number="1">x<span class="op">*</span>y</a></code></pre></div>
 <pre><code>## [1]    1   20  300 4000</code></pre>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" data-line-number="1">x<span class="op">/</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb572-1" data-line-number="1">x<span class="op">/</span>y</a></code></pre></div>
 <pre><code>## [1] 1.000 0.200 0.030 0.004</code></pre>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" data-line-number="1">y<span class="op">^</span>x</a></code></pre></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" data-line-number="1">y<span class="op">^</span>x</a></code></pre></div>
 <pre><code>## [1] 1e+00 1e+02 1e+06 1e+12</code></pre>
 <hr />
 <p>Moreover, in R the <strong>recycling rule</strong> is applied if we perform elementwise
 operations on vectors of <em>different</em> lengths – the shorter
 vector is recycled as many times as needed to match the length of the longer
 vectors, just as if we were performing:</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" data-line-number="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">length.out=</span><span class="dv">12</span>) <span class="co"># recycle 1,2,3 to get 12 values</span></a></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" data-line-number="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">length.out=</span><span class="dv">12</span>) <span class="co"># recycle 1,2,3 to get 12 values</span></a></code></pre></div>
 <pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
 <hr />
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1]  1 20  3 40  5 60</code></pre>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1]   1  20 300   4  50 600</code></pre>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</a></code></pre></div>
 <pre><code>## Warning in 1:6 * c(1, 10, 100, 1000): longer object length is
 ## not a multiple of shorter object length</code></pre>
 <pre><code>## [1]    1   20  300 4000    5   60</code></pre>
@@ -464,25 +464,25 @@ as well as</li>
 </ul>
 <p>However, they return <em>logical</em> vectors in result.</p>
 <hr />
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb589-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># c(1,2,1,2) == c(1,2,3,4)</span></a></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" data-line-number="1"><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># c(1,2,1,2) == c(1,2,3,4)</span></a></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb591-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb591-2" data-line-number="2">(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>(z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb589-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb589-2" data-line-number="2">(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>(z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE  TRUE  TRUE</code></pre>
 <p>Also note that in R there are 3 (!) logical values:
 <code>TRUE</code>, <code>FALSE</code> and <code>NA</code> (not available, missing, null).</p>
 <hr />
 <p>Generally, operations on <code>NA</code>s yield <code>NA</code> in result unless other solution
 makes sense.</p>
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" data-line-number="1"><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="dv">2</span>)<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb591-1" data-line-number="1"><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="dv">2</span>)<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1]   0  NA 200</code></pre>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" data-line-number="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb595-2" data-line-number="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb595-3" data-line-number="3">u <span class="op">&amp;</span><span class="st"> </span>v <span class="co"># elementwise AND (conjunction)</span></a></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" data-line-number="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb593-2" data-line-number="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb593-3" data-line-number="3">u <span class="op">&amp;</span><span class="st"> </span>v <span class="co"># elementwise AND (conjunction)</span></a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE    NA FALSE FALSE FALSE    NA FALSE    NA</code></pre>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" data-line-number="1">u <span class="op">|</span><span class="st"> </span>v <span class="co"># elementwise OR  (disjunction)</span></a></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" data-line-number="1">u <span class="op">|</span><span class="st"> </span>v <span class="co"># elementwise OR  (disjunction)</span></a></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE  TRUE  TRUE FALSE    NA  TRUE    NA    NA</code></pre>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" data-line-number="1"><span class="op">!</span>u    <span class="co"># elementwise NOT (negation)</span></a></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" data-line-number="1"><span class="op">!</span>u    <span class="co"># elementwise NOT (negation)</span></a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE    NA</code></pre>
 </div>
             </section>
