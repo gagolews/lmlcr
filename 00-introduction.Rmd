@@ -1,4 +1,4 @@
-# \{
+# \{  {.unnumbered}
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
@@ -44,8 +44,8 @@ which is principally (big) data-driven.
 We will learn how to use the R language [@rpoject]
 for implementing various stages
 of data processing and modelling activities.
-For a more in-depth treatment of R, see,
-for instance, [@rprogdatascience; @r4ds].
+For a more in-depth treatment of R, refer to this book's Appendices
+and, for instance, [@Rintro; @rprogdatascience; @r4ds].
 
 We will provide solid underpinnings for further studies
 related to statistical learning, machine learning
@@ -58,6 +58,13 @@ university-level linear algebra, calculus and probability theory,
 such as 1st year undergrads or those who have forgotten
 all the maths they have learned and need a gentle, non-invasive,
 yet rigorous enough, introduction to the topic.
+For a nice, machine learning-focused introduction to mathematics alone,
+see, e.g., [@mml].
+
+
+<!-- TODO: This book is structured as follows. -->
+
+
 
 
 
@@ -71,7 +78,7 @@ and an Associate Professor in Data Science at Warsaw University of Technology,
 Poland, where I teach various courses related to
 R and Python programming, algorithms,
 data science and machine learning.
-This book was also inspired by my teaching experience at
+This book was also influenced by my teaching experience at
 [Data Science Retreat](https://datascienceretreat.com) in Berlin, Germany.
 
 I'm an author of several R and Python packages, including

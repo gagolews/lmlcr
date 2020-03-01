@@ -1,4 +1,4 @@
-# \}
+# \} {.unnumbered}
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
@@ -304,3 +304,11 @@ $r(\boldsymbol{x},\boldsymbol{y})$ Pearson's $r$ -- linear correlation coefficie
 
 
 -->
+
+
+
+
+
+<!-- Start appendix now: -->
+
+# (APPENDIX) Appendix {-}

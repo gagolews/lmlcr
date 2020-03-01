@@ -9,7 +9,10 @@ RMD_SOURCES = \
     06-optimisation-iterative.Rmd                \
     07-clustering.Rmd                            \
     08-optimisation-genetic.Rmd                  \
-    09-recommenders.Rmd
+    09-recommenders.Rmd                          \
+    91-R-vectors.Rmd                             \
+    92-R-matrices.Rmd                            \
+    93-R-data-frames.Rmd
 
 
 SVG_SOURCES = \
@@ -76,14 +79,14 @@ purge:
 
 out-bookdown-latex/lmlcr.pdf: $(BOOKDOWN_LATEX_OUTPUTS) \
 		00-introduction.Rmd \
-		98-convention.Rmd \
+		90-convention.Rmd \
 		99-references.Rmd \
 		build-bookdown-latex/index.Rmd
 	build-bookdown-latex/render.sh
 
 out-bookdown-gitbook/index.html: $(BOOKDOWN_GITBOOK_OUTPUTS) \
 		00-introduction.Rmd \
-		98-convention.Rmd \
+		90-convention.Rmd \
 		99-references.Rmd \
 		build-bookdown-gitbook/index.Rmd
 	build-bookdown-gitbook/render.sh

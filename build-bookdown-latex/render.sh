@@ -11,7 +11,7 @@ rm -f _main.Rmd
 mkdir -p ../out-bookdown-latex/
 cp -f ../build-bookdown-latex/index.Rmd .
 cp -f ../bibliography.bib .
-cp -f ../98-convention.Rmd .
+cp -f ../90-convention.Rmd .
 cp -f ../99-references.Rmd .
 cat ../00-introduction.Rmd >> index.Rmd
 
