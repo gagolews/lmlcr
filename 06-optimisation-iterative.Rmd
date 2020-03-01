@@ -713,9 +713,9 @@ grad <- function(f, x, delta=1e-6) {
 
 
 > (\*) Interestingly, some modern vector/matrix algebra frameworks
-like TensorFlow (upon which keras is built), feature
+like TensorFlow (upon which keras is built) or PyTorch, feature
 methods to "derive" the gradient algorithmically
-(automatic differentiation).
+(autodiff; automatic differentiation).
 
 
 ---

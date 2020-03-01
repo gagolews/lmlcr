@@ -490,7 +490,7 @@ RML[1:6, 1:18]
 ```
 
 
-### Item-item Similarities
+### Item-Item Similarities
 
 ---
 
@@ -704,4 +704,3 @@ Other:
 - [@pragmatictheory_netflix]
 
 Also don't forget to take a look at the R package `recommenderlab` (amongst others).
-
