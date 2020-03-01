@@ -849,7 +849,7 @@ implementation of some methods available via a call to `hclust()`.
 See also the `genie` package for a robust algorithm
 based on the minimum spanning tree, which can be computed quickly.
 
-```{R,echo=FALSE}
+```{R,echo=FALSE,message=FALSE}
 library("fastcluster")
 ```
 
@@ -879,14 +879,15 @@ useful to fit separate models to each cluster.
 
 ---
 
-
 Other noteworthy clustering approaches:
 
-- Genie (see R package `genie`)
-- DBSCAN, HDBSCAN*
-- k-medoids, k-medians
-- Spectral clustering
-- BIRCH
+- Genie (see R package `genie`) [@genie; @genieowa]
+- ITM [@itm]
+- DBSCAN, HDBSCAN* [@pre_dbscan; @dbscan; @hdbscan]
+- K-medoids, K-medians
+- Fuzzy C-means (a.k.a. weighted K-means) [@cmeans]
+- Spectral clustering; e.g., [@spectral_nips]
+- BIRCH [@birch]
 
 
 
