@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>B.3 Matrix-Matrix Operations | Lightweight Machine Learning Classics with R</title>
+  <title>C.3 Matrix-Matrix Operations | Lightweight Machine Learning Classics with R</title>
   <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="B.3 Matrix-Matrix Operations | Lightweight Machine Learning Classics with R" />
+  <meta property="og:title" content="C.3 Matrix-Matrix Operations | Lightweight Machine Learning Classics with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://lmlcr.gagolewski.com" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gagolews/lmlcr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B.3 Matrix-Matrix Operations | Lightweight Machine Learning Classics with R" />
+  <meta name="twitter:title" content="C.3 Matrix-Matrix Operations | Lightweight Machine Learning Classics with R" />
   
   <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   
@@ -231,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="outro-3.html"><a href="outro-3.html#further-reading-3"><i class="fa fa-check"></i><b>4.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="neural-networks.html"><a href="neural-networks.html"><i class="fa fa-check"></i><b>5</b> Neural Networks</a><ul>
+<li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a><ul>
 <li class="chapter" data-level="5.1" data-path="introduction-7.html"><a href="introduction-7.html"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="introduction-7.html"><a href="introduction-7.html#binary-logistic-regression-recap"><i class="fa fa-check"></i><b>5.1.1</b> Binary Logistic Regression: Recap</a></li>
 <li class="chapter" data-level="5.1.2" data-path="introduction-7.html"><a href="introduction-7.html#data-2"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
@@ -365,31 +365,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="section-15.html"><a href="section-15.html"><i class="fa fa-check"></i>}</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>A</b> Vector Algebra in R</a><ul>
-<li class="chapter" data-level="A.1" data-path="motivation-1.html"><a href="motivation-1.html"><i class="fa fa-check"></i><b>A.1</b> Motivation</a></li>
-<li class="chapter" data-level="A.2" data-path="vector-scalar-operations.html"><a href="vector-scalar-operations.html"><i class="fa fa-check"></i><b>A.2</b> Vector-Scalar Operations</a></li>
-<li class="chapter" data-level="A.3" data-path="vector-vector-operations.html"><a href="vector-vector-operations.html"><i class="fa fa-check"></i><b>A.3</b> Vector-Vector Operations</a></li>
-<li class="chapter" data-level="A.4" data-path="other-vector-operations.html"><a href="other-vector-operations.html"><i class="fa fa-check"></i><b>A.4</b> Other Vector Operations</a></li>
-<li class="chapter" data-level="A.5" data-path="further-reading-9.html"><a href="further-reading-9.html"><i class="fa fa-check"></i><b>A.5</b> Further Reading</a></li>
+<li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
+<li class="chapter" data-level="A.1" data-path="installing-r.html"><a href="installing-r.html"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
+<li class="chapter" data-level="A.2" data-path="installing-an-ide.html"><a href="installing-an-ide.html"><i class="fa fa-check"></i><b>A.2</b> Installing an IDE</a></li>
+<li class="chapter" data-level="A.3" data-path="installing-recommended-packages.html"><a href="installing-recommended-packages.html"><i class="fa fa-check"></i><b>A.3</b> Installing Recommended Packages</a></li>
+<li class="chapter" data-level="A.4" data-path="first-r-script.html"><a href="first-r-script.html"><i class="fa fa-check"></i><b>A.4</b> First R Script</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>B</b> Matrix Algebra in R</a><ul>
-<li class="chapter" data-level="B.1" data-path="matrices.html"><a href="matrices.html"><i class="fa fa-check"></i><b>B.1</b> Matrices</a></li>
-<li class="chapter" data-level="B.2" data-path="matrix-scalar-operations.html"><a href="matrix-scalar-operations.html"><i class="fa fa-check"></i><b>B.2</b> Matrix-Scalar Operations</a></li>
-<li class="chapter" data-level="B.3" data-path="matrix-matrix-operations.html"><a href="matrix-matrix-operations.html"><i class="fa fa-check"></i><b>B.3</b> Matrix-Matrix Operations</a></li>
-<li class="chapter" data-level="B.4" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html"><i class="fa fa-check"></i><b>B.4</b> Matrix Multiplication (*)</a></li>
-<li class="chapter" data-level="B.5" data-path="matrix-vector-operations.html"><a href="matrix-vector-operations.html"><i class="fa fa-check"></i><b>B.5</b> Matrix-Vector Operations</a></li>
-<li class="chapter" data-level="B.6" data-path="further-reading-10.html"><a href="further-reading-10.html"><i class="fa fa-check"></i><b>B.6</b> Further Reading</a></li>
+<li class="chapter" data-level="B" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>B</b> Vector Algebra in R</a><ul>
+<li class="chapter" data-level="B.1" data-path="motivation-1.html"><a href="motivation-1.html"><i class="fa fa-check"></i><b>B.1</b> Motivation</a></li>
+<li class="chapter" data-level="B.2" data-path="vector-scalar-operations.html"><a href="vector-scalar-operations.html"><i class="fa fa-check"></i><b>B.2</b> Vector-Scalar Operations</a></li>
+<li class="chapter" data-level="B.3" data-path="vector-vector-operations.html"><a href="vector-vector-operations.html"><i class="fa fa-check"></i><b>B.3</b> Vector-Vector Operations</a></li>
+<li class="chapter" data-level="B.4" data-path="other-vector-operations.html"><a href="other-vector-operations.html"><i class="fa fa-check"></i><b>B.4</b> Other Vector Operations</a></li>
+<li class="chapter" data-level="B.5" data-path="further-reading-9.html"><a href="further-reading-9.html"><i class="fa fa-check"></i><b>B.5</b> Further Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="C" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>C</b> Data Frame Wrangling in R</a><ul>
-<li class="chapter" data-level="C.1" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i><b>C.1</b> TO DO</a><ul>
-<li class="chapter" data-level="C.1.1" data-path="to-do.html"><a href="to-do.html#to-do-1"><i class="fa fa-check"></i><b>C.1.1</b> TO DO</a></li>
+<li class="chapter" data-level="C" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>C</b> Matrix Algebra in R</a><ul>
+<li class="chapter" data-level="C.1" data-path="matrices.html"><a href="matrices.html"><i class="fa fa-check"></i><b>C.1</b> Matrices</a></li>
+<li class="chapter" data-level="C.2" data-path="matrix-scalar-operations.html"><a href="matrix-scalar-operations.html"><i class="fa fa-check"></i><b>C.2</b> Matrix-Scalar Operations</a></li>
+<li class="chapter" data-level="C.3" data-path="matrix-matrix-operations.html"><a href="matrix-matrix-operations.html"><i class="fa fa-check"></i><b>C.3</b> Matrix-Matrix Operations</a></li>
+<li class="chapter" data-level="C.4" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html"><i class="fa fa-check"></i><b>C.4</b> Matrix Multiplication (*)</a></li>
+<li class="chapter" data-level="C.5" data-path="matrix-vector-operations.html"><a href="matrix-vector-operations.html"><i class="fa fa-check"></i><b>C.5</b> Matrix-Vector Operations</a></li>
+<li class="chapter" data-level="C.6" data-path="further-reading-10.html"><a href="further-reading-10.html"><i class="fa fa-check"></i><b>C.6</b> Further Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="C.2" data-path="further-reading-11.html"><a href="further-reading-11.html"><i class="fa fa-check"></i><b>C.2</b> Further Reading</a></li>
+<li class="chapter" data-level="D" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>D</b> Data Frame Wrangling in R</a><ul>
+<li class="chapter" data-level="D.1" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i><b>D.1</b> TO DO</a><ul>
+<li class="chapter" data-level="D.1.1" data-path="to-do.html"><a href="to-do.html#to-do-1"><i class="fa fa-check"></i><b>D.1.1</b> TO DO</a></li>
+</ul></li>
+<li class="chapter" data-level="D.2" data-path="further-reading-11.html"><a href="further-reading-11.html"><i class="fa fa-check"></i><b>D.2</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 16:04 (56335b9)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-01 18:22 (f50c8e6)</a></li>
 
 </ul>
 
@@ -409,7 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="matrix-matrix-operations" class="section level2">
-<h2><span class="header-section-number">B.3</span> Matrix-Matrix Operations</h2>
+<h2><span class="header-section-number">C.3</span> Matrix-Matrix Operations</h2>
 <hr />
 <p>If <span class="math inline">\(\mathbf{A},\mathbf{B}\in\mathbb{R}^{n\times p}\)</span>
 are two matrices of the same sizes, then
@@ -417,7 +423,7 @@ are two matrices of the same sizes, then
 <span class="math inline">\(\mathbf{A}-\mathbf{B}\)</span> are understood elementwise,
 i.e., they result in <span class="math inline">\(\mathbf{C}\in\mathbb{R}^{n\times p}\)</span>
 such that <span class="math inline">\(c_{i,j}=a_{i,j}\pm b_{i,j}\)</span>.</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb639-1" data-line-number="1">A<span class="op">-</span>A</a></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb642-1" data-line-number="1">A<span class="op">-</span>A</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    0    0    0
 ## [2,]    0    0    0</code></pre>
@@ -425,11 +431,11 @@ such that <span class="math inline">\(c_{i,j}=a_{i,j}\pm b_{i,j}\)</span>.</p>
 <p>In R (but not when we use mathematical notation),
 all other arithmetic, logical and comparison operators are also
 applied in an elementwise fashion.</p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb641-1" data-line-number="1">A<span class="op">*</span>A</a></code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb644-1" data-line-number="1">A<span class="op">*</span>A</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    9
 ## [2,]   16   25   36</code></pre>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb643-1" data-line-number="1">(A<span class="op">&gt;</span><span class="dv">2</span>) <span class="op">&amp;</span><span class="st"> </span>(A<span class="op">&lt;=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" data-line-number="1">(A<span class="op">&gt;</span><span class="dv">2</span>) <span class="op">&amp;</span><span class="st"> </span>(A<span class="op">&lt;=</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##       [,1]  [,2]  [,3]
 ## [1,] FALSE FALSE  TRUE
 ## [2,]  TRUE  TRUE FALSE</code></pre>

@@ -94,7 +94,7 @@ statistical modelling and scientific computing.
 
 This book has been prepared with pandoc, Markdown and GitBook.
 R code chunks have been processed with knitr.
-A little help of bookdown and good ol' Makefiles and shell scripts
+A little help of bookdown, good ol' Makefiles and shell scripts
 did the trick.
 
 

@@ -1,0 +1,138 @@
+# Setting Up the R Environment
+
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
+## Installing R
+
+R and Python are *the* languages of modern data science.
+The former is slightly more oriented towards data modelling,
+analysis and visualisation as well as statistical computing.
+It has a gentle learning curve, which makes is very suitable even
+for beginners -- just like us!
+
+R is available for Windows as well as MacOS, Linux and other Unix-like
+operating systems.
+It can be downloaded from the R project website,
+see https://www.r-project.org/ (or installed through system-specific package
+repositories).
+
+> From now on we assume that you have installed the R environment.
+
+## Installing an IDE
+
+As we wish to make our first steps with the R language
+as stress- and hassle-free as possible, let's stick to a very user-friendly
+development environment called RStudio, which can be downloaded from
+https://rstudio.com/products/rstudio/ (choose RStudio Desktop Open Source Edition).
+
+> There are of course many other options for working with R, both interactive
+and non-interactive, including Jupyter Notebooks (see https://irkernel.github.io/),
+dynamically generated reports (see https://yihui.org/knitr/options/)
+and plain shell scripts executed from a terminal.
+However, for now let's leave that to more
+advanced users.
+
+
+## Installing Recommended Packages
+
+Once we got the above up and running, from within RStudio,
+we need to install a few packages which we're going to use during the course
+of this course. Execute the following commands in the R console
+(bottom-left Rstudio pane):
+
+```{r,results='asis',echo=FALSE}
+library("knitr")
+library("bookdown")
+library("stringi")
+fs <- list.files(".", "\\.Rmd$", full=TRUE)
+pkgs <- unlist(lapply(fs, function(f)
+    na.omit(stri_match_first_regex(
+        readLines(f), "^library\\(['\"]?(.*?)['\"]?\\)")[,2])))
+pkgs <- setdiff(pkgs, c("bookdown", "knitr"))
+pkgs <- c(pkgs, "tensorflow", "keras")
+pkgs <- stri_unique(stri_sort(pkgs))
+outpkgs <- stri_paste('"', pkgs, '"', sep="")
+outpkgs <- stri_flatten(stri_wrap(stri_flatten(outpkgs, collapse=", "), 55), collapse="\n    ")
+cat('```r\n')
+cat(sprintf('pkgs <- c(%s)\n', outpkgs))
+cat('install.packages(pkgs)\n')
+cat('```\n\n')
+```
+
+
+What is more, in order to be able to play with neural networks,
+we will need some Python environment, for example
+the Anaconda Distribution Python 3.x, see
+https://www.anaconda.com/distribution/.
+
+> Do **not** download Python 2.7.
+
+Installation instructions can be found at
+https://docs.anaconda.com/anaconda/install/.
+This is required for the R packages tensorflow and keras,
+see https://tensorflow.rstudio.com/installation/.
+Once this is installed, execute the following R commands in the console:
+
+```r
+library("tensorflow")
+install_tensorflow()
+```
+
+
+## First R Script
+
+Let's open Rstudio and perform the following steps:
+
+1.  Create a New Project where we will store all the scripts
+    related to this book. Click *File* → *New Project*
+    and then choose to start in a brand new working directory,
+    in any location you like.
+    Choose *New Project* as the project type.
+
+    > From now on, we are assuming that the project name is *LMLCR*
+    and the project has been opened. All source files we create
+    will be relative to the project directory.
+
+2.  Create a new R source file, *File* → *New File* → *R Script*.
+    Save the file as, for example, *sandbox_01.R*.
+
+    The source editor (top left pane) behaves just like any other text editor.
+    Standard keyboard shortcuts are available, such as CTRL+C
+    and CTRL+V (Cmd+C and Cmd+V on MacOS) for copy and paste, respectively.
+
+    > A list of keyboard shortcuts is available at
+    https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
+
+3.  Input the following R code into the editor:
+
+    ```r
+    # My first R script
+    # This is a comment
+
+    # Another comment
+
+    # Everything from '#' to the end of the line
+    #     is ignored by the R interpreter
+    print("Hello world") # prints a given character string
+    print(2+2) # evaluates the expression and prints the result
+    x <- seq(0, 10, length.out=100) # a new numeric vector
+    y <- x^2 # squares every element in x
+    plot(x, y, las=1, type="l") # plots y as a function of x
+    ```
+
+5.  Execute the 5 above commands, line by line,
+    by positioning the keyboard cursor accordingly and
+    pressing Ctrl+Enter (Cmd+Return on MacOS).
+
+    Each time, the command will be copied to the console
+    (bottom-left pane)
+    and evaluated.
+
+    The last line generates a nice plot which will appear in the
+    bottom-right pane.
+
+While you learn, we recommend that, you get used to writing your
+code in an R script and executing it just as we did above.
+
+> On a side note, You can execute (source) the whole script
+by pressing Ctrl+Shift+S (Cmd+Shift+S on MacOS).

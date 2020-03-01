@@ -10,9 +10,10 @@ RMD_SOURCES = \
     07-clustering.Rmd                            \
     08-optimisation-genetic.Rmd                  \
     09-recommenders.Rmd                          \
-    91-R-vectors.Rmd                             \
-    92-R-matrices.Rmd                            \
-    93-R-data-frames.Rmd
+    91-R-setup.Rmd                               \
+    92-R-vectors.Rmd                             \
+    93-R-matrices.Rmd                            \
+    94-R-data-frames.Rmd
 
 
 SVG_SOURCES = \
