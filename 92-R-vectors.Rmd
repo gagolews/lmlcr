@@ -1079,6 +1079,137 @@ palette()
 Hence, black circles mark irises from the 1st class, i.e., "setosa".
 
 
+## Lists
+
+Numeric, logical and character vectors are *atomic* objects -- each
+component is of the same type. Let's take a look at what happens when
+we create an atomic vector out of objects of different types:
+
+```{r}
+c("nine", FALSE, 7, TRUE)
+c(FALSE, 7, TRUE, 7)
+```
+
+In each case, we get an object of the most "general" type which is able to
+represent our data.
+
+
+On the other hand, R *lists* are *generalised* vectors.
+They can consist of arbitrary R objects, possibly of mixed types --
+also other lists.
+
+
+
+### Creating Lists
+
+Most commonly, we create a generalised vector by calling the `list()` function.
+
+```{r}
+(l <- list(1:5, letters, runif(3)))
+mode(l)
+class(l)
+length(l)
+```
+
+There's a more compact way to print a list on the console:
+
+```{r}
+str(l)
+```
+
+We can also convert an atomic vector to a list by calling:
+
+```{r}
+as.list(1:3)
+```
+
+
+### Named Lists
+
+List, like other vectors, may be assigned a `names` attribute.
+
+```{r}
+names(l) <- c("a", "b", "c")
+l
+```
+
+
+### Subsetting and Extracting From Lists
+
+Applying a square brackets operator creates a sub-list, which is
+of type list as well.
+
+```{r}
+l[-1]
+l[c("a", "c")]
+l[1]
+```
+
+Note in the 3rd case we deal with a list of length one, not a numeric vector.
+
+
+
+To *extract* (dig into) a particular (single) element, we use double square brackets:
+
+```{r}
+l[[1]]
+l[["c"]]
+```
+
+The latter can equivalently be written as:
+
+```{r}
+l$c
+```
+
+
+### Common Operations
+
+Lists, because of their generality (they can store any kind of object),
+have few dedicated operations.
+In particular, it neither makes sense to add, multiply, ... two lists together
+nor to aggregate them.
+
+However, if we wish to run some operation on each element, we can call
+list-apply:
+
+```{r}
+(k <- list(x=runif(5), y=runif(6), z=runif(3))) # a named list
+lapply(k, mean)
+```
+
+The above computes the mean of each of the three numeric vectors
+stored inside list `k`.
+
+`unlist()` tries (it might not always be possible)
+to unwind a list to a simpler, atomic  form:
+
+```{r}
+unlist(lapply(k, mean))
+```
+
+
+
+Moreover, `split(x, f)` classifies elements in a vector `x`
+into subgroups defined by a factor (or an object coercible to)
+of the same length.
+
+
+```{r}
+x <- c(  1,   2,   3,   4,   5,   6,   7,   8,   9,  10)
+f <- c("a", "b", "a", "a", "c", "b", "b", "a", "a", "b")
+split(x, f)
+```
+
+
+This is very useful when combined with `lapply()` and `unlist()`.
+For instance, here are the mean sepal lengths
+for each of the three flower species in the famous `iris` dataset.
+
+```{r}
+unlist(lapply(split(iris$Sepal.Length, iris$Species), mean))
+```
+
 
 
 
