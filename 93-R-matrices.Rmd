@@ -3,6 +3,13 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
+
+THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
+(TO THOSE READING THAT IN THE YEAR 2048).
+
+
+
+
 Vectors are 1-dimensional objects -- they represent "flat" sequences of values.
 Matrices, on the other hand, are 2-dimensional -- they represent tabular data,
 where values aligned into rows and columns. Matrices (and their extensions --
@@ -33,20 +40,29 @@ both from the computational perspective and the mathematical one.
 
 
 
+THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
+(TO THOSE READING THAT IN THE YEAR 2048).
+
+### `matrix()`
+
+A matrix can be created -- amongst others -- with a call to the `matrix()`
+function.
 
 
 ```{r}
-A <- matrix(c(1, 2, 3, 4, 5, 6), byrow=TRUE, nrow=2)
-dim(A) # number of rows, number of columns
-A
-```
-
-```{r}
-mode(A)
+(A <- matrix(c(1, 2, 3, 4, 5, 6), byrow=TRUE, nrow=2))
 class(A)
 ```
 
-Using mathematical notation, above we have defined $\mathbf{A}\in\mathbb{R}^{2\times 3}$:
+Given a numeric vector of length 6, we've asked R to convert to
+a numeric matrix with 2 rows (the `nrow` argument).
+The number of columns has been deduced automatically
+(otherwise, we would additionally have to  pass `ncol=3` to the function).
+
+
+
+Using mathematical notation,
+above we have defined $\mathbf{A}\in\mathbb{R}^{2\times 3}$:
 
 \[
 \mathbf{A}=
@@ -65,43 +81,144 @@ a_{2,1} & a_{2,2} & a_{2,3} \\
 \right]
 \]
 
----
 
-Other ways to create a matrix:
+
+We can fetch the size of the matrix by calling:
 
 ```{r}
-rbind(1:3, 4:6, 7:9) # row bind
-rbind(1:3, 4:6, 7:9) # column bind
+dim(A) # number of rows, number of columns
 ```
 
 
-On a side note, R `data.frame`s are similar to matrices but are used
-to store tabular data of potentially different types in each column.
-
----
-
-Note that the omission of `byrow=TRUE` yields the following default behaviour
-of the `matrix()` function:
-
-```{r}
-matrix(c(1, 2, 3, 4, 5, 6), nrow=2)
-```
-
-In other words, elements are read in a column-major manner.
-
-> (\*) This is exactly how R stores the underlying data in RAM.
-
-
----
-
-Also take notice of the fact that "flat" vectors are promoted
-to column vectors, i.e., matrices with one column:
+We can also "promote" a "flat" vector to a column vector, i.e.,
+a matrix with one column by calling:
 
 ```{r}
 as.matrix(1:3)
 ```
 
----
+
+
+
+
+### Stacking Vectors
+
+
+Other ways to create a matrix involve stacking a couple of vectors
+of equal lengths with each other:
+
+
+```{r}
+rbind(1:3, 4:6, 7:9) # row bind
+cbind(1:3, 4:6, 7:9) # column bind
+```
+
+These functions also allow for adding new rows/columns to existing matrices:
+
+```{r}
+rbind(A, c(-1, -2, -3))
+cbind(A, c(-1, -2))
+```
+
+
+<!--
+Not here: Reading Data
+
+read csv
+
+scan
+
+json
+
+xml
+-->
+
+
+
+### Beyond Numeric Matrices
+
+Note that logical and character matrices are possible as well.
+
+For instance, knowing that comparison operators such as `<` and `==`
+are performed elementwise also in the case of matrices, we can obtain:
+
+```{r}
+A >= 3
+matrix(LETTERS[1:12], ncol=6)
+```
+
+
+
+### Naming Rows and Columns
+
+
+TO DO dimnames...................
+
+
+
+
+### Other Methods
+
+The `read.table()` (and its special case, `read.csv()`),
+can be used to read a matrix from a text file.
+We will cover it in the next chapter, because technically
+it returns a data frame object (which we can convert to a matrix with a call
+to `as.matrix()`).
+
+`outer()` applies a given function
+on each pair of elements from two vectors.
+
+
+simplify2array
+
+sapply
+
+
+Outer Product: outer.............
+
+table - contingency matrix
+
+
+
+
+### Internal Representation (\*)
+
+
+Note  that by setting `byrow=TRUE` in a call to the `matrix()` function above,
+we are reading the elements
+of the input vector in the row-wise (row-major) fashion.
+The default is the column-major order, which might be a little unintuitive
+for some of us.
+
+```{r}
+A <- matrix(c(1, 2, 3, 4, 5, 6), ncol=3, byrow=TRUE)
+B <- matrix(c(1, 2, 3, 4, 5, 6), ncol=3) # byrow=FALSE
+```
+
+
+It turns out that is exactly the order in which the matrix is stored internally.
+Under the hood, it is an ordinary numeric vector:
+
+```{r}
+mode(B)    # == mode(A)
+length(B)  # == length(A)
+as.numeric(A)
+as.numeric(B)
+```
+
+Also note that we can create a different *view* on the same underlaying
+data vector:
+
+```{r}
+dim(A) <- c(3, 2) # 3 rows, 2 columns
+A
+dim(B) <- c(3, 2) # 3 rows, 2 columns
+B
+```
+
+
+
+
 
 $\mathbf{A}^T$ denotes the matrix *transpose*:
 
@@ -113,11 +230,6 @@ Hence, $\mathbf{B}=\mathbf{A}^T$ is a matrix such that $b_{i,j}=a_{j,i}$.
 
 In other words, in the transposed matrix, rows become columns and columns become rows.
 
-
-
-character matrices are possible as well
-
-read csv
 
 
 
@@ -237,9 +349,6 @@ This is again different than R's elementwise `A^2`.
 
 <!-- TODO? Matrix ops and the recycling rule -->
 
-
-
-Outer Product: outer.............
 
 
 ## Matrix-Vector Operations

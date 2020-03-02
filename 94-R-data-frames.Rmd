@@ -2,8 +2,22 @@
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
+
+
 THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
 (TO THOSE READING THAT IN THE YEAR 2048).
+
+
+
+R `data.frame`s are similar to matrices in the sense that
+we use them to store tabular data.
+However, with data frames we can mix column types freely:
+
+```{r}
+head(iris)
+head(rpart::car90, 2)
+```
+
 
 ## TO DO
 
@@ -12,15 +26,10 @@ THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
 THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
 (TO THOSE READING THAT IN THE YEAR 2048).
 
-## Lists
-
-lapply
-
-simplify2array
-
-sapply
 
 
+
+stringsAsFactors
 
 
 
