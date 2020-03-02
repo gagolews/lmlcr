@@ -464,7 +464,7 @@ max(abs(z))    # Chebyshev
 
 
 Also note that all the norms easily generate the corresponding
-*distances* (metrics) between two given points:
+*distances* (metrics) between two given points. In particular:
 
 \[
 \| \boldsymbol{x}-\boldsymbol{y} \| = \sqrt{
@@ -479,6 +479,9 @@ u <- c(1, 0)
 v <- c(1, 1)
 sqrt(sum((u-v)^2))
 ```
+
+This is the "normal" distance that you learned at school.
+
 
 
 ### Dot Product
@@ -862,6 +865,17 @@ x
 ```
 
 
+### Other Functions
+
+`head()` and `tail()` return, respectively, a few (6 by default) first and last elements
+of a vector.
+
+```{r}
+head(x) # head(x, 6)
+tail(x, 3)
+```
+
+
 ## Named Vectors
 
 ### Creating Named Vectors
@@ -923,8 +937,147 @@ summary(x)[c("Median", "Mean")]
 <!--
 coercion as.numeric
 Check out yourself:
-sort, rank, unname
+sort, rank, unique
 -->
+
+
+
+
+## Factors
+
+Factors are *special* kinds of vectors that are frequently used to
+store qualitative data, e.g., species, groups, types.
+Factors are convenient in situations where we have many observations,
+but the number
+of distinct (unique) values is relatively small.
+
+### Creating Factors
+
+For example, the following character vector:
+
+```{r,echo=-1}
+set.seed(123)
+(col <- sample(c("blue", "red", "green"), replace=TRUE, 10))
+```
+
+can be converted to a factor by calling:
+
+```{r}
+(fcol <- factor(col))
+```
+
+Note how different is the way factors are printed out on the console.
+
+### Levels
+
+We can easily obtain the list unique labels:
+
+```{r}
+levels(fcol)
+```
+
+Those can be re-encoded by calling:
+
+```{r}
+levels(fcol) <- c("b", "g", "r")
+fcol
+```
+
+To create a contingency table (in the form of a named numeric vector,
+giving how many values are at each factor level),
+we call:
+
+```{r}
+table(fcol)
+```
+
+
+
+
+### Internal Representation (\*)
+
+Factors have a look-and-feel of character vectors,
+however, internally they are represented as integer sequences.
+
+
+```{r}
+class(fcol)
+mode(fcol)
+as.numeric(fcol)
+```
+
+These are always integers from `1` to `M` inclusive,
+where `M` is the number of levels.
+Their meaning is given by the `levels()` function:
+in the example above, the meaning of the codes `1`, `2`, `3` is,
+respectively, ```r paste(levels(fcol), collapse=", ")```.
+
+
+
+
+If we wished to generate a factor with a specific order of labels,
+we could call:
+
+```{r}
+factor(col, levels=c("red", "green", "blue"))
+```
+
+We can also assign different labels upon creation of a factor:
+
+```{r}
+factor(col, levels=c("red", "green", "blue"), labels=c("r", "g", "b"))
+```
+
+
+
+
+Knowing how factors are represented is important when we deal
+with factors that are built around data that *look like* numeric.
+This is because their conversion to numeric
+gives the internal codes, not the actual values:
+
+```{r}
+(f <- factor(c(1, 3, 0, 1, 4, 0, 0, 1, 4)))
+as.numeric(f) # not necessarily what we want here
+as.numeric(as.character(f)) # much better
+```
+
+
+Moreover, that idea is labour-saving in contexts such as plotting
+of data that are grouped into different classes.
+For instance, here is a scatter plot
+for the Sepal.Length and Petal.Width variables in the `iris` dataset (which
+is an object of type `data.frame`, see below).
+Flowers are of different Species, and we wish to indicate which point belongs
+to which class:
+
+```{r,echo=-1}
+par(mar=c(4,4,0.5,0.5))
+plot(iris$Sepal.Length, # x
+     iris$Petal.Width,  # y
+     col=as.numeric(iris$Species), # colours
+     pch=as.numeric(iris$Species), # plotting characters
+     las=1 # rotate Y axis labels
+)
+```
+
+The above was possible because the Species column is a factor object
+with:
+
+```{r}
+levels(iris$Species)
+```
+
+and the meaning of `pch` of 1, 2, 3, ... is "circle", "triangle", "plus", ...,
+respectively. What's more, there's a default palette that maps
+consecutive integers to different colours:
+
+```{r}
+palette()
+```
+
+Hence, black circles mark irises from the 1st class, i.e., "setosa".
+
 
 
 

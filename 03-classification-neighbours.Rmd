@@ -40,12 +40,12 @@ With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_
 
 
 In this chapter we are interested in  **classification** tasks;
-we assume that each $y_i$ is a discrete label.
+we assume that each $y_i$ is a *label* (e.g., a character string).
 
 ---
 
 Most commonly, we are faced with **binary classification** tasks
-where there are only two possible labels.
+where there are only two possible distinct labels.
 
 We traditionally denote them with $0$s and $1$s.
 
@@ -84,8 +84,9 @@ abline(v=0, lty=3, col="blue")
 
 ---
 
-On a side note,
-`factor` type in R is a very convenient means to store categorical data.
+On a side note (see the Appendix for more details),
+`factor` type in R is a very convenient means to store categorical data,
+and hence, to encode the data in $\mathbf{y}$.
 
 ```{r}
 x <- c("yes", "no", "no", "yes", "no")
@@ -103,9 +104,8 @@ with elements in $\{1,\dots,M\}$, where $M$ is the number of possible levels.
 Labels, used to "decipher" the numeric codes, are stored separately.
 
 ```{r}
-as.integer(f) # 2nd label, 1st label, 1st label etc.
+as.numeric(f) # 2nd label, 1st label, 1st label etc.
 levels(f)
-nlevels(f)
 levels(f) <- c("failure", "success") # re-encode
 f
 ```
@@ -149,11 +149,11 @@ Here: 0 == a very bad wine, 10 == a very good one.
 We will convert this dependent variable to a binary one:
 
 - 0 == `response  < 5` == bad
-- 1  == `response >= 5` == good
+- 1 == `response >= 5` == good
 
 ```{r}
 # recall that TRUE == 1
-Y <- factor(as.integer(wines$response >= 5))
+Y <- factor(as.numeric(wines$response >= 5))
 table(Y)
 ```
 
@@ -553,7 +553,7 @@ stopifnot(k >= 1)
 n_train <- nrow(X_train)
 n_test  <- nrow(X_test)
 p <- ncol(X_train)
-M <- nlevels(Y_train)
+M <- length(levels(Y_train))
 ```
 
 Therefore,
@@ -585,9 +585,9 @@ we fetch the labels corresponding to its nearest neighbours
 and compute their mode:
 
 ```{r,eval=FALSE,our_knn_flow2}
-Y_pred <- integer(n_test) # vector of length n_test
+Y_pred <- numeric(n_test) # vector of length n_test
 # For now we will operate on the integer labels in {1,...,M}
-Y_train_int <- as.integer(Y_train)
+Y_train_int <- as.numeric(Y_train)
 for (i in 1:n_test) {
     # Get the labels of the NNs of the i-th point:
     nn_labels_i <- Y_train_int[nn_indexes[i,]]

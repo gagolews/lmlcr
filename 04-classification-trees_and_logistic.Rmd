@@ -39,7 +39,7 @@ With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_
 
 
 In this chapter we are still  interested in  **classification** tasks;
-we assume that each $y_i$ is a discrete label.
+we assume that each $y_i$ is a descriptive label.
 
 
 ---
@@ -124,7 +124,7 @@ We will convert this dependent variable to a binary one:
 
 ```{r}
 # recall that TRUE == 1
-Y <- as.integer(wines$response >= 5)
+Y <- as.numeric(wines$response >= 5)
 table(Y)
 ```
 
@@ -869,7 +869,7 @@ The predicted outputs, $\hat{Y}$, are arbitrary real numbers,
 but we can convert them to binary ones by checking if, e.g., $\hat{Y}>0.5$.
 
 ```{r}
-Y_pred <- as.integer(Y_pred>0.5)
+Y_pred <- as.numeric(Y_pred>0.5)
 get_metrics(Y_test, Y_pred)
 ```
 
@@ -883,7 +883,7 @@ par(mar=c(4,4,0.5,0.5))
 Y_pred <- predict(f, XY_test)
 Ts <- seq(0.05, 0.95, length.out=101)
 Ps <- as.data.frame(t(sapply(Ts, function(t) {
-  Y_pred <- as.integer(Y_pred>=t)
+  Y_pred <- as.numeric(Y_pred>=t)
   get_metrics(Y_test, Y_pred)
 })))
 
@@ -964,7 +964,7 @@ par(mar=c(4,4,0.5,0.5))
 xxx <- seq(min(XY_train$alcohol), max(XY_train$alcohol), length.out=101)
 yyy <- 1/(1+exp(-(f$coef[1]+f$coef[2]*xxx)))
 plot(xxx, yyy, type='l', xlab='alcohol', ylab="P(Y=1|alcohol)", las=1, ylim=c(0,1))
-points(XY_train$alcohol, jitter(as.integer(as.character(XY_train$Y)), 0.1), col=
+points(XY_train$alcohol, jitter(as.numeric(as.character(XY_train$Y)), 0.1), col=
     c("#00000011", "#ff000011")[XY_train$Y+1], pch=16)
 abline(h=c(0, 0.5, 1), lty=3)
 legend(8, 0.95, legend=sprintf("1/(1+exp(-(%+g%+g*alcohol))", f$coef[1], f$coef[2]), lty=1)
@@ -983,7 +983,7 @@ We classify $Y$ as 1 if the corresponding membership probability
 is greater than $0.5$.
 
 ```{r}
-Y_pred <- as.integer(predict(f, XY_test, type="response")>0.5)
+Y_pred <- as.numeric(predict(f, XY_test, type="response")>0.5)
 get_metrics(Y_test, Y_pred)
 ```
 
@@ -993,7 +993,7 @@ And now a fit based on all the input variables:
 
 ```{r}
 f <- glm(Y~., data=XY_train, family=binomial("logit"))
-Y_pred <- as.integer(predict(f, XY_test, type="response")>0.5)
+Y_pred <- as.numeric(predict(f, XY_test, type="response")>0.5)
 get_metrics(Y_test, Y_pred)
 ```
 

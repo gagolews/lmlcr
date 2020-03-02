@@ -84,7 +84,7 @@ subgroups in the data set.
 
 ```{r,echo=FALSE}
 par(mar=c(2,2,0.5,0.5))
-plot(iris[,3], iris[,2], las=1, ann=FALSE, col=as.integer(iris[,5]), pch=as.integer(iris[,5]))
+plot(iris[,3], iris[,2], las=1, ann=FALSE, col=as.numeric(iris[,5]), pch=as.numeric(iris[,5]))
 ```
 
 For example, these may be customers having different shopping patterns
@@ -217,7 +217,7 @@ km$cluster # assigned labels
 
 ```{r,echo=-1}
 par(mar=c(4,4,0.5,0.5))
-plot(X, col=km$cluster, pch=as.integer(iris$Species), las=1)
+plot(X, col=km$cluster, pch=as.numeric(iris$Species), las=1)
 ```
 
 The colours indicate the detected clusters,
@@ -631,7 +631,7 @@ Computing linkages -- an illustration:
 
 set.seed(123)
 X <- jitter(t(as.matrix(iris[,2:3])))
-y <- as.integer(iris[,5])
+y <- as.numeric(iris[,5])
 X[,y==3] <- c(2, 1)*X[,y==3]+c(-0.5,-0.5)
 y[y==3] <- 4
 
