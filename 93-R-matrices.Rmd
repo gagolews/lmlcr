@@ -2,20 +2,38 @@
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
-THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
-(TO THOSE READING THAT IN THE YEAR 2048).
+
+Vectors are 1-dimensional objects -- they represent "flat" sequences of values.
+Matrices, on the other hand, are 2-dimensional -- they represent tabular data,
+where values aligned into rows and columns. Matrices (and their extensions --
+data frames, which we'll cover in the next chapter) are predominant
+in data science, where objects are typically represented by means
+of feature vectors.
+
+Below are some examples of structured datasets in matrix forms.
+
+
+```{r}
+head(as.matrix(iris[,1:4]))
+```
+
+```{r}
+WorldPhones
+```
+
+The aim of this chapter is to cover the most essential matrix operations,
+both from the computational perspective and the mathematical one.
 
 
 
-## Matrices
-
-THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
-(TO THOSE READING THAT IN THE YEAR 2048).
 
 
-Vectors are 1-dimensional objects -- they represent sequences of values.
 
-Matrices are 2-dimensional objects -- they represent tabular data.
+## Creating Matrices
+
+
+
+
 
 ```{r}
 A <- matrix(c(1, 2, 3, 4, 5, 6), byrow=TRUE, nrow=2)
@@ -94,6 +112,16 @@ t(A)
 Hence, $\mathbf{B}=\mathbf{A}^T$ is a matrix such that $b_{i,j}=a_{j,i}$.
 
 In other words, in the transposed matrix, rows become columns and columns become rows.
+
+
+
+character matrices are possible as well
+
+read csv
+
+
+
+
 
 ## Matrix-Scalar Operations
 
@@ -210,6 +238,10 @@ This is again different than R's elementwise `A^2`.
 <!-- TODO? Matrix ops and the recycling rule -->
 
 
+
+Outer Product: outer.............
+
+
 ## Matrix-Vector Operations
 
 ---
@@ -280,6 +312,10 @@ apply(A, 2, function(c) c-mean(c))
 
 
 
+
+## Matrix Subsetting
+
+...
 
 
 ## Further Reading

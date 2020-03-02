@@ -763,7 +763,7 @@ paste(c("a", "b", "c", "d"), collapse=",")
 ## Vector Subsetting
 
 
-### Subsetting with Positive Indexes
+### Subsetting with Positive Indices
 
 In order to extract subsets (parts) of vectors, we use the square brackets:
 
@@ -781,7 +781,7 @@ x[c(1, length(x))] # the first and the last
 ```
 
 
-For example, the `order()` function returns the indexes of the
+For example, the `order()` function returns the indices of the
 smallest, 2nd smallest, 3rd smallest, ..., the largest element in a given vector.
 We will use this function when implementing our first classifier.
 
@@ -811,9 +811,9 @@ y[order(y, decreasing=TRUE)[1:3]]
 ```
 
 
-### Subsetting with Negative Indexes
+### Subsetting with Negative Indices
 
-Subsetting with a vector of negative indexes, *excludes* the elements
+Subsetting with a vector of negative indices, *excludes* the elements
 at given positions:
 
 
@@ -850,8 +850,8 @@ x[x<30 | x>70]
 ### Replacing Elements
 
 
-Note that the three above vector indexing schemes (positive indexes,
-negative indexes, logical indexes) allow for replacing specific elements with new
+Note that the three above vector indexing schemes (positive,
+negative, logical indices) allow for replacing specific elements with new
 values.
 
 ```{r}
@@ -910,10 +910,10 @@ as.numeric(x) # we need to know the type of x though
 ```
 
 
-### Subsetting Named Vectors
+### Subsetting Named Vectors with Character String Indices
 
 It turns out that extracting elements from a named vector can *also* be
-performed by means of a vector of character string indexes:
+performed by means of a vector of character string indices:
 
 ```{r}
 x[c("a", "d", "b")]
