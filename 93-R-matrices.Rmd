@@ -4,14 +4,10 @@
 
 
 
-THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
-(TO THOSE READING THAT IN THE YEAR 2048).
 
 
-
-
-Vectors are 1-dimensional objects -- they represent "flat" sequences of values.
-Matrices, on the other hand, are 2-dimensional -- they represent tabular data,
+Vectors are one-dimensional objects -- they represent "flat" sequences of values.
+Matrices, on the other hand, are two-dimensional -- they represent tabular data,
 where values aligned into rows and columns. Matrices (and their extensions --
 data frames, which we'll cover in the next chapter) are predominant
 in data science, where objects are typically represented by means
@@ -39,10 +35,6 @@ both from the computational perspective and the mathematical one.
 ## Creating Matrices
 
 
-
-THIS CHAPTER IS UNDER CONSTRUCTION! EXPECTED DELIVERY DATE: PRETTY PRETTY SOON.
-(TO THOSE READING THAT IN THE YEAR 2048).
-
 ### `matrix()`
 
 A matrix can be created -- amongst others -- with a call to the `matrix()`
@@ -67,14 +59,14 @@ above we have defined $\mathbf{A}\in\mathbb{R}^{2\times 3}$:
 \[
 \mathbf{A}=
 \left[
-\begin{array}{cccc}
+\begin{array}{ccc}
 a_{1,1} & a_{1,2} & a_{1,3} \\
 a_{2,1} & a_{2,2} & a_{2,3} \\
 \end{array}
 \right]
 =
 \left[
-\begin{array}{cccc}
+\begin{array}{ccc}
 1 & 2 & 3 \\
 4 & 5 & 6 \\
 \end{array}
@@ -105,7 +97,7 @@ as.matrix(1:3)
 
 
 Other ways to create a matrix involve stacking a couple of vectors
-of equal lengths with each other:
+of equal lengths along each other:
 
 
 ```{r}
@@ -137,13 +129,18 @@ xml
 
 ### Beyond Numeric Matrices
 
-Note that logical and character matrices are possible as well.
-
-For instance, knowing that comparison operators such as `<` and `==`
+Note that logical matrices are possible as well.
+For instance, knowing that comparison ssuch as `<` and `==`
 are performed elementwise also in the case of matrices, we can obtain:
 
 ```{r}
 A >= 3
+```
+
+Moreover, although much more rarely used, we can define character
+matrices:
+
+```{r}
 matrix(LETTERS[1:12], ncol=6)
 ```
 
@@ -151,11 +148,22 @@ matrix(LETTERS[1:12], ncol=6)
 
 ### Naming Rows and Columns
 
+Just like vectors could be equipped with `names` attribute:
 
-TO DO dimnames...................
+```{r}
+c(a=1, b=2, c=3)
+```
 
+matrices can be assigned row and column labels
+in the form of a list of two character vectors:
 
-
+```{r}
+dimnames(A) <- list(
+    c("a", "b"),     # row labels
+    c("x", "y", "z") # column labels
+)
+A
+```
 
 ### Other Methods
 
@@ -165,20 +173,48 @@ We will cover it in the next chapter, because technically
 it returns a data frame object (which we can convert to a matrix with a call
 to `as.matrix()`).
 
-`outer()` applies a given function
-on each pair of elements from two vectors.
+`outer()` applies a given (vectorised) function
+on each pair of elements from two vectors, forming a two-dimensional "grid".
+More precisely `outer(x, y, f, ...)` returns a matrix $\mathbf{Z}$ with
+`length(x)`
+rows and `length(y)` columns such that $z_{i,j}=f(x_i, y_j, ...)$,
+where `...` are optional further arguments to `f`.
+
+```{r}
+outer(c(1, 10, 100), 1:5, "*") # apply the multiplication operator
+outer(c("A", "B"), 1:8, paste, sep="-") # concatenate strings
+```
 
 
-simplify2array
+`simplify2array()` is an extension of the `unlist()` function.
+Given a list of vectors, each of length one, it will return an "unlisted" vector.
+However, if a list of equisized vectors of greater lengths is given,
+these will be converted to a matrix.
 
-sapply
+```{r}
+simplify2array(list(1, 11, 21))
+simplify2array(list(1:3, 11:13, 21:23))
+simplify2array(list(1, 11:12, 21:23)) # no can do
+```
+
+`sapply(...)` is a nice application of the above, meaning `simplify2array(lapply(...))`.
+
+```{r}
+sapply(split(iris$Sepal.Length, iris$Species), mean)
+sapply(split(iris$Sepal.Length, iris$Species), summary)
+```
 
 
-Outer Product: outer.............
+Lastly, `table(x, y)` creates a contingency matrix that
+counts the number of unique pairs of corresponding elements
+from two vectors of equal lengths.
 
-table - contingency matrix
-
-
+```{r}
+library("titanic") # data on the passengers of the RMS Titanic
+table(titanic_train$Survived)
+table(titanic_train$Sex)
+table(titanic_train$Survived, titanic_train$Sex)
+```
 
 
 ### Internal Representation (\*)
@@ -220,7 +256,13 @@ B
 
 
 
-$\mathbf{A}^T$ denotes the matrix *transpose*:
+
+
+## Algebraic Operations
+
+### Matrix Transpose
+
+The matrix *transpose* is denoted with $\mathbf{A}^T$:
 
 ```{r}
 t(A)
@@ -229,33 +271,62 @@ t(A)
 Hence, $\mathbf{B}=\mathbf{A}^T$ is a matrix such that $b_{i,j}=a_{j,i}$.
 
 In other words, in the transposed matrix, rows become columns and columns become rows.
+For example:
+
+\[
+\mathbf{A}=
+\left[
+\begin{array}{ccc}
+a_{1,1} & a_{1,2} & a_{1,3} \\
+a_{2,1} & a_{2,2} & a_{2,3} \\
+\end{array}
+\right]
+\qquad
+\mathbf{A}^T=
+\left[
+\begin{array}{cc}
+a_{1,1} & a_{2,1} \\
+a_{1,2} & a_{2,2} \\
+a_{1,3} & a_{2,3} \\
+\end{array}
+\right]
+\]
 
 
 
 
 
 
-## Matrix-Scalar Operations
 
----
+
+### Matrix-Scalar Operations
+
 
 Operations such as $s\mathbf{A}$ (multiplication of a matrix
 by a scalar), $-\mathbf{A}$, $s+\mathbf{A}$ etc.
 are applied on each element of the input matrix:
 
 ```{r}
+(A <- matrix(c(1, 2, 3, 4, 5, 6), byrow=TRUE, nrow=2))
 (-1)*A
 ```
 
 
-## Matrix-Matrix Operations
+In R, the same rule holds when we compute other
+operations (despite the fact that, mathematically,
+e.g., $\mathbf{A}^2$ or $\mathbf{A}\ge 0$ might have a different meaning):
 
----
+```{r}
+A^2 # this is not A-matrix-multiply-A, see below
+A>=3
+```
 
+
+### Matrix-Matrix Operations
 
 
 If $\mathbf{A},\mathbf{B}\in\mathbb{R}^{n\times p}$
-are two matrices of the same sizes, then
+are two matrices of identical sizes, then
 $\mathbf{A}+\mathbf{B}$ and
 $\mathbf{A}-\mathbf{B}$ are understood elementwise,
 i.e., they result in $\mathbf{C}\in\mathbb{R}^{n\times p}$
@@ -265,7 +336,7 @@ such that $c_{i,j}=a_{i,j}\pm b_{i,j}$.
 A-A
 ```
 
----
+
 
 In R (but not when we use mathematical notation),
 all other arithmetic, logical and comparison operators are also
@@ -277,9 +348,9 @@ A*A
 ```
 
 
-## Matrix Multiplication (\*)
+### Matrix Multiplication (\*)
 
----
+
 
 Mathematically, $\mathbf{A}\mathbf{B}$
 denotes the **matrix multiplication**. It is a very different operation
@@ -294,7 +365,7 @@ A %*% I # matrix multiplication
 
 This is not the same as the elementwise `A*I`.
 
----
+
 
 Matrix multiplication can only be performed on two matrices of
 *compatible sizes* -- the number of columns in the left matrix must match
@@ -311,9 +382,25 @@ c_{i,j} = \mathbf{a}_{i,\cdot} \cdot \mathbf{b}_{\cdot,j}
 \]
 for $i=1,\dots,n$ and $j=1,\dots,m$.
 
----
 
-> (\*) Note that $\mathbf{A}^T \mathbf{A}$
+> As an exercise, we recommend multiplying
+a few simple matrices of sizes $2\times 2$, $2\times 3$, $3\times 2$ etc.
+using pen and paper and checking the results in R.
+
+<!-- TODO: graphical interpretation -->
+
+
+
+Also remember that, mathematically,
+*squaring* a matrix is done in terms of matrix multiplication,
+i.e., $\mathbf{A}^2 = \mathbf{A}\mathbf{A}$.
+It can only be performed on *square* matrices, i.e., ones with the same number
+of rows and columns.
+This is again different than R's elementwise `A^2`.
+
+
+
+Note that $\mathbf{A}^T \mathbf{A}$
 gives the matrix that consists of the dot products of all the pairs
 of columns in $\mathbf{A}$.
 
@@ -321,50 +408,31 @@ of columns in $\mathbf{A}$.
 crossprod(A) # same as t(A) %*% A
 ```
 
-In the next chapter we will learn about the Pearson linear
-correlation coefficient which can be beautifully expressed this way.
+In one of the chapters on Regression, we note
+that the Pearson linear correlation coefficient
+can be beautifully expressed this way.
 
 
-> (\*) As an exercise, I recommend that you multiply
-a few simple matrices of sizes $2\times 2$, $2\times 3$, $3\times 2$ etc.
-using pen and paper and check the results in R. This will become easy
-once you get some practice.
-
-<!-- TODO: graphical interpretation -->
-
-
----
-
-Also remember that, mathematically,
-*squaring* a matrix is done in terms of matrix multiplication,
-i.e., $\mathbf{A}^2 = \mathbf{A}\mathbf{A}$.
-
-It can only be performed on *square* matrices, i.e., ones with the same number
-of rows and columns.
-
-This is again different than R's elementwise `A^2`.
 
 
 <!-- TODO? Matrix inverse?? Do we need it? we might for linear regression, but it's already too much -->
 
-<!-- TODO? Matrix ops and the recycling rule -->
 
 
 
-## Matrix-Vector Operations
 
----
+
+
+### Matrix-Vector Operations
 
 Mathematically, there is no generally agreed upon
 convention defining arithmetic operations between matrices and vectors.
 
-(\*) The only exception is the  matrix -- vector multiplication in the case
-where a vector is a column or a row vector, i.e., in fact, a matrix.
-
+> (\*) The only exception is the  matrix -- vector multiplication in the case
+where an argument is a column or a row vector, i.e., in fact, a matrix.
 Hence, given $\mathbf{A}\in\mathbb{R}^{n\times p}$ we may write
 $\mathbf{A}\mathbf{x}$
 only if $\mathbf{x}\in\mathbb{R}^{p\times 1}$ is a column vector.
-
 Similarly, $\mathbf{y}\mathbf{A}$ makes only sense
 whenever $\mathbf{y}\in\mathbb{R}^{1\times n}$ is a row vector.
 
@@ -372,25 +440,26 @@ whenever $\mathbf{y}\in\mathbb{R}^{1\times n}$ is a row vector.
 discriminate between different bold math fonts and letter cases:
 $\mathbf{X}$ is a matrix, $\mathbf{x}$ is a row or column vector
 (still a matrix, but a sequence-like one)
-and $\boldsymbol{x}$ is an ordinary vector (1-dimensional sequence).
+and $\boldsymbol{x}$ is an ordinary vector (one-dimensional sequence).
 
+
+<!--
 > This is why, e.g., the $i$-th row of $\mathbf{X}$ is denoted
 with $\mathbf{x}_{i,\cdot}$ -- to emphasise that it is a row vector.
+-->
+
 
 <!-- in R an object of type vector gets promoted to a column vector, i.e., a matrix with 1 column -->
 
 
 
----
 
 However, in R, we might sometimes wish to vectorise
 an arithmetic operation between a matrix and a vector in a row- or column-wise
 fashion.
-
-For example, if $\mathbf{A}\in\mathbb{R}^{n\times p}$
+For example, if $\mathbf{A}\in\mathbb{R}^{n\times p}$ is a matrix
 and $\mathbf{m}\in\mathbb{R}^{1\times p}$ is a row vector,
 we might want to subtract $m_i$ from each element in the $i$-th column.
-
 Here, the `apply()` function comes in handy:
 
 * `apply(A, 1, f)` applies a given function $f$ on each *row* of $\mathbf{A}$.
@@ -400,7 +469,6 @@ Usually, either $f$ returns a single value (when we wish to aggregate
 all the elements in a row/column) or returns the same number of values
 (when we wish to transform a row/column).
 
----
 
 Example: to create a *centred* version of a given matrix,
 we need to subtract from each element the arithmetic mean of its column.
@@ -411,7 +479,6 @@ we need to subtract from each element the arithmetic mean of its column.
 t(apply(A, 1, function(r) r-m)) # note the transpose here
 ```
 
----
 
 The above is equivalent to:
 
@@ -424,7 +491,165 @@ apply(A, 2, function(c) c-mean(c))
 
 ## Matrix Subsetting
 
-...
+
+Example matrices:
+
+```{r}
+(A <- matrix(1:12, byrow=TRUE, nrow=3))
+B <- A
+dimnames(B) <- list(
+    c("a", "b", "c"),     # row labels
+    c("x", "y", "z", "w") # column labels
+)
+B
+```
+
+### Selecting Individual Elements
+
+Matrices are two-dimensional structures: items are aligned in rows and columns.
+Hence, to extract an element from a matrix, we will need two indexes.
+Mathematically, given a matrix $\mathbf{A}$, $a_{i,j}$ stands for the element
+in the $i$-th row and the $j$-th column. The same in R:
+
+```{R}
+A[1, 2] # 1st row, 2nd columns
+B["a", "y"] # using dimnames == B[1,2]
+```
+
+### Selecting Rows and Columns
+
+We will sometimes use the following notation to emphasise that
+a matrix $\mathbf{A}$ consists of $n$ rows
+or $p$ columns:
+
+\[
+\mathbf{A}=\left[
+\begin{array}{c}
+\mathbf{a}_{1,\cdot} \\
+\mathbf{a}_{2,\cdot} \\
+\vdots\\
+\mathbf{a}_{n,\cdot} \\
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cccc}
+\mathbf{a}_{\cdot,1} &
+\mathbf{a}_{\cdot,2} &
+\cdots &
+\mathbf{a}_{\cdot,p} \\
+\end{array}
+\right].
+\]
+
+
+Here, $\mathbf{a}_{i,\cdot}$ is a *row vector* of length $p$,
+i.e., a $(1\times p)$-matrix:
+
+\[
+\mathbf{a}_{i,\cdot} = \left[
+\begin{array}{cccc}
+a_{i,1} &
+a_{i,2} &
+\cdots &
+a_{i,p} \\
+\end{array}
+\right].
+\]
+
+Moreover, $\mathbf{a}_{\cdot,j}$ is a *column vector* of length $n$,
+i.e., an $(n\times 1)$-matrix:
+
+\[
+\mathbf{a}_{\cdot,j} = \left[
+\begin{array}{cccc}
+a_{1,j} &
+a_{2,j} &
+\cdots &
+a_{n,j} \\
+\end{array}
+\right]^T=\left[
+\begin{array}{c}
+{a}_{1,j} \\
+{a}_{2,j} \\
+\vdots\\
+{a}_{n,j} \\
+\end{array}
+\right],
+\]
+
+
+We can extract individual rows and columns from a matrix by using
+the following notation:
+
+```{r}
+A[1,] # 1st row
+A[,2] # 2nd column
+B["a",] # of course, B[1,] is still legal
+B[,"y"]
+```
+
+Note that by extracting a single row/column, we get an atomic (one-dimensional)
+vector. However, we can preserve the dimensionality of the output object
+by passing `drop=FALSE`:
+
+```{r}
+A[  1,    , drop=FALSE] # 1st row
+A[   ,   2, drop=FALSE] # 2nd column
+B["a",    , drop=FALSE]
+B[   , "y", drop=FALSE]
+```
+
+Now this is what we call proper row and column vectors!
+
+
+
+### Selecting Submatrices
+
+To create a sub-block of a given matrix we pass two indexers,
+possibly of length greater than one:
+
+```{r}
+A[1:2, c(1, 2, 4)] # rows 1,2 columns 1,2,4
+B[c("a", "b"), c(1, 2, 4)]
+A[c(1, 3), 3]
+A[c(1, 3), 3, drop=FALSE]
+```
+
+### Selecting Based on Logical Vectors and Matrices
+
+
+We can also subset a matrix with a logical matrix of the same size.
+This always yields a (flat) vector in return.
+
+```{r}
+A[A>8]
+```
+
+Logical vectors can also be used as indexers:
+
+```{r}
+A[c(TRUE, FALSE, TRUE),] # select 1st and 3rd row
+A[,colMeans(A)>6] # columns with means > 6
+```
+
+
+### Selecting Based on Two-Column Matrices
+
+Lastly, note that we can also index a matrix `A`
+with a 2-column matrix `I`, i.e., `A[I]`.
+This allows for an easy access to
+`A[I[1,1], I[1,2]]`, `A[I[2,1], I[2,2]]`, `A[I[3,1], I[3,2]]`, ...
+
+```{r}
+I <- cbind(c(1, 3, 2, 1, 2),
+           c(2, 3, 2, 1, 4)
+)
+A[I]
+```
+
+This is exactly
+` `r paste(sprintf("A[%d, %d]", I[,1], I[,2]), collapse=", ")` `.
 
 
 ## Further Reading

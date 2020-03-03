@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>C.5 Matrix-Vector Operations | Lightweight Machine Learning Classics with R</title>
+  <title>C.2 Algebraic Operations | Lightweight Machine Learning Classics with R</title>
   <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="C.5 Matrix-Vector Operations | Lightweight Machine Learning Classics with R" />
+  <meta property="og:title" content="C.2 Algebraic Operations | Lightweight Machine Learning Classics with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://lmlcr.gagolewski.com" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gagolews/lmlcr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="C.5 Matrix-Vector Operations | Lightweight Machine Learning Classics with R" />
+  <meta name="twitter:title" content="C.2 Algebraic Operations | Lightweight Machine Learning Classics with R" />
   
   <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="matrix-multiplication.html"/>
+<link rel="prev" href="creating-matrices.html"/>
 <link rel="next" href="matrix-subsetting.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -380,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="B.2.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#aggregation-functions"><i class="fa fa-check"></i><b>B.2.4</b> Aggregation Functions</a></li>
 <li class="chapter" data-level="B.2.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#special-functions"><i class="fa fa-check"></i><b>B.2.5</b> Special Functions</a></li>
 <li class="chapter" data-level="B.2.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#norms-and-distances"><i class="fa fa-check"></i><b>B.2.6</b> Norms and Distances</a></li>
-<li class="chapter" data-level="B.2.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#dot-product"><i class="fa fa-check"></i><b>B.2.7</b> Dot Product</a></li>
+<li class="chapter" data-level="B.2.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#dot-product"><i class="fa fa-check"></i><b>B.2.7</b> Dot Product (*)</a></li>
 <li class="chapter" data-level="B.2.8" data-path="numeric-vectors.html"><a href="numeric-vectors.html#missing-and-other-special-values"><i class="fa fa-check"></i><b>B.2.8</b> Missing and Other Special Values</a></li>
 </ul></li>
 <li class="chapter" data-level="B.3" data-path="logical-vectors.html"><a href="logical-vectors.html"><i class="fa fa-check"></i><b>B.3</b> Logical Vectors</a><ul>
@@ -427,12 +427,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="C.1.5" data-path="creating-matrices.html"><a href="creating-matrices.html#other-methods"><i class="fa fa-check"></i><b>C.1.5</b> Other Methods</a></li>
 <li class="chapter" data-level="C.1.6" data-path="creating-matrices.html"><a href="creating-matrices.html#internal-representation-1"><i class="fa fa-check"></i><b>C.1.6</b> Internal Representation (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="C.2" data-path="matrix-scalar-operations.html"><a href="matrix-scalar-operations.html"><i class="fa fa-check"></i><b>C.2</b> Matrix-Scalar Operations</a></li>
-<li class="chapter" data-level="C.3" data-path="matrix-matrix-operations.html"><a href="matrix-matrix-operations.html"><i class="fa fa-check"></i><b>C.3</b> Matrix-Matrix Operations</a></li>
-<li class="chapter" data-level="C.4" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html"><i class="fa fa-check"></i><b>C.4</b> Matrix Multiplication (*)</a></li>
-<li class="chapter" data-level="C.5" data-path="matrix-vector-operations.html"><a href="matrix-vector-operations.html"><i class="fa fa-check"></i><b>C.5</b> Matrix-Vector Operations</a></li>
-<li class="chapter" data-level="C.6" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html"><i class="fa fa-check"></i><b>C.6</b> Matrix Subsetting</a></li>
-<li class="chapter" data-level="C.7" data-path="further-reading-10.html"><a href="further-reading-10.html"><i class="fa fa-check"></i><b>C.7</b> Further Reading</a></li>
+<li class="chapter" data-level="C.2" data-path="algebraic-operations.html"><a href="algebraic-operations.html"><i class="fa fa-check"></i><b>C.2</b> Algebraic Operations</a><ul>
+<li class="chapter" data-level="C.2.1" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-transpose"><i class="fa fa-check"></i><b>C.2.1</b> Matrix Transpose</a></li>
+<li class="chapter" data-level="C.2.2" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>C.2.2</b> Matrix-Scalar Operations</a></li>
+<li class="chapter" data-level="C.2.3" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>C.2.3</b> Matrix-Matrix Operations</a></li>
+<li class="chapter" data-level="C.2.4" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-multiplication"><i class="fa fa-check"></i><b>C.2.4</b> Matrix Multiplication (*)</a></li>
+<li class="chapter" data-level="C.2.5" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-vector-operations"><i class="fa fa-check"></i><b>C.2.5</b> Matrix-Vector Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html"><i class="fa fa-check"></i><b>C.3</b> Matrix Subsetting</a><ul>
+<li class="chapter" data-level="C.3.1" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-individual-elements"><i class="fa fa-check"></i><b>C.3.1</b> Selecting Individual Elements</a></li>
+<li class="chapter" data-level="C.3.2" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-rows-and-columns"><i class="fa fa-check"></i><b>C.3.2</b> Selecting Rows and Columns</a></li>
+<li class="chapter" data-level="C.3.3" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-submatrices"><i class="fa fa-check"></i><b>C.3.3</b> Selecting Submatrices</a></li>
+<li class="chapter" data-level="C.3.4" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-based-on-logical-vectors-and-matrices"><i class="fa fa-check"></i><b>C.3.4</b> Selecting Based on Logical Vectors and Matrices</a></li>
+<li class="chapter" data-level="C.3.5" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-based-on-two-column-matrices"><i class="fa fa-check"></i><b>C.3.5</b> Selecting Based on Two-Column Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="C.4" data-path="further-reading-10.html"><a href="further-reading-10.html"><i class="fa fa-check"></i><b>C.4</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="D" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>D</b> Data Frame Wrangling in R</a><ul>
 <li class="chapter" data-level="D.1" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i><b>D.1</b> TO DO</a><ul>
@@ -443,7 +452,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-03 00:07 (39c2cb0)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-03 22:57 (9e8e764)</a></li>
 
 </ul>
 
@@ -462,38 +471,173 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="matrix-vector-operations" class="section level2">
-<h2><span class="header-section-number">C.5</span> Matrix-Vector Operations</h2>
-<hr />
+<div id="algebraic-operations" class="section level2">
+<h2><span class="header-section-number">C.2</span> Algebraic Operations</h2>
+<div id="matrix-transpose" class="section level3">
+<h3><span class="header-section-number">C.2.1</span> Matrix Transpose</h3>
+<p>The matrix <em>transpose</em> is denoted with <span class="math inline">\(\mathbf{A}^T\)</span>:</p>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb942-1" data-line-number="1"><span class="kw">t</span>(A)</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    2
+## [2,]    5    3    6</code></pre>
+<p>Hence, <span class="math inline">\(\mathbf{B}=\mathbf{A}^T\)</span> is a matrix such that <span class="math inline">\(b_{i,j}=a_{j,i}\)</span>.</p>
+<p>In other words, in the transposed matrix, rows become columns and columns become rows.
+For example:</p>
+<p><span class="math display">\[
+\mathbf{A}=
+\left[
+\begin{array}{ccc}
+a_{1,1} &amp; a_{1,2} &amp; a_{1,3} \\
+a_{2,1} &amp; a_{2,2} &amp; a_{2,3} \\
+\end{array}
+\right]
+\qquad
+\mathbf{A}^T=
+\left[
+\begin{array}{cc}
+a_{1,1} &amp; a_{2,1} \\
+a_{1,2} &amp; a_{2,2} \\
+a_{1,3} &amp; a_{2,3} \\
+\end{array}
+\right]
+\]</span></p>
+</div>
+<div id="matrix-scalar-operations" class="section level3">
+<h3><span class="header-section-number">C.2.2</span> Matrix-Scalar Operations</h3>
+<p>Operations such as <span class="math inline">\(s\mathbf{A}\)</span> (multiplication of a matrix
+by a scalar), <span class="math inline">\(-\mathbf{A}\)</span>, <span class="math inline">\(s+\mathbf{A}\)</span> etc.
+are applied on each element of the input matrix:</p>
+<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb944-1" data-line-number="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>))</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6</code></pre>
+<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb946-1" data-line-number="1">(<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>A</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   -1   -2   -3
+## [2,]   -4   -5   -6</code></pre>
+<p>In R, the same rule holds when we compute other
+operations (despite the fact that, mathematically,
+e.g., <span class="math inline">\(\mathbf{A}^2\)</span> or <span class="math inline">\(\mathbf{A}\ge 0\)</span> might have a different meaning):</p>
+<div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb948-1" data-line-number="1">A<span class="op">^</span><span class="dv">2</span> <span class="co"># this is not A-matrix-multiply-A, see below</span></a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    9
+## [2,]   16   25   36</code></pre>
+<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb950-1" data-line-number="1">A<span class="op">&gt;=</span><span class="dv">3</span></a></code></pre></div>
+<pre><code>##       [,1]  [,2] [,3]
+## [1,] FALSE FALSE TRUE
+## [2,]  TRUE  TRUE TRUE</code></pre>
+</div>
+<div id="matrix-matrix-operations" class="section level3">
+<h3><span class="header-section-number">C.2.3</span> Matrix-Matrix Operations</h3>
+<p>If <span class="math inline">\(\mathbf{A},\mathbf{B}\in\mathbb{R}^{n\times p}\)</span>
+are two matrices of identical sizes, then
+<span class="math inline">\(\mathbf{A}+\mathbf{B}\)</span> and
+<span class="math inline">\(\mathbf{A}-\mathbf{B}\)</span> are understood elementwise,
+i.e., they result in <span class="math inline">\(\mathbf{C}\in\mathbb{R}^{n\times p}\)</span>
+such that <span class="math inline">\(c_{i,j}=a_{i,j}\pm b_{i,j}\)</span>.</p>
+<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb952-1" data-line-number="1">A<span class="op">-</span>A</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    0    0
+## [2,]    0    0    0</code></pre>
+<p>In R (but not when we use mathematical notation),
+all other arithmetic, logical and comparison operators are also
+applied in an elementwise fashion.</p>
+<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb954-1" data-line-number="1">A<span class="op">*</span>A</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    9
+## [2,]   16   25   36</code></pre>
+<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb956-1" data-line-number="1">(A<span class="op">&gt;</span><span class="dv">2</span>) <span class="op">&amp;</span><span class="st"> </span>(A<span class="op">&lt;=</span><span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,] FALSE FALSE  TRUE
+## [2,]  TRUE  TRUE FALSE</code></pre>
+</div>
+<div id="matrix-multiplication" class="section level3">
+<h3><span class="header-section-number">C.2.4</span> Matrix Multiplication (*)</h3>
+<p>Mathematically, <span class="math inline">\(\mathbf{A}\mathbf{B}\)</span>
+denotes the <strong>matrix multiplication</strong>. It is a very different operation
+to the elementwise multiplication.</p>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb958-1" data-line-number="1">(A &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)))</a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4</code></pre>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb960-1" data-line-number="1">(I &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1</code></pre>
+<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb962-1" data-line-number="1">A <span class="op">%*%</span><span class="st"> </span>I <span class="co"># matrix multiplication</span></a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4</code></pre>
+<p>This is not the same as the elementwise <code>A*I</code>.</p>
+<p>Matrix multiplication can only be performed on two matrices of
+<em>compatible sizes</em> – the number of columns in the left matrix must match
+the number of rows in the right operand.</p>
+<p>Given <span class="math inline">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span>
+and <span class="math inline">\(\mathbf{B}\in\mathbb{R}^{p\times m}\)</span>, their multiply is a matrix
+<span class="math inline">\(\mathbf{C}=\mathbf{A}\mathbf{B}\in\mathbb{R}^{n\times m}\)</span>
+such that <span class="math inline">\(c_{i,j}\)</span> is the dot product of the <span class="math inline">\(i\)</span>-th row in <span class="math inline">\(\mathbf{A}\)</span>
+and the <span class="math inline">\(j\)</span>-th column in <span class="math inline">\(\mathbf{B}\)</span>:
+<span class="math display">\[
+c_{i,j} = \mathbf{a}_{i,\cdot} \cdot \mathbf{b}_{\cdot,j}
+= \sum_{k=1}^p a_{i,k} b_{k, j}
+\]</span>
+for <span class="math inline">\(i=1,\dots,n\)</span> and <span class="math inline">\(j=1,\dots,m\)</span>.</p>
+<blockquote>
+<p>As an exercise, we recommend multiplying
+a few simple matrices of sizes <span class="math inline">\(2\times 2\)</span>, <span class="math inline">\(2\times 3\)</span>, <span class="math inline">\(3\times 2\)</span> etc.
+using pen and paper and checking the results in R.</p>
+</blockquote>
+<!-- TODO: graphical interpretation -->
+<p>Also remember that, mathematically,
+<em>squaring</em> a matrix is done in terms of matrix multiplication,
+i.e., <span class="math inline">\(\mathbf{A}^2 = \mathbf{A}\mathbf{A}\)</span>.
+It can only be performed on <em>square</em> matrices, i.e., ones with the same number
+of rows and columns.
+This is again different than R’s elementwise <code>A^2</code>.</p>
+<p>Note that <span class="math inline">\(\mathbf{A}^T \mathbf{A}\)</span>
+gives the matrix that consists of the dot products of all the pairs
+of columns in <span class="math inline">\(\mathbf{A}\)</span>.</p>
+<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb964-1" data-line-number="1"><span class="kw">crossprod</span>(A) <span class="co"># same as t(A) %*% A</span></a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]   10   14
+## [2,]   14   20</code></pre>
+<p>In one of the chapters on Regression, we note
+that the Pearson linear correlation coefficient
+can be beautifully expressed this way.</p>
+<!-- TODO? Matrix inverse?? Do we need it? we might for linear regression, but it's already too much -->
+</div>
+<div id="matrix-vector-operations" class="section level3">
+<h3><span class="header-section-number">C.2.5</span> Matrix-Vector Operations</h3>
 <p>Mathematically, there is no generally agreed upon
 convention defining arithmetic operations between matrices and vectors.</p>
+<blockquote>
 <p>(*) The only exception is the matrix – vector multiplication in the case
-where a vector is a column or a row vector, i.e., in fact, a matrix.</p>
-<p>Hence, given <span class="math inline">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span> we may write
+where an argument is a column or a row vector, i.e., in fact, a matrix.
+Hence, given <span class="math inline">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span> we may write
 <span class="math inline">\(\mathbf{A}\mathbf{x}\)</span>
-only if <span class="math inline">\(\mathbf{x}\in\mathbb{R}^{p\times 1}\)</span> is a column vector.</p>
-<p>Similarly, <span class="math inline">\(\mathbf{y}\mathbf{A}\)</span> makes only sense
+only if <span class="math inline">\(\mathbf{x}\in\mathbb{R}^{p\times 1}\)</span> is a column vector.
+Similarly, <span class="math inline">\(\mathbf{y}\mathbf{A}\)</span> makes only sense
 whenever <span class="math inline">\(\mathbf{y}\in\mathbb{R}^{1\times n}\)</span> is a row vector.</p>
+</blockquote>
 <blockquote>
 <p>Please take notice of the fact that we consistently
 discriminate between different bold math fonts and letter cases:
 <span class="math inline">\(\mathbf{X}\)</span> is a matrix, <span class="math inline">\(\mathbf{x}\)</span> is a row or column vector
 (still a matrix, but a sequence-like one)
-and <span class="math inline">\(\boldsymbol{x}\)</span> is an ordinary vector (1-dimensional sequence).</p>
+and <span class="math inline">\(\boldsymbol{x}\)</span> is an ordinary vector (one-dimensional sequence).</p>
 </blockquote>
-<blockquote>
-<p>This is why, e.g., the <span class="math inline">\(i\)</span>-th row of <span class="math inline">\(\mathbf{X}\)</span> is denoted
-with <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> – to emphasise that it is a row vector.</p>
-</blockquote>
+<!--
+> This is why, e.g., the $i$-th row of $\mathbf{X}$ is denoted
+with $\mathbf{x}_{i,\cdot}$ -- to emphasise that it is a row vector.
+-->
 <!-- in R an object of type vector gets promoted to a column vector, i.e., a matrix with 1 column -->
-<hr />
 <p>However, in R, we might sometimes wish to vectorise
 an arithmetic operation between a matrix and a vector in a row- or column-wise
-fashion.</p>
-<p>For example, if <span class="math inline">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span>
+fashion.
+For example, if <span class="math inline">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span> is a matrix
 and <span class="math inline">\(\mathbf{m}\in\mathbb{R}^{1\times p}\)</span> is a row vector,
-we might want to subtract <span class="math inline">\(m_i\)</span> from each element in the <span class="math inline">\(i\)</span>-th column.</p>
-<p>Here, the <code>apply()</code> function comes in handy:</p>
+we might want to subtract <span class="math inline">\(m_i\)</span> from each element in the <span class="math inline">\(i\)</span>-th column.
+Here, the <code>apply()</code> function comes in handy:</p>
 <ul>
 <li><code>apply(A, 1, f)</code> applies a given function <span class="math inline">\(f\)</span> on each <em>row</em> of <span class="math inline">\(\mathbf{A}\)</span>.</li>
 <li><code>apply(A, 2, f)</code> applies a given function <span class="math inline">\(f\)</span> on each <em>column</em> of <span class="math inline">\(\mathbf{A}\)</span>.</li>
@@ -501,32 +645,31 @@ we might want to subtract <span class="math inline">\(m_i\)</span> from each ele
 <p>Usually, either <span class="math inline">\(f\)</span> returns a single value (when we wish to aggregate
 all the elements in a row/column) or returns the same number of values
 (when we wish to transform a row/column).</p>
-<hr />
 <p>Example: to create a <em>centred</em> version of a given matrix,
 we need to subtract from each element the arithmetic mean of its column.</p>
-<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb932-1" data-line-number="1">(A &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb966-1" data-line-number="1">(A &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>)))</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    5
 ## [2,]    2    4    8</code></pre>
-<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb934-1" data-line-number="1">(m &lt;-<span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">2</span>, mean)) <span class="co"># same as colMeans(A)</span></a></code></pre></div>
+<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb968-1" data-line-number="1">(m &lt;-<span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">2</span>, mean)) <span class="co"># same as colMeans(A)</span></a></code></pre></div>
 <pre><code>## [1] 1.5 3.0 6.5</code></pre>
-<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb936-1" data-line-number="1"><span class="kw">t</span>(<span class="kw">apply</span>(A, <span class="dv">1</span>, <span class="cf">function</span>(r) r<span class="op">-</span>m)) <span class="co"># note the transpose here</span></a></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb970-1" data-line-number="1"><span class="kw">t</span>(<span class="kw">apply</span>(A, <span class="dv">1</span>, <span class="cf">function</span>(r) r<span class="op">-</span>m)) <span class="co"># note the transpose here</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] -0.5   -1 -1.5
 ## [2,]  0.5    1  1.5</code></pre>
-<hr />
 <p>The above is equivalent to:</p>
-<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb938-1" data-line-number="1"><span class="kw">apply</span>(A, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a></code></pre></div>
+<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb972-1" data-line-number="1"><span class="kw">apply</span>(A, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] -0.5   -1 -1.5
 ## [2,]  0.5    1  1.5</code></pre>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="matrix-multiplication.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="creating-matrices.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="matrix-subsetting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

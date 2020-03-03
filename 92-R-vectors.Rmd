@@ -484,7 +484,7 @@ This is the "normal" distance that you learned at school.
 
 
 
-### Dot Product
+### Dot Product (\*)
 
 What is more, given two vectors of identical lengths,
 $\boldsymbol{x}$ and $\boldsymbol{y}$,
@@ -1211,6 +1211,22 @@ unlist(lapply(split(iris$Sepal.Length, iris$Species), mean))
 ```
 
 
+
+By the way, if we take a look at the documentation of `?lapply`,
+we will note that that this function is defined as `lapply(X, FUN, ...)`.
+Here `...` denotes the optional arguments that will be passed to `FUN`.
+
+In other words, `lapply(X, FUN, ...)` returns a list `Y` of length `length(X)`
+such that `Y[[i]] <- FUN(X[[i]], ...)` for each `i`.
+For example, `mean()` has an additional argument `na.rm` that
+aims to remove missing values from the input vector.
+Compare the following:
+
+```{r}
+t <- list(1:10, c(1, 2, NA, 4, 5))
+unlist(lapply(t, mean))
+unlist(lapply(t, mean, na.rm=TRUE))
+```
 
 
 ## Further Reading
