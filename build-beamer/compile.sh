@@ -80,7 +80,7 @@ pdflatex -interaction=batchmode -output-directory="${tmpdir}" "${tmpfile/%.Rmd/.
         rm -f "${tmpfile/%.Rmd/.tex}" && \
         exit 1
 
-pdflatex -interaction=batchmode -output-directory="${tmpdir}" "${1/%.Rmd/.tex}"
+pdflatex -interaction=batchmode -output-directory="${tmpdir}" "${tmpfile/%.Rmd/.tex}"
 
 mv "${tmpfile/%.Rmd/.pdf}" "${outfile}"
 

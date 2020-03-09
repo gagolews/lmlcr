@@ -3,9 +3,6 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-
-
-
 Vectors are one-dimensional objects -- they represent "flat" sequences of values.
 Matrices, on the other hand, are two-dimensional -- they represent tabular data,
 where values aligned into rows and columns. Matrices (and their extensions --
@@ -202,6 +199,18 @@ simplify2array(list(1, 11:12, 21:23)) # no can do
 ```{r}
 sapply(split(iris$Sepal.Length, iris$Species), mean)
 sapply(split(iris$Sepal.Length, iris$Species), summary)
+```
+
+Of course, custom functions can also be applied:
+
+```{r}
+min_mean_max <- function(x) {
+    # returns a named vector with three elements
+    # (note that the last expression in a function's body
+    #  is its return value)
+    c(min=min(x), mean=mean(x), max=max(x))
+}
+sapply(split(iris$Sepal.Length, iris$Species), min_mean_max)
 ```
 
 

@@ -444,15 +444,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="C.4" data-path="further-reading-10.html"><a href="further-reading-10.html"><i class="fa fa-check"></i><b>C.4</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="D" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>D</b> Data Frame Wrangling in R</a><ul>
-<li class="chapter" data-level="D.1" data-path="to-do.html"><a href="to-do.html"><i class="fa fa-check"></i><b>D.1</b> TO DO</a><ul>
-<li class="chapter" data-level="D.1.1" data-path="to-do.html"><a href="to-do.html#to-do-1"><i class="fa fa-check"></i><b>D.1.1</b> TO DO</a></li>
+<li class="chapter" data-level="D.1" data-path="creating-data-frames.html"><a href="creating-data-frames.html"><i class="fa fa-check"></i><b>D.1</b> Creating Data Frames</a></li>
+<li class="chapter" data-level="D.2" data-path="importing-data-frames.html"><a href="importing-data-frames.html"><i class="fa fa-check"></i><b>D.2</b> Importing Data Frames</a></li>
+<li class="chapter" data-level="D.3" data-path="data-frame-subsetting.html"><a href="data-frame-subsetting.html"><i class="fa fa-check"></i><b>D.3</b> Data Frame Subsetting</a><ul>
+<li class="chapter" data-level="D.3.1" data-path="data-frame-subsetting.html"><a href="data-frame-subsetting.html#each-data-frame-is-a-list"><i class="fa fa-check"></i><b>D.3.1</b> Each Data Frame is a List</a></li>
+<li class="chapter" data-level="D.3.2" data-path="data-frame-subsetting.html"><a href="data-frame-subsetting.html#each-data-frame-is-matrix-like"><i class="fa fa-check"></i><b>D.3.2</b> Each Data Frame is Matrix-like</a></li>
 </ul></li>
-<li class="chapter" data-level="D.2" data-path="further-reading-11.html"><a href="further-reading-11.html"><i class="fa fa-check"></i><b>D.2</b> Further Reading</a></li>
+<li class="chapter" data-level="D.4" data-path="common-operations-1.html"><a href="common-operations-1.html"><i class="fa fa-check"></i><b>D.4</b> Common Operations</a></li>
+<li class="chapter" data-level="D.5" data-path="metaprogramming-and-formulas.html"><a href="metaprogramming-and-formulas.html"><i class="fa fa-check"></i><b>D.5</b> Metaprogramming and Formulas (*)</a></li>
+<li class="chapter" data-level="D.6" data-path="further-reading-11.html"><a href="further-reading-11.html"><i class="fa fa-check"></i><b>D.6</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-03 22:57 (9e8e764)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-09 23:36 (ae18d9a)</a></li>
 
 </ul>
 
@@ -639,19 +644,31 @@ these will be converted to a matrix.</p>
 ## Mean     5.006      5.936     6.588
 ## 3rd Qu.  5.200      6.300     6.900
 ## Max.     5.800      7.000     7.900</code></pre>
+<p>Of course, custom functions can also be applied:</p>
+<div class="sourceCode" id="cb923"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb923-1" data-line-number="1">min_mean_max &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb923-2" data-line-number="2">    <span class="co"># returns a named vector with three elements</span></a>
+<a class="sourceLine" id="cb923-3" data-line-number="3">    <span class="co"># (note that the last expression in a function&#39;s body</span></a>
+<a class="sourceLine" id="cb923-4" data-line-number="4">    <span class="co">#  is its return value)</span></a>
+<a class="sourceLine" id="cb923-5" data-line-number="5">    <span class="kw">c</span>(<span class="dt">min=</span><span class="kw">min</span>(x), <span class="dt">mean=</span><span class="kw">mean</span>(x), <span class="dt">max=</span><span class="kw">max</span>(x))</a>
+<a class="sourceLine" id="cb923-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb923-7" data-line-number="7"><span class="kw">sapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species), min_mean_max)</a></code></pre></div>
+<pre><code>##      setosa versicolor virginica
+## min   4.300      4.900     4.900
+## mean  5.006      5.936     6.588
+## max   5.800      7.000     7.900</code></pre>
 <p>Lastly, <code>table(x, y)</code> creates a contingency matrix that
 counts the number of unique pairs of corresponding elements
 from two vectors of equal lengths.</p>
-<div class="sourceCode" id="cb923"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb923-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;titanic&quot;</span>) <span class="co"># data on the passengers of the RMS Titanic</span></a>
-<a class="sourceLine" id="cb923-2" data-line-number="2"><span class="kw">table</span>(titanic_train<span class="op">$</span>Survived)</a></code></pre></div>
+<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb925-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;titanic&quot;</span>) <span class="co"># data on the passengers of the RMS Titanic</span></a>
+<a class="sourceLine" id="cb925-2" data-line-number="2"><span class="kw">table</span>(titanic_train<span class="op">$</span>Survived)</a></code></pre></div>
 <pre><code>## 
 ##   0   1 
 ## 549 342</code></pre>
-<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb925-1" data-line-number="1"><span class="kw">table</span>(titanic_train<span class="op">$</span>Sex)</a></code></pre></div>
+<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb927-1" data-line-number="1"><span class="kw">table</span>(titanic_train<span class="op">$</span>Sex)</a></code></pre></div>
 <pre><code>## 
 ## female   male 
 ##    314    577</code></pre>
-<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb927-1" data-line-number="1"><span class="kw">table</span>(titanic_train<span class="op">$</span>Survived, titanic_train<span class="op">$</span>Sex)</a></code></pre></div>
+<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb929-1" data-line-number="1"><span class="kw">table</span>(titanic_train<span class="op">$</span>Survived, titanic_train<span class="op">$</span>Sex)</a></code></pre></div>
 <pre><code>##    
 ##     female male
 ##   0     81  468
@@ -664,28 +681,28 @@ we are reading the elements
 of the input vector in the row-wise (row-major) fashion.
 The default is the column-major order, which might be a little unintuitive
 for some of us.</p>
-<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb929-1" data-line-number="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb929-2" data-line-number="2">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">ncol=</span><span class="dv">3</span>) <span class="co"># byrow=FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb931-1" data-line-number="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb931-2" data-line-number="2">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">ncol=</span><span class="dv">3</span>) <span class="co"># byrow=FALSE</span></a></code></pre></div>
 <p>It turns out that is exactly the order in which the matrix is stored internally.
 Under the hood, it is an ordinary numeric vector:</p>
-<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb930-1" data-line-number="1"><span class="kw">mode</span>(B)    <span class="co"># == mode(A)</span></a></code></pre></div>
+<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb932-1" data-line-number="1"><span class="kw">mode</span>(B)    <span class="co"># == mode(A)</span></a></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb932-1" data-line-number="1"><span class="kw">length</span>(B)  <span class="co"># == length(A)</span></a></code></pre></div>
+<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb934-1" data-line-number="1"><span class="kw">length</span>(B)  <span class="co"># == length(A)</span></a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb934-1" data-line-number="1"><span class="kw">as.numeric</span>(A)</a></code></pre></div>
+<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb936-1" data-line-number="1"><span class="kw">as.numeric</span>(A)</a></code></pre></div>
 <pre><code>## [1] 1 4 2 5 3 6</code></pre>
-<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb936-1" data-line-number="1"><span class="kw">as.numeric</span>(B)</a></code></pre></div>
+<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb938-1" data-line-number="1"><span class="kw">as.numeric</span>(B)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
 <p>Also note that we can create a different <em>view</em> on the same underlaying
 data vector:</p>
-<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb938-1" data-line-number="1"><span class="kw">dim</span>(A) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>) <span class="co"># 3 rows, 2 columns</span></a>
-<a class="sourceLine" id="cb938-2" data-line-number="2">A</a></code></pre></div>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb940-1" data-line-number="1"><span class="kw">dim</span>(A) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>) <span class="co"># 3 rows, 2 columns</span></a>
+<a class="sourceLine" id="cb940-2" data-line-number="2">A</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    5
 ## [2,]    4    3
 ## [3,]    2    6</code></pre>
-<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb940-1" data-line-number="1"><span class="kw">dim</span>(B) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>) <span class="co"># 3 rows, 2 columns</span></a>
-<a class="sourceLine" id="cb940-2" data-line-number="2">B</a></code></pre></div>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb942-1" data-line-number="1"><span class="kw">dim</span>(B) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>) <span class="co"># 3 rows, 2 columns</span></a>
+<a class="sourceLine" id="cb942-2" data-line-number="2">B</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    4
 ## [2,]    2    5
