@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
-<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>2.4</b> Outro</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>2.4.1</b> Remarks</a></li>
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="introduction-14.html"><a href="introduction-14.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="introduction-14.html"><a href="introduction-14.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="introduction-14.html"><a href="introduction-14.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
-<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-09 23:36 (ae18d9a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
 
 </ul>
 
@@ -553,19 +553,19 @@ should be selected more eagerly</li>
 <h3><span class="header-section-number">8.3.3</span> Example Implementation - GA for K-means</h3>
 <hr />
 <p>Initial setup:</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb476-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb476-3" data-line-number="3"><span class="co"># simulation parameters:</span></a>
-<a class="sourceLine" id="cb476-4" data-line-number="4">npop &lt;-<span class="st"> </span><span class="dv">32</span></a>
-<a class="sourceLine" id="cb476-5" data-line-number="5">niter &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb476-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb476-7" data-line-number="7"><span class="co"># randomly generate an initial population of size `npop`:</span></a>
-<a class="sourceLine" id="cb476-8" data-line-number="8">pop &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span>npop, <span class="cf">function</span>(i) X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), K),])</a>
-<a class="sourceLine" id="cb476-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb476-10" data-line-number="10"><span class="co"># evaluate fitness of each individual:</span></a>
-<a class="sourceLine" id="cb476-11" data-line-number="11">cur_fitness &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_fitness, X)</a>
-<a class="sourceLine" id="cb476-12" data-line-number="12">cur_best_fitness &lt;-<span class="st"> </span><span class="kw">min</span>(cur_fitness)</a>
-<a class="sourceLine" id="cb476-13" data-line-number="13">best_fitness &lt;-<span class="st"> </span>cur_best_fitness</a></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb479-2" title="2"></a>
+<a class="sourceLine" id="cb479-3" title="3"><span class="co"># simulation parameters:</span></a>
+<a class="sourceLine" id="cb479-4" title="4">npop &lt;-<span class="st"> </span><span class="dv">32</span></a>
+<a class="sourceLine" id="cb479-5" title="5">niter &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb479-6" title="6"></a>
+<a class="sourceLine" id="cb479-7" title="7"><span class="co"># randomly generate an initial population of size `npop`:</span></a>
+<a class="sourceLine" id="cb479-8" title="8">pop &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span>npop, <span class="cf">function</span>(i) X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), K),])</a>
+<a class="sourceLine" id="cb479-9" title="9"></a>
+<a class="sourceLine" id="cb479-10" title="10"><span class="co"># evaluate fitness of each individual:</span></a>
+<a class="sourceLine" id="cb479-11" title="11">cur_fitness &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_fitness, X)</a>
+<a class="sourceLine" id="cb479-12" title="12">cur_best_fitness &lt;-<span class="st"> </span><span class="kw">min</span>(cur_fitness)</a>
+<a class="sourceLine" id="cb479-13" title="13">best_fitness &lt;-<span class="st"> </span>cur_best_fitness</a></code></pre></div>
 <p>Each individual in the population is just the set of <span class="math inline">\(K\)</span>
 candidate cluster centres represented as a matrix in <span class="math inline">\(\mathbb{R}^{K\times p}\)</span>.</p>
 <hr />
@@ -574,43 +574,43 @@ the rank of the objective function’s value
 (smallest objective == highest rank == best fit).</p>
 <p>For the crossover, we will sample pairs of individuals with
 probabilities proportional to their fitness.</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" data-line-number="1">selection &lt;-<span class="st"> </span><span class="cf">function</span>(cur_fitness) {</a>
-<a class="sourceLine" id="cb477-2" data-line-number="2">    npop &lt;-<span class="st"> </span><span class="kw">length</span>(cur_fitness)</a>
-<a class="sourceLine" id="cb477-3" data-line-number="3">    probs &lt;-<span class="st"> </span><span class="kw">rank</span>(<span class="op">-</span>cur_fitness)</a>
-<a class="sourceLine" id="cb477-4" data-line-number="4">    probs &lt;-<span class="st"> </span>probs<span class="op">/</span><span class="kw">sum</span>(probs)</a>
-<a class="sourceLine" id="cb477-5" data-line-number="5">    left  &lt;-<span class="st"> </span><span class="kw">sample</span>(npop, npop, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>probs)</a>
-<a class="sourceLine" id="cb477-6" data-line-number="6">    right &lt;-<span class="st"> </span><span class="kw">sample</span>(npop, npop, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>probs)</a>
-<a class="sourceLine" id="cb477-7" data-line-number="7">    <span class="kw">cbind</span>(left, right)</a>
-<a class="sourceLine" id="cb477-8" data-line-number="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1">selection &lt;-<span class="st"> </span><span class="cf">function</span>(cur_fitness) {</a>
+<a class="sourceLine" id="cb480-2" title="2">    npop &lt;-<span class="st"> </span><span class="kw">length</span>(cur_fitness)</a>
+<a class="sourceLine" id="cb480-3" title="3">    probs &lt;-<span class="st"> </span><span class="kw">rank</span>(<span class="op">-</span>cur_fitness)</a>
+<a class="sourceLine" id="cb480-4" title="4">    probs &lt;-<span class="st"> </span>probs<span class="op">/</span><span class="kw">sum</span>(probs)</a>
+<a class="sourceLine" id="cb480-5" title="5">    left  &lt;-<span class="st"> </span><span class="kw">sample</span>(npop, npop, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>probs)</a>
+<a class="sourceLine" id="cb480-6" title="6">    right &lt;-<span class="st"> </span><span class="kw">sample</span>(npop, npop, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>probs)</a>
+<a class="sourceLine" id="cb480-7" title="7">    <span class="kw">cbind</span>(left, right)</a>
+<a class="sourceLine" id="cb480-8" title="8">}</a></code></pre></div>
 <hr />
 <p>An example crossover combines each cluster centre
 in such a way that we take a few coordinates of the “left” parent
 and the remaining ones from the “right” parent (see below for an illustration):</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" data-line-number="1">crossover &lt;-<span class="st"> </span><span class="cf">function</span>(pop, pairs, K, p) {</a>
-<a class="sourceLine" id="cb478-2" data-line-number="2">    old_pop &lt;-<span class="st"> </span>pop</a>
-<a class="sourceLine" id="cb478-3" data-line-number="3">    pop &lt;-<span class="st"> </span>pop[pairs[,<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb478-4" data-line-number="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pop)) {</a>
-<a class="sourceLine" id="cb478-5" data-line-number="5">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(p<span class="dv">-1</span>, K, <span class="dt">replace=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb478-6" data-line-number="6">        <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K)</a>
-<a class="sourceLine" id="cb478-7" data-line-number="7">            pop[[j]][l,<span class="dv">1</span><span class="op">:</span>wh[l]] &lt;-</a>
-<a class="sourceLine" id="cb478-8" data-line-number="8"><span class="st">                </span>old_pop[[pairs[j,<span class="dv">1</span>]]][l,<span class="dv">1</span><span class="op">:</span>wh[l]]</a>
-<a class="sourceLine" id="cb478-9" data-line-number="9">    }</a>
-<a class="sourceLine" id="cb478-10" data-line-number="10">    pop</a>
-<a class="sourceLine" id="cb478-11" data-line-number="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" title="1">crossover &lt;-<span class="st"> </span><span class="cf">function</span>(pop, pairs, K, p) {</a>
+<a class="sourceLine" id="cb481-2" title="2">    old_pop &lt;-<span class="st"> </span>pop</a>
+<a class="sourceLine" id="cb481-3" title="3">    pop &lt;-<span class="st"> </span>pop[pairs[,<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb481-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pop)) {</a>
+<a class="sourceLine" id="cb481-5" title="5">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(p<span class="dv">-1</span>, K, <span class="dt">replace=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb481-6" title="6">        <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K)</a>
+<a class="sourceLine" id="cb481-7" title="7">            pop[[j]][l,<span class="dv">1</span><span class="op">:</span>wh[l]] &lt;-</a>
+<a class="sourceLine" id="cb481-8" title="8"><span class="st">                </span>old_pop[[pairs[j,<span class="dv">1</span>]]][l,<span class="dv">1</span><span class="op">:</span>wh[l]]</a>
+<a class="sourceLine" id="cb481-9" title="9">    }</a>
+<a class="sourceLine" id="cb481-10" title="10">    pop</a>
+<a class="sourceLine" id="cb481-11" title="11">}</a></code></pre></div>
 <hr />
 <p><img src="figures/crossover.png" style="width:75.0%" /></p>
 <hr />
 <p>Mutation (occurring with a very small probability)
 substitutes some cluster centre with a random vector from the input dataset.</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" data-line-number="1">mutate &lt;-<span class="st"> </span><span class="cf">function</span>(pop, X, K) {</a>
-<a class="sourceLine" id="cb479-2" data-line-number="2">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pop)) {</a>
-<a class="sourceLine" id="cb479-3" data-line-number="3">        <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.025</span>) {</a>
-<a class="sourceLine" id="cb479-4" data-line-number="4">            szw &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb479-5" data-line-number="5">            pop[[j]][szw,] &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), <span class="kw">length</span>(szw)),]</a>
-<a class="sourceLine" id="cb479-6" data-line-number="6">        }</a>
-<a class="sourceLine" id="cb479-7" data-line-number="7">    }</a>
-<a class="sourceLine" id="cb479-8" data-line-number="8">    pop</a>
-<a class="sourceLine" id="cb479-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" title="1">mutate &lt;-<span class="st"> </span><span class="cf">function</span>(pop, X, K) {</a>
+<a class="sourceLine" id="cb482-2" title="2">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pop)) {</a>
+<a class="sourceLine" id="cb482-3" title="3">        <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.025</span>) {</a>
+<a class="sourceLine" id="cb482-4" title="4">            szw &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb482-5" title="5">            pop[[j]][szw,] &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), <span class="kw">length</span>(szw)),]</a>
+<a class="sourceLine" id="cb482-6" title="6">        }</a>
+<a class="sourceLine" id="cb482-7" title="7">    }</a>
+<a class="sourceLine" id="cb482-8" title="8">    pop</a>
+<a class="sourceLine" id="cb482-9" title="9">}</a></code></pre></div>
 <hr />
 <p>We also need a function that checks if
 the new cluster centres aren’t too far away from the input points.</p>
@@ -620,52 +620,52 @@ we must correct it.</p>
 <p>Moreover, we will recompute the cluster centres as the componentwise arithmetic mean
 of the closest points, just like in Lloyd’s algorithm, to speed up convergence.</p>
 <hr />
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" data-line-number="1">recompute_mus &lt;-<span class="st"> </span><span class="cf">function</span>(pop, X, K) {</a>
-<a class="sourceLine" id="cb480-2" data-line-number="2">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pop)) {</a>
-<a class="sourceLine" id="cb480-3" data-line-number="3">    <span class="co"># get nearest cluster centres for each point:</span></a>
-<a class="sourceLine" id="cb480-4" data-line-number="4">    memb &lt;-<span class="st"> </span><span class="kw">get.knnx</span>(pop[[j]], X, <span class="dv">1</span>)<span class="op">$</span>nn.index</a>
-<a class="sourceLine" id="cb480-5" data-line-number="5">    sz &lt;-<span class="st"> </span><span class="kw">tabulate</span>(memb, K) <span class="co"># number of points in each cluster</span></a>
-<a class="sourceLine" id="cb480-6" data-line-number="6">    <span class="co"># if there are empty clusters, fix them:</span></a>
-<a class="sourceLine" id="cb480-7" data-line-number="7">    szw &lt;-<span class="st"> </span><span class="kw">which</span>(sz<span class="op">==</span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb480-8" data-line-number="8">    <span class="cf">if</span> (<span class="kw">length</span>(szw)<span class="op">&gt;</span><span class="dv">0</span>) { <span class="co"># random points in X will be new cluster centres</span></a>
-<a class="sourceLine" id="cb480-9" data-line-number="9">        pop[[j]][szw,] &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), <span class="kw">length</span>(szw)),]</a>
-<a class="sourceLine" id="cb480-10" data-line-number="10">        memb &lt;-<span class="st"> </span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(pop[[j]], X, <span class="dv">1</span>)<span class="op">$</span>nn.index</a>
-<a class="sourceLine" id="cb480-11" data-line-number="11">        sz &lt;-<span class="st"> </span><span class="kw">tabulate</span>(memb, K)</a>
-<a class="sourceLine" id="cb480-12" data-line-number="12">    }</a>
-<a class="sourceLine" id="cb480-13" data-line-number="13">    <span class="co"># recompute cluster centres - componentwise average:</span></a>
-<a class="sourceLine" id="cb480-14" data-line-number="14">    pop[[j]][,] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb480-15" data-line-number="15">    <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X))</a>
-<a class="sourceLine" id="cb480-16" data-line-number="16">        pop[[j]][memb[l],] &lt;-<span class="st"> </span>pop[[j]][memb[l],]<span class="op">+</span>X[l,]</a>
-<a class="sourceLine" id="cb480-17" data-line-number="17">    pop[[j]] &lt;-<span class="st"> </span>pop[[j]]<span class="op">/</span>sz</a>
-<a class="sourceLine" id="cb480-18" data-line-number="18">  }</a>
-<a class="sourceLine" id="cb480-19" data-line-number="19">  pop</a>
-<a class="sourceLine" id="cb480-20" data-line-number="20">}</a></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" title="1">recompute_mus &lt;-<span class="st"> </span><span class="cf">function</span>(pop, X, K) {</a>
+<a class="sourceLine" id="cb483-2" title="2">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pop)) {</a>
+<a class="sourceLine" id="cb483-3" title="3">    <span class="co"># get nearest cluster centres for each point:</span></a>
+<a class="sourceLine" id="cb483-4" title="4">    memb &lt;-<span class="st"> </span><span class="kw">get.knnx</span>(pop[[j]], X, <span class="dv">1</span>)<span class="op">$</span>nn.index</a>
+<a class="sourceLine" id="cb483-5" title="5">    sz &lt;-<span class="st"> </span><span class="kw">tabulate</span>(memb, K) <span class="co"># number of points in each cluster</span></a>
+<a class="sourceLine" id="cb483-6" title="6">    <span class="co"># if there are empty clusters, fix them:</span></a>
+<a class="sourceLine" id="cb483-7" title="7">    szw &lt;-<span class="st"> </span><span class="kw">which</span>(sz<span class="op">==</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb483-8" title="8">    <span class="cf">if</span> (<span class="kw">length</span>(szw)<span class="op">&gt;</span><span class="dv">0</span>) { <span class="co"># random points in X will be new cluster centres</span></a>
+<a class="sourceLine" id="cb483-9" title="9">        pop[[j]][szw,] &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), <span class="kw">length</span>(szw)),]</a>
+<a class="sourceLine" id="cb483-10" title="10">        memb &lt;-<span class="st"> </span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(pop[[j]], X, <span class="dv">1</span>)<span class="op">$</span>nn.index</a>
+<a class="sourceLine" id="cb483-11" title="11">        sz &lt;-<span class="st"> </span><span class="kw">tabulate</span>(memb, K)</a>
+<a class="sourceLine" id="cb483-12" title="12">    }</a>
+<a class="sourceLine" id="cb483-13" title="13">    <span class="co"># recompute cluster centres - componentwise average:</span></a>
+<a class="sourceLine" id="cb483-14" title="14">    pop[[j]][,] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb483-15" title="15">    <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X))</a>
+<a class="sourceLine" id="cb483-16" title="16">        pop[[j]][memb[l],] &lt;-<span class="st"> </span>pop[[j]][memb[l],]<span class="op">+</span>X[l,]</a>
+<a class="sourceLine" id="cb483-17" title="17">    pop[[j]] &lt;-<span class="st"> </span>pop[[j]]<span class="op">/</span>sz</a>
+<a class="sourceLine" id="cb483-18" title="18">  }</a>
+<a class="sourceLine" id="cb483-19" title="19">  pop</a>
+<a class="sourceLine" id="cb483-20" title="20">}</a></code></pre></div>
 <hr />
 <p>We are ready to build our genetic algorithm to solve the K-means clustering problem:</p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>niter) {</a>
-<a class="sourceLine" id="cb481-2" data-line-number="2">    pairs &lt;-<span class="st"> </span><span class="kw">selection</span>(cur_fitness)</a>
-<a class="sourceLine" id="cb481-3" data-line-number="3">    pop &lt;-<span class="st"> </span><span class="kw">crossover</span>(pop, pairs, K, p)</a>
-<a class="sourceLine" id="cb481-4" data-line-number="4">    pop &lt;-<span class="st"> </span><span class="kw">mutate</span>(pop, X, K)</a>
-<a class="sourceLine" id="cb481-5" data-line-number="5">    pop &lt;-<span class="st"> </span><span class="kw">recompute_mus</span>(pop, X, K)</a>
-<a class="sourceLine" id="cb481-6" data-line-number="6">    <span class="co"># re-evaluate fitness:</span></a>
-<a class="sourceLine" id="cb481-7" data-line-number="7">    cur_fitness &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_fitness, X)</a>
-<a class="sourceLine" id="cb481-8" data-line-number="8">    cur_best_fitness &lt;-<span class="st"> </span><span class="kw">min</span>(cur_fitness)</a>
-<a class="sourceLine" id="cb481-9" data-line-number="9">    <span class="co"># give feedback on what&#39;s going on:</span></a>
-<a class="sourceLine" id="cb481-10" data-line-number="10">    <span class="cf">if</span> (cur_best_fitness <span class="op">&lt;</span><span class="st"> </span>best_fitness) {</a>
-<a class="sourceLine" id="cb481-11" data-line-number="11">        best_fitness &lt;-<span class="st"> </span>cur_best_fitness</a>
-<a class="sourceLine" id="cb481-12" data-line-number="12">        best_mu &lt;-<span class="st"> </span>pop[[<span class="kw">which.min</span>(cur_fitness)]]</a>
-<a class="sourceLine" id="cb481-13" data-line-number="13">        <span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%5d: f_best=%10.5f</span><span class="ch">\n</span><span class="st">&quot;</span>, i, best_fitness))</a>
-<a class="sourceLine" id="cb481-14" data-line-number="14">    }</a>
-<a class="sourceLine" id="cb481-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>niter) {</a>
+<a class="sourceLine" id="cb484-2" title="2">    pairs &lt;-<span class="st"> </span><span class="kw">selection</span>(cur_fitness)</a>
+<a class="sourceLine" id="cb484-3" title="3">    pop &lt;-<span class="st"> </span><span class="kw">crossover</span>(pop, pairs, K, p)</a>
+<a class="sourceLine" id="cb484-4" title="4">    pop &lt;-<span class="st"> </span><span class="kw">mutate</span>(pop, X, K)</a>
+<a class="sourceLine" id="cb484-5" title="5">    pop &lt;-<span class="st"> </span><span class="kw">recompute_mus</span>(pop, X, K)</a>
+<a class="sourceLine" id="cb484-6" title="6">    <span class="co"># re-evaluate fitness:</span></a>
+<a class="sourceLine" id="cb484-7" title="7">    cur_fitness &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_fitness, X)</a>
+<a class="sourceLine" id="cb484-8" title="8">    cur_best_fitness &lt;-<span class="st"> </span><span class="kw">min</span>(cur_fitness)</a>
+<a class="sourceLine" id="cb484-9" title="9">    <span class="co"># give feedback on what&#39;s going on:</span></a>
+<a class="sourceLine" id="cb484-10" title="10">    <span class="cf">if</span> (cur_best_fitness <span class="op">&lt;</span><span class="st"> </span>best_fitness) {</a>
+<a class="sourceLine" id="cb484-11" title="11">        best_fitness &lt;-<span class="st"> </span>cur_best_fitness</a>
+<a class="sourceLine" id="cb484-12" title="12">        best_mu &lt;-<span class="st"> </span>pop[[<span class="kw">which.min</span>(cur_fitness)]]</a>
+<a class="sourceLine" id="cb484-13" title="13">        <span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%5d: f_best=%10.5f</span><span class="ch">\n</span><span class="st">&quot;</span>, i, best_fitness))</a>
+<a class="sourceLine" id="cb484-14" title="14">    }</a>
+<a class="sourceLine" id="cb484-15" title="15">}</a></code></pre></div>
 <hr />
 <pre><code>##     1: f_best=435638.52165
 ##     2: f_best=428808.89706
 ##     4: f_best=428438.45125
 ##     6: f_best=422277.99136
 ##     8: f_best=421889.46265</code></pre>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">get_fitness</span>(best_mu, X))</a></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" title="1"><span class="kw">print</span>(<span class="kw">get_fitness</span>(best_mu, X))</a></code></pre></div>
 <pre><code>## [1] 421889.5</code></pre>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">get_fitness</span>(res_tried_very_hard, X))</a></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" title="1"><span class="kw">print</span>(<span class="kw">get_fitness</span>(res_tried_very_hard, X))</a></code></pre></div>
 <pre><code>## [1] 421889.5</code></pre>
 <p>It works! :)</p>
 <!--

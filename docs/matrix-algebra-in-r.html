@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
-<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>2.4</b> Outro</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>2.4.1</b> Remarks</a></li>
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="introduction-14.html"><a href="introduction-14.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="introduction-14.html"><a href="introduction-14.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="introduction-14.html"><a href="introduction-14.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
-<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-09 23:36 (ae18d9a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
 
 </ul>
 
@@ -486,7 +486,7 @@ data frames, which we’ll cover in the next chapter) are predominant
 in data science, where objects are typically represented by means
 of feature vectors.</p>
 <p>Below are some examples of structured datasets in matrix forms.</p>
-<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb881-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">as.matrix</span>(iris[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb884-1" title="1"><span class="kw">head</span>(<span class="kw">as.matrix</span>(iris[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]))</a></code></pre></div>
 <pre><code>##      Sepal.Length Sepal.Width Petal.Length Petal.Width
 ## [1,]          5.1         3.5          1.4         0.2
 ## [2,]          4.9         3.0          1.4         0.2
@@ -494,7 +494,7 @@ of feature vectors.</p>
 ## [4,]          4.6         3.1          1.5         0.2
 ## [5,]          5.0         3.6          1.4         0.2
 ## [6,]          5.4         3.9          1.7         0.4</code></pre>
-<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb883-1" data-line-number="1">WorldPhones</a></code></pre></div>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb886-1" title="1">WorldPhones</a></code></pre></div>
 <pre><code>##      N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
 ## 1951  45939  21574 2876   1815    1646     89      555
 ## 1956  60423  29990 4708   2568    2366   1411      733

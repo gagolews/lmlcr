@@ -51,7 +51,7 @@ Rscript -e "\
 
 mv "${knitrfile}" "${tmpfile}"
 
-/opt/anaconda3/bin/pandoc +RTS -K512m -RTS \
+pandoc +RTS -K512m -RTS \
     "${tmpfile/%.Rmd/.md}" \
     --output "${outfile}" \
     --from markdown+autolink_bare_uris+tex_math_single_backslash+tex_math_dollars+smart-implicit_figures \

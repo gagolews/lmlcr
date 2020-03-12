@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
-<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>2.4</b> Outro</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>2.4.1</b> Remarks</a></li>
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="introduction-14.html"><a href="introduction-14.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="introduction-14.html"><a href="introduction-14.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="introduction-14.html"><a href="introduction-14.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
-<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-09 23:36 (ae18d9a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
 
 </ul>
 
@@ -552,94 +552,94 @@ of the coordinates of all the point indexes <span class="math inline">\(i\)</spa
 <p>As the procedure might get stuck in a local minimum,
 a few restarts are recommended (as usual).</p>
 <p>Hence, we are used to calling:</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" data-line-number="1"><span class="kw">kmeans</span>(X, <span class="dt">centers=</span>k, <span class="dt">nstart=</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1"><span class="kw">kmeans</span>(X, <span class="dt">centers=</span>k, <span class="dt">nstart=</span><span class="dv">10</span>)</a></code></pre></div>
 </div>
-<div id="optim-vs.kmeans" class="section level3">
+<div id="optim-vs.-kmeans" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> optim() vs. kmeans()</h3>
 <hr />
 <p>Let us compare how a general-purpose optimiser such as the BFGS algorithm
 implemented in <code>optim()</code> compares with a customised, problem-specific solver.</p>
 <p>We will need some benchmark data.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1">gen_cluster &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, m, s) {</a>
-<a class="sourceLine" id="cb459-2" data-line-number="2">    vectors &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
-<a class="sourceLine" id="cb459-3" data-line-number="3">    unit_vectors &lt;-<span class="st"> </span>vectors<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">rowSums</span>(vectors<span class="op">^</span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb459-4" data-line-number="4">    unit_vectors<span class="op">*</span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, s)<span class="op">+</span><span class="kw">rep</span>(m, <span class="dt">each=</span>n)</a>
-<a class="sourceLine" id="cb459-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1">gen_cluster &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, m, s) {</a>
+<a class="sourceLine" id="cb462-2" title="2">    vectors &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
+<a class="sourceLine" id="cb462-3" title="3">    unit_vectors &lt;-<span class="st"> </span>vectors<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">rowSums</span>(vectors<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb462-4" title="4">    unit_vectors<span class="op">*</span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, s)<span class="op">+</span><span class="kw">rep</span>(m, <span class="dt">each=</span>n)</a>
+<a class="sourceLine" id="cb462-5" title="5">}</a></code></pre></div>
 <p>The above function generates <span class="math inline">\(n\)</span> points in <span class="math inline">\(\mathbb{R}^p\)</span>
 from a distribution centred at <span class="math inline">\(\mathbf{m}\in\mathbb{R}^p\)</span>,
 spread randomly in every possible direction with scale factor <span class="math inline">\(s\)</span>.</p>
 <hr />
 <p>Two example clusters in <span class="math inline">\(\mathbb{R}^2\)</span>:</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1"><span class="co"># plot the &quot;black&quot; cluster</span></a>
-<a class="sourceLine" id="cb460-2" data-line-number="2"><span class="kw">plot</span>(<span class="kw">gen_cluster</span>(<span class="dv">500</span>, <span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;#00000022&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>,</a>
-<a class="sourceLine" id="cb460-3" data-line-number="3">    <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb460-4" data-line-number="4"><span class="co"># plot the &quot;red&quot; cluster</span></a>
-<a class="sourceLine" id="cb460-5" data-line-number="5"><span class="kw">points</span>(<span class="kw">gen_cluster</span>(<span class="dv">250</span>, <span class="dv">2</span>, <span class="kw">c</span>(<span class="fl">1.5</span>, <span class="dv">1</span>), <span class="fl">0.5</span>), <span class="dt">col=</span><span class="st">&quot;#ff000022&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" title="1"><span class="co"># plot the &quot;black&quot; cluster</span></a>
+<a class="sourceLine" id="cb463-2" title="2"><span class="kw">plot</span>(<span class="kw">gen_cluster</span>(<span class="dv">500</span>, <span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;#00000022&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>,</a>
+<a class="sourceLine" id="cb463-3" title="3">    <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb463-4" title="4"><span class="co"># plot the &quot;red&quot; cluster</span></a>
+<a class="sourceLine" id="cb463-5" title="5"><span class="kw">points</span>(<span class="kw">gen_cluster</span>(<span class="dv">250</span>, <span class="dv">2</span>, <span class="kw">c</span>(<span class="fl">1.5</span>, <span class="dv">1</span>), <span class="fl">0.5</span>), <span class="dt">col=</span><span class="st">&quot;#ff000022&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
 <p><img src="08-optimisation-genetic-figures/gendata_example-1.png" alt="plot of chunk gendata_example" style="width:50.0%" /></p>
 <hr />
 <p>Let’s generate the benchmark dataset <span class="math inline">\(\mathbf{X}\)</span>
 that consists of three clusters in a high-dimensional space.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb461-2" data-line-number="2">p  &lt;-<span class="st"> </span><span class="dv">32</span></a>
-<a class="sourceLine" id="cb461-3" data-line-number="3">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb461-4" data-line-number="4">Ms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb461-5" data-line-number="5">s  &lt;-<span class="st"> </span><span class="fl">1.5</span><span class="op">*</span>p</a>
-<a class="sourceLine" id="cb461-6" data-line-number="6">K  &lt;-<span class="st"> </span><span class="kw">length</span>(Ns)</a>
-<a class="sourceLine" id="cb461-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb461-8" data-line-number="8">X &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="cf">function</span>(k)</a>
-<a class="sourceLine" id="cb461-9" data-line-number="9">    <span class="kw">gen_cluster</span>(Ns[k], p, <span class="kw">rep</span>(Ms[k], p), s))</a>
-<a class="sourceLine" id="cb461-10" data-line-number="10">X &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, X) <span class="co"># rbind(X[[1]], X[[2]], X[[3]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb464-2" title="2">p  &lt;-<span class="st"> </span><span class="dv">32</span></a>
+<a class="sourceLine" id="cb464-3" title="3">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb464-4" title="4">Ms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb464-5" title="5">s  &lt;-<span class="st"> </span><span class="fl">1.5</span><span class="op">*</span>p</a>
+<a class="sourceLine" id="cb464-6" title="6">K  &lt;-<span class="st"> </span><span class="kw">length</span>(Ns)</a>
+<a class="sourceLine" id="cb464-7" title="7"></a>
+<a class="sourceLine" id="cb464-8" title="8">X &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="cf">function</span>(k)</a>
+<a class="sourceLine" id="cb464-9" title="9">    <span class="kw">gen_cluster</span>(Ns[k], p, <span class="kw">rep</span>(Ms[k], p), s))</a>
+<a class="sourceLine" id="cb464-10" title="10">X &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, X) <span class="co"># rbind(X[[1]], X[[2]], X[[3]])</span></a></code></pre></div>
 <hr />
 <p>The objective function for the K-means clustering problem:</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a>
-<a class="sourceLine" id="cb462-2" data-line-number="2">get_fitness &lt;-<span class="st"> </span><span class="cf">function</span>(mu, X) {</a>
-<a class="sourceLine" id="cb462-3" data-line-number="3">    <span class="co"># For each point in X,</span></a>
-<a class="sourceLine" id="cb462-4" data-line-number="4">    <span class="co"># get the index of the closest point in mu:</span></a>
-<a class="sourceLine" id="cb462-5" data-line-number="5">    memb &lt;-<span class="st"> </span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(mu, X, <span class="dv">1</span>)<span class="op">$</span>nn.index</a>
-<a class="sourceLine" id="cb462-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb462-7" data-line-number="7">    <span class="co"># compute the sum of squared distances</span></a>
-<a class="sourceLine" id="cb462-8" data-line-number="8">    <span class="co"># between each point and its closes cluster centre:</span></a>
-<a class="sourceLine" id="cb462-9" data-line-number="9">    <span class="kw">sum</span>((X<span class="op">-</span>mu[memb,])<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb462-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a>
+<a class="sourceLine" id="cb465-2" title="2">get_fitness &lt;-<span class="st"> </span><span class="cf">function</span>(mu, X) {</a>
+<a class="sourceLine" id="cb465-3" title="3">    <span class="co"># For each point in X,</span></a>
+<a class="sourceLine" id="cb465-4" title="4">    <span class="co"># get the index of the closest point in mu:</span></a>
+<a class="sourceLine" id="cb465-5" title="5">    memb &lt;-<span class="st"> </span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(mu, X, <span class="dv">1</span>)<span class="op">$</span>nn.index</a>
+<a class="sourceLine" id="cb465-6" title="6"></a>
+<a class="sourceLine" id="cb465-7" title="7">    <span class="co"># compute the sum of squared distances</span></a>
+<a class="sourceLine" id="cb465-8" title="8">    <span class="co"># between each point and its closes cluster centre:</span></a>
+<a class="sourceLine" id="cb465-9" title="9">    <span class="kw">sum</span>((X<span class="op">-</span>mu[memb,])<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb465-10" title="10">}</a></code></pre></div>
 <hr />
 <p>Setting up the solvers:</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1">min_HartiganWong &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</a>
-<a class="sourceLine" id="cb463-2" data-line-number="2">    <span class="kw">get_fitness</span>(</a>
-<a class="sourceLine" id="cb463-3" data-line-number="3">        <span class="co"># algorithm=&quot;Hartigan-Wong&quot;</span></a>
-<a class="sourceLine" id="cb463-4" data-line-number="4">        <span class="kw">kmeans</span>(X, mu0, <span class="dt">iter.max=</span><span class="dv">100</span>)<span class="op">$</span>centers,</a>
-<a class="sourceLine" id="cb463-5" data-line-number="5">    X)</a>
-<a class="sourceLine" id="cb463-6" data-line-number="6">min_Lloyd &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</a>
-<a class="sourceLine" id="cb463-7" data-line-number="7">    <span class="kw">get_fitness</span>(</a>
-<a class="sourceLine" id="cb463-8" data-line-number="8">        <span class="kw">kmeans</span>(X, mu0, <span class="dt">iter.max=</span><span class="dv">100</span>, <span class="dt">algorithm=</span><span class="st">&quot;Lloyd&quot;</span>)<span class="op">$</span>centers,</a>
-<a class="sourceLine" id="cb463-9" data-line-number="9">    X)</a>
-<a class="sourceLine" id="cb463-10" data-line-number="10">min_optim &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</a>
-<a class="sourceLine" id="cb463-11" data-line-number="11">    <span class="kw">optim</span>(mu0,</a>
-<a class="sourceLine" id="cb463-12" data-line-number="12">        <span class="cf">function</span>(mu, X) {</a>
-<a class="sourceLine" id="cb463-13" data-line-number="13">            <span class="kw">get_fitness</span>(<span class="kw">matrix</span>(mu, <span class="dt">nrow=</span><span class="kw">nrow</span>(mu0)), X)</a>
-<a class="sourceLine" id="cb463-14" data-line-number="14">        }, <span class="dt">X=</span>X, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">control=</span><span class="kw">list</span>(<span class="dt">reltol=</span><span class="fl">1e-16</span>)</a>
-<a class="sourceLine" id="cb463-15" data-line-number="15">    )<span class="op">$</span>val</a></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1">min_HartiganWong &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</a>
+<a class="sourceLine" id="cb466-2" title="2">    <span class="kw">get_fitness</span>(</a>
+<a class="sourceLine" id="cb466-3" title="3">        <span class="co"># algorithm=&quot;Hartigan-Wong&quot;</span></a>
+<a class="sourceLine" id="cb466-4" title="4">        <span class="kw">kmeans</span>(X, mu0, <span class="dt">iter.max=</span><span class="dv">100</span>)<span class="op">$</span>centers,</a>
+<a class="sourceLine" id="cb466-5" title="5">    X)</a>
+<a class="sourceLine" id="cb466-6" title="6">min_Lloyd &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</a>
+<a class="sourceLine" id="cb466-7" title="7">    <span class="kw">get_fitness</span>(</a>
+<a class="sourceLine" id="cb466-8" title="8">        <span class="kw">kmeans</span>(X, mu0, <span class="dt">iter.max=</span><span class="dv">100</span>, <span class="dt">algorithm=</span><span class="st">&quot;Lloyd&quot;</span>)<span class="op">$</span>centers,</a>
+<a class="sourceLine" id="cb466-9" title="9">    X)</a>
+<a class="sourceLine" id="cb466-10" title="10">min_optim &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</a>
+<a class="sourceLine" id="cb466-11" title="11">    <span class="kw">optim</span>(mu0,</a>
+<a class="sourceLine" id="cb466-12" title="12">        <span class="cf">function</span>(mu, X) {</a>
+<a class="sourceLine" id="cb466-13" title="13">            <span class="kw">get_fitness</span>(<span class="kw">matrix</span>(mu, <span class="dt">nrow=</span><span class="kw">nrow</span>(mu0)), X)</a>
+<a class="sourceLine" id="cb466-14" title="14">        }, <span class="dt">X=</span>X, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">control=</span><span class="kw">list</span>(<span class="dt">reltol=</span><span class="fl">1e-16</span>)</a>
+<a class="sourceLine" id="cb466-15" title="15">    )<span class="op">$</span>val</a></code></pre></div>
 <hr />
 <p>Running the simulation:</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1">nstart &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb464-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb464-3" data-line-number="3">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(nstart, {</a>
-<a class="sourceLine" id="cb464-4" data-line-number="4">  mu0 &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), K),]</a>
-<a class="sourceLine" id="cb464-5" data-line-number="5">    <span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb464-6" data-line-number="6">        <span class="dt">HartiganWong=</span><span class="kw">min_HartiganWong</span>(mu0, X),</a>
-<a class="sourceLine" id="cb464-7" data-line-number="7">        <span class="dt">Lloyd=</span><span class="kw">min_Lloyd</span>(mu0, X),</a>
-<a class="sourceLine" id="cb464-8" data-line-number="8">        <span class="dt">optim=</span><span class="kw">min_optim</span>(mu0, X)</a>
-<a class="sourceLine" id="cb464-9" data-line-number="9">    )</a>
-<a class="sourceLine" id="cb464-10" data-line-number="10">})</a></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" title="1">nstart &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb467-2" title="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb467-3" title="3">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(nstart, {</a>
+<a class="sourceLine" id="cb467-4" title="4">  mu0 &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), K),]</a>
+<a class="sourceLine" id="cb467-5" title="5">    <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb467-6" title="6">        <span class="dt">HartiganWong=</span><span class="kw">min_HartiganWong</span>(mu0, X),</a>
+<a class="sourceLine" id="cb467-7" title="7">        <span class="dt">Lloyd=</span><span class="kw">min_Lloyd</span>(mu0, X),</a>
+<a class="sourceLine" id="cb467-8" title="8">        <span class="dt">optim=</span><span class="kw">min_optim</span>(mu0, X)</a>
+<a class="sourceLine" id="cb467-9" title="9">    )</a>
+<a class="sourceLine" id="cb467-10" title="10">})</a></code></pre></div>
 <hr />
 <p>Notice a considerable variability of the
 objective function at the local minima found:</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">6.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)) <span class="co"># figure margins</span></a>
-<a class="sourceLine" id="cb465-2" data-line-number="2"><span class="kw">boxplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">t</span>(res)), <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">6.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)) <span class="co"># figure margins</span></a>
+<a class="sourceLine" id="cb468-2" title="2"><span class="kw">boxplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">t</span>(res)), <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="08-optimisation-genetic-figures/gendata5-1.png" alt="plot of chunk gendata5" style="width:50.0%" /></p>
 <hr />
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">apply</span>(res, <span class="dv">1</span>, <span class="cf">function</span>(x)</a>
-<a class="sourceLine" id="cb466-2" data-line-number="2">    <span class="kw">c</span>(<span class="kw">summary</span>(x), <span class="dt">sd=</span><span class="kw">sd</span>(x))</a>
-<a class="sourceLine" id="cb466-3" data-line-number="3">))</a></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" title="1"><span class="kw">print</span>(<span class="kw">apply</span>(res, <span class="dv">1</span>, <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb469-2" title="2">    <span class="kw">c</span>(<span class="kw">summary</span>(x), <span class="dt">sd=</span><span class="kw">sd</span>(x))</a>
+<a class="sourceLine" id="cb469-3" title="3">))</a></code></pre></div>
 <pre><code>##         HartiganWong      Lloyd    optim
 ## Min.      421889.463 425119.482 422989.2
 ## 1st Qu.   424662.768 433669.308 432445.6
@@ -650,7 +650,7 @@ objective function at the local minima found:</p>
 ## sd          2300.955   5709.282  10888.4</code></pre>
 <p>Of course, we are interested in the smallest value of the objective,
 because we’re trying to pinpoint the global minimum.</p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">apply</span>(res, <span class="dv">1</span>, min))</a></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1"><span class="kw">print</span>(<span class="kw">apply</span>(res, <span class="dv">1</span>, min))</a></code></pre></div>
 <pre><code>## HartiganWong        Lloyd        optim 
 ##     421889.5     425119.5     422989.2</code></pre>
 <hr />
@@ -662,15 +662,15 @@ is the most reliable one of the three:</p>
 <li>it is the fastest:</li>
 </ul>
 <hr />
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
-<a class="sourceLine" id="cb470-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb470-3" data-line-number="3">mu0 &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), K),]</a>
-<a class="sourceLine" id="cb470-4" data-line-number="4"><span class="kw">summary</span>(<span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb470-5" data-line-number="5">    <span class="dt">HartiganWong=</span><span class="kw">min_HartiganWong</span>(mu0, X),</a>
-<a class="sourceLine" id="cb470-6" data-line-number="6">    <span class="dt">Lloyd=</span><span class="kw">min_Lloyd</span>(mu0, X),</a>
-<a class="sourceLine" id="cb470-7" data-line-number="7">    <span class="dt">optim=</span><span class="kw">min_optim</span>(mu0, X),</a>
-<a class="sourceLine" id="cb470-8" data-line-number="8">    <span class="dt">times=</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb470-9" data-line-number="9">), <span class="dt">unit=</span><span class="st">&quot;relative&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
+<a class="sourceLine" id="cb473-2" title="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb473-3" title="3">mu0 &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), K),]</a>
+<a class="sourceLine" id="cb473-4" title="4"><span class="kw">summary</span>(<span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb473-5" title="5">    <span class="dt">HartiganWong=</span><span class="kw">min_HartiganWong</span>(mu0, X),</a>
+<a class="sourceLine" id="cb473-6" title="6">    <span class="dt">Lloyd=</span><span class="kw">min_Lloyd</span>(mu0, X),</a>
+<a class="sourceLine" id="cb473-7" title="7">    <span class="dt">optim=</span><span class="kw">min_optim</span>(mu0, X),</a>
+<a class="sourceLine" id="cb473-8" title="8">    <span class="dt">times=</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb473-9" title="9">), <span class="dt">unit=</span><span class="st">&quot;relative&quot;</span>)</a></code></pre></div>
 <pre><code>##           expr        min         lq        mean      median
 ## 1 HartiganWong    1.10129    1.12666    1.204456    1.260605
 ## 2        Lloyd    1.00000    1.00000    1.000000    1.000000
@@ -680,7 +680,7 @@ is the most reliable one of the three:</p>
 ## 2    1.000000    1.000000    10
 ## 3 1529.904081 1110.287899    10</code></pre>
 <hr />
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">min</span>(res))</a></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" title="1"><span class="kw">print</span>(<span class="kw">min</span>(res))</a></code></pre></div>
 <pre><code>## [1] 421889.5</code></pre>
 <p>Is it the global minimum?</p>
 <blockquote>
@@ -690,8 +690,8 @@ is the most reliable one of the three:</p>
 <blockquote>
 <p>Well, maybe. We can try more random restarts:</p>
 </blockquote>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" data-line-number="1">res_tried_very_hard &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, K, <span class="dt">nstart=</span><span class="dv">100000</span>, <span class="dt">iter.max=</span><span class="dv">10000</span>)<span class="op">$</span>centers</a>
-<a class="sourceLine" id="cb474-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">get_fitness</span>(res_tried_very_hard, X))</a></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" title="1">res_tried_very_hard &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, K, <span class="dt">nstart=</span><span class="dv">100000</span>, <span class="dt">iter.max=</span><span class="dv">10000</span>)<span class="op">$</span>centers</a>
+<a class="sourceLine" id="cb477-2" title="2"><span class="kw">print</span>(<span class="kw">get_fitness</span>(res_tried_very_hard, X))</a></code></pre></div>
 <pre><code>## [1] 421889.5</code></pre>
 <p>Is it good enough?</p>
 <blockquote>

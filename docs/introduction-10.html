@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
-<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>2.4</b> Outro</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>2.4.1</b> Remarks</a></li>
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="introduction-14.html"><a href="introduction-14.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="introduction-14.html"><a href="introduction-14.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="introduction-14.html"><a href="introduction-14.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
-<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-09 23:36 (ae18d9a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
 
 </ul>
 
@@ -602,13 +602,13 @@ g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\
 \]</span></p>
 <!-- min{(x1^2 + x2 - 5)^2 + (x1 + x2^2 - 3)^2 + x1^2}≈2.606443660864438412460734586
 at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) -->
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1">g  &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2)</a>
-<a class="sourceLine" id="cb366-2" data-line-number="2">    <span class="kw">log</span>((x1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x2<span class="dv">-5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x1<span class="op">+</span>x2<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x1<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span>)</a>
-<a class="sourceLine" id="cb366-3" data-line-number="3">x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb366-4" data-line-number="4">x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb366-5" data-line-number="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
-<a class="sourceLine" id="cb366-6" data-line-number="6"><span class="co"># and applies a given function on each point</span></a>
-<a class="sourceLine" id="cb366-7" data-line-number="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" title="1">g  &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2)</a>
+<a class="sourceLine" id="cb369-2" title="2">    <span class="kw">log</span>((x1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x2<span class="dv">-5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x1<span class="op">+</span>x2<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x1<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span>)</a>
+<a class="sourceLine" id="cb369-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb369-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb369-5" title="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
+<a class="sourceLine" id="cb369-6" title="6"><span class="co"># and applies a given function on each point</span></a>
+<a class="sourceLine" id="cb369-7" title="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
 <hr />
 <p>There are four local minima:</p>
 <table>
@@ -643,28 +643,28 @@ at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) --
 </tbody>
 </table>
 <p>The global minimum is at <span class="math inline">\((x_1^*, x_2^*)\)</span> as below:</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Let’s explore various ways of depicting <span class="math inline">\(f\)</span>.</p>
 <hr />
 <p>A contour plot:</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" data-line-number="1"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
-<a class="sourceLine" id="cb369-2" data-line-number="2"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" title="1"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb372-2" title="2"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" style="width:50.0%" /></p>
 <hr />
 <p>A filled contour plot (a heatmap):</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1"><span class="kw">filled.contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" title="1"><span class="kw">filled.contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" style="width:50.0%" /></p>
 <hr />
 <p>Alternatively:</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" data-line-number="1"><span class="kw">image</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb371-2" data-line-number="2"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" title="1"><span class="kw">image</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb374-2" title="2"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" style="width:50.0%" /></p>
 <hr />
 <p>A perspective plot:</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
-<a class="sourceLine" id="cb372-2" data-line-number="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb372-3" data-line-number="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
+<a class="sourceLine" id="cb375-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb375-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" style="width:50.0%" /></p>
 <hr />
 <blockquote>

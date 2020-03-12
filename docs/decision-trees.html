@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
-<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>2.4</b> Outro</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>2.4.1</b> Remarks</a></li>
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="introduction-14.html"><a href="introduction-14.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="introduction-14.html"><a href="introduction-14.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="introduction-14.html"><a href="introduction-14.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
-<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-09 23:36 (ae18d9a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
 
 </ul>
 
@@ -508,29 +508,29 @@ consist of decision rules of the form:</p>
 <hr />
 <p>We will use the <code>rpart()</code> function from the <code>rpart</code> package
 to build a classification tree.</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;rpart&quot;</span>)</a>
-<a class="sourceLine" id="cb284-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;rpart.plot&quot;</span>)</a>
-<a class="sourceLine" id="cb284-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1"><span class="kw">library</span>(<span class="st">&quot;rpart&quot;</span>)</a>
+<a class="sourceLine" id="cb284-2" title="2"><span class="kw">library</span>(<span class="st">&quot;rpart.plot&quot;</span>)</a>
+<a class="sourceLine" id="cb284-3" title="3"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a></code></pre></div>
 <p><code>rpart()</code> uses a formula (<code>~</code>) interface, hence it will be easier
 to feed it with data in a data.frame form.</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" data-line-number="1">XY_train &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(X_train, <span class="dt">Y=</span>Y_train))</a>
-<a class="sourceLine" id="cb285-2" data-line-number="2">XY_test &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(X_test, <span class="dt">Y=</span>Y_test))</a></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1">XY_train &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(X_train, <span class="dt">Y=</span>Y_train))</a>
+<a class="sourceLine" id="cb285-2" title="2">XY_test &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(X_test, <span class="dt">Y=</span>Y_test))</a></code></pre></div>
 <hr />
 <p>Fit and plot a decision tree:</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb286-2" data-line-number="2"><span class="kw">rpart.plot</span>(t1)</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb286-2" title="2"><span class="kw">rpart.plot</span>(t1)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-29-1.png" alt="plot of chunk unnamed-chunk-29" style="width:50.0%" /></p>
 <hr />
 <p>The fitted model is rather… simple.</p>
 <p>Only the <code>alcohol</code> variable is taken into account.</p>
 <p>Well note how these two distributions are shifted:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1">vioplot<span class="op">::</span><span class="kw">vioplot</span>(alcohol<span class="op">~</span>Y, <span class="dt">data=</span>XY_train,</a>
-<a class="sourceLine" id="cb287-2" data-line-number="2">    <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1">vioplot<span class="op">::</span><span class="kw">vioplot</span>(alcohol<span class="op">~</span>Y, <span class="dt">data=</span>XY_train,</a>
+<a class="sourceLine" id="cb287-2" title="2">    <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-30-1.png" alt="plot of chunk unnamed-chunk-30" style="width:50.0%" /></p>
 <hr />
 <p>Make predictions:</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" data-line-number="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t1, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb288-2" data-line-number="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t1, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb288-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.8202880    0.5447154    0.2248322    0.3182898 
 ##           TN           FN           FP           TP 
@@ -540,7 +540,7 @@ to feed it with data in a data.frame form.</p>
 <p>(*) Interestingly, <code>rpart()</code> also provides us with information
 about the importance degrees of each independent variable.</p>
 </blockquote>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1">t1<span class="op">$</span>variable.importance<span class="op">/</span><span class="kw">sum</span>(t1<span class="op">$</span>variable.importance)</a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">t1<span class="op">$</span>variable.importance<span class="op">/</span><span class="kw">sum</span>(t1<span class="op">$</span>variable.importance)</a></code></pre></div>
 <pre><code>##              alcohol              density            chlorides 
 ##         0.5664666547         0.2580265845         0.1196468644 
 ##        fixed.acidity     volatile.acidity            sulphates 
@@ -550,13 +550,13 @@ about the importance degrees of each independent variable.</p>
 <hr />
 <p>We can build a much more complex tree by playing
 with the <code>cp</code> parameter.</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
-<a class="sourceLine" id="cb292-2" data-line-number="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.007</span>)</a>
-<a class="sourceLine" id="cb292-3" data-line-number="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">2.5</span>, <span class="dt">compress=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
+<a class="sourceLine" id="cb292-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.007</span>)</a>
+<a class="sourceLine" id="cb292-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">2.5</span>, <span class="dt">compress=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-33-1.png" alt="plot of chunk unnamed-chunk-33" style="width:100.0%" /></p>
 <hr />
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb293-2" data-line-number="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb293-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.8159048    0.5100000    0.3422819    0.4096386 
 ##           TN           FN           FP           TP 

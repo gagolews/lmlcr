@@ -16,7 +16,7 @@ cp -f ../90-convention.Rmd .
 cp -f ../99-references.Rmd .
 cat ../00-introduction.Rmd >> index.Rmd
 
-date="DRAFT v0.1 $(date '+%Y-%m-%d %H:%M') (`git rev-parse --short HEAD`)"
+date="DRAFT v0.2 $(date '+%Y-%m-%d %H:%M') (`git rev-parse --short HEAD`)"
 sed -i -e "s/@DATE@/${date}/g" index.Rmd
 
 mkdir -p figures/

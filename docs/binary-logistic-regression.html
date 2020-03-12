@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
-<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>2.4</b> Outro</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>2.4.1</b> Remarks</a></li>
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="introduction-14.html"><a href="introduction-14.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="introduction-14.html"><a href="introduction-14.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="introduction-14.html"><a href="introduction-14.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
-<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.1 2020-03-09 23:36 (ae18d9a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
 
 </ul>
 
@@ -486,19 +486,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This approach was pretty effective.</p>
 <p>Theoretically, we could treat the class labels as numeric <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s
 and apply regression models in a binary classification task.</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" data-line-number="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(X_train,</a>
-<a class="sourceLine" id="cb295-2" data-line-number="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(<span class="kw">as.character</span>(Y_train)) <span class="co"># 0.0 or 1.0</span></a>
-<a class="sourceLine" id="cb295-3" data-line-number="3">))</a>
-<a class="sourceLine" id="cb295-4" data-line-number="4">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(X_train,</a>
+<a class="sourceLine" id="cb295-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(<span class="kw">as.character</span>(Y_train)) <span class="co"># 0.0 or 1.0</span></a>
+<a class="sourceLine" id="cb295-3" title="3">))</a>
+<a class="sourceLine" id="cb295-4" title="4">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(f, <span class="kw">as.data.frame</span>(X_test))</a>
-<a class="sourceLine" id="cb296-2" data-line-number="2"><span class="kw">summary</span>(Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(f, <span class="kw">as.data.frame</span>(X_test))</a>
+<a class="sourceLine" id="cb296-2" title="2"><span class="kw">summary</span>(Y_pred)</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## -0.76785  0.03625  0.18985  0.20120  0.34916  0.95385</code></pre>
 <p>The predicted outputs, <span class="math inline">\(\hat{Y}\)</span>, are arbitrary real numbers,
 but we can convert them to binary ones by checking if, e.g., <span class="math inline">\(\hat{Y}&gt;0.5\)</span>.</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb298-2" data-line-number="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb298-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.8303068    0.6194690    0.2348993    0.3406326 
 ##           TN           FN           FP           TP 
@@ -545,8 +545,8 @@ using the <code>alcohol</code> variable.</p>
 <blockquote>
 <p>“logit” below denotes the inverse of the logistic sigmoid function.</p>
 </blockquote>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>alcohol, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="kw">summary</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>alcohol, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb300-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Y ~ alcohol, family = binomial(&quot;logit&quot;), data = XY_train)
@@ -573,28 +573,31 @@ using the <code>alcohol</code> variable.</p>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-43-1.png" alt="plot of chunk unnamed-chunk-43" style="width:50.0%" /></p>
 <hr />
 <p>Some predicted probabilities:</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1"><span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>))</a></code></pre></div>
 <pre><code>##          1          2          3          4          5 
 ## 0.07629709 0.07629709 0.05316971 0.05824087 0.13961713 
 ##          6 
 ## 0.13961713</code></pre>
 <p>We classify <span class="math inline">\(Y\)</span> as 1 if the corresponding membership probability
 is greater than <span class="math inline">\(0.5\)</span>.</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb304-2" data-line-number="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb304-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.8127740    0.4971751    0.2953020    0.3705263 
 ##           TN           FN           FP           TP 
 ## 1210.0000000  210.0000000   89.0000000   88.0000000</code></pre>
 <hr />
 <p>And now a fit based on all the input variables:</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb306-2" data-line-number="2">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb306-3" data-line-number="3"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a></code></pre></div>
+<pre><code>## Warning: glm.fit: algorithm did not converge</code></pre>
+<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1
+## occurred</code></pre>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb309-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
-##    0.8202880    0.5287958    0.3389262    0.4130879 
+##    0.7232311    0.2410072    0.2248322    0.2326389 
 ##           TN           FN           FP           TP 
-## 1209.0000000  197.0000000   90.0000000  101.0000000</code></pre>
+## 1088.0000000  231.0000000  211.0000000   67.0000000</code></pre>
 </div>
 <div id="loss-function" class="section level3">
 <h3><span class="header-section-number">4.4.4</span> Loss Function</h3>
