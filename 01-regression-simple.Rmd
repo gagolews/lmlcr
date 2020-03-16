@@ -3,6 +3,114 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
+<!-- TODO
+
+
+# What is AI?
+
+**Artificial Intelligence** (AI) aims to construct algorithms and devices
+to *make decisions that maximise their chance of successfully achieving
+their goals*.
+
+. . .
+
+We build AI systems to **solve various problems** under
+the assumption of **availability of data**.
+
+
+. . .
+
+Crucial features of AI systems include the ability to:
+
+* perceive the environment
+
+    * input data can come from various sources, e.g., physical sensors,
+    files, databases, (pseudo)random number generators
+    * data can be of different forms, e.g., vectors, matrices
+    and other tensors, graphs, audio/video streams, text
+
+* learn from past experience
+
+    * information on how to correctly behave (what is expected of the system)
+    in certain situations might be available
+    * sometimes feedback can be given after making a decision ("that was nice!
+    well done! look at you go!")
+    * some systems can adapt based on current experience as well
+    (learn to modify its behaviour *on-line*)
+
+* make decisions, predictions, explanations
+
+    * outputs can be interpreted by a human being and used (critically) for whatever  purpose
+    (e.g., a GP for diagnosing illnesses)
+    * outputs can be provided to other algorithms to take immediate actions
+    (e.g., buy those market shares immediately!)
+
+
+
+# Common Applications
+
+
+Application domains of AI include, but are not limited to:
+
+
+* Life science and medical data analysis
+* Financial services (banking, insurance, investment funds)
+* Oil and gas and other energy (solar, mining)
+* Real estate
+* Pharmaceuticals
+* Scientific simulations
+* Genomics
+* Advertising
+* Transportation
+* Retail
+* Healthcare
+* Food production
+
+> Discussion (exercise):
+Think of different ways in which
+these sectors could benefit from AI solutions.
+
+Basically, wherever we have data and there is a need to improve
+things, there is a place for AI solutions.
+
+In the course of this book,
+we're going to take a deep dive into what AI really is, what
+are its limitations but also how we can use it for improving different processes.
+
+ *AI is a tool*.
+Yes, AI is really useful, but it's not a remedy for all our problems.
+
+
+Behind every success story related to  AI, there are always people involved. Sometimes large
+teams of:
+
+* those who deal with hardware, data storage, high performance computing
+* those who wrangle data, fit models to data and develop prototypes
+* those who are responsible for making the algorithms
+work well in production environments
+* those who are responsible for providing you
+with software/algorithms/models that enable everyone to perform the above,
+e.g., languages such as R and Python, libraries, packages
+
+You can call them data engineers, data analysts, machine learning engineers,
+data scientists, whatever.
+
+We would like to appreciate the role of open source software.
+Most started as non-for-profit and it's beautiful that some of them
+continue this way.
+Not everything is for sale. Not everything has its price.
+Let's not forget it.
+
+We can do a lot of great work for greater good,
+with the increased availability of open data,
+everyone can be a reporter, an engaged citizen that seeks for truth.
+There are NGOs.
+Finally, there are researchers (remember that in many countries
+still the university's main role is to spread knowledge and not make money!)
+that need these methods to make new discoveries, e.g., in psychology,
+sociology, agriculture, engineering, biotechnology, pharmacy, medicine, you name it.
+-->
+
 ## Machine Learning
 
 ### What is Machine Learning?
