@@ -17,12 +17,17 @@ In other words, it is a specific recipe for a **function**.
 
 Developing algorithms is a tedious task.
 
+
+. . .
+
+
 In **machine learning**, we build and study computer algorithms
 that make *predictions* or *decisions* but which are not
 manually programmed.
 
-**Learning** needs some material based upon new knowledge will be acquired.
-We need **data**.
+**Learning** needs some material based upon which new knowledge is to be acquired.
+
+In other words, we need **data**.
 
 
 
@@ -33,7 +38,8 @@ We need **data**.
 Machine Learning Problems include, but are not limited to:
 
 - **Supervised learning** -- for every input point (e.g., a photo)
-there is an associated desired output (e.g., whether it depicts a crosswalk)
+there is an associated desired output (e.g., whether it depicts a crosswalk
+or how many cars can be seen on it)
 
 - **Unsupervised learning** -- inputs are unlabelled, the aim is to discover
 the underlying structure in the data (e.g., automatically group customers
@@ -43,9 +49,10 @@ w.r.t. common behavioural patterns)
 are not (definitely a cheaper scenario)
 
 
-- **Reinforcement learning** -- learn to act based on a post-factum
-feedback on the decision made
-(e.g., learn to play The Witcher 7)
+- **Reinforcement learning** -- learn to act based on a
+feedback given after the actual decision was made
+(e.g., learn to play The Witcher 7 by testing different hypotheses
+what to do to survive as long as possible)
 
 
 
@@ -56,7 +63,7 @@ feedback on the decision made
 
 ---
 
-Let $\mathbf{X}=\{\mathfrak{X}^{(1)},\dots,\mathfrak{X}^{(n)}\}$
+Let $\mathbf{X}=\{\mathfrak{X}_1,\dots,\mathfrak{X}_n\}$
 be an input sample ("a database")
 that consists of $n$ objects.
 
@@ -73,8 +80,8 @@ or *an element of a real $p$-space* etc.).
 
 . . .
 
-Of course, this setting is *abstract* in the way that
-there might be different realities hidden behind those symbols.
+Of course, this setting is *abstract* in the sense that
+there might be different realities *hidden* behind these symbols.
 
 This is what maths is for -- creating *abstractions* or *models*
 of complex entities/phenomena so that they can be much more easily manipulated
@@ -95,7 +102,9 @@ come up with numeric attributes that best describe them in a task at hand).
 
 > How would you represent a student in an university?
 
-But, e.g., 1920×1080 pixel image
+. . .
+
+This also includes image/video data, e.g., a 1920×1080 pixel image
 can be "unwound" to a "flat" vector of length 2,073,600.
 
 (\*) There are some algorithms such as Multidimensional Scaling,
@@ -258,10 +267,10 @@ apart from the inputs we are also given the corresponding
 reference/desired outputs.
 
 > The aim of supervised learning is to try to create an "algorithm" that,
-given an input point, generates an output that is as close to the desired one
-as possible. The given data sample will be used to "train" this "model".
+given an input point, generates an output that is as *close* as possible
+to the desired one. The given data sample will be used to "train" this "model".
 
-Usually the reference outputs are encoded as single numbers (scalars)
+Usually the reference outputs are encoded as individual  numbers (scalars)
 or textual labels.
 
 In other words, with each input $\mathbf{x}_{i,\cdot}$ we associate
@@ -277,7 +286,7 @@ iris[sample(nrow(iris), 3), ]  # three random rows
 
 
 Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
-where each object is represented as a row vector
+each object is represented as a row vector
 $[\mathbf{x}_{i,\cdot}\ y_i]$, $i=1,\dots,n$:
 
 \[
@@ -292,7 +301,7 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} & y_n\\
 \right],
 \]
 
-where
+where:
 
 \[
 \mathbf{y} = \left[
@@ -329,8 +338,8 @@ classified as:
 
 - **classification** -- each $y_i$ is a discrete label
 
-    > e.g., $y_i=$ 0/healthy or 1/ill
-    with $\mathbf{x}_{i,\cdot}=$ a patient's health data
+    > e.g., $y_i=$ healthy (0) or ill (1)
+    with $\mathbf{x}_{i,\cdot}=$ a patient's health record
 
 
 - **ordinal regression** (a.k.a. ordinal classification) -- each $y_i$ is a rank
@@ -347,15 +356,15 @@ Example Problems -- Discussion:
 >
 > What kind of data should you gather in order to tackle them?
 >
-> - Email spam detection
-> - Market stock price prediction
+> - Detect email spam
+> - Predict a market stock price
 > - Predict the likeability of a new ad
-> - Credit risk assessment
-> - Detect existence of tumour tissues in medical images
+> - Assess credit risk
+> - Detect tumour tissues in medical images
 > - Predict time-to-recovery of cancer patients
 > - Recognise smiling faces on photographs
 > - Detect unattended luggage in airport security camera footage
-> - Turn on emergency braking to avoid collisions with pedestrians
+> - Turn on emergency braking to avoid a collision with pedestrians
 
 ---
 
@@ -410,7 +419,7 @@ $p=1$, i.e., all inputs are 1-dimensional.
 Denote $x_i=x_{i,1}$.
 
 We will use it to build many intuitions, for example, it'll be easy
-to illustrate the concepts graphically.
+to illustrate all the concepts graphically.
 
 ```{r,echo=-1}
 par(mar=c(4,4,1,1))
@@ -471,8 +480,8 @@ The model will not be ideal, but it might be usable:
 - We will be able to **predict** the rating of any new client.
 
 
-    > What should be the rating of a client with Balance of 1500?\
-    > What should be the rating of a client with Balance of 2500?
+    > What should be the rating of a client with Balance of \$1500?\
+    > What should be the rating of a client with Balance of \$2500?
 
 - We will be able to **describe** (understand) this reality using a single mathematical formula
 so as to infer that there is an association between $X$ and $Y$
@@ -486,7 +495,7 @@ so as to infer that there is an association between $X$ and $Y$
 ---
 
 
-Mathematically, we will assume that there is some "true" function that models data
+(\*) Mathematically, we will assume that there is some "true" function that models the data
 (true relationship between $Y$ and $X$),
 but the observed outputs are subject to **additive error**:
 \[Y=f(X)+\varepsilon.\]
@@ -499,9 +508,9 @@ and that they follow a normal distribution.
 
 ---
 
-We denote this as $\varepsilon\sim\mathcal{N}(0, \sigma)$
+(\*) We denote this as $\varepsilon\sim\mathcal{N}(0, \sigma)$
 (read: random variable $\varepsilon$ follows a normal distribution
-with expect value of $0$ and standard deviation of $\sigma$ for some $\sigma\ge 0$).
+with expected value of $0$ and standard deviation of $\sigma$ for some $\sigma\ge 0$).
 
 $\sigma$ controls the amount of noise (and hence, uncertainty).
 Here is the plot of the probability distribution function (PDFs, densities)
@@ -598,7 +607,7 @@ corresponding to the model $(f)$ *given* our data.\
 > We could've  denoted it  with $\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)$
 or even $\mathrm{SSR}(f)$ to emphasise that $\mathbf{x},\mathbf{y}$
 are just fixed  values and we are not  interested
-in changing them at all.
+in changing them at all (they are "global variables").
 
 ---
 
@@ -642,6 +651,7 @@ Fitting a model to data can be written as an optimisation problem:
 i.e., find $f$ minimising the SSR **(seek "best" $f$)**\
 amongst the set of admissible models $\mathcal{F}$.
 
+. . .
 
 Example $\mathcal{F}$s:
 
@@ -711,6 +721,15 @@ legend("topleft",
 ```
 
 > Which of these is the least squares solution?
+
+
+
+<!-- TODO:
+heatmap of SSR(a,b) for a = [0,1], b=[0,300]
+-->
+
+
+
 
 
 ### Solution in R
@@ -862,7 +881,7 @@ Theorem.
 
 : If $E$ has a (local) minimum at $(a^*,b^*)$,
 then its partial derivatives vanish therein,
-i.e., $E_a'(a^*, b^*) = 0$ and $E_b'(a^*, b^*)=0$.
+i.e., $\partial E/\partial a(a^*, b^*) = 0$ and $\partial E/\partial b(a^*, b^*)=0$.
 
 
 ---
@@ -876,6 +895,8 @@ E(a,b)   = \displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2.
 We need to compute the partial derivatives $\partial E/\partial a$ (derivative of $E$
 w.r.t. variable $a$ -- all other terms treated as constants)
 and $\partial E/\partial b$ (w.r.t. $b$).
+
+. . .
 
 Useful rules -- derivatives w.r.t. $a$ (denote $f'(a)=(f(a))'$):
 

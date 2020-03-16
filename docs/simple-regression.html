@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-16 14:13 (faef6c9)</a></li>
 
 </ul>
 
@@ -485,7 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="math inline">\(p=1\)</span>, i.e., all inputs are 1-dimensional.
 Denote <span class="math inline">\(x_i=x_{i,1}\)</span>.</p>
 <p>We will use it to build many intuitions, for example, it’ll be easy
-to illustrate the concepts graphically.</p>
+to illustrate all the concepts graphically.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
 <a class="sourceLine" id="cb32-2" title="2"><span class="kw">plot</span>(Credit<span class="op">$</span>Balance, Credit<span class="op">$</span>Rating, <span class="dt">las=</span><span class="dv">1</span>) <span class="co"># scatter plot</span></a></code></pre></div>
 <p><img src="01-regression-simple-figures/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" style="width:50.0%" /></p>
@@ -523,8 +523,8 @@ for particular Balances <span class="math inline">\(\mathbf{x}=[x_1\ \cdots\ x_n
 <ul>
 <li><p>We will be able to <strong>predict</strong> the rating of any new client.</p>
 <blockquote>
-<p>What should be the rating of a client with Balance of 1500?<br />
-What should be the rating of a client with Balance of 2500?</p>
+<p>What should be the rating of a client with Balance of $1500?<br />
+What should be the rating of a client with Balance of $2500?</p>
 </blockquote></li>
 <li><p>We will be able to <strong>describe</strong> (understand) this reality using a single mathematical formula
 so as to infer that there is an association between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></p>
@@ -534,7 +534,7 @@ or <span class="math inline">\({\displaystyle i\hbar {\frac {d}{dt}}\vert \Psi (
 </blockquote></li>
 </ul>
 <hr />
-<p>Mathematically, we will assume that there is some “true” function that models data
+<p>(*) Mathematically, we will assume that there is some “true” function that models the data
 (true relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>),
 but the observed outputs are subject to <strong>additive error</strong>:
 <span class="math display">\[Y=f(X)+\varepsilon.\]</span></p>
@@ -543,9 +543,9 @@ errors are independent of each other,
 have expected value of <span class="math inline">\(0\)</span> (there is no systematic error = unbiased)
 and that they follow a normal distribution.</p>
 <hr />
-<p>We denote this as <span class="math inline">\(\varepsilon\sim\mathcal{N}(0, \sigma)\)</span>
+<p>(*) We denote this as <span class="math inline">\(\varepsilon\sim\mathcal{N}(0, \sigma)\)</span>
 (read: random variable <span class="math inline">\(\varepsilon\)</span> follows a normal distribution
-with expect value of <span class="math inline">\(0\)</span> and standard deviation of <span class="math inline">\(\sigma\)</span> for some <span class="math inline">\(\sigma\ge 0\)</span>).</p>
+with expected value of <span class="math inline">\(0\)</span> and standard deviation of <span class="math inline">\(\sigma\)</span> for some <span class="math inline">\(\sigma\ge 0\)</span>).</p>
 <p><span class="math inline">\(\sigma\)</span> controls the amount of noise (and hence, uncertainty).
 Here is the plot of the probability distribution function (PDFs, densities)
 of <span class="math inline">\(\mathcal{N}(0, \sigma)\)</span> for different <span class="math inline">\(\sigma\)</span>s:</p>
@@ -586,7 +586,7 @@ corresponding to the model <span class="math inline">\((f)\)</span> <em>given</e
 We could’ve denoted it with <span class="math inline">\(\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)\)</span>
 or even <span class="math inline">\(\mathrm{SSR}(f)\)</span> to emphasise that <span class="math inline">\(\mathbf{x},\mathbf{y}\)</span>
 are just fixed values and we are not interested
-in changing them at all.</p>
+in changing them at all (they are “global variables”).</p>
 </blockquote>
 <hr />
 <p>We enjoy SSR because (amongst others):</p>
@@ -619,6 +619,7 @@ studied already by Gauss in the late 18th century)</p>
 \]</span></p>
 <p>i.e., find <span class="math inline">\(f\)</span> minimising the SSR <strong>(seek “best” <span class="math inline">\(f\)</span>)</strong><br />
 amongst the set of admissible models <span class="math inline">\(\mathcal{F}\)</span>.</p>
+<div class="incremental">
 <p>Example <span class="math inline">\(\mathcal{F}\)</span>s:</p>
 <ul>
 <li><p><span class="math inline">\(\mathcal{F}=\{\text{All possible functions of one variable}\}\)</span> – if there are no repeated
@@ -631,6 +632,7 @@ an ad-hoc choice but you can easily choose the best amongst the 3 by computing 3
 </ul>
 <p>(e.g., <span class="math inline">\(x\mapsto x^2\)</span> is read “<span class="math inline">\(x\)</span> maps to <span class="math inline">\(x^2\)</span>” and is
 an elegant way to define an inline function <span class="math inline">\(f\)</span> such that <span class="math inline">\(f(x)=x^2\)</span>)</p>
+</div>
 </div>
 </div>
             </section>

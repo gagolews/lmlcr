@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-16 14:13 (faef6c9)</a></li>
 
 </ul>
 
@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="formalism" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> Formalism</h3>
 <hr />
-<p>Let <span class="math inline">\(\mathbf{X}=\{\mathfrak{X}^{(1)},\dots,\mathfrak{X}^{(n)}\}\)</span>
+<p>Let <span class="math inline">\(\mathbf{X}=\{\mathfrak{X}_1,\dots,\mathfrak{X}_n\}\)</span>
 be an input sample (“a database”)
 that consists of <span class="math inline">\(n\)</span> objects.</p>
 <p>Most often we assume that each object <span class="math inline">\(\mathfrak{X}_i\)</span>
@@ -492,8 +492,8 @@ is represented using <span class="math inline">\(p\)</span> numbers for some <sp
 <em>a point in a <span class="math inline">\(p\)</span>-dimensional real space</em>
 or <em>an element of a real <span class="math inline">\(p\)</span>-space</em> etc.).</p>
 <div class="incremental">
-<p>Of course, this setting is <em>abstract</em> in the way that
-there might be different realities hidden behind those symbols.</p>
+<p>Of course, this setting is <em>abstract</em> in the sense that
+there might be different realities <em>hidden</em> behind these symbols.</p>
 <p>This is what maths is for – creating <em>abstractions</em> or <em>models</em>
 of complex entities/phenomena so that they can be much more easily manipulated
 or understood.</p>
@@ -514,7 +514,9 @@ come up with numeric attributes that best describe them in a task at hand).</p>
 <blockquote>
 <p>How would you represent a student in an university?</p>
 </blockquote>
-<p>But, e.g., 1920×1080 pixel image
+</div>
+<div class="incremental">
+<p>This also includes image/video data, e.g., a 1920×1080 pixel image
 can be “unwound” to a “flat” vector of length 2,073,600.</p>
 <p>(*) There are some algorithms such as Multidimensional Scaling,
 Locally Linear Embedding, IsoMap etc.
@@ -646,10 +648,10 @@ apart from the inputs we are also given the corresponding
 reference/desired outputs.</p>
 <blockquote>
 <p>The aim of supervised learning is to try to create an “algorithm” that,
-given an input point, generates an output that is as close to the desired one
-as possible. The given data sample will be used to “train” this “model”.</p>
+given an input point, generates an output that is as <em>close</em> as possible
+to the desired one. The given data sample will be used to “train” this “model”.</p>
 </blockquote>
-<p>Usually the reference outputs are encoded as single numbers (scalars)
+<p>Usually the reference outputs are encoded as individual numbers (scalars)
 or textual labels.</p>
 <p>In other words, with each input <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> we associate
 the desired output <span class="math inline">\(y_i\)</span>:</p>
@@ -661,7 +663,7 @@ the desired output <span class="math inline">\(y_i\)</span>:</p>
 ## 118          7.7         3.8          6.7         2.2 virginica</code></pre>
 <hr />
 <p>Hence, our dataset is <span class="math inline">\([\mathbf{X}\ \mathbf{y}]\)</span> –
-where each object is represented as a row vector
+each object is represented as a row vector
 <span class="math inline">\([\mathbf{x}_{i,\cdot}\ y_i]\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>:</p>
 <p><span class="math display">\[
 [\mathbf{X}\ \mathbf{y}]=
@@ -674,7 +676,7 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} &amp; y_n\\
 \end{array}
 \right],
 \]</span></p>
-<p>where</p>
+<p>where:</p>
 <p><span class="math display">\[
 \mathbf{y} = \left[
 \begin{array}{cccc}
@@ -708,8 +710,8 @@ with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> prices from <spa
 </blockquote></li>
 <li><p><strong>classification</strong> – each <span class="math inline">\(y_i\)</span> is a discrete label</p>
 <blockquote>
-<p>e.g., <span class="math inline">\(y_i=\)</span> 0/healthy or 1/ill
-with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> a patient’s health data</p>
+<p>e.g., <span class="math inline">\(y_i=\)</span> healthy (0) or ill (1)
+with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> a patient’s health record</p>
 </blockquote></li>
 <li><p><strong>ordinal regression</strong> (a.k.a. ordinal classification) – each <span class="math inline">\(y_i\)</span> is a rank</p>
 <blockquote>
@@ -723,15 +725,15 @@ with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span
 <p>Which of the following are instances of classification problems? Which of them are regression tasks?</p>
 <p>What kind of data should you gather in order to tackle them?</p>
 <ul>
-<li>Email spam detection</li>
-<li>Market stock price prediction</li>
+<li>Detect email spam</li>
+<li>Predict a market stock price</li>
 <li>Predict the likeability of a new ad</li>
-<li>Credit risk assessment</li>
-<li>Detect existence of tumour tissues in medical images</li>
+<li>Assess credit risk</li>
+<li>Detect tumour tissues in medical images</li>
 <li>Predict time-to-recovery of cancer patients</li>
 <li>Recognise smiling faces on photographs</li>
 <li>Detect unattended luggage in airport security camera footage</li>
-<li>Turn on emergency braking to avoid collisions with pedestrians</li>
+<li>Turn on emergency braking to avoid a collision with pedestrians</li>
 </ul>
 </blockquote>
 <hr />

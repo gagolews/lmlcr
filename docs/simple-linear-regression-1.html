@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-12 15:19 (bcd6211)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-16 14:13 (faef6c9)</a></li>
 
 </ul>
 
@@ -498,6 +498,9 @@ is just <span class="math inline">\(\mathbb{R}^2\)</span> – easy to handle bot
 <blockquote>
 <p>Which of these is the least squares solution?</p>
 </blockquote>
+<!-- TODO:
+heatmap of SSR(a,b) for a = [0,1], b=[0,300]
+-->
 </div>
 <div id="solution-in-r" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Solution in R</h3>
@@ -607,7 +610,7 @@ E(a,b)=\mathrm{SSR}(x\mapsto ax+b|\mathbf{x},\mathbf{y})
 <dt>Theorem.</dt>
 <dd><p>If <span class="math inline">\(E\)</span> has a (local) minimum at <span class="math inline">\((a^*,b^*)\)</span>,
 then its partial derivatives vanish therein,
-i.e., <span class="math inline">\(E_a&#39;(a^*, b^*) = 0\)</span> and <span class="math inline">\(E_b&#39;(a^*, b^*)=0\)</span>.</p>
+i.e., <span class="math inline">\(\partial E/\partial a(a^*, b^*) = 0\)</span> and <span class="math inline">\(\partial E/\partial b(a^*, b^*)=0\)</span>.</p>
 </dd>
 </dl>
 <hr />
@@ -618,6 +621,7 @@ E(a,b)   = \displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2.
 <p>We need to compute the partial derivatives <span class="math inline">\(\partial E/\partial a\)</span> (derivative of <span class="math inline">\(E\)</span>
 w.r.t. variable <span class="math inline">\(a\)</span> – all other terms treated as constants)
 and <span class="math inline">\(\partial E/\partial b\)</span> (w.r.t. <span class="math inline">\(b\)</span>).</p>
+<div class="incremental">
 <p>Useful rules – derivatives w.r.t. <span class="math inline">\(a\)</span> (denote <span class="math inline">\(f&#39;(a)=(f(a))&#39;\)</span>):</p>
 <ul>
 <li><span class="math inline">\((f(a)+g(a))&#39;=f&#39;(a)+g&#39;(a)\)</span> (derivative of sum is sum of derivatives)</li>
@@ -695,6 +699,7 @@ linear coefficient, <span class="math inline">\(r\)</span> (see <code>cor()</cod
 <pre><code>##          [,1]
 ## [1,] 226.4711</code></pre>
 <!-- TODO show optim() -->
+</div>
 </div>
 </div>
             </section>
