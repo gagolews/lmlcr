@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-16 14:13 (faef6c9)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-20 13:00 (beee0e9)</a></li>
 
 </ul>
 
@@ -559,6 +559,33 @@ of a vector.</p>
 <pre><code>## [1]    10 10000 10000 10000 10000 10000</code></pre>
 <div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" title="1"><span class="kw">tail</span>(x, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
+<p>Sometimes the <code>which()</code> function can come in handy.
+For a given logical vector, it returns all the indexes
+where <code>TRUE</code> elements are stored.</p>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1"><span class="kw">which</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
+<pre><code>## [1] 1 3 4 7</code></pre>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1"><span class="kw">print</span>(y) <span class="co"># recall</span></a></code></pre></div>
+<pre><code>## [1] 50 30 10 20 40</code></pre>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" title="1"><span class="kw">which</span>(y<span class="op">&gt;</span><span class="dv">30</span>)</a></code></pre></div>
+<pre><code>## [1] 1 5</code></pre>
+<p>Note that <code>y[y&gt;70]</code> gives the same result
+as <code>y[which(y&gt;70)]</code> but is faster (because it involves less operations).</p>
+<p><code>which.min()</code> and <code>which.max()</code> return the index of the smallest
+and the largest element, respectively:</p>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" title="1"><span class="kw">which.min</span>(y) <span class="co"># where is the minimum?</span></a></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1"><span class="kw">which.max</span>(y)</a></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1">y[<span class="kw">which.min</span>(y)] <span class="co"># min(y)</span></a></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p><code>is.na()</code> indicates which elements are missing values (<code>NA</code>s):</p>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="ot">NA</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb801-2" title="2"><span class="kw">is.na</span>(z)</a></code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+<p>Therefore, to get rid of them,
+we can write (compare <code>na.omit()</code>, see also <code>is.finite()</code>):</p>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1">(z &lt;-<span class="st"> </span>z[<span class="op">!</span><span class="kw">is.na</span>(z)])</a></code></pre></div>
+<pre><code>## [1] 1 2 4 6</code></pre>
 </div>
 </div>
             </section>

@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-16 14:13 (faef6c9)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-20 13:00 (beee0e9)</a></li>
 
 </ul>
 
@@ -482,29 +482,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">D.3.1</span> Each Data Frame is a List</h3>
 <p>First of all, we should note that
 each data frame is in fact represented as an ordinary named list:</p>
-<div class="sourceCode" id="cb1040"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1040-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1056"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1056-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb1042"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1042-1" title="1"><span class="kw">typeof</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1058"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1058-1" title="1"><span class="kw">typeof</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <p>Each column is stored as a separate list item.
 Having said that, we shouldn’t be surprised that we already know
 how to perform quite a few operations on data frames:</p>
-<div class="sourceCode" id="cb1044"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1044-1" title="1"><span class="kw">length</span>(x) <span class="co"># number of columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb1060"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1060-1" title="1"><span class="kw">length</span>(x) <span class="co"># number of columns</span></a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb1046"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1046-1" title="1"><span class="kw">names</span>(x)  <span class="co"># column labels</span></a></code></pre></div>
+<div class="sourceCode" id="cb1062"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1062-1" title="1"><span class="kw">names</span>(x)  <span class="co"># column labels</span></a></code></pre></div>
 <pre><code>## [1] &quot;u&quot; &quot;v&quot; &quot;w&quot;</code></pre>
-<div class="sourceCode" id="cb1048"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1048-1" title="1">x<span class="op">$</span>u <span class="co"># accessing column `u` (synonym: x[[&quot;u&quot;]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb1064"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1064-1" title="1">x<span class="op">$</span>u <span class="co"># accessing column `u` (synonym: x[[&quot;u&quot;]])</span></a></code></pre></div>
 <pre><code>## [1] 0.1815171 0.9197226 0.3117235 0.0641516 0.3964216</code></pre>
-<div class="sourceCode" id="cb1050"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1050-1" title="1">x[[<span class="dv">2</span>]] <span class="co"># 2nd column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1066"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1066-1" title="1">x[[<span class="dv">2</span>]] <span class="co"># 2nd column</span></a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb1052"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1052-1" title="1">x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># a sub-data.frame</span></a></code></pre></div>
+<div class="sourceCode" id="cb1068"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1068-1" title="1">x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># a sub-data.frame</span></a></code></pre></div>
 <pre><code>##           u w
 ## 1 0.1815171 A
 ## 2 0.9197226 B
 ## 3 0.3117235 C
 ## 4 0.0641516 D
 ## 5 0.3964216 E</code></pre>
-<div class="sourceCode" id="cb1054"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1054-1" title="1"><span class="kw">sapply</span>(x, class) <span class="co"># apply class() on each column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1070"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1070-1" title="1"><span class="kw">sapply</span>(x, class) <span class="co"># apply class() on each column</span></a></code></pre></div>
 <pre><code>##         u         v         w 
 ## &quot;numeric&quot; &quot;logical&quot;  &quot;factor&quot;</code></pre>
 </div>
@@ -512,22 +512,22 @@ how to perform quite a few operations on data frames:</p>
 <h3><span class="header-section-number">D.3.2</span> Each Data Frame is Matrix-like</h3>
 <p>Data frames can be considered as “generalised” matrices.
 Therefore, operations such as subsetting will work in the same manner.</p>
-<div class="sourceCode" id="cb1056"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1056-1" title="1"><span class="kw">dim</span>(x) <span class="co"># number of rows and columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb1072"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1072-1" title="1"><span class="kw">dim</span>(x) <span class="co"># number of rows and columns</span></a></code></pre></div>
 <pre><code>## [1] 5 3</code></pre>
-<div class="sourceCode" id="cb1058"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1058-1" title="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># first two rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb1074"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1074-1" title="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># first two rows</span></a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.1815171  TRUE A
 ## 2 0.9197226 FALSE B</code></pre>
-<div class="sourceCode" id="cb1060"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1060-1" title="1">x[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># 1st and 3rd column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1076"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1076-1" title="1">x[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># 1st and 3rd column</span></a></code></pre></div>
 <pre><code>##           u w
 ## 1 0.1815171 A
 ## 2 0.9197226 B
 ## 3 0.3117235 C
 ## 4 0.0641516 D
 ## 5 0.3964216 E</code></pre>
-<div class="sourceCode" id="cb1062"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1062-1" title="1">x[,<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1078"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1078-1" title="1">x[,<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## [1] 0.1815171 0.9197226 0.3117235 0.0641516 0.3964216</code></pre>
-<div class="sourceCode" id="cb1064"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1064-1" title="1">x[,<span class="dv">1</span>,drop=<span class="ot">FALSE</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1080"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1080-1" title="1">x[,<span class="dv">1</span>,drop=<span class="ot">FALSE</span>]</a></code></pre></div>
 <pre><code>##           u
 ## 1 0.1815171
 ## 2 0.9197226
@@ -537,13 +537,13 @@ Therefore, operations such as subsetting will work in the same manner.</p>
 <p>Take a special note of selecting rows based on logical vectors.
 For instance, let’s extract all the rows from <code>x</code> for which the values
 in the column named <code>u</code> are greater than 0.5:</p>
-<div class="sourceCode" id="cb1066"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1066-1" title="1">x[x<span class="op">$</span>u<span class="op">&gt;</span><span class="fl">0.5</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb1082"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1082-1" title="1">x[x<span class="op">$</span>u<span class="op">&gt;</span><span class="fl">0.5</span>, ]</a></code></pre></div>
 <pre><code>##           u     v w
 ## 2 0.9197226 FALSE B</code></pre>
 <p>Moreover, subsetting based on integer vectors can be used to
 change the order of rows. Here is how we can sort the rows in <code>x</code>
 with respect to the values in column <code>u</code>:</p>
-<div class="sourceCode" id="cb1068"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1068-1" title="1">(x_sorted &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x<span class="op">$</span>u),])</a></code></pre></div>
+<div class="sourceCode" id="cb1084"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1084-1" title="1">(x_sorted &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x<span class="op">$</span>u),])</a></code></pre></div>
 <pre><code>##           u     v w
 ## 4 0.0641516  TRUE D
 ## 1 0.1815171  TRUE A
@@ -557,8 +557,8 @@ For instance, as far as the last example is concerned, we can
 take a look at the manual of <code>?order</code> and then inspect the result
 of calling <code>order(x$u)</code>.</p>
 <p>On a side note, we can re-set the row names by referring to:</p>
-<div class="sourceCode" id="cb1070"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1070-1" title="1"><span class="kw">row.names</span>(x_sorted) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb1070-2" title="2">x_sorted</a></code></pre></div>
+<div class="sourceCode" id="cb1086"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1086-1" title="1"><span class="kw">row.names</span>(x_sorted) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb1086-2" title="2">x_sorted</a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.0641516  TRUE D
 ## 2 0.1815171  TRUE A

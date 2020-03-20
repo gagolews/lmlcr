@@ -57,33 +57,38 @@ s <- 0
 n <- length(x)
 for (i in 1:n)
     s <- s + (x[i]-y[i])^2
-sqrt(s/n)
+sqrt(s)
 ```
 
 to mean:
 
 \[
-\sqrt{\frac{1}{n} \sum_{i=1}^n (x_i-y_i)^2}
+\sqrt{
+(x_1-y_1)^2 + (x_2-y_2)^2 + \dots + (x_n-y_n)^2
+}
+=
+\sqrt{\sum_{i=1}^n (x_i-y_i)^2},
 \]
 
----
-
-we'd rather write:
+which denotes the (Euclidean) distance between the two vectors
+(the square root of the sum of squared differences between
+the corresponding elements in $\boldsymbol{x}$ and $\boldsymbol{y}$),
+we shall soon become used to writing:
 
 ```{r}
-sqrt(mean((x-y)^2))
+sqrt(sum((x-y)^2))
 ```
 
 or:
 
 \[
-\sqrt{\frac{1}{n} (\boldsymbol{x}-\boldsymbol{y})^{T}(\boldsymbol{x}-\boldsymbol{y})}
+\sqrt{(\boldsymbol{x}-\boldsymbol{y})^{T}(\boldsymbol{x}-\boldsymbol{y})}
 \]
 
 or even:
 
 \[
-\frac{1}{\sqrt{n}} \|\boldsymbol{x}-\boldsymbol{y}\|_2
+\|\boldsymbol{x}-\boldsymbol{y}\|_2
 \]
 
 In order to be able to read this notation,
@@ -106,11 +111,11 @@ print(microbenchmark(
         n <- length(x)
         for (i in 1:n)
             s <- s + (x[i]-y[i])^2
-        sqrt(s/n)
+        sqrt(s)
     },
     t2={
         # "vectorised" style
-        sqrt(mean((x-y)^2))
+        sqrt(sum((x-y)^2))
     }
 ), signif=3, unit='relative')
 ```
@@ -407,7 +412,9 @@ see also: `min()`, `max()`, `median()`, `quantile()`.
 > Note that $\sum_{i=1}^n x_i$ can also be written
 as $\displaystyle\sum_{i=1}^n x_i$ or even $\displaystyle\sum_{i=1,\dots,n} x_i$.
 These all mean the sum of $x_i$ for $i$ from $1$ to $n$,
-that is, the sum of $x_1$, $x_2$, ..., $x_n$.
+that is, the sum of $x_1$, $x_2$, ..., $x_n$,
+i.e.,
+$x_1+x_2+\dots+x_n$.
 
 
 
@@ -873,6 +880,43 @@ of a vector.
 ```{r}
 head(x) # head(x, 6)
 tail(x, 3)
+```
+
+Sometimes the `which()` function can come in handy.
+For a given logical vector, it returns all the indexes
+where `TRUE` elements are stored.
+
+```{r}
+which(c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE))
+print(y) # recall
+which(y>30)
+```
+
+Note that `y[y>70]` gives the same result
+as `y[which(y>70)]` but is faster (because it involves less operations).
+
+`which.min()` and `which.max()` return the index of the smallest
+and the largest element, respectively:
+
+```{r}
+which.min(y) # where is the minimum?
+which.max(y)
+y[which.min(y)] # min(y)
+```
+
+
+`is.na()` indicates which elements are missing values (`NA`s):
+
+```{r}
+z <- c(1, 2, NA, 4, NA, 6)
+is.na(z)
+```
+
+Therefore, to get rid of them,
+we can write (compare `na.omit()`, see also `is.finite()`):
+
+```{r}
+(z <- z[!is.na(z)])
 ```
 
 

@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-16 14:13 (faef6c9)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-20 13:00 (beee0e9)</a></li>
 
 </ul>
 
@@ -481,20 +481,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="creating-named-vectors" class="section level3">
 <h3><span class="header-section-number">B.6.1</span> Creating Named Vectors</h3>
 <p>Vectors in R can be <em>named</em> – each element can be assigned a string label.</p>
-<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">99</span>, <span class="dv">30</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb789-2" title="2"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)</a>
-<a class="sourceLine" id="cb789-3" title="3">x <span class="co"># a named vector</span></a></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">99</span>, <span class="dv">30</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb805-2" title="2"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)</a>
+<a class="sourceLine" id="cb805-3" title="3">x <span class="co"># a named vector</span></a></code></pre></div>
 <pre><code>##  a  b  c  d  e 
 ## 20 40 99 30 10</code></pre>
 <p>Other ways to create named vectors include:</p>
-<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1"><span class="kw">c</span>(<span class="dt">a=</span><span class="dv">1</span>, <span class="dt">b=</span><span class="dv">2</span>, <span class="dt">c=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1"><span class="kw">c</span>(<span class="dt">a=</span><span class="dv">1</span>, <span class="dt">b=</span><span class="dv">2</span>, <span class="dt">c=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## a b c 
 ## 1 2 3</code></pre>
-<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" title="1"><span class="kw">structure</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">names=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" title="1"><span class="kw">structure</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">names=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</a></code></pre></div>
 <pre><code>## a b c 
 ## 1 2 3</code></pre>
 <p>For instance, the <code>summary()</code> function returns a named vector:</p>
-<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" title="1"><span class="kw">summary</span>(x) <span class="co"># NAMED vector, we don&#39;t want this here yet</span></a></code></pre></div>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb811-1" title="1"><span class="kw">summary</span>(x) <span class="co"># NAMED vector, we don&#39;t want this here yet</span></a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    10.0    20.0    30.0    39.8    40.0    99.0</code></pre>
 <p>This gives the minimum, 1st quartile (25%-quantile),
@@ -502,25 +502,25 @@ Median (50%-quantile), aritmetic mean,
 3rd quartile (75%-quantile) and maximum.</p>
 <p>Note that <code>x</code> is still a numeric vector, we can perform various operations
 on it as usual:</p>
-<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1"><span class="kw">sum</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb813-1" title="1"><span class="kw">sum</span>(x)</a></code></pre></div>
 <pre><code>## [1] 199</code></pre>
-<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1">x[x<span class="op">&gt;</span><span class="dv">3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb815-1" title="1">x[x<span class="op">&gt;</span><span class="dv">3</span>]</a></code></pre></div>
 <pre><code>##  a  b  c  d  e 
 ## 20 40 99 30 10</code></pre>
 <p>Names can be dropped by calling:</p>
-<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1"><span class="kw">unname</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" title="1"><span class="kw">unname</span>(x)</a></code></pre></div>
 <pre><code>## [1] 20 40 99 30 10</code></pre>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1"><span class="kw">as.numeric</span>(x) <span class="co"># we need to know the type of x though</span></a></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb819-1" title="1"><span class="kw">as.numeric</span>(x) <span class="co"># we need to know the type of x though</span></a></code></pre></div>
 <pre><code>## [1] 20 40 99 30 10</code></pre>
 </div>
 <div id="subsetting-named-vectors-with-character-string-indices" class="section level3">
 <h3><span class="header-section-number">B.6.2</span> Subsetting Named Vectors with Character String Indices</h3>
 <p>It turns out that extracting elements from a named vector can <em>also</em> be
 performed by means of a vector of character string indices:</p>
-<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1">x[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;b&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb821-1" title="1">x[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;b&quot;</span>)]</a></code></pre></div>
 <pre><code>##  a  d  b 
 ## 20 30 40</code></pre>
-<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1"><span class="kw">summary</span>(x)[<span class="kw">c</span>(<span class="st">&quot;Median&quot;</span>, <span class="st">&quot;Mean&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" title="1"><span class="kw">summary</span>(x)[<span class="kw">c</span>(<span class="st">&quot;Median&quot;</span>, <span class="st">&quot;Mean&quot;</span>)]</a></code></pre></div>
 <pre><code>## Median   Mean 
 ##   30.0   39.8</code></pre>
 <!--
