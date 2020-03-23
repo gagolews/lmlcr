@@ -35,7 +35,8 @@ apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$;
 with each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 In this chapter we are still interested in  **regression** tasks;
-hence, we assume that each $y_i\in\mathbb{R}$, i.e., it is a real number.
+hence, we assume that each $y_i$
+it is a real number, i.e., $y_i\in\mathbb{R}$.
 
 Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
 where each object is represented as a row vector
@@ -58,7 +59,8 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} & y_n\\
 
 ---
 
-In a simple regression task, we assume that $p=1$ -- there is one independent variable,
+In a simple regression task, we assume that $p=1$ -- there is only
+one independent variable,
 denoted $x_i=x_{i,1}$.
 
 We restricted ourselves to linear models that minimised the  sum of squared residuals, i.e.,
@@ -67,7 +69,7 @@ We restricted ourselves to linear models that minimised the  sum of squared resi
 \[
 \min_{a,b\in\mathbb{R}} \sum_{i=1}^n \left(
 ax_i+b-y_i
-\right)^2
+\right)^2.
 \]
 
 The solution is:
@@ -254,6 +256,7 @@ in the least squared fit is always equal to $0$:
 \[
  \frac{1}{n} \sum_{i=1}^n (\hat{y}_i-y_i)=0.
 \]
+Therefore, we need a different metric.
 
 > (\*) A proof of this fact is left as an exercise to the curious;
 assume $p=1$ just as in the previous chapter and note that $\hat{y}_i=a x_i+b$.
@@ -306,9 +309,9 @@ sqrt(mean(f2$residuals^2))
 
 ---
 
-Still there's a problem with interpreting this values.
+Still there's a problem with interpreting these values.
 
-Mean absolute error (MAE):
+Mean absolute error (MAE) might be a better idea then:
 \[
  \mathrm{MSE}(f) = \frac{1}{n} \sum_{i=1}^n |f(\mathbf{x}_{i,\cdot})-y_i|.
 \]
@@ -345,23 +348,8 @@ The outputs include:
 
 See `?quantile` in R.
 
-For example 1st quartile is the observation $q$ such that
+For example, 1st quartile is the observation $q$ such that
 25\% values are $\le q$ and 75\% values are $\ge q$.
-
----
-
-
-
-A picture is worth a thousand words:
-
-```{r,echo=-1}
-par(mar=c(4,2,0.5,0.5))
-boxplot(las=1, horizontal=TRUE, xlab="residuals",
-  list(f12=f12$residuals, f1=f1$residuals, f2=f2$residuals))
-abline(v=0, lty=3)
-```
-
-
 
 ---
 
@@ -409,6 +397,21 @@ text(q1-1.5*iqr, 0, "Q1 - 1.5 IQR")
 * The box contains 50\% of the "most typical" observations
 * Box and whiskers altogether have width $\le$ 4 IQR
 * Outliers == observations potentially worth inspecting (is it a bug or a feature?)
+
+---
+
+
+
+A picture is worth a thousand words:
+
+```{r,echo=-1}
+par(mar=c(4,2.5,0.5,0.5))
+boxplot(las=1, horizontal=TRUE, xlab="residuals",
+  list(f12=f12$residuals, f1=f1$residuals, f2=f2$residuals))
+abline(v=0, lty=3)
+```
+
+
 
 ---
 
@@ -506,7 +509,7 @@ The adjusted $R^2$ penalises for more complex models.
 
 
 > (\*) Side note -- results of some statistical tests (e.g., significance of coefficients)
-are reported by the `summary()` function --- refer to a more advanced source to obtain more information.
+are reported by calling `summary(f12)` etc. --- refer to a more advanced source to obtain more information.
 These, however, require the verification of some assumptions regarding the input data
 and the residuals.
 
@@ -552,7 +555,7 @@ pairs(C)
 
 ---
 
-Seems like `Rating` almost linearly depends on `Limit`...
+Seems like `Rating` depends on `Limit` almost linearly...
 
 Pearson's $r$ -- linear correlation coefficient:
 
@@ -567,7 +570,7 @@ r(\boldsymbol{x},\boldsymbol{y}) = \frac{
 It holds $r\in[-1,1]$, where:
 
 * $r=1$ -- positive linear dependence ($y$ increases as $x$ increases)
-* $r=1$ -- negative linear dependence ($y$ decreases as $x$ increases)
+* $r=-1$ -- negative linear dependence ($y$ decreases as $x$ increases)
 * $r\simeq 0$ -- uncorrelated or non-linearly dependent
 
 <!-- TODO anscombe -->
@@ -618,9 +621,9 @@ round(cor(C), 3)
 
 
 `Rating` and `Limit` are almost perfectly linearly correlated,
-but both seem to describe the same thing.
+and both seem to describe the same thing.
 
-For practical purposes, you'd rather model `Rating` as a function of the other variables.
+For practical purposes, we'd rather model `Rating` as a function of the other variables.
 
 For simple linear regression models, we'd choose either `Income` or `Balance`.
 
@@ -642,7 +645,7 @@ Which variables should be included in the optimal model?
 
 Again, the definition of the "best" object needs a *fitness* function.
 
-For fitting a single model to data, we use the RSS.
+For fitting a single model to data, we use the SSR.
 
 We need a metric that takes the number of dependent variables into account.
 
@@ -655,7 +658,7 @@ Instead, here we'll be using **the Akaike Information Criterion** (AIC).
 
 For a model $f$ with $p$ independent variables:
 \[
-\mathrm{AIC}(f) = 2(p+1)+n\log(\mathrm{RSS}(f)/n)
+\mathrm{AIC}(f) = 2(p+1)+n\log(\mathrm{SSR}(f)/n)
 \]
 
 Our task is to find the combination of independent variables
@@ -676,14 +679,14 @@ we often rely on one of the two following greedy heuristics:
     1. start with an empty model
     2. find an independent variable
 whose addition to the current model would yield the highest decrease in the AIC and add it to the model
-    3. go to 2 until AIC decreases
+    3. go to step 2 until AIC decreases
 
 - backward elimination:
 
     1. start with the full model
     2. find an independent variable
 whose removal from the current model would  decrease the AIC the most and eliminate it from the model
-    3. go to 2 until AIC decreases
+    3. go to step 2 until AIC decreases
 
 
 > (\*) There are of course many other methods, e.g., lasso regression
@@ -693,6 +696,7 @@ whose side effect is variable selection.
 
 #### {.allowframebreaks .unnumbered}
 
+Forward selection example:
 
 ```{r}
 C <- Credit[Credit$Balance>0,
@@ -707,6 +711,8 @@ step(lm(Rating~1, data=C), # empty model
 #### {.allowframebreaks .unnumbered}
 
 
+Backward elimination example:
+
 ```{r}
 step(lm(Rating~., data=C), # full model
      scope=formula(lm(Rating~1, data=C)), # empty model
@@ -717,6 +723,8 @@ step(lm(Rating~., data=C), # full model
 
 #### {.allowframebreaks .unnumbered}
 
+
+Forward selection example -- full dataset:
 
 ```{r}
 C <- Credit[,  # do not restrict to Credit$Balance>0
@@ -729,6 +737,9 @@ step(lm(Rating~1, data=C), # empty model
 
 
 #### {.allowframebreaks .unnumbered}
+
+
+Backward elimination example -- full dataset:
 
 
 ```{r}
@@ -752,6 +763,9 @@ What about some non-linear models such as polynomials etc.? For example:
 \[
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2 + \beta_3 X_1^3 + \beta_4 X_2.
 \]
+
+. . .
+
 
 Solution: pre-process inputs by setting
 $X_1' := X_1$, $X_2' := X_1^2$, $X_3' := X_1^3$, $X_4' := X_2$
@@ -815,7 +829,7 @@ The above high-degree polynomial model (`f1_14`) is a clear example of an **over
 Clearly (based on our expert knowledge), the `Rating` shouldn't decrease as Balance increases.
 
 
-In other words, `f1_14` gives a better fit to actually observed data,
+In other words, `f1_14` gives a better fit to data actually observed,
 but fails to produce good results for the points that are yet to come.
 
 We say that it **generalises** poorly to unseen data.
@@ -861,15 +875,16 @@ Let's fit polynomials of different degrees:
 plot(X, Y, las=1)
 lines(x, true_model(x), col=2, lwd=3, lty=2)
 
-dmax <- 15
+dmax <- 15 # maximal polynomial degree
 MSE_train <- numeric(dmax)
 MSE_test  <- numeric(dmax)
-for (d in 1:dmax) {
-    f <- lm(Y~poly(X, d))
+for (d in 1:dmax) { # for every polynomial degree
+    f <- lm(Y~poly(X, d)) # fit a d-degree polynomial
     y <- predict(f, data.frame(X=x))
     lines(x, y, col=d)
-
+    # MSE on given random X,Y:
     MSE_train[d] <- mean(f$residuals^2)
+    # MSE on many more points:
     MSE_test[d]  <- mean((y-true_model(x))^2)
 }
 ```
@@ -1081,7 +1096,7 @@ and further as:
 \end{array}
 \right.
 \]
-Note that all the terms involving $x_{i,j}$ and $y_i$ (the sums) are all constant
+Note that the terms involving $x_{i,j}$ and $y_i$ (the sums) are all constant
 -- these are some fixed real numbers. We have learned how to solve such
 problems in high school.
 

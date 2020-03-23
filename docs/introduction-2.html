@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-20 13:00 (beee0e9)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
 
 </ul>
 
@@ -501,7 +501,8 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} \\
 apart from <span class="math inline">\(\mathbf{X}\)</span>, we are also given the corresponding <span class="math inline">\(\mathbf{y}\)</span>;
 with each input point <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> we associate the desired output <span class="math inline">\(y_i\)</span>.</p>
 <p>In this chapter we are still interested in <strong>regression</strong> tasks;
-hence, we assume that each <span class="math inline">\(y_i\in\mathbb{R}\)</span>, i.e., it is a real number.</p>
+hence, we assume that each <span class="math inline">\(y_i\)</span>
+it is a real number, i.e., <span class="math inline">\(y_i\in\mathbb{R}\)</span>.</p>
 <p>Hence, our dataset is <span class="math inline">\([\mathbf{X}\ \mathbf{y}]\)</span> –
 where each object is represented as a row vector
 <span class="math inline">\([\mathbf{x}_{i,\cdot}\ y_i]\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>:</p>
@@ -520,13 +521,14 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} &amp; y_n\\
 <div id="simple-linear-regression---recap" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Simple Linear Regression - Recap</h3>
 <hr />
-<p>In a simple regression task, we assume that <span class="math inline">\(p=1\)</span> – there is one independent variable,
+<p>In a simple regression task, we assume that <span class="math inline">\(p=1\)</span> – there is only
+one independent variable,
 denoted <span class="math inline">\(x_i=x_{i,1}\)</span>.</p>
 <p>We restricted ourselves to linear models that minimised the sum of squared residuals, i.e.,</p>
 <p><span class="math display">\[
 \min_{a,b\in\mathbb{R}} \sum_{i=1}^n \left(
 ax_i+b-y_i
-\right)^2
+\right)^2.
 \]</span></p>
 <p>The solution is:</p>
 <p><span class="math display">\[

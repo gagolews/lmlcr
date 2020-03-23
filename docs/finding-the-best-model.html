@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-20 13:00 (beee0e9)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
 
 </ul>
 
@@ -541,7 +541,8 @@ statistical analysis of the residuals, <span class="math inline">\(\hat{y}_i-y_i
 in the least squared fit is always equal to <span class="math inline">\(0\)</span>:
 <span class="math display">\[
  \frac{1}{n} \sum_{i=1}^n (\hat{y}_i-y_i)=0.
-\]</span></p>
+\]</span>
+Therefore, we need a different metric.</p>
 <blockquote>
 <p>(*) A proof of this fact is left as an exercise to the curious;
 assume <span class="math inline">\(p=1\)</span> just as in the previous chapter and note that <span class="math inline">\(\hat{y}_i=a x_i+b\)</span>.</p>
@@ -578,8 +579,8 @@ MSR is expressed in metres squared <span class="math inline">\([\mathrm{m}^2]\)<
 <pre><code>## [1] 76.69531</code></pre>
 <p>(compare variance vs. standard deviation)</p>
 <hr />
-<p>Still there’s a problem with interpreting this values.</p>
-<p>Mean absolute error (MAE):
+<p>Still there’s a problem with interpreting these values.</p>
+<p>Mean absolute error (MAE) might be a better idea then:
 <span class="math display">\[
  \mathrm{MSE}(f) = \frac{1}{n} \sum_{i=1}^n |f(\mathbf{x}_{i,\cdot})-y_i|.
 \]</span></p>
@@ -611,23 +612,23 @@ MSR is expressed in metres squared <span class="math inline">\([\mathrm{m}^2]\)<
 <li><code>Max.</code> – sample maximum</li>
 </ul>
 <p>See <code>?quantile</code> in R.</p>
-<p>For example 1st quartile is the observation <span class="math inline">\(q\)</span> such that
+<p>For example, 1st quartile is the observation <span class="math inline">\(q\)</span> such that
 25% values are <span class="math inline">\(\le q\)</span> and 75% values are <span class="math inline">\(\ge q\)</span>.</p>
 <hr />
-<p>A picture is worth a thousand words:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1"><span class="kw">boxplot</span>(<span class="dt">las=</span><span class="dv">1</span>, <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>,</a>
-<a class="sourceLine" id="cb107-2" title="2">  <span class="kw">list</span>(<span class="dt">f12=</span>f12<span class="op">$</span>residuals, <span class="dt">f1=</span>f1<span class="op">$</span>residuals, <span class="dt">f2=</span>f2<span class="op">$</span>residuals))</a>
-<a class="sourceLine" id="cb107-3" title="3"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" style="width:50.0%" /></p>
-<hr />
 <p><strong>Box and whisker plot</strong>:</p>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" style="width:50.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" style="width:50.0%" /></p>
 <ul>
 <li>IQR == Interquartile range == Q3<span class="math inline">\(-\)</span>Q1 (box width)</li>
 <li>The box contains 50% of the “most typical” observations</li>
 <li>Box and whiskers altogether have width <span class="math inline">\(\le\)</span> 4 IQR</li>
 <li>Outliers == observations potentially worth inspecting (is it a bug or a feature?)</li>
 </ul>
+<hr />
+<p>A picture is worth a thousand words:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1"><span class="kw">boxplot</span>(<span class="dt">las=</span><span class="dv">1</span>, <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>,</a>
+<a class="sourceLine" id="cb107-2" title="2">  <span class="kw">list</span>(<span class="dt">f12=</span>f12<span class="op">$</span>residuals, <span class="dt">f1=</span>f1<span class="op">$</span>residuals, <span class="dt">f2=</span>f2<span class="op">$</span>residuals))</a>
+<a class="sourceLine" id="cb107-3" title="3"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" style="width:50.0%" /></p>
 <hr />
 <p><em>Violin plot</em> – a blend of a box plot and a (kernel) density estimator (histogram-like):</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="kw">library</span>(<span class="st">&quot;vioplot&quot;</span>)</a>
@@ -689,7 +690,7 @@ increase.</p>
 <hr />
 <blockquote>
 <p>(*) Side note – results of some statistical tests (e.g., significance of coefficients)
-are reported by the <code>summary()</code> function — refer to a more advanced source to obtain more information.
+are reported by calling <code>summary(f12)</code> etc. — refer to a more advanced source to obtain more information.
 These, however, require the verification of some assumptions regarding the input data
 and the residuals.</p>
 </blockquote>
@@ -738,7 +739,7 @@ and the residuals.</p>
 <hr />
 <p><img src="02-regression-multiple-figures/unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" style="width:50.0%" /></p>
 <hr />
-<p>Seems like <code>Rating</code> almost linearly depends on <code>Limit</code>…</p>
+<p>Seems like <code>Rating</code> depends on <code>Limit</code> almost linearly…</p>
 <p>Pearson’s <span class="math inline">\(r\)</span> – linear correlation coefficient:</p>
 <p><span class="math display">\[
 r(\boldsymbol{x},\boldsymbol{y}) = \frac{
@@ -750,7 +751,7 @@ r(\boldsymbol{x},\boldsymbol{y}) = \frac{
 <p>It holds <span class="math inline">\(r\in[-1,1]\)</span>, where:</p>
 <ul>
 <li><span class="math inline">\(r=1\)</span> – positive linear dependence (<span class="math inline">\(y\)</span> increases as <span class="math inline">\(x\)</span> increases)</li>
-<li><span class="math inline">\(r=1\)</span> – negative linear dependence (<span class="math inline">\(y\)</span> decreases as <span class="math inline">\(x\)</span> increases)</li>
+<li><span class="math inline">\(r=-1\)</span> – negative linear dependence (<span class="math inline">\(y\)</span> decreases as <span class="math inline">\(x\)</span> increases)</li>
 <li><span class="math inline">\(r\simeq 0\)</span> – uncorrelated or non-linearly dependent</li>
 </ul>
 <!-- TODO anscombe -->
@@ -768,8 +769,8 @@ r(\boldsymbol{x},\boldsymbol{y}) = \frac{
 ## Education -0.040 -0.032 -0.033 0.024     1.000   0.001
 ## Balance    0.798  0.796  0.414 0.008     0.001   1.000</code></pre>
 <p><code>Rating</code> and <code>Limit</code> are almost perfectly linearly correlated,
-but both seem to describe the same thing.</p>
-<p>For practical purposes, you’d rather model <code>Rating</code> as a function of the other variables.</p>
+and both seem to describe the same thing.</p>
+<p>For practical purposes, we’d rather model <code>Rating</code> as a function of the other variables.</p>
 <p>For simple linear regression models, we’d choose either <code>Income</code> or <code>Balance</code>.</p>
 <blockquote>
 <p>How about multiple regression?</p>
@@ -784,7 +785,7 @@ but both seem to describe the same thing.</p>
 <p>Which variables should be included in the optimal model?</p>
 <hr />
 <p>Again, the definition of the “best” object needs a <em>fitness</em> function.</p>
-<p>For fitting a single model to data, we use the RSS.</p>
+<p>For fitting a single model to data, we use the SSR.</p>
 <p>We need a metric that takes the number of dependent variables into account.</p>
 <p>It turns out that the adjusted <span class="math inline">\(R^2\)</span>, despite its interpretability,
 is not suitable for this task.</p>
@@ -792,7 +793,7 @@ is not suitable for this task.</p>
 <p>Instead, here we’ll be using <strong>the Akaike Information Criterion</strong> (AIC).</p>
 <p>For a model <span class="math inline">\(f\)</span> with <span class="math inline">\(p\)</span> independent variables:
 <span class="math display">\[
-\mathrm{AIC}(f) = 2(p+1)+n\log(\mathrm{RSS}(f)/n)
+\mathrm{AIC}(f) = 2(p+1)+n\log(\mathrm{SSR}(f)/n)
 \]</span></p>
 <p>Our task is to find the combination of independent variables
 that minimises the AIC.</p>
@@ -808,14 +809,14 @@ we often rely on one of the two following greedy heuristics:</p>
 <li>start with an empty model</li>
 <li>find an independent variable
 whose addition to the current model would yield the highest decrease in the AIC and add it to the model</li>
-<li>go to 2 until AIC decreases</li>
+<li>go to step 2 until AIC decreases</li>
 </ol></li>
 <li><p>backward elimination:</p>
 <ol style="list-style-type: decimal">
 <li>start with the full model</li>
 <li>find an independent variable
 whose removal from the current model would decrease the AIC the most and eliminate it from the model</li>
-<li>go to 2 until AIC decreases</li>
+<li>go to step 2 until AIC decreases</li>
 </ol></li>
 </ul>
 <blockquote>
@@ -825,6 +826,7 @@ whose side effect is variable selection.</p>
 <hr />
 <div id="section-3" class="section level4 allowframebreaks unnumbered">
 <h4></h4>
+<p>Forward selection example:</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
 <a class="sourceLine" id="cb135-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
 <a class="sourceLine" id="cb135-3" title="3">      <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
@@ -879,6 +881,7 @@ whose side effect is variable selection.</p>
 </div>
 <div id="section-4" class="section level4 allowframebreaks unnumbered">
 <h4></h4>
+<p>Backward elimination example:</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C), <span class="co"># full model</span></a>
 <a class="sourceLine" id="cb138-2" title="2">     <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C)), <span class="co"># empty model</span></a>
 <a class="sourceLine" id="cb138-3" title="3">     <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
@@ -903,6 +906,7 @@ whose side effect is variable selection.</p>
 </div>
 <div id="section-5" class="section level4 allowframebreaks unnumbered">
 <h4></h4>
+<p>Forward selection example – full dataset:</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1">C &lt;-<span class="st"> </span>Credit[,  <span class="co"># do not restrict to Credit$Balance&gt;0</span></a>
 <a class="sourceLine" id="cb141-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
 <a class="sourceLine" id="cb141-3" title="3">      <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
@@ -945,6 +949,7 @@ whose side effect is variable selection.</p>
 </div>
 <div id="section-6" class="section level4 allowframebreaks unnumbered">
 <h4></h4>
+<p>Backward elimination example – full dataset:</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C), <span class="co"># full model</span></a>
 <a class="sourceLine" id="cb144-2" title="2">     <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C)), <span class="co"># empty model</span></a>
 <a class="sourceLine" id="cb144-3" title="3">     <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
@@ -994,6 +999,7 @@ Y = \beta_0 + \beta_1 X_1 + \dots + \beta_p X_p.
 <span class="math display">\[
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2 + \beta_3 X_1^3 + \beta_4 X_2.
 \]</span></p>
+<div class="incremental">
 <p>Solution: pre-process inputs by setting
 <span class="math inline">\(X_1&#39; := X_1\)</span>, <span class="math inline">\(X_2&#39; := X_1^2\)</span>, <span class="math inline">\(X_3&#39; := X_1^3\)</span>, <span class="math inline">\(X_4&#39; := X_2\)</span>
 and fit a linear model:</p>
@@ -1024,12 +1030,13 @@ of the form <code>Rating~poly(Balance)</code>:</p>
 <a class="sourceLine" id="cb148-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">14</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="02-regression-multiple-figures/unnamed-chunk-32-1.png" alt="plot of chunk unnamed-chunk-32" style="width:50.0%" /></p>
 </div>
+</div>
 <div id="predictive-vs.-descriptive-power" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> Predictive vs. Descriptive Power</h3>
 <hr />
 <p>The above high-degree polynomial model (<code>f1_14</code>) is a clear example of an <strong>overfit</strong>.</p>
 <p>Clearly (based on our expert knowledge), the <code>Rating</code> shouldn’t decrease as Balance increases.</p>
-<p>In other words, <code>f1_14</code> gives a better fit to actually observed data,
+<p>In other words, <code>f1_14</code> gives a better fit to data actually observed,
 but fails to produce good results for the points that are yet to come.</p>
 <p>We say that it <strong>generalises</strong> poorly to unseen data.</p>
 <hr />
@@ -1050,17 +1057,18 @@ to error):</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">las=</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb152-2" title="2"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb152-3" title="3"></a>
-<a class="sourceLine" id="cb152-4" title="4">dmax &lt;-<span class="st"> </span><span class="dv">15</span></a>
+<a class="sourceLine" id="cb152-4" title="4">dmax &lt;-<span class="st"> </span><span class="dv">15</span> <span class="co"># maximal polynomial degree</span></a>
 <a class="sourceLine" id="cb152-5" title="5">MSE_train &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
 <a class="sourceLine" id="cb152-6" title="6">MSE_test  &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
-<a class="sourceLine" id="cb152-7" title="7"><span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>dmax) {</a>
-<a class="sourceLine" id="cb152-8" title="8">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X, d))</a>
+<a class="sourceLine" id="cb152-7" title="7"><span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>dmax) { <span class="co"># for every polynomial degree</span></a>
+<a class="sourceLine" id="cb152-8" title="8">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X, d)) <span class="co"># fit a d-degree polynomial</span></a>
 <a class="sourceLine" id="cb152-9" title="9">    y &lt;-<span class="st"> </span><span class="kw">predict</span>(f, <span class="kw">data.frame</span>(<span class="dt">X=</span>x))</a>
 <a class="sourceLine" id="cb152-10" title="10">    <span class="kw">lines</span>(x, y, <span class="dt">col=</span>d)</a>
-<a class="sourceLine" id="cb152-11" title="11"></a>
+<a class="sourceLine" id="cb152-11" title="11">    <span class="co"># MSE on given random X,Y:</span></a>
 <a class="sourceLine" id="cb152-12" title="12">    MSE_train[d] &lt;-<span class="st"> </span><span class="kw">mean</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb152-13" title="13">    MSE_test[d]  &lt;-<span class="st"> </span><span class="kw">mean</span>((y<span class="op">-</span><span class="kw">true_model</span>(x))<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb152-14" title="14">}</a></code></pre></div>
+<a class="sourceLine" id="cb152-13" title="13">    <span class="co"># MSE on many more points:</span></a>
+<a class="sourceLine" id="cb152-14" title="14">    MSE_test[d]  &lt;-<span class="st"> </span><span class="kw">mean</span>((y<span class="op">-</span><span class="kw">true_model</span>(x))<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb152-15" title="15">}</a></code></pre></div>
 <hr />
 <p><img src="02-regression-multiple-figures/unnamed-chunk-36-1.png" alt="plot of chunk unnamed-chunk-36" style="width:50.0%" /></p>
 <hr />

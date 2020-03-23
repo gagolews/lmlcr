@@ -127,7 +127,7 @@ xml
 ### Beyond Numeric Matrices
 
 Note that logical matrices are possible as well.
-For instance, knowing that comparison ssuch as `<` and `==`
+For instance, knowing that comparison such as `<` and `==`
 are performed elementwise also in the case of matrices, we can obtain:
 
 ```{r}
@@ -251,7 +251,7 @@ as.numeric(A)
 as.numeric(B)
 ```
 
-Also note that we can create a different *view* on the same underlaying
+Also note that we can create a different *view* on the same underlying
 data vector:
 
 ```{r}
