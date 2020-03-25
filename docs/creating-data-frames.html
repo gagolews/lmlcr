@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -480,12 +480,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">D.1</span> Creating Data Frames</h2>
 <p>Most frequently, we will be creating data frames
 based on a series of numeric, logical, characters vectors of identical lengths.</p>
-<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1039-1" title="1">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb1039-2" title="2">    <span class="dt">u=</span><span class="kw">runif</span>(<span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb1039-3" title="3">    <span class="dt">v=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">5</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1039-4" title="4">    <span class="dt">w=</span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb1039-5" title="5">)</a>
-<a class="sourceLine" id="cb1039-6" title="6"><span class="kw">print</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1038-1" title="1">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb1038-2" title="2">    <span class="dt">u=</span><span class="kw">runif</span>(<span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb1038-3" title="3">    <span class="dt">v=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">5</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1038-4" title="4">    <span class="dt">w=</span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb1038-5" title="5">)</a>
+<a class="sourceLine" id="cb1038-6" title="6"><span class="kw">print</span>(x)</a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.1815171  TRUE A
 ## 2 0.9197226 FALSE B
@@ -494,33 +494,33 @@ based on a series of numeric, logical, characters vectors of identical lengths.<
 ## 5 0.3964216 FALSE E</code></pre>
 <p>Note that when we create objects of type data frame,
 strings are automatically converted to factors.</p>
-<div class="sourceCode" id="cb1041"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1041-1" title="1"><span class="kw">class</span>(x<span class="op">$</span>w)</a></code></pre></div>
+<div class="sourceCode" id="cb1040"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1040-1" title="1"><span class="kw">class</span>(x<span class="op">$</span>w)</a></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
 <p>Throughout the history of computing with R, this has caused way too many bugs
 (recall, for instance, what’s the result of calling <code>as.numeric()</code> on a factor).
 In order to change this behaviour, either pass <code>stringsAsFactors=FALSE</code>
 argument to <code>data.frame()</code> or switch this feature off globally (recommended):</p>
-<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1043-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1042"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1042-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Some objects, such as matrices, can easily be coerced to data frames:</p>
-<div class="sourceCode" id="cb1044"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1044-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb1044-2" title="2">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1044-3" title="3">        <span class="ot">NULL</span>,     <span class="co"># row labels</span></a>
-<a class="sourceLine" id="cb1044-4" title="4">        <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></a>
-<a class="sourceLine" id="cb1044-5" title="5">)))</a></code></pre></div>
+<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1043-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb1043-2" title="2">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb1043-3" title="3">        <span class="ot">NULL</span>,     <span class="co"># row labels</span></a>
+<a class="sourceLine" id="cb1043-4" title="4">        <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></a>
+<a class="sourceLine" id="cb1043-5" title="5">)))</a></code></pre></div>
 <pre><code>##      x  y  z  w
 ## [1,] 1  2  3  4
 ## [2,] 5  6  7  8
 ## [3,] 9 10 11 12</code></pre>
-<div class="sourceCode" id="cb1046"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1046-1" title="1"><span class="kw">as.data.frame</span>(A)</a></code></pre></div>
+<div class="sourceCode" id="cb1045"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1045-1" title="1"><span class="kw">as.data.frame</span>(A)</a></code></pre></div>
 <pre><code>##   x  y  z  w
 ## 1 1  2  3  4
 ## 2 5  6  7  8
 ## 3 9 10 11 12</code></pre>
 <p>Named lists are amongst other candidates for conversion:</p>
-<div class="sourceCode" id="cb1048"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1048-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species),</a>
-<a class="sourceLine" id="cb1048-2" title="2">    <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb1048-3" title="3">        <span class="kw">c</span>(<span class="dt">min=</span><span class="kw">min</span>(x), <span class="dt">median=</span><span class="kw">median</span>(x), <span class="dt">mean=</span><span class="kw">mean</span>(x), <span class="dt">max=</span><span class="kw">max</span>(x))</a>
-<a class="sourceLine" id="cb1048-4" title="4">    }))</a></code></pre></div>
+<div class="sourceCode" id="cb1047"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1047-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species),</a>
+<a class="sourceLine" id="cb1047-2" title="2">    <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb1047-3" title="3">        <span class="kw">c</span>(<span class="dt">min=</span><span class="kw">min</span>(x), <span class="dt">median=</span><span class="kw">median</span>(x), <span class="dt">mean=</span><span class="kw">mean</span>(x), <span class="dt">max=</span><span class="kw">max</span>(x))</a>
+<a class="sourceLine" id="cb1047-4" title="4">    }))</a></code></pre></div>
 <pre><code>## $setosa
 ##    min median   mean    max 
 ##  4.300  5.000  5.006  5.800 
@@ -532,7 +532,7 @@ argument to <code>data.frame()</code> or switch this feature off globally (recom
 ## $virginica
 ##    min median   mean    max 
 ##  4.900  6.500  6.588  7.900</code></pre>
-<div class="sourceCode" id="cb1050"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1050-1" title="1"><span class="kw">as.data.frame</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb1049"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1049-1" title="1"><span class="kw">as.data.frame</span>(l)</a></code></pre></div>
 <pre><code>##        setosa versicolor virginica
 ## min     4.300      4.900     4.900
 ## median  5.000      5.900     6.500

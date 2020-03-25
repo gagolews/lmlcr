@@ -196,16 +196,16 @@ on a random **train-test split** of the original dataset:
 
 ```{R}
 set.seed(123) # reproducibility matters
-random_indexes <- sample(n)
-head(random_indexes) # preview
-# first 70% of the indexes (they are arranged randomly)
+random_indices <- sample(n)
+head(random_indices) # preview
+# first 70% of the indices (they are arranged randomly)
 # will constitute the train sample:
-train_indexes <- random_indexes[1:floor(n*0.7)]
-X_train <- X[train_indexes,]
-Y_train <- Y[train_indexes]
-# the remaining indexes (30%) go to the test sample:
-X_test  <- X[-train_indexes,]
-Y_test  <- Y[-train_indexes]
+train_indices <- random_indices[1:floor(n*0.7)]
+X_train <- X[train_indices,]
+Y_train <- Y[train_indices]
+# the remaining indices (30%) go to the test sample:
+X_test  <- X[-train_indices,]
+Y_test  <- Y[-train_indices]
 ```
 
 
@@ -244,7 +244,7 @@ denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$:
     \[d_i = \|\mathbf{x}'-\mathbf{x}_{i,\cdot}\|\]
     b. order $d_i$s in increasing order,
     $d_{i_1} \le d_{i_2} \le \dots \le d_{i_K}$
-    c. pick first $K$ indexes (these are the *nearest* neighbours)
+    c. pick first $K$ indices (these are the *nearest* neighbours)
 2. fetch the corresponding reference labels $y_{i_1}, \dots, y_{i_K}$
 3. return their *mode* as a result, i.e., the most frequently occurring label (a.k.a. *majority vote*)
 
@@ -570,11 +570,11 @@ Next, we will call the (to-be-done) function `our_get_knnx()`,
 which seeks nearest neighbours of all the points:
 
 ```{r,eval=FALSE,our_knn_flow1}
-# our_get_knnx returns a matrix nn_indexes of size n_test*k,
-# where nn_indexes[i,j] denotes the index of
+# our_get_knnx returns a matrix nn_indices of size n_test*k,
+# where nn_indices[i,j] denotes the index of
 # X_test[i,]'s j-th nearest neighbour in X_train.
-# (It is the point X_train[nn_indexes[i,j],]).
-nn_indexes <- our_get_knnx(X_train, X_test, k)
+# (It is the point X_train[nn_indices[i,j],]).
+nn_indices <- our_get_knnx(X_train, X_test, k)
 ```
 
 
@@ -590,7 +590,7 @@ Y_pred <- numeric(n_test) # vector of length n_test
 Y_train_int <- as.numeric(Y_train)
 for (i in 1:n_test) {
     # Get the labels of the NNs of the i-th point:
-    nn_labels_i <- Y_train_int[nn_indexes[i,]]
+    nn_labels_i <- Y_train_int[nn_indices[i,]]
     # Compute the mode (majority vote):
     Y_pred[i] <- our_mode(nn_labels_i) # in {1,...,M}
 }
@@ -699,16 +699,16 @@ our_mode(c(1, 1, 3, 3, 2))
 
 Last but not least, we should implement the `our_get_knnx()` function.
 
-It is the function responsible for seeking the indexes of nearest neighbours.
+It is the function responsible for seeking the indices of nearest neighbours.
 
 It turns out this function will  actually constitute the K-NN classifier's performance
 bottleneck in case of big data samples.
 
 ```{r}
-# our_get_knnx returns a matrix nn_indexes of size n_test*k,
-# where nn_indexes[i,j] denotes the index of
+# our_get_knnx returns a matrix nn_indices of size n_test*k,
+# where nn_indices[i,j] denotes the index of
 # X_test[i,]'s j-th nearest neighbour in X_train.
-# (It is the point X_train[nn_indexes[i,j],]).
+# (It is the point X_train[nn_indices[i,j],]).
 our_get_knnx <- function(X_train, X_test, k) {
     # ...
 }
@@ -724,15 +724,15 @@ and sorting them.
 ```{r}
 our_get_knnx <- function(X_train, X_test, k) {
     n_test <- nrow(X_test)
-    nn_indexes <- matrix(NA_real_, nrow=n_test, ncol=k)
+    nn_indices <- matrix(NA_real_, nrow=n_test, ncol=k)
     for (i in 1:n_test) {
         d <- apply(X_train, 1, function(x)
             sqrt(sum((x-X_test[i,])^2)))
         # now d[j] is the distance
         # between X_train[j,] and X_test[i,]
-        nn_indexes[i,] <- order(d)[1:k]
+        nn_indices[i,] <- order(d)[1:k]
     }
-    nn_indexes
+    nn_indices
 }
 ```
 

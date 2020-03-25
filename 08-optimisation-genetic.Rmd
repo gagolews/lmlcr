@@ -99,7 +99,7 @@ To recall, Lloyd's algorithm (1957) is sometimes referred to as "the" K-means al
 2. For each point $\mathbf{x}_{i,\cdot}$, determine its closest centre $C(i)\in\{1,\dots,K\}$.
 
 3. For each cluster $k\in\{1,\dots,K\}$, compute the new cluster centre $\boldsymbol\mu_{k,\cdot}$ as the componentwise arithmetic mean
-of the coordinates of all the point indexes $i$ such that $C(i)=k$.
+of the coordinates of all the point indices $i$ such that $C(i)=k$.
 
 4. If the cluster centres changed since last iteration, go to step 2, otherwise stop and return the result.
 

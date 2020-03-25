@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -578,17 +578,17 @@ binary classification task.</p>
 <hr />
 <p>70/30% train-test split:</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
-<a class="sourceLine" id="cb254-2" title="2">random_indexes &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
-<a class="sourceLine" id="cb254-3" title="3"><span class="kw">head</span>(random_indexes) <span class="co"># preview</span></a></code></pre></div>
+<a class="sourceLine" id="cb254-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
+<a class="sourceLine" id="cb254-3" title="3"><span class="kw">head</span>(random_indices) <span class="co"># preview</span></a></code></pre></div>
 <pre><code>## [1] 2463 2511 2227  526 4291 2986</code></pre>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="co"># first 70% of the indexes (they are arranged randomly)</span></a>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="co"># first 70% of the indices (they are arranged randomly)</span></a>
 <a class="sourceLine" id="cb256-2" title="2"><span class="co"># will constitute the train sample:</span></a>
-<a class="sourceLine" id="cb256-3" title="3">train_indexes &lt;-<span class="st"> </span>random_indexes[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.7</span>)]</a>
-<a class="sourceLine" id="cb256-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indexes,]</a>
-<a class="sourceLine" id="cb256-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indexes]</a>
-<a class="sourceLine" id="cb256-6" title="6"><span class="co"># the remaining indexes (30%) go to the test sample:</span></a>
-<a class="sourceLine" id="cb256-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indexes,]</a>
-<a class="sourceLine" id="cb256-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indexes]</a></code></pre></div>
+<a class="sourceLine" id="cb256-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.7</span>)]</a>
+<a class="sourceLine" id="cb256-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
+<a class="sourceLine" id="cb256-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
+<a class="sourceLine" id="cb256-6" title="6"><span class="co"># the remaining indices (30%) go to the test sample:</span></a>
+<a class="sourceLine" id="cb256-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
+<a class="sourceLine" id="cb256-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
 <hr />
 <p>Let’s also compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>

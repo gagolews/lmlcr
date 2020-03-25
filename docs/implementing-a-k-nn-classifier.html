@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -516,11 +516,11 @@ we’re expecting:</p>
 <hr />
 <p>Next, we will call the (to-be-done) function <code>our_get_knnx()</code>,
 which seeks nearest neighbours of all the points:</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indexes of size n_test*k,</span></a>
-<a class="sourceLine" id="cb204-2" title="2"><span class="co"># where nn_indexes[i,j] denotes the index of</span></a>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
+<a class="sourceLine" id="cb204-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
 <a class="sourceLine" id="cb204-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
-<a class="sourceLine" id="cb204-4" title="4"><span class="co"># (It is the point X_train[nn_indexes[i,j],]).</span></a>
-<a class="sourceLine" id="cb204-5" title="5">nn_indexes &lt;-<span class="st"> </span><span class="kw">our_get_knnx</span>(X_train, X_test, k)</a></code></pre></div>
+<a class="sourceLine" id="cb204-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
+<a class="sourceLine" id="cb204-5" title="5">nn_indices &lt;-<span class="st"> </span><span class="kw">our_get_knnx</span>(X_train, X_test, k)</a></code></pre></div>
 <hr />
 <p>Then, for each point in <code>X_test</code>,
 we fetch the labels corresponding to its nearest neighbours
@@ -530,7 +530,7 @@ and compute their mode:</p>
 <a class="sourceLine" id="cb205-3" title="3">Y_train_int &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_train)</a>
 <a class="sourceLine" id="cb205-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
 <a class="sourceLine" id="cb205-5" title="5">    <span class="co"># Get the labels of the NNs of the i-th point:</span></a>
-<a class="sourceLine" id="cb205-6" title="6">    nn_labels_i &lt;-<span class="st"> </span>Y_train_int[nn_indexes[i,]]</a>
+<a class="sourceLine" id="cb205-6" title="6">    nn_labels_i &lt;-<span class="st"> </span>Y_train_int[nn_indices[i,]]</a>
 <a class="sourceLine" id="cb205-7" title="7">    <span class="co"># Compute the mode (majority vote):</span></a>
 <a class="sourceLine" id="cb205-8" title="8">    Y_pred[i] &lt;-<span class="st"> </span><span class="kw">our_mode</span>(nn_labels_i) <span class="co"># in {1,...,M}</span></a>
 <a class="sourceLine" id="cb205-9" title="9">}</a></code></pre></div>
@@ -605,13 +605,13 @@ Note that its behaviour is different when it’s first argument is a vector of l
 <h3><span class="header-section-number">3.3.3</span> NN Search Routines (*)</h3>
 <hr />
 <p>Last but not least, we should implement the <code>our_get_knnx()</code> function.</p>
-<p>It is the function responsible for seeking the indexes of nearest neighbours.</p>
+<p>It is the function responsible for seeking the indices of nearest neighbours.</p>
 <p>It turns out this function will actually constitute the K-NN classifier’s performance
 bottleneck in case of big data samples.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indexes of size n_test*k,</span></a>
-<a class="sourceLine" id="cb220-2" title="2"><span class="co"># where nn_indexes[i,j] denotes the index of</span></a>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
+<a class="sourceLine" id="cb220-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
 <a class="sourceLine" id="cb220-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
-<a class="sourceLine" id="cb220-4" title="4"><span class="co"># (It is the point X_train[nn_indexes[i,j],]).</span></a>
+<a class="sourceLine" id="cb220-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
 <a class="sourceLine" id="cb220-5" title="5">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
 <a class="sourceLine" id="cb220-6" title="6">    <span class="co"># ...</span></a>
 <a class="sourceLine" id="cb220-7" title="7">}</a></code></pre></div>
@@ -620,15 +620,15 @@ bottleneck in case of big data samples.</p>
 and sorting them.</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
 <a class="sourceLine" id="cb221-2" title="2">    n_test &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
-<a class="sourceLine" id="cb221-3" title="3">    nn_indexes &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA_real_</span>, <span class="dt">nrow=</span>n_test, <span class="dt">ncol=</span>k)</a>
+<a class="sourceLine" id="cb221-3" title="3">    nn_indices &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA_real_</span>, <span class="dt">nrow=</span>n_test, <span class="dt">ncol=</span>k)</a>
 <a class="sourceLine" id="cb221-4" title="4">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
 <a class="sourceLine" id="cb221-5" title="5">        d &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(x)</a>
 <a class="sourceLine" id="cb221-6" title="6">            <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>X_test[i,])<span class="op">^</span><span class="dv">2</span>)))</a>
 <a class="sourceLine" id="cb221-7" title="7">        <span class="co"># now d[j] is the distance</span></a>
 <a class="sourceLine" id="cb221-8" title="8">        <span class="co"># between X_train[j,] and X_test[i,]</span></a>
-<a class="sourceLine" id="cb221-9" title="9">        nn_indexes[i,] &lt;-<span class="st"> </span><span class="kw">order</span>(d)[<span class="dv">1</span><span class="op">:</span>k]</a>
+<a class="sourceLine" id="cb221-9" title="9">        nn_indices[i,] &lt;-<span class="st"> </span><span class="kw">order</span>(d)[<span class="dv">1</span><span class="op">:</span>k]</a>
 <a class="sourceLine" id="cb221-10" title="10">    }</a>
-<a class="sourceLine" id="cb221-11" title="11">    nn_indexes</a>
+<a class="sourceLine" id="cb221-11" title="11">    nn_indices</a>
 <a class="sourceLine" id="cb221-12" title="12">}</a></code></pre></div>
 <hr />
 <p>A comparison with <code>FNN:knn()</code>:</p>

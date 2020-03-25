@@ -59,11 +59,11 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} & y_n\\
 
 ---
 
-In a simple regression task, we assume that $p=1$ -- there is only
+In a simple regression task, we have assumed that $p=1$ -- there is only
 one independent variable,
 denoted $x_i=x_{i,1}$.
 
-We restricted ourselves to linear models that minimised the  sum of squared residuals, i.e.,
+We restricted ourselves to linear models of the form $Y=f(X)=aX+b$ that minimised the  sum of squared residuals (SSR), i.e.,
 
 
 \[
@@ -272,7 +272,7 @@ all.equal(mean(f12$residuals), 0)
 Sum of squared residuals (SSR) is not interpretable, but the mean squared residuals
 (MSR) -- also called mean squared error (MSE) regression loss -- is a little better.
 
-Recall that mean == sum / number of samples.
+Recall that mean is defined as the sum divided by number of samples.
 
 \[
  \mathrm{MSE}(f) = \frac{1}{n} \sum_{i=1}^n (f(\mathbf{x}_{i,\cdot})-y_i)^2.
@@ -290,8 +290,8 @@ mean(f2$residuals^2)
 
 ---
 
-However, if original $Y$s are, say, in metres $[\mathrm{m}]$,
-MSR is expressed in metres squared $[\mathrm{m}^2]$.
+However, if the original $Y$s are, say, in metres $[\mathrm{m}]$,
+MSE is expressed in metres squared $[\mathrm{m}^2]$.
 
 Root mean squared error (RMSE):
 \[
@@ -305,7 +305,13 @@ sqrt(mean(f2$residuals^2))
 ```
 
 
-(compare variance vs. standard deviation)
+This is just like with the sample variance compare vs. standard deviation --
+the latter is defined as the square root of the former.
+
+Interpretation: average deviance from the true rating
+(which is on the scale 0--1000, hence we see that the first model is not
+that bad).
+
 
 ---
 
@@ -313,7 +319,7 @@ Still there's a problem with interpreting these values.
 
 Mean absolute error (MAE) might be a better idea then:
 \[
- \mathrm{MSE}(f) = \frac{1}{n} \sum_{i=1}^n |f(\mathbf{x}_{i,\cdot})-y_i|.
+ \mathrm{MAE}(f) = \frac{1}{n} \sum_{i=1}^n |f(\mathbf{x}_{i,\cdot})-y_i|.
 \]
 
 ```{r}

@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -733,7 +733,7 @@ The best you can do is to "guess".-->
 <hr />
 <p>An example way to perform a train-validation-test split:</p>
 <div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
-<a class="sourceLine" id="cb283-2" title="2">random_indexes &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
+<a class="sourceLine" id="cb283-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
 <a class="sourceLine" id="cb283-3" title="3">n1 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)</a>
 <a class="sourceLine" id="cb283-4" title="4">n2 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.8</span>)</a>
 <a class="sourceLine" id="cb283-5" title="5">X2_train &lt;-<span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span>n1,]</a>

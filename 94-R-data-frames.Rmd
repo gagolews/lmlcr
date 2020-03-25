@@ -177,7 +177,7 @@ x_sorted
 We already know how to filter rows based on logical conditions, e.g.:
 
 ```{r}
-iris[iris$Sepal.Length > 4 && iris$Species == "versicolor", ]
+iris[iris$Sepal.Length > 6.5 & iris$Species == "versicolor", ]
 ```
 
 and aggregate information in individual columns:

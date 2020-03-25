@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -507,9 +507,9 @@ in very detail.</p>
 <p>Luckily, we can apply it on each image anyway.</p>
 <p>See the GitHub repository at <a href="https://github.com/gagolews/Playground.R" class="uri">https://github.com/gagolews/Playground.R</a>
 for an example notebook and the <code>deskew.R</code> script.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="co"># See https://github.com/gagolews/Playground.R</span></a>
-<a class="sourceLine" id="cb365-2" title="2"><span class="kw">source</span>(<span class="st">&quot;~/R/Playground.R/deskew.R&quot;</span>)</a>
-<a class="sourceLine" id="cb365-3" title="3"><span class="co"># new_image &lt;- deskew(old_image)</span></a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" title="1"><span class="co"># See https://github.com/gagolews/Playground.R</span></a>
+<a class="sourceLine" id="cb364-2" title="2"><span class="kw">source</span>(<span class="st">&quot;~/R/Playground.R/deskew.R&quot;</span>)</a>
+<a class="sourceLine" id="cb364-3" title="3"><span class="co"># new_image &lt;- deskew(old_image)</span></a></code></pre></div>
 <hr />
 <p><img src="05-classification-nnets-figures/deskew2-1.png" alt="plot of chunk deskew2" style="width:50.0%" /></p>
 <p>In each pair, the left image (black background) is the original one,
@@ -517,29 +517,29 @@ and the right image (palette inverted for purely dramatic effects)
 is its deskewed version.</p>
 <hr />
 <p>Deskew everything:</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1">Z_train &lt;-<span class="st"> </span>X_train</a>
-<a class="sourceLine" id="cb366-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_train)[<span class="dv">1</span>]) {</a>
-<a class="sourceLine" id="cb366-3" title="3">    Z_train[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_train[i,,])</a>
-<a class="sourceLine" id="cb366-4" title="4">}</a>
-<a class="sourceLine" id="cb366-5" title="5">Z_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a>
-<a class="sourceLine" id="cb366-6" title="6"></a>
-<a class="sourceLine" id="cb366-7" title="7"></a>
-<a class="sourceLine" id="cb366-8" title="8">Z_test &lt;-<span class="st"> </span>X_test</a>
-<a class="sourceLine" id="cb366-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_test)[<span class="dv">1</span>]) {</a>
-<a class="sourceLine" id="cb366-10" title="10">  Z_test[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_test[i,,])</a>
-<a class="sourceLine" id="cb366-11" title="11">}</a>
-<a class="sourceLine" id="cb366-12" title="12">Z_test2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1">Z_train &lt;-<span class="st"> </span>X_train</a>
+<a class="sourceLine" id="cb365-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_train)[<span class="dv">1</span>]) {</a>
+<a class="sourceLine" id="cb365-3" title="3">    Z_train[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_train[i,,])</a>
+<a class="sourceLine" id="cb365-4" title="4">}</a>
+<a class="sourceLine" id="cb365-5" title="5">Z_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a>
+<a class="sourceLine" id="cb365-6" title="6"></a>
+<a class="sourceLine" id="cb365-7" title="7"></a>
+<a class="sourceLine" id="cb365-8" title="8">Z_test &lt;-<span class="st"> </span>X_test</a>
+<a class="sourceLine" id="cb365-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_test)[<span class="dv">1</span>]) {</a>
+<a class="sourceLine" id="cb365-10" title="10">  Z_test[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_test[i,,])</a>
+<a class="sourceLine" id="cb365-11" title="11">}</a>
+<a class="sourceLine" id="cb365-12" title="12">Z_test2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a></code></pre></div>
 <hr />
 <p>Multinomial logistic regression model (1-layer NN):</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
-<a class="sourceLine" id="cb367-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
-<a class="sourceLine" id="cb367-3" title="3"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
-<a class="sourceLine" id="cb367-4" title="4">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
-<a class="sourceLine" id="cb367-5" title="5"><span class="kw">fit</span>(model, Z_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb367-6" title="6"></a>
-<a class="sourceLine" id="cb367-7" title="7">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, Z_test2)</a>
-<a class="sourceLine" id="cb367-8" title="8">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
-<a class="sourceLine" id="cb367-9" title="9"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
+<a class="sourceLine" id="cb366-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
+<a class="sourceLine" id="cb366-3" title="3"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
+<a class="sourceLine" id="cb366-4" title="4">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
+<a class="sourceLine" id="cb366-5" title="5"><span class="kw">fit</span>(model, Z_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb366-6" title="6"></a>
+<a class="sourceLine" id="cb366-7" title="7">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, Z_test2)</a>
+<a class="sourceLine" id="cb366-8" title="8">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
+<a class="sourceLine" id="cb366-9" title="9"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
 <pre><code>## [1] 0.9433</code></pre>
 <hr />
 <p>Performance metrics for each digit separately:</p>

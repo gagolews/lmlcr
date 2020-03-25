@@ -516,7 +516,7 @@ B
 ### Selecting Individual Elements
 
 Matrices are two-dimensional structures: items are aligned in rows and columns.
-Hence, to extract an element from a matrix, we will need two indexes.
+Hence, to extract an element from a matrix, we will need two indices.
 Mathematically, given a matrix $\mathbf{A}$, $a_{i,j}$ stands for the element
 in the $i$-th row and the $j$-th column. The same in R:
 

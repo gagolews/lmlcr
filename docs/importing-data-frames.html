@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -483,16 +483,16 @@ web APIs, SQL databases and so on.</p>
 <p>In particular, <code>read.csv()</code> (see <code>?read.table</code> for a long list
 of tunable parameters) imports data from plain text files
 organised in a tabular manner (such as <em>c</em>omma-<em>s</em>eparated lists of <em>v</em>alues):</p>
-<div class="sourceCode" id="cb1052"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1052-1" title="1">f &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file name</span></a>
-<a class="sourceLine" id="cb1052-2" title="2"><span class="kw">write.csv</span>(x, f, <span class="dt">row.names=</span><span class="ot">FALSE</span>) <span class="co"># save data frame to file</span></a>
-<a class="sourceLine" id="cb1052-3" title="3"><span class="kw">cat</span>(<span class="kw">readLines</span>(f), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># print file contents</span></a></code></pre></div>
+<div class="sourceCode" id="cb1051"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1051-1" title="1">f &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file name</span></a>
+<a class="sourceLine" id="cb1051-2" title="2"><span class="kw">write.csv</span>(x, f, <span class="dt">row.names=</span><span class="ot">FALSE</span>) <span class="co"># save data frame to file</span></a>
+<a class="sourceLine" id="cb1051-3" title="3"><span class="kw">cat</span>(<span class="kw">readLines</span>(f), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># print file contents</span></a></code></pre></div>
 <pre><code>## &quot;u&quot;,&quot;v&quot;,&quot;w&quot;
 ## 0.181517061544582,TRUE,&quot;A&quot;
 ## 0.919722604798153,FALSE,&quot;B&quot;
 ## 0.31172346835956,FALSE,&quot;C&quot;
 ## 0.0641516039613634,TRUE,&quot;D&quot;
 ## 0.396421572659165,FALSE,&quot;E&quot;</code></pre>
-<div class="sourceCode" id="cb1054"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1054-1" title="1"><span class="kw">read.csv</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb1053"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1053-1" title="1"><span class="kw">read.csv</span>(f)</a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.1815171  TRUE A
 ## 2 0.9197226 FALSE B

@@ -883,7 +883,7 @@ tail(x, 3)
 ```
 
 Sometimes the `which()` function can come in handy.
-For a given logical vector, it returns all the indexes
+For a given logical vector, it returns all the indices
 where `TRUE` elements are stored.
 
 ```{r}

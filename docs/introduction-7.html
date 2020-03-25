@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -595,12 +595,12 @@ classifiers (see the notes below), but it’s a great educational example.</p>
 <hr />
 <p>Accessing MNIST via the keras package
 (which we will use throughout this chapter anyway) is easy:</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
-<a class="sourceLine" id="cb311-2" title="2">mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</a>
-<a class="sourceLine" id="cb311-3" title="3">X_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb311-4" title="4">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
-<a class="sourceLine" id="cb311-5" title="5">X_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb311-6" title="6">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
+<a class="sourceLine" id="cb310-2" title="2">mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</a>
+<a class="sourceLine" id="cb310-3" title="3">X_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb310-4" title="4">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
+<a class="sourceLine" id="cb310-5" title="5">X_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb310-6" title="6">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
 <!--
 
 
@@ -619,40 +619,40 @@ for (file in files) {
 -->
 <hr />
 <p><code>X_train</code> and <code>X_test</code> consist of 28×28 pixel images.</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1"><span class="kw">dim</span>(X_train)</a></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1"><span class="kw">dim</span>(X_train)</a></code></pre></div>
 <pre><code>## [1] 60000    28    28</code></pre>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1"><span class="kw">dim</span>(X_test)</a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1"><span class="kw">dim</span>(X_test)</a></code></pre></div>
 <pre><code>## [1] 10000    28    28</code></pre>
 <blockquote>
 <p><code>X_train</code> and <code>X_test</code> are 3-dimensional arrays, think
 of them as vectors of 60000 and 10000 matrices of size 28×28, respectively.</p>
 </blockquote>
 <p>These are greyscale images, with 0 = black, …, 255 = white:</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1"><span class="kw">range</span>(X_train)</a></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" title="1"><span class="kw">range</span>(X_train)</a></code></pre></div>
 <pre><code>## [1]   0 255</code></pre>
 <p>It is better to convert the colour values to 0.0 = black, …, 1.0 = white:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1">X_train &lt;-<span class="st"> </span>X_train<span class="op">/</span><span class="dv">255</span></a>
-<a class="sourceLine" id="cb318-2" title="2">X_test  &lt;-<span class="st"> </span>X_test<span class="op">/</span><span class="dv">255</span></a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1">X_train &lt;-<span class="st"> </span>X_train<span class="op">/</span><span class="dv">255</span></a>
+<a class="sourceLine" id="cb317-2" title="2">X_test  &lt;-<span class="st"> </span>X_test<span class="op">/</span><span class="dv">255</span></a></code></pre></div>
 <hr />
 <p><code>Y_train</code> and <code>Y_test</code> are the corresponding integer labels:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="kw">length</span>(Y_train)</a></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1"><span class="kw">length</span>(Y_train)</a></code></pre></div>
 <pre><code>## [1] 60000</code></pre>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1"><span class="kw">length</span>(Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1"><span class="kw">length</span>(Y_test)</a></code></pre></div>
 <pre><code>## [1] 10000</code></pre>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1"><span class="kw">table</span>(Y_train) <span class="co"># label distribution in train sample</span></a></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1"><span class="kw">table</span>(Y_train) <span class="co"># label distribution in train sample</span></a></code></pre></div>
 <pre><code>## Y_train
 ##    0    1    2    3    4    5    6    7    8    9 
 ## 5923 6742 5958 6131 5842 5421 5918 6265 5851 5949</code></pre>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1"><span class="kw">table</span>(Y_test)  <span class="co"># label distribution in test sample</span></a></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1"><span class="kw">table</span>(Y_test)  <span class="co"># label distribution in test sample</span></a></code></pre></div>
 <pre><code>## Y_test
 ##    0    1    2    3    4    5    6    7    8    9 
 ##  980 1135 1032 1010  982  892  958 1028  974 1009</code></pre>
 <hr />
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">id &lt;-<span class="st"> </span><span class="dv">123</span> <span class="co"># which image to show</span></a>
-<a class="sourceLine" id="cb327-2" title="2"><span class="kw">image</span>(<span class="dt">z=</span><span class="kw">t</span>(X_train[id,,]), <span class="dt">col=</span><span class="kw">grey.colors</span>(<span class="dv">256</span>, <span class="dv">0</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb327-3" title="3">    <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb327-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>,</a>
-<a class="sourceLine" id="cb327-5" title="5">    <span class="dt">legend=</span><span class="kw">sprintf</span>(<span class="st">&quot;True label=%d&quot;</span>, Y_train[id]))</a></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1">id &lt;-<span class="st"> </span><span class="dv">123</span> <span class="co"># which image to show</span></a>
+<a class="sourceLine" id="cb326-2" title="2"><span class="kw">image</span>(<span class="dt">z=</span><span class="kw">t</span>(X_train[id,,]), <span class="dt">col=</span><span class="kw">grey.colors</span>(<span class="dv">256</span>, <span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb326-3" title="3">    <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb326-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>,</a>
+<a class="sourceLine" id="cb326-5" title="5">    <span class="dt">legend=</span><span class="kw">sprintf</span>(<span class="st">&quot;True label=%d&quot;</span>, Y_train[id]))</a></code></pre></div>
 <p><img src="05-classification-nnets-figures/mnist_info2b-1.png" alt="plot of chunk mnist_info2b" style="width:50.0%" /></p>
 </div>
 </div>

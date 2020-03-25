@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -554,7 +554,7 @@ assume <span class="math inline">\(p=1\)</span> just as in the previous chapter 
 <hr />
 <p>Sum of squared residuals (SSR) is not interpretable, but the mean squared residuals
 (MSR) – also called mean squared error (MSE) regression loss – is a little better.</p>
-<p>Recall that mean == sum / number of samples.</p>
+<p>Recall that mean is defined as the sum divided by number of samples.</p>
 <p><span class="math display">\[
  \mathrm{MSE}(f) = \frac{1}{n} \sum_{i=1}^n (f(\mathbf{x}_{i,\cdot})-y_i)^2.
 \]</span></p>
@@ -565,8 +565,8 @@ assume <span class="math inline">\(p=1\)</span> just as in the previous chapter 
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">mean</span>(f2<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 5882.171</code></pre>
 <hr />
-<p>However, if original <span class="math inline">\(Y\)</span>s are, say, in metres <span class="math inline">\([\mathrm{m}]\)</span>,
-MSR is expressed in metres squared <span class="math inline">\([\mathrm{m}^2]\)</span>.</p>
+<p>However, if the original <span class="math inline">\(Y\)</span>s are, say, in metres <span class="math inline">\([\mathrm{m}]\)</span>,
+MSE is expressed in metres squared <span class="math inline">\([\mathrm{m}^2]\)</span>.</p>
 <p>Root mean squared error (RMSE):
 <span class="math display">\[
  \mathrm{RMSE}(f) = \sqrt{\frac{1}{n} \sum_{i=1}^n (f(\mathbf{x}_{i,\cdot})-y_i)^2}.
@@ -577,12 +577,16 @@ MSR is expressed in metres squared <span class="math inline">\([\mathrm{m}^2]\)<
 <pre><code>## [1] 82.93231</code></pre>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">sqrt</span>(<span class="kw">mean</span>(f2<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 76.69531</code></pre>
-<p>(compare variance vs. standard deviation)</p>
+<p>This is just like with the sample variance compare vs. standard deviation –
+the latter is defined as the square root of the former.</p>
+<p>Interpretation: average deviance from the true rating
+(which is on the scale 0–1000, hence we see that the first model is not
+that bad).</p>
 <hr />
 <p>Still there’s a problem with interpreting these values.</p>
 <p>Mean absolute error (MAE) might be a better idea then:
 <span class="math display">\[
- \mathrm{MSE}(f) = \frac{1}{n} \sum_{i=1}^n |f(\mathbf{x}_{i,\cdot})-y_i|.
+ \mathrm{MAE}(f) = \frac{1}{n} \sum_{i=1}^n |f(\mathbf{x}_{i,\cdot})-y_i|.
 \]</span></p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(f12<span class="op">$</span>residuals))</a></code></pre></div>
 <pre><code>## [1] 22.86342</code></pre>

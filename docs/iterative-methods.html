@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-23 12:42 (922212a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
 
 </ul>
 
@@ -532,7 +532,7 @@ by taking a course on calculus.</p>
 i.e., without going into how it has been defined (it’s too early for this).
 However, this will still enable us to identify a few interesting
 behavioural patterns.</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1"><span class="kw">optim</span>(par, fn, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" title="1"><span class="kw">optim</span>(par, fn, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
 <p>where:</p>
 <ul>
 <li><code>par</code> – an initial guess (a numeric vector of length <span class="math inline">\(p\)</span>)</li>
@@ -542,14 +542,14 @@ on input, returns a single number)</li>
 <!-- this will be slow for high-dimensional search spaces $D$ -->
 <hr />
 <p>Let us minimise the <span class="math inline">\(g\)</span> function defined above (the one with the 2D domain):</p>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" title="1"><span class="co"># g needs to be rewritten to accept a 2-ary vector</span></a>
-<a class="sourceLine" id="cb377-2" title="2">g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x12) <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb377-3" title="3"><span class="co"># random starting point with coordinates in [-5, 5]</span></a>
-<a class="sourceLine" id="cb377-4" title="4">(x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1"><span class="co"># g needs to be rewritten to accept a 2-ary vector</span></a>
+<a class="sourceLine" id="cb376-2" title="2">g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x12) <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb376-3" title="3"><span class="co"># random starting point with coordinates in [-5, 5]</span></a>
+<a class="sourceLine" id="cb376-4" title="4">(x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>))</a></code></pre></div>
 <pre><code>## [1] -2.124225  2.883051</code></pre>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" title="1">res</a></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1">res</a></code></pre></div>
 <pre><code>## $par
 ## [1] -1.542255  2.156405
 ## 
@@ -573,12 +573,12 @@ on input, returns a single number)</li>
 <p>(*) Technically, the algorithm needs to evaluate a few more points
 in order to make the decision on where to go next (BFGS approximates the Hessian matrix).</p>
 </blockquote>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1">g_vectorised_plot &lt;-<span class="st"> </span><span class="cf">function</span>(x12) {</a>
-<a class="sourceLine" id="cb382-2" title="2">    <span class="kw">points</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>], <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>) <span class="co"># draw</span></a>
-<a class="sourceLine" id="cb382-3" title="3">    <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>]) <span class="co"># return value</span></a>
-<a class="sourceLine" id="cb382-4" title="4">}</a>
-<a class="sourceLine" id="cb382-5" title="5"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
-<a class="sourceLine" id="cb382-6" title="6">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised_plot, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1">g_vectorised_plot &lt;-<span class="st"> </span><span class="cf">function</span>(x12) {</a>
+<a class="sourceLine" id="cb381-2" title="2">    <span class="kw">points</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>], <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>) <span class="co"># draw</span></a>
+<a class="sourceLine" id="cb381-3" title="3">    <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>]) <span class="co"># return value</span></a>
+<a class="sourceLine" id="cb381-4" title="4">}</a>
+<a class="sourceLine" id="cb381-5" title="5"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb381-6" title="6">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised_plot, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
 <hr />
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" style="width:50.0%" /></p>
 </div>
@@ -590,20 +590,20 @@ coincides with the global minimum.</p>
 <p>Let’s see where does the algorithm converge if we start it
 from many randomly chosen points
 uniformly distributed over the square <span class="math inline">\([-5,5]\times[-5,5]\)</span>:</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1">res_value &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb383-2" title="2">    <span class="co"># this will be iterated 100 times</span></a>
-<a class="sourceLine" id="cb383-3" title="3">    x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb383-4" title="4">    res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a>
-<a class="sourceLine" id="cb383-5" title="5">    res<span class="op">$</span>value <span class="co"># return value from each iteration</span></a>
-<a class="sourceLine" id="cb383-6" title="6">})</a>
-<a class="sourceLine" id="cb383-7" title="7"><span class="kw">table</span>(<span class="kw">round</span>(res_value,<span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1">res_value &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb382-2" title="2">    <span class="co"># this will be iterated 100 times</span></a>
+<a class="sourceLine" id="cb382-3" title="3">    x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb382-4" title="4">    res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a>
+<a class="sourceLine" id="cb382-5" title="5">    res<span class="op">$</span>value <span class="co"># return value from each iteration</span></a>
+<a class="sourceLine" id="cb382-6" title="6">})</a>
+<a class="sourceLine" id="cb382-7" title="7"><span class="kw">table</span>(<span class="kw">round</span>(res_value,<span class="dv">3</span>))</a></code></pre></div>
 <pre><code>## 
 ##     0 0.695 1.356 1.705 
 ##   273   352   156   219</code></pre>
 <p>We find the global minimum only in <span class="math inline">\(\sim 25\%\)</span> cases! :(</p>
 <hr />
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="kw">hist</span>(res_value, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">breaks=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb385-2" title="2"><span class="kw">box</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">hist</span>(res_value, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">breaks=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb384-2" title="2"><span class="kw">box</span>()</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" style="width:50.0%" /></p>
 <hr />
 <p>Here is a depiction of all the random starting points and where
@@ -618,21 +618,21 @@ do we converge from them:</p>
 procedure it is often advised to consider
 multiple random initial points
 and pick the best solution amongst the identified local optima.</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1"><span class="co"># N             - number of restarts</span></a>
-<a class="sourceLine" id="cb386-2" title="2"><span class="co"># par_generator - a function generating initial guesses</span></a>
-<a class="sourceLine" id="cb386-3" title="3"><span class="co"># ...           - further arguments to optim()</span></a>
-<a class="sourceLine" id="cb386-4" title="4">optim_with_restarts &lt;-<span class="st"> </span><span class="cf">function</span>(par_generator, ..., <span class="dt">N=</span><span class="dv">10</span>) {</a>
-<a class="sourceLine" id="cb386-5" title="5">    res_best &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">value=</span><span class="ot">Inf</span>) <span class="co"># cannot be worse than this</span></a>
-<a class="sourceLine" id="cb386-6" title="6">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
-<a class="sourceLine" id="cb386-7" title="7">        res &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">par_generator</span>(), ...)</a>
-<a class="sourceLine" id="cb386-8" title="8">        <span class="cf">if</span> (res<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>res_best<span class="op">$</span>value)</a>
-<a class="sourceLine" id="cb386-9" title="9">            res_best &lt;-<span class="st"> </span>res <span class="co"># a better candidate found</span></a>
-<a class="sourceLine" id="cb386-10" title="10">    }</a>
-<a class="sourceLine" id="cb386-11" title="11">    res_best</a>
-<a class="sourceLine" id="cb386-12" title="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="co"># N             - number of restarts</span></a>
+<a class="sourceLine" id="cb385-2" title="2"><span class="co"># par_generator - a function generating initial guesses</span></a>
+<a class="sourceLine" id="cb385-3" title="3"><span class="co"># ...           - further arguments to optim()</span></a>
+<a class="sourceLine" id="cb385-4" title="4">optim_with_restarts &lt;-<span class="st"> </span><span class="cf">function</span>(par_generator, ..., <span class="dt">N=</span><span class="dv">10</span>) {</a>
+<a class="sourceLine" id="cb385-5" title="5">    res_best &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">value=</span><span class="ot">Inf</span>) <span class="co"># cannot be worse than this</span></a>
+<a class="sourceLine" id="cb385-6" title="6">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
+<a class="sourceLine" id="cb385-7" title="7">        res &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">par_generator</span>(), ...)</a>
+<a class="sourceLine" id="cb385-8" title="8">        <span class="cf">if</span> (res<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>res_best<span class="op">$</span>value)</a>
+<a class="sourceLine" id="cb385-9" title="9">            res_best &lt;-<span class="st"> </span>res <span class="co"># a better candidate found</span></a>
+<a class="sourceLine" id="cb385-10" title="10">    }</a>
+<a class="sourceLine" id="cb385-11" title="11">    res_best</a>
+<a class="sourceLine" id="cb385-12" title="12">}</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" title="1"><span class="kw">optim_with_restarts</span>(<span class="cf">function</span>() <span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb387-2" title="2">    g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">N=</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1"><span class="kw">optim_with_restarts</span>(<span class="cf">function</span>() <span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb386-2" title="2">    g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">N=</span><span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## $par
 ## [1] -1.542256  2.156405
 ## 

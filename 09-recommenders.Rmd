@@ -309,7 +309,7 @@ the more or a weighted arithmetic mean where weights are proportional to $s^U_{u
 ```{R}
 K <- 2
 (sim <- order(SU["Sara",],decreasing=TRUE))
-# sim gives the indexes of people in decreasing order
+# sim gives the indices of people in decreasing order
 # of similarity to Sara:
 dimnames(R)[[1]][sim] # the corresponding names
 # Remove those who haven't tried Spinach yet (including Sara):
@@ -378,7 +378,7 @@ or the mode.
 ```{R}
 K <- 2
 (sim <- order(SI["Apple",],decreasing=TRUE))
-# sim gives the indexes of items in decreasing order
+# sim gives the indices of items in decreasing order
 # of similarity to Apple:
 dimnames(R)[[2]][sim] # the corresponding item types
 # Remove these which Sara haven't tried yet (e.g.,Apples):

@@ -141,16 +141,16 @@ binary classification task.
 
 ```{R}
 set.seed(123) # reproducibility matters
-random_indexes <- sample(n)
-head(random_indexes) # preview
-# first 70% of the indexes (they are arranged randomly)
+random_indices <- sample(n)
+head(random_indices) # preview
+# first 70% of the indices (they are arranged randomly)
 # will constitute the train sample:
-train_indexes <- random_indexes[1:floor(n*0.7)]
-X_train <- X[train_indexes,]
-Y_train <- Y[train_indexes]
-# the remaining indexes (30%) go to the test sample:
-X_test  <- X[-train_indexes,]
-Y_test  <- Y[-train_indexes]
+train_indices <- random_indices[1:floor(n*0.7)]
+X_train <- X[train_indices,]
+Y_train <- Y[train_indices]
+# the remaining indices (30%) go to the test sample:
+X_test  <- X[-train_indices,]
+Y_test  <- Y[-train_indices]
 ```
 
 
@@ -558,7 +558,7 @@ An example way to perform a train-validation-test split:
 
 ```{R}
 set.seed(123) # reproducibility matters
-random_indexes <- sample(n)
+random_indices <- sample(n)
 n1 <- floor(n*0.6)
 n2 <- floor(n*0.8)
 X2_train <- X[1:n1,]
