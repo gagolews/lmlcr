@@ -148,7 +148,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#introduction-1"><i class="fa fa-check"></i><b>1.4.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.4.2" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#solution-in-r"><i class="fa fa-check"></i><b>1.4.2</b> Solution in R</a></li>
-<li class="chapter" data-level="1.4.3" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.3</b> Derivation of the Solution (**)</a></li>
+<li class="chapter" data-level="1.4.3" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#analytic-solution"><i class="fa fa-check"></i><b>1.4.3</b> Analytic Solution</a></li>
+<li class="chapter" data-level="1.4.4" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.4</b> Derivation of the Solution (**)</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="outro.html"><a href="outro.html"><i class="fa fa-check"></i><b>1.5</b> Outro</a><ul>
 <li class="chapter" data-level="1.5.1" data-path="outro.html"><a href="outro.html#remarks"><i class="fa fa-check"></i><b>1.5.1</b> Remarks</a></li>
@@ -363,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.3" data-path="outro-8.html"><a href="outro-8.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="section-15.html"><a href="section-15.html"><i class="fa fa-check"></i>}</a></li>
+<li class="chapter" data-level="" data-path="section-10.html"><a href="section-10.html"><i class="fa fa-check"></i>}</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
 <li class="chapter" data-level="A.1" data-path="installing-r.html"><a href="installing-r.html"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
@@ -457,7 +458,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 23:34 (fa78fd6)</a></li>
 
 </ul>
 
@@ -592,8 +593,31 @@ we can compute the associated preferred Balance that should yield it
 (provided that the model is valid).</p></li>
 </ul>
 </div>
+<div id="analytic-solution" class="section level3">
+<h3><span class="header-section-number">1.4.3</span> Analytic Solution</h3>
+<p>It may be shown (which we actually do below)
+that the solution is:</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{rl}
+a  = &amp; \dfrac{
+n \displaystyle\sum_{i=1}^n x_i y_i - \displaystyle\sum_{i=1}^n  y_i \displaystyle\sum_{i=1}^n x_i
+}{
+n \displaystyle\sum_{i=1}^n x_i x_i -   \displaystyle\sum_{i=1}^n x_i\displaystyle\sum_{i=1}^n x_i
+}\\
+b = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+\end{array}
+\right.
+\]</span></p>
+<p>Which can be implemented in R as follows:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(X)</a>
+<a class="sourceLine" id="cb55-2" title="2">a &lt;-<span class="st"> </span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>Y)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">*</span><span class="kw">sum</span>(Y))<span class="op">/</span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>X)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb55-3" title="3">b &lt;-<span class="st"> </span><span class="kw">mean</span>(Y)<span class="op">-</span>a<span class="op">*</span><span class="kw">mean</span>(X)</a>
+<a class="sourceLine" id="cb55-4" title="4"><span class="kw">c</span>(a, b) <span class="co"># the same as f$coefficients</span></a></code></pre></div>
+<pre><code>## [1]   0.2661459 226.4711446</code></pre>
+</div>
 <div id="derivation-of-the-solution" class="section level3">
-<h3><span class="header-section-number">1.4.3</span> Derivation of the Solution (**)</h3>
+<h3><span class="header-section-number">1.4.4</span> Derivation of the Solution (**)</h3>
 <hr />
 <blockquote>
 <p>(You can safely skip this part if you are yet to know
@@ -621,7 +645,6 @@ E(a,b)   = \displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2.
 <p>We need to compute the partial derivatives <span class="math inline">\(\partial E/\partial a\)</span> (derivative of <span class="math inline">\(E\)</span>
 w.r.t. variable <span class="math inline">\(a\)</span> – all other terms treated as constants)
 and <span class="math inline">\(\partial E/\partial b\)</span> (w.r.t. <span class="math inline">\(b\)</span>).</p>
-<div class="incremental">
 <p>Useful rules – derivatives w.r.t. <span class="math inline">\(a\)</span> (denote <span class="math inline">\(f&#39;(a)=(f(a))&#39;\)</span>):</p>
 <ul>
 <li><span class="math inline">\((f(a)+g(a))&#39;=f&#39;(a)+g&#39;(a)\)</span> (derivative of sum is sum of derivatives)</li>
@@ -682,13 +705,6 @@ Pearson's r introduced in the next chapter though
 (b <- mean(y)-a*mean(x))
 -->
 <hr />
-<p>Sanity check:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(X)</a>
-<a class="sourceLine" id="cb55-2" title="2">a &lt;-<span class="st"> </span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>Y)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">*</span><span class="kw">sum</span>(Y))<span class="op">/</span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>X)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb55-3" title="3">b &lt;-<span class="st"> </span><span class="kw">mean</span>(Y)<span class="op">-</span>a<span class="op">*</span><span class="kw">mean</span>(X)</a>
-<a class="sourceLine" id="cb55-4" title="4"><span class="kw">c</span>(a, b) <span class="co"># the same as f$coefficients</span></a></code></pre></div>
-<pre><code>## [1]   0.2661459 226.4711446</code></pre>
-<hr />
 <p>(**) In the next chapter, we will introduce the notion of Pearson’s
 linear coefficient, <span class="math inline">\(r\)</span> (see <code>cor()</code> in R). It might be shown that
 <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> can also be rewritten as:</p>
@@ -699,7 +715,6 @@ linear coefficient, <span class="math inline">\(r\)</span> (see <code>cor()</cod
 <pre><code>##          [,1]
 ## [1,] 226.4711</code></pre>
 <!-- TODO show optim() -->
-</div>
 </div>
 </div>
             </section>

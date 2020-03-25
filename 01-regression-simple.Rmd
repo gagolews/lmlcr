@@ -3,6 +3,8 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
+<!-- TODO change aX+b to a+bX -->
+
 <!-- TODO
 
 
@@ -12,13 +14,13 @@
 to *make decisions that maximise their chance of successfully achieving
 their goals*.
 
-. . .
+
 
 We build AI systems to **solve various problems** under
 the assumption of **availability of data**.
 
 
-. . .
+
 
 Crucial features of AI systems include the ability to:
 
@@ -126,7 +128,7 @@ In other words, it is a specific recipe for a **function**.
 Developing algorithms is a tedious task.
 
 
-. . .
+
 
 
 In **machine learning**, we build and study computer algorithms
@@ -186,7 +188,7 @@ We denote this fact as $\mathfrak{X}_i\in \mathbb{R}^p$
 *a point in a $p$-dimensional real space*
 or *an element of a real $p$-space* etc.).
 
-. . .
+
 
 Of course, this setting is *abstract* in the sense that
 there might be different realities *hidden* behind these symbols.
@@ -210,7 +212,7 @@ come up with numeric attributes that best describe them in a task at hand).
 
 > How would you represent a student in an university?
 
-. . .
+
 
 This also includes image/video data, e.g., a 1920×1080 pixel image
 can be "unwound" to a "flat" vector of length 2,073,600.
@@ -594,8 +596,7 @@ The model will not be ideal, but it might be usable:
 - We will be able to **describe** (understand) this reality using a single mathematical formula
 so as to infer that there is an association between $X$ and $Y$
 
-    > Think of "data compression" and laws of physics, e.g., $E=mc^2$
-    or ${\displaystyle i\hbar {\frac {d}{dt}}\vert \Psi (t)\rangle ={\hat {H}}\vert \Psi (t)\rangle }$
+    > Think of "data compression" and laws of physics, e.g., $E=mc^2$.
 
 
 
@@ -678,7 +679,8 @@ Usually, we will be interested in a model
 that minimises appropriately aggregated **residuals**
 $f(x_i)-y_i$, i.e.,
 **predicted outputs minus observed outputs**,
-often denoted with $\hat{y}_i-y_i$.
+often denoted with $\hat{y}_i-y_i$,
+for $i=1,\dots,n$.
 
 ```{r, echo=FALSE, message=FALSE}
 par(mar=c(4,4,1,1))
@@ -759,7 +761,7 @@ Fitting a model to data can be written as an optimisation problem:
 i.e., find $f$ minimising the SSR **(seek "best" $f$)**\
 amongst the set of admissible models $\mathcal{F}$.
 
-. . .
+
 
 Example $\mathcal{F}$s:
 
@@ -964,7 +966,33 @@ we can compute the associated preferred Balance that should yield it
 (provided that the model is valid).
 
 
+### Analytic Solution
 
+
+It may be shown (which we actually do below)
+that the solution is:
+
+\[
+\left\{
+\begin{array}{rl}
+a  = & \dfrac{
+n \displaystyle\sum_{i=1}^n x_i y_i - \displaystyle\sum_{i=1}^n  y_i \displaystyle\sum_{i=1}^n x_i
+}{
+n \displaystyle\sum_{i=1}^n x_i x_i -   \displaystyle\sum_{i=1}^n x_i\displaystyle\sum_{i=1}^n x_i
+}\\
+b = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+\end{array}
+\right.
+\]
+
+Which can be implemented in R as follows:
+
+```{r}
+n <- length(X)
+a <- (n*sum(X*Y)-sum(X)*sum(Y))/(n*sum(X*X)-sum(X)^2)
+b <- mean(Y)-a*mean(X)
+c(a, b) # the same as f$coefficients
+```
 
 ### Derivation of the Solution (\*\*)
 
@@ -1004,7 +1032,7 @@ We need to compute the partial derivatives $\partial E/\partial a$ (derivative o
 w.r.t. variable $a$ -- all other terms treated as constants)
 and $\partial E/\partial b$ (w.r.t. $b$).
 
-. . .
+
 
 Useful rules -- derivatives w.r.t. $a$ (denote $f'(a)=(f(a))'$):
 
@@ -1082,16 +1110,6 @@ Pearson's r introduced in the next chapter though
 
 
 
----
-
-Sanity check:
-
-```{r}
-n <- length(X)
-a <- (n*sum(X*Y)-sum(X)*sum(Y))/(n*sum(X*X)-sum(X)^2)
-b <- mean(Y)-a*mean(X)
-c(a, b) # the same as f$coefficients
-```
 
 
 ---

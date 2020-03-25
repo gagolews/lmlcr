@@ -148,7 +148,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#introduction-1"><i class="fa fa-check"></i><b>1.4.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.4.2" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#solution-in-r"><i class="fa fa-check"></i><b>1.4.2</b> Solution in R</a></li>
-<li class="chapter" data-level="1.4.3" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.3</b> Derivation of the Solution (**)</a></li>
+<li class="chapter" data-level="1.4.3" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#analytic-solution"><i class="fa fa-check"></i><b>1.4.3</b> Analytic Solution</a></li>
+<li class="chapter" data-level="1.4.4" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.4</b> Derivation of the Solution (**)</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="outro.html"><a href="outro.html"><i class="fa fa-check"></i><b>1.5</b> Outro</a><ul>
 <li class="chapter" data-level="1.5.1" data-path="outro.html"><a href="outro.html#remarks"><i class="fa fa-check"></i><b>1.5.1</b> Remarks</a></li>
@@ -363,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.3" data-path="outro-8.html"><a href="outro-8.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="section-15.html"><a href="section-15.html"><i class="fa fa-check"></i>}</a></li>
+<li class="chapter" data-level="" data-path="section-10.html"><a href="section-10.html"><i class="fa fa-check"></i>}</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
 <li class="chapter" data-level="A.1" data-path="installing-r.html"><a href="installing-r.html"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
@@ -457,7 +458,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 14:30 (c078aed)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 23:34 (fa78fd6)</a></li>
 
 </ul>
 
@@ -517,12 +518,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb71-2" title="2">f2<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>## (Intercept)          X2 
 ##  253.851416    3.025286</code></pre>
-<p>Which of the three models is the best?</p>
-<hr />
-<p>“Best” — with respect to what kind of measure?</p>
+<p>Which of the three models is the best?
+Of course, by using the word “best”,
+we need to answer the question “best?… but with respect to what kind of measure?”</p>
 <p>So far we were fitting w.r.t. SSR,
-as the multiple regression model generalise the two simple ones,
-the former must yield a not-worse SSR.</p>
+as the multiple regression model generalises the two simple ones,
+the former must yield a not-worse SSR.
+This is because in the case of <span class="math inline">\(Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2\)</span>,
+setting <span class="math inline">\(\beta_1\)</span> to 0 (just one of uncountably many possible <span class="math inline">\(\beta_1\)</span>s,
+if it happens to be the <em>best</em> one, good for us)
+gives <span class="math inline">\(Y=a X_2 + b\)</span>
+whereas by setting <span class="math inline">\(\beta_2\)</span> to 0 we obtain <span class="math inline">\(Y=a X_1 + b\)</span>.</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">sum</span>(f12<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 358260.6</code></pre>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="kw">sum</span>(f1<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
@@ -532,12 +538,16 @@ the former must yield a not-worse SSR.</p>
 <p>We get that <span class="math inline">\(f_{12} \succeq f_{2} \succeq f_{1}\)</span> but these error values
 are meaningless.</p>
 <blockquote>
-<p>Interpretability in ML has always been an important issue, think the EU GDPR, amongst others.</p>
+<p>Interpretability in ML has always been an important issue, think the EU
+General Data Protection Regulation (GDPR), amongst others.</p>
 </blockquote>
 <hr />
-<p>The quality of fit can be assessed by performing some descriptive
-statistical analysis of the residuals, <span class="math inline">\(\hat{y}_i-y_i\)</span>.</p>
-<p>Interestingly, the mean of residuals (this can be shown analytically)
+<p>The quality of fit can be assessed by performing some <em>descriptive
+statistical analysis of the residuals</em>, <span class="math inline">\(\hat{y}_i-y_i\)</span>,
+for <span class="math inline">\(i=1,\dots,n\)</span>.</p>
+<p>I know how to summarise data on the residuals!
+Of course I should compute their arithmetic mean and I’m done with that shtask!
+Interestingly, the mean of residuals (this can be shown analytically)
 in the least squared fit is always equal to <span class="math inline">\(0\)</span>:
 <span class="math display">\[
  \frac{1}{n} \sum_{i=1}^n (\hat{y}_i-y_i)=0.
@@ -552,9 +562,10 @@ assume <span class="math inline">\(p=1\)</span> just as in the previous chapter 
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">all.equal</span>(<span class="kw">mean</span>(f12<span class="op">$</span>residuals), <span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <hr />
-<p>Sum of squared residuals (SSR) is not interpretable, but the mean squared residuals
-(MSR) – also called mean squared error (MSE) regression loss – is a little better.</p>
-<p>Recall that mean is defined as the sum divided by number of samples.</p>
+<p>We noted that sum of squared residuals (SSR) is not interpretable,
+but the mean squared residuals
+(MSR) – also called mean squared error (MSE) regression loss – is a little better.
+Recall that mean is defined as the sum divided by number of samples.</p>
 <p><span class="math display">\[
  \mathrm{MSE}(f) = \frac{1}{n} \sum_{i=1}^n (f(\mathbf{x}_{i,\cdot})-y_i)^2.
 \]</span></p>
@@ -564,27 +575,32 @@ assume <span class="math inline">\(p=1\)</span> just as in the previous chapter 
 <pre><code>## [1] 6877.768</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">mean</span>(f2<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 5882.171</code></pre>
-<hr />
-<p>However, if the original <span class="math inline">\(Y\)</span>s are, say, in metres <span class="math inline">\([\mathrm{m}]\)</span>,
+<p>This gives an information of how much do we err <em>per sample</em>,
+so at least this measure does not depend on <span class="math inline">\(n\)</span> anymore.
+However, if the original <span class="math inline">\(Y\)</span>s are, say, in metres <span class="math inline">\([\mathrm{m}]\)</span>,
 MSE is expressed in metres squared <span class="math inline">\([\mathrm{m}^2]\)</span>.</p>
-<p>Root mean squared error (RMSE):
+<p>To account for that, we may consider the root mean squared error (RMSE):
 <span class="math display">\[
  \mathrm{RMSE}(f) = \sqrt{\frac{1}{n} \sum_{i=1}^n (f(\mathbf{x}_{i,\cdot})-y_i)^2}.
-\]</span></p>
+\]</span>
+This is just like with the sample variance vs. standard deviation –
+recall the latter is defined as the square root of the former.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">sqrt</span>(<span class="kw">mean</span>(f12<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 33.99528</code></pre>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">sqrt</span>(<span class="kw">mean</span>(f1<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 82.93231</code></pre>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">sqrt</span>(<span class="kw">mean</span>(f2<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 76.69531</code></pre>
-<p>This is just like with the sample variance compare vs. standard deviation –
-the latter is defined as the square root of the former.</p>
-<p>Interpretation: average deviance from the true rating
+<p>The interpretation of the RMSE is rather quirky;
+it is some-sort-of-averaged <em>deviance</em> from the true rating
 (which is on the scale 0–1000, hence we see that the first model is not
-that bad).</p>
-<hr />
-<p>Still there’s a problem with interpreting these values.</p>
-<p>Mean absolute error (MAE) might be a better idea then:
+that bad). Recall that the square function is sensitive to large observations,
+hence, it penalises notable deviations more heavily.</p>
+<p>As still we have a problem with finding something easily interpretable
+(your non-technical boss or client may ask you: but what do these numbers mean??),
+we suggest here that the mean absolute error (MAE;
+also called mean absolute deviations, MAD)
+might be a better idea than the above:
 <span class="math display">\[
  \mathrm{MAE}(f) = \frac{1}{n} \sum_{i=1}^n |f(\mathbf{x}_{i,\cdot})-y_i|.
 \]</span></p>
@@ -594,9 +610,26 @@ that bad).</p>
 <pre><code>## [1] 61.48892</code></pre>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(f2<span class="op">$</span>residuals))</a></code></pre></div>
 <pre><code>## [1] 64.1506</code></pre>
-<p>“On average, the predicted rating differs from the observed one by”</p>
-<hr />
-<p>Descriptive statistics for residuals:</p>
+<p>With the above we may say “On average, the predicted rating differs from the
+observed one by”. That is good enough.</p>
+<blockquote>
+<p>(*) You may ask why don’t we fit models so as to minimise the MAE
+and we minimise the RMSE instead (note that minimising RMSE is the same as
+minimising the SSR, one is a strictly monotone transformation of the other
+and do not affect the solution). Well, it is possible.
+It turns out that, however, minimising MAE is more computationally expensive
+and the solution may be numerically unstable.
+So it’s rarely an analyst’s first choice (assuming they are well-educated
+enough to know about the MAD regression task). However, it may be worth
+trying it out sometimes.</p>
+<p>Sometimes we might prefer MAD regression to the classic one
+if our data is heavily contaminated by outliers. But
+in such cases it is worth checking if proper data cleansing does
+the trick.</p>
+</blockquote>
+<p>If we are not happy with single numerical aggregated of the residuals
+or their absolute values, we can (and should) always compute a whole
+bunch of descriptive statistics:</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="kw">summary</span>(f12<span class="op">$</span>residuals)</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## -108.100   -1.940    7.812    0.000   20.249   50.623</code></pre>
@@ -606,8 +639,7 @@ that bad).</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1"><span class="kw">summary</span>(f2<span class="op">$</span>residuals)</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## -195.156  -57.341   -1.284    0.000   64.013  175.344</code></pre>
-<hr />
-<p>The outputs include:</p>
+<p>The outputs generated by <code>summary()</code> include:</p>
 <ul>
 <li><code>Min.</code> – sample minimum</li>
 <li><code>1st Qu.</code> – 1st quartile == 25th percentile == quantile of order 0.25</li>
@@ -615,18 +647,18 @@ that bad).</p>
 <li><code>3rd Qu.</code> – 3rd quartile = 75th percentile == quantile of order 0.75</li>
 <li><code>Max.</code> – sample maximum</li>
 </ul>
-<p>See <code>?quantile</code> in R.</p>
 <p>For example, 1st quartile is the observation <span class="math inline">\(q\)</span> such that
-25% values are <span class="math inline">\(\le q\)</span> and 75% values are <span class="math inline">\(\ge q\)</span>.</p>
-<hr />
-<p><strong>Box and whisker plot</strong>:</p>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" style="width:50.0%" /></p>
+25% values are <span class="math inline">\(\le q\)</span> and 75% values are <span class="math inline">\(\ge q\)</span>,
+see <code>?quantile</code> in R.</p>
+<p>Graphically, it is nice to summarise the empirical distribution of the residuals
+on a <strong>box and whisker plot</strong>:</p>
 <ul>
 <li>IQR == Interquartile range == Q3<span class="math inline">\(-\)</span>Q1 (box width)</li>
 <li>The box contains 50% of the “most typical” observations</li>
 <li>Box and whiskers altogether have width <span class="math inline">\(\le\)</span> 4 IQR</li>
 <li>Outliers == observations potentially worth inspecting (is it a bug or a feature?)</li>
 </ul>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" style="width:50.0%" /></p>
 <hr />
 <p>A picture is worth a thousand words:</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1"><span class="kw">boxplot</span>(<span class="dt">las=</span><span class="dv">1</span>, <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>,</a>
@@ -663,7 +695,14 @@ and Income (<span class="math inline">\(X_2\)</span>, bottom subfigure).</p>
 <a class="sourceLine" id="cb115-4" title="4"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="02-regression-multiple-figures/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" style="width:50.0%" /></p>
 <hr />
-<p>The (unadjusted) <strong><span class="math inline">\(R^2\)</span> score</strong> (the coefficient of determination):</p>
+<p>If we didn’t know the range of the dependent variable
+(in our case we do know that the credit rating is on the scale 0–1000),
+the RMSE or MAE would be hard to interpret.</p>
+<p>It turns out that there is a popular <em>normalised</em> (unit-less) measure
+that is somehow easy to interpret with no domain-specific knowledge
+of the modelled problem.
+Namely, the (unadjusted) <strong><span class="math inline">\(R^2\)</span> score</strong> (the coefficient of determination)
+is given by:</p>
 <p><span class="math display">\[
 R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left(y_i-f(\mathbf{x}_{i,\cdot})\right)^2}{\sum_{i=1}^{n} \left(y_i-\bar{y}\right)^2},
 \]</span>
@@ -674,12 +713,13 @@ where <span class="math inline">\(\bar{y}\)</span> is the arithmetic mean <span 
 <pre><code>## [1] 0.6375085</code></pre>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1">(r2  &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(f2<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="kw">sum</span>((Y<span class="op">-</span><span class="kw">mean</span>(Y))<span class="op">^</span><span class="dv">2</span>)  )</a></code></pre></div>
 <pre><code>## [1] 0.6899812</code></pre>
-<p><span class="math inline">\(R^2(f)\simeq 1\)</span> indicates a perfect fit – it is the
-proportion of variance of the dependent variable explained by independent variables in the model.</p>
-<hr />
+<p>The coefficient of determination gives the proportion of variance of the
+dependent variable explained by independent variables in the model;
+<span class="math inline">\(R^2(f)\simeq 1\)</span> indicates a perfect fit</p>
 <p>Unfortunately, <span class="math inline">\(R^2\)</span> tends to automatically increase as the number of independent variables
-increase.</p>
-<p>To correct for this phenomenon, we can consider the <strong>adjusted <span class="math inline">\(R^2\)</span></strong>:</p>
+increase (recall that the more variables in the model,
+the better the SSR must be).
+To correct for this phenomenon, we sometimes consider the <strong>adjusted <span class="math inline">\(R^2\)</span></strong>:</p>
 <p><span class="math display">\[
 \bar{R}^2(f) = 1 - (1-{R}^2(f))\frac{n-1}{n-p-1}
 \]</span></p>
@@ -690,7 +730,7 @@ increase.</p>
 <pre><code>## [1] 0.6363316</code></pre>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>r2 )<span class="op">*</span>(n<span class="dv">-1</span>)<span class="op">/</span>(n<span class="dv">-2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.6889747</code></pre>
-<p>The adjusted <span class="math inline">\(R^2\)</span> penalises for more complex models.</p>
+<p>In other words, the adjusted <span class="math inline">\(R^2\)</span> penalises for more complex models.</p>
 <hr />
 <blockquote>
 <p>(*) Side note – results of some statistical tests (e.g., significance of coefficients)
@@ -698,9 +738,6 @@ are reported by calling <code>summary(f12)</code> etc. — refer to a more advan
 These, however, require the verification of some assumptions regarding the input data
 and the residuals.</p>
 </blockquote>
-<hr />
-<div id="section-2" class="section level4 allowframebreaks unnumbered">
-<h4></h4>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1"><span class="kw">summary</span>(f12)</a></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -722,10 +759,12 @@ and the residuals.</p>
 ## Multiple R-squared:  0.9391, Adjusted R-squared:  0.9387 
 ## F-statistic:  2367 on 2 and 307 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-</div>
 <div id="variable-selection" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Variable Selection</h3>
-<hr />
+<p>Okay, up to now we were considering the problem of modelling
+the <code>Rating</code> variable as a function of <code>Balance</code> and/or <code>Income</code>.
+However, it the <code>Credit</code> data set there are other variables
+possibly worth inspecting.</p>
 <p>Consider all quantitative (numeric-continuous) variables in the <code>Credit</code> data set.</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
 <a class="sourceLine" id="cb130-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Limit&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
@@ -738,7 +777,16 @@ and the residuals.</p>
 ## 4    681  9504 148.924  36        11     964
 ## 5    357  4897  55.882  68        16     331
 ## 6    569  8047  80.180  77        10    1151</code></pre>
-<p>Let’s draw a <em>pair plot</em> – a matrix of scatter plots for every pair of variables:</p>
+<p>Obviously there are many possible combinations of the variables
+upon which regression models can be constructed
+(precisely, for <span class="math inline">\(p\)</span> variables there are <span class="math inline">\(2^p\)</span> such models).
+How do we choose the <em>best</em> set of inputs?</p>
+<blockquote>
+<p>We should already be suspicious at this point:
+wait… <em>best</em> requires some sort of criterion, right?</p>
+</blockquote>
+<p>First, however, let’s draw a <em>pair plot</em> – a matrix of scatter plots for every pair of variables
+– so as to get an impression of how individual variables interact with each other.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="kw">pairs</span>(C)</a></code></pre></div>
 <hr />
 <p><img src="02-regression-multiple-figures/unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" style="width:50.0%" /></p>
@@ -791,21 +839,53 @@ and both seem to describe the same thing.</p>
 <p>Again, the definition of the “best” object needs a <em>fitness</em> function.</p>
 <p>For fitting a single model to data, we use the SSR.</p>
 <p>We need a metric that takes the number of dependent variables into account.</p>
-<p>It turns out that the adjusted <span class="math inline">\(R^2\)</span>, despite its interpretability,
-is not suitable for this task.</p>
+<blockquote>
+<p>(*) Unfortunately, the adjusted <span class="math inline">\(R^2\)</span>, despite its interpretability,
+is not really suitable for this task. It does not penalise complex models
+heavily enough to be really useful.</p>
+</blockquote>
 <hr />
-<p>Instead, here we’ll be using <strong>the Akaike Information Criterion</strong> (AIC).</p>
-<p>For a model <span class="math inline">\(f\)</span> with <span class="math inline">\(p\)</span> independent variables:
+<p>Here we’ll be using <strong>the Akaike Information Criterion</strong> (AIC).</p>
+<p>For a model <span class="math inline">\(f\)</span> with <span class="math inline">\(p&#39;\)</span> independent variables:
 <span class="math display">\[
-\mathrm{AIC}(f) = 2(p+1)+n\log(\mathrm{SSR}(f)/n)
+\mathrm{AIC}(f) = 2(p&#39;+1)+n\log(\mathrm{SSR}(f))-n\log n
 \]</span></p>
 <p>Our task is to find the combination of independent variables
 that minimises the AIC.</p>
-<p>For <span class="math inline">\(p\)</span> variables, the number of possible combinations is <span class="math inline">\(2^p\)</span>
-(grows exponentially with <span class="math inline">\(p\)</span>).</p>
-<p>For large <span class="math inline">\(p\)</span>, an extensive search is impractical.</p>
-<hr />
-<p>Therefore, to find the variable combination minimising the AIC,
+<blockquote>
+<p>(*) Note that this is a bi-level optimisation problem – for every
+considered combination of variables (which we look for),
+we must solve another problem of finding the best model
+involving these variables – the one that minimises the SSR.
+<span class="math display">\[
+\min_{s_1,s_2,\dots,s_p\in\{0, 1\}}
+\left(
+\begin{array}{l}
+2\left(\displaystyle\sum_{j=1}^p s_j +1\right)+\\
+n\log\left(
+\displaystyle\min_{\beta_0,\beta_1,\dots,\beta_p\in\mathbb{R}}
+\sum_{i=1}^n \left(
+\beta_0 + s_1\beta_1 x_{i,1} + \dots + s_p\beta_p x_{i,p}
+-y_i
+\right)^2
+\right)
+\end{array}
+\right)
+\]</span>
+We dropped the <span class="math inline">\(n\log n\)</span> term, because it is always constant
+and hence doesn’t affect the solution.
+If <span class="math inline">\(s_j=0\)</span>, then the <span class="math inline">\(s_j\beta_j x_{i,j}\)</span> term is equal to
+<span class="math inline">\(0\)</span>, and hence is not considered in the model.
+This plays the role of including <span class="math inline">\(s_j=1\)</span> or omitting <span class="math inline">\(s_j=0\)</span> the <span class="math inline">\(j\)</span>-th
+variable in the model building exercise.</p>
+</blockquote>
+<p>For <span class="math inline">\(p\)</span> variables, the number of their possible
+combinations is equal to <span class="math inline">\(2^p\)</span>
+(grows exponentially with <span class="math inline">\(p\)</span>).
+For large <span class="math inline">\(p\)</span> (think big data), an extensive search is impractical
+(in our case we could get away with this though – left as an exercise
+to a slightly more advanced reader).
+Therefore, to find the variable combination minimising the AIC,
 we often rely on one of the two following greedy heuristics:</p>
 <ul>
 <li><p>forward selection:</p>
@@ -824,12 +904,14 @@ whose removal from the current model would decrease the AIC the most and elimina
 </ol></li>
 </ul>
 <blockquote>
-<p>(*) There are of course many other methods, e.g., lasso regression
-whose side effect is variable selection.</p>
+<p>(**) The above bi-level optimisation problem
+can be solved by implementing a genetic algorithm – see further chapter for more details.</p>
 </blockquote>
-<hr />
-<div id="section-3" class="section level4 allowframebreaks unnumbered">
-<h4></h4>
+<blockquote>
+<p>(*) There are of course many other methods which also perform
+some form of variable selection, e.g., lasso regression.
+But these minimise a different objective.</p>
+</blockquote>
 <p>Forward selection example:</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
 <a class="sourceLine" id="cb135-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
@@ -882,9 +964,7 @@ whose side effect is variable selection.</p>
 ##    173.8300       2.1668       0.1839       0.2234  
 ##   Education  
 ##     -0.9601</code></pre>
-</div>
-<div id="section-4" class="section level4 allowframebreaks unnumbered">
-<h4></h4>
+<p>The full model has been selected.</p>
 <p>Backward elimination example:</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C), <span class="co"># full model</span></a>
 <a class="sourceLine" id="cb138-2" title="2">     <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C)), <span class="co"># empty model</span></a>
@@ -907,9 +987,7 @@ whose side effect is variable selection.</p>
 ##    173.8300       2.1668       0.2234      -0.9601  
 ##     Balance  
 ##      0.1839</code></pre>
-</div>
-<div id="section-5" class="section level4 allowframebreaks unnumbered">
-<h4></h4>
+<p>The full model is considered the best.</p>
 <p>Forward selection example – full dataset:</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1">C &lt;-<span class="st"> </span>Credit[,  <span class="co"># do not restrict to Credit$Balance&gt;0</span></a>
 <a class="sourceLine" id="cb141-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
@@ -950,9 +1028,7 @@ whose side effect is variable selection.</p>
 ## Coefficients:
 ## (Intercept)      Balance       Income  
 ##    145.3506       0.2129       2.1863</code></pre>
-</div>
-<div id="section-6" class="section level4 allowframebreaks unnumbered">
-<h4></h4>
+<p>This procedure suggests including only the <code>Balance</code> and <code>Income</code> variables.</p>
 <p>Backward elimination example – full dataset:</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C), <span class="co"># full model</span></a>
 <a class="sourceLine" id="cb144-2" title="2">     <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C)), <span class="co"># empty model</span></a>
@@ -990,7 +1066,8 @@ whose side effect is variable selection.</p>
 ## Coefficients:
 ## (Intercept)       Income      Balance  
 ##    145.3506       2.1863       0.2129</code></pre>
-</div>
+<p>This procedure gives the same results as forward selection
+(however, for other data sets that is not necessarily the case).</p>
 </div>
 <div id="variable-transformation" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Variable Transformation</h3>
@@ -1003,7 +1080,6 @@ Y = \beta_0 + \beta_1 X_1 + \dots + \beta_p X_p.
 <span class="math display">\[
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2 + \beta_3 X_1^3 + \beta_4 X_2.
 \]</span></p>
-<div class="incremental">
 <p>Solution: pre-process inputs by setting
 <span class="math inline">\(X_1&#39; := X_1\)</span>, <span class="math inline">\(X_2&#39; := X_1^2\)</span>, <span class="math inline">\(X_3&#39; := X_1^3\)</span>, <span class="math inline">\(X_4&#39; := X_2\)</span>
 and fit a linear model:</p>
@@ -1019,27 +1095,38 @@ a few other models to a linear one, e.g.,</p>
 <p><span class="math display">\[
 Y = b e^{aX} \qquad \to \qquad \log Y = \log b + aX \qquad\to\qquad Y&#39;=aX+b&#39;
 \]</span></p>
-<p>This is an example of a model’s <strong>linearisation</strong>.</p>
+<p>This is an example of a model’s <strong>linearisation</strong>.
+However, not every model can be linearised.
+In particular, one that involves functions that are not invertible.</p>
 <hr />
-<p>For example, here’s a series of simple polynomial regression models
-of the form <code>Rating~poly(Balance)</code>:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">f1_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1)</a>
-<a class="sourceLine" id="cb147-2" title="2">f1_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">3</span>)) <span class="co"># also: Y~poly(X1, 3)</span></a>
+<p>For example, here’s a series of simple (<span class="math inline">\(p=1\)</span>) degree-<span class="math inline">\(d\)</span>
+polynomial regression models
+of the form:
+<span class="math display">\[
+Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + \dots + \beta_d X^d.
+\]</span></p>
+<p>Such models can be fit with the <code>lm()</code> function based on the formula
+of the form <code>Y~poly(X, d)</code> or <code>Y~X+I(X^2)+I(X^3)+...</code></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">f1_<span class="dv">1</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1)</a>
+<a class="sourceLine" id="cb147-2" title="2">f1_<span class="dv">3</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">3</span>)) <span class="co"># also: Y~poly(X1, 3)</span></a>
 <a class="sourceLine" id="cb147-3" title="3">f1_<span class="dv">14</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X1, <span class="dv">14</span>))</a></code></pre></div>
-<hr />
+<p>Above we have fit polynomials of degrees 1, 3 and 14.
+Note that a polynomial of degree 1 is just a line.</p>
+<p>Let us depict the three models:</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">plot</span>(X1, Y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
 <a class="sourceLine" id="cb148-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(X1), <span class="kw">max</span>(X1), <span class="dt">length.out=</span><span class="dv">101</span>)</a>
 <a class="sourceLine" id="cb148-3" title="3"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">1</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb148-4" title="4"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">3</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb148-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">14</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="02-regression-multiple-figures/unnamed-chunk-32-1.png" alt="plot of chunk unnamed-chunk-32" style="width:50.0%" /></p>
-</div>
+<p>There’s clearly a problem with the degree-14 polynomial.</p>
 </div>
 <div id="predictive-vs.-descriptive-power" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> Predictive vs. Descriptive Power</h3>
 <hr />
-<p>The above high-degree polynomial model (<code>f1_14</code>) is a clear example of an <strong>overfit</strong>.</p>
-<p>Clearly (based on our expert knowledge), the <code>Rating</code> shouldn’t decrease as Balance increases.</p>
+<p>The above high-degree polynomial model (<code>f1_14</code>) is a typical instance of a phenomenon called
+an <strong>overfit</strong>.</p>
+<p>Clearly (based on our expert knowledge), the <code>Rating</code> shouldn’t decrease as <code>Balance</code> increases.</p>
 <p>In other words, <code>f1_14</code> gives a better fit to data actually observed,
 but fails to produce good results for the points that are yet to come.</p>
 <p>We say that it <strong>generalises</strong> poorly to unseen data.</p>
