@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-30 19:38 (2495a1a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
 
 </ul>
 
@@ -746,12 +746,12 @@ The best you can do is to "guess".-->
 <a class="sourceLine" id="cb219-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
 <a class="sourceLine" id="cb219-3" title="3">n1 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)</a>
 <a class="sourceLine" id="cb219-4" title="4">n2 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.8</span>)</a>
-<a class="sourceLine" id="cb219-5" title="5">X2_train &lt;-<span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span>n1,]</a>
-<a class="sourceLine" id="cb219-6" title="6">Y2_train &lt;-<span class="st"> </span>Y[<span class="dv">1</span><span class="op">:</span>n1]</a>
-<a class="sourceLine" id="cb219-7" title="7">X2_valid &lt;-<span class="st"> </span>X[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2,]</a>
-<a class="sourceLine" id="cb219-8" title="8">Y2_valid &lt;-<span class="st"> </span>Y[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2]</a>
-<a class="sourceLine" id="cb219-9" title="9">X2_test  &lt;-<span class="st"> </span>X[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n,]</a>
-<a class="sourceLine" id="cb219-10" title="10">Y2_test  &lt;-<span class="st"> </span>Y[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n]</a>
+<a class="sourceLine" id="cb219-5" title="5">X2_train &lt;-<span class="st"> </span>X[random_indices[<span class="dv">1</span>     <span class="op">:</span>n1], ]</a>
+<a class="sourceLine" id="cb219-6" title="6">Y2_train &lt;-<span class="st"> </span>Y[random_indices[<span class="dv">1</span>     <span class="op">:</span>n1]  ]</a>
+<a class="sourceLine" id="cb219-7" title="7">X2_valid &lt;-<span class="st"> </span>X[random_indices[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2], ]</a>
+<a class="sourceLine" id="cb219-8" title="8">Y2_valid &lt;-<span class="st"> </span>Y[random_indices[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2]  ]</a>
+<a class="sourceLine" id="cb219-9" title="9">X2_test  &lt;-<span class="st"> </span>X[random_indices[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n ], ]</a>
+<a class="sourceLine" id="cb219-10" title="10">Y2_test  &lt;-<span class="st"> </span>Y[random_indices[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n ]  ]</a>
 <a class="sourceLine" id="cb219-11" title="11"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X2_train)<span class="op">+</span><span class="kw">nrow</span>(X2_valid)<span class="op">+</span><span class="kw">nrow</span>(X2_test)</a>
 <a class="sourceLine" id="cb219-12" title="12">    <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(X))</a></code></pre></div>
 <blockquote>

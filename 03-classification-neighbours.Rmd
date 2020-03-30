@@ -835,12 +835,12 @@ set.seed(123) # reproducibility matters
 random_indices <- sample(n)
 n1 <- floor(n*0.6)
 n2 <- floor(n*0.8)
-X2_train <- X[1:n1,]
-Y2_train <- Y[1:n1]
-X2_valid <- X[(n1+1):n2,]
-Y2_valid <- Y[(n1+1):n2]
-X2_test  <- X[(n2+1):n,]
-Y2_test  <- Y[(n2+1):n]
+X2_train <- X[random_indices[1     :n1], ]
+Y2_train <- Y[random_indices[1     :n1]  ]
+X2_valid <- X[random_indices[(n1+1):n2], ]
+Y2_valid <- Y[random_indices[(n1+1):n2]  ]
+X2_test  <- X[random_indices[(n2+1):n ], ]
+Y2_test  <- Y[random_indices[(n2+1):n ]  ]
 stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
     == nrow(X))
 ```
