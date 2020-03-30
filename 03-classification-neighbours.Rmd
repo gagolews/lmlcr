@@ -593,8 +593,6 @@ f
 
 
 
-
-
 ### Main Routine (\*)
 
 ---
@@ -618,6 +616,37 @@ our_knn <- function(X_train, X_test, Y_train, k=1) {
 ```
 
 ---
+
+Load an example dataset on which we will test our algorithm:
+
+```{r}
+wines <- read.csv("datasets/winequality-all.csv", comment="#")
+X <- as.matrix(wines[,1:11])
+Y <- factor(as.numeric(wines$response >= 7))
+```
+
+
+Note that `Y` is now a factor object.
+
+
+Train-test split:
+
+```{r}
+set.seed(123)
+random_indices <- sample(n)
+train_indices <- random_indices[1:floor(n*0.7)]
+X_train <- X[train_indices,]
+Y_train <- Y[train_indices]
+X_test  <- X[-train_indices,]
+Y_test  <- Y[-train_indices]
+```
+
+
+---
+
+
+
+
 
 First, we should specify the type and form of the arguments
 we're expecting:
