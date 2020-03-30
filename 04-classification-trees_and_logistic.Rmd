@@ -95,7 +95,7 @@ For illustration, we'll be considering the Wine Quality dataset
 (white wines only):
 
 
-```{r}
+```{r load1,cache=TRUE}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
@@ -106,7 +106,7 @@ wines <- wines[wines$color == "white",]
 The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
 consists of the first 10 numeric variables:
 
-```{r}
+```{r load2,dependson='load1',cache=TRUE}
 X <- as.matrix(wines[,1:10])
 dim(X)
 head(X, 2) # first two rows
@@ -121,10 +121,10 @@ The 11th variable measures the amount of alcohol (in %).
 
 We will convert this dependent variable to a binary one:
 
-- 0 == (`alcohol  < 12`) == lower-alcohol wines1
+- 0 == (`alcohol  < 12`) == lower-alcohol wines
 - 1 == (`alcohol >= 12`) == higher-alcohol wines
 
-```{r}
+```{r load3,dependson='load2',cache=TRUE}
 # recall that TRUE == 1
 Y <- factor(as.character(as.numeric(wines$alcohol >= 12)))
 table(Y)
@@ -136,7 +136,7 @@ table(Y)
 
 60/40% train-test split:
 
-```{R}
+```{r load4,dependson='load3',cache=TRUE}
 set.seed(123) # reproducibility matters
 random_indices <- sample(n)
 head(random_indices) # preview
@@ -157,7 +157,7 @@ Y_test  <- Y[-train_indices]
 Let's also compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
 and `X_test`, respectively.
 
-```{r}
+```{r load5,dependson='load4',cache=TRUE}
 means <- apply(X, 2, mean) # column means
 sds   <- apply(X, 2, sd)   # column standard deviations
 Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
@@ -169,7 +169,7 @@ Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 ---
 
 
-```{r}
+```{r loaded,dependson='load5',cache=TRUE}
 get_metrics <- function(Y_pred, Y_test)
 {
     C <- table(Y_pred, Y_test) # confusion matrix
@@ -210,13 +210,6 @@ cbind(
 )
 ```
 
-
-
-
-## Decision Trees
-
-### Introduction
-
 ---
 
 In this chapter we discuss the following simple and educational (yet practically useful)
@@ -224,6 +217,13 @@ classification algorithms:
 
 - *decision trees*,
 - *logistic regression*.
+
+
+## Decision Trees
+
+### Introduction
+
+
 
 ---
 
@@ -249,7 +249,6 @@ This idea inspired the notion of **decision trees** [@cart].
 
 
 ```{r,echo=FALSE,out.width='100%',fig.width=10,fig.height=5}
-
 library("rpart")
 library("rpart.plot")
 set.seed(123)
@@ -316,7 +315,7 @@ control <- list(minsplit=1, minbucket=5)
 ts <- rpart(Y~., data=XYs, method="class", cp=cp, control=control)
 par(mfrow=c(1,2))
 plot_rpart(ts, XYs)
-rpart.plot(ts, tweak=1.3)
+rpart.plot(ts, tweak=1.2)
 ```
 
 
@@ -352,10 +351,10 @@ XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 
 Fit and plot a decision tree:
 
-```{r,echo=-1}
+```{r,echo=-1,out.width="100%",fig.width=8,fig.height=5}
 par(mar=c(0,0,0,0))
 t1 <- rpart(Y~., data=XY_train, method="class")
-rpart.plot(t1)
+rpart.plot(t1, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
 
 
@@ -399,13 +398,13 @@ t1$variable.importance/sum(t1$variable.importance)
 
 ---
 
-We can build a much more complex tree by playing
+We can build a less complex tree by playing
 with the `cp` parameter.
 
 ```{r,out.width='100%',fig.width=10,fig.height=5}
 # cp = complexity parameter, smaller → more complex tree
-t2 <- rpart(Y~., data=XY_train, method="class", cp=0.007)
-rpart.plot(t2, tweak=2.5, compress=FALSE)
+t2 <- rpart(Y~., data=XY_train, method="class", cp=0.1)
+rpart.plot(t2, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
 
 
@@ -416,6 +415,25 @@ Y_pred <- predict(t2, XY_test, type="class")
 get_metrics(Y_pred, Y_test)
 ```
 
+
+
+---
+
+A more complex tree:
+
+```{r,out.width='100%',fig.width=10,fig.height=5}
+# cp = complexity parameter, smaller → more complex tree
+t3 <- rpart(Y~., data=XY_train, method="class", cp=0.00001)
+rpart.plot(t3, tweak=1.1, fallen.leaves=FALSE, digits=3)
+```
+
+
+---
+
+```{r}
+Y_pred <- predict(t3, XY_test, type="class")
+get_metrics(Y_pred, Y_test)
+```
 
 
 ### A Note on Decision Tree Learning
@@ -496,26 +514,31 @@ and apply regression models in a binary classification task.
 
 
 
-```{r}
-XY_train_r <- as.data.frame(cbind(X_train,
+```{r lm1,dependson='loaded',echo=-1,cache=TRUE}
+set.seed(123)
+XY_train_r <- cbind(as.data.frame(X_train),
     Y=as.numeric(Y_train)-1 # 0.0 or 1.0
-))
-f <- lm(Y~., data=XY_train_r)
+)
+XY_test_r <- cbind(as.data.frame(X_test),
+    Y=as.numeric(Y_test)-1 # 0.0 or 1.0
+)
+f_r <- lm(Y~density+residual.sugar+pH, data=XY_train_r)
 ```
 
 ---
 
-```{r}
-Y_pred <- predict(f, as.data.frame(X_test))
-summary(Y_pred)
+
+```{r lm2,dependson='lm1',cache=TRUE}
+Y_pred_r <- predict(f_r, XY_test_r)
+summary(Y_pred_r)
 ```
 
 The predicted outputs, $\hat{Y}$, are arbitrary real numbers,
 but we can convert them to binary ones by checking if, e.g., $\hat{Y}>0.5$.
 
-```{r}
-Y_pred <- as.numeric(Y_pred>0.5)
-round(get_metrics(Y_pred, Y_test), 3)
+```{r lm3,dependson='lm2',cache=TRUE}
+Y_pred <- as.numeric(Y_pred_r>0.5)
+round(get_metrics(Y_pred, XY_test_r$Y), 3)
 ```
 
 ---
@@ -523,18 +546,26 @@ round(get_metrics(Y_pred, Y_test), 3)
 The threshold $T=0.5$  could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample).
 
-```{r,echo=FALSE,cache=TRUE,fig.height=5}
+```{r,echo=FALSE,cache=TRUE,fig.height=5, lm4,dependson='lm3',cache=TRUE}
+set.seed(123)
 par(mar=c(4,4,0.5,0.5))
-Y_pred <- predict(f, XY_test)
-Ts <- seq(0.05, 0.95, length.out=101)
+f_r <- lm(Y~density+residual.sugar+pH, data=XY_train_r)
+Y_pred_r <- predict(f_r, XY_test_r)
+Ts <- seq(0.1, 0.85, by=0.05)
 Ps <- as.data.frame(t(sapply(Ts, function(t) {
-  Y_pred <- as.numeric(Y_pred>=t)
-  get_metrics(Y_pred, Y_test)
+  Y_pred <- as.numeric(Y_pred_r>t)
+  get_metrics(factor(Y_pred, levels=c("0", "1")), factor(XY_test_r$Y, levels=c("0", "1")))
 })))
 
 matplot(Ts, Ps[,1:4], las=1, xlab="T", ylab="Metric", type="l", ylim=c(0,1))
 legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
 ```
+
+
+Despite we can, we shouldn't use linear regression for classification.
+There are better models.
+
+
 
 
 ### Logistic Model
@@ -546,9 +577,9 @@ the ***probability* that a given point belongs to class $1$**.
 
 This could also provide us with the *confidence* in our prediction.
 
-Probability is a number in $[0,1]$, but $Y\in \mathbb{R}$.
+Probability is a number in $[0,1]$, but the outputs of a linear model are arbitrary real numbers.
 
-However, we could transform the real-valued outputs by means
+However, we could transform those real-valued outputs by means
 of some function $\phi:\mathbb{R}\to[0,1]$ (preferably S-shaped == sigmoid),
 so as to get:
 
@@ -565,7 +596,7 @@ A popular choice is the **logistic sigmoid function**,
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]
 
-```{r,echo=FALSE,cache=TRUE,fig.height=5}
+```{r,echo=FALSE,cache=TRUE,fig.height=5,sigmoid}
 par(mar=c(4,4,0.5,0.5))
 xxx <- seq(-3, 3, length.out=101)
 yyy <- 1/(1+exp(-xxx))
@@ -584,6 +615,8 @@ Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
 \]
 
 We call it a **generalised linear model** (glm).
+
+(There are many other possible generalisations)
 
 
 ### Example in R
@@ -622,7 +655,7 @@ Some predicted probabilities:
 
 
 ```{r}
-head(predict(f, XY_test, type="response"))
+round(head(predict(f, XY_test, type="response"), 12), 2)
 ```
 
 We classify $Y$ as 1 if the corresponding membership probability
@@ -635,13 +668,22 @@ get_metrics(Y_pred, Y_test)
 
 ---
 
-And now a fit based on all the input variables:
+And now a fit based on some other input variables:
 
 ```{r}
-f <- glm(Y~., data=XY_train, family=binomial("logit"))
+f <- glm(Y~density+residual.sugar+total.sulfur.dioxide,
+    data=XY_train, family=binomial("logit"))
 Y_pred <- as.numeric(predict(f, XY_test, type="response")>0.5)
 get_metrics(Y_pred, Y_test)
 ```
+
+
+> Exercise: try fitting the models based on different combinations
+of features.
+
+
+
+
 
 
 ### Loss Function
