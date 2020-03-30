@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.3 Implementing a K-NN Classifier (*) | Lightweight Machine Learning Classics with R</title>
+  <title>3.4 Implementing a K-NN Classifier (*) | Lightweight Machine Learning Classics with R</title>
   <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.3 Implementing a K-NN Classifier (*) | Lightweight Machine Learning Classics with R" />
+  <meta property="og:title" content="3.4 Implementing a K-NN Classifier (*) | Lightweight Machine Learning Classics with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://lmlcr.gagolewski.com" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gagolews/lmlcr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.3 Implementing a K-NN Classifier (*) | Lightweight Machine Learning Classics with R" />
+  <meta name="twitter:title" content="3.4 Implementing a K-NN Classifier (*) | Lightweight Machine Learning Classics with R" />
   
   <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="k-nearest-neighbour-classifier.html"/>
+<link rel="prev" href="model-assessment-and-selection.html"/>
 <link rel="next" href="outro-2.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -183,53 +183,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a><ul>
 <li class="chapter" data-level="3.1" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="introduction-3.html"><a href="introduction-3.html#classification-task"><i class="fa fa-check"></i><b>3.1.1</b> Classification Task</a></li>
-<li class="chapter" data-level="3.1.2" data-path="introduction-3.html"><a href="introduction-3.html#factor-data-type"><i class="fa fa-check"></i><b>3.1.2</b> Factor Data Type</a></li>
-<li class="chapter" data-level="3.1.3" data-path="introduction-3.html"><a href="introduction-3.html#data"><i class="fa fa-check"></i><b>3.1.3</b> Data</a></li>
-<li class="chapter" data-level="3.1.4" data-path="introduction-3.html"><a href="introduction-3.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.4</b> Training and Test Sets</a></li>
-<li class="chapter" data-level="3.1.5" data-path="introduction-3.html"><a href="introduction-3.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.5</b> Discussed Methods</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-3.html"><a href="introduction-3.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-3.html"><a href="introduction-3.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.3</b> Training and Test Sets</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction-3.html"><a href="introduction-3.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.4</b> Discussed Methods</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#introduction-4"><i class="fa fa-check"></i><b>3.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#example-in-r"><i class="fa fa-check"></i><b>3.2.2</b> Example in R</a></li>
-<li class="chapter" data-level="3.2.3" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#different-metrics"><i class="fa fa-check"></i><b>3.2.3</b> Different Metrics (*)</a></li>
-<li class="chapter" data-level="3.2.4" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#standardisation-of-independent-variables"><i class="fa fa-check"></i><b>3.2.4</b> Standardisation of Independent Variables</a></li>
+<li class="chapter" data-level="3.2.3" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#feature-engineering"><i class="fa fa-check"></i><b>3.2.3</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html"><i class="fa fa-check"></i><b>3.3</b> Implementing a K-NN Classifier (*)</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#main-routine"><i class="fa fa-check"></i><b>3.3.1</b> Main Routine (*)</a></li>
-<li class="chapter" data-level="3.3.2" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#mode"><i class="fa fa-check"></i><b>3.3.2</b> Mode</a></li>
-<li class="chapter" data-level="3.3.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#nn-search-routines"><i class="fa fa-check"></i><b>3.3.3</b> NN Search Routines (*)</a></li>
+<li class="chapter" data-level="3.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#performance-metrics"><i class="fa fa-check"></i><b>3.3.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>3.3.2</b> How to Choose K for K-NN Classification?</a></li>
+<li class="chapter" data-level="3.3.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>3.3.3</b> Training, Validation and Test sets</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="outro-2.html"><a href="outro-2.html"><i class="fa fa-check"></i><b>3.4</b> Outro</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="outro-2.html"><a href="outro-2.html#remarks-2"><i class="fa fa-check"></i><b>3.4.1</b> Remarks</a></li>
-<li class="chapter" data-level="3.4.2" data-path="outro-2.html"><a href="outro-2.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.4.2</b> Side Note: K-NN Regression</a></li>
-<li class="chapter" data-level="3.4.3" data-path="outro-2.html"><a href="outro-2.html#further-reading-2"><i class="fa fa-check"></i><b>3.4.3</b> Further Reading</a></li>
+<li class="chapter" data-level="3.4" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#factor-data-type"><i class="fa fa-check"></i><b>3.4.1</b> Factor Data Type</a></li>
+<li class="chapter" data-level="3.4.2" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#main-routine"><i class="fa fa-check"></i><b>3.4.2</b> Main Routine (*)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#mode"><i class="fa fa-check"></i><b>3.4.3</b> Mode</a></li>
+<li class="chapter" data-level="3.4.4" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#nn-search-routines"><i class="fa fa-check"></i><b>3.4.4</b> NN Search Routines (*)</a></li>
+<li class="chapter" data-level="3.4.5" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#different-metrics"><i class="fa fa-check"></i><b>3.4.5</b> Different Metrics (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="outro-2.html"><a href="outro-2.html"><i class="fa fa-check"></i><b>3.5</b> Outro</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="outro-2.html"><a href="outro-2.html#remarks-2"><i class="fa fa-check"></i><b>3.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="3.5.2" data-path="outro-2.html"><a href="outro-2.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.5.2</b> Side Note: K-NN Regression</a></li>
+<li class="chapter" data-level="3.5.3" data-path="outro-2.html"><a href="outro-2.html#further-reading-2"><i class="fa fa-check"></i><b>3.5.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="introduction-5.html"><a href="introduction-5.html#classification-task-1"><i class="fa fa-check"></i><b>4.1.1</b> Classification Task</a></li>
 <li class="chapter" data-level="4.1.2" data-path="introduction-5.html"><a href="introduction-5.html#data-1"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="introduction-5.html"><a href="introduction-5.html#discussed-methods-1"><i class="fa fa-check"></i><b>4.1.3</b> Discussed Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html"><i class="fa fa-check"></i><b>4.2</b> Model Assessment and Selection</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#performance-metrics"><i class="fa fa-check"></i><b>4.2.1</b> Performance Metrics</a></li>
-<li class="chapter" data-level="4.2.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>4.2.2</b> How to Choose K for K-NN Classification?</a></li>
-<li class="chapter" data-level="4.2.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>4.2.3</b> Training, Validation and Test sets</a></li>
+<li class="chapter" data-level="4.2" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-6"><i class="fa fa-check"></i><b>4.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2.2" data-path="decision-trees.html"><a href="decision-trees.html#example-in-r-1"><i class="fa fa-check"></i><b>4.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="4.2.3" data-path="decision-trees.html"><a href="decision-trees.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.2.3</b> A Note on Decision Tree Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>4.3</b> Decision Trees</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-6"><i class="fa fa-check"></i><b>4.3.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.3.2" data-path="decision-trees.html"><a href="decision-trees.html#example-in-r-1"><i class="fa fa-check"></i><b>4.3.2</b> Example in R</a></li>
-<li class="chapter" data-level="4.3.3" data-path="decision-trees.html"><a href="decision-trees.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.3.3</b> A Note on Decision Tree Learning</a></li>
+<li class="chapter" data-level="4.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
+<li class="chapter" data-level="4.3.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#loss-function"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html"><i class="fa fa-check"></i><b>4.4</b> Binary Logistic Regression</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#motivation"><i class="fa fa-check"></i><b>4.4.1</b> Motivation</a></li>
-<li class="chapter" data-level="4.4.2" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#logistic-model"><i class="fa fa-check"></i><b>4.4.2</b> Logistic Model</a></li>
-<li class="chapter" data-level="4.4.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#example-in-r-2"><i class="fa fa-check"></i><b>4.4.3</b> Example in R</a></li>
-<li class="chapter" data-level="4.4.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#loss-function"><i class="fa fa-check"></i><b>4.4.4</b> Loss Function</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="outro-3.html"><a href="outro-3.html"><i class="fa fa-check"></i><b>4.5</b> Outro</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="outro-3.html"><a href="outro-3.html#remarks-3"><i class="fa fa-check"></i><b>4.5.1</b> Remarks</a></li>
-<li class="chapter" data-level="4.5.2" data-path="outro-3.html"><a href="outro-3.html#further-reading-3"><i class="fa fa-check"></i><b>4.5.2</b> Further Reading</a></li>
+<li class="chapter" data-level="4.4" data-path="outro-3.html"><a href="outro-3.html"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="outro-3.html"><a href="outro-3.html#remarks-3"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="outro-3.html"><a href="outro-3.html#further-reading-3"><i class="fa fa-check"></i><b>4.4.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a><ul>
@@ -458,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 23:34 (fa78fd6)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-30 19:38 (2495a1a)</a></li>
 
 </ul>
 
@@ -478,9 +477,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="implementing-a-k-nn-classifier" class="section level2">
-<h2><span class="header-section-number">3.3</span> Implementing a K-NN Classifier (*)</h2>
+<h2><span class="header-section-number">3.4</span> Implementing a K-NN Classifier (*)</h2>
+<div id="factor-data-type" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Factor Data Type</h3>
+<hr />
+<p>Recall that (see Appendix B for more details)
+<code>factor</code> type in R is a very convenient means to encode categorical data
+(such as <span class="math inline">\(\mathbf{y}\)</span>):</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</a>
+<a class="sourceLine" id="cb220-2" title="2">f &lt;-<span class="st"> </span><span class="kw">factor</span>(x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>))</a>
+<a class="sourceLine" id="cb220-3" title="3">f</a></code></pre></div>
+<pre><code>## [1] yes no  no  yes no 
+## Levels: no yes</code></pre>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="kw">table</span>(f) <span class="co"># counts</span></a></code></pre></div>
+<pre><code>## f
+##  no yes 
+##   3   2</code></pre>
+<hr />
+<p>Internally, objects of type <code>factor</code> are represented as integer vectors
+with elements in <span class="math inline">\(\{1,\dots,M\}\)</span>, where <span class="math inline">\(M\)</span> is the number of possible levels.</p>
+<p>Labels, used to “decipher” the numeric codes, are stored separately.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="kw">as.numeric</span>(f) <span class="co"># 2nd label, 1st label, 1st label etc.</span></a></code></pre></div>
+<pre><code>## [1] 2 1 1 2 1</code></pre>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="kw">levels</span>(f)</a></code></pre></div>
+<pre><code>## [1] &quot;no&quot;  &quot;yes&quot;</code></pre>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1"><span class="kw">levels</span>(f) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;failure&quot;</span>, <span class="st">&quot;success&quot;</span>) <span class="co"># re-encode</span></a>
+<a class="sourceLine" id="cb228-2" title="2">f</a></code></pre></div>
+<pre><code>## [1] success failure failure success failure
+## Levels: failure success</code></pre>
+</div>
 <div id="main-routine" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Main Routine (*)</h3>
+<h3><span class="header-section-number">3.4.2</span> Main Routine (*)</h3>
 <hr />
 <p>Let us implement a K-NN classifier ourselves
 by using a top-bottom approach.</p>
@@ -489,24 +516,39 @@ and the expected output.</p>
 <p>Then we will arrange the processing of data into
 conveniently manageable chunks.</p>
 <p>The function’s declaration will look like:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1">our_knn &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb202-2" title="2">    <span class="co"># k=1 denotes a parameter with a default value</span></a>
-<a class="sourceLine" id="cb202-3" title="3">    <span class="co"># ...</span></a>
-<a class="sourceLine" id="cb202-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1">our_knn &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb230-2" title="2">    <span class="co"># k=1 denotes a parameter with a default value</span></a>
+<a class="sourceLine" id="cb230-3" title="3">    <span class="co"># ...</span></a>
+<a class="sourceLine" id="cb230-4" title="4">}</a></code></pre></div>
+<hr />
+<p>Load an example dataset on which we will test our algorithm:</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
+<a class="sourceLine" id="cb231-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
+<a class="sourceLine" id="cb231-3" title="3">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
+<a class="sourceLine" id="cb231-4" title="4">Y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(<span class="kw">as.numeric</span>(wines<span class="op">$</span>alcohol <span class="op">&gt;=</span><span class="st"> </span><span class="dv">12</span>)))</a></code></pre></div>
+<p>Note that <code>Y</code> is now a factor object.</p>
+<p>Train-test split:</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb232-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
+<a class="sourceLine" id="cb232-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)]</a>
+<a class="sourceLine" id="cb232-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
+<a class="sourceLine" id="cb232-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
+<a class="sourceLine" id="cb232-6" title="6">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
+<a class="sourceLine" id="cb232-7" title="7">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
 <hr />
 <p>First, we should specify the type and form of the arguments
 we’re expecting:</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1"><span class="co"># this is the body of our_knn() - part 1</span></a>
-<a class="sourceLine" id="cb203-2" title="2"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_train), <span class="kw">is.matrix</span>(X_train))</a>
-<a class="sourceLine" id="cb203-3" title="3"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_test), <span class="kw">is.matrix</span>(X_test))</a>
-<a class="sourceLine" id="cb203-4" title="4"><span class="kw">stopifnot</span>(<span class="kw">is.factor</span>(Y_train))</a>
-<a class="sourceLine" id="cb203-5" title="5"><span class="kw">stopifnot</span>(<span class="kw">ncol</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">ncol</span>(X_test))</a>
-<a class="sourceLine" id="cb203-6" title="6"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">length</span>(Y_train))</a>
-<a class="sourceLine" id="cb203-7" title="7"><span class="kw">stopifnot</span>(k <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb203-8" title="8">n_train &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_train)</a>
-<a class="sourceLine" id="cb203-9" title="9">n_test  &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
-<a class="sourceLine" id="cb203-10" title="10">p &lt;-<span class="st"> </span><span class="kw">ncol</span>(X_train)</a>
-<a class="sourceLine" id="cb203-11" title="11">M &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(Y_train))</a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1"><span class="co"># this is the body of our_knn() - part 1</span></a>
+<a class="sourceLine" id="cb233-2" title="2"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_train), <span class="kw">is.matrix</span>(X_train))</a>
+<a class="sourceLine" id="cb233-3" title="3"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_test), <span class="kw">is.matrix</span>(X_test))</a>
+<a class="sourceLine" id="cb233-4" title="4"><span class="kw">stopifnot</span>(<span class="kw">is.factor</span>(Y_train))</a>
+<a class="sourceLine" id="cb233-5" title="5"><span class="kw">stopifnot</span>(<span class="kw">ncol</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">ncol</span>(X_test))</a>
+<a class="sourceLine" id="cb233-6" title="6"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">length</span>(Y_train))</a>
+<a class="sourceLine" id="cb233-7" title="7"><span class="kw">stopifnot</span>(k <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb233-8" title="8">n_train &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_train)</a>
+<a class="sourceLine" id="cb233-9" title="9">n_test  &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
+<a class="sourceLine" id="cb233-10" title="10">p &lt;-<span class="st"> </span><span class="kw">ncol</span>(X_train)</a>
+<a class="sourceLine" id="cb233-11" title="11">M &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(Y_train))</a></code></pre></div>
 <p>Therefore,</p>
 <p><span class="math inline">\(\mathtt{X\_train}\in\mathbb{R}^{\mathtt{n\_train}\times \mathtt{p}}\)</span>,
 <span class="math inline">\(\mathtt{X\_test}\in\mathbb{R}^{\mathtt{n\_test}\times \mathtt{p}}\)</span> and
@@ -517,28 +559,28 @@ we’re expecting:</p>
 <hr />
 <p>Next, we will call the (to-be-done) function <code>our_get_knnx()</code>,
 which seeks nearest neighbours of all the points:</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
-<a class="sourceLine" id="cb204-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
-<a class="sourceLine" id="cb204-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
-<a class="sourceLine" id="cb204-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
-<a class="sourceLine" id="cb204-5" title="5">nn_indices &lt;-<span class="st"> </span><span class="kw">our_get_knnx</span>(X_train, X_test, k)</a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
+<a class="sourceLine" id="cb234-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
+<a class="sourceLine" id="cb234-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
+<a class="sourceLine" id="cb234-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
+<a class="sourceLine" id="cb234-5" title="5">nn_indices &lt;-<span class="st"> </span><span class="kw">our_get_knnx</span>(X_train, X_test, k)</a></code></pre></div>
 <hr />
 <p>Then, for each point in <code>X_test</code>,
 we fetch the labels corresponding to its nearest neighbours
 and compute their mode:</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">numeric</span>(n_test) <span class="co"># vector of length n_test</span></a>
-<a class="sourceLine" id="cb205-2" title="2"><span class="co"># For now we will operate on the integer labels in {1,...,M}</span></a>
-<a class="sourceLine" id="cb205-3" title="3">Y_train_int &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_train)</a>
-<a class="sourceLine" id="cb205-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
-<a class="sourceLine" id="cb205-5" title="5">    <span class="co"># Get the labels of the NNs of the i-th point:</span></a>
-<a class="sourceLine" id="cb205-6" title="6">    nn_labels_i &lt;-<span class="st"> </span>Y_train_int[nn_indices[i,]]</a>
-<a class="sourceLine" id="cb205-7" title="7">    <span class="co"># Compute the mode (majority vote):</span></a>
-<a class="sourceLine" id="cb205-8" title="8">    Y_pred[i] &lt;-<span class="st"> </span><span class="kw">our_mode</span>(nn_labels_i) <span class="co"># in {1,...,M}</span></a>
-<a class="sourceLine" id="cb205-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">numeric</span>(n_test) <span class="co"># vector of length n_test</span></a>
+<a class="sourceLine" id="cb235-2" title="2"><span class="co"># For now we will operate on the integer labels in {1,...,M}</span></a>
+<a class="sourceLine" id="cb235-3" title="3">Y_train_int &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_train)</a>
+<a class="sourceLine" id="cb235-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
+<a class="sourceLine" id="cb235-5" title="5">    <span class="co"># Get the labels of the NNs of the i-th point:</span></a>
+<a class="sourceLine" id="cb235-6" title="6">    nn_labels_i &lt;-<span class="st"> </span>Y_train_int[nn_indices[i,]]</a>
+<a class="sourceLine" id="cb235-7" title="7">    <span class="co"># Compute the mode (majority vote):</span></a>
+<a class="sourceLine" id="cb235-8" title="8">    Y_pred[i] &lt;-<span class="st"> </span><span class="kw">our_mode</span>(nn_labels_i) <span class="co"># in {1,...,M}</span></a>
+<a class="sourceLine" id="cb235-9" title="9">}</a></code></pre></div>
 <p>Finally, we should convert the resulting integer vector
 to an object of type <code>factor</code>:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1"><span class="co"># Convert Y_pred to factor:</span></a>
-<a class="sourceLine" id="cb206-2" title="2"><span class="kw">return</span>(<span class="kw">factor</span>(Y_pred, <span class="dt">labels=</span><span class="kw">levels</span>(Y_train)))</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="co"># Convert Y_pred to factor:</span></a>
+<a class="sourceLine" id="cb236-2" title="2"><span class="kw">return</span>(<span class="kw">factor</span>(Y_pred, <span class="dt">labels=</span><span class="kw">levels</span>(Y_train)))</a></code></pre></div>
 <!--
 **Test-driven development** -- before writing
 
@@ -564,14 +606,14 @@ test_our_mode <- function() {
 -->
 </div>
 <div id="mode" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Mode</h3>
+<h3><span class="header-section-number">3.4.3</span> Mode</h3>
 <hr />
 <p>To implement the mode, we can use the <code>tabulate()</code> function.</p>
 <blockquote>
 <p>Read the function’s man page, see <code>?tabulate</code>.</p>
 </blockquote>
 <p>For example:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" title="1"><span class="kw">tabulate</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">tabulate</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 4 2 0 0 1</code></pre>
 <hr />
 <p>There might be multiple modes – in such a case, we should pick one at random.</p>
@@ -582,64 +624,64 @@ Note that its behaviour is different when it’s first argument is a vector of l
 </blockquote>
 <hr />
 <p>An example implementation:</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" title="1">our_mode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
-<a class="sourceLine" id="cb209-2" title="2">    <span class="co"># tabulate() will take care of</span></a>
-<a class="sourceLine" id="cb209-3" title="3">    <span class="co"># checking the correctness of Y</span></a>
-<a class="sourceLine" id="cb209-4" title="4">    t &lt;-<span class="st"> </span><span class="kw">tabulate</span>(Y)</a>
-<a class="sourceLine" id="cb209-5" title="5">    mode_candidates &lt;-<span class="st"> </span><span class="kw">which</span>(t <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(t))</a>
-<a class="sourceLine" id="cb209-6" title="6">    <span class="cf">if</span> (<span class="kw">length</span>(mode_candidates) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">return</span>(mode_candidates)</a>
-<a class="sourceLine" id="cb209-7" title="7">    <span class="cf">else</span> <span class="kw">return</span>(<span class="kw">sample</span>(mode_candidates, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb209-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1">our_mode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
+<a class="sourceLine" id="cb239-2" title="2">    <span class="co"># tabulate() will take care of</span></a>
+<a class="sourceLine" id="cb239-3" title="3">    <span class="co"># checking the correctness of Y</span></a>
+<a class="sourceLine" id="cb239-4" title="4">    t &lt;-<span class="st"> </span><span class="kw">tabulate</span>(Y)</a>
+<a class="sourceLine" id="cb239-5" title="5">    mode_candidates &lt;-<span class="st"> </span><span class="kw">which</span>(t <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(t))</a>
+<a class="sourceLine" id="cb239-6" title="6">    <span class="cf">if</span> (<span class="kw">length</span>(mode_candidates) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">return</span>(mode_candidates)</a>
+<a class="sourceLine" id="cb239-7" title="7">    <span class="cf">else</span> <span class="kw">return</span>(<span class="kw">sample</span>(mode_candidates, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb239-8" title="8">}</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>))</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="nn-search-routines" class="section level3">
-<h3><span class="header-section-number">3.3.3</span> NN Search Routines (*)</h3>
+<h3><span class="header-section-number">3.4.4</span> NN Search Routines (*)</h3>
 <hr />
 <p>Last but not least, we should implement the <code>our_get_knnx()</code> function.</p>
 <p>It is the function responsible for seeking the indices of nearest neighbours.</p>
 <p>It turns out this function will actually constitute the K-NN classifier’s performance
 bottleneck in case of big data samples.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
-<a class="sourceLine" id="cb220-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
-<a class="sourceLine" id="cb220-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
-<a class="sourceLine" id="cb220-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
-<a class="sourceLine" id="cb220-5" title="5">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
-<a class="sourceLine" id="cb220-6" title="6">    <span class="co"># ...</span></a>
-<a class="sourceLine" id="cb220-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
+<a class="sourceLine" id="cb250-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
+<a class="sourceLine" id="cb250-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
+<a class="sourceLine" id="cb250-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
+<a class="sourceLine" id="cb250-5" title="5">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
+<a class="sourceLine" id="cb250-6" title="6">    <span class="co"># ...</span></a>
+<a class="sourceLine" id="cb250-7" title="7">}</a></code></pre></div>
 <hr />
 <p>A naive approach to <code>our_get_knnx()</code> relies on computing all pairwise distances,
 and sorting them.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
-<a class="sourceLine" id="cb221-2" title="2">    n_test &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
-<a class="sourceLine" id="cb221-3" title="3">    nn_indices &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA_real_</span>, <span class="dt">nrow=</span>n_test, <span class="dt">ncol=</span>k)</a>
-<a class="sourceLine" id="cb221-4" title="4">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
-<a class="sourceLine" id="cb221-5" title="5">        d &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(x)</a>
-<a class="sourceLine" id="cb221-6" title="6">            <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>X_test[i,])<span class="op">^</span><span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb221-7" title="7">        <span class="co"># now d[j] is the distance</span></a>
-<a class="sourceLine" id="cb221-8" title="8">        <span class="co"># between X_train[j,] and X_test[i,]</span></a>
-<a class="sourceLine" id="cb221-9" title="9">        nn_indices[i,] &lt;-<span class="st"> </span><span class="kw">order</span>(d)[<span class="dv">1</span><span class="op">:</span>k]</a>
-<a class="sourceLine" id="cb221-10" title="10">    }</a>
-<a class="sourceLine" id="cb221-11" title="11">    nn_indices</a>
-<a class="sourceLine" id="cb221-12" title="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
+<a class="sourceLine" id="cb251-2" title="2">    n_test &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
+<a class="sourceLine" id="cb251-3" title="3">    nn_indices &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA_real_</span>, <span class="dt">nrow=</span>n_test, <span class="dt">ncol=</span>k)</a>
+<a class="sourceLine" id="cb251-4" title="4">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
+<a class="sourceLine" id="cb251-5" title="5">        d &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb251-6" title="6">            <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>X_test[i,])<span class="op">^</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb251-7" title="7">        <span class="co"># now d[j] is the distance</span></a>
+<a class="sourceLine" id="cb251-8" title="8">        <span class="co"># between X_train[j,] and X_test[i,]</span></a>
+<a class="sourceLine" id="cb251-9" title="9">        nn_indices[i,] &lt;-<span class="st"> </span><span class="kw">order</span>(d)[<span class="dv">1</span><span class="op">:</span>k]</a>
+<a class="sourceLine" id="cb251-10" title="10">    }</a>
+<a class="sourceLine" id="cb251-11" title="11">    nn_indices</a>
+<a class="sourceLine" id="cb251-12" title="12">}</a></code></pre></div>
 <hr />
 <p>A comparison with <code>FNN:knn()</code>:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.251   0.000   0.251</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+##   0.127   0.001   0.128</code></pre>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##  44.054   0.038  45.748</code></pre>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
+##  15.387   0.000  15.388</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Both functions return identical results but our implementation is “slightly” slower.</p>
 <hr />
@@ -653,17 +695,17 @@ but written in C++ (available in the <code>FNN</code> package).</p>
 see the Rcpp package for seamless R and C++ integration.</p>
 </blockquote>
 <hr />
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
-<a class="sourceLine" id="cb228-2" title="2">    <span class="co"># this is used by our_knn()</span></a>
-<a class="sourceLine" id="cb228-3" title="3">    FNN<span class="op">::</span><span class="kw">get.knnx</span>(X_train, X_test, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>)<span class="op">$</span>nn.index</a>
-<a class="sourceLine" id="cb228-4" title="4">}</a>
-<a class="sourceLine" id="cb228-5" title="5"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
+<a class="sourceLine" id="cb258-2" title="2">    <span class="co"># this is used by our_knn()</span></a>
+<a class="sourceLine" id="cb258-3" title="3">    FNN<span class="op">::</span><span class="kw">get.knnx</span>(X_train, X_test, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>)<span class="op">$</span>nn.index</a>
+<a class="sourceLine" id="cb258-4" title="4">}</a>
+<a class="sourceLine" id="cb258-5" title="5"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.309   0.000   0.308</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+##   0.128   0.000   0.129</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.141   0.000   0.142</code></pre>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
+##   0.043   0.000   0.044</code></pre>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <hr />
 <p>Note that our solution requires <span class="math inline">\(c\cdot n_\text{test}\cdot n_\text{train}\cdot p\)</span>
@@ -683,31 +725,99 @@ curse of dimensionality.</p>
 <p>For example, <code>FNN::get.knnx()</code> also implements the so-called
 kd-trees.</p>
 <hr />
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
-<a class="sourceLine" id="cb234-2" title="2">test_speed &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, k) {</a>
-<a class="sourceLine" id="cb234-3" title="3">    A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
-<a class="sourceLine" id="cb234-4" title="4">    s &lt;-<span class="st"> </span><span class="kw">summary</span>(<span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb234-5" title="5">        <span class="dt">brute=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>),</a>
-<a class="sourceLine" id="cb234-6" title="6">        <span class="dt">kd_tree=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;kd_tree&quot;</span>),</a>
-<a class="sourceLine" id="cb234-7" title="7">        <span class="dt">times=</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb234-8" title="8">    ), <span class="dt">unit=</span><span class="st">&quot;s&quot;</span>)</a>
-<a class="sourceLine" id="cb234-9" title="9">    <span class="co"># minima of 3 time measurements:</span></a>
-<a class="sourceLine" id="cb234-10" title="10">    <span class="kw">structure</span>(s<span class="op">$</span>min, <span class="dt">names=</span><span class="kw">as.character</span>(s<span class="op">$</span>expr))</a>
-<a class="sourceLine" id="cb234-11" title="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
+<a class="sourceLine" id="cb264-2" title="2">test_speed &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, k) {</a>
+<a class="sourceLine" id="cb264-3" title="3">    A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
+<a class="sourceLine" id="cb264-4" title="4">    s &lt;-<span class="st"> </span><span class="kw">summary</span>(<span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb264-5" title="5">        <span class="dt">brute=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>),</a>
+<a class="sourceLine" id="cb264-6" title="6">        <span class="dt">kd_tree=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;kd_tree&quot;</span>),</a>
+<a class="sourceLine" id="cb264-7" title="7">        <span class="dt">times=</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb264-8" title="8">    ), <span class="dt">unit=</span><span class="st">&quot;s&quot;</span>)</a>
+<a class="sourceLine" id="cb264-9" title="9">    <span class="co"># minima of 3 time measurements:</span></a>
+<a class="sourceLine" id="cb264-10" title="10">    <span class="kw">structure</span>(s<span class="op">$</span>min, <span class="dt">names=</span><span class="kw">as.character</span>(s<span class="op">$</span>expr))</a>
+<a class="sourceLine" id="cb264-11" title="11">}</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.82655346 0.02878045</code></pre>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
+## 0.28934239 0.01175278</code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##      brute    kd_tree 
+## 0.42020240 0.05980079</code></pre>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-## 1.2348245 0.1320792</code></pre>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
+## 0.6408081 0.6263941</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##    brute  kd_tree 
-## 4.589286 1.719830</code></pre>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##    brute  kd_tree 
-## 10.20877 38.18202</code></pre>
+## 1.239501 5.118137</code></pre>
 </div>
+</div>
+<div id="different-metrics" class="section level3">
+<h3><span class="header-section-number">3.4.5</span> Different Metrics (*)</h3>
+<hr />
+<p>The Euclidean distance is just one particular example
+of many possible <strong>metrics</strong> (metric == a mathematical term,
+above we have used this term in a more relaxed fashion, when referring
+to accuracy etc.).</p>
+<p>Mathematically, we say that <span class="math inline">\(d\)</span> is a metric on a set <span class="math inline">\(X\)</span>
+(e.g., <span class="math inline">\(\mathbb{R}^p\)</span>), whenever
+it is a function <span class="math inline">\(d:X\times X\to [0,\infty]\)</span> such that for all <span class="math inline">\(x,x&#39;,x&#39;&#39;\in X\)</span>:</p>
+<ul>
+<li><span class="math inline">\(d(x, x&#39;) = 0\)</span> if and only if <span class="math inline">\(x=x&#39;\)</span>,</li>
+<li><span class="math inline">\(d(x, x&#39;) = d(x&#39;, x)\)</span> (it is symmetric)</li>
+<li><span class="math inline">\(d(x, x&#39;&#39;) \le d(x, x&#39;) + d(x&#39;, x&#39;&#39;)\)</span> (it fulfils the triangle inequality)</li>
+</ul>
+<blockquote>
+<p>(*) Not all the properties are required in all the applications;
+sometimes we might need a few additional ones.</p>
+</blockquote>
+<p>We can easily generalise the way we introduced the K-NN method
+to have a classifier that is based on a point’s neighbourhood
+with respect to any metric.</p>
+<hr />
+<p>Example metrics on <span class="math inline">\(\mathbb{R}^p\)</span>:</p>
+<ul>
+<li><strong>Euclidean</strong>
+<span class="math display">\[
+d_2(\mathbf{x}, \mathbf{x}&#39;) = \| \mathbf{x}-\mathbf{x}&#39; \| = \| \mathbf{x}-\mathbf{x}&#39; \|_2 = \sqrt{ \sum_{i=1}^p (x_i-x_i&#39;)^2 }
+\]</span></li>
+<li><strong>Manhattan</strong> (taxicab)
+<span class="math display">\[
+d_1(\mathbf{x}, \mathbf{x}&#39;) = \| \mathbf{x}-\mathbf{x}&#39; \|_1 = { \sum_{i=1}^p |x_i-x_i&#39;| }
+\]</span></li>
+<li><strong>Chebyshev</strong> (maximum)
+<span class="math display">\[
+d_\infty(\mathbf{x}, \mathbf{x}&#39;) = \| \mathbf{x}-\mathbf{x}&#39; \|_\infty = \max_{i=1,\dots,p} |x_i-x_i&#39;|
+\]</span></li>
+</ul>
+<!--
+These are all examples of $L_p$ metrics, $p\ge 1$:
+\[
+d_p(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_p = \left( \sum_{i=1}^p |x_i-x_i'|^p \right)^{1/p}
+\]
+-->
+<hr />
+<p>We can define metrics on different spaces too.</p>
+<p>For example, the <strong>Levenshtein distance</strong> is a popular choice
+for comparing character strings (also DNA sequences etc.)</p>
+<p>It is an <em>edit distance</em> – it measures the minimal number of
+single-character insertions, deletions or substitutions to change
+one string into another.</p>
+<p>For instance:</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1"><span class="kw">adist</span>(<span class="st">&quot;happy&quot;</span>, <span class="st">&quot;nap&quot;</span>)</a></code></pre></div>
+<pre><code>##      [,1]
+## [1,]    3</code></pre>
+<p>This is because we need 1 substitution and 2 deletions,</p>
+<p>happy → nappy → napp → nap.</p>
+<hr />
+<p>See also:</p>
+<ul>
+<li>the Hamming distance for categorical vectors (or strings of equal lengths),</li>
+<li>the Jaccard distance for sets,</li>
+<li>the Kendall tau rank distance for rankings.</li>
+</ul>
+<p>Moreover, R package <code>stringdist</code> includes implementations
+of numerous string metrics.</p>
+<!-- Mahalanobis distance -->
 </div>
 </div>
             </section>
@@ -715,7 +825,7 @@ kd-trees.</p>
           </div>
         </div>
       </div>
-<a href="k-nearest-neighbour-classifier.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-assessment-and-selection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="outro-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

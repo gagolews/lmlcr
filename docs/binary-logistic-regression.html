@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.4 Binary Logistic Regression | Lightweight Machine Learning Classics with R</title>
+  <title>4.3 Binary Logistic Regression | Lightweight Machine Learning Classics with R</title>
   <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.4 Binary Logistic Regression | Lightweight Machine Learning Classics with R" />
+  <meta property="og:title" content="4.3 Binary Logistic Regression | Lightweight Machine Learning Classics with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://lmlcr.gagolewski.com" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="gagolews/lmlcr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.4 Binary Logistic Regression | Lightweight Machine Learning Classics with R" />
+  <meta name="twitter:title" content="4.3 Binary Logistic Regression | Lightweight Machine Learning Classics with R" />
   
   <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   
@@ -183,53 +183,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a><ul>
 <li class="chapter" data-level="3.1" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="introduction-3.html"><a href="introduction-3.html#classification-task"><i class="fa fa-check"></i><b>3.1.1</b> Classification Task</a></li>
-<li class="chapter" data-level="3.1.2" data-path="introduction-3.html"><a href="introduction-3.html#factor-data-type"><i class="fa fa-check"></i><b>3.1.2</b> Factor Data Type</a></li>
-<li class="chapter" data-level="3.1.3" data-path="introduction-3.html"><a href="introduction-3.html#data"><i class="fa fa-check"></i><b>3.1.3</b> Data</a></li>
-<li class="chapter" data-level="3.1.4" data-path="introduction-3.html"><a href="introduction-3.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.4</b> Training and Test Sets</a></li>
-<li class="chapter" data-level="3.1.5" data-path="introduction-3.html"><a href="introduction-3.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.5</b> Discussed Methods</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-3.html"><a href="introduction-3.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-3.html"><a href="introduction-3.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.3</b> Training and Test Sets</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction-3.html"><a href="introduction-3.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.4</b> Discussed Methods</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#introduction-4"><i class="fa fa-check"></i><b>3.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#example-in-r"><i class="fa fa-check"></i><b>3.2.2</b> Example in R</a></li>
-<li class="chapter" data-level="3.2.3" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#different-metrics"><i class="fa fa-check"></i><b>3.2.3</b> Different Metrics (*)</a></li>
-<li class="chapter" data-level="3.2.4" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#standardisation-of-independent-variables"><i class="fa fa-check"></i><b>3.2.4</b> Standardisation of Independent Variables</a></li>
+<li class="chapter" data-level="3.2.3" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#feature-engineering"><i class="fa fa-check"></i><b>3.2.3</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html"><i class="fa fa-check"></i><b>3.3</b> Implementing a K-NN Classifier (*)</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#main-routine"><i class="fa fa-check"></i><b>3.3.1</b> Main Routine (*)</a></li>
-<li class="chapter" data-level="3.3.2" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#mode"><i class="fa fa-check"></i><b>3.3.2</b> Mode</a></li>
-<li class="chapter" data-level="3.3.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#nn-search-routines"><i class="fa fa-check"></i><b>3.3.3</b> NN Search Routines (*)</a></li>
+<li class="chapter" data-level="3.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#performance-metrics"><i class="fa fa-check"></i><b>3.3.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>3.3.2</b> How to Choose K for K-NN Classification?</a></li>
+<li class="chapter" data-level="3.3.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>3.3.3</b> Training, Validation and Test sets</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="outro-2.html"><a href="outro-2.html"><i class="fa fa-check"></i><b>3.4</b> Outro</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="outro-2.html"><a href="outro-2.html#remarks-2"><i class="fa fa-check"></i><b>3.4.1</b> Remarks</a></li>
-<li class="chapter" data-level="3.4.2" data-path="outro-2.html"><a href="outro-2.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.4.2</b> Side Note: K-NN Regression</a></li>
-<li class="chapter" data-level="3.4.3" data-path="outro-2.html"><a href="outro-2.html#further-reading-2"><i class="fa fa-check"></i><b>3.4.3</b> Further Reading</a></li>
+<li class="chapter" data-level="3.4" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#factor-data-type"><i class="fa fa-check"></i><b>3.4.1</b> Factor Data Type</a></li>
+<li class="chapter" data-level="3.4.2" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#main-routine"><i class="fa fa-check"></i><b>3.4.2</b> Main Routine (*)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#mode"><i class="fa fa-check"></i><b>3.4.3</b> Mode</a></li>
+<li class="chapter" data-level="3.4.4" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#nn-search-routines"><i class="fa fa-check"></i><b>3.4.4</b> NN Search Routines (*)</a></li>
+<li class="chapter" data-level="3.4.5" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#different-metrics"><i class="fa fa-check"></i><b>3.4.5</b> Different Metrics (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="outro-2.html"><a href="outro-2.html"><i class="fa fa-check"></i><b>3.5</b> Outro</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="outro-2.html"><a href="outro-2.html#remarks-2"><i class="fa fa-check"></i><b>3.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="3.5.2" data-path="outro-2.html"><a href="outro-2.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.5.2</b> Side Note: K-NN Regression</a></li>
+<li class="chapter" data-level="3.5.3" data-path="outro-2.html"><a href="outro-2.html#further-reading-2"><i class="fa fa-check"></i><b>3.5.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="introduction-5.html"><a href="introduction-5.html#classification-task-1"><i class="fa fa-check"></i><b>4.1.1</b> Classification Task</a></li>
 <li class="chapter" data-level="4.1.2" data-path="introduction-5.html"><a href="introduction-5.html#data-1"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="introduction-5.html"><a href="introduction-5.html#discussed-methods-1"><i class="fa fa-check"></i><b>4.1.3</b> Discussed Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html"><i class="fa fa-check"></i><b>4.2</b> Model Assessment and Selection</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#performance-metrics"><i class="fa fa-check"></i><b>4.2.1</b> Performance Metrics</a></li>
-<li class="chapter" data-level="4.2.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>4.2.2</b> How to Choose K for K-NN Classification?</a></li>
-<li class="chapter" data-level="4.2.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>4.2.3</b> Training, Validation and Test sets</a></li>
+<li class="chapter" data-level="4.2" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-6"><i class="fa fa-check"></i><b>4.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2.2" data-path="decision-trees.html"><a href="decision-trees.html#example-in-r-1"><i class="fa fa-check"></i><b>4.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="4.2.3" data-path="decision-trees.html"><a href="decision-trees.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.2.3</b> A Note on Decision Tree Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>4.3</b> Decision Trees</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-6"><i class="fa fa-check"></i><b>4.3.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.3.2" data-path="decision-trees.html"><a href="decision-trees.html#example-in-r-1"><i class="fa fa-check"></i><b>4.3.2</b> Example in R</a></li>
-<li class="chapter" data-level="4.3.3" data-path="decision-trees.html"><a href="decision-trees.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.3.3</b> A Note on Decision Tree Learning</a></li>
+<li class="chapter" data-level="4.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
+<li class="chapter" data-level="4.3.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#loss-function"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html"><i class="fa fa-check"></i><b>4.4</b> Binary Logistic Regression</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#motivation"><i class="fa fa-check"></i><b>4.4.1</b> Motivation</a></li>
-<li class="chapter" data-level="4.4.2" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#logistic-model"><i class="fa fa-check"></i><b>4.4.2</b> Logistic Model</a></li>
-<li class="chapter" data-level="4.4.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#example-in-r-2"><i class="fa fa-check"></i><b>4.4.3</b> Example in R</a></li>
-<li class="chapter" data-level="4.4.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#loss-function"><i class="fa fa-check"></i><b>4.4.4</b> Loss Function</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="outro-3.html"><a href="outro-3.html"><i class="fa fa-check"></i><b>4.5</b> Outro</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="outro-3.html"><a href="outro-3.html#remarks-3"><i class="fa fa-check"></i><b>4.5.1</b> Remarks</a></li>
-<li class="chapter" data-level="4.5.2" data-path="outro-3.html"><a href="outro-3.html#further-reading-3"><i class="fa fa-check"></i><b>4.5.2</b> Further Reading</a></li>
+<li class="chapter" data-level="4.4" data-path="outro-3.html"><a href="outro-3.html"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="outro-3.html"><a href="outro-3.html#remarks-3"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="outro-3.html"><a href="outro-3.html#further-reading-3"><i class="fa fa-check"></i><b>4.4.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a><ul>
@@ -458,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-25 23:34 (fa78fd6)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-30 19:38 (2495a1a)</a></li>
 
 </ul>
 
@@ -478,45 +477,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="binary-logistic-regression" class="section level2">
-<h2><span class="header-section-number">4.4</span> Binary Logistic Regression</h2>
+<h2><span class="header-section-number">4.3</span> Binary Logistic Regression</h2>
 <div id="motivation" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Motivation</h3>
+<h3><span class="header-section-number">4.3.1</span> Motivation</h3>
 <hr />
 <p>Recall that for a regression task, we fitted a very simple family of models
 – the linear ones – by minimising the sum of squared residuals.</p>
 <p>This approach was pretty effective.</p>
 <p>Theoretically, we could treat the class labels as numeric <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s
 and apply regression models in a binary classification task.</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(X_train,</a>
-<a class="sourceLine" id="cb295-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(<span class="kw">as.character</span>(Y_train)) <span class="co"># 0.0 or 1.0</span></a>
-<a class="sourceLine" id="cb295-3" title="3">))</a>
-<a class="sourceLine" id="cb295-4" title="4">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train),</a>
+<a class="sourceLine" id="cb307-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_train)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
+<a class="sourceLine" id="cb307-3" title="3">)</a>
+<a class="sourceLine" id="cb307-4" title="4">XY_test_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test),</a>
+<a class="sourceLine" id="cb307-5" title="5">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_test)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
+<a class="sourceLine" id="cb307-6" title="6">)</a>
+<a class="sourceLine" id="cb307-7" title="7">f_r &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>pH, <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(f, <span class="kw">as.data.frame</span>(X_test))</a>
-<a class="sourceLine" id="cb296-2" title="2"><span class="kw">summary</span>(Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1">Y_pred_r &lt;-<span class="st"> </span><span class="kw">predict</span>(f_r, XY_test_r)</a>
+<a class="sourceLine" id="cb308-2" title="2"><span class="kw">summary</span>(Y_pred_r)</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -0.76785  0.03625  0.18985  0.20120  0.34916  0.95385</code></pre>
+## -3.04678 -0.02106  0.11917  0.16452  0.34906  0.88921</code></pre>
 <p>The predicted outputs, <span class="math inline">\(\hat{Y}\)</span>, are arbitrary real numbers,
 but we can convert them to binary ones by checking if, e.g., <span class="math inline">\(\hat{Y}&gt;0.5\)</span>.</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb298-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
-<pre><code>##          Acc         Prec          Rec            F 
-##    0.8303068    0.6194690    0.2348993    0.3406326 
-##           TN           FN           FP           TP 
-## 1256.0000000  228.0000000   43.0000000   70.0000000</code></pre>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred_r<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb310-2" title="2"><span class="kw">round</span>(<span class="kw">get_metrics</span>(Y_pred, XY_test_r<span class="op">$</span>Y), <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>##      Acc     Prec      Rec        F       TN       FN       FP 
+##    0.927    0.865    0.647    0.740 1611.000  112.000   32.000 
+##       TP 
+##  205.000</code></pre>
 <hr />
 <p>The threshold <span class="math inline">\(T=0.5\)</span> could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample).</p>
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-40-1.png" alt="plot of chunk unnamed-chunk-40" style="width:50.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/lm4-1.png" alt="plot of chunk lm4" style="width:50.0%" /></p>
+<p>Despite we can, we shouldn’t use linear regression for classification.
+There are better models.</p>
 </div>
 <div id="logistic-model" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Logistic Model</h3>
+<h3><span class="header-section-number">4.3.2</span> Logistic Model</h3>
 <hr />
 <p>Inspired by this idea, we could try modelling
 the <strong><em>probability</em> that a given point belongs to class <span class="math inline">\(1\)</span></strong>.</p>
 <p>This could also provide us with the <em>confidence</em> in our prediction.</p>
-<p>Probability is a number in <span class="math inline">\([0,1]\)</span>, but <span class="math inline">\(Y\in \mathbb{R}\)</span>.</p>
-<p>However, we could transform the real-valued outputs by means
+<p>Probability is a number in <span class="math inline">\([0,1]\)</span>, but the outputs of a linear model are arbitrary real numbers.</p>
+<p>However, we could transform those real-valued outputs by means
 of some function <span class="math inline">\(\phi:\mathbb{R}\to[0,1]\)</span> (preferably S-shaped == sigmoid),
 so as to get:</p>
 <p><span class="math inline">\(\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)\)</span></p>
@@ -529,78 +533,80 @@ and <span class="math inline">\(\boldsymbol\beta\)</span>”.</p>
 <p><span class="math display">\[
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]</span></p>
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-41-1.png" alt="plot of chunk unnamed-chunk-41" style="width:50.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/sigmoid-1.png" alt="plot of chunk sigmoid" style="width:50.0%" /></p>
 <hr />
 <p>Hence our model becomes:</p>
 <p><span class="math display">\[
 Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
 \]</span></p>
 <p>We call it a <strong>generalised linear model</strong> (glm).</p>
+<p>(There are many other possible generalisations)</p>
 </div>
 <div id="example-in-r-2" class="section level3">
-<h3><span class="header-section-number">4.4.3</span> Example in R</h3>
+<h3><span class="header-section-number">4.3.3</span> Example in R</h3>
 <hr />
 <p>Let us first fit
 a simple (i.e., <span class="math inline">\(p=1\)</span>) logistic regression model
-using the <code>alcohol</code> variable.</p>
+using the <code>density</code> variable.</p>
 <blockquote>
 <p>“logit” below denotes the inverse of the logistic sigmoid function.</p>
 </blockquote>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>alcohol, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb300-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb312-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
-## glm(formula = Y ~ alcohol, family = binomial(&quot;logit&quot;), data = XY_train)
+## glm(formula = Y ~ density, family = binomial(&quot;logit&quot;), data = XY_train)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.8703  -0.5994  -0.3984  -0.2770   2.7463  
+## -2.1591  -0.3653  -0.0934  -0.0154   4.0683  
 ## 
 ## Coefficients:
-##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -11.94770    0.46819  -25.52   &lt;2e-16 ***
-## alcohol       0.96469    0.04166   23.16   &lt;2e-16 ***
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1173.21      55.04   21.32   &lt;2e-16 ***
+## density     -1184.21      55.53  -21.33   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 3630.9  on 3722  degrees of freedom
-## Residual deviance: 2963.4  on 3721  degrees of freedom
-## AIC: 2967.4
+##     Null deviance: 2667.8  on 2937  degrees of freedom
+## Residual deviance: 1418.9  on 2936  degrees of freedom
+## AIC: 1422.9
 ## 
-## Number of Fisher Scoring iterations: 5</code></pre>
+## Number of Fisher Scoring iterations: 7</code></pre>
 <hr />
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-43-1.png" alt="plot of chunk unnamed-chunk-43" style="width:50.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" style="width:50.0%" /></p>
 <hr />
 <p>Some predicted probabilities:</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1"><span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>))</a></code></pre></div>
-<pre><code>##          1          2          3          4          5 
-## 0.07629709 0.07629709 0.05316971 0.05824087 0.13961713 
-##          6 
-## 0.13961713</code></pre>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## 1602 1605 1607 1608 1609 1613 1614 1615 1621 1622 1623 1627 
+## 0.01 0.01 0.00 0.02 0.03 0.36 0.00 0.31 0.36 0.06 0.03 0.00</code></pre>
 <p>We classify <span class="math inline">\(Y\)</span> as 1 if the corresponding membership probability
 is greater than <span class="math inline">\(0.5\)</span>.</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb304-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb316-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
-##    0.8127740    0.4971751    0.2953020    0.3705263 
+##    0.8979592    0.7276265    0.5899054    0.6515679 
 ##           TN           FN           FP           TP 
-## 1210.0000000  210.0000000   89.0000000   88.0000000</code></pre>
+## 1573.0000000  130.0000000   70.0000000  187.0000000</code></pre>
 <hr />
-<p>And now a fit based on all the input variables:</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a></code></pre></div>
-<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1
-## occurred</code></pre>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb308-2" title="2"><span class="kw">get_metrics</span>(Y_test, Y_pred)</a></code></pre></div>
+<p>And now a fit based on some other input variables:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
+<a class="sourceLine" id="cb318-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb318-3" title="3">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb318-4" title="4"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
-##    0.1872260    0.1863237    0.9966443    0.3139535 
+##    0.9321429    0.8239437    0.7381703    0.7787022 
 ##           TN           FN           FP           TP 
-##    2.0000000    1.0000000 1297.0000000  297.0000000</code></pre>
+## 1593.0000000   83.0000000   50.0000000  234.0000000</code></pre>
+<blockquote>
+<p>Exercise: try fitting the models based on different combinations
+of features.</p>
+</blockquote>
 </div>
 <div id="loss-function" class="section level3">
-<h3><span class="header-section-number">4.4.4</span> Loss Function</h3>
+<h3><span class="header-section-number">4.3.4</span> Loss Function</h3>
 <hr />
 <p>The fitting of the model can be written as an optimisation task:</p>
 <p><span class="math display">\[
