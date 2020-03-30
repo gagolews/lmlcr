@@ -100,18 +100,23 @@ abline(v=0, lty=3, col="blue")
 
 For illustration, let's consider the Wine Quality dataset
 that can be downloaded from the UCI Machine Learning Repository
-(https://archive.ics.uci.edu/ml/datasets/Wine+Quality).
+(https://archive.ics.uci.edu/ml/datasets/Wine+Quality) --
+white wines only.
 
 
-```{r}
+```{r input1}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
+wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
 
-Red and white Vinho Verde wine samples from the north of Portugal,
+Vinho Verde wine samples from the north of Portugal,
 see https://www.vinhoverde.pt/en/homepage.
 
-The goal is to model wine quality based on physicochemical features.
+There are 11 physicochemical features reported.
+Moreover, there is a wine rating (which we won't consider here)
+on the scale 0 (bad) to 10 (excellent)
+given by wine experts.
 
 Source: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
 Modeling wine preferences by data mining from physicochemical properties. *Decision Support Systems*, **47**(4):547-553, 2009.
@@ -120,10 +125,10 @@ Modeling wine preferences by data mining from physicochemical properties. *Decis
 ---
 
 The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
-consists of all the numeric variables:
+consists of the first 10 numeric variables:
 
-```{r}
-X <- as.matrix(wines[,1:11])
+```{r input2,dependson='input1'}
+X <- as.matrix(wines[,1:10])
 dim(X)
 head(X, 2) # first two rows
 ```
@@ -133,20 +138,16 @@ head(X, 2) # first two rows
 
 ---
 
-The `response` variable is an ordinal one,
-giving each wine's rating as assigned by sommeliers
-(median of at least 3 valuations by wine experts).
-
-Here: 0 == a very bad wine, 10 == an excellent one.
+The 11th variable measures the amount of alcohol (in %).
 
 We will convert this dependent variable to a binary one:
 
-- 0 == (`response  < 7`) == bad
-- 1 == (`response >= 7`) == good
+- 0 == (`alcohol  < 12`) == lower-alcohol wines1
+- 1 == (`alcohol >= 12`) == higher-alcohol wines
 
-```{r}
+```{r input3,dependson='input2'}
 # recall that TRUE == 1
-Y <- as.numeric(wines$response >= 7)
+Y <- factor(as.character(as.numeric(wines$alcohol >= 12)))
 table(Y)
 ```
 
@@ -187,18 +188,18 @@ on a random **train-test split** of the original dataset:
 
 ---
 
-70/30% train-test split in R:
+60/40% train-test split in R:
 
-```{R}
+```{R input4,dependson='input3'}
 set.seed(123) # reproducibility matters
 random_indices <- sample(n)
 head(random_indices) # preview
-# first 70% of the indices (they are arranged randomly)
+# first 60% of the indices (they are arranged randomly)
 # will constitute the train sample:
-train_indices <- random_indices[1:floor(n*0.7)]
+train_indices <- random_indices[1:floor(n*0.6)]
 X_train <- X[train_indices,]
 Y_train <- Y[train_indices]
-# the remaining indices (30%) go to the test sample:
+# the remaining indices (40%) go to the test sample:
 X_test  <- X[-train_indices,]
 Y_test  <- Y[-train_indices]
 ```
@@ -211,8 +212,8 @@ Y_test  <- Y[-train_indices]
 
 ---
 
-Our aim is to build a classifier that takes 11 wine physicochemical
-features and determines whether it's a "drinkable" wine.
+Our aim is to build a classifier that takes 10 wine physicochemical
+features and determines whether it's a "strong" wine.
 
 
 We will discuss 3 simple and educational (yet practically useful)
@@ -342,13 +343,13 @@ mean(Y_test == Y_knn5) # accuracy
 ---
 
 
-10-nn classifier:
+9-nn classifier:
 
 ```{r}
-Y_knn10 <- knn(X_train, X_test, Y_train, k=10)
+Y_knn9 <- knn(X_train, X_test, Y_train, k=9)
 head(Y_test, 28) # True Ys
-head(Y_knn10, 28) # Predicted Ys
-mean(Y_test == Y_knn10) # accuracy
+head(Y_knn9, 28) # Predicted Ys
+mean(Y_test == Y_knn9) # accuracy
 ```
 
 
@@ -418,11 +419,11 @@ Let us compute the accuracy of K-NN classifiers acting on standardised data.
 ```{r,message=FALSE}
 Y_knn5s <- knn(Z_train, Z_test, Y_train, k=5)
 mean(Y_test == Y_knn5s) # accuracy
-Y_knn10s <- knn(Z_train, Z_test, Y_train, k=10)
-mean(Y_test == Y_knn10s) # accuracy
+Y_knn9s <- knn(Z_train, Z_test, Y_train, k=9)
+mean(Y_test == Y_knn9s) # accuracy
 ```
 
-The accuracy is slightly better.
+The accuracy is much better.
 
 
 ---
@@ -437,13 +438,13 @@ To increase models' accuracy, we often spend a lot of time:
 * cleansing data (e.g., removing outliers)
 * extracting new features
 * transforming existing features
-* trying to find a subset of features that are relevant
+* trying to find a set of features that are relevant
 
-That is the "more art than science" part of data science (sic!), and
+This is the "more art than science" part of data science (sic!), and
 hence most textbooks are not really eager for discussing such topics
 (including this one).
 
-Sorry, this is said but true. The solutions that work well in the case of dataset
+Sorry, this is sad but true. The solutions that work well in the case of dataset
 A may fail in the B case and vice versa. However, the more exercises you solve,
 the greater the arsenal of ideas/possible approaches you will have at hand
 when dealing with real-world problems.
@@ -453,13 +454,13 @@ when dealing with real-world problems.
 Feature selection -- example (manually selected columns):
 
 ```{r,message=FALSE}
-features <- c("alcohol", "density", "pH")
+features <- c("density", "residual.sugar")
 Y_knn5s <- knn(Z_train[,features], Z_test[,features],
     Y_train, k=5)
 mean(Y_test == Y_knn5s) # accuracy
-Y_knn10s <- knn(Z_train[,features], Z_test[,features],
-    Y_train, k=10)
-mean(Y_test == Y_knn10s) # accuracy
+Y_knn9s <- knn(Z_train[,features], Z_test[,features],
+    Y_train, k=9)
+mean(Y_test == Y_knn9s) # accuracy
 ```
 
 > Try to find a combination of 2-4 features (by guessing or applying magic tricks)
@@ -468,92 +469,385 @@ that increases the accuracy of a $K$-NN classifier on this dataset.
 
 
 
-### Different Metrics (\*)
+## Model Assessment and Selection
+
+### Performance Metrics
 
 ---
 
-The Euclidean distance is just one particular example
-of many possible **metrics**.
 
-Mathematically, we say that $d$ is a metric on a set $X$
-(e.g., $\mathbb{R}^p$), whenever
-it is a function $d:X\times X\to [0,\infty]$ such that for all $x,x',x''\in X$:
+Recall that $y_i$ denotes the true label associated with the $i$-th observation.
 
-- $d(x, x') = 0$ if and only if $x=x'$,
-- $d(x, x') = d(x', x)$ (it is symmetric)
-- $d(x, x'') \le d(x, x') + d(x', x'')$ (it fulfils the triangle inequality)
+Let $\hat{y}_i$ denote the classifier's output for a given $\mathbf{x}_{i,\cdot}$.
+
+Ideally, we'd wish that $\hat{y}_i=y_i$.
+
+Sadly, in practice we will make errors.
+
+Here are the 4 possible situations (true vs. predicted label):
 
 
-> (*) Not all the properties are required in all the applications;
-sometimes we might need a few additional ones.
+.              | $y_i=0$                        | $y_i=1$
+---------------|--------------------------------|-------------
+$\hat{y}_i=0$  | **True Negative**              | False Negative (Type II error)
+$\hat{y}_i=1$  | False Positive (Type I error)  | **True Positive**
 
-We can easily generalise the way we introduced the K-NN method
-to have a classifier that is based on a point's neighbourhood
-with respect to any metric.
+Note that the terms **positive** and **negative** refer to
+the classifier's output, i.e., occur when $\hat{y}_i$ is equal to $1$ and $0$, respectively.
+
 
 ---
 
-Example metrics on $\mathbb{R}^p$:
+A **confusion matrix** is used to summarise
+the correctness of predictions for the whole sample:
 
-- **Euclidean**
-\[
-d_2(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \| = \| \mathbf{x}-\mathbf{x}' \|_2 = \sqrt{ \sum_{i=1}^p (x_i-x_i')^2 }
-\]
-- **Manhattan** (taxicab)
-\[
-d_1(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_1 = { \sum_{i=1}^p |x_i-x_i'| }
-\]
-- **Chebyshev** (maximum)
-\[
-d_\infty(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_\infty = \max_{i=1,\dots,p} |x_i-x_i'|
-\]
-
-<!--
-These are all examples of $L_p$ metrics, $p\ge 1$:
-\[
-d_p(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_p = \left( \sum_{i=1}^p |x_i-x_i'|^p \right)^{1/p}
-\]
--->
-
----
-
-We can define metrics on different spaces too.
-
-For example, the **Levenshtein distance** is a popular choice
-for comparing character strings (also DNA sequences etc.)
-
-It is an *edit distance* -- it measures the minimal number of
-single-character insertions, deletions or substitutions to change
-one string into another.
-
-
-For instance:
 
 ```{r}
-adist("happy", "nap")
+Y_pred <- knn(Z_train, Z_test, Y_train, k=9)
+(C <- table(Y_pred, Y_test))
 ```
 
-This is because we need 1 substitution and 2 deletions,
+For example,
 
-happy → nappy → napp → nap.
+```{r}
+C[1,1] # number of TNs
+C[2,1] # number of FPs
+```
 
 
 ---
 
 
+**Accuracy** is the ratio of the correctly classified instances
+to all the instances.
+
+In other words, it is the probability of making a correct prediction.
+
+\[
+\text{Accuracy} = \frac{\text{TP}+\text{TN}}{\text{TP}+\text{TN}+\text{FP}+\text{FN}}
+= \frac{1}{n} \sum_{i=1}^n \mathbb{I}\left(
+y_i = \hat{y}_i
+\right)
+\]
+where $\mathbb{I}$ is the indicator function,
+$\mathbb{I}(l)=1$ if logical condition $l$ is true and $0$ otherwise.
+
+```{r}
+mean(Y_test == Y_pred) # accuracy
+(C[1,1]+C[2,2])/sum(C) # equivalently
+```
+
+---
+
+In many applications we are dealing with **unbalanced problems**, where
+the case $y_i=1$ is relatively rare,
+yet predicting it  correctly is much more important than being
+accurate with respect to class $0$.
+
+> Think of medical applications, e.g., HIV testing
+or tumour diagnosis.
+
+In such a case, *accuracy* as a metric fails to quantify what we are aiming for.
+
+> If only 1% of the cases have true $y_i=1$,
+then a dummy classifier that always
+outputs $\hat{y}_i=0$ has 99% accuracy.
+
+Metrics such as precision and recall (and their aggregated version, F-measure)
+aim to address this problem.
 
 
-See also:
-
-- the Hamming distance for categorical vectors (or strings of equal lengths),
-- the Jaccard distance for sets,
-- the Kendall tau rank distance for rankings.
-
-Moreover, R package `stringdist` includes implementations
-of numerous string metrics.
 
 
-<!-- Mahalanobis distance -->
+
+---
+
+**Precision**
+
+
+
+\[
+\text{Precision} = \frac{\text{TP}}{\text{TP}+\text{FP}}
+\]
+
+
+If the classifier outputs $1$,
+what is the probability that this is indeed true?
+
+```{r}
+C[2,2]/(C[2,2]+C[2,1]) # Precision
+```
+
+---
+
+**Recall** (a.k.a. sensitivity, hit rate or true positive rate)
+
+\[
+\text{Recall} = \frac{\text{TP}}{\text{TP}+\text{FN}}
+\]
+
+If the true class is $1$, what is the probability that the classifier
+will detect it?
+
+
+```{r}
+C[2,2]/(C[2,2]+C[1,2]) # Recall
+```
+
+
+---
+
+> Precision or recall? It depends on an application.
+> Think of medical diagnosis, medical screening, plagiarism detection, etc.
+> --- which measure is more important in each of the settings listed?
+
+
+
+
+As a compromise, we can use the **F-measure**
+(a.k.a. $F_1$-measure),
+which is the harmonic mean of precision
+and recall:
+
+\[
+\text{F} = \frac{1}{
+    \frac{
+        \frac{1}{\text{Precision}}+\frac{1}{\text{Recall}}
+    }{2}
+}
+=
+\left(
+\frac{1}{2}
+\left(
+\text{Precision}^{-1}+\text{Recall}^{-1}
+\right)
+\right)^{-1}
+=
+\frac{\text{TP}}{\text{TP} + \frac{\text{FP} + \text{FN}}{2}}
+\]
+
+
+> Show that the above equality holds.
+
+```{r}
+C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]) # F
+```
+
+
+---
+
+The following function can come in handy in the future:
+
+```{r}
+get_metrics <- function(Y_pred, Y_test)
+{
+    C <- table(Y_pred, Y_test) # confusion matrix
+    stopifnot(dim(C) == c(2, 2))
+    c(Acc=(C[1,1]+C[2,2])/sum(C), # accuracy
+      Prec=C[2,2]/(C[2,2]+C[2,1]), # precision
+      Rec=C[2,2]/(C[2,2]+C[1,2]), # recall
+      F=C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]), # F-measure
+      # Confusion matrix items:
+      TN=C[1,1], FN=C[1,2],
+      FP=C[2,1], TP=C[2,2]
+    ) # return a named vector
+}
+```
+
+
+---
+
+
+```{r}
+get_metrics(Y_pred, Y_test)
+```
+
+
+### How to Choose K for K-NN Classification?
+
+---
+
+We haven't yet considered the question which $K$ yields *the best*
+classifier.
+
+Best == one that has the highest *predictive power*.
+
+Best == with respect to some chosen metric (accuracy, recall, precision, F-measure, ...)
+
+Let us study how the metrics on the test set change as functions of the number of nearest neighbours considered, $K$.
+
+---
+
+
+Auxiliary function:
+
+```{r}
+knn_metrics <- function(k, X_train, X_test, Y_train, Y_test)
+{
+    Y_pred <- knn(X_train, X_test, Y_train, k=k) # classify
+    get_metrics(Y_pred, Y_test)
+}
+```
+
+For example:
+
+```{r,cache=TRUE}
+knn_metrics(5, Z_train, Z_test, Y_train, Y_test)
+```
+
+
+---
+
+
+Example call to evaluate metrics as a function of different $K$s:
+
+```{r,cache=TRUE}
+Ks <- seq(1, 19, by=2)
+Ps <- as.data.frame(t(
+    sapply(Ks, # on each element in this vector
+        knn_metrics,     # apply this function
+        Z_train, Z_test, Y_train, Y_test # aux args
+    )))
+```
+
+
+> Note that `sapply(X, f, arg1, arg2, ...)`
+outputs a list `Y` such that
+`Y[[i]] = f(X[i], arg1, arg2, ...)`
+which is then simplified to a matrix.
+
+> We transpose this result, `t()`, in order to get each metric
+corresponding to different columns in the result.
+
+> As usual, if you keep wondering, e.g.,  why `t()`, play with the code yourself -- it's fun fun fun.
+
+
+---
+
+
+Example results:
+
+```{r}
+round(cbind(K=Ks, Ps), 2)
+```
+
+A picture is worth a thousand tables though (see `?matplot` in R).
+
+
+
+---
+
+
+```{r,echo=FALSE,cache=TRUE,fig.height=6}
+Ks <- seq(1, 51, by=2)
+Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
+  knn_metrics,     # apply this function
+  Z_train, Z_test, Y_train, Y_test # also passing these as args
+)))
+par(mar=c(4,4,2.5,0.5))
+matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Standardised Data (Z_train, Z_test)")
+legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
+```
+
+
+
+
+---
+
+
+```{r,echo=FALSE,cache=TRUE,fig.height=6}
+Ks <- seq(1, 51, by=2)
+Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
+  knn_metrics,     # apply this function
+  X_train, X_test, Y_train, Y_test # also passing these as args
+)))
+par(mar=c(4,4,2.5,0.5))
+matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Raw Data (X_train, X_test)")
+legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
+```
+
+<!--
+
+(\*) **ROC** (Receiver Operating Characteristic) curve:
+
+```{r,fig.height=5}
+TPR <- Ps$TP/(Ps$TP+Ps$FN) # True Positive Rate (recall)
+FPR <- Ps$FP/(Ps$FP+Ps$TN) # False Positive Rate
+plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1), las=1)
+abline(a=0, b=1, lty=3)
+```
+
+-->
+
+
+
+
+
+### Training, Validation and Test sets
+
+---
+
+
+In the $K$-NN classification task, there are many hyperparameters to tune up:
+
+- Which $K$ should we choose?
+
+- Should we standardise the dataset?
+
+- Which variables should be taken into account when computing the Euclidean distance?
+
+<!--
+- Which metric should be used?
+-->
+
+> **If we select the best hyperparameter set based on test
+sample error, we will run into the trap of overfitting again**.
+
+> This time we'll be overfitting to the test set --- the model that is optimal
+for a given test sample doesn't have to generalise well to other test samples (!).
+
+---
+
+
+In order to overcome this problem,
+we can perform a random **train-validation-test split** of the original dataset:
+
+- *training sample*  (e.g., 60%) -- used to construct the models
+- *validation sample* (e.g., 20%) -- used to tune the hyperparameters of the classifier
+- *test sample* (e.g., 20%) -- used to assess the goodness of fit
+
+> (\*) If our dataset is too small,
+we can use various *crossvalidation* techniques
+instead of a train-validate-test split.
+
+
+<!--By the way, this is how most data mining competitions are assessed --
+you will never have access to the final test sample used to determine the winner.
+The best you can do is to "guess".-->
+
+
+---
+
+An example way to perform a 60/20/20% train-validation-test split:
+
+```{R}
+set.seed(123) # reproducibility matters
+random_indices <- sample(n)
+n1 <- floor(n*0.6)
+n2 <- floor(n*0.8)
+X2_train <- X[1:n1,]
+Y2_train <- Y[1:n1]
+X2_valid <- X[(n1+1):n2,]
+Y2_valid <- Y[(n1+1):n2]
+X2_test  <- X[(n2+1):n,]
+Y2_test  <- Y[(n2+1):n]
+stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
+    == nrow(X))
+```
+
+
+> As an exercise, find the best $K$ on the validation set and compute the error metrics
+on the test set.
 
 
 
@@ -621,8 +915,9 @@ Load an example dataset on which we will test our algorithm:
 
 ```{r}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
-X <- as.matrix(wines[,1:11])
-Y <- factor(as.numeric(wines$response >= 7))
+wines <- wines[wines$color == "white",]
+X <- as.matrix(wines[,1:10])
+Y <- factor(as.character(as.numeric(wines$alcohol >= 12)))
 ```
 
 
@@ -634,7 +929,7 @@ Train-test split:
 ```{r}
 set.seed(123)
 random_indices <- sample(n)
-train_indices <- random_indices[1:floor(n*0.7)]
+train_indices <- random_indices[1:floor(n*0.6)]
 X_train <- X[train_indices,]
 Y_train <- Y[train_indices]
 X_test  <- X[-train_indices,]
@@ -942,6 +1237,100 @@ test_speed(10000, 20, 5)
 
 
 
+
+
+### Different Metrics (\*)
+
+---
+
+The Euclidean distance is just one particular example
+of many possible **metrics** (metric == a mathematical term,
+above we have used this term in a more relaxed fashion, when referring
+to accuracy etc.).
+
+Mathematically, we say that $d$ is a metric on a set $X$
+(e.g., $\mathbb{R}^p$), whenever
+it is a function $d:X\times X\to [0,\infty]$ such that for all $x,x',x''\in X$:
+
+- $d(x, x') = 0$ if and only if $x=x'$,
+- $d(x, x') = d(x', x)$ (it is symmetric)
+- $d(x, x'') \le d(x, x') + d(x', x'')$ (it fulfils the triangle inequality)
+
+
+> (*) Not all the properties are required in all the applications;
+sometimes we might need a few additional ones.
+
+We can easily generalise the way we introduced the K-NN method
+to have a classifier that is based on a point's neighbourhood
+with respect to any metric.
+
+---
+
+Example metrics on $\mathbb{R}^p$:
+
+- **Euclidean**
+\[
+d_2(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \| = \| \mathbf{x}-\mathbf{x}' \|_2 = \sqrt{ \sum_{i=1}^p (x_i-x_i')^2 }
+\]
+- **Manhattan** (taxicab)
+\[
+d_1(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_1 = { \sum_{i=1}^p |x_i-x_i'| }
+\]
+- **Chebyshev** (maximum)
+\[
+d_\infty(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_\infty = \max_{i=1,\dots,p} |x_i-x_i'|
+\]
+
+<!--
+These are all examples of $L_p$ metrics, $p\ge 1$:
+\[
+d_p(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_p = \left( \sum_{i=1}^p |x_i-x_i'|^p \right)^{1/p}
+\]
+-->
+
+---
+
+We can define metrics on different spaces too.
+
+For example, the **Levenshtein distance** is a popular choice
+for comparing character strings (also DNA sequences etc.)
+
+It is an *edit distance* -- it measures the minimal number of
+single-character insertions, deletions or substitutions to change
+one string into another.
+
+
+For instance:
+
+```{r}
+adist("happy", "nap")
+```
+
+This is because we need 1 substitution and 2 deletions,
+
+happy → nappy → napp → nap.
+
+
+---
+
+
+
+
+See also:
+
+- the Hamming distance for categorical vectors (or strings of equal lengths),
+- the Jaccard distance for sets,
+- the Kendall tau rank distance for rankings.
+
+Moreover, R package `stringdist` includes implementations
+of numerous string metrics.
+
+
+<!-- Mahalanobis distance -->
+
+
+
+
 ## Outro
 
 ### Remarks
@@ -950,20 +1339,14 @@ test_speed(10000, 20, 5)
 
 Note that K-NN is suitable for any kind of multiclass classification.
 
-Some algorithms we are going to discuss in the next part are
-restricted to binary (0/1) outputs. They will have to be extended
-somehow to allow for more classes.
-
-
-In the next part we will try to answer the question
-of how to choose the best $K$, and hence how to evaluate and pick the best model.
-
-
-We will also discuss some other noteworthy classifiers:
+In the next part we will discuss some other noteworthy classifiers:
 
 - *Decision trees*
 - *Logistic regression*
 
+
+They are restricted to binary (0/1) outputs. They will have to be extended
+somehow to allow for more classes.
 
 
 

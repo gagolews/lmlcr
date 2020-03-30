@@ -13,7 +13,7 @@ Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
 that consists of $n$ points in a $p$-dimensional space (each of the $n$ objects
 is described by means of $p$ numerical features)
 
-Recall that in supervised learning,
+Recall that in supervised learning, with each
 $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
@@ -43,7 +43,7 @@ we assume that each $y_i$ is a descriptive label.
 
 ---
 
-In this part we assume that we are faced with **binary classification** tasks.
+Let's assume that we are faced with **binary classification** tasks.
 
 Hence, there are only two possible labels that we traditionally denote with $0$s and $1$s.
 
@@ -60,6 +60,9 @@ healthy | ill
 
 
 ---
+
+The synthetic 2D dataset once again (true decision boundary is at $X_1=0$):
+
 
 ```{r,echo=FALSE,fig.height=6}
 par(mar=c(4,4,0.5,0.5))
@@ -88,67 +91,61 @@ abline(v=0, lty=3, col="blue")
 
 ---
 
-For illustration, let's consider the `wines` dataset again.
+For illustration, we'll be considering the Wine Quality dataset
+(white wines only):
 
 
 ```{r}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
+wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
 
 ---
 
 The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
-consists of all the numeric variables:
+consists of the first 10 numeric variables:
 
 ```{r}
-X <- as.matrix(wines[,1:11])
+X <- as.matrix(wines[,1:10])
 dim(X)
 head(X, 2) # first two rows
 ```
 
 
 
+
 ---
 
-The `response` variable is an ordinal one,
-giving each wine's rating as assigned by sommeliers
-(median of at least 3 valuations by wine experts).
-
-Here: 0 == a very bad wine, 10 == an excellent one.
+The 11th variable measures the amount of alcohol (in %).
 
 We will convert this dependent variable to a binary one:
 
-- 0 == (`response  < 7`) == bad
-- 1 == (`response >= 7`) == good
+- 0 == (`alcohol  < 12`) == lower-alcohol wines1
+- 1 == (`alcohol >= 12`) == higher-alcohol wines
 
 ```{r}
 # recall that TRUE == 1
-Y <- as.numeric(wines$response >= 7)
+Y <- factor(as.character(as.numeric(wines$alcohol >= 12)))
 table(Y)
 ```
 
 
-Now $(\mathbf{X},\mathbf{y})$ is a basis for an interesting (yet challenging)
-binary classification task.
-
-
-
 
 ---
 
-70/30% train-test split:
+60/40% train-test split:
 
 ```{R}
 set.seed(123) # reproducibility matters
 random_indices <- sample(n)
 head(random_indices) # preview
-# first 70% of the indices (they are arranged randomly)
+# first 60% of the indices (they are arranged randomly)
 # will constitute the train sample:
-train_indices <- random_indices[1:floor(n*0.7)]
+train_indices <- random_indices[1:floor(n*0.6)]
 X_train <- X[train_indices,]
 Y_train <- Y[train_indices]
-# the remaining indices (30%) go to the test sample:
+# the remaining indices (40%) go to the test sample:
 X_test  <- X[-train_indices,]
 Y_test  <- Y[-train_indices]
 ```
@@ -169,215 +166,14 @@ Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 
 
 
-
-### Discussed Methods
-
----
-
-We are soon going to discuss the following simple and educational (yet practically useful)
-classification algorithms:
-
-- *decision trees*,
-- *logistic regression*.
-
----
-
-Before that happens, let's go back to the K-NN algorithm.
-
-```{r}
-library("FNN")
-Y_knn5   <- knn(X_train, X_test, Y_train, k=5)
-Y_knn10  <- knn(X_train, X_test, Y_train, k=10)
-Y_knn5s  <- knn(Z_train, Z_test, Y_train, k=5)
-Y_knn10s <- knn(Z_train, Z_test, Y_train, k=10)
-c(
-    mean(Y_test == Y_knn5),
-    mean(Y_test == Y_knn10),
-    mean(Y_test == Y_knn5s),
-    mean(Y_test == Y_knn10s)
-)
-```
-
-
-We should answer the question regarding the optimal choice of $K$ first.
-
-How should we do that?
-
-
-
-
-## Model Assessment and Selection
-
-### Performance Metrics
-
----
-
-
-Recall that $y_i$ denotes the true label associated with the $i$-th observation.
-
-Let $\hat{y}_i$ denote the classifier's output for a given $\mathbf{x}_{i,\cdot}$.
-
-Ideally, we'd wish that $\hat{y}_i=y_i$.
-
-Sadly, in practice we will make errors.
-
-Here are the 4 possible situations (true vs. predicted label):
-
-
-.              | $y_i=0$                        | $y_i=1$
----------------|--------------------------------|-------------
-$\hat{y}_i=0$  | **True Negative**              | False Negative (Type II error)
-$\hat{y}_i=1$  | False Positive (Type I error)  | **True Positive**
-
-Note that the terms **positive** and **negative** refer to
-the classifier's output, i.e., occur when $\hat{y}_i$ is equal to $1$ and $0$, respectively.
-
-
----
-
-A **confusion matrix** is used to summarise
-the correctness of predictions for the whole sample:
-
-
-```{r}
-Y_pred <- Y_knn10s
-(C <- table(Y_pred, Y_test))
-```
-
-For example,
-
-```{r}
-C[1,1] # number of TNs
-C[2,1] # number of FPs
-```
-
-
----
-
-
-**Accuracy** is the ratio of the correctly classified instances
-to all the instances.
-
-In other words, it is the probability of making a correct prediction.
-
-\[
-\text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}
-= \frac{1}{n} \sum_{i=1}^n \mathbb{I}\left(
-y_i = \hat{y}_i
-\right)
-\]
-where $\mathbb{I}$ is the indicator function,
-$\mathbb{I}(l)=1$ if logical condition $l$ is true and $0$ otherwise.
-
-```{r}
-mean(Y_test == Y_pred) # accuracy
-(C[1,1]+C[2,2])/sum(C) # equivalently
-```
-
----
-
-In many applications we are dealing with **unbalanced problems**, where
-the case $y_i=1$ is relatively rare,
-yet predicting it  correctly is much more important than being
-accurate with respect to class $0$.
-
-> Think of medical applications, e.g., HIV testing
-or tumour diagnosis.
-
-In such a case, *accuracy* as a metric fails to quantify what we are aiming for.
-
-> If only 1% of the cases have true $y_i=1$,
-then a dummy classifier that always
-outputs $\hat{y}_i=0$ has 99% accuracy.
-
-Metrics such as precision and recall (and their aggregated version, F-measure)
-aim to address this problem.
-
-
-
-
-
----
-
-**Precision**
-
-
-
-\[
-\text{Precision} = \frac{TP}{TP+FP}
-\]
-
-
-If the classifier outputs $1$,
-what is the probability that this is indeed true?
-
-```{r}
-C[2,2]/(C[2,2]+C[2,1]) # Precision
-```
-
----
-
-**Recall** (a.k.a. sensitivity, hit rate or true positive rate)
-
-\[
-\text{Recall} = \frac{TP}{TP+FN}
-\]
-
-If the true class is $1$, what is the probability that the classifier
-will detect it?
-
-
-```{r}
-C[2,2]/(C[2,2]+C[1,2]) # Recall
-```
-
-
----
-
-> Precision or recall? It depends on an application.
-> Think of medical diagnosis, medical screening, plagiarism detection, etc.
-> --- which measure is more important in each of the settings listed?
-
-
-
-
-As a compromise, we can use the **F-measure**
-(a.k.a. $F_1$-measure),
-which is the harmonic mean of precision
-and recall:
-
-\[
-\text{F} = \frac{1}{
-    \frac{
-        \frac{1}{\text{Precision}}+\frac{1}{\text{Recall}}
-    }{2}
-}
-=
-\left(
-\frac{1}{2}
-\left(
-\text{Precision}^{-1}+\text{Recall}^{-1}
-\right)
-\right)^{-1}
-=
-\frac{TP}{TP + \frac{FP + FN}{2}}
-\]
-
-
-> Show that the above equality holds.
-
-```{r}
-C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]) # F
-```
-
-
 ---
 
 
 ```{r}
-get_metrics <- function(Y_test, Y_pred)
+get_metrics <- function(Y_pred, Y_test)
 {
     C <- table(Y_pred, Y_test) # confusion matrix
+    stopifnot(dim(C) == c(2, 2))
     c(Acc=(C[1,1]+C[2,2])/sum(C), # accuracy
       Prec=C[2,2]/(C[2,2]+C[2,1]), # precision
       Rec=C[2,2]/(C[2,2]+C[1,2]), # recall
@@ -389,190 +185,30 @@ get_metrics <- function(Y_test, Y_pred)
 }
 ```
 
-
-### How to Choose K for K-NN Classification?
-
----
-
-We haven't yet considered the question which $K$ yields *the best*
-classifier.
-
-Best == one that has the highest *predictive power*.
-
-Best == with respect to some chosen metric (accuracy, recall, precision, F-measure, ...)
-
-Let us study how the metrics on the test set change as functions of the number of nearest neighbours considered, $K$.
-
 ---
 
 
-Auxiliary function:
+
+Let's go back to the K-NN algorithm.
 
 ```{r}
-knn_metrics <- function(k, X_train, X_test, Y_train, Y_test)
-{
-    Y_pred <- knn(X_train, X_test, Y_train, k=k) # classify
-    get_metrics(Y_test, Y_pred)
-}
+library("FNN")
+Y_knn5   <- knn(X_train, X_test, Y_train, k=5)
+Y_knn9   <- knn(X_train, X_test, Y_train, k=9)
+Y_knn5s  <- knn(Z_train, Z_test, Y_train, k=5)
+Y_knn9s  <- knn(Z_train, Z_test, Y_train, k=9)
 ```
-
-For example:
-
-```{r,cache=TRUE}
-knn_metrics(5, Z_train, Z_test, Y_train, Y_test)
-```
-
 
 ---
-
-
-Example call to evaluate metrics as a function of different $K$s:
-
-```{r,cache=TRUE}
-Ks <- 1:10
-Ps <- as.data.frame(t(
-    sapply(Ks, # on each element in this vector
-        knn_metrics,     # apply this function
-        Z_train, Z_test, Y_train, Y_test # aux args
-    )))
-```
-
-
-> Note that `sapply(X, f, arg1, arg2, ...)`
-outputs a list `Y` such that
-`Y[[i]] = f(X[i], arg1, arg2, ...)`
-which is then simplified to a matrix.
-
-> We transpose this result, `t()`, in order to get each metric
-corresponding to different columns in the result.
-
-> As usual, if you keep wondering, e.g.,  why `t()`, play with the code yourself -- it's fun fun fun.
-
-
----
-
-
-Example results:
 
 ```{r}
-round(cbind(K=Ks, Ps), 2)
+cbind(
+    Knn5=get_metrics(Y_knn5, Y_test),
+    Knn9=get_metrics(Y_knn9, Y_test),
+    Knn5s=get_metrics(Y_knn5s, Y_test),
+    Knn9s=get_metrics(Y_knn9s, Y_test)
+)
 ```
-
-A picture is worth a thousand tables though (see `?matplot` in R).
-
-
-
----
-
-
-```{r,echo=FALSE,cache=TRUE,fig.height=6}
-Ks <- 1:50
-Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
-  knn_metrics,     # apply this function
-  Z_train, Z_test, Y_train, Y_test # also passing these as args
-)))
-par(mar=c(4,4,2.5,0.5))
-matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Standardised Data (Z_train, Z_test)")
-legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
-```
-
-
-
-
----
-
-
-```{r,echo=FALSE,cache=TRUE,fig.height=6}
-Ks <- 1:50
-Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
-  knn_metrics,     # apply this function
-  X_train, X_test, Y_train, Y_test # also passing these as args
-)))
-par(mar=c(4,4,2.5,0.5))
-matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Raw Data (X_train, X_test)")
-legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
-```
-
-<!--
-
-(\*) **ROC** (Receiver Operating Characteristic) curve:
-
-```{r,fig.height=5}
-TPR <- Ps$TP/(Ps$TP+Ps$FN) # True Positive Rate (recall)
-FPR <- Ps$FP/(Ps$FP+Ps$TN) # False Positive Rate
-plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1), las=1)
-abline(a=0, b=1, lty=3)
-```
-
--->
-
-
-
-
-
-### Training, Validation and Test sets
-
----
-
-
-In the $K$-NN classification task, there are many hyperparameters to tune up:
-
-- Which $K$ should we choose?
-
-- Should we standardise the dataset?
-
-- Which variables should be taken into account when computing the Euclidean metric?
-
-- Which metric should be used?
-
-
-> **If we select the best hyperparameter set based on test
-sample error, we will run into the trap of overfitting again**.
-
-> This time we'll be overfitting to the test set --- the model that is optimal
-for a given test sample doesn't have to generalise well to other test samples (!).
-
----
-
-
-In order to overcome this problem,
-we can perform a random **train-validation-test split** of the original dataset:
-
-- *training sample*  (e.g., 60%) -- used to construct the models
-- *validation sample* (e.g., 20%) -- used to tune the hyperparameters of the classifier
-- *test sample* (e.g., 20%) -- used to assess the goodness of fit
-
-> (\*) If our dataset is too small,
-we can use various *crossvalidation* techniques
-instead of a train-validate-test split.
-
-
-<!--By the way, this is how most data mining competitions are assessed --
-you will never have access to the final test sample used to determine the winner.
-The best you can do is to "guess".-->
-
-
----
-
-An example way to perform a train-validation-test split:
-
-```{R}
-set.seed(123) # reproducibility matters
-random_indices <- sample(n)
-n1 <- floor(n*0.6)
-n2 <- floor(n*0.8)
-X2_train <- X[1:n1,]
-Y2_train <- Y[1:n1]
-X2_valid <- X[(n1+1):n2,]
-Y2_valid <- Y[(n1+1):n2]
-X2_test  <- X[(n2+1):n,]
-Y2_test  <- Y[(n2+1):n]
-stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
-    == nrow(X))
-```
-
-
-
 
 
 
@@ -583,9 +219,16 @@ stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
 
 ---
 
+In this chapter we discuss the following simple and educational (yet practically useful)
+classification algorithms:
 
+- *decision trees*,
+- *logistic regression*.
 
-Note that a K-NN classifier is **model-free**.
+---
+
+Note that a K-NN classifier discussed in the previous chapter
+is **model-free**.
 The whole training set must be stored and referred to at all times.
 
 Therefore, it doesn't *explain* the data we have -- we may use it solely
@@ -700,8 +343,8 @@ set.seed(123)
 to feed it with data in a data.frame form.
 
 ```{r}
-XY_train <- as.data.frame(cbind(X_train, Y=Y_train))
-XY_test <- as.data.frame(cbind(X_test, Y=Y_test))
+XY_train <- cbind(as.data.frame(X_train), Y=Y_train)
+XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 ```
 
 ---
@@ -715,8 +358,11 @@ t1 <- rpart(Y~., data=XY_train, method="class")
 rpart.plot(t1)
 ```
 
+
+
 ---
 
+<!--
 The fitted model is rather... simple.
 
 Only the `alcohol` variable is taken into account.
@@ -726,21 +372,20 @@ Well note how these two distributions are shifted:
 
 ```{r,echo=-1}
 par(mar=c(4,4,0.5,0.5))
-vioplot::vioplot(alcohol~Y, data=XY_train,
-    horizontal=TRUE, las=1)
+#vioplot::vioplot(alcohol~Y, data=XY_train,
+#    horizontal=TRUE, las=1)
 ```
-
-
-
 
 ---
 
+
+-->
 
 Make predictions:
 
 ```{r}
 Y_pred <- predict(t1, XY_test, type="class")
-get_metrics(Y_test, Y_pred)
+get_metrics(Y_pred, Y_test)
 ```
 
 ---
@@ -768,7 +413,7 @@ rpart.plot(t2, tweak=2.5, compress=FALSE)
 
 ```{r}
 Y_pred <- predict(t2, XY_test, type="class")
-get_metrics(Y_test, Y_pred)
+get_metrics(Y_pred, Y_test)
 ```
 
 
@@ -813,7 +458,7 @@ bagging
 #library("randomForest")
 #rf <- randomForest(X_train, Y_train)
 #Y_pred <- predict(rf, X_test)
-#get_metrics(Y_test, Y_pred)
+#get_metrics(Y_pred, Y_test)
 ```
 
 
@@ -824,7 +469,7 @@ bagging
 #library("xgboost")
 #xg <- xgboost(X_train, Y_train)
 #Y_pred <- predict(xg, X_test)
-#get_metrics(Y_test, Y_pred)
+#get_metrics(Y_pred, Y_test)
 ```
 
 -->
@@ -853,7 +498,7 @@ and apply regression models in a binary classification task.
 
 ```{r}
 XY_train_r <- as.data.frame(cbind(X_train,
-    Y=as.numeric(as.character(Y_train)) # 0.0 or 1.0
+    Y=as.numeric(Y_train)-1 # 0.0 or 1.0
 ))
 f <- lm(Y~., data=XY_train_r)
 ```
@@ -870,7 +515,7 @@ but we can convert them to binary ones by checking if, e.g., $\hat{Y}>0.5$.
 
 ```{r}
 Y_pred <- as.numeric(Y_pred>0.5)
-get_metrics(Y_test, Y_pred)
+round(get_metrics(Y_pred, Y_test), 3)
 ```
 
 ---
@@ -884,7 +529,7 @@ Y_pred <- predict(f, XY_test)
 Ts <- seq(0.05, 0.95, length.out=101)
 Ps <- as.data.frame(t(sapply(Ts, function(t) {
   Y_pred <- as.numeric(Y_pred>=t)
-  get_metrics(Y_test, Y_pred)
+  get_metrics(Y_pred, Y_test)
 })))
 
 matplot(Ts, Ps[,1:4], las=1, xlab="T", ylab="Metric", type="l", ylim=c(0,1))
@@ -947,27 +592,28 @@ We call it a **generalised linear model** (glm).
 
 Let us first fit
 a simple  (i.e., $p=1$) logistic regression model
-using the `alcohol` variable.
+using the `density` variable.
 
 > "logit" below denotes the inverse of the logistic sigmoid function.
 
 
 ```{r}
-f <- glm(Y~alcohol, data=XY_train, family=binomial("logit"))
+f <- glm(Y~density, data=XY_train, family=binomial("logit"))
 summary(f)
 ```
 
 ---
 
-```{r,echo=FALSE,cache=TRUE,fig.height=5}
+
+```{r,echo=FALSE,cache=TRUE,fig.height=5,        eval=TRUE}
 par(mar=c(4,4,0.5,0.5))
-xxx <- seq(min(XY_train$alcohol), max(XY_train$alcohol), length.out=101)
+xxx <- seq(min(XY_train$density), max(XY_train$density), length.out=101)
 yyy <- 1/(1+exp(-(f$coef[1]+f$coef[2]*xxx)))
-plot(xxx, yyy, type='l', xlab='alcohol', ylab="P(Y=1|alcohol)", las=1, ylim=c(0,1))
-points(XY_train$alcohol, jitter(as.numeric(as.character(XY_train$Y)), 0.1), col=
-    c("#00000011", "#ff000011")[XY_train$Y+1], pch=16)
+plot(xxx, yyy, type='l', xlab='density', ylab="P(Y=1|density)", las=1, ylim=c(0,1))
+points(XY_train$density, jitter(as.numeric(XY_train$Y)-1, 0.1), col=
+    c("#00000011", "#ff000011")[as.numeric(XY_train$Y)], pch=16)
 abline(h=c(0, 0.5, 1), lty=3)
-legend(8, 0.95, legend=sprintf("1/(1+exp(-(%+g%+g*alcohol))", f$coef[1], f$coef[2]), lty=1)
+legend(8, 0.95, legend=sprintf("1/(1+exp(-(%+g%+g*density))", f$coef[1], f$coef[2]), lty=1)
 ```
 
 ---
@@ -984,7 +630,7 @@ is greater than $0.5$.
 
 ```{r}
 Y_pred <- as.numeric(predict(f, XY_test, type="response")>0.5)
-get_metrics(Y_test, Y_pred)
+get_metrics(Y_pred, Y_test)
 ```
 
 ---
@@ -994,7 +640,7 @@ And now a fit based on all the input variables:
 ```{r}
 f <- glm(Y~., data=XY_train, family=binomial("logit"))
 Y_pred <- as.numeric(predict(f, XY_test, type="response")>0.5)
-get_metrics(Y_test, Y_pred)
+get_metrics(Y_pred, Y_test)
 ```
 
 
