@@ -10,32 +10,31 @@
 ---
 
 Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
-that consists of $n$ points in a $p$-dimensional space.
+that consists of $n$ points in a $p$-dimensional space (each of the $n$ objects
+is described by means of $p$ numerical features)
 
-In other words, we have a database on $n$ objects, each of which
-being described by means of $p$ numerical features.
+Recall that in supervised learning,
+$\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
+
+Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
+where each object is represented as a row vector
+$[\mathbf{x}_{i,\cdot}\ y_i]$, $i=1,\dots,n$:
 
 \[
-\mathbf{X}=
+[\mathbf{X}\ \mathbf{y}]=
 \left[
-\begin{array}{cccc}
-x_{1,1} & x_{1,2} & \cdots & x_{1,p} \\
-x_{2,1} & x_{2,2} & \cdots & x_{2,p} \\
-\vdots & \vdots & \ddots & \vdots \\
-x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
+\begin{array}{ccccc}
+x_{1,1} & x_{1,2} & \cdots & x_{1,p} & y_1\\
+x_{2,1} & x_{2,2} & \cdots & x_{2,p} & y_2\\
+\vdots & \vdots & \ddots & \vdots    & \vdots\\
+x_{n,1} & x_{n,2} & \cdots & x_{n,p} & y_n\\
 \end{array}
-\right]
+\right].
 \]
 
 
----
+. . .
 
-
-
-Recall that in supervised learning,
-apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
-
-With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 
 In this chapter we are still  interested in  **classification** tasks;
@@ -113,23 +112,24 @@ head(X, 2) # first two rows
 ---
 
 The `response` variable is an ordinal one,
-giving each wine's rating as assigned by a sommelier.
+giving each wine's rating as assigned by sommeliers
+(median of at least 3 valuations by wine experts).
 
-Here: 0 == a very bad wine, 10 == a very good one.
+Here: 0 == a very bad wine, 10 == an excellent one.
 
 We will convert this dependent variable to a binary one:
 
-- 0 == `response  < 5` == bad
-- 1  == `response >= 5` == good
+- 0 == (`response  < 7`) == bad
+- 1 == (`response >= 7`) == good
 
 ```{r}
 # recall that TRUE == 1
-Y <- as.numeric(wines$response >= 5)
+Y <- as.numeric(wines$response >= 7)
 table(Y)
 ```
 
 
-Now $(\mathbf{X},\mathbf{y})$ is a basis for an interesting
+Now $(\mathbf{X},\mathbf{y})$ is a basis for an interesting (yet challenging)
 binary classification task.
 
 

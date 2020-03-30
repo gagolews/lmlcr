@@ -10,12 +10,12 @@
 
 ---
 
-
 Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
-that consists of $n$ points in a $p$-dimensional space.
+that consists of $n$ points in a $p$-dimensional space (each of the $n$ objects
+is described by means of $p$ numerical features).
 
-In other words, we have a database on $n$ objects, each of which
-being described by means of $p$ numerical features.
+Recall that in supervised learning, with each
+$\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
 
 \[
 \mathbf{X}=
@@ -27,20 +27,25 @@ x_{2,1} & x_{2,2} & \cdots & x_{2,p} \\
 x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
 \end{array}
 \right]
+\qquad
+\mathbf{y} = \left[
+\begin{array}{c}
+{y}_{1} \\
+{y}_{2} \\
+\vdots\\
+{y}_{n} \\
+\end{array}
+\right].
 \]
 
 
----
+. . .
 
 
-Recall that in supervised learning,
-apart from $\mathbf{X}$, we are also given the corresponding $\mathbf{y}$.
 
-With each input point $\mathbf{x}_{i,\cdot}$ we associate the desired output $y_i$.
-
-
-In this chapter we are interested in  **classification** tasks;
-we assume that each $y_i$ is a *label* (e.g., a character string).
+In this chapter we are  interested in  **classification** tasks;
+we assume that each $y_i$ is a *label*  (e.g., a character string) --
+it is of quantitative/categorical type.
 
 ---
 
@@ -64,6 +69,14 @@ we assume that each $y_i$ takes more than two possible values.
 
 ---
 
+Example plot of a synthetic dataset
+with the reference binary $y$s.
+
+The "true" decision boundary is at $X_1=0$ but the classes
+slightly overlap (dataset is a bit noisy).
+
+
+
 ```{r,echo=FALSE,fig.height=5}
 par(mar=c(4,4,0.5,0.5))
 set.seed(123)
@@ -80,50 +93,29 @@ legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"))
 abline(v=0, lty=3, col="blue")
 ```
 
-### Factor Data Type
-
----
-
-On a side note (see the Appendix for more details),
-`factor` type in R is a very convenient means to store categorical data,
-and hence, to encode the data in $\mathbf{y}$.
-
-```{r}
-x <- c("yes", "no", "no", "yes", "no")
-f <- factor(x, levels=c("no", "yes"))
-f
-table(f) # counts
-```
-
----
-
-Internally, objects of type `factor` are represented as integer vectors
-with elements in $\{1,\dots,M\}$, where $M$ is the number of possible levels.
-
-
-Labels, used to "decipher" the numeric codes, are stored separately.
-
-```{r}
-as.numeric(f) # 2nd label, 1st label, 1st label etc.
-levels(f)
-levels(f) <- c("failure", "success") # re-encode
-f
-```
-
-
-
-
 
 ### Data
 
 ---
 
-For illustration, let's consider the `wines` dataset.
+For illustration, let's consider the Wine Quality dataset
+that can be downloaded from the UCI Machine Learning Repository
+(https://archive.ics.uci.edu/ml/datasets/Wine+Quality).
+
 
 ```{r}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 (n <- nrow(wines)) # number of samples
 ```
+
+Red and white Vinho Verde wine samples from the north of Portugal,
+see https://www.vinhoverde.pt/en/homepage.
+
+The goal is to model wine quality based on physicochemical features.
+
+Source: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
+Modeling wine preferences by data mining from physicochemical properties. *Decision Support Systems*, **47**(4):547-553, 2009.
+
 
 ---
 
@@ -142,23 +134,24 @@ head(X, 2) # first two rows
 ---
 
 The `response` variable is an ordinal one,
-giving each wine's rating as assigned by a sommelier.
+giving each wine's rating as assigned by sommeliers
+(median of at least 3 valuations by wine experts).
 
-Here: 0 == a very bad wine, 10 == a very good one.
+Here: 0 == a very bad wine, 10 == an excellent one.
 
 We will convert this dependent variable to a binary one:
 
-- 0 == `response  < 5` == bad
-- 1 == `response >= 5` == good
+- 0 == (`response  < 7`) == bad
+- 1 == (`response >= 7`) == good
 
 ```{r}
 # recall that TRUE == 1
-Y <- factor(as.numeric(wines$response >= 5))
+Y <- as.numeric(wines$response >= 7)
 table(Y)
 ```
 
 
-Now $(\mathbf{X},\mathbf{y})$ is a basis for an interesting
+Now $(\mathbf{X},\mathbf{y})$ is a basis for an interesting (yet challenging)
 binary classification task.
 
 
@@ -177,9 +170,11 @@ for inputs that are yet to be observed.
 
 In the latter case:
 
+- we don't want our models to  *overfit* to current data,
 - we want our models to *generalise* well
-to new data,
-- we don't want our models to  *overfit* to current data.
+to new data.
+
+. . .
 
 One way to assess if a model has sufficient predictive power is based
 on a random **train-test split** of the original dataset:
@@ -216,12 +211,17 @@ Y_test  <- Y[-train_indices]
 
 ---
 
+Our aim is to build a classifier that takes 11 wine physicochemical
+features and determines whether it's a "drinkable" wine.
+
+
 We will discuss 3 simple and educational (yet practically useful)
 classification algorithms:
 
 - *K-nearest neighbour scheme* -- this chapter,
 - *Decision trees* -- the next chapter,
 - *Logistic regression* -- the next chapter.
+
 
 
 
@@ -240,7 +240,7 @@ To classify a new point $\mathbf{x}'$:
 
 1. find the $K$ nearest neighbours of a given point $\mathbf{x}'$ amongst the points in the train set,
 denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$:
-    a. compute the Euclidean distances between $\mathbf{x}'$ and each $\mathbf{x}_{i,\cdot}$ form the train set,
+    a. compute the Euclidean distances between $\mathbf{x}'$ and each $\mathbf{x}_{i,\cdot}$ from the train set,
     \[d_i = \|\mathbf{x}'-\mathbf{x}_{i,\cdot}\|\]
     b. order $d_i$s in increasing order,
     $d_{i_1} \le d_{i_2} \le \dots \le d_{i_K}$
@@ -258,11 +258,12 @@ denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$:
 
 
 
+Here is how $K$-NN classifier works on a synthetic 2D dataset.
 
+Gray and pink regions depict how new points would be classified.
 
-
-
-
+In particular 1-NN is "greedy" in the sense that we just
+locate the nearest point.
 
 
 
@@ -298,6 +299,9 @@ plot_knn(1)
 plot_knn(3)
 ```
 
+Increasing $K$ somehow smoothens the decision boundary (this makes it
+less "local" and more "global").
+
 ---
 
 
@@ -306,7 +310,8 @@ plot_knn(25)
 ```
 
 
-
+Recall that the "true" decision boundary for this synthetic dataset
+is at $X_1=0$. The 25-NN classifier did quite a good job.
 
 
 ### Example in R
@@ -348,6 +353,117 @@ mean(Y_test == Y_knn10) # accuracy
 
 
 
+### Feature Engineering
+
+---
+
+Note that the Euclidean distance that we used above
+implicitly assumes that every feature (independent variable)
+is on the same scale.
+
+However, when dealing with, e.g., physical quantities,
+we often perform conversions of units of measurement (kg → g, feet → m etc.).
+
+Transforming a single feature may drastically change the metric structure of the dataset
+and therefore highly affect the obtained predictions.
+
+---
+
+To "bring data to the same scale", we often apply a trick called **standardization**.
+
+Computing the so-called **Z-scores** of the $j$-th feature, $\mathbf{x}_{\cdot,j}$,
+is done by subtracting from each observation the sample mean and dividing the result by the sample
+standard deviation:
+
+\[z_{i,j} = \frac{x_{i,j}-\bar{x}_{\cdot,j}}{s_{x_{\cdot,j}}}\]
+
+This a new feature $\mathbf{z}_{\cdot,j}$ that always has mean 0 and standard deviation of 1.
+
+Moreover, it is *unit-less* (e.g., we divide a value in kgs by a value in kgs,
+the units are cancelled out).
+
+
+Z-scores are easy to interpret, e.g., 0.5 denotes an observation
+that is 0.5 standard deviations above the mean.
+
+---
+
+Let us compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
+and `X_test`, respectively.
+
+```{r}
+means <- apply(X, 2, mean) # column means
+sds   <- apply(X, 2, sd)   # column standard deviations
+Z_train <- X_train # to be done
+Z_test  <- X_test  # to be done
+for (j in 1:ncol(X)) {
+    Z_train[,j] <- (Z_train[,j]-means[j])/sds[j]
+    Z_test[,j]  <- (Z_test[,j] -means[j])/sds[j]
+}
+```
+
+
+Alternatively:
+
+```{r}
+Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
+Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
+```
+
+
+---
+
+Let us compute the accuracy of K-NN classifiers acting on standardised data.
+
+```{r,message=FALSE}
+Y_knn5s <- knn(Z_train, Z_test, Y_train, k=5)
+mean(Y_test == Y_knn5s) # accuracy
+Y_knn10s <- knn(Z_train, Z_test, Y_train, k=10)
+mean(Y_test == Y_knn10s) # accuracy
+```
+
+The accuracy is slightly better.
+
+
+---
+
+Standardisation is an example of *feature engineering*.
+
+Good models rarely work well "straight out of the box" -- if that was the case,
+we wouldn't need data scientists and machine learning engineers!
+
+To increase models' accuracy, we often spend a lot of time:
+
+* cleansing data (e.g., removing outliers)
+* extracting new features
+* transforming existing features
+* trying to find a subset of features that are relevant
+
+That is the "more art than science" part of data science (sic!), and
+hence most textbooks are not really eager for discussing such topics
+(including this one).
+
+Sorry, this is said but true. The solutions that work well in the case of dataset
+A may fail in the B case and vice versa. However, the more exercises you solve,
+the greater the arsenal of ideas/possible approaches you will have at hand
+when dealing with real-world problems.
+
+---
+
+Feature selection -- example (manually selected columns):
+
+```{r,message=FALSE}
+features <- c("alcohol", "density", "pH")
+Y_knn5s <- knn(Z_train[,features], Z_test[,features],
+    Y_train, k=5)
+mean(Y_test == Y_knn5s) # accuracy
+Y_knn10s <- knn(Z_train[,features], Z_test[,features],
+    Y_train, k=10)
+mean(Y_test == Y_knn10s) # accuracy
+```
+
+> Try to find a combination of 2-4 features (by guessing or applying magic tricks)
+that increases the accuracy of a $K$-NN classifier on this dataset.
 
 
 
@@ -440,80 +556,44 @@ of numerous string metrics.
 <!-- Mahalanobis distance -->
 
 
-### Standardisation of Independent Variables
-
----
-
-Note that the Euclidean distance that we used above
-implicitly assumes that every feature (independent variable)
-is on the same scale.
-
-However, when dealing with, e.g., physical quantities,
-we often perform conversions of units of measurement (kg → g, feet → m etc.).
-
-Transforming a single feature may drastically change the metric structure of the dataset
-and therefore highly affect the obtained predictions.
-
----
-
-To "bring data to the same scale", we often apply a trick called **standardization**.
-
-Computing the so-called **Z-scores** of the $j$-th feature, $\mathbf{x}_{\cdot,j}$,
-is done by subtracting from each observation the sample mean and dividing the result by the sample
-standard deviation:
-
-\[z_{i,j} = \frac{x_{i,j}-\bar{x}_{\cdot,j}}{s_{x_{\cdot,j}}}\]
-
-This a new feature $\mathbf{z}_{\cdot,j}$ that always has mean 0 and standard deviation of 1.
-
-Moreover, it is *unit-less* (e.g., we divide a value in kgs by a value in kgs,
-the units are cancelled out).
-
-
-Z-scores are easy to interpret, e.g., 0.5 denotes an observation
-that is 0.5 standard deviations above the mean.
-
----
-
-Let us compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
-and `X_test`, respectively.
-
-```{r}
-means <- apply(X, 2, mean) # column means
-sds   <- apply(X, 2, sd)   # column standard deviations
-Z_train <- X_train # to be done
-Z_test  <- X_test  # to be done
-for (j in 1:ncol(X)) {
-    Z_train[,j] <- (Z_train[,j]-means[j])/sds[j]
-    Z_test[,j]  <- (Z_test[,j] -means[j])/sds[j]
-}
-```
-
-
-Alternatively:
-
-```{r}
-Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
-Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
-```
-
-
----
-
-Let us compute the accuracy of K-NN classifiers acting on standardised data.
-
-```{r,message=FALSE}
-Y_knn5s <- knn(Z_train, Z_test, Y_train, k=5)
-mean(Y_test == Y_knn5s) # accuracy
-Y_knn10s <- knn(Z_train, Z_test, Y_train, k=10)
-mean(Y_test == Y_knn10s) # accuracy
-```
-
-
-
 
 
 ## Implementing a K-NN Classifier (\*)
+
+
+### Factor Data Type
+
+---
+
+Recall that (see Appendix B for more details)
+`factor` type in R is a very convenient means to encode categorical data
+(such as $\mathbf{y}$):
+
+```{r}
+x <- c("yes", "no", "no", "yes", "no")
+f <- factor(x, levels=c("no", "yes"))
+f
+table(f) # counts
+```
+
+---
+
+Internally, objects of type `factor` are represented as integer vectors
+with elements in $\{1,\dots,M\}$, where $M$ is the number of possible levels.
+
+
+Labels, used to "decipher" the numeric codes, are stored separately.
+
+```{r}
+as.numeric(f) # 2nd label, 1st label, 1st label etc.
+levels(f)
+levels(f) <- c("failure", "success") # re-encode
+f
+```
+
+
+
+
 
 ### Main Routine (\*)
 

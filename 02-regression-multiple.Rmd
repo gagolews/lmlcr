@@ -83,12 +83,12 @@ The solution is:
 \[
 \left\{
 \begin{array}{rl}
-a^*  = & \dfrac{
+a  = & \dfrac{
 n \displaystyle\sum_{i=1}^n x_i y_i - \displaystyle\sum_{i=1}^n  y_i \displaystyle\sum_{i=1}^n x_i
 }{
 n \displaystyle\sum_{i=1}^n x_i x_i -   \displaystyle\sum_{i=1}^n x_i\displaystyle\sum_{i=1}^n x_i
 }\\
-b^* = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a^*  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+b = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
 \end{array}
 \right.
 \]
