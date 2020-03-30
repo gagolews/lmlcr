@@ -37,9 +37,9 @@ computer-aided medical diagnosis, content and product recommendation,
 anomaly detection in security camera footages, game playing,
 autonomous vehicle operation and many others.
 
-In this book we will take a unpretentious glance at the most fundamental
-algorithms which stood the test of time and which still form
-the basis for the state-of-the-art solutions of the modern-era AI,
+In this book we will take an unpretentious glance at the most fundamental
+algorithms that have stood the test of time and which  form
+the basis for state-of-the-art solutions of modern AI,
 which is principally (big) data-driven.
 We will learn how to use the R language [@rpoject]
 for implementing various stages
@@ -47,17 +47,17 @@ of data processing and modelling activities.
 For a more in-depth treatment of R, refer to this book's Appendices
 and, for instance, [@Rintro; @rprogdatascience; @r4ds].
 
-We will provide solid underpinnings for further studies
+These pages contain solid underpinnings for further studies
 related to statistical learning, machine learning
 data science, data analytics and artificial intelligence,
 including [@islr; @esl; @bishop].
-We will appreciate the vital role of mathematics as a commonly accepted
-language for formalising data-intense problems and communicating their solutions.
-The book is aimed at readers who are yet to be fluent with
+We will also appreciate the vital role of mathematics as a universal
+language for formalising data-intense problems and communicating their
+solutions. The book is aimed at readers who are yet to be fluent with
 university-level linear algebra, calculus and probability theory,
 such as 1st year undergrads or those who have forgotten
 all the maths they have learned and need a gentle, non-invasive,
-yet rigorous enough, introduction to the topic.
+yet rigorous introduction to the topic.
 For a nice, machine learning-focused introduction to mathematics alone,
 see, e.g., [@mml].
 
@@ -111,10 +111,10 @@ data science and machine learning.
 This book was also influenced by my teaching experience at
 [Data Science Retreat](https://datascienceretreat.com) in Berlin, Germany.
 
-I'm an author of several R and Python packages, including
+I've create several open source R and Python packages, including
 [stringi](http://www.gagolewski.com/software/stringi/),
-which is among the top 20 most often downloaded R extensions.
-I'm an author of more than 70 publications, my research interests include
+which is among the most often downloaded R extensions.
+I'm an author of more than 70 publications. My research interests include
 machine learning and optimisation algorithms, data aggregation and clustering,
 statistical modelling and scientific computing.
 
