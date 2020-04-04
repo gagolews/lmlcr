@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -522,27 +522,27 @@ is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite
 <p>We shall be calling the <code>knn()</code> function from package <code>FNN</code>
 to classify the points from the test sample
 extracted from the <code>wines</code> dataset:</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a></code></pre></div>
 <p>Let us make prediction using the 5-nn classifier:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1">Y_knn5 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb172-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1">Y_knn5 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb177-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="kw">head</span>(Y_knn5, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">head</span>(Y_knn5, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
 <pre><code>##  [1] 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.8173469</code></pre>
 <hr />
 <p>9-nn classifier:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">Y_knn9 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb178-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">Y_knn9 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb183-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="kw">head</span>(Y_knn9, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="kw">head</span>(Y_knn9, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.8193878</code></pre>
 </div>
 <div id="feature-engineering" class="section level3">
@@ -569,24 +569,24 @@ that is 0.5 standard deviations above the mean.</p>
 <hr />
 <p>Let us compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
-<a class="sourceLine" id="cb184-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
-<a class="sourceLine" id="cb184-3" title="3">Z_train &lt;-<span class="st"> </span>X_train <span class="co"># to be done</span></a>
-<a class="sourceLine" id="cb184-4" title="4">Z_test  &lt;-<span class="st"> </span>X_test  <span class="co"># to be done</span></a>
-<a class="sourceLine" id="cb184-5" title="5"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(X)) {</a>
-<a class="sourceLine" id="cb184-6" title="6">    Z_train[,j] &lt;-<span class="st"> </span>(Z_train[,j]<span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
-<a class="sourceLine" id="cb184-7" title="7">    Z_test[,j]  &lt;-<span class="st"> </span>(Z_test[,j] <span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
-<a class="sourceLine" id="cb184-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
+<a class="sourceLine" id="cb189-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
+<a class="sourceLine" id="cb189-3" title="3">Z_train &lt;-<span class="st"> </span>X_train <span class="co"># to be done</span></a>
+<a class="sourceLine" id="cb189-4" title="4">Z_test  &lt;-<span class="st"> </span>X_test  <span class="co"># to be done</span></a>
+<a class="sourceLine" id="cb189-5" title="5"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(X)) {</a>
+<a class="sourceLine" id="cb189-6" title="6">    Z_train[,j] &lt;-<span class="st"> </span>(Z_train[,j]<span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
+<a class="sourceLine" id="cb189-7" title="7">    Z_test[,j]  &lt;-<span class="st"> </span>(Z_test[,j] <span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
+<a class="sourceLine" id="cb189-8" title="8">}</a></code></pre></div>
 <p>Alternatively:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
-<a class="sourceLine" id="cb185-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
+<a class="sourceLine" id="cb190-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <hr />
 <p>Let us compute the accuracy of K-NN classifiers acting on standardised data.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb186-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb191-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9102041</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb188-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb193-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9122449</code></pre>
 <p>The accuracy is much better.</p>
 <hr />
@@ -609,14 +609,14 @@ the greater the arsenal of ideas/possible approaches you will have at hand
 when dealing with real-world problems.</p>
 <hr />
 <p>Feature selection – example (manually selected columns):</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;density&quot;</span>, <span class="st">&quot;residual.sugar&quot;</span>)</a>
-<a class="sourceLine" id="cb190-2" title="2">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
-<a class="sourceLine" id="cb190-3" title="3">    Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb190-4" title="4"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1">features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;density&quot;</span>, <span class="st">&quot;residual.sugar&quot;</span>)</a>
+<a class="sourceLine" id="cb195-2" title="2">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
+<a class="sourceLine" id="cb195-3" title="3">    Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb195-4" title="4"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9168367</code></pre>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
-<a class="sourceLine" id="cb192-2" title="2">    Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb192-3" title="3"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
+<a class="sourceLine" id="cb197-2" title="2">    Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb197-3" title="3"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9255102</code></pre>
 <blockquote>
 <p>Try to find a combination of 2-4 features (by guessing or applying magic tricks)

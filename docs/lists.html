@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -481,9 +481,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Numeric, logical and character vectors are <em>atomic</em> objects – each
 component is of the same type. Let’s take a look at what happens when
 we create an atomic vector out of objects of different types:</p>
-<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb865-1" title="1"><span class="kw">c</span>(<span class="st">&quot;nine&quot;</span>, <span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb870-1" title="1"><span class="kw">c</span>(<span class="st">&quot;nine&quot;</span>, <span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;nine&quot;  &quot;FALSE&quot; &quot;7&quot;     &quot;TRUE&quot;</code></pre>
-<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb867-1" title="1"><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>, <span class="dv">7</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb872-1" title="1"><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>, <span class="dv">7</span>)</a></code></pre></div>
 <pre><code>## [1] 0 7 1 7</code></pre>
 <p>In each case, we get an object of the most “general” type which is able to
 represent our data.</p>
@@ -493,7 +493,7 @@ also other lists.</p>
 <div id="creating-lists" class="section level3">
 <h3><span class="header-section-number">B.8.1</span> Creating Lists</h3>
 <p>Most commonly, we create a generalised vector by calling the <code>list()</code> function.</p>
-<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb869-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters, <span class="kw">runif</span>(<span class="dv">3</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb874-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters, <span class="kw">runif</span>(<span class="dv">3</span>)))</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1 2 3 4 5
 ## 
@@ -503,20 +503,20 @@ also other lists.</p>
 ## 
 ## [[3]]
 ## [1] 0.9568333 0.4533342 0.6775706</code></pre>
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb871-1" title="1"><span class="kw">mode</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb876-1" title="1"><span class="kw">mode</span>(l)</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb873-1" title="1"><span class="kw">class</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb878-1" title="1"><span class="kw">class</span>(l)</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb875-1" title="1"><span class="kw">length</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb880-1" title="1"><span class="kw">length</span>(l)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>There’s a more compact way to print a list on the console:</p>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb877-1" title="1"><span class="kw">str</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb882-1" title="1"><span class="kw">str</span>(l)</a></code></pre></div>
 <pre><code>## List of 3
 ##  $ : int [1:5] 1 2 3 4 5
 ##  $ : chr [1:26] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
 ##  $ : num [1:3] 0.957 0.453 0.678</code></pre>
 <p>We can also convert an atomic vector to a list by calling:</p>
-<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb879-1" title="1"><span class="kw">as.list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb884-1" title="1"><span class="kw">as.list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -529,8 +529,8 @@ also other lists.</p>
 <div id="named-lists" class="section level3">
 <h3><span class="header-section-number">B.8.2</span> Named Lists</h3>
 <p>List, like other vectors, may be assigned a <code>names</code> attribute.</p>
-<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb881-1" title="1"><span class="kw">names</span>(l) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</a>
-<a class="sourceLine" id="cb881-2" title="2">l</a></code></pre></div>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb886-1" title="1"><span class="kw">names</span>(l) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</a>
+<a class="sourceLine" id="cb886-2" title="2">l</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 2 3 4 5
 ## 
@@ -545,30 +545,30 @@ also other lists.</p>
 <h3><span class="header-section-number">B.8.3</span> Subsetting and Extracting From Lists</h3>
 <p>Applying a square brackets operator creates a sub-list, which is
 of type list as well.</p>
-<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb883-1" title="1">l[<span class="op">-</span><span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb888-1" title="1">l[<span class="op">-</span><span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## $b
 ##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot;
 ## [16] &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;
 ## 
 ## $c
 ## [1] 0.9568333 0.4533342 0.6775706</code></pre>
-<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb885-1" title="1">l[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb890-1" title="1">l[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>)]</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 2 3 4 5
 ## 
 ## $c
 ## [1] 0.9568333 0.4533342 0.6775706</code></pre>
-<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb887-1" title="1">l[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb892-1" title="1">l[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 2 3 4 5</code></pre>
 <p>Note in the 3rd case we deal with a list of length one, not a numeric vector.</p>
 <p>To <em>extract</em> (dig into) a particular (single) element, we use double square brackets:</p>
-<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb889-1" title="1">l[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb894-1" title="1">l[[<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
-<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb891-1" title="1">l[[<span class="st">&quot;c&quot;</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb896-1" title="1">l[[<span class="st">&quot;c&quot;</span>]]</a></code></pre></div>
 <pre><code>## [1] 0.9568333 0.4533342 0.6775706</code></pre>
 <p>The latter can equivalently be written as:</p>
-<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb893-1" title="1">l<span class="op">$</span>c</a></code></pre></div>
+<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb898-1" title="1">l<span class="op">$</span>c</a></code></pre></div>
 <pre><code>## [1] 0.9568333 0.4533342 0.6775706</code></pre>
 </div>
 <div id="common-operations" class="section level3">
@@ -579,7 +579,7 @@ In particular, it neither makes sense to add, multiply, … two lists together
 nor to aggregate them.</p>
 <p>However, if we wish to run some operation on each element, we can call
 list-apply:</p>
-<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb895-1" title="1">(k &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x=</span><span class="kw">runif</span>(<span class="dv">5</span>), <span class="dt">y=</span><span class="kw">runif</span>(<span class="dv">6</span>), <span class="dt">z=</span><span class="kw">runif</span>(<span class="dv">3</span>))) <span class="co"># a named list</span></a></code></pre></div>
+<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb900-1" title="1">(k &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x=</span><span class="kw">runif</span>(<span class="dv">5</span>), <span class="dt">y=</span><span class="kw">runif</span>(<span class="dv">6</span>), <span class="dt">z=</span><span class="kw">runif</span>(<span class="dv">3</span>))) <span class="co"># a named list</span></a></code></pre></div>
 <pre><code>## $x
 ## [1] 0.57263340 0.10292468 0.89982497 0.24608773 0.04205953
 ## 
@@ -588,7 +588,7 @@ list-apply:</p>
 ## 
 ## $z
 ## [1] 0.6557058 0.7085305 0.5440660</code></pre>
-<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb897-1" title="1"><span class="kw">lapply</span>(k, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb902-1" title="1"><span class="kw">lapply</span>(k, mean)</a></code></pre></div>
 <pre><code>## $x
 ## [1] 0.3727061
 ## 
@@ -601,15 +601,15 @@ list-apply:</p>
 stored inside list <code>k</code>.</p>
 <p><code>unlist()</code> tries (it might not always be possible)
 to unwind a list to a simpler, atomic form:</p>
-<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb899-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(k, mean))</a></code></pre></div>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb904-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(k, mean))</a></code></pre></div>
 <pre><code>##         x         y         z 
 ## 0.3727061 0.7499239 0.6361008</code></pre>
 <p>Moreover, <code>split(x, f)</code> classifies elements in a vector <code>x</code>
 into subgroups defined by a factor (or an object coercible to)
 of the same length.</p>
-<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb901-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(  <span class="dv">1</span>,   <span class="dv">2</span>,   <span class="dv">3</span>,   <span class="dv">4</span>,   <span class="dv">5</span>,   <span class="dv">6</span>,   <span class="dv">7</span>,   <span class="dv">8</span>,   <span class="dv">9</span>,  <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb901-2" title="2">f &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)</a>
-<a class="sourceLine" id="cb901-3" title="3"><span class="kw">split</span>(x, f)</a></code></pre></div>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb906-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(  <span class="dv">1</span>,   <span class="dv">2</span>,   <span class="dv">3</span>,   <span class="dv">4</span>,   <span class="dv">5</span>,   <span class="dv">6</span>,   <span class="dv">7</span>,   <span class="dv">8</span>,   <span class="dv">9</span>,  <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb906-2" title="2">f &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)</a>
+<a class="sourceLine" id="cb906-3" title="3"><span class="kw">split</span>(x, f)</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 3 4 8 9
 ## 
@@ -621,7 +621,7 @@ of the same length.</p>
 <p>This is very useful when combined with <code>lapply()</code> and <code>unlist()</code>.
 For instance, here are the mean sepal lengths
 for each of the three flower species in the famous <code>iris</code> dataset.</p>
-<div class="sourceCode" id="cb903"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb903-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species), mean))</a></code></pre></div>
+<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb908-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species), mean))</a></code></pre></div>
 <pre><code>##     setosa versicolor  virginica 
 ##      5.006      5.936      6.588</code></pre>
 <p>By the way, if we take a look at the documentation of <code>?lapply</code>,
@@ -632,10 +632,10 @@ such that <code>Y[[i]] &lt;- FUN(X[[i]], ...)</code> for each <code>i</code>.
 For example, <code>mean()</code> has an additional argument <code>na.rm</code> that
 aims to remove missing values from the input vector.
 Compare the following:</p>
-<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb905-1" title="1">t &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb905-2" title="2"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean))</a></code></pre></div>
+<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb910-1" title="1">t &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb910-2" title="2"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean))</a></code></pre></div>
 <pre><code>## [1] 5.5  NA</code></pre>
-<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb907-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb912-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 5.5 3.0</code></pre>
 </div>
 </div>

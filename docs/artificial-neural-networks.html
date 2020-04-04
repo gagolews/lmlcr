@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -515,20 +515,20 @@ that uses the softmax as the activation function.</p>
 <p>To train such a neural network (fit a multinomial logistic regression model),
 we will use the keras package,
 a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" title="1"><span class="co"># Start with an empty model</span></a>
-<a class="sourceLine" id="cb360-2" title="2">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
-<a class="sourceLine" id="cb360-3" title="3"><span class="co"># Add a single layer with 10 units and softmax activation</span></a>
-<a class="sourceLine" id="cb360-4" title="4"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
-<a class="sourceLine" id="cb360-5" title="5"><span class="co"># We will be minimising the cross-entropy,</span></a>
-<a class="sourceLine" id="cb360-6" title="6"><span class="co"># sgd == stochastic gradient descent, see the next chapter</span></a>
-<a class="sourceLine" id="cb360-7" title="7"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
-<a class="sourceLine" id="cb360-8" title="8">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
-<a class="sourceLine" id="cb360-9" title="9"><span class="co"># Fit the model</span></a>
-<a class="sourceLine" id="cb360-10" title="10"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="co"># Start with an empty model</span></a>
+<a class="sourceLine" id="cb365-2" title="2">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
+<a class="sourceLine" id="cb365-3" title="3"><span class="co"># Add a single layer with 10 units and softmax activation</span></a>
+<a class="sourceLine" id="cb365-4" title="4"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
+<a class="sourceLine" id="cb365-5" title="5"><span class="co"># We will be minimising the cross-entropy,</span></a>
+<a class="sourceLine" id="cb365-6" title="6"><span class="co"># sgd == stochastic gradient descent, see the next chapter</span></a>
+<a class="sourceLine" id="cb365-7" title="7"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
+<a class="sourceLine" id="cb365-8" title="8">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
+<a class="sourceLine" id="cb365-9" title="9"><span class="co"># Fit the model</span></a>
+<a class="sourceLine" id="cb365-10" title="10"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a></code></pre></div>
 <hr />
 <p>Predict over the test set and one-hot-decode the output probabilities:</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" title="1">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
-<a class="sourceLine" id="cb361-2" title="2"><span class="kw">round</span>(<span class="kw">head</span>(Y_pred2), <span class="dv">2</span>) <span class="co"># predicted class probabilities</span></a></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
+<a class="sourceLine" id="cb366-2" title="2"><span class="kw">round</span>(<span class="kw">head</span>(Y_pred2), <span class="dv">2</span>) <span class="co"># predicted class probabilities</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,] 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.99 0.00  0.00
 ## [2,] 0.01 0.00 0.85 0.02 0.00 0.02 0.09 0.00 0.01  0.00
@@ -536,14 +536,14 @@ a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.</p>
 ## [4,] 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00  0.00
 ## [5,] 0.00 0.00 0.01 0.00 0.88 0.00 0.01 0.02 0.01  0.06
 ## [6,] 0.00 0.97 0.01 0.01 0.00 0.00 0.00 0.01 0.01  0.00</code></pre>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
-<a class="sourceLine" id="cb363-2" title="2"><span class="kw">head</span>(Y_pred, <span class="dv">20</span>) <span class="co"># predicted outputs</span></a></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
+<a class="sourceLine" id="cb368-2" title="2"><span class="kw">head</span>(Y_pred, <span class="dv">20</span>) <span class="co"># predicted outputs</span></a></code></pre></div>
 <pre><code>##  [1] 7 2 1 0 4 1 4 9 6 9 0 6 9 0 1 5 9 7 3 4</code></pre>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="kw">head</span>(Y_test, <span class="dv">20</span>) <span class="co"># true outputs</span></a></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1"><span class="kw">head</span>(Y_test, <span class="dv">20</span>) <span class="co"># true outputs</span></a></code></pre></div>
 <pre><code>##  [1] 7 2 1 0 4 1 4 9 5 9 0 6 9 0 1 5 9 7 3 4</code></pre>
 <hr />
 <p>Accuracy on the test set:</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred)</a></code></pre></div>
 <pre><code>## [1] 0.9081</code></pre>
 <hr />
 <p>Performance metrics for each digit separately:</p>

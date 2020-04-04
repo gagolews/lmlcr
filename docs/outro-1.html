@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -699,17 +699,17 @@ of matrices for efficiency and numerical accuracy reasons.</p>
 </blockquote>
 <hr />
 <p>Numeric example – solution via <code>lm()</code>:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1">X1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb154-2" title="2">X2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Income[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb154-3" title="3">Y  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb154-4" title="4"><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span>X2)<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1">X1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb159-2" title="2">X2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Income[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb159-3" title="3">Y  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb159-4" title="4"><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span>X2)<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>## (Intercept)          X1          X2 
 ## 172.5586670   0.1828011   2.1976461</code></pre>
 <p>Recalling that <span class="math inline">\(\mathbf{A}^T \mathbf{B}\)</span> can be computed
 by calling <code>t(A) %*% B</code> or – even faster – by calling <code>crossprod(A, B)</code>,
 we can also use <code>solve()</code> to obtain the same result:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1">X_dot &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, X1, X2)</a>
-<a class="sourceLine" id="cb156-2" title="2"><span class="kw">solve</span>( <span class="kw">crossprod</span>(X_dot, X_dot), <span class="kw">crossprod</span>(X_dot, Y) )</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1">X_dot &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, X1, X2)</a>
+<a class="sourceLine" id="cb161-2" title="2"><span class="kw">solve</span>( <span class="kw">crossprod</span>(X_dot, X_dot), <span class="kw">crossprod</span>(X_dot, Y) )</a></code></pre></div>
 <pre><code>##           [,1]
 ##    172.5586670
 ## X1   0.1828011
@@ -752,13 +752,13 @@ i.e., the normalised dot product of the centred versions of the two vectors.</p>
 <p>(**) Recalling from the previous chapter that <span class="math inline">\(\mathbf{A}^T \mathbf{A}\)</span>
 gives the dot product between all the pairs of columns in a matrix <span class="math inline">\(\mathbf{A}\)</span>,
 we can implement an equivalent version of <code>cor(C)</code> as follows:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb158-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Limit&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
-<a class="sourceLine" id="cb158-3" title="3">    <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
-<a class="sourceLine" id="cb158-4" title="4">C_centred &lt;-<span class="st"> </span><span class="kw">apply</span>(C, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a>
-<a class="sourceLine" id="cb158-5" title="5">C_normalised &lt;-<span class="st"> </span><span class="kw">apply</span>(C_centred, <span class="dv">2</span>, <span class="cf">function</span>(c)</a>
-<a class="sourceLine" id="cb158-6" title="6">    c<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(c<span class="op">^</span><span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb158-7" title="7"><span class="kw">round</span>(<span class="kw">t</span>(C_normalised) <span class="op">%*%</span><span class="st"> </span>C_normalised, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb163-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Limit&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
+<a class="sourceLine" id="cb163-3" title="3">    <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
+<a class="sourceLine" id="cb163-4" title="4">C_centred &lt;-<span class="st"> </span><span class="kw">apply</span>(C, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a>
+<a class="sourceLine" id="cb163-5" title="5">C_normalised &lt;-<span class="st"> </span><span class="kw">apply</span>(C_centred, <span class="dv">2</span>, <span class="cf">function</span>(c)</a>
+<a class="sourceLine" id="cb163-6" title="6">    c<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(c<span class="op">^</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb163-7" title="7"><span class="kw">round</span>(<span class="kw">t</span>(C_normalised) <span class="op">%*%</span><span class="st"> </span>C_normalised, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##           Rating  Limit Income   Age Education Balance
 ## Rating     1.000  0.996  0.831 0.167    -0.040   0.798
 ## Limit      0.996  1.000  0.834 0.164    -0.032   0.796

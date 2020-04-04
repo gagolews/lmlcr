@@ -513,14 +513,17 @@ R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left(y_i-f(\mathbf{x}_{i,\cdot})\right)^2}{\s
 where $\bar{y}$ is the arithmetic mean $\frac{1}{n}\sum_{i=1}^n y_i$.
 
 ```{R}
-(r12 <- 1 - sum(f12$residuals^2)/sum((Y-mean(Y))^2) )
-(r1  <- 1 - sum(f1$residuals^2)/sum((Y-mean(Y))^2)  )
-(r2  <- 1 - sum(f2$residuals^2)/sum((Y-mean(Y))^2)  )
+(r12 <- summary(f12)$r.squared)
+1 - sum(f12$residuals^2)/sum((Y-mean(Y))^2) # the same
+(r1 <- summary(f1)$r.squared)
+(r2 <- summary(f2)$r.squared)
 ```
 
 The coefficient of determination gives the proportion of variance of the
 dependent variable explained by independent variables in the model;
-$R^2(f)\simeq 1$ indicates a perfect fit
+$R^2(f)\simeq 1$ indicates a perfect fit.
+The first model is a very good one, the simple models are
+"more or less okay".
 
 
 
@@ -534,15 +537,14 @@ To correct for this phenomenon, we sometimes consider the **adjusted $R^2$**:
 \]
 
 ```{R}
-n <- length(x)
-1 - (1 - r12)*(n-1)/(n-3)
-1 - (1 - r1 )*(n-1)/(n-2)
-1 - (1 - r2 )*(n-1)/(n-2)
+summary(f12)$adj.r.squared
+n <- length(x); 1 - (1 - r12)*(n-1)/(n-3) # the same
+summary(f1)$adj.r.squared
+summary(f2)$adj.r.squared
 ```
 
 In other words, the adjusted $R^2$ penalises for more complex models.
 
----
 
 
 
@@ -885,7 +887,7 @@ of the form:
 Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + \dots + \beta_d X^d.
 \]
 
-Such models can be fit with the `lm()` function based on the formula
+Such models can be fitted with the `lm()` function based on the formula
 of the form `Y~poly(X, d)` or `Y~X+I(X^2)+I(X^3)+...`
 
 ```{r}

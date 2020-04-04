@@ -110,7 +110,7 @@ wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
 
-Vinho Verde wine samples from the north of Portugal,
+These are Vinho Verde wine samples from the north of Portugal,
 see https://www.vinhoverde.pt/en/homepage.
 
 There are 11 physicochemical features reported.

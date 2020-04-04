@@ -847,29 +847,20 @@ heatmap of SSR(a,b) for a = [0,1], b=[0,300]
 ---
 
 Let's fit the linear model minimising the SSR in R.
-For convenience, let us store both $\mathbf{x}$ and $\mathbf{y}$
-in a data frame:
-
-```{r}
-XY <- data.frame(X=X, Y=Y)
-head(XY, 3)
-```
-
 The `lm()` function (`l`inear `m`odels) has a convenient *formula*-based interface.
 
-> In R, the expression "`Y~X`" denotes a formula, which we read as:
-variable `Y` is a function of `X`.
-Note that the dependent variable is on the left side of the formula.
-
-
 
 ```{r}
-f <- lm(Y~X, data=XY)
+f <- lm(Y~X)
 ```
 
-> Note that here `X` and `Y` refer to column names in the `XY` data frame.
+In R, the expression "`Y~X`" denotes a formula, which we read as:
+variable `Y` is a function of `X`.
+Note that the dependent variable is on the left side of the formula.
+Here, `X` and `Y` are two R numeric vectors of identical lengths.
 
----
+
+Let's print the fitted model:
 
 ```{r}
 print(f)
@@ -881,7 +872,6 @@ Y = f(X) = `r f$coefficient[2]`X+`r f$coefficient[1]`
 \qquad (+ \varepsilon)
 \]
 
----
 
 Coefficient $a$ (slope):
 
@@ -895,44 +885,6 @@ Coefficient $b$ (intercept):
 f$coefficient[1]
 ```
 
----
-
-SSR:
-
-```{r}
-sum(f$residuals^2)
-sum((f$coefficient[2]*X+f$coefficient[1]-Y)^2) # equivalent
-```
-
----
-
-To make a prediction:
-
-```{r}
-Xnew <- data.frame(X=c(1500, 2000, 2500))
-f$coefficient[2]*Xnew$X + f$coefficient[1]
-```
-
-
-or:
-
-```{r}
-predict(f, Xnew)
-```
-
----
-
-However:
-
-```{r}
-predict(f, data.frame(X=c(5000)))
-```
-
-This is more than the highest possible rating -- we have been extrapolating
-way beyond the observable data range.
-
----
-
 Plotting:
 
 ```{r,echo=-1}
@@ -942,9 +894,58 @@ abline(f, col=2, lwd=3)
 ```
 
 
+SSR:
+
+```{r}
+sum(f$residuals^2)
+sum((f$coefficient[2]*X+f$coefficient[1]-Y)^2) # equivalent
+```
+
+We can predict the model's output for yet-unobserved inputs by
+writing:
+
+```{r}
+X_new <- c(1500, 2000, 2500) # example inputs
+f$coefficient[2]*X_new + f$coefficient[1]
+```
 
 
----
+Note that linear models can also be fitted based on formulas that refer
+to a data frame's columns. For example, let us wrap
+both $\mathbf{x}$ and $\mathbf{y}$ inside a data frame:
+
+```{r}
+XY <- data.frame(Balance=X, Rating=Y)
+head(XY, 3)
+```
+
+By writing:
+
+```{r}
+f <- lm(Rating~Balance, data=XY)
+```
+
+now `Balance` and `Rating` refer to column names in the `XY` data frame,
+and not the objects in the R's "workspace".
+
+Based on the above, we can make a prediction
+using the `predict()` function"
+
+```{r}
+X_new <- data.frame(Balance=c(1500, 2000, 2500))
+predict(f, X_new)
+```
+
+Interestingly:
+
+```{r}
+predict(f, data.frame(Balance=c(5000)))
+```
+
+This is more than the highest possible rating -- we have extrapolated
+way beyond the observable data range.
+
+
 
 
 Note that our $Y=aX+b$ model is **interpretable**

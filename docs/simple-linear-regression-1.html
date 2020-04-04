@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -506,29 +506,17 @@ heatmap of SSR(a,b) for a = [0,1], b=[0,300]
 <h3><span class="header-section-number">1.4.2</span> Solution in R</h3>
 <hr />
 <p>Let’s fit the linear model minimising the SSR in R.
-For convenience, let us store both <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{y}\)</span>
-in a data frame:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">XY &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>X, <span class="dt">Y=</span>Y)</a>
-<a class="sourceLine" id="cb35-2" title="2"><span class="kw">head</span>(XY, <span class="dv">3</span>)</a></code></pre></div>
-<pre><code>##     X   Y
-## 1 333 283
-## 2 903 483
-## 3 580 514</code></pre>
-<p>The <code>lm()</code> function (<code>l</code>inear <code>m</code>odels) has a convenient <em>formula</em>-based interface.</p>
-<blockquote>
+The <code>lm()</code> function (<code>l</code>inear <code>m</code>odels) has a convenient <em>formula</em>-based interface.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X)</a></code></pre></div>
 <p>In R, the expression “<code>Y~X</code>” denotes a formula, which we read as:
 variable <code>Y</code> is a function of <code>X</code>.
-Note that the dependent variable is on the left side of the formula.</p>
-</blockquote>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X, <span class="dt">data=</span>XY)</a></code></pre></div>
-<blockquote>
-<p>Note that here <code>X</code> and <code>Y</code> refer to column names in the <code>XY</code> data frame.</p>
-</blockquote>
-<hr />
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">print</span>(f)</a></code></pre></div>
+Note that the dependent variable is on the left side of the formula.
+Here, <code>X</code> and <code>Y</code> are two R numeric vectors of identical lengths.</p>
+<p>Let’s print the fitted model:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">print</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = Y ~ X, data = XY)
+## lm(formula = Y ~ X)
 ## 
 ## Coefficients:
 ## (Intercept)            X  
@@ -538,43 +526,53 @@ Note that the dependent variable is on the left side of the formula.</p>
 Y = f(X) = 0.2661459X+226.4711446
 \qquad (+ \varepsilon)
 \]</span></p>
-<hr />
 <p>Coefficient <span class="math inline">\(a\)</span> (slope):</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">f<span class="op">$</span>coefficient[<span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">f<span class="op">$</span>coefficient[<span class="dv">2</span>]</a></code></pre></div>
 <pre><code>##         X 
 ## 0.2661459</code></pre>
 <p>Coefficient <span class="math inline">\(b\)</span> (intercept):</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">f<span class="op">$</span>coefficient[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">f<span class="op">$</span>coefficient[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## (Intercept) 
 ##    226.4711</code></pre>
-<hr />
+<p>Plotting:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb42-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
+<p><img src="01-regression-simple-figures/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" style="width:50.0%" /></p>
 <p>SSR:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">sum</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">sum</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 2132108</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="kw">sum</span>((f<span class="op">$</span>coefficient[<span class="dv">2</span>]<span class="op">*</span>X<span class="op">+</span>f<span class="op">$</span>coefficient[<span class="dv">1</span>]<span class="op">-</span>Y)<span class="op">^</span><span class="dv">2</span>) <span class="co"># equivalent</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw">sum</span>((f<span class="op">$</span>coefficient[<span class="dv">2</span>]<span class="op">*</span>X<span class="op">+</span>f<span class="op">$</span>coefficient[<span class="dv">1</span>]<span class="op">-</span>Y)<span class="op">^</span><span class="dv">2</span>) <span class="co"># equivalent</span></a></code></pre></div>
 <pre><code>## [1] 2132108</code></pre>
-<hr />
-<p>To make a prediction:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1">Xnew &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span><span class="kw">c</span>(<span class="dv">1500</span>, <span class="dv">2000</span>, <span class="dv">2500</span>))</a>
-<a class="sourceLine" id="cb48-2" title="2">f<span class="op">$</span>coefficient[<span class="dv">2</span>]<span class="op">*</span>Xnew<span class="op">$</span>X <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficient[<span class="dv">1</span>]</a></code></pre></div>
+<p>We can predict the model’s output for yet-unobserved inputs by
+writing:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">X_new &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1500</span>, <span class="dv">2000</span>, <span class="dv">2500</span>) <span class="co"># example inputs</span></a>
+<a class="sourceLine" id="cb47-2" title="2">f<span class="op">$</span>coefficient[<span class="dv">2</span>]<span class="op">*</span>X_new <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficient[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## [1] 625.6900 758.7630 891.8359</code></pre>
-<p>or:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1"><span class="kw">predict</span>(f, Xnew)</a></code></pre></div>
+<p>Note that linear models can also be fitted based on formulas that refer
+to a data frame’s columns. For example, let us wrap
+both <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{y}\)</span> inside a data frame:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">XY &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Balance=</span>X, <span class="dt">Rating=</span>Y)</a>
+<a class="sourceLine" id="cb49-2" title="2"><span class="kw">head</span>(XY, <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>##   Balance Rating
+## 1     333    283
+## 2     903    483
+## 3     580    514</code></pre>
+<p>By writing:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Rating<span class="op">~</span>Balance, <span class="dt">data=</span>XY)</a></code></pre></div>
+<p>now <code>Balance</code> and <code>Rating</code> refer to column names in the <code>XY</code> data frame,
+and not the objects in the R’s “workspace”.</p>
+<p>Based on the above, we can make a prediction
+using the <code>predict()</code> function"</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">X_new &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Balance=</span><span class="kw">c</span>(<span class="dv">1500</span>, <span class="dv">2000</span>, <span class="dv">2500</span>))</a>
+<a class="sourceLine" id="cb52-2" title="2"><span class="kw">predict</span>(f, X_new)</a></code></pre></div>
 <pre><code>##        1        2        3 
 ## 625.6900 758.7630 891.8359</code></pre>
-<hr />
-<p>However:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="kw">predict</span>(f, <span class="kw">data.frame</span>(<span class="dt">X=</span><span class="kw">c</span>(<span class="dv">5000</span>)))</a></code></pre></div>
+<p>Interestingly:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw">predict</span>(f, <span class="kw">data.frame</span>(<span class="dt">Balance=</span><span class="kw">c</span>(<span class="dv">5000</span>)))</a></code></pre></div>
 <pre><code>##        1 
 ## 1557.201</code></pre>
-<p>This is more than the highest possible rating – we have been extrapolating
+<p>This is more than the highest possible rating – we have extrapolated
 way beyond the observable data range.</p>
-<hr />
-<p>Plotting:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb54-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/unnamed-chunk-28-1.png" alt="plot of chunk unnamed-chunk-28" style="width:50.0%" /></p>
-<hr />
 <p>Note that our <span class="math inline">\(Y=aX+b\)</span> model is <strong>interpretable</strong>
 and <strong>well-behaving</strong>:</p>
 <blockquote>
@@ -609,10 +607,10 @@ b = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displays
 \right.
 \]</span></p>
 <p>Which can be implemented in R as follows:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(X)</a>
-<a class="sourceLine" id="cb55-2" title="2">a &lt;-<span class="st"> </span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>Y)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">*</span><span class="kw">sum</span>(Y))<span class="op">/</span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>X)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb55-3" title="3">b &lt;-<span class="st"> </span><span class="kw">mean</span>(Y)<span class="op">-</span>a<span class="op">*</span><span class="kw">mean</span>(X)</a>
-<a class="sourceLine" id="cb55-4" title="4"><span class="kw">c</span>(a, b) <span class="co"># the same as f$coefficients</span></a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(X)</a>
+<a class="sourceLine" id="cb56-2" title="2">a &lt;-<span class="st"> </span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>Y)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">*</span><span class="kw">sum</span>(Y))<span class="op">/</span>(n<span class="op">*</span><span class="kw">sum</span>(X<span class="op">*</span>X)<span class="op">-</span><span class="kw">sum</span>(X)<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb56-3" title="3">b &lt;-<span class="st"> </span><span class="kw">mean</span>(Y)<span class="op">-</span>a<span class="op">*</span><span class="kw">mean</span>(X)</a>
+<a class="sourceLine" id="cb56-4" title="4"><span class="kw">c</span>(a, b) <span class="co"># the same as f$coefficients</span></a></code></pre></div>
 <pre><code>## [1]   0.2661459 226.4711446</code></pre>
 </div>
 <div id="derivation-of-the-solution" class="section level3">
@@ -707,10 +705,10 @@ Pearson's r introduced in the next chapter though
 <p>(**) In the next chapter, we will introduce the notion of Pearson’s
 linear coefficient, <span class="math inline">\(r\)</span> (see <code>cor()</code> in R). It might be shown that
 <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> can also be rewritten as:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">(a &lt;-<span class="st"> </span><span class="kw">cor</span>(X,Y)<span class="op">*</span><span class="kw">sd</span>(Y)<span class="op">/</span><span class="kw">sd</span>(X))</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">(a &lt;-<span class="st"> </span><span class="kw">cor</span>(X,Y)<span class="op">*</span><span class="kw">sd</span>(Y)<span class="op">/</span><span class="kw">sd</span>(X))</a></code></pre></div>
 <pre><code>##           [,1]
 ## [1,] 0.2661459</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1">(b &lt;-<span class="st"> </span><span class="kw">mean</span>(Y)<span class="op">-</span>a<span class="op">*</span><span class="kw">mean</span>(X))</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">(b &lt;-<span class="st"> </span><span class="kw">mean</span>(Y)<span class="op">-</span>a<span class="op">*</span><span class="kw">mean</span>(X))</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 226.4711</code></pre>
 <!-- TODO show optim() -->

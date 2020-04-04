@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -507,20 +507,20 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 <p>Recall our modelling of the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>)
 based on the <code>ISLR::Credit</code> data set.</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
-<a class="sourceLine" id="cb275-2" title="2">Xc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
-<a class="sourceLine" id="cb275-3" title="3">Yc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>) <span class="co"># knn.reg function</span></a>
-<a class="sourceLine" id="cb276-2" title="2">x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">seq</span>(<span class="kw">min</span>(Xc), <span class="kw">max</span>(Xc), <span class="dt">length.out=</span><span class="dv">101</span>))</a>
-<a class="sourceLine" id="cb276-3" title="3">y1  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">1</span>)<span class="op">$</span>pred</a>
-<a class="sourceLine" id="cb276-4" title="4">y5  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">5</span>)<span class="op">$</span>pred</a>
-<a class="sourceLine" id="cb276-5" title="5">y25 &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">25</span>)<span class="op">$</span>pred</a></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
+<a class="sourceLine" id="cb280-2" title="2">Xc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
+<a class="sourceLine" id="cb280-3" title="3">Yc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>) <span class="co"># knn.reg function</span></a>
+<a class="sourceLine" id="cb281-2" title="2">x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">seq</span>(<span class="kw">min</span>(Xc), <span class="kw">max</span>(Xc), <span class="dt">length.out=</span><span class="dv">101</span>))</a>
+<a class="sourceLine" id="cb281-3" title="3">y1  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">1</span>)<span class="op">$</span>pred</a>
+<a class="sourceLine" id="cb281-4" title="4">y5  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">5</span>)<span class="op">$</span>pred</a>
+<a class="sourceLine" id="cb281-5" title="5">y25 &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">25</span>)<span class="op">$</span>pred</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
-<a class="sourceLine" id="cb277-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Rating&quot;</span>)</a>
-<a class="sourceLine" id="cb277-3" title="3"><span class="kw">lines</span>(x, y1,  <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb277-4" title="4"><span class="kw">lines</span>(x, y5,  <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb277-5" title="5"><span class="kw">lines</span>(x, y25, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
+<a class="sourceLine" id="cb282-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Rating&quot;</span>)</a>
+<a class="sourceLine" id="cb282-3" title="3"><span class="kw">lines</span>(x, y1,  <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb282-4" title="4"><span class="kw">lines</span>(x, y5,  <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb282-5" title="5"><span class="kw">lines</span>(x, y25, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="03-classification-neighbours-figures/unnamed-chunk-48-1.png" alt="plot of chunk unnamed-chunk-48" style="width:50.0%" /></p>
 </div>
 <div id="further-reading-2" class="section level3">

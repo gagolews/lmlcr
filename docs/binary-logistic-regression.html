@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -486,22 +486,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This approach was pretty effective.</p>
 <p>Theoretically, we could treat the class labels as numeric <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s
 and apply regression models in a binary classification task.</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train),</a>
-<a class="sourceLine" id="cb307-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_train)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
-<a class="sourceLine" id="cb307-3" title="3">)</a>
-<a class="sourceLine" id="cb307-4" title="4">XY_test_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test),</a>
-<a class="sourceLine" id="cb307-5" title="5">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_test)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
-<a class="sourceLine" id="cb307-6" title="6">)</a>
-<a class="sourceLine" id="cb307-7" title="7">f_r &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>pH, <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train),</a>
+<a class="sourceLine" id="cb312-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_train)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
+<a class="sourceLine" id="cb312-3" title="3">)</a>
+<a class="sourceLine" id="cb312-4" title="4">XY_test_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test),</a>
+<a class="sourceLine" id="cb312-5" title="5">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_test)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
+<a class="sourceLine" id="cb312-6" title="6">)</a>
+<a class="sourceLine" id="cb312-7" title="7">f_r &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>pH, <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1">Y_pred_r &lt;-<span class="st"> </span><span class="kw">predict</span>(f_r, XY_test_r)</a>
-<a class="sourceLine" id="cb308-2" title="2"><span class="kw">summary</span>(Y_pred_r)</a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1">Y_pred_r &lt;-<span class="st"> </span><span class="kw">predict</span>(f_r, XY_test_r)</a>
+<a class="sourceLine" id="cb313-2" title="2"><span class="kw">summary</span>(Y_pred_r)</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## -3.04678 -0.02106  0.11917  0.16452  0.34906  0.88921</code></pre>
 <p>The predicted outputs, <span class="math inline">\(\hat{Y}\)</span>, are arbitrary real numbers,
 but we can convert them to binary ones by checking if, e.g., <span class="math inline">\(\hat{Y}&gt;0.5\)</span>.</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred_r<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb310-2" title="2"><span class="kw">round</span>(<span class="kw">get_metrics</span>(Y_pred, XY_test_r<span class="op">$</span>Y), <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred_r<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb315-2" title="2"><span class="kw">round</span>(<span class="kw">get_metrics</span>(Y_pred, XY_test_r<span class="op">$</span>Y), <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##      Acc     Prec      Rec        F       TN       FN       FP 
 ##    0.927    0.865    0.647    0.740 1611.000  112.000   32.000 
 ##       TP 
@@ -551,8 +551,8 @@ using the <code>density</code> variable.</p>
 <blockquote>
 <p>“logit” below denotes the inverse of the logistic sigmoid function.</p>
 </blockquote>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb312-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb317-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Y ~ density, family = binomial(&quot;logit&quot;), data = XY_train)
@@ -579,23 +579,23 @@ using the <code>density</code> variable.</p>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" style="width:50.0%" /></p>
 <hr />
 <p>Some predicted probabilities:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## 1602 1605 1607 1608 1609 1613 1614 1615 1621 1622 1623 1627 
 ## 0.01 0.01 0.00 0.02 0.03 0.36 0.00 0.31 0.36 0.06 0.03 0.00</code></pre>
 <p>We classify <span class="math inline">\(Y\)</span> as 1 if the corresponding membership probability
 is greater than <span class="math inline">\(0.5\)</span>.</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb316-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb321-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.8979592    0.7276265    0.5899054    0.6515679 
 ##           TN           FN           FP           TP 
 ## 1573.0000000  130.0000000   70.0000000  187.0000000</code></pre>
 <hr />
 <p>And now a fit based on some other input variables:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
-<a class="sourceLine" id="cb318-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb318-3" title="3">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb318-4" title="4"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
+<a class="sourceLine" id="cb323-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb323-3" title="3">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb323-4" title="4"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9321429    0.8239437    0.7381703    0.7787022 
 ##           TN           FN           FP           TP 

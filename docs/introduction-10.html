@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -602,13 +602,13 @@ g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\
 \]</span></p>
 <!-- min{(x1^2 + x2 - 5)^2 + (x1 + x2^2 - 3)^2 + x1^2}≈2.606443660864438412460734586
 at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) -->
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1">g  &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2)</a>
-<a class="sourceLine" id="cb378-2" title="2">    <span class="kw">log</span>((x1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x2<span class="dv">-5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x1<span class="op">+</span>x2<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x1<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span>)</a>
-<a class="sourceLine" id="cb378-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb378-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb378-5" title="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
-<a class="sourceLine" id="cb378-6" title="6"><span class="co"># and applies a given function on each point</span></a>
-<a class="sourceLine" id="cb378-7" title="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1">g  &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2)</a>
+<a class="sourceLine" id="cb383-2" title="2">    <span class="kw">log</span>((x1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x2<span class="dv">-5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x1<span class="op">+</span>x2<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x1<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span>)</a>
+<a class="sourceLine" id="cb383-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb383-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb383-5" title="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
+<a class="sourceLine" id="cb383-6" title="6"><span class="co"># and applies a given function on each point</span></a>
+<a class="sourceLine" id="cb383-7" title="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
 <hr />
 <p>There are four local minima:</p>
 <table>
@@ -643,28 +643,28 @@ at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) --
 </tbody>
 </table>
 <p>The global minimum is at <span class="math inline">\((x_1^*, x_2^*)\)</span> as below:</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Let’s explore various ways of depicting <span class="math inline">\(f\)</span>.</p>
 <hr />
 <p>A contour plot:</p>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
-<a class="sourceLine" id="cb381-2" title="2"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb386-2" title="2"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" style="width:50.0%" /></p>
 <hr />
 <p>A filled contour plot (a heatmap):</p>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1"><span class="kw">filled.contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" title="1"><span class="kw">filled.contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" style="width:50.0%" /></p>
 <hr />
 <p>Alternatively:</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1"><span class="kw">image</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb383-2" title="2"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="kw">image</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb388-2" title="2"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" style="width:50.0%" /></p>
 <hr />
 <p>A perspective plot:</p>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
-<a class="sourceLine" id="cb384-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb384-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
+<a class="sourceLine" id="cb389-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb389-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
 <p><img src="06-optimisation-iterative-figures/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" style="width:50.0%" /></p>
 <hr />
 <blockquote>

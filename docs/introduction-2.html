@@ -457,7 +457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-03-31 00:14 (b57874d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-04 14:56 (5c42c95)</a></li>
 
 </ul>
 
@@ -545,11 +545,11 @@ b = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displays
 \]</span></p>
 <hr />
 <p>Fitting in R:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
-<a class="sourceLine" id="cb61-2" title="2">X &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb61-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb61-4" title="4">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X) <span class="co"># Y~X is a formula, read: Y is a function of X</span></a>
-<a class="sourceLine" id="cb61-5" title="5"><span class="kw">print</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
+<a class="sourceLine" id="cb62-2" title="2">X &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb62-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb62-4" title="4">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X) <span class="co"># Y~X is a formula, read: Y is a function of X</span></a>
+<a class="sourceLine" id="cb62-5" title="5"><span class="kw">print</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Y ~ X)
@@ -558,8 +558,8 @@ b = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displays
 ## (Intercept)            X  
 ##    226.4711       0.2661</code></pre>
 <hr />
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb63-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb64-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="02-regression-multiple-figures/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:50.0%" /></p>
 </div>
 </div>
