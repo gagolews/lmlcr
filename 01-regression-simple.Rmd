@@ -624,7 +624,7 @@ of $\mathcal{N}(0, \sigma)$ for different $\sigma$s:
 y <- seq(-3,3,length.out=101)
 plot(y, dnorm(y, mean=0), type='l', ann=FALSE, ylim=c(0,dnorm(0,0,0.5)))
 lines(y, dnorm(y, mean=0, sd=0.5), type='l', col=2, lty=2)
-legend("topleft", lty=c(1,2), col=c(1,2), legend=expression(sigma*"="*1, sigma*"="*0.5))
+legend("topleft", lty=c(1,2), col=c(1,2), legend=expression(sigma*"="*1, sigma*"="*0.5), bg="white")
 abline(v=0)
 ```
 
@@ -684,7 +684,7 @@ x <- seq(min(X), max(X), length.out=101)
 y <- predict(f, data.frame(X=x))
 lines(x,y,col=2,lty=1,lwd=2)
 segments(X, Y, X, Y2, lty=2)
-legend("bottomright", legend=c("observed Y", "predicted Y"), pch=c(1,4), col=c(1, 2))
+legend("bottomright", legend=c("observed Y", "predicted Y"), pch=c(1,4), col=c(1, 2), bg="white")
 ```
 
 ---
@@ -815,10 +815,10 @@ legend("topleft",
     lty=1,
     col=c(2,3,4),
     legend=c(
-        sprintf("y=%.3fx+%03.0f; SSR=%03g",m1$coefficients[2],m1$coefficients[1], sum(m1$residuals^2)),
-        sprintf("y=%.3fx+%03.0f; SSR=%03g",m2$coefficients[1],0, sum(m2$residuals^2)),
-        sprintf("y=%.3fx+%03.0f; SSR=%03g",m3$coefficients[2],m3$coefficients[1], sum(m3$residuals^2))
-    ))
+        sprintf("y=%.3fx+%03.0f; SSR=%.0f",m1$coefficients[2],m1$coefficients[1], sum(m1$residuals^2)),
+        sprintf("y=%.3fx+%03.0f; SSR=%.0f",m2$coefficients[1],0, sum(m2$residuals^2)),
+        sprintf("y=%.3fx+%03.0f; SSR=%.0f",m3$coefficients[2],m3$coefficients[1], sum(m3$residuals^2))
+    ), bg="white")
 ```
 
 > Which of these is the least squares solution?
@@ -1264,7 +1264,7 @@ fit_models <- function(ans) {
 
 Now we can apply it on the four particular examples.
 
-```{r,fig.width=10,fig.height=8,out.width="100%"}
+```{r,fig.width=7.5,fig.height=6,out.width="100%"}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
 f1 <- fit_models(ans1)
 f2 <- fit_models(ans2)
@@ -1305,7 +1305,7 @@ y_pred4 <- predict(f4, ans4) # f4$coefficients[2]*ans4$x + f4$coefficients[1]
 
 Plots of residuals as a function of the predicted (fitted) values:
 
-```{r,fig.width=10,fig.height=8,out.width="100%"}
+```{r,fig.width=7.5,fig.height=6,out.width="100%"}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
 plot(y_pred1, y_pred1-ans1$y)
 plot(y_pred2, y_pred2-ans2$y)
@@ -1343,7 +1343,6 @@ solution_end() #############################################################
 
 
 > Read more about Anscombe's quartet at https://en.wikipedia.org/wiki/Anscombe%27s_quartet
-
 
 
 

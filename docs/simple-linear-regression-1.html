@@ -467,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 12:56 (0458037)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 15:50 (6a11aa3)</a></li>
 
 </ul>
 
@@ -504,7 +504,7 @@ ax_i+b-y_i
 <p>This is particularly nice, because our search space
 is just <span class="math inline">\(\mathbb{R}^2\)</span> – easy to handle both analytically and numerically.</p>
 <hr />
-<p><img src="01-regression-simple-figures/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" style="width:80.0%" /></p>
+<p><img src="01-regression-simple-figures/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" style="width:50.0%" /></p>
 <blockquote>
 <p>Which of these is the least squares solution?</p>
 </blockquote>
@@ -545,9 +545,9 @@ Y = f(X) = 0.2661459X+226.4711446
 <pre><code>## (Intercept) 
 ##    226.4711</code></pre>
 <p>Plotting:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
 <a class="sourceLine" id="cb42-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" style="width:80.0%" /></p>
+<p><img src="01-regression-simple-figures/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" style="width:50.0%" /></p>
 <p>SSR:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">sum</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 2132108</code></pre>

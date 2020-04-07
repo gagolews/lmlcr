@@ -467,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 12:56 (0458037)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 15:50 (6a11aa3)</a></li>
 
 </ul>
 
@@ -497,8 +497,8 @@ Denote <span class="math inline">\(x_i=x_{i,1}\)</span>.</p>
 <p>We will use it to build many intuitions, for example, it’ll be easy
 to illustrate all the concepts graphically.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
-<a class="sourceLine" id="cb32-2" title="2"><span class="kw">plot</span>(Credit<span class="op">$</span>Balance, Credit<span class="op">$</span>Rating, <span class="dt">las=</span><span class="dv">1</span>) <span class="co"># scatter plot</span></a></code></pre></div>
-<p><img src="01-regression-simple-figures/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" style="width:80.0%" /></p>
+<a class="sourceLine" id="cb32-2" title="2"><span class="kw">plot</span>(Credit<span class="op">$</span>Balance, Credit<span class="op">$</span>Rating) <span class="co"># scatter plot</span></a></code></pre></div>
+<p><img src="01-regression-simple-figures/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" style="width:50.0%" /></p>
 <hr />
 <p>In what follows we will be modelling the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>) in USD
@@ -506,8 +506,8 @@ for customers with positive Balance only.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
 <a class="sourceLine" id="cb33-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">plot</span>(X, Y)</a></code></pre></div>
+<p><img src="01-regression-simple-figures/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" style="width:50.0%" /></p>
 <p>Our aim is to construct a function <span class="math inline">\(f\)</span> that
 <strong>models</strong> Rating as a function of Balance,
 <span class="math inline">\(f(X)=Y\)</span>.</p>
@@ -558,14 +558,14 @@ with expected value of <span class="math inline">\(0\)</span> and standard devia
 <p><span class="math inline">\(\sigma\)</span> controls the amount of noise (and hence, uncertainty).
 Here is the plot of the probability distribution function (PDFs, densities)
 of <span class="math inline">\(\mathcal{N}(0, \sigma)\)</span> for different <span class="math inline">\(\sigma\)</span>s:</p>
-<p><img src="01-regression-simple-figures/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" style="width:80.0%" /></p>
+<p><img src="01-regression-simple-figures/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" style="width:50.0%" /></p>
 </div>
 <div id="search-space-and-objective" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> Search Space and Objective</h3>
 <hr />
 <p>There are many different functions that can be <strong>fitted</strong> into
 the observed <span class="math inline">\((\mathbf{x},\mathbf{y})\)</span></p>
-<p><img src="01-regression-simple-figures/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" style="width:80.0%" /></p>
+<p><img src="01-regression-simple-figures/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" style="width:50.0%" /></p>
 <p>Thus, we need a <strong>model selection criterion</strong>.</p>
 <hr />
 <p>Usually, we will be interested in a model
@@ -574,7 +574,7 @@ that minimises appropriately aggregated <strong>residuals</strong>
 <strong>predicted outputs minus observed outputs</strong>,
 often denoted with <span class="math inline">\(\hat{y}_i-y_i\)</span>,
 for <span class="math inline">\(i=1,\dots,n\)</span>.</p>
-<p><img src="01-regression-simple-figures/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" style="width:80.0%" /></p>
+<p><img src="01-regression-simple-figures/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" style="width:50.0%" /></p>
 <hr />
 <p>Top choice: sum of squared residuals:
 <span class="math display">\[

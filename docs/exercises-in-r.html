@@ -467,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 12:56 (0458037)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 15:50 (6a11aa3)</a></li>
 
 </ul>
 
@@ -674,14 +674,13 @@ that does all the above for any data set:</p>
 <a class="sourceLine" id="cb76-2" title="2">    <span class="co"># ans is a data frame with columns x and y</span></a>
 <a class="sourceLine" id="cb76-3" title="3">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans) <span class="co"># fit linear model</span></a>
 <a class="sourceLine" id="cb76-4" title="4">    <span class="kw">print</span>(f<span class="op">$</span>coefficients) <span class="co"># estimated coefficients</span></a>
-<a class="sourceLine" id="cb76-5" title="5">    <span class="kw">plot</span>(ans<span class="op">$</span>x, ans<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>) <span class="co"># scatter plot</span></a>
+<a class="sourceLine" id="cb76-5" title="5">    <span class="kw">plot</span>(ans<span class="op">$</span>x, ans<span class="op">$</span>y) <span class="co"># scatter plot</span></a>
 <a class="sourceLine" id="cb76-6" title="6">    <span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># regression line</span></a>
 <a class="sourceLine" id="cb76-7" title="7">    <span class="kw">return</span>(f)</a>
 <a class="sourceLine" id="cb76-8" title="8">}</a></code></pre></div>
 <p>Now we can apply it on the four particular examples.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># four plots on 1 figure (2x2 grid)</span></a>
-<a class="sourceLine" id="cb77-2" title="2"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)) <span class="co"># reduce plot margins</span></a>
-<a class="sourceLine" id="cb77-3" title="3">f1 &lt;-<span class="st"> </span><span class="kw">fit_models</span>(ans1)</a></code></pre></div>
+<a class="sourceLine" id="cb77-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">fit_models</span>(ans1)</a></code></pre></div>
 <pre><code>## (Intercept)           x 
 ##   3.0000909   0.5000909</code></pre>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1">f2 &lt;-<span class="st"> </span><span class="kw">fit_models</span>(ans2)</a></code></pre></div>
@@ -693,9 +692,9 @@ that does all the above for any data set:</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1">f4 &lt;-<span class="st"> </span><span class="kw">fit_models</span>(ans4)</a></code></pre></div>
 <pre><code>## (Intercept)           x 
 ##   3.0017273   0.4999091</code></pre>
-<p><img src="01-regression-simple-figures/unnamed-chunk-47-1.png" alt="plot of chunk unnamed-chunk-47" style="width:80.0%" /></p>
-<em>Comment: All the estimated models are virtually the same,
-the regression lines are <span class="math inline">\(y=0.5x+3\)</span>.</em>
+<p><img src="01-regression-simple-figures/unnamed-chunk-47-1.png" alt="plot of chunk unnamed-chunk-47" style="width:100.0%" /></p>
+<p><em>Comment: All the estimated models are virtually the same,
+the regression lines are <span class="math inline">\(y=0.5x+3\)</span>.</em></p>
 </details>
 <blockquote>
 <p>Create scatter plots of the residuals (predicted <span class="math inline">\(\hat{y}_i\)</span> minus
@@ -712,12 +711,11 @@ calling the <code>predict()</code> function.</p>
 <a class="sourceLine" id="cb85-4" title="4">y_pred4 &lt;-<span class="st"> </span><span class="kw">predict</span>(f4, ans4) <span class="co"># f4$coefficients[2]*ans4$x + f4$coefficients[1]</span></a></code></pre></div>
 <p>Plots of residuals as a function of the predicted (fitted) values:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># four plots on 1 figure (2x2 grid)</span></a>
-<a class="sourceLine" id="cb86-2" title="2"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)) <span class="co"># reduce plot margins</span></a>
-<a class="sourceLine" id="cb86-3" title="3"><span class="kw">plot</span>(y_pred1, y_pred1<span class="op">-</span>ans1<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb86-4" title="4"><span class="kw">plot</span>(y_pred2, y_pred2<span class="op">-</span>ans2<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb86-5" title="5"><span class="kw">plot</span>(y_pred3, y_pred3<span class="op">-</span>ans3<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb86-6" title="6"><span class="kw">plot</span>(y_pred4, y_pred4<span class="op">-</span>ans4<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/unnamed-chunk-51-1.png" alt="plot of chunk unnamed-chunk-51" style="width:80.0%" /></p>
+<a class="sourceLine" id="cb86-2" title="2"><span class="kw">plot</span>(y_pred1, y_pred1<span class="op">-</span>ans1<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb86-3" title="3"><span class="kw">plot</span>(y_pred2, y_pred2<span class="op">-</span>ans2<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="kw">plot</span>(y_pred3, y_pred3<span class="op">-</span>ans3<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb86-5" title="5"><span class="kw">plot</span>(y_pred4, y_pred4<span class="op">-</span>ans4<span class="op">$</span>y)</a></code></pre></div>
+<p><img src="01-regression-simple-figures/unnamed-chunk-51-1.png" alt="plot of chunk unnamed-chunk-51" style="width:100.0%" /></p>
 <p><em>Comment: Ideally, the residuals shouldn’t be correlated
 with the predicted values – they should “oscillate” randomly
 around 0. This is only the case of the first dataset.
