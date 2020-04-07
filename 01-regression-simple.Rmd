@@ -491,28 +491,25 @@ wines[1,]
 ---
 
 
-```{r,echo=-1}
-par(mar=c(4,4,1,1))
+```{r}
 summary(wines$alcohol) # continuous variable
-hist(wines$alcohol, las=1, main=""); box()
+hist(wines$alcohol, main="", col="white"); box()
 ```
 
 ---
 
 
-```{r,echo=-1}
-par(mar=c(4,4,1,1))
+```{r}
 table(wines$color) # binary variable
-barplot(table(wines$color), las=1)
+barplot(table(wines$color), col="white", ylim=c(0, 6000))
 ```
 
 ---
 
 
-```{r,echo=-1}
-par(mar=c(4,4,1,1))
+```{r}
 table(wines$response) # ordinal variable
-barplot(table(wines$response), las=1)
+barplot(table(wines$response), col="white", ylim=c(0, 3000))
 ```
 
 
@@ -531,10 +528,9 @@ Denote $x_i=x_{i,1}$.
 We will use it to build many intuitions, for example, it'll be easy
 to illustrate all the concepts graphically.
 
-```{r,echo=-1}
-par(mar=c(4,4,1,1))
+```{r}
 library("ISLR") # Credit dataset
-plot(Credit$Balance, Credit$Rating, las=1) # scatter plot
+plot(Credit$Balance, Credit$Rating) # scatter plot
 ```
 
 ---
@@ -550,9 +546,8 @@ Y <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
 
 ---
 
-```{r,echo=-1}
-par(mar=c(4,4,1,1))
-plot(X, Y, las=1)
+```{r}
+plot(X, Y)
 ```
 
 Our aim is to construct a function $f$ that
@@ -626,9 +621,8 @@ Here is the plot of the probability distribution function (PDFs, densities)
 of $\mathcal{N}(0, \sigma)$ for different $\sigma$s:
 
 ```{r,echo=FALSE, echo=FALSE, message=FALSE}
-par(mar=c(3,3,1,1))
 y <- seq(-3,3,length.out=101)
-plot(y, dnorm(y, mean=0), type='l', ann=FALSE, las=1, ylim=c(0,dnorm(0,0,0.5)))
+plot(y, dnorm(y, mean=0), type='l', ann=FALSE, ylim=c(0,dnorm(0,0,0.5)))
 lines(y, dnorm(y, mean=0, sd=0.5), type='l', col=2, lty=2)
 legend("topleft", lty=c(1,2), col=c(1,2), legend=expression(sigma*"="*1, sigma*"="*0.5))
 abline(v=0)
@@ -643,8 +637,7 @@ There are many different functions that can be **fitted** into
 the observed $(\mathbf{x},\mathbf{y})$
 
 ```{r, echo=FALSE, message=FALSE}
-par(mar=c(4,4,1,1))
-plot(X, Y, las=1, col="#00000044")
+plot(X, Y, col="#00000044")
 
 #library("mda")
 #f <- mars(as.matrix(X), Y, degree=5)
@@ -683,8 +676,7 @@ often denoted with $\hat{y}_i-y_i$,
 for $i=1,\dots,n$.
 
 ```{r, echo=FALSE, message=FALSE}
-par(mar=c(4,4,1,1))
-plot(X, Y, las=1, col=1, xlim=c(1500,2000), ylim=c(400, 1000))
+plot(X, Y, col=1, xlim=c(1500,2000), ylim=c(400, 1000))
 f <- lm(Y~poly(X, 2))
 Y2 <- predict(f, data.frame(X=X))
 points(X, Y2, pch=4, col=2)
@@ -812,8 +804,7 @@ is just $\mathbb{R}^2$ -- easy to handle both analytically and numerically.
 ---
 
 ```{r,echo=FALSE,fig.height=6}
-par(mar=c(4,4,1,1))
-plot(X, Y, las=1, col="#00000044")
+plot(X, Y, col="#00000044")
 m1 <- lm(Y~X)
 abline(m1, col=2,lwd=3)
 m2 <- lm(Y~X+0)
@@ -887,9 +878,8 @@ f$coefficient[1]
 
 Plotting:
 
-```{r,echo=-1}
-par(mar=c(4,4,1,1))
-plot(X, Y, col="#000000aa", las=1)
+```{r}
+plot(X, Y, col="#000000aa")
 abline(f, col=2, lwd=3)
 ```
 
@@ -1266,7 +1256,7 @@ fit_models <- function(ans) {
     # ans is a data frame with columns x and y
     f <- lm(y~x, data=ans) # fit linear model
     print(f$coefficients) # estimated coefficients
-    plot(ans$x, ans$y, las=1) # scatter plot
+    plot(ans$x, ans$y) # scatter plot
     abline(f, col="red") # regression line
     return(f)
 }
@@ -1274,9 +1264,8 @@ fit_models <- function(ans) {
 
 Now we can apply it on the four particular examples.
 
-```{r}
+```{r,fig.width=10,fig.height=8,out.width="100%"}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
-par(mar=c(4, 4, 0.5, 0.5)) # reduce plot margins
 f1 <- fit_models(ans1)
 f2 <- fit_models(ans2)
 f3 <- fit_models(ans3)
@@ -1285,6 +1274,7 @@ f4 <- fit_models(ans4)
 
 *Comment: All the estimated models are virtually the same,
 the regression lines are $y=0.5x+3$.*
+
 ```{r results="asis",echo=FALSE}
 solution_end() #############################################################
 ```
@@ -1315,13 +1305,12 @@ y_pred4 <- predict(f4, ans4) # f4$coefficients[2]*ans4$x + f4$coefficients[1]
 
 Plots of residuals as a function of the predicted (fitted) values:
 
-```{r}
+```{r,fig.width=10,fig.height=8,out.width="100%"}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
-par(mar=c(4, 4, 0.5, 0.5)) # reduce plot margins
-plot(y_pred1, y_pred1-ans1$y, las=1)
-plot(y_pred2, y_pred2-ans2$y, las=1)
-plot(y_pred3, y_pred3-ans3$y, las=1)
-plot(y_pred4, y_pred4-ans4$y, las=1)
+plot(y_pred1, y_pred1-ans1$y)
+plot(y_pred2, y_pred2-ans2$y)
+plot(y_pred3, y_pred3-ans3$y)
+plot(y_pred4, y_pred4-ans4$y)
 ```
 
 *Comment: Ideally, the residuals shouldn't be correlated
