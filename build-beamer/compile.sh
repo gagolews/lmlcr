@@ -35,6 +35,7 @@ mkdir -p "${tmpdir}"
 
 echo "\`\`\`{r,echo=FALSE}" > "${knitrfile}"
 cat build-beamer/options.R >> "${knitrfile}"
+cat common.R >> "${knitrfile}"
 echo "\`\`\`" >> "${knitrfile}"
 echo "" >> "${knitrfile}"
 cat "${1}" >> "${knitrfile}"

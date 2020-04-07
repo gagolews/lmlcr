@@ -26,6 +26,7 @@ mkdir -p "tmp-bookdown-latex"
 
 echo "\`\`\`{r,echo=FALSE}" > "${knitrfile}"
 cat build-bookdown-latex/options.R >> "${knitrfile}"
+cat common.R >> "${knitrfile}"
 echo "\`\`\`" >> "${knitrfile}"
 echo "" >> "${knitrfile}"
 #cat "${1}" >> "${knitrfile}"

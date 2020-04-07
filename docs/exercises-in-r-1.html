@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.4 Exercises in R | Lightweight Machine Learning Classics with R</title>
+  <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.4 Exercises in R | Lightweight Machine Learning Classics with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://lmlcr.gagolewski.com" />
+  
+  <meta property="og:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
+  <meta name="github-repo" content="gagolews/lmlcr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.4 Exercises in R | Lightweight Machine Learning Classics with R" />
+  
+  <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
+  
+
+<meta name="author" content="Marek Gagolewski" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="finding-the-best-model.html"/>
+<link rel="next" href="outro-1.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li style='font-style: italic' ><a href="./">LMLCR</a></li>
+<li style='font-size: smaller' ><a href="https://www.gagolewski.com">Marek Gagolewski</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>{</a></li>
+<li class="chapter" data-level="1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="1.1" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>1.1</b> Machine Learning</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="machine-learning.html"><a href="machine-learning.html#what-is-machine-learning"><i class="fa fa-check"></i><b>1.1.1</b> What is Machine Learning?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="machine-learning.html"><a href="machine-learning.html#main-types-of-machine-learning-problems"><i class="fa fa-check"></i><b>1.1.2</b> Main Types of Machine Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>1.2</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="supervised-learning.html"><a href="supervised-learning.html#formalism"><i class="fa fa-check"></i><b>1.2.1</b> Formalism</a></li>
+<li class="chapter" data-level="1.2.2" data-path="supervised-learning.html"><a href="supervised-learning.html#desired-outputs"><i class="fa fa-check"></i><b>1.2.2</b> Desired Outputs</a></li>
+<li class="chapter" data-level="1.2.3" data-path="supervised-learning.html"><a href="supervised-learning.html#types-of-supervised-learning-problems"><i class="fa fa-check"></i><b>1.2.3</b> Types of Supervised Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="simple-regression.html"><a href="simple-regression.html"><i class="fa fa-check"></i><b>1.3</b> Simple Regression</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="simple-regression.html"><a href="simple-regression.html#introduction"><i class="fa fa-check"></i><b>1.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.3.2" data-path="simple-regression.html"><a href="simple-regression.html#search-space-and-objective"><i class="fa fa-check"></i><b>1.3.2</b> Search Space and Objective</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#introduction-1"><i class="fa fa-check"></i><b>1.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.4.2" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#solution-in-r"><i class="fa fa-check"></i><b>1.4.2</b> Solution in R</a></li>
+<li class="chapter" data-level="1.4.3" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#analytic-solution"><i class="fa fa-check"></i><b>1.4.3</b> Analytic Solution</a></li>
+<li class="chapter" data-level="1.4.4" data-path="simple-linear-regression-1.html"><a href="simple-linear-regression-1.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.4</b> Derivation of the Solution (**)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="exercises-in-r.html"><a href="exercises-in-r.html"><i class="fa fa-check"></i><b>1.5</b> Exercises in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="exercises-in-r.html"><a href="exercises-in-r.html#the-anscombe-quartet"><i class="fa fa-check"></i><b>1.5.1</b> The Anscombe Quartet</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="outro.html"><a href="outro.html"><i class="fa fa-check"></i><b>1.6</b> Outro</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="outro.html"><a href="outro.html#remarks"><i class="fa fa-check"></i><b>1.6.1</b> Remarks</a></li>
+<li class="chapter" data-level="1.6.2" data-path="outro.html"><a href="outro.html#further-reading"><i class="fa fa-check"></i><b>1.6.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>2</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>2.1</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-2.html"><a href="introduction-2.html#formalism-1"><i class="fa fa-check"></i><b>2.1.1</b> Formalism</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-2.html"><a href="introduction-2.html#simple-linear-regression---recap"><i class="fa fa-check"></i><b>2.1.2</b> Simple Linear Regression - Recap</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>2.2</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>2.2.1</b> Problem Formulation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#fitting-a-linear-model-in-r"><i class="fa fa-check"></i><b>2.2.2</b> Fitting a Linear Model in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html"><i class="fa fa-check"></i><b>2.3</b> Finding the Best Model</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="2.3.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
+<li class="chapter" data-level="2.3.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
+<li class="chapter" data-level="2.3.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="exercises-in-r-1.html"><a href="exercises-in-r-1.html"><i class="fa fa-check"></i><b>2.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="exercises-in-r-1.html"><a href="exercises-in-r-1.html#anscombes-quartet-revisited"><i class="fa fa-check"></i><b>2.4.1</b> Anscombe’s Quartet Revisited</a></li>
+<li class="chapter" data-level="2.4.2" data-path="exercises-in-r-1.html"><a href="exercises-in-r-1.html#countries-of-the-world-simple-models-involving-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.2</b> Countries of the World – Simple models involving the GDP per capita</a></li>
+<li class="chapter" data-level="2.4.3" data-path="exercises-in-r-1.html"><a href="exercises-in-r-1.html#countries-of-the-world-most-correlated-variables"><i class="fa fa-check"></i><b>2.4.3</b> Countries of the World – Most correlated variables (*)</a></li>
+<li class="chapter" data-level="2.4.4" data-path="exercises-in-r-1.html"><a href="exercises-in-r-1.html#countries-of-the-world-a-non-linear-model-based-on-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.4</b> Countries of the World – A non-linear model based on the GDP per capita</a></li>
+<li class="chapter" data-level="2.4.5" data-path="exercises-in-r-1.html"><a href="exercises-in-r-1.html#countries-of-the-world-a-multiple-regression-model-for-the-per-capita-gdp"><i class="fa fa-check"></i><b>2.4.5</b> Countries of the World – A multiple regression model for the per capita GDP</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="outro-1.html"><a href="outro-1.html"><i class="fa fa-check"></i><b>2.5</b> Outro</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="outro-1.html"><a href="outro-1.html#remarks-1"><i class="fa fa-check"></i><b>2.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="2.5.2" data-path="outro-1.html"><a href="outro-1.html#other-methods-for-regression"><i class="fa fa-check"></i><b>2.5.2</b> Other Methods for Regression</a></li>
+<li class="chapter" data-level="2.5.3" data-path="outro-1.html"><a href="outro-1.html#derivation-of-the-solution-1"><i class="fa fa-check"></i><b>2.5.3</b> Derivation of the Solution (**)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="outro-1.html"><a href="outro-1.html#solution-in-matrix-form"><i class="fa fa-check"></i><b>2.5.4</b> Solution in Matrix Form (***)</a></li>
+<li class="chapter" data-level="2.5.5" data-path="outro-1.html"><a href="outro-1.html#pearsons-r-in-matrix-form"><i class="fa fa-check"></i><b>2.5.5</b> Pearson’s r in Matrix Form (**)</a></li>
+<li class="chapter" data-level="2.5.6" data-path="outro-1.html"><a href="outro-1.html#further-reading-1"><i class="fa fa-check"></i><b>2.5.6</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-3.html"><a href="introduction-3.html"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-3.html"><a href="introduction-3.html#classification-task"><i class="fa fa-check"></i><b>3.1.1</b> Classification Task</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-3.html"><a href="introduction-3.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="introduction-3.html"><a href="introduction-3.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.3</b> Training and Test Sets</a></li>
+<li class="chapter" data-level="3.1.4" data-path="introduction-3.html"><a href="introduction-3.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.4</b> Discussed Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#introduction-4"><i class="fa fa-check"></i><b>3.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2.2" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#example-in-r"><i class="fa fa-check"></i><b>3.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="3.2.3" data-path="k-nearest-neighbour-classifier.html"><a href="k-nearest-neighbour-classifier.html#feature-engineering"><i class="fa fa-check"></i><b>3.2.3</b> Feature Engineering</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#performance-metrics"><i class="fa fa-check"></i><b>3.3.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>3.3.2</b> How to Choose K for K-NN Classification?</a></li>
+<li class="chapter" data-level="3.3.3" data-path="model-assessment-and-selection.html"><a href="model-assessment-and-selection.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>3.3.3</b> Training, Validation and Test sets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#factor-data-type"><i class="fa fa-check"></i><b>3.4.1</b> Factor Data Type</a></li>
+<li class="chapter" data-level="3.4.2" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#main-routine"><i class="fa fa-check"></i><b>3.4.2</b> Main Routine (*)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#mode"><i class="fa fa-check"></i><b>3.4.3</b> Mode</a></li>
+<li class="chapter" data-level="3.4.4" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#nn-search-routines"><i class="fa fa-check"></i><b>3.4.4</b> NN Search Routines (*)</a></li>
+<li class="chapter" data-level="3.4.5" data-path="implementing-a-k-nn-classifier.html"><a href="implementing-a-k-nn-classifier.html#different-metrics"><i class="fa fa-check"></i><b>3.4.5</b> Different Metrics (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="outro-2.html"><a href="outro-2.html"><i class="fa fa-check"></i><b>3.5</b> Outro</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="outro-2.html"><a href="outro-2.html#remarks-2"><i class="fa fa-check"></i><b>3.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="3.5.2" data-path="outro-2.html"><a href="outro-2.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.5.2</b> Side Note: K-NN Regression</a></li>
+<li class="chapter" data-level="3.5.3" data-path="outro-2.html"><a href="outro-2.html#further-reading-2"><i class="fa fa-check"></i><b>3.5.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="introduction-5.html"><a href="introduction-5.html#classification-task-1"><i class="fa fa-check"></i><b>4.1.1</b> Classification Task</a></li>
+<li class="chapter" data-level="4.1.2" data-path="introduction-5.html"><a href="introduction-5.html#data-1"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="decision-trees.html"><a href="decision-trees.html#introduction-6"><i class="fa fa-check"></i><b>4.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2.2" data-path="decision-trees.html"><a href="decision-trees.html#example-in-r-1"><i class="fa fa-check"></i><b>4.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="4.2.3" data-path="decision-trees.html"><a href="decision-trees.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.2.3</b> A Note on Decision Tree Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
+<li class="chapter" data-level="4.3.4" data-path="binary-logistic-regression.html"><a href="binary-logistic-regression.html#loss-function"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="outro-3.html"><a href="outro-3.html"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="outro-3.html"><a href="outro-3.html#remarks-3"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="outro-3.html"><a href="outro-3.html#further-reading-3"><i class="fa fa-check"></i><b>4.4.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a><ul>
+<li class="chapter" data-level="5.1" data-path="introduction-7.html"><a href="introduction-7.html"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="introduction-7.html"><a href="introduction-7.html#binary-logistic-regression-recap"><i class="fa fa-check"></i><b>5.1.1</b> Binary Logistic Regression: Recap</a></li>
+<li class="chapter" data-level="5.1.2" data-path="introduction-7.html"><a href="introduction-7.html#data-2"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html"><i class="fa fa-check"></i><b>5.2</b> Multinomial Logistic Regression</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#a-note-on-data-representation"><i class="fa fa-check"></i><b>5.2.1</b> A Note on Data Representation</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#extending-logistic-regression"><i class="fa fa-check"></i><b>5.2.2</b> Extending Logistic Regression</a></li>
+<li class="chapter" data-level="5.2.3" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#softmax-function"><i class="fa fa-check"></i><b>5.2.3</b> Softmax Function</a></li>
+<li class="chapter" data-level="5.2.4" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#one-hot-encoding-and-decoding"><i class="fa fa-check"></i><b>5.2.4</b> One-Hot Encoding and Decoding</a></li>
+<li class="chapter" data-level="5.2.5" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#cross-entropy-revisited"><i class="fa fa-check"></i><b>5.2.5</b> Cross-entropy Revisited</a></li>
+<li class="chapter" data-level="5.2.6" data-path="multinomial-logistic-regression.html"><a href="multinomial-logistic-regression.html#problem-formulation-in-matrix-form"><i class="fa fa-check"></i><b>5.2.6</b> Problem Formulation in Matrix Form (**)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html"><i class="fa fa-check"></i><b>5.3</b> Artificial Neural Networks</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html#artificial-neuron"><i class="fa fa-check"></i><b>5.3.1</b> Artificial Neuron</a></li>
+<li class="chapter" data-level="5.3.2" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html#logistic-regression-as-a-neural-network"><i class="fa fa-check"></i><b>5.3.2</b> Logistic Regression as a Neural Network</a></li>
+<li class="chapter" data-level="5.3.3" data-path="artificial-neural-networks.html"><a href="artificial-neural-networks.html#example-in-r-3"><i class="fa fa-check"></i><b>5.3.3</b> Example in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html"><i class="fa fa-check"></i><b>5.4</b> Deep Neural Networks</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#introduction-8"><i class="fa fa-check"></i><b>5.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.4.2" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#activation-functions"><i class="fa fa-check"></i><b>5.4.2</b> Activation Functions</a></li>
+<li class="chapter" data-level="5.4.3" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#example-in-r---2-layers"><i class="fa fa-check"></i><b>5.4.3</b> Example in R - 2 Layers</a></li>
+<li class="chapter" data-level="5.4.4" data-path="deep-neural-networks.html"><a href="deep-neural-networks.html#example-in-r---6-layers"><i class="fa fa-check"></i><b>5.4.4</b> Example in R - 6 Layers</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="preprocessing-of-data.html"><a href="preprocessing-of-data.html"><i class="fa fa-check"></i><b>5.5</b> Preprocessing of Data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="preprocessing-of-data.html"><a href="preprocessing-of-data.html#introduction-9"><i class="fa fa-check"></i><b>5.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.5.2" data-path="preprocessing-of-data.html"><a href="preprocessing-of-data.html#image-deskewing"><i class="fa fa-check"></i><b>5.5.2</b> Image Deskewing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="outro-4.html"><a href="outro-4.html"><i class="fa fa-check"></i><b>5.6</b> Outro</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="outro-4.html"><a href="outro-4.html#remarks-4"><i class="fa fa-check"></i><b>5.6.1</b> Remarks</a></li>
+<li class="chapter" data-level="5.6.2" data-path="outro-4.html"><a href="outro-4.html#beyond-mnist"><i class="fa fa-check"></i><b>5.6.2</b> Beyond MNIST</a></li>
+<li class="chapter" data-level="5.6.3" data-path="outro-4.html"><a href="outro-4.html#further-reading-4"><i class="fa fa-check"></i><b>5.6.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>6</b> Optimisation with Iterative Algorithms</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-10.html"><a href="introduction-10.html"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="introduction-10.html"><a href="introduction-10.html#optimisation-problem"><i class="fa fa-check"></i><b>6.1.1</b> Optimisation Problem</a></li>
+<li class="chapter" data-level="6.1.2" data-path="introduction-10.html"><a href="introduction-10.html#example-optimisation-problems-in-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Example Optimisation Problems in Machine Learning</a></li>
+<li class="chapter" data-level="6.1.3" data-path="introduction-10.html"><a href="introduction-10.html#types-of-minima-and-maxima"><i class="fa fa-check"></i><b>6.1.3</b> Types of Minima and Maxima</a></li>
+<li class="chapter" data-level="6.1.4" data-path="introduction-10.html"><a href="introduction-10.html#example-objective-over-a-2d-domain"><i class="fa fa-check"></i><b>6.1.4</b> Example Objective over a 2D Domain</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="iterative-methods.html"><a href="iterative-methods.html"><i class="fa fa-check"></i><b>6.2</b> Iterative Methods</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="iterative-methods.html"><a href="iterative-methods.html#introduction-11"><i class="fa fa-check"></i><b>6.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2.2" data-path="iterative-methods.html"><a href="iterative-methods.html#example-in-r-4"><i class="fa fa-check"></i><b>6.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="6.2.3" data-path="iterative-methods.html"><a href="iterative-methods.html#convergence-to-local-optima"><i class="fa fa-check"></i><b>6.2.3</b> Convergence to Local Optima</a></li>
+<li class="chapter" data-level="6.2.4" data-path="iterative-methods.html"><a href="iterative-methods.html#random-restarts"><i class="fa fa-check"></i><b>6.2.4</b> Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="gradient-descent.html"><a href="gradient-descent.html"><i class="fa fa-check"></i><b>6.3</b> Gradient Descent</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="gradient-descent.html"><a href="gradient-descent.html#function-gradient"><i class="fa fa-check"></i><b>6.3.1</b> Function Gradient (*)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="gradient-descent.html"><a href="gradient-descent.html#three-facts-on-the-gradient"><i class="fa fa-check"></i><b>6.3.2</b> Three Facts on the Gradient</a></li>
+<li class="chapter" data-level="6.3.3" data-path="gradient-descent.html"><a href="gradient-descent.html#gradient-descent-algorithm-gd"><i class="fa fa-check"></i><b>6.3.3</b> Gradient Descent Algorithm (GD)</a></li>
+<li class="chapter" data-level="6.3.4" data-path="gradient-descent.html"><a href="gradient-descent.html#example-mnist"><i class="fa fa-check"></i><b>6.3.4</b> Example: MNIST</a></li>
+<li class="chapter" data-level="6.3.5" data-path="gradient-descent.html"><a href="gradient-descent.html#stochastic-gradient-descent-sgd"><i class="fa fa-check"></i><b>6.3.5</b> Stochastic Gradient Descent (SGD)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="outro-5.html"><a href="outro-5.html"><i class="fa fa-check"></i><b>6.4</b> Outro</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="outro-5.html"><a href="outro-5.html#remarks-5"><i class="fa fa-check"></i><b>6.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="6.4.2" data-path="outro-5.html"><a href="outro-5.html#optimisers-in-keras"><i class="fa fa-check"></i><b>6.4.2</b> Optimisers in Keras</a></li>
+<li class="chapter" data-level="6.4.3" data-path="outro-5.html"><a href="outro-5.html#note-on-search-spaces"><i class="fa fa-check"></i><b>6.4.3</b> Note on Search Spaces</a></li>
+<li class="chapter" data-level="6.4.4" data-path="outro-5.html"><a href="outro-5.html#further-reading-5"><i class="fa fa-check"></i><b>6.4.4</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a><ul>
+<li class="chapter" data-level="7.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html"><i class="fa fa-check"></i><b>7.1</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#introduction-12"><i class="fa fa-check"></i><b>7.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.1.2" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#main-types-of-unsupervised-learning-problems"><i class="fa fa-check"></i><b>7.1.2</b> Main Types of Unsupervised Learning Problems</a></li>
+<li class="chapter" data-level="7.1.3" data-path="unsupervised-learning.html"><a href="unsupervised-learning.html#clustering-1"><i class="fa fa-check"></i><b>7.1.3</b> Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>7.2</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-in-r-5"><i class="fa fa-check"></i><b>7.2.1</b> Example in R</a></li>
+<li class="chapter" data-level="7.2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#problem-statement"><i class="fa fa-check"></i><b>7.2.2</b> Problem Statement</a></li>
+<li class="chapter" data-level="7.2.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#algorithms-for-the-k-means-problem"><i class="fa fa-check"></i><b>7.2.3</b> Algorithms for the K-means Problem</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html"><i class="fa fa-check"></i><b>7.3</b> Hierarchical Methods</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#introduction-13"><i class="fa fa-check"></i><b>7.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.3.2" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#example-in-r-6"><i class="fa fa-check"></i><b>7.3.2</b> Example in R</a></li>
+<li class="chapter" data-level="7.3.3" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#agglomerative-hierarchical-clustering"><i class="fa fa-check"></i><b>7.3.3</b> Agglomerative Hierarchical Clustering</a></li>
+<li class="chapter" data-level="7.3.4" data-path="hierarchical-methods.html"><a href="hierarchical-methods.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.4</b> Linkage Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="outro-6.html"><a href="outro-6.html"><i class="fa fa-check"></i><b>7.4</b> Outro</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="outro-6.html"><a href="outro-6.html#remarks-6"><i class="fa fa-check"></i><b>7.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="7.4.2" data-path="outro-6.html"><a href="outro-6.html#other-noteworthy-clustering-algorithms"><i class="fa fa-check"></i><b>7.4.2</b> Other Noteworthy Clustering Algorithms</a></li>
+<li class="chapter" data-level="7.4.3" data-path="outro-6.html"><a href="outro-6.html#further-reading-6"><i class="fa fa-check"></i><b>7.4.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
+<li class="chapter" data-level="8.1" data-path="introduction-14.html"><a href="introduction-14.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="introduction-14.html"><a href="introduction-14.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
+<li class="chapter" data-level="8.1.2" data-path="introduction-14.html"><a href="introduction-14.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-14.html"><a href="introduction-14.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2.2" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#convex-combinations"><i class="fa fa-check"></i><b>8.2.2</b> Convex Combinations (*)</a></li>
+<li class="chapter" data-level="8.2.3" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#convex-functions"><i class="fa fa-check"></i><b>8.2.3</b> Convex Functions (*)</a></li>
+<li class="chapter" data-level="8.2.4" data-path="a-note-on-convex-optimisation.html"><a href="a-note-on-convex-optimisation.html#examples"><i class="fa fa-check"></i><b>8.2.4</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html"><i class="fa fa-check"></i><b>8.3</b> Genetic Algorithms</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html#introduction-16"><i class="fa fa-check"></i><b>8.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.3.2" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html#overview-of-the-method"><i class="fa fa-check"></i><b>8.3.2</b> Overview of the Method</a></li>
+<li class="chapter" data-level="8.3.3" data-path="genetic-algorithms.html"><a href="genetic-algorithms.html#example-implementation---ga-for-k-means"><i class="fa fa-check"></i><b>8.3.3</b> Example Implementation - GA for K-means</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="outro-7.html"><a href="outro-7.html"><i class="fa fa-check"></i><b>8.4</b> Outro</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="outro-7.html"><a href="outro-7.html#remarks-7"><i class="fa fa-check"></i><b>8.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="8.4.2" data-path="outro-7.html"><a href="outro-7.html#further-reading-7"><i class="fa fa-check"></i><b>8.4.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="recommender-systems.html"><a href="recommender-systems.html"><i class="fa fa-check"></i><b>9</b> Recommender Systems</a><ul>
+<li class="chapter" data-level="9.1" data-path="introduction-17.html"><a href="introduction-17.html"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="introduction-17.html"><a href="introduction-17.html#what-is-a-recommender-system"><i class="fa fa-check"></i><b>9.1.1</b> What is a Recommender System?</a></li>
+<li class="chapter" data-level="9.1.2" data-path="introduction-17.html"><a href="introduction-17.html#the-netflix-prize"><i class="fa fa-check"></i><b>9.1.2</b> The Netflix Prize</a></li>
+<li class="chapter" data-level="9.1.3" data-path="introduction-17.html"><a href="introduction-17.html#main-approaches"><i class="fa fa-check"></i><b>9.1.3</b> Main Approaches</a></li>
+<li class="chapter" data-level="9.1.4" data-path="introduction-17.html"><a href="introduction-17.html#formalism-2"><i class="fa fa-check"></i><b>9.1.4</b> Formalism</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html"><i class="fa fa-check"></i><b>9.2</b> Collaborative Filtering</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#example"><i class="fa fa-check"></i><b>9.2.1</b> Example</a></li>
+<li class="chapter" data-level="9.2.2" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#similarity-measures"><i class="fa fa-check"></i><b>9.2.2</b> Similarity Measures</a></li>
+<li class="chapter" data-level="9.2.3" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#user-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.3</b> User-Based Collaborative Filtering</a></li>
+<li class="chapter" data-level="9.2.4" data-path="collaborative-filtering.html"><a href="collaborative-filtering.html#item-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.4</b> Item-Based Collaborative Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="movielens-dataset.html"><a href="movielens-dataset.html"><i class="fa fa-check"></i><b>9.3</b> MovieLens Dataset (*)</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="movielens-dataset.html"><a href="movielens-dataset.html#dataset"><i class="fa fa-check"></i><b>9.3.1</b> Dataset</a></li>
+<li class="chapter" data-level="9.3.2" data-path="movielens-dataset.html"><a href="movielens-dataset.html#data-cleansing"><i class="fa fa-check"></i><b>9.3.2</b> Data Cleansing</a></li>
+<li class="chapter" data-level="9.3.3" data-path="movielens-dataset.html"><a href="movielens-dataset.html#item-item-similarities"><i class="fa fa-check"></i><b>9.3.3</b> Item-Item Similarities</a></li>
+<li class="chapter" data-level="9.3.4" data-path="movielens-dataset.html"><a href="movielens-dataset.html#example-recommendations"><i class="fa fa-check"></i><b>9.3.4</b> Example Recommendations</a></li>
+<li class="chapter" data-level="9.3.5" data-path="movielens-dataset.html"><a href="movielens-dataset.html#clustering-2"><i class="fa fa-check"></i><b>9.3.5</b> Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="outro-8.html"><a href="outro-8.html"><i class="fa fa-check"></i><b>9.4</b> Outro</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="outro-8.html"><a href="outro-8.html#remarks-8"><i class="fa fa-check"></i><b>9.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="9.4.2" data-path="outro-8.html"><a href="outro-8.html#issues"><i class="fa fa-check"></i><b>9.4.2</b> Issues</a></li>
+<li class="chapter" data-level="9.4.3" data-path="outro-8.html"><a href="outro-8.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="section-10.html"><a href="section-10.html"><i class="fa fa-check"></i>}</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
+<li class="chapter" data-level="A.1" data-path="installing-r.html"><a href="installing-r.html"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
+<li class="chapter" data-level="A.2" data-path="installing-an-ide.html"><a href="installing-an-ide.html"><i class="fa fa-check"></i><b>A.2</b> Installing an IDE</a></li>
+<li class="chapter" data-level="A.3" data-path="installing-recommended-packages.html"><a href="installing-recommended-packages.html"><i class="fa fa-check"></i><b>A.3</b> Installing Recommended Packages</a></li>
+<li class="chapter" data-level="A.4" data-path="first-r-script.html"><a href="first-r-script.html"><i class="fa fa-check"></i><b>A.4</b> First R Script</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>B</b> Vector Algebra in R</a><ul>
+<li class="chapter" data-level="B.1" data-path="motivation-1.html"><a href="motivation-1.html"><i class="fa fa-check"></i><b>B.1</b> Motivation</a></li>
+<li class="chapter" data-level="B.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>B.2</b> Numeric Vectors</a><ul>
+<li class="chapter" data-level="B.2.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#creating-numeric-vectors"><i class="fa fa-check"></i><b>B.2.1</b> Creating Numeric Vectors</a></li>
+<li class="chapter" data-level="B.2.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vector-scalar-operations"><i class="fa fa-check"></i><b>B.2.2</b> Vector-Scalar Operations</a></li>
+<li class="chapter" data-level="B.2.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vector-vector-operations"><i class="fa fa-check"></i><b>B.2.3</b> Vector-Vector Operations</a></li>
+<li class="chapter" data-level="B.2.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#aggregation-functions"><i class="fa fa-check"></i><b>B.2.4</b> Aggregation Functions</a></li>
+<li class="chapter" data-level="B.2.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#special-functions"><i class="fa fa-check"></i><b>B.2.5</b> Special Functions</a></li>
+<li class="chapter" data-level="B.2.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#norms-and-distances"><i class="fa fa-check"></i><b>B.2.6</b> Norms and Distances</a></li>
+<li class="chapter" data-level="B.2.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#dot-product"><i class="fa fa-check"></i><b>B.2.7</b> Dot Product (*)</a></li>
+<li class="chapter" data-level="B.2.8" data-path="numeric-vectors.html"><a href="numeric-vectors.html#missing-and-other-special-values"><i class="fa fa-check"></i><b>B.2.8</b> Missing and Other Special Values</a></li>
+</ul></li>
+<li class="chapter" data-level="B.3" data-path="logical-vectors.html"><a href="logical-vectors.html"><i class="fa fa-check"></i><b>B.3</b> Logical Vectors</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="logical-vectors.html"><a href="logical-vectors.html#creating-logical-vectors"><i class="fa fa-check"></i><b>B.3.1</b> Creating Logical Vectors</a></li>
+<li class="chapter" data-level="B.3.2" data-path="logical-vectors.html"><a href="logical-vectors.html#logical-operations"><i class="fa fa-check"></i><b>B.3.2</b> Logical Operations</a></li>
+<li class="chapter" data-level="B.3.3" data-path="logical-vectors.html"><a href="logical-vectors.html#comparison-operations"><i class="fa fa-check"></i><b>B.3.3</b> Comparison Operations</a></li>
+<li class="chapter" data-level="B.3.4" data-path="logical-vectors.html"><a href="logical-vectors.html#aggregation-functions-1"><i class="fa fa-check"></i><b>B.3.4</b> Aggregation Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="character-vectors.html"><a href="character-vectors.html"><i class="fa fa-check"></i><b>B.4</b> Character Vectors</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="character-vectors.html"><a href="character-vectors.html#creating-character-vectors"><i class="fa fa-check"></i><b>B.4.1</b> Creating Character Vectors</a></li>
+<li class="chapter" data-level="B.4.2" data-path="character-vectors.html"><a href="character-vectors.html#concatenating-character-vectors"><i class="fa fa-check"></i><b>B.4.2</b> Concatenating Character Vectors</a></li>
+<li class="chapter" data-level="B.4.3" data-path="character-vectors.html"><a href="character-vectors.html#collapsing-character-vectors"><i class="fa fa-check"></i><b>B.4.3</b> Collapsing Character Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="B.5" data-path="vector-subsetting.html"><a href="vector-subsetting.html"><i class="fa fa-check"></i><b>B.5</b> Vector Subsetting</a><ul>
+<li class="chapter" data-level="B.5.1" data-path="vector-subsetting.html"><a href="vector-subsetting.html#subsetting-with-positive-indices"><i class="fa fa-check"></i><b>B.5.1</b> Subsetting with Positive Indices</a></li>
+<li class="chapter" data-level="B.5.2" data-path="vector-subsetting.html"><a href="vector-subsetting.html#subsetting-with-negative-indices"><i class="fa fa-check"></i><b>B.5.2</b> Subsetting with Negative Indices</a></li>
+<li class="chapter" data-level="B.5.3" data-path="vector-subsetting.html"><a href="vector-subsetting.html#subsetting-with-logical-vectors"><i class="fa fa-check"></i><b>B.5.3</b> Subsetting with Logical Vectors</a></li>
+<li class="chapter" data-level="B.5.4" data-path="vector-subsetting.html"><a href="vector-subsetting.html#replacing-elements"><i class="fa fa-check"></i><b>B.5.4</b> Replacing Elements</a></li>
+<li class="chapter" data-level="B.5.5" data-path="vector-subsetting.html"><a href="vector-subsetting.html#other-functions"><i class="fa fa-check"></i><b>B.5.5</b> Other Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="named-vectors.html"><a href="named-vectors.html"><i class="fa fa-check"></i><b>B.6</b> Named Vectors</a><ul>
+<li class="chapter" data-level="B.6.1" data-path="named-vectors.html"><a href="named-vectors.html#creating-named-vectors"><i class="fa fa-check"></i><b>B.6.1</b> Creating Named Vectors</a></li>
+<li class="chapter" data-level="B.6.2" data-path="named-vectors.html"><a href="named-vectors.html#subsetting-named-vectors-with-character-string-indices"><i class="fa fa-check"></i><b>B.6.2</b> Subsetting Named Vectors with Character String Indices</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>B.7</b> Factors</a><ul>
+<li class="chapter" data-level="B.7.1" data-path="factors.html"><a href="factors.html#creating-factors"><i class="fa fa-check"></i><b>B.7.1</b> Creating Factors</a></li>
+<li class="chapter" data-level="B.7.2" data-path="factors.html"><a href="factors.html#levels"><i class="fa fa-check"></i><b>B.7.2</b> Levels</a></li>
+<li class="chapter" data-level="B.7.3" data-path="factors.html"><a href="factors.html#internal-representation"><i class="fa fa-check"></i><b>B.7.3</b> Internal Representation (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="B.8" data-path="lists.html"><a href="lists.html"><i class="fa fa-check"></i><b>B.8</b> Lists</a><ul>
+<li class="chapter" data-level="B.8.1" data-path="lists.html"><a href="lists.html#creating-lists"><i class="fa fa-check"></i><b>B.8.1</b> Creating Lists</a></li>
+<li class="chapter" data-level="B.8.2" data-path="lists.html"><a href="lists.html#named-lists"><i class="fa fa-check"></i><b>B.8.2</b> Named Lists</a></li>
+<li class="chapter" data-level="B.8.3" data-path="lists.html"><a href="lists.html#subsetting-and-extracting-from-lists"><i class="fa fa-check"></i><b>B.8.3</b> Subsetting and Extracting From Lists</a></li>
+<li class="chapter" data-level="B.8.4" data-path="lists.html"><a href="lists.html#common-operations"><i class="fa fa-check"></i><b>B.8.4</b> Common Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="B.9" data-path="further-reading-9.html"><a href="further-reading-9.html"><i class="fa fa-check"></i><b>B.9</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>C</b> Matrix Algebra in R</a><ul>
+<li class="chapter" data-level="C.1" data-path="creating-matrices.html"><a href="creating-matrices.html"><i class="fa fa-check"></i><b>C.1</b> Creating Matrices</a><ul>
+<li class="chapter" data-level="C.1.1" data-path="creating-matrices.html"><a href="creating-matrices.html#matrix"><i class="fa fa-check"></i><b>C.1.1</b> <code>matrix()</code></a></li>
+<li class="chapter" data-level="C.1.2" data-path="creating-matrices.html"><a href="creating-matrices.html#stacking-vectors"><i class="fa fa-check"></i><b>C.1.2</b> Stacking Vectors</a></li>
+<li class="chapter" data-level="C.1.3" data-path="creating-matrices.html"><a href="creating-matrices.html#beyond-numeric-matrices"><i class="fa fa-check"></i><b>C.1.3</b> Beyond Numeric Matrices</a></li>
+<li class="chapter" data-level="C.1.4" data-path="creating-matrices.html"><a href="creating-matrices.html#naming-rows-and-columns"><i class="fa fa-check"></i><b>C.1.4</b> Naming Rows and Columns</a></li>
+<li class="chapter" data-level="C.1.5" data-path="creating-matrices.html"><a href="creating-matrices.html#other-methods"><i class="fa fa-check"></i><b>C.1.5</b> Other Methods</a></li>
+<li class="chapter" data-level="C.1.6" data-path="creating-matrices.html"><a href="creating-matrices.html#internal-representation-1"><i class="fa fa-check"></i><b>C.1.6</b> Internal Representation (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="algebraic-operations.html"><a href="algebraic-operations.html"><i class="fa fa-check"></i><b>C.2</b> Algebraic Operations</a><ul>
+<li class="chapter" data-level="C.2.1" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-transpose"><i class="fa fa-check"></i><b>C.2.1</b> Matrix Transpose</a></li>
+<li class="chapter" data-level="C.2.2" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>C.2.2</b> Matrix-Scalar Operations</a></li>
+<li class="chapter" data-level="C.2.3" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>C.2.3</b> Matrix-Matrix Operations</a></li>
+<li class="chapter" data-level="C.2.4" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-multiplication"><i class="fa fa-check"></i><b>C.2.4</b> Matrix Multiplication (*)</a></li>
+<li class="chapter" data-level="C.2.5" data-path="algebraic-operations.html"><a href="algebraic-operations.html#matrix-vector-operations"><i class="fa fa-check"></i><b>C.2.5</b> Matrix-Vector Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html"><i class="fa fa-check"></i><b>C.3</b> Matrix Subsetting</a><ul>
+<li class="chapter" data-level="C.3.1" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-individual-elements"><i class="fa fa-check"></i><b>C.3.1</b> Selecting Individual Elements</a></li>
+<li class="chapter" data-level="C.3.2" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-rows-and-columns"><i class="fa fa-check"></i><b>C.3.2</b> Selecting Rows and Columns</a></li>
+<li class="chapter" data-level="C.3.3" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-submatrices"><i class="fa fa-check"></i><b>C.3.3</b> Selecting Submatrices</a></li>
+<li class="chapter" data-level="C.3.4" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-based-on-logical-vectors-and-matrices"><i class="fa fa-check"></i><b>C.3.4</b> Selecting Based on Logical Vectors and Matrices</a></li>
+<li class="chapter" data-level="C.3.5" data-path="matrix-subsetting.html"><a href="matrix-subsetting.html#selecting-based-on-two-column-matrices"><i class="fa fa-check"></i><b>C.3.5</b> Selecting Based on Two-Column Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="C.4" data-path="further-reading-10.html"><a href="further-reading-10.html"><i class="fa fa-check"></i><b>C.4</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>D</b> Data Frame Wrangling in R</a><ul>
+<li class="chapter" data-level="D.1" data-path="creating-data-frames.html"><a href="creating-data-frames.html"><i class="fa fa-check"></i><b>D.1</b> Creating Data Frames</a></li>
+<li class="chapter" data-level="D.2" data-path="importing-data-frames.html"><a href="importing-data-frames.html"><i class="fa fa-check"></i><b>D.2</b> Importing Data Frames</a></li>
+<li class="chapter" data-level="D.3" data-path="data-frame-subsetting.html"><a href="data-frame-subsetting.html"><i class="fa fa-check"></i><b>D.3</b> Data Frame Subsetting</a><ul>
+<li class="chapter" data-level="D.3.1" data-path="data-frame-subsetting.html"><a href="data-frame-subsetting.html#each-data-frame-is-a-list"><i class="fa fa-check"></i><b>D.3.1</b> Each Data Frame is a List</a></li>
+<li class="chapter" data-level="D.3.2" data-path="data-frame-subsetting.html"><a href="data-frame-subsetting.html#each-data-frame-is-matrix-like"><i class="fa fa-check"></i><b>D.3.2</b> Each Data Frame is Matrix-like</a></li>
+</ul></li>
+<li class="chapter" data-level="D.4" data-path="common-operations-1.html"><a href="common-operations-1.html"><i class="fa fa-check"></i><b>D.4</b> Common Operations</a></li>
+<li class="chapter" data-level="D.5" data-path="metaprogramming-and-formulas.html"><a href="metaprogramming-and-formulas.html"><i class="fa fa-check"></i><b>D.5</b> Metaprogramming and Formulas (*)</a></li>
+<li class="chapter" data-level="D.6" data-path="further-reading-11.html"><a href="further-reading-11.html"><i class="fa fa-check"></i><b>D.6</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 12:56 (0458037)</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lightweight Machine Learning Classics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercises-in-r-1" class="section level2">
+<h2><span class="header-section-number">2.4</span> Exercises in R</h2>
+<div id="anscombes-quartet-revisited" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Anscombe’s Quartet Revisited</h3>
+<p>Consider the <code>anscombe</code> database once again:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1"><span class="kw">print</span>(anscombe) <span class="co"># `anscombe` is a built-in object</span></a></code></pre></div>
+<pre><code>##    x1 x2 x3 x4    y1   y2    y3    y4
+## 1  10 10 10  8  8.04 9.14  7.46  6.58
+## 2   8  8  8  8  6.95 8.14  6.77  5.76
+## 3  13 13 13  8  7.58 8.74 12.74  7.71
+## 4   9  9  9  8  8.81 8.77  7.11  8.84
+## 5  11 11 11  8  8.33 9.26  7.81  8.47
+## 6  14 14 14  8  9.96 8.10  8.84  7.04
+## 7   6  6  6  8  7.24 6.13  6.08  5.25
+## 8   4  4  4 19  4.26 3.10  5.39 12.50
+## 9  12 12 12  8 10.84 9.13  8.15  5.56
+## 10  7  7  7  8  4.82 7.26  6.42  7.91
+## 11  5  5  5  8  5.68 4.74  5.73  6.89</code></pre>
+<p>Recall that in the previous Chapter we have
+split the above data into four data frames
+<code>ans1</code>, …, <code>ans4</code> with columns <code>x</code> and <code>y</code>.</p>
+<blockquote>
+<p>In <code>ans1</code>, fit a regression line to the data set as-is.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>We’ve done that already. What a wonderful exercise, thank you – learning
+is often done by repeating stuff.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1">ans1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x1, <span class="dt">y=</span>anscombe<span class="op">$</span>y1)</a>
+<a class="sourceLine" id="cb186-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans1)</a>
+<a class="sourceLine" id="cb186-3" title="3"><span class="kw">plot</span>(ans1<span class="op">$</span>x, ans1<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb186-4" title="4"><span class="kw">abline</span>(f1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<img src="02-regression-multiple-figures/unnamed-chunk-40-1.png" alt="plot of chunk unnamed-chunk-40" style="width:80.0%" />
+</details>
+<blockquote>
+<p>In <code>ans2</code>, fit a quadratic model (<span class="math inline">\(y=a x^2 + b x + c\)</span>).</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>How to fit a polynomial model is explained in Lecture 3.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">ans2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x2, <span class="dt">y=</span>anscombe<span class="op">$</span>y2)</a>
+<a class="sourceLine" id="cb187-2" title="2">f2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>ans2)</a>
+<a class="sourceLine" id="cb187-3" title="3"><span class="kw">plot</span>(ans2<span class="op">$</span>x, ans2<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb187-4" title="4">x_plot &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">4</span>, <span class="dv">14</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb187-5" title="5">y_plot &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(<span class="dt">x=</span>x_plot))</a>
+<a class="sourceLine" id="cb187-6" title="6"><span class="kw">lines</span>(x_plot, y_plot, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-43-1.png" alt="plot of chunk unnamed-chunk-43" style="width:80.0%" /></p>
+<p><em>Comment: This is an almost-perfect fit! Clearly,
+the second Anscombe dataset isn’t a case of linearly
+dependent variables.</em></p>
+</details>
+<blockquote>
+<p>In <code>ans3</code>, remove the obvious outlier from data
+and fit a regression line.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>Let’s plot the data set first.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">ans3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x3, <span class="dt">y=</span>anscombe<span class="op">$</span>y3)</a>
+<a class="sourceLine" id="cb188-2" title="2"><span class="kw">plot</span>(ans3<span class="op">$</span>x, ans3<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-46-1.png" alt="plot of chunk unnamed-chunk-46" style="width:80.0%" /></p>
+<p>Indeed, the observation at <span class="math inline">\(x\simeq 13\)</span> is an obvious outlier.
+Perhaps the easiest way
+to remove it is to call:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">ans3b &lt;-<span class="st"> </span>ans3[ans3<span class="op">$</span>y<span class="op">&lt;=</span><span class="dv">12</span>,] <span class="co"># the outlier is definitely at y&gt;12</span></a></code></pre></div>
+<p>We could also use the condition <code>y &lt; max(y)</code>, amongst others.</p>
+<p>Now let’s fit the linear model:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">f3b &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans3b)</a>
+<a class="sourceLine" id="cb190-2" title="2"><span class="kw">plot</span>(ans3b<span class="op">$</span>x, ans3b<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb190-3" title="3"><span class="kw">abline</span>(f3b, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-48-1.png" alt="plot of chunk unnamed-chunk-48" style="width:80.0%" /></p>
+<em>Comment: Now what’s we call linearly correlated data.
+By the way, Pearson’s coefficient now equals <code>0.9999966</code>.</em>
+</details>
+</div>
+<div id="countries-of-the-world-simple-models-involving-the-gdp-per-capita" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Countries of the World – Simple models involving the GDP per capita</h3>
+<p>Let’s consider the World Factbook 2020 dataset
+(see this book’s <code>datasets</code> folder).
+It consists of country names, their population,
+area, GDP, mortality rates etc. We have scraped it from the CIA website
+at <a href="https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html" class="uri">https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html</a>
+and compiled into a single file on 3 April 2020.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb191-2" title="2">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Here is a preview of a few features for 3 selected countries (see <code>help("%in%")</code>):</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">factbook[factbook<span class="op">$</span>country <span class="op">%in%</span></a>
+<a class="sourceLine" id="cb192-2" title="2"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;Australia&quot;</span>, <span class="st">&quot;New Zealand&quot;</span>, <span class="st">&quot;United States&quot;</span>),</a>
+<a class="sourceLine" id="cb192-3" title="3">    <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;area&quot;</span>, <span class="st">&quot;population&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>)]</a></code></pre></div>
+<pre><code>##           country    area population gdp_per_capita_ppp
+## 15      Australia 7741220   25466459              50400
+## 169   New Zealand  268838    4925477              39000
+## 247 United States 9833517  332639102              59800</code></pre>
+<!--
+The dataset consists of the following columns:
+"country", "area", "population", "median_age", "population_growth_rate", "birth_rate", "death_rate", "net_migration_rate", "maternal_mortality_rate", "infant_mortality_rate", "life_expectancy_at_birth", "total_fertility_rate", "hiv_aids_adult_prevalence_rate", "hiv_aids_people_living_with", "hiv_aids_deaths", "obesity_adult_prevalence_rate", "children_under_age_5_underweight", "education_expenditures", "unemployment_youth_ages_15_to_24", "gdp_purchasing_power_parity", "gdp_real_growth_rate", "gdp_per_capita_ppp", "gross_national_saving", "industrial_production_growth_rate", "labor_force", "unemployment_rate", "taxes_and_other_revenues", "budget_surplus_or_deficit", "public_debt", "inflation_rate_consumer_prices", "current_account_balance", "exports", "imports", "reserves_of_foreign_exchange_and_gold", "debt_external", "electricity_production", "electricity_consumption", "electricity_exports", "electricity_imports", "electricity_installed_generating_capacity", "electricity_from_fossil_fuels", "electricity_from_nuclear_fuels", "electricity_from_hydroelectric_plants", "electricity_from_other_renewable_sources", "crude_oil_production", "crude_oil_exports", "crude_oil_imports", "crude_oil_proved_reserves", "refined_petroleum_products_production", "refined_petroleum_products_consumption", "refined_petroleum_products_exports", "refined_petroleum_products_imports", "natural_gas_production", "natural_gas_consumption", "natural_gas_exports", "natural_gas_imports", "natural_gas_proved_reserves", "carbon_dioxide_emissions_from_consumption_of_energy", "telephones_fixed_lines", "telephones_mobile_cellular", "internet_users", "broadband_fixed_subscriptions", "military_expenditures", "airports", "railways", "roadways", "waterways", "merchant_marine"
+-->
+<!--
+> Please note that some of the columns contain characters
+that cannot be used in R's variable names (e.g., spaces, brackets, plus, minus).
+Therefore, accessing them using the `$` operator requires, e.g., the use of
+double quotes.
+We should use `factbook$gdp_per_capita_ppp`
+or `factbook[,gdp_per_capita_ppp]` instead.
+-->
+<!--
+
+> Convert `area` and `pop_density` from square miles to square kilometres.
+
+
+<details><summary style="color: blue">Click here for a solution</summary>
+
+We can easily find an appropriate conversion formula on the internet.
+We will convert one column at a time using the well-known
+vectorised vector division and replace the old column with new data.
+
+
+```r
+#countries$area <- countries$area*0.3861
+#countries$pop_density <- countries$pop_density*0.3861
+#countries[countries$country == "Australia", ] # preview
+```
+
+By the way, did you know that only few countries are still reluctant
+to switch to the commonly-agreed-upon
+[metric system](https://en.wikipedia.org/wiki/Metric_system)?
+We are still (patiently...) waiting for the (inevitable)
+[metrication](https://en.wikipedia.org/wiki/Metrication)
+of North Korea, the UK, the US, Liberia and Myanmar.
+</details>
+
+-->
+<!--
+> Omitting the aforementioned  columns can be done in a few ways. Here is one:
+
+
+```r
+#wines <- wines[, is.na(match(names(wines), c("color", "response")))]
+```
+
+To recall, `names(data.frame)` gives the vector of column names.
+On the other hand, the `match()` function, matches all the values
+in the first argument against all the values in the second argument.
+If there is no match (in our case, if a column name is not amongst
+the two names we wish to remove), `NA` is generated.
+
+</details>
+-->
+<blockquote>
+<p>List the 10 countries with the highest GDP per capita.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>To recall, to generate a list of indexes that produce an ordered
+version of a numeric vector, we need to call the <code>order()</code> function.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1">which_top &lt;-<span class="st"> </span><span class="kw">tail</span>(<span class="kw">order</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.last=</span><span class="ot">FALSE</span>), <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb194-2" title="2">factbook[which_top, <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>)]</a></code></pre></div>
+<pre><code>##           country gdp_per_capita_ppp
+## 113       Ireland              73200
+## 35         Brunei              78900
+## 114   Isle of Man              84600
+## 211     Singapore              94100
+## 26        Bermuda              99400
+## 141    Luxembourg             105100
+## 157        Monaco             115700
+## 142         Macau             122000
+## 192         Qatar             124100
+## 139 Liechtenstein             139100</code></pre>
+<p>By the way, the reported values are in USD.</p>
+<p><em>Question: Which of these countries are tax havens?</em></p>
+</details>
+<blockquote>
+<p>Find the 5 most positively and the 5 most negatively
+correlated variables with the <code>gdp_per_capita_ppp</code> feature
+(of course, with respect to the Pearson coefficient).</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>This can be solved via a call to <code>cor()</code>.
+Note that we need to make sure that missing vales are omitted
+from computations.
+A quick glimpse at the manual page
+(<code>?cor</code>) reveals that computing the correlation between a column
+and all the other ones (of course, except <code>country</code>, which
+is non-numeric) can be performed as follows.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1">r &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook<span class="op">$</span>gdp_per_capita_ppp,</a>
+<a class="sourceLine" id="cb196-2" title="2">            factbook[,<span class="op">!</span>(<span class="kw">names</span>(factbook) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>))],</a>
+<a class="sourceLine" id="cb196-3" title="3">            <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)[<span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb196-4" title="4">or &lt;-<span class="st"> </span><span class="kw">order</span>(r) <span class="co"># ordering permutation (indexes)</span></a>
+<a class="sourceLine" id="cb196-5" title="5">r[<span class="kw">head</span>(or, <span class="dv">5</span>)] <span class="co"># first 5 ordered indexes</span></a></code></pre></div>
+<pre><code>##   infant_mortality_rate maternal_mortality_rate 
+##              -0.7465825              -0.6700486 
+##              birth_rate              death_rate 
+##              -0.6082201              -0.5721644 
+##    total_fertility_rate 
+##              -0.5672550</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1">r[<span class="kw">tail</span>(or, <span class="dv">5</span>)] <span class="co"># last 5 ordered indexes</span></a></code></pre></div>
+<pre><code>##        natural_gas_production         gross_national_saving 
+##                     0.5689764                     0.6113255 
+##                    median_age obesity_adult_prevalence_rate 
+##                     0.6208990                     0.6368120 
+##      life_expectancy_at_birth 
+##                     0.7546062</code></pre>
+<p><em>Comment: “Live long and prosper” just gained a new meaning.
+Richer countries have lower infant and maternal mortality rates,
+lower birth rates, but higher life expectancy and obesity prevalence.
+Note, however, that correlation is not causation:
+we are unlikely to increase the GDP by asking people to put on weight.</em></p>
+</details>
+<blockquote>
+<p>Fit simple regression models where the per capita GDP explains
+its four most correlated variables (four individual models).
+Draw them on a scatter plot. Compute the root mean squared errors (RMSE),
+mean absolute errors (MAE) and the coefficients of determination (<span class="math inline">\(R^2\)</span>).</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>The four most correlated variables (we should look at the absolute
+value of the correlation coefficient now – recall that it
+is the correlation of 0 that means no linear dependence; 1 and -1
+show a strong association between a pair of variables) are:</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1">(most_correlated &lt;-<span class="st"> </span><span class="kw">names</span>(r)[<span class="kw">tail</span>(<span class="kw">order</span>(<span class="kw">abs</span>(r)), <span class="dv">4</span>)])</a></code></pre></div>
+<pre><code>## [1] &quot;obesity_adult_prevalence_rate&quot;
+## [2] &quot;maternal_mortality_rate&quot;      
+## [3] &quot;infant_mortality_rate&quot;        
+## [4] &quot;life_expectancy_at_birth&quot;</code></pre>
+<p>We could take the above column names and construct four
+formulas manually, e.g., by writing
+<code>gdp_per_capita_ppp~life_expectancy_at_birth</code>,
+but we are lazy. Being lazy when it comes to computer
+programming is often a virtue, not a flaw in one’s character.</p>
+<p>Instead, we will run a <code>for</code> loop that extracts the pairs of
+interesting columns and constructs a formula based on two vectors
+(<code>lm(Y~X)</code>).</p>
+<p>Recall that the root mean squared error is the square root of
+the arithmetic mean of the squared residuals.
+Mean absolute error is the average of the absolute values of the residuals.
+The coefficient of determination
+is given by: <span class="math inline">\(R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left(y_i-f(\mathbf{x}_{i,\cdot})\right)^2}{\sum_{i=1}^{n} \left(y_i-\bar{y}\right)^2}\)</span>.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)) <span class="co"># smaller margins (bottom, left, top, right)</span></a>
+<a class="sourceLine" id="cb202-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># 4 plots on a 2x2 grid</span></a>
+<a class="sourceLine" id="cb202-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
+<a class="sourceLine" id="cb202-4" title="4">    <span class="kw">print</span>(most_correlated[i])</a>
+<a class="sourceLine" id="cb202-5" title="5">    X &lt;-<span class="st"> </span>factbook[,<span class="st">&quot;gdp_per_capita_ppp&quot;</span>]</a>
+<a class="sourceLine" id="cb202-6" title="6">    Y &lt;-<span class="st"> </span>factbook[,most_correlated[i]]</a>
+<a class="sourceLine" id="cb202-7" title="7">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X)</a>
+<a class="sourceLine" id="cb202-8" title="8">    <span class="kw">print</span>(<span class="kw">cbind</span>(<span class="dt">RMSE=</span><span class="kw">sqrt</span>(<span class="kw">mean</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb202-9" title="9">                <span class="dt">MAE=</span><span class="kw">mean</span>(<span class="kw">abs</span>(f<span class="op">$</span>residuals)),</a>
+<a class="sourceLine" id="cb202-10" title="10">                <span class="dt">R2=</span><span class="kw">summary</span>(f)<span class="op">$</span>r.squared))</a>
+<a class="sourceLine" id="cb202-11" title="11">    <span class="kw">plot</span>(X, Y, <span class="dt">xlab=</span><span class="st">&quot;gdp_per_capita_ppp&quot;</span>, <span class="dt">ylab=</span>most_correlated[i], <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb202-12" title="12">    <span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb202-13" title="13">}</a></code></pre></div>
+<pre><code>## [1] &quot;obesity_adult_prevalence_rate&quot;
+##          RMSE      MAE         R2
+## [1,] 11.04095 8.158911 0.06219638</code></pre>
+<pre><code>## [1] &quot;maternal_mortality_rate&quot;
+##          RMSE      MAE        R2
+## [1,] 204.9272 146.5324 0.2148087</code></pre>
+<pre><code>## [1] &quot;infant_mortality_rate&quot;
+##          RMSE     MAE        R2
+## [1,] 15.74646 12.1665 0.3005046</code></pre>
+<pre><code>## [1] &quot;life_expectancy_at_birth&quot;
+##          RMSE      MAE        R2
+## [1,] 5.429182 4.372718 0.4309554</code></pre>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-65-1.png" alt="plot of chunk unnamed-chunk-65" style="width:80.0%" /></p>
+<p><em>Comment: Unfortunately, we were misled by the high correlation coefficients
+between the <span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span>s:
+the low actual <span class="math inline">\(R^2\)</span> scores indicate that these models should not
+be deemed trustworthy. Note that 3 of the plots are evidently L-shaped.</em></p>
+<p><em>Fun fact: (*) Interestingly, it can be shown that <span class="math inline">\(R^2\)</span>
+(in the case of the linear models fitted by minimising
+the SSR) is the square of the correlation
+between the true <span class="math inline">\(Y\)</span>s and the predicted <span class="math inline">\(Y\)</span>s:</em></p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" title="1">X &lt;-<span class="st"> </span>factbook[,<span class="st">&quot;gdp_per_capita_ppp&quot;</span>]</a>
+<a class="sourceLine" id="cb207-2" title="2">Y &lt;-<span class="st"> </span>factbook[,most_correlated[i]]</a>
+<a class="sourceLine" id="cb207-3" title="3">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X, <span class="dt">y=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb207-4" title="4"><span class="kw">print</span>(<span class="kw">summary</span>(f)<span class="op">$</span>r.squared)</a></code></pre></div>
+<pre><code>## [1] 0.4309554</code></pre>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" title="1"><span class="kw">print</span>(<span class="kw">cor</span>(f<span class="op">$</span>fitted.values, f<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## [1] 0.4309554</code></pre>
+<p><em>Side note: Do note that RMSE and MAE are interpretable: for instance,
+average error of life expectancy prediction based on the GDP is
+4-5 years. Recall that you can find the information on the variables’ units
+of measure at
+<a href="https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html" class="uri">https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html</a>.</em></p>
+</details>
+</div>
+<div id="countries-of-the-world-most-correlated-variables" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Countries of the World – Most correlated variables (*)</h3>
+<p>Let’s get back to the World Factbook 2020 dataset (<code>world_factbook_2020.csv</code>).</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb211-2" title="2">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<blockquote>
+<p>Create a data frame <code>C</code> with three columns named <code>col1</code>, <code>col2</code>
+and <code>r</code> and <span class="math inline">\(p(p-1)/2\)</span> rows,
+where <span class="math inline">\(p\)</span> is the number of numeric features in <code>factbook</code>.
+Every row should represent a unique pair of column names in <code>factbook</code>
+(we do not distinguish between <code>a,b</code> and <code>b,a</code>)
+of correlation coefficients between them.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>First we will solve this exercise considering only
+4 numeric features in our dataset, so that we can keep
+track of how the R expressions we evaluate actually work.</p>
+<p>Let us compute the Pearson coefficients between chosen pairs of variables.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1">R &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook[,<span class="kw">c</span>(<span class="st">&quot;area&quot;</span>, <span class="st">&quot;median_age&quot;</span>, <span class="st">&quot;birth_rate&quot;</span>, <span class="st">&quot;exports&quot;</span>)],</a>
+<a class="sourceLine" id="cb212-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>) <span class="co"># 4 selected columns</span></a>
+<a class="sourceLine" id="cb212-3" title="3"><span class="kw">print</span>(R)</a></code></pre></div>
+<pre><code>##                   area  median_age birth_rate    exports
+## area        1.00000000  0.04452395 -0.0319946  0.4925857
+## median_age  0.04452395  1.00000000 -0.9215918  0.2997270
+## birth_rate -0.03199460 -0.92159182  1.0000000 -0.2429553
+## exports     0.49258568  0.29972695 -0.2429553  1.0000000</code></pre>
+<p>Note that the <code>R</code> matrix has <code>1.0</code> on the diagonal (where each entry
+represents a correlation between a variable and itself).
+Moreover, it is symmetric around the diagonal – <code>R[i,j] == R[j,i]</code>,
+because it is the correlation between the same pair of variables.
+Hence, from now on we may be interested in the elements
+below the diagonal. We can get access to them by using <code>lower.tri()</code>
+(“lower triangle”).</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1">R[<span class="kw">lower.tri</span>(R)]</a></code></pre></div>
+<pre><code>## [1]  0.04452395 -0.03199460  0.49258568 -0.92159182  0.29972695
+## [6] -0.24295529</code></pre>
+<p>This is already the 3rd column of the data frame we are asked to generate,
+which should look like:</p>
+<pre><code>##         col1       col2           r
+## 1 median_age       area  0.04452395
+## 2 birth_rate       area -0.03199460
+## 3    exports       area  0.49258568
+## 4 birth_rate median_age -0.92159182
+## 5    exports median_age  0.29972695
+## 6    exports birth_rate -0.24295529</code></pre>
+<p>How the generate <code>col1</code> and <code>col2</code>?
+One idea is to take the “lower triangles” of the following matrices:</p>
+<pre><code>##      [,1]         [,2]         [,3]         [,4]        
+## [1,] &quot;area&quot;       &quot;area&quot;       &quot;area&quot;       &quot;area&quot;      
+## [2,] &quot;median_age&quot; &quot;median_age&quot; &quot;median_age&quot; &quot;median_age&quot;
+## [3,] &quot;birth_rate&quot; &quot;birth_rate&quot; &quot;birth_rate&quot; &quot;birth_rate&quot;
+## [4,] &quot;exports&quot;    &quot;exports&quot;    &quot;exports&quot;    &quot;exports&quot;</code></pre>
+<p>and:</p>
+<pre><code>##      [,1]   [,2]         [,3]         [,4]     
+## [1,] &quot;area&quot; &quot;median_age&quot; &quot;birth_rate&quot; &quot;exports&quot;
+## [2,] &quot;area&quot; &quot;median_age&quot; &quot;birth_rate&quot; &quot;exports&quot;
+## [3,] &quot;area&quot; &quot;median_age&quot; &quot;birth_rate&quot; &quot;exports&quot;
+## [4,] &quot;area&quot; &quot;median_age&quot; &quot;birth_rate&quot; &quot;exports&quot;</code></pre>
+<p>Here is a complete solution for all the features is <code>factbook</code>:</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1">R &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>) <span class="co"># skip the `country` column</span></a>
+<a class="sourceLine" id="cb219-2" title="2">rrr &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]], <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R))</a>
+<a class="sourceLine" id="cb219-3" title="3">ccc &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]], <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R))</a>
+<a class="sourceLine" id="cb219-4" title="4">C &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">col1=</span>rrr[<span class="kw">lower.tri</span>(rrr)],</a>
+<a class="sourceLine" id="cb219-5" title="5">                <span class="dt">col2=</span>ccc[<span class="kw">lower.tri</span>(ccc)],</a>
+<a class="sourceLine" id="cb219-6" title="6">                <span class="dt">r=</span>R[<span class="kw">lower.tri</span>(R)])</a></code></pre></div>
+<p><em>Comment: In “classical” programming languages we would perhaps
+have used of a double (nested) <code>for</code> loop here (a less readable solution).</em></p>
+</details>
+<blockquote>
+<p>Find the 5 most correlated pairs of variables.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>This can be done by ordering the rows of <code>C</code> in decreasing
+order of absolute values of <code>C$r</code>, and then choosing the first 5 rows.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1">C_top &lt;-<span class="st"> </span><span class="kw">head</span>(C[<span class="kw">order</span>(<span class="kw">abs</span>(C<span class="op">$</span>r), <span class="dt">decreasing=</span><span class="ot">TRUE</span>),], <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb220-2" title="2">knitr<span class="op">::</span><span class="kw">kable</span>(C_top)</a></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="6%" />
+<col width="51%" />
+<col width="29%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">col1</th>
+<th align="left">col2</th>
+<th align="right">r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1687</td>
+<td align="left">electricity_installed_generating_capacity</td>
+<td align="left">electricity_production</td>
+<td align="right">0.9994159</td>
+</tr>
+<tr class="even">
+<td align="left">1684</td>
+<td align="left">electricity_consumption</td>
+<td align="left">electricity_production</td>
+<td align="right">0.9992063</td>
+</tr>
+<tr class="odd">
+<td align="left">88</td>
+<td align="left">labor_force</td>
+<td align="left">population</td>
+<td align="right">0.9986190</td>
+</tr>
+<tr class="even">
+<td align="left">1718</td>
+<td align="left">electricity_installed_generating_capacity</td>
+<td align="left">electricity_consumption</td>
+<td align="right">0.9981540</td>
+</tr>
+<tr class="odd">
+<td align="left">1300</td>
+<td align="left">telephones_mobile_cellular</td>
+<td align="left">labor_force</td>
+<td align="right">0.9979274</td>
+</tr>
+</tbody>
+</table>
+<p><em>Comment: The most correlated pairs of features are not really
+“mind-blowing”…</em></p>
+</details>
+<blockquote>
+<p>Fit simple regression models for the most correlated pair of variables.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>There is a degree of ambiguity here: should <code>col1</code> or rather <code>col2</code>
+be treated as the dependent variable in our model?
+Let’s do it either way.</p>
+<p>To learn something new, which is exactly why we are all here,
+we will create the formulas programmatically, by first
+concatenating (joining) appropriate strings
+(note that in order to input a double quotes character,
+we need to proceed in with a backslash), and then
+calling the <code>formula()</code> function.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1">form &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">paste</span>(C_top[<span class="dv">1</span>,<span class="dv">2</span>], <span class="st">&quot;~&quot;</span>, C_top[<span class="dv">1</span>,<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb221-2" title="2">f &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb221-3" title="3"><span class="kw">print</span>(f)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = form, data = factbook)
+## 
+## Coefficients:
+##                               (Intercept)  
+##                                 795225381  
+## electricity_installed_generating_capacity  
+##                                      3625</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]], <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb223-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-81-1.png" alt="plot of chunk unnamed-chunk-81" style="width:80.0%" /></p>
+<p>This is great.</p>
+<p>Wait, hold on a second! The fitted lines are not present on the plots!</p>
+<blockquote>
+<p>There is a serious, extremely hard-to-detect bug in the above code.
+The reader is kindly asked to try to identify it.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>The author wishes to apologise, but this where he will get slightly…
+emotional. We are all programmers here. So let’s speak like a programmer
+to a programmer.</p>
+<p>Aaaaaaaaaaaaaaaargh!!!!!!!!!!!
+I’ve spent 3 hours trying to locate it!!!</p>
+<p>So in Appendix related to data frame wrangling I have
+explicitly asked everyone (including myself, because I tend to
+forget that!!!)
+to globally set the <code>stringsAsFactors=FALSE</code> option.
+But we didn’t do so.
+The problem is where we create the <code>C</code> matrix using the <code>data.frame()</code>
+function – <code>C$col1</code> and <code>C$col2</code> are objects of type:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="kw">class</span>(C<span class="op">$</span>col1)</a></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="kw">class</span>(C<span class="op">$</span>col2)</a></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<p>Is this is a problem? Well it is, because
+indexing an object <code>x</code> with a factor <code>f</code>,
+<code>x[f]</code> means <code>x[as.numeric(f)]</code> and not <code>x[as.character(f)]</code>.</p>
+<p>Therefore, <code>factbook[,C_top[1,1]]</code> refers to:</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1"><span class="kw">names</span>(factbook)[C_top[<span class="dv">1</span>,<span class="dv">1</span>]]</a></code></pre></div>
+<pre><code>## [1] &quot;gdp_per_capita_ppp&quot;</code></pre>
+<p>and not:</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">as.character</span>(C_top[<span class="dv">1</span>,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## [1] &quot;electricity_installed_generating_capacity&quot;</code></pre>
+<p>Here is a corrected version:</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1">C &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">col1=</span>rrr[<span class="kw">lower.tri</span>(rrr)],</a>
+<a class="sourceLine" id="cb232-2" title="2">                <span class="dt">col2=</span>ccc[<span class="kw">lower.tri</span>(ccc)],</a>
+<a class="sourceLine" id="cb232-3" title="3">                <span class="dt">r=</span>R[<span class="kw">lower.tri</span>(R)],</a>
+<a class="sourceLine" id="cb232-4" title="4">                <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span> <span class="co">######## !!!!!!!!!!!!!!!!!!!!!!!!</span></a>
+<a class="sourceLine" id="cb232-5" title="5">)</a>
+<a class="sourceLine" id="cb232-6" title="6">C_top &lt;-<span class="st"> </span><span class="kw">head</span>(C[<span class="kw">order</span>(<span class="kw">abs</span>(C<span class="op">$</span>r), <span class="dt">decreasing=</span><span class="ot">TRUE</span>),], <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb232-7" title="7">form &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">paste</span>(C_top[<span class="dv">1</span>,<span class="dv">2</span>], <span class="st">&quot;~&quot;</span>, C_top[<span class="dv">1</span>,<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb232-8" title="8">f &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb232-9" title="9"><span class="kw">print</span>(f)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = form, data = factbook)
+## 
+## Coefficients:
+##                               (Intercept)  
+##                                 795225381  
+## electricity_installed_generating_capacity  
+##                                      3625</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]], <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb234-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-86-1.png" alt="plot of chunk unnamed-chunk-86" style="width:80.0%" /></p>
+<p>Seriously, I really like the R language, but this <code>stringsAsFactors</code>
+thing is it’s weakest spot. Just fire up <code>options(stringsAsFactors=FALSE)</code>
+next time! (Which I of course won’t). End of story.</p>
+</details>
+</details>
+</div>
+<div id="countries-of-the-world-a-non-linear-model-based-on-the-gdp-per-capita" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Countries of the World – A non-linear model based on the GDP per capita</h3>
+<p>Let’s revisit the World Factbook 2020 dataset (<code>world_factbook_2020.csv</code>).</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb235-2" title="2">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<blockquote>
+<p>Draw a histogram of the empirical distribution
+of the GDP per capita. Moreover, draw a histogram of the logarithm
+of the GDP/person.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="kw">hist</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">las=</span><span class="dv">1</span>); <span class="kw">box</span>()</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-91-1.png" alt="plot of chunk unnamed-chunk-91" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">las=</span><span class="dv">1</span>); <span class="kw">box</span>()</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-91-2.png" alt="plot of chunk unnamed-chunk-91" style="width:80.0%" /></p>
+<p><em>Comment: The distribution of the GDP is right-skewed: most countries
+have small GDP. However, few of them (those in the “right tail” of the distribution)
+are very very rich. There is the famous observation made by V. Pareto
+stating that most assets are in the hands of the “wealthy minority”
+(compare: power law, rich-get-richer rule, preferential attachment in complex networks).
+Interestingly, many real-world-phenomena are distributed similarly
+(e.g., the popularity of web pages, the number of followers of Instagram
+profiles). It is frequently the case that the logarithm of the aforementioned
+variable looks more “normal” (is bell-shaped).</em></p>
+<p><em>Side note: “The” logarithm most often refers to the logarithm base
+<span class="math inline">\(e\)</span>, <span class="math inline">\(\log x = \log_e x\)</span>,
+where <span class="math inline">\(e\simeq 2.72\)</span> is the Euler constant, see <code>exp(1)</code> in R.
+Note that you can only compute logarithms of positive real numbers.</em></p>
+<p>Non-technical audience might be confused when asked to contemplate
+the distribution of the logarithm of a variable. Let’s make it
+more user-friendly by nicely re-labelling the X axis:</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">axes=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb238-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;GDP per capita (thousands USD)&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb238-3" title="3"><span class="kw">box</span>()</a>
+<a class="sourceLine" id="cb238-4" title="4"><span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">las=</span><span class="dv">1</span>) <span class="co"># Y axis</span></a>
+<a class="sourceLine" id="cb238-5" title="5">at &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">20000</span>, <span class="dv">50000</span>, <span class="dv">100000</span>, <span class="dv">200000</span>)</a>
+<a class="sourceLine" id="cb238-6" title="6"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">log</span>(at), <span class="dt">labels=</span>at<span class="op">/</span><span class="dv">1000</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-92-1.png" alt="plot of chunk unnamed-chunk-92" style="width:80.0%" /></p>
+<p><em>Comment: This is still a plot of the logarithm of the
+distribution of the per capita GDP, but it’s somehow “hidden” behind
+the human-readable axis labels. Nice.</em></p>
+</details>
+<blockquote>
+<p>Fit a simple linear model of <code>life_expectancy_at_birth</code>
+as a function of <code>gdp_per_capita_ppp</code>.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>Easy. We have already done than in one of the previous exercises.
+Yet, to learn something new, let’s note that the <code>plot()</code> function
+accepts formulas as well.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb239-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb239-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;purple&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-95-1.png" alt="plot of chunk unnamed-chunk-95" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
+<pre><code>## [1] 0.4309554</code></pre>
+<p><em>Comment: This is not a good model.</em></p>
+</details>
+<blockquote>
+<p>Draw a scatter plot of <code>life_expectancy_at_birth</code> as a function
+<code>gdp_per_capita_ppp</code>, with the X axis being logarithmic.
+Compute the correlation coefficient between
+<code>log(gdp_per_capita_ppp)</code> and <code>life_expectancy_at_birth</code>.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>We could apply the <code>log()</code>-transformation manually
+and generate fancy X axis labels ourselves. However,
+the <code>plot()</code> function has the <code>log</code> argument (see <code>?plot.default</code>)
+which provides us with all we need.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth,</a>
+<a class="sourceLine" id="cb242-2" title="2">    <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-98-1.png" alt="plot of chunk unnamed-chunk-98" style="width:80.0%" /></p>
+<p>Here is the <em>linear</em> correlation coefficient between the logarithm
+of the GDP/person and the life expectancy.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">cor</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), factbook<span class="op">$</span>life_expectancy_at_birth,</a>
+<a class="sourceLine" id="cb243-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] 0.8066505</code></pre>
+<p>It’s quite high, therefore we can try</p>
+</details>
+<blockquote>
+<p>Fit a model predicting <code>life_expectancy_at_birth</code>
+by means of <code>log(gdp_per_capita_ppp)</code>.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>We would like to fit a model of the form <span class="math inline">\(Y=a\log X+b\)</span>.
+The formula <code>life_expectancy_at_birth~log(gdp_per_capita_ppp)</code>
+should do the trick here.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb245-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb245-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;pink3&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-102-1.png" alt="plot of chunk unnamed-chunk-102" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1">f<span class="op">$</span>coefficients</a></code></pre></div>
+<pre><code>##             (Intercept) log(gdp_per_capita_ppp) 
+##               28.306385                4.817806</code></pre>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
+<pre><code>## [1] 0.650685</code></pre>
+<p><em>Comment: That is an okay model (in terms of the coefficient of determination).</em></p>
+</details>
+<blockquote>
+<p>Draw the fitted logarithmic model on a scatter plot
+with a standard, non-logarithmic X axis.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>The model fitted above is of the form
+<span class="math inline">\(Y\simeq4.82 \log X+28.31\)</span>.
+To depict it on a plot with linear (non-logarithmic) axes,
+we can compute this formula on multiple points by hand.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb250-2" title="2"></a>
+<a class="sourceLine" id="cb250-3" title="3"><span class="co"># many points on the X axis:</span></a>
+<a class="sourceLine" id="cb250-4" title="4">xxx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb250-5" title="5">            <span class="kw">max</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb250-6" title="6">            <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb250-7" title="7">yyy &lt;-<span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span><span class="kw">log</span>(xxx)</a>
+<a class="sourceLine" id="cb250-8" title="8"><span class="kw">lines</span>(xxx, yyy, <span class="dt">col=</span><span class="st">&quot;turquoise3&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-105-1.png" alt="plot of chunk unnamed-chunk-105" style="width:80.0%" /></p>
+<p><em>Comment: Well, people are not immortal…
+The original (linear) model didn’t really take that into account.
+Also, recall that correlation is not causation.
+Moreover, there is a lot of variability at an individual level.
+Being born in a less-wealthy country (e.g., not in a tax haven),
+doesn’t mean you don’t have the whole life ahead of you.
+Do the cool staff, do something for the others. Life’s not about money.</em></p>
+</details>
+</div>
+<div id="countries-of-the-world-a-multiple-regression-model-for-the-per-capita-gdp" class="section level3">
+<h3><span class="header-section-number">2.4.5</span> Countries of the World – A multiple regression model for the per capita GDP</h3>
+<p>Let’s play with World Factbook 2020
+(<code>world_factbook_2020.csv</code>) once again.
+World is an interesting place, so we’re far from being bored with this dataset.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb251-2" title="2">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Let’s restrict ourselves to the following columns, mostly
+related to imports and exports:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1">factbookn &lt;-<span class="st"> </span>factbook[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>,</a>
+<a class="sourceLine" id="cb252-2" title="2">    <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>, <span class="st">&quot;electricity_exports&quot;</span>, <span class="st">&quot;electricity_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb252-3" title="3">    <span class="st">&quot;military_expenditures&quot;</span>, <span class="st">&quot;crude_oil_exports&quot;</span>, <span class="st">&quot;crude_oil_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb252-4" title="4">    <span class="st">&quot;natural_gas_exports&quot;</span>, <span class="st">&quot;natural_gas_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb252-5" title="5">    <span class="st">&quot;reserves_of_foreign_exchange_and_gold&quot;</span>)]</a></code></pre></div>
+<p>Let’s compute the per capita versions of the above, by dividing
+all values by each country’s population:</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(factbookn))</a>
+<a class="sourceLine" id="cb253-2" title="2">    factbookn[[i]] &lt;-<span class="st"> </span>factbookn[[i]]<span class="op">/</span>factbook<span class="op">$</span>population</a></code></pre></div>
+<p>We are going to build a few multiple regression models using the
+<code>step()</code> function, which is not too fond of missing values, therefore
+they should be removed first:</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1">factbookn &lt;-<span class="st"> </span><span class="kw">na.omit</span>(factbookn)</a>
+<a class="sourceLine" id="cb254-2" title="2"><span class="kw">c</span>(<span class="kw">nrow</span>(factbook), <span class="kw">nrow</span>(factbookn)) <span class="co"># how many countries were omitted?</span></a></code></pre></div>
+<pre><code>## [1] 261 157</code></pre>
+<blockquote>
+<p>Build a model for <code>gdp_purchasing_power_parity</code> as a function
+of <code>imports</code> and <code>exports</code> (all per capita).</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<p>Let’s first take a look at how the aforementioned variables
+are related to each other:</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="kw">pairs</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)], <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-112-1.png" alt="plot of chunk unnamed-chunk-112" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1"><span class="kw">cor</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a></code></pre></div>
+<pre><code>##                             gdp_purchasing_power_parity
+## gdp_purchasing_power_parity                   1.0000000
+## imports                                       0.8289144
+## exports                                       0.8189854
+##                               imports   exports
+## gdp_purchasing_power_parity 0.8289144 0.8189854
+## imports                     1.0000000 0.9424084
+## exports                     0.9424084 1.0000000</code></pre>
+<p>They are nicely correlated. Moreover, they are on a similar scale
+(“tens of thousands of USD per capita”).</p>
+<p>Fitting the requested model yields:</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1"><span class="kw">options</span>(<span class="dt">scipen=</span><span class="dv">10</span>) <span class="co"># prefer &quot;decimal&quot; over &quot;scientific&quot; notation</span></a>
+<a class="sourceLine" id="cb259-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>imports<span class="op">+</span>exports, <span class="dt">data=</span>factbookn)</a>
+<a class="sourceLine" id="cb259-3" title="3">f1<span class="op">$</span>coefficients</a></code></pre></div>
+<pre><code>##  (Intercept)      imports      exports 
+## 9852.5381318    1.4419398    0.7806693</code></pre>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="kw">summary</span>(f1)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<pre><code>## [1] 0.6959805</code></pre>
+</details>
+<blockquote>
+<p>Use forward selection to come up with
+a model for <code>gdp_purchasing_power_parity</code> per capita.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1">f2 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn), <span class="co"># empty model</span></a>
+<a class="sourceLine" id="cb263-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn)), <span class="co"># full model</span></a>
+<a class="sourceLine" id="cb263-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb263-4" title="4">f2</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = gdp_purchasing_power_parity ~ imports + crude_oil_exports + 
+##     crude_oil_imports + electricity_imports + natural_gas_imports, 
+##     data = factbookn)
+## 
+## Coefficients:
+##         (Intercept)              imports    crude_oil_exports  
+##            7603.236                1.775           128472.216  
+##   crude_oil_imports  electricity_imports  natural_gas_imports  
+##          100781.638                1.621                3.131</code></pre>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="kw">summary</span>(f2)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<pre><code>## [1] 0.7865036</code></pre>
+<p><em>Comment: Interestingly, it’s mostly the import-related variables
+that contribute to the GDP per capita. However, the model
+is not perfect, so we should refrain ourselves from building a brand new
+economic theory around this “discovery”. On the other hand,
+you know what they say: all models are wrong, but some might be useful.
+Note that we used the adjusted <span class="math inline">\(R^2\)</span> coefficient to correct
+for the number of variables in the model
+so as to make it more comparable with the coefficient corresponding
+to the <code>f1</code> model.</em></p>
+</details>
+<blockquote>
+<p>Use backward elimination to construct a model
+for <code>gdp_purchasing_power_parity</code> per capita.</p>
+</blockquote>
+<details>
+<p><summary style="color: blue">Click here for a solution</summary></p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1">f3 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn),</a>
+<a class="sourceLine" id="cb267-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn)),</a>
+<a class="sourceLine" id="cb267-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb267-4" title="4">f3</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = gdp_purchasing_power_parity ~ imports + electricity_imports + 
+##     crude_oil_exports + crude_oil_imports + natural_gas_imports, 
+##     data = factbookn)
+## 
+## Coefficients:
+##         (Intercept)              imports  electricity_imports  
+##            7603.236                1.775                1.621  
+##   crude_oil_exports    crude_oil_imports  natural_gas_imports  
+##          128472.216           100781.638                3.131</code></pre>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="kw">summary</span>(f3)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<pre><code>## [1] 0.7865036</code></pre>
+<p><em>Comment: This is the same model as the one found by forward selection, i.e., <code>f2</code>.</em></p>
+</details>
+<!--
+
+
+
+a binary variable 0/1
+fit two models and compare
+fit a single model involving the 0/1 variable and compare
+
+
+
+
+multiple regression
+
+draw scatterplot matrix (pair plot)
+
+compute the matrix of Pearson's correlations
+
+fit the full model
+
+fit some other models
+
+draw the fitted vs residuals plot
+
+provide an interpretation of each coefficient in the model
+
+standardise the variables??? and give the interpretation
+
+forward selection/backward elimination
+
+
+
+linearisation example
+
+
+highly correlated input variables
+
+
+
+-->
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="finding-the-best-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="outro-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": "lmlcr.pdf",
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

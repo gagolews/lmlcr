@@ -1050,6 +1050,960 @@ e.g., 60-20-20\%.
 
 
 
+## Exercises in R
+
+
+
+### Anscombe's Quartet Revisited
+
+Consider the `anscombe` database once again:
+
+```{r}
+print(anscombe) # `anscombe` is a built-in object
+```
+
+Recall that in the previous Chapter we have
+split the above data into four data frames
+`ans1`, ..., `ans4` with columns `x` and `y`.
+
+
+> In `ans1`, fit a regression line to the data set as-is.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+
+We've done that already. What a wonderful exercise, thank you -- learning
+is often done by repeating stuff.
+
+```{r}
+ans1 <- data.frame(x=anscombe$x1, y=anscombe$y1)
+f1 <- lm(y~x, data=ans1)
+plot(ans1$x, ans1$y, las=1)
+abline(f1, col="red")
+```
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+>  In `ans2`, fit a quadratic model ($y=a x^2 + b x + c$).
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+
+How to fit a polynomial model is explained in Lecture 3.
+
+```{r}
+ans2 <- data.frame(x=anscombe$x2, y=anscombe$y2)
+f2 <- lm(y~x+I(x^2), data=ans2)
+plot(ans2$x, ans2$y, las=1)
+x_plot <- seq(4, 14, by=0.1)
+y_plot <- predict(f2, data.frame(x=x_plot))
+lines(x_plot, y_plot, col="red")
+```
+
+*Comment: This is an almost-perfect fit! Clearly,
+the second Anscombe dataset isn't a case of linearly
+dependent variables.*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+> In `ans3`, remove the obvious outlier from data
+> and fit a regression line.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+
+Let's plot the data set first.
+
+```{r}
+ans3 <- data.frame(x=anscombe$x3, y=anscombe$y3)
+plot(ans3$x, ans3$y, las=1)
+```
+
+Indeed, the observation at $x\simeq 13$ is an obvious outlier.
+Perhaps the easiest way
+to remove it is to call:
+
+```{r}
+ans3b <- ans3[ans3$y<=12,] # the outlier is definitely at y>12
+```
+
+We could also use the condition `y < max(y)`, amongst others.
+
+Now let's fit the linear model:
+
+```{r}
+f3b <- lm(y~x, data=ans3b)
+plot(ans3b$x, ans3b$y, las=1)
+abline(f3b, col="red")
+```
+
+
+*Comment: Now what's we call linearly correlated data.
+By the way, Pearson's coefficient now equals ```r cor(ans3b$x, ans3b$y)```.*
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+
+
+### Countries of the World -- Simple models involving the GDP per capita
+
+
+Let's consider the World Factbook 2020 dataset
+(see this book's `datasets` folder).
+It consists of country names, their population,
+area, GDP, mortality rates etc. We have scraped it from the CIA website
+at https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html
+and compiled into a single file on 3 April 2020.
+
+
+```{r}
+factbook <- read.csv("datasets/world_factbook_2020.csv", comment="#",
+    stringsAsFactors=FALSE)
+```
+
+Here is a preview of a few features for 3 selected countries (see `help("%in%")`):
+
+```{r}
+factbook[factbook$country %in%
+    c("Australia", "New Zealand", "United States"),
+    c("country", "area", "population", "gdp_per_capita_ppp")]
+```
+
+
+
+
+<!--
+The dataset consists of the following columns:
+`r paste('"', names(factbook), '"', sep="")`
+-->
+
+<!--
+> Please note that some of the columns contain characters
+that cannot be used in R's variable names (e.g., spaces, brackets, plus, minus).
+Therefore, accessing them using the `$` operator requires, e.g., the use of
+double quotes.
+We should use `factbook$gdp_per_capita_ppp`
+or `factbook[,gdp_per_capita_ppp]` instead.
+-->
+
+
+<!--
+
+> Convert `area` and `pop_density` from square miles to square kilometres.
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+We can easily find an appropriate conversion formula on the internet.
+We will convert one column at a time using the well-known
+vectorised vector division and replace the old column with new data.
+
+```{r}
+#countries$area <- countries$area*0.3861
+#countries$pop_density <- countries$pop_density*0.3861
+#countries[countries$country == "Australia", ] # preview
+```
+
+By the way, did you know that only few countries are still reluctant
+to switch to the commonly-agreed-upon
+[metric system](https://en.wikipedia.org/wiki/Metric_system)?
+We are still (patiently...) waiting for the (inevitable)
+[metrication](https://en.wikipedia.org/wiki/Metrication)
+of North Korea, the UK, the US, Liberia and Myanmar.
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+-->
+
+
+<!--
+> Omitting the aforementioned  columns can be done in a few ways. Here is one:
+
+```{r}
+#wines <- wines[, is.na(match(names(wines), c("color", "response")))]
+```
+
+To recall, `names(data.frame)` gives the vector of column names.
+On the other hand, the `match()` function, matches all the values
+in the first argument against all the values in the second argument.
+If there is no match (in our case, if a column name is not amongst
+the two names we wish to remove), `NA` is generated.
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+-->
+
+> List the 10 countries with the highest GDP per capita.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+To recall, to generate a list of indexes that produce an ordered
+version of a numeric vector, we need to call the `order()` function.
+
+```{r}
+which_top <- tail(order(factbook$gdp_per_capita_ppp, na.last=FALSE), 10)
+factbook[which_top, c("country", "gdp_per_capita_ppp")]
+```
+
+By the way, the reported values are in USD.
+
+*Question: Which of these countries are tax havens?*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+
+> Find the 5 most positively and the 5 most negatively
+> correlated variables with the `gdp_per_capita_ppp` feature
+> (of course, with respect to the Pearson coefficient).
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+This can be solved via a call to `cor()`.
+Note that we need to make sure that missing vales are omitted
+from computations.
+A quick glimpse at the manual page
+(`?cor`) reveals that computing the correlation between a column
+and all the other ones (of course, except `country`, which
+is non-numeric) can be performed as follows.
+
+```{r}
+r <- cor(factbook$gdp_per_capita_ppp,
+            factbook[,!(names(factbook) %in% c("country", "gdp_per_capita_ppp"))],
+            use="complete.obs")[1,]
+or <- order(r) # ordering permutation (indexes)
+r[head(or, 5)] # first 5 ordered indexes
+r[tail(or, 5)] # last 5 ordered indexes
+```
+
+*Comment: "Live long and prosper" just gained a new meaning.
+Richer countries have lower infant and maternal mortality rates,
+lower birth rates, but higher life expectancy and obesity prevalence.
+Note, however, that correlation is not causation:
+we are unlikely to increase the GDP by asking people to put on weight.*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+> Fit simple regression models where the per capita GDP explains
+> its four most correlated variables (four individual models).
+> Draw them on a scatter plot. Compute the root mean squared errors (RMSE),
+> mean absolute errors (MAE) and the coefficients of determination ($R^2$).
+
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+The four most correlated variables (we should look at the absolute
+value of the correlation coefficient now -- recall that it
+is the correlation of 0 that means no linear dependence; 1 and -1
+show a strong association between a pair of variables) are:
+
+```{r}
+(most_correlated <- names(r)[tail(order(abs(r)), 4)])
+```
+
+We could take the above column names and construct four
+formulas manually, e.g., by writing
+`gdp_per_capita_ppp~life_expectancy_at_birth`,
+but we are lazy. Being lazy when it comes to computer
+programming is often a virtue, not a flaw in one's character.
+
+Instead, we will run a `for` loop that extracts the pairs of
+interesting columns and constructs a formula based on two vectors
+(`lm(Y~X)`).
+
+Recall that the root mean squared error is the square root of
+the arithmetic mean of the squared residuals.
+Mean absolute error is the average of the absolute values of the residuals.
+The coefficient of determination
+is given by: $R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left(y_i-f(\mathbf{x}_{i,\cdot})\right)^2}{\sum_{i=1}^{n} \left(y_i-\bar{y}\right)^2}$.
+
+
+```{r}
+par(mar=c(4, 4, 0.5, 0.5)) # smaller margins (bottom, left, top, right)
+par(mfrow=c(2,2)) # 4 plots on a 2x2 grid
+for (i in 1:4) {
+    print(most_correlated[i])
+    X <- factbook[,"gdp_per_capita_ppp"]
+    Y <- factbook[,most_correlated[i]]
+    f <- lm(Y~X)
+    print(cbind(RMSE=sqrt(mean(f$residuals^2)),
+                MAE=mean(abs(f$residuals)),
+                R2=summary(f)$r.squared))
+    plot(X, Y, xlab="gdp_per_capita_ppp", ylab=most_correlated[i], las=1)
+    abline(f, col="red")
+}
+```
+
+*Comment: Unfortunately, we were misled by the high correlation coefficients
+between the $X$s and $Y$s:
+the low actual $R^2$ scores indicate that these models should not
+be deemed trustworthy. Note that 3 of the plots are evidently L-shaped.*
+
+*Fun fact: (\*) Interestingly, it can be shown that $R^2$
+(in the case of the linear models fitted by minimising
+the SSR) is the square of the correlation
+between the true $Y$s and the predicted $Y$s:*
+
+```{r}
+X <- factbook[,"gdp_per_capita_ppp"]
+Y <- factbook[,most_correlated[i]]
+f <- lm(Y~X, y=TRUE)
+print(summary(f)$r.squared)
+print(cor(f$fitted.values, f$y)^2)
+```
+
+*Side note: Do note that RMSE and MAE are interpretable: for instance,
+average error of life expectancy prediction based on the GDP is
+4-5 years. Recall that you can find the information on the variables' units
+of measure at
+https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html.*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+### Countries of the World -- Most correlated variables (\*)
+
+
+Let's get back to the World Factbook 2020 dataset (`world_factbook_2020.csv`).
+
+```{r}
+factbook <- read.csv("datasets/world_factbook_2020.csv", comment="#",
+    stringsAsFactors=FALSE)
+```
+
+
+
+> Create a data frame `C` with three columns named `col1`, `col2`
+> and `r` and $p(p-1)/2$ rows,
+> where $p$ is the number of numeric features in `factbook`.
+> Every row should represent a unique pair of column names in `factbook`
+> (we do not distinguish between `a,b` and `b,a`)
+> of correlation coefficients between them.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+First we will solve this exercise considering only
+4 numeric features in our dataset, so that we can keep
+track of how the R expressions we evaluate actually work.
+
+Let us compute the Pearson coefficients between chosen pairs of variables.
+
+```{r}
+R <- cor(factbook[,c("area", "median_age", "birth_rate", "exports")],
+    use="complete.obs") # 4 selected columns
+print(R)
+```
+
+Note that the `R` matrix has `1.0` on the diagonal (where each entry
+represents a correlation between a variable and itself).
+Moreover, it is symmetric around the diagonal -- `R[i,j] == R[j,i]`,
+because it is the correlation between the same pair of variables.
+Hence, from now on we may be interested in the elements
+below the diagonal. We can get access to them by using `lower.tri()`
+("lower triangle").
+
+```{r}
+R[lower.tri(R)]
+```
+
+This is already the 3rd column of the data frame we are asked to generate,
+which should look like:
+
+```{r echo=FALSE}
+rrr <- matrix(dimnames(R)[[1]], nrow=nrow(R), ncol=ncol(R))
+ccc <- matrix(dimnames(R)[[2]], byrow=TRUE, nrow=nrow(R), ncol=ncol(R))
+data.frame(col1=rrr[lower.tri(rrr)], col2=ccc[lower.tri(ccc)],
+    r=R[lower.tri(R)])
+```
+
+How the generate `col1` and `col2`?
+One idea is to take the "lower triangles" of the following matrices:
+
+```{r echo=FALSE}
+print(rrr)
+```
+
+and:
+
+```{r echo=FALSE}
+print(ccc)
+```
+
+
+Here is a complete solution for all the features is `factbook`:
+
+```{r}
+R <- cor(factbook[,-1], use="complete.obs") # skip the `country` column
+rrr <- matrix(dimnames(R)[[1]], nrow=nrow(R), ncol=ncol(R))
+ccc <- matrix(dimnames(R)[[2]], byrow=TRUE, nrow=nrow(R), ncol=ncol(R))
+C <- data.frame(col1=rrr[lower.tri(rrr)],
+                col2=ccc[lower.tri(ccc)],
+                r=R[lower.tri(R)])
+```
+
+*Comment: In "classical" programming languages we would perhaps
+have used of a double (nested) `for` loop here (a less readable solution).*
+
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+
+> Find the 5 most correlated pairs of variables.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+This can be done by ordering the rows of `C` in decreasing
+order of absolute values of `C$r`, and then choosing the first 5 rows.
+
+
+```{r}
+C_top <- head(C[order(abs(C$r), decreasing=TRUE),], 5)
+knitr::kable(C_top)
+```
+
+*Comment: The most correlated pairs of features are not really
+"mind-blowing"...*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+> Fit simple regression models for the most correlated pair of variables.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+There is a degree of ambiguity here: should `col1` or rather `col2`
+be treated as the dependent variable in our model?
+Let's do it either way.
+
+To learn something new, which is exactly why we are all here,
+we will create the formulas programmatically, by first
+concatenating (joining) appropriate strings
+(note that in order to input a double quotes character,
+we need to proceed in with a backslash), and then
+calling the `formula()` function.
+
+```{r}
+form <- formula(paste(C_top[1,2], "~", C_top[1,1]))
+f <- lm(form, data=factbook)
+print(f)
+plot(factbook[,C_top[1,1]], factbook[,C_top[1,2]], las=1, xlab=C_top[1,1], ylab=C_top[1,2])
+abline(f, col="red")
+```
+
+This is great.
+
+Wait, hold on a second! The fitted lines are not present on the plots!
+
+> There is a serious, extremely hard-to-detect bug in the above code.
+> The reader is kindly asked to try to identify it.
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+The author wishes to apologise, but this where he will get slightly...
+emotional. We are all programmers here. So let's speak like a programmer
+to a programmer.
+
+Aaaaaaaaaaaaaaaargh!!!!!!!!!!!
+I've spent 3 hours trying to locate it!!!
+
+So in Appendix related to data frame wrangling I have
+explicitly asked everyone (including myself, because I tend to
+forget that!!!)
+to globally set the `stringsAsFactors=FALSE` option.
+But we didn't do so.
+The problem is where we create the `C` matrix using the `data.frame()`
+function -- `C$col1` and `C$col2` are objects of type:
+
+```{r}
+class(C$col1)
+class(C$col2)
+```
+
+
+Is this is a problem? Well it is, because
+indexing an object `x` with a factor `f`,
+`x[f]` means `x[as.numeric(f)]` and not `x[as.character(f)]`.
+
+Therefore, `factbook[,C_top[1,1]]` refers to:
+
+```{r}
+names(factbook)[C_top[1,1]]
+```
+
+and not:
+
+```{r}
+as.character(C_top[1,1])
+```
+
+Here is a corrected version:
+
+```{r}
+C <- data.frame(col1=rrr[lower.tri(rrr)],
+                col2=ccc[lower.tri(ccc)],
+                r=R[lower.tri(R)],
+                stringsAsFactors=FALSE ######## !!!!!!!!!!!!!!!!!!!!!!!!
+)
+C_top <- head(C[order(abs(C$r), decreasing=TRUE),], 5)
+form <- formula(paste(C_top[1,2], "~", C_top[1,1]))
+f <- lm(form, data=factbook)
+print(f)
+plot(factbook[,C_top[1,1]], factbook[,C_top[1,2]], las=1, xlab=C_top[1,1], ylab=C_top[1,2])
+abline(f, col="red")
+```
+
+Seriously, I really like the R language, but this `stringsAsFactors`
+thing is it's weakest spot. Just fire up `options(stringsAsFactors=FALSE)`
+next time! (Which I of course won't). End of story.
+
+
+
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+
+
+### Countries of the World -- A non-linear model based on the GDP per capita
+
+
+Let's revisit the World Factbook 2020 dataset (`world_factbook_2020.csv`).
+
+```{r}
+factbook <- read.csv("datasets/world_factbook_2020.csv", comment="#",
+    stringsAsFactors=FALSE)
+```
+
+
+
+> Draw a histogram of the empirical distribution
+> of the GDP per capita. Moreover, draw a histogram of the logarithm
+> of the GDP/person.
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+```{r}
+hist(factbook$gdp_per_capita_ppp, las=1); box()
+hist(log(factbook$gdp_per_capita_ppp), las=1); box()
+```
+
+*Comment: The distribution of the GDP is right-skewed: most countries
+have small GDP. However, few of them (those in the "right tail" of the distribution)
+are very very rich. There is the famous observation made by V. Pareto
+stating that most assets are in the hands of the "wealthy minority"
+(compare: power law, rich-get-richer rule, preferential attachment in complex networks).
+Interestingly, many real-world-phenomena are distributed similarly
+(e.g., the popularity of web pages, the number of followers of Instagram
+profiles). It is frequently the case that the logarithm of the aforementioned
+variable looks more "normal" (is bell-shaped).*
+
+*Side note: "The" logarithm most often refers to the logarithm base
+$e$, $\log x = \log_e x$,
+where $e\simeq 2.72$ is the Euler constant, see `exp(1)` in R.
+Note that you can only compute logarithms of positive real numbers.*
+
+Non-technical audience might be confused when asked to contemplate
+the distribution of the logarithm of a variable. Let's make it
+more user-friendly by nicely re-labelling the X axis:
+
+```{r}
+hist(log(factbook$gdp_per_capita_ppp), axes=FALSE,
+    xlab="GDP per capita (thousands USD)", main=NA)
+box()
+axis(2, las=1) # Y axis
+at <- c(1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000)
+axis(1, at=log(at), labels=at/1000)
+```
+
+*Comment: This is still a plot of the logarithm of the
+distribution of the per capita GDP, but it's somehow "hidden" behind
+the human-readable axis labels. Nice.*
+
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+> Fit a simple linear model of `life_expectancy_at_birth`
+> as a function of `gdp_per_capita_ppp`.
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+Easy. We have already done than in one of the previous exercises.
+Yet, to learn something new, let's note that the `plot()` function
+accepts formulas as well.
+
+```{r}
+f <- lm(life_expectancy_at_birth~gdp_per_capita_ppp, data=factbook)
+plot(life_expectancy_at_birth~gdp_per_capita_ppp, data=factbook, las=1)
+abline(f, col="purple")
+summary(f)$r.squared
+```
+
+*Comment: This is not a good model.*
+
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+> Draw a scatter plot of `life_expectancy_at_birth` as a function
+> `gdp_per_capita_ppp`, with the X axis being logarithmic.
+> Compute the correlation coefficient between
+> `log(gdp_per_capita_ppp)` and `life_expectancy_at_birth`.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+We could apply the `log()`-transformation manually
+and generate fancy X axis labels ourselves. However,
+the `plot()` function has the `log` argument (see `?plot.default`)
+which provides us with all we need.
+
+```{r}
+plot(factbook$gdp_per_capita_ppp, factbook$life_expectancy_at_birth,
+    las=1, log="x")
+```
+
+Here is the *linear* correlation coefficient between the logarithm
+of the GDP/person and the life expectancy.
+
+```{r}
+cor(log(factbook$gdp_per_capita_ppp), factbook$life_expectancy_at_birth,
+    use="complete.obs")
+```
+
+It's quite high, therefore we can try
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+> Fit a model predicting `life_expectancy_at_birth`
+> by means of `log(gdp_per_capita_ppp)`.
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+We would like to fit a model of the form $Y=a\log X+b$.
+The formula `life_expectancy_at_birth~log(gdp_per_capita_ppp)`
+should do the trick here.
+
+```{r}
+f <- lm(life_expectancy_at_birth~log(gdp_per_capita_ppp), data=factbook)
+plot(life_expectancy_at_birth~log(gdp_per_capita_ppp), data=factbook, las=1)
+abline(f, col="pink3")
+f$coefficients
+summary(f)$r.squared
+```
+
+*Comment: That is an okay model (in terms of the coefficient of determination).*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+> Draw the fitted logarithmic model on a scatter plot
+> with a standard, non-logarithmic X axis.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+The model fitted above is of the form
+$Y\simeq`r round(f$coefficients[2],2 )` \log X+`r round(f$coefficients[1], 2)`$.
+To depict it on a plot with linear (non-logarithmic) axes,
+we can compute this formula on multiple points by hand.
+
+```{r}
+plot(factbook$gdp_per_capita_ppp, factbook$life_expectancy_at_birth, las=1)
+
+# many points on the X axis:
+xxx <- seq(min(factbook$gdp_per_capita_ppp, na.rm=TRUE),
+            max(factbook$gdp_per_capita_ppp, na.rm=TRUE),
+            length.out=101)
+yyy <- f$coefficients[1] + f$coefficients[2]*log(xxx)
+lines(xxx, yyy, col="turquoise3")
+```
+
+*Comment: Well, people are not immortal...
+The original (linear) model didn't really take that into account.
+Also, recall that correlation is not causation.
+Moreover, there is a lot of variability at an individual level.
+Being born in a less-wealthy country (e.g., not in a tax haven),
+doesn't mean you don't have the whole life ahead of you.
+Do the cool staff, do something for the others. Life's not about money.*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+### Countries of the World -- A multiple regression model for the per capita GDP
+
+
+Let's play with World Factbook 2020
+ (`world_factbook_2020.csv`) once again.
+World is an interesting place, so we're far from being bored with this dataset.
+
+```{r}
+factbook <- read.csv("datasets/world_factbook_2020.csv", comment="#",
+    stringsAsFactors=FALSE)
+```
+
+Let's restrict ourselves to the following columns, mostly
+related to imports and exports:
+
+```{r}
+factbookn <- factbook[c("gdp_purchasing_power_parity",
+    "imports", "exports", "electricity_exports", "electricity_imports",
+    "military_expenditures", "crude_oil_exports", "crude_oil_imports",
+    "natural_gas_exports", "natural_gas_imports",
+    "reserves_of_foreign_exchange_and_gold")]
+```
+
+Let's compute the per capita versions of the above, by dividing
+all values by each country's population:
+
+```{r}
+for (i in 1:ncol(factbookn))
+    factbookn[[i]] <- factbookn[[i]]/factbook$population
+```
+
+We are going to build a few multiple regression models using the
+`step()` function, which is not too fond of missing values, therefore
+they should be removed first:
+
+```{r}
+factbookn <- na.omit(factbookn)
+c(nrow(factbook), nrow(factbookn)) # how many countries were omitted?
+```
+
+
+
+
+
+> Build a model for `gdp_purchasing_power_parity` as a function
+> of `imports` and `exports` (all per capita).
+
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+Let's first take a look at how the aforementioned variables
+are related to each other:
+
+```{r}
+pairs(factbookn[c("gdp_purchasing_power_parity", "imports", "exports")], las=1)
+cor(factbookn[c("gdp_purchasing_power_parity", "imports", "exports")])
+```
+
+They are nicely correlated. Moreover, they are on a similar scale
+("tens of thousands of USD per capita").
+
+Fitting the requested model yields:
+
+```{r}
+options(scipen=10) # prefer "decimal" over "scientific" notation
+f1 <- lm(gdp_purchasing_power_parity~imports+exports, data=factbookn)
+f1$coefficients
+summary(f1)$adj.r.squared
+```
+
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+
+
+> Use forward selection to come up with
+> a model for `gdp_purchasing_power_parity` per capita.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+```{r}
+f2 <- step(lm(gdp_purchasing_power_parity~1, data=factbookn), # empty model
+    scope=formula(lm(gdp_purchasing_power_parity~., data=factbookn)), # full model
+    direction="forward", trace=0)
+f2
+summary(f2)$adj.r.squared
+```
+
+*Comment: Interestingly, it's mostly the import-related variables
+that contribute to the GDP per capita.  However, the model
+is not perfect, so we should refrain ourselves from building a brand new
+economic theory around this "discovery". On the other hand,
+you know what they say: all models are wrong, but some might be useful.
+Note that we used the adjusted $R^2$ coefficient to correct
+for the number of variables in the model
+so as to make it more comparable with the coefficient corresponding
+to the `f1` model.*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+
+> Use backward elimination to construct a model
+> for `gdp_purchasing_power_parity` per capita.
+
+```{r results="asis",echo=FALSE}
+solution_begin() ###########################################################
+```
+
+```{r}
+f3 <- step(lm(gdp_purchasing_power_parity~., data=factbookn),
+    scope=formula(lm(gdp_purchasing_power_parity~1, data=factbookn)),
+    direction="backward", trace=0)
+f3
+summary(f3)$adj.r.squared
+```
+
+*Comment: This is the same model as the one found by forward selection, i.e., `f2`.*
+
+```{r results="asis",echo=FALSE}
+solution_end() #############################################################
+```
+
+
+<!--
+
+
+
+a binary variable 0/1
+fit two models and compare
+fit a single model involving the 0/1 variable and compare
+
+
+
+
+multiple regression
+
+draw scatterplot matrix (pair plot)
+
+compute the matrix of Pearson's correlations
+
+fit the full model
+
+fit some other models
+
+draw the fitted vs residuals plot
+
+provide an interpretation of each coefficient in the model
+
+standardise the variables??? and give the interpretation
+
+forward selection/backward elimination
+
+
+
+linearisation example
+
+
+highly correlated input variables
+
+
+
+-->
+
+
+
+
 
 
 

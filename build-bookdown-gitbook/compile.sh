@@ -26,6 +26,7 @@ mkdir -p "tmp-bookdown-gitbook"
 
 echo "\`\`\`{r,echo=FALSE}" > "${knitrfile}"
 cat build-bookdown-gitbook/options.R >> "${knitrfile}"
+cat common.R >> "${knitrfile}"
 echo "\`\`\`" >> "${knitrfile}"
 echo "" >> "${knitrfile}"
 cat "${1}" >> "${knitrfile}"

@@ -8,6 +8,8 @@ output:
         pandoc_args: ["--default-image-extension=.pdf",
             "--toc-depth=3",
             "--csl=bibstyle.csl"]
+        includes:
+            in_header: preamble.tex
         fig_caption: false
 documentclass: book
 bibliography: [bibliography.bib]

@@ -8,11 +8,11 @@ opts_chunk$set(
     dev='png',
     out.width='50%',
     dpi=150,
-    error=FALSE
+    error=FALSE,
+    output_language="html"
 )
 
 knit_hooks$set(plot=knitr:::hook_plot_md_pandoc)
 set.seed(666)
 options(width=64)
 options(digits=7)
-options(stringsAsFactors=FALSE)
