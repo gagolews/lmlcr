@@ -54,13 +54,23 @@ solution_end <- function() {
 ################################################################################
 
 
+library("Cairo")
+CairoFonts(
+    regular="Ubuntu Condensed:style=Regular",
+    bold="Ubuntu:style=Medium",
+    italic="Ubuntu:style=Light Italic",
+    bolditalic="Ubuntu:style=Medium Italic",
+    symbol="Ubuntu Condensed"
+)
+
+
 setHook("before.plot.new", function() {
     if (all(par("mar") == c(5.1, 4.1, 4.1, 2.1))) {
         par(mar=c(2.5,2.5,1,0.5))
     }
-    if (..output_language!="tex") {
-        par(family="Ubuntu Condensed")
-    }
+#     if (..output_language!="tex") {
+#         par(family="Ubuntu")
+#     }
     par(tcl=-0.25)
     par(mgp=c(1.25, 0.5, 0))
     par(cex.main=1)

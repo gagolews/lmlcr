@@ -467,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-07 15:50 (6a11aa3)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-08 12:22 (b9d5e76)</a></li>
 
 </ul>
 
@@ -607,7 +607,7 @@ that pretty-prints a given matrix or data frame:</p>
 </tr>
 </tbody>
 </table>
-<em>Comment: This is even more interesting, because the numbers agree up to 2 decimal digits.</em>
+<p><em>Comment: This is even more interesting, because the numbers agree up to 2 decimal digits.</em></p>
 </details>
 <!--
 > Compute the Pearson linear correlation coefficient
@@ -692,7 +692,7 @@ that does all the above for any data set:</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1">f4 &lt;-<span class="st"> </span><span class="kw">fit_models</span>(ans4)</a></code></pre></div>
 <pre><code>## (Intercept)           x 
 ##   3.0017273   0.4999091</code></pre>
-<p><img src="01-regression-simple-figures/unnamed-chunk-47-1.png" alt="plot of chunk unnamed-chunk-47" style="width:100.0%" /></p>
+<p><img src="01-regression-simple-figures/anscombe_fit_apply-1.svg" alt="plot of chunk anscombe_fit_apply" /></p>
 <p><em>Comment: All the estimated models are virtually the same,
 the regression lines are <span class="math inline">\(y=0.5x+3\)</span>.</em></p>
 </details>
@@ -715,7 +715,7 @@ calling the <code>predict()</code> function.</p>
 <a class="sourceLine" id="cb86-3" title="3"><span class="kw">plot</span>(y_pred2, y_pred2<span class="op">-</span>ans2<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb86-4" title="4"><span class="kw">plot</span>(y_pred3, y_pred3<span class="op">-</span>ans3<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb86-5" title="5"><span class="kw">plot</span>(y_pred4, y_pred4<span class="op">-</span>ans4<span class="op">$</span>y)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/unnamed-chunk-51-1.png" alt="plot of chunk unnamed-chunk-51" style="width:100.0%" /></p>
+<p><img src="01-regression-simple-figures/anscombe_resid_plot-1.svg" alt="plot of chunk anscombe_resid_plot" /></p>
 <p><em>Comment: Ideally, the residuals shouldn’t be correlated
 with the predicted values – they should “oscillate” randomly
 around 0. This is only the case of the first dataset.

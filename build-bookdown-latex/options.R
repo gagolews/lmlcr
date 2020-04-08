@@ -1,11 +1,17 @@
 # Copyright (C) 2020, Marek Gagolewski, https://www.gagolewski.com
 
 library("knitr")
+
 opts_chunk$set(
-    fig.height=4,
-    fig.width=5,
-    dev='pdf',
-    out.width='50%',
+    fig.height=3.5,
+    fig.width=6,
+    dev="CairoPDF",
+    out.width=NULL,
+    dpi=300,
     error=FALSE,
+    fig.align="center",
+    fig.show="hold",
+    fig.align="center",
+    dev.args=list(pointsize=11),
     output_language="tex"
 )

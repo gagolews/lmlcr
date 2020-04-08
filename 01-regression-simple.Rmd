@@ -253,7 +253,7 @@ Mathematically, we denote this as $\mathbf{X}\in\mathbb{R}^{n\times d}$.
 **Example**: The famous Fisher's Iris flower dataset, see `?iris` in R
 and https://en.wikipedia.org/wiki/Iris_flower_data_set.
 
-```{R}
+```{r show_iris}
 X <- iris[1:6, 1:4] # first 6 rows and 4 columns
 X         # or: print(X)
 dim(X)    # gives n and p
@@ -268,7 +268,7 @@ $j=1,\dots,p$, $i=1,\dots,n$.
 
 For instance:
 
-```{r}
+```{r show_iris_elem}
 X[3, 2] # 3rd row, 2nd column
 ```
 
@@ -278,12 +278,12 @@ X[3, 2] # 3rd row, 2nd column
 The third observation (data point, row in $\mathbf{X}$)
 consists of items $(x_{3,1}, \dots, x_{3,p})$ that can be extracted by calling:
 
-```{R}
+```{r show_iris_row}
 X[3,]
 as.numeric(X[3,]) # drops names
 ```
 
-```{R}
+```{r show_iris_row_length}
 length(X[3,])
 ```
 
@@ -293,7 +293,7 @@ Moreover, the second feature/variable/column
 is comprised of
 $(x_{1,2}, x_{2,2}, \dots, x_{n,2})$:
 
-```{r}
+```{r show_iris_col}
 X[,2]
 length(X[,2])
 ```
@@ -386,7 +386,7 @@ or textual labels.
 In other words, with each input $\mathbf{x}_{i,\cdot}$ we associate
 the desired output $y_i$:
 
-```{r, echo=-1}
+```{r show_iris_sample,echo=-1}
 set.seed(123)
 # in iris, iris[, 5] gives the Ys
 iris[sample(nrow(iris), 3), ]  # three random rows
@@ -430,6 +430,7 @@ y_{n} \\
 \end{array}
 \right].
 \]
+
 
 
 ### Types of Supervised Learning Problems
@@ -482,7 +483,7 @@ A single dataset can become an instance of many different ML problems.
 
 Examples -- the `wines` dataset:
 
-```{r,echo=-1}
+```{r wines_load,echo=-1}
 set.seed(123)
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines[1,]
@@ -491,7 +492,7 @@ wines[1,]
 ---
 
 
-```{r}
+```{r wines_regression}
 summary(wines$alcohol) # continuous variable
 hist(wines$alcohol, main="", col="white"); box()
 ```
@@ -499,7 +500,7 @@ hist(wines$alcohol, main="", col="white"); box()
 ---
 
 
-```{r}
+```{r wines_binary}
 table(wines$color) # binary variable
 barplot(table(wines$color), col="white", ylim=c(0, 6000))
 ```
@@ -507,7 +508,7 @@ barplot(table(wines$color), col="white", ylim=c(0, 6000))
 ---
 
 
-```{r}
+```{r wines_ordinal}
 table(wines$response) # ordinal variable
 barplot(table(wines$response), col="white", ylim=c(0, 3000))
 ```
@@ -528,7 +529,7 @@ Denote $x_i=x_{i,1}$.
 We will use it to build many intuitions, for example, it'll be easy
 to illustrate all the concepts graphically.
 
-```{r}
+```{r credit_scatter}
 library("ISLR") # Credit dataset
 plot(Credit$Balance, Credit$Rating) # scatter plot
 ```
@@ -539,14 +540,14 @@ In what follows we will be modelling the Credit Rating ($Y$)
 as a function of the average Credit Card Balance ($X$) in USD
 for customers with positive Balance only.
 
-```{r}
+```{r credit_XY}
 X <- as.matrix(as.numeric(Credit$Balance[Credit$Balance>0]))
 Y <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
 ```
 
 ---
 
-```{r}
+```{r credit_XY_plot}
 plot(X, Y)
 ```
 
@@ -620,13 +621,16 @@ $\sigma$ controls the amount of noise (and hence, uncertainty).
 Here is the plot of the probability distribution function (PDFs, densities)
 of $\mathcal{N}(0, \sigma)$ for different $\sigma$s:
 
-```{r,echo=FALSE, echo=FALSE, message=FALSE}
+
+
+```{r normal_distribs, echo=FALSE, message=FALSE, fig.cap="Probability distribution functions of normal distributions with different standard deviations $\\sigma$."}
 y <- seq(-3,3,length.out=101)
 plot(y, dnorm(y, mean=0), type='l', ann=FALSE, ylim=c(0,dnorm(0,0,0.5)))
 lines(y, dnorm(y, mean=0, sd=0.5), type='l', col=2, lty=2)
 legend("topleft", lty=c(1,2), col=c(1,2), legend=expression(sigma*"="*1, sigma*"="*0.5), bg="white")
-abline(v=0)
+abline(v=0, lty=3, col="gray")
 ```
+
 
 
 ### Search Space and Objective
@@ -634,10 +638,13 @@ abline(v=0)
 ---
 
 There are many different functions that can be **fitted** into
-the observed $(\mathbf{x},\mathbf{y})$
+the observed $(\mathbf{x},\mathbf{y})$.
 
-```{r, echo=FALSE, message=FALSE}
-plot(X, Y, col="#00000044")
+```{r credit_different_models, echo=FALSE, message=FALSE}
+library("RColorBrewer")
+library("Cairo")
+pal <- RColorBrewer::brewer.pal(6, "Dark2")
+plot(X, Y, col="#000000ff")
 
 #library("mda")
 #f <- mars(as.matrix(X), Y, degree=5)
@@ -648,17 +655,16 @@ plot(X, Y, col="#00000044")
 f <- lm(Y~poly(X, 2))
 x <- seq(min(X), max(X), length.out=101)
 y <- predict(f, data.frame(X=x))
-lines(x,y,col=4,lty=1,lwd=3)
+lines(x,y,col=pal[1],lty=1,lwd=3)
 
 f <- lm(Y~poly(X, 15))
 x <- seq(min(X), max(X), length.out=101)
 y <- predict(f, data.frame(X=x))
-lines(x,y,col=3,lty=1,lwd=3)
+lines(x,y,col=pal[2],lty=2,lwd=3)
 
-lines(X[order(X)], Y[order(Y)],col=6,lty=1,lwd=3)
+lines(X[order(X)], Y[order(Y)],col=pal[3],lty=3,lwd=3)
 
-abline(lm(Y~X), col=2,lwd=3)
-
+abline(lm(Y~X), col=pal[4],lwd=3,lty=4)
 ```
 
 Thus, we need a **model selection criterion**.
@@ -675,17 +681,32 @@ $f(x_i)-y_i$, i.e.,
 often denoted with $\hat{y}_i-y_i$,
 for $i=1,\dots,n$.
 
-```{r, echo=FALSE, message=FALSE}
+```{r credit_residuals, echo=FALSE, message=FALSE}
 plot(X, Y, col=1, xlim=c(1500,2000), ylim=c(400, 1000))
 f <- lm(Y~poly(X, 2))
-Y2 <- predict(f, data.frame(X=X))
-points(X, Y2, pch=4, col=2)
 x <- seq(min(X), max(X), length.out=101)
 y <- predict(f, data.frame(X=x))
-lines(x,y,col=2,lty=1,lwd=2)
+pal <- RColorBrewer::brewer.pal(6, "Pastel1")
+lines(x,y,col=pal[1],lty=1,lwd=2)
+
+Y2 <- predict(f, data.frame(X=X))
+
 segments(X, Y, X, Y2, lty=2)
-legend("bottomright", legend=c("observed Y", "predicted Y"), pch=c(1,4), col=c(1, 2), bg="white")
+points(X, Y2, pch=7, col="red")
+
+
+legend("bottomright",
+    legend=c("observed Y", "predicted Y", "fitted model"),
+    pch=c(1,7, NA), lty=c(NA, NA, 1), lwd=c(NA, NA, 2),
+    col=c(1, "red", pal[1]), bg="white")
 ```
+
+
+In the plot above, the residuals are just lengths of the
+dashed lines -- they measure the discrepancy between
+the outputs generated by the model (what we get)
+and the true outputs (what we want).
+
 
 ---
 
@@ -803,7 +824,7 @@ is just $\mathbb{R}^2$ -- easy to handle both analytically and numerically.
 
 ---
 
-```{r,echo=FALSE,fig.height=6}
+```{r credit_different_lines_ssr,echo=FALSE,fig.height=4}
 plot(X, Y, col="#00000044")
 m1 <- lm(Y~X)
 abline(m1, col=2,lwd=3)
@@ -841,7 +862,7 @@ Let's fit the linear model minimising the SSR in R.
 The `lm()` function (`l`inear `m`odels) has a convenient *formula*-based interface.
 
 
-```{r}
+```{r credit_fit_lm}
 f <- lm(Y~X)
 ```
 
@@ -853,7 +874,7 @@ Here, `X` and `Y` are two R numeric vectors of identical lengths.
 
 Let's print the fitted model:
 
-```{r}
+```{r credit_print_lm}
 print(f)
 ```
 
@@ -866,19 +887,19 @@ Y = f(X) = `r f$coefficient[2]`X+`r f$coefficient[1]`
 
 Coefficient $a$ (slope):
 
-```{r}
+```{r credit_print_lm_2}
 f$coefficient[2]
 ```
 
 Coefficient $b$ (intercept):
 
-```{r}
+```{r credit_print_lm_1}
 f$coefficient[1]
 ```
 
 Plotting:
 
-```{r}
+```{r credit_plot_lm}
 plot(X, Y, col="#000000aa")
 abline(f, col=2, lwd=3)
 ```
@@ -886,7 +907,7 @@ abline(f, col=2, lwd=3)
 
 SSR:
 
-```{r}
+```{r credit_ssr_lm}
 sum(f$residuals^2)
 sum((f$coefficient[2]*X+f$coefficient[1]-Y)^2) # equivalent
 ```
@@ -894,7 +915,7 @@ sum((f$coefficient[2]*X+f$coefficient[1]-Y)^2) # equivalent
 We can predict the model's output for yet-unobserved inputs by
 writing:
 
-```{r}
+```{r credit_predict_lm}
 X_new <- c(1500, 2000, 2500) # example inputs
 f$coefficient[2]*X_new + f$coefficient[1]
 ```
@@ -904,14 +925,14 @@ Note that linear models can also be fitted based on formulas that refer
 to a data frame's columns. For example, let us wrap
 both $\mathbf{x}$ and $\mathbf{y}$ inside a data frame:
 
-```{r}
+```{r credit_XY_df}
 XY <- data.frame(Balance=X, Rating=Y)
 head(XY, 3)
 ```
 
 By writing:
 
-```{r}
+```{r credit_XY_df_lm}
 f <- lm(Rating~Balance, data=XY)
 ```
 
@@ -921,14 +942,14 @@ and not the objects in the R's "workspace".
 Based on the above, we can make a prediction
 using the `predict()` function"
 
-```{r}
+```{r credit_XY_predict}
 X_new <- data.frame(Balance=c(1500, 2000, 2500))
 predict(f, X_new)
 ```
 
 Interestingly:
 
-```{r}
+```{r credit_XY_predict_extrapolate}
 predict(f, data.frame(Balance=c(5000)))
 ```
 
@@ -941,8 +962,9 @@ way beyond the observable data range.
 Note that our $Y=aX+b$ model is **interpretable**
 and **well-behaving**:
 
-> (not all machine learning models will have this feature, think: deep neural networks,
-which we rather conceive as *black boxes*)
+> (not all machine learning models will have this feature,
+> think: deep neural networks,
+> which we rather conceive as *black boxes*)
 
 * we know that by increasing $X$ by a small amount,
 $Y$ will also increase (positive correlation),
@@ -978,7 +1000,7 @@ b = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displaystyle
 
 Which can be implemented in R as follows:
 
-```{r}
+```{r lm_estimate_manual}
 n <- length(X)
 a <- (n*sum(X*Y)-sum(X)*sum(Y))/(n*sum(X*X)-sum(X)^2)
 b <- mean(Y)-a*mean(X)
@@ -1109,7 +1131,7 @@ Pearson's r introduced in the next chapter though
 linear coefficient, $r$ (see `cor()` in R). It might be shown that
 $a$ and $b$ can also be rewritten as:
 
-```{r}
+```{r ab_coef_cor}
 (a <- cor(X,Y)*sd(Y)/sd(X))
 (b <- mean(Y)-a*mean(X))
 ```
@@ -1125,7 +1147,7 @@ $a$ and $b$ can also be rewritten as:
 Here is a famous illustrative example proposed by
 the statistician Francis Anscombe in the early 1970s.
 
-```{r}
+```{r anscombe}
 print(anscombe) # `anscombe` is a built-in object
 ```
 
@@ -1142,7 +1164,7 @@ that encodes four separate datasets:
 >
 > For example, `ans1` should look like:
 >
-> ```{r echo=-(1:4), anscombe1}
+> ```{r anscombe1,echo=-(1:4)}
 > ans1 <- data.frame(x=anscombe$x1, y=anscombe$y1)
 > ans2 <- data.frame(x=anscombe$x2, y=anscombe$y2)
 > ans3 <- data.frame(x=anscombe$x3, y=anscombe$y3)
@@ -1155,7 +1177,7 @@ that encodes four separate datasets:
 solution_begin() ###########################################################
 ```
 
-```{r eval=FALSE}
+```{r anscombe1apply, eval=FALSE}
 <<anscombe1>>
 ```
 
@@ -1170,7 +1192,7 @@ solution_end() #############################################################
 solution_begin() ###########################################################
 ```
 
-```{r}
+```{r anscombe_mean}
 mean(ans1$x) # individual column
 mean(ans1$y) # individual column
 sapply(ans2, mean) # all columns in ans2
@@ -1197,13 +1219,14 @@ The solution is similar to the previous one, just replace `mean` with `sd`.
 Here, to learn something new, we will use the `knitr::kable()` function
 that pretty-prints a given matrix or data frame:
 
-```{r}
+```{r anscombe_sd}
 results <- sapply(anscombe, sd)
 knitr::kable(results, col.names="standard deviation")
 ```
 
 
 *Comment: This is even more interesting, because the numbers agree up to 2 decimal digits.*
+
 ```{r results="asis",echo=FALSE}
 solution_end() #############################################################
 ```
@@ -1251,7 +1274,7 @@ At this point we should already have become lazy -- the tasks are very
 repetitious. Let's automate them by writing a single function
 that does all the above for any data set:
 
-```{r}
+```{r anscombe_fit}
 fit_models <- function(ans) {
     # ans is a data frame with columns x and y
     f <- lm(y~x, data=ans) # fit linear model
@@ -1264,7 +1287,7 @@ fit_models <- function(ans) {
 
 Now we can apply it on the four particular examples.
 
-```{r,fig.width=7.5,fig.height=6,out.width="100%"}
+```{r anscombe_fit_apply,fig.height=6}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
 f1 <- fit_models(ans1)
 f2 <- fit_models(ans2)
@@ -1296,7 +1319,7 @@ To recall, the model predictions can be generated by (amongst others)
 calling the `predict()` function.
 
 
-```{r}
+```{r anscombe_resid}
 y_pred1 <- predict(f1, ans1) # x column in ans1...
 y_pred2 <- predict(f2, ans2) # ...is only taken into account
 y_pred3 <- predict(f3, ans3) # this is the same as...
@@ -1305,7 +1328,7 @@ y_pred4 <- predict(f4, ans4) # f4$coefficients[2]*ans4$x + f4$coefficients[1]
 
 Plots of residuals as a function of the predicted (fitted) values:
 
-```{r,fig.width=7.5,fig.height=6,out.width="100%"}
+```{r anscombe_resid_plot,fig.height=6}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
 plot(y_pred1, y_pred1-ans1$y)
 plot(y_pred2, y_pred2-ans2$y)
@@ -1376,10 +1399,6 @@ of many variables, i.e., $p>1$, called multiple regression.
 
 #### {.allowframebreaks .unnumbered}
 
-Recommended further reading:
+Recommended further reading:  [@islr: Chapters 1, 2 and 3]
 
-- [@islr: Chapters 1, 2 and 3]
-
-Other:
-
-- [@esl: Chapter 1, Sections 3.2 and 3.3]
+Other: [@esl: Chapter 1, Sections 3.2 and 3.3]
