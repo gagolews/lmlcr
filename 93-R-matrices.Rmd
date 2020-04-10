@@ -13,11 +13,11 @@ of feature vectors.
 Below are some examples of structured datasets in matrix forms.
 
 
-```{r}
+```{r intro1}
 head(as.matrix(iris[,1:4]))
 ```
 
-```{r}
+```{r intro2}
 WorldPhones
 ```
 
@@ -38,7 +38,7 @@ A matrix can be created -- amongst others -- with a call to the `matrix()`
 function.
 
 
-```{r}
+```{r mat1}
 (A <- matrix(c(1, 2, 3, 4, 5, 6), byrow=TRUE, nrow=2))
 class(A)
 ```
@@ -74,7 +74,7 @@ a_{2,1} & a_{2,2} & a_{2,3} \\
 
 We can fetch the size of the matrix by calling:
 
-```{r}
+```{r mat2}
 dim(A) # number of rows, number of columns
 ```
 
@@ -82,7 +82,7 @@ dim(A) # number of rows, number of columns
 We can also "promote" a "flat" vector to a column vector, i.e.,
 a matrix with one column by calling:
 
-```{r}
+```{r mat3}
 as.matrix(1:3)
 ```
 
@@ -97,14 +97,14 @@ Other ways to create a matrix involve stacking a couple of vectors
 of equal lengths along each other:
 
 
-```{r}
+```{r mat4}
 rbind(1:3, 4:6, 7:9) # row bind
 cbind(1:3, 4:6, 7:9) # column bind
 ```
 
 These functions also allow for adding new rows/columns to existing matrices:
 
-```{r}
+```{r mat6}
 rbind(A, c(-1, -2, -3))
 cbind(A, c(-1, -2))
 ```
@@ -130,14 +130,14 @@ Note that logical matrices are possible as well.
 For instance, knowing that comparison such as `<` and `==`
 are performed elementwise also in the case of matrices, we can obtain:
 
-```{r}
+```{r logimat}
 A >= 3
 ```
 
 Moreover, although much more rarely used, we can define character
 matrices:
 
-```{r}
+```{r charmat}
 matrix(LETTERS[1:12], ncol=6)
 ```
 
@@ -147,14 +147,14 @@ matrix(LETTERS[1:12], ncol=6)
 
 Just like vectors could be equipped with `names` attribute:
 
-```{r}
+```{r names1}
 c(a=1, b=2, c=3)
 ```
 
 matrices can be assigned row and column labels
 in the form of a list of two character vectors:
 
-```{r}
+```{r names2}
 dimnames(A) <- list(
     c("a", "b"),     # row labels
     c("x", "y", "z") # column labels
@@ -177,7 +177,7 @@ More precisely `outer(x, y, f, ...)` returns a matrix $\mathbf{Z}$ with
 rows and `length(y)` columns such that $z_{i,j}=f(x_i, y_j, ...)$,
 where `...` are optional further arguments to `f`.
 
-```{r}
+```{r outer}
 outer(c(1, 10, 100), 1:5, "*") # apply the multiplication operator
 outer(c("A", "B"), 1:8, paste, sep="-") # concatenate strings
 ```
@@ -188,7 +188,7 @@ Given a list of vectors, each of length one, it will return an "unlisted" vector
 However, if a list of equisized vectors of greater lengths is given,
 these will be converted to a matrix.
 
-```{r}
+```{r simplify}
 simplify2array(list(1, 11, 21))
 simplify2array(list(1:3, 11:13, 21:23))
 simplify2array(list(1, 11:12, 21:23)) # no can do
@@ -196,14 +196,14 @@ simplify2array(list(1, 11:12, 21:23)) # no can do
 
 `sapply(...)` is a nice application of the above, meaning `simplify2array(lapply(...))`.
 
-```{r}
+```{r sapply}
 sapply(split(iris$Sepal.Length, iris$Species), mean)
 sapply(split(iris$Sepal.Length, iris$Species), summary)
 ```
 
 Of course, custom functions can also be applied:
 
-```{r}
+```{r min_mean_max}
 min_mean_max <- function(x) {
     # returns a named vector with three elements
     # (note that the last expression in a function's body
@@ -218,7 +218,7 @@ Lastly, `table(x, y)` creates a contingency matrix that
 counts the number of unique pairs of corresponding elements
 from two vectors of equal lengths.
 
-```{r}
+```{r table}
 library("titanic") # data on the passengers of the RMS Titanic
 table(titanic_train$Survived)
 table(titanic_train$Sex)
@@ -235,7 +235,7 @@ of the input vector in the row-wise (row-major) fashion.
 The default is the column-major order, which might be a little unintuitive
 for some of us.
 
-```{r}
+```{r internal1}
 A <- matrix(c(1, 2, 3, 4, 5, 6), ncol=3, byrow=TRUE)
 B <- matrix(c(1, 2, 3, 4, 5, 6), ncol=3) # byrow=FALSE
 ```
@@ -244,7 +244,7 @@ B <- matrix(c(1, 2, 3, 4, 5, 6), ncol=3) # byrow=FALSE
 It turns out that is exactly the order in which the matrix is stored internally.
 Under the hood, it is an ordinary numeric vector:
 
-```{r}
+```{r internal2}
 mode(B)    # == mode(A)
 length(B)  # == length(A)
 as.numeric(A)
@@ -254,7 +254,7 @@ as.numeric(B)
 Also note that we can create a different *view* on the same underlying
 data vector:
 
-```{r}
+```{r internal3}
 dim(A) <- c(3, 2) # 3 rows, 2 columns
 A
 dim(B) <- c(3, 2) # 3 rows, 2 columns
@@ -267,13 +267,13 @@ B
 
 
 
-## Algebraic Operations
+## Common Operations
 
 ### Matrix Transpose
 
 The matrix *transpose* is denoted with $\mathbf{A}^T$:
 
-```{r}
+```{r trans}
 t(A)
 ```
 
@@ -315,7 +315,7 @@ Operations such as $s\mathbf{A}$ (multiplication of a matrix
 by a scalar), $-\mathbf{A}$, $s+\mathbf{A}$ etc.
 are applied on each element of the input matrix:
 
-```{r}
+```{r matscal1}
 (A <- matrix(c(1, 2, 3, 4, 5, 6), byrow=TRUE, nrow=2))
 (-1)*A
 ```
@@ -325,7 +325,7 @@ In R, the same rule holds when we compute other
 operations (despite the fact that, mathematically,
 e.g., $\mathbf{A}^2$ or $\mathbf{A}\ge 0$ might have a different meaning):
 
-```{r}
+```{r matscal2}
 A^2 # this is not A-matrix-multiply-A, see below
 A>=3
 ```
@@ -341,7 +341,7 @@ $\mathbf{A}-\mathbf{B}$ are understood elementwise,
 i.e., they result in $\mathbf{C}\in\mathbb{R}^{n\times p}$
 such that $c_{i,j}=a_{i,j}\pm b_{i,j}$.
 
-```{r}
+```{r matmat1}
 A-A
 ```
 
@@ -351,7 +351,7 @@ In R (but not when we use mathematical notation),
 all other arithmetic, logical and comparison operators are also
 applied in an elementwise fashion.
 
-```{r}
+```{r matmat2}
 A*A
 (A>2) & (A<=5)
 ```
@@ -366,7 +366,7 @@ denotes the **matrix multiplication**. It is a very different operation
 to the elementwise multiplication.
 
 
-```{r}
+```{r matmat3}
 (A <- rbind(c(1, 2), c(3, 4)))
 (I <- rbind(c(1, 0), c(0, 1)))
 A %*% I # matrix multiplication
@@ -413,7 +413,7 @@ Note that $\mathbf{A}^T \mathbf{A}$
 gives the matrix that consists of the dot products of all the pairs
 of columns in $\mathbf{A}$.
 
-```{r}
+```{r crossprod}
 crossprod(A) # same as t(A) %*% A
 ```
 
@@ -428,7 +428,55 @@ can be beautifully expressed this way.
 
 
 
+### Aggregation of Rows and Columns
 
+The `apply()` function may be used to transform or summarise
+individual rows or columns in a matrix. More precisely:
+
+* `apply(A, 1, f)` applies a given function $f$ on each *row* of $\mathbf{A}$.
+* `apply(A, 2, f)` applies a given function $f$ on each *column* of $\mathbf{A}$.
+
+Usually, either $f$ returns a single value (when we wish to aggregate
+all the elements in a row/column) or returns the same number of values
+(when we wish to transform a row/column). The latter case is covered in the next
+subsection.
+
+Let's compute the mean of each row and column in A:
+
+```{r apply1}
+(A <- matrix(1:18, byrow=TRUE, nrow=3))
+apply(A, 1, mean) # synonym: rowMeans(A)
+apply(A, 2, mean) # synonym: colMeans(A)
+```
+
+We can also fetch the minimal and maximal value by means of the `range()` function:
+
+```{r apply2}
+apply(A, 1, range)
+apply(A, 2, range)
+```
+
+
+### Vectorised Special Functions
+
+The special functions mentioned in the previous chapter, e.g.,
+`sqrt()`, `abs()`, `round()`, `log()`, `exp()`, `cos()`, `sin()`,
+are also performed in an elementwise manner when applied on a matrix object.
+
+```{r special1}
+round(1/A, 2) # rounds every element in 1/A
+```
+
+
+An example plot of the absolute values of sine and cosine functions
+depicted using the `matplot()` function:
+
+```{r sincos}
+x <- seq(-2*pi, 6*pi, by=pi/100)
+Y <- cbind(sin(x), cos(x)) # a matrix with two columns
+Y <- abs(Y) # take the absolute value of every element in Y
+matplot(x, Y, type="l")
+```
 
 
 
@@ -469,20 +517,14 @@ fashion.
 For example, if $\mathbf{A}\in\mathbb{R}^{n\times p}$ is a matrix
 and $\mathbf{m}\in\mathbb{R}^{1\times p}$ is a row vector,
 we might want to subtract $m_i$ from each element in the $i$-th column.
-Here, the `apply()` function comes in handy:
+Here, the `apply()` function comes in handy again.
 
-* `apply(A, 1, f)` applies a given function $f$ on each *row* of $\mathbf{A}$.
-* `apply(A, 2, f)` applies a given function $f$ on each *column* of $\mathbf{A}$.
-
-Usually, either $f$ returns a single value (when we wish to aggregate
-all the elements in a row/column) or returns the same number of values
-(when we wish to transform a row/column).
 
 
 Example: to create a *centred* version of a given matrix,
 we need to subtract from each element the arithmetic mean of its column.
 
-```{r}
+```{r centre1}
 (A <- cbind(c(1, 2), c(2, 4), c(5, 8)))
 (m <- apply(A, 2, mean)) # same as colMeans(A)
 t(apply(A, 1, function(r) r-m)) # note the transpose here
@@ -491,7 +533,7 @@ t(apply(A, 1, function(r) r-m)) # note the transpose here
 
 The above is equivalent to:
 
-```{r}
+```{r centre2}
 apply(A, 2, function(c) c-mean(c))
 ```
 
@@ -503,7 +545,7 @@ apply(A, 2, function(c) c-mean(c))
 
 Example matrices:
 
-```{r}
+```{r select1}
 (A <- matrix(1:12, byrow=TRUE, nrow=3))
 B <- A
 dimnames(B) <- list(
@@ -513,6 +555,7 @@ dimnames(B) <- list(
 B
 ```
 
+
 ### Selecting Individual Elements
 
 Matrices are two-dimensional structures: items are aligned in rows and columns.
@@ -520,7 +563,7 @@ Hence, to extract an element from a matrix, we will need two indices.
 Mathematically, given a matrix $\mathbf{A}$, $a_{i,j}$ stands for the element
 in the $i$-th row and the $j$-th column. The same in R:
 
-```{R}
+```{r select2}
 A[1, 2] # 1st row, 2nd columns
 B["a", "y"] # using dimnames == B[1,2]
 ```
@@ -591,7 +634,7 @@ a_{n,j} \\
 We can extract individual rows and columns from a matrix by using
 the following notation:
 
-```{r}
+```{r select3}
 A[1,] # 1st row
 A[,2] # 2nd column
 B["a",] # of course, B[1,] is still legal
@@ -602,7 +645,7 @@ Note that by extracting a single row/column, we get an atomic (one-dimensional)
 vector. However, we can preserve the dimensionality of the output object
 by passing `drop=FALSE`:
 
-```{r}
+```{r select4}
 A[  1,    , drop=FALSE] # 1st row
 A[   ,   2, drop=FALSE] # 2nd column
 B["a",    , drop=FALSE]
@@ -618,7 +661,7 @@ Now this is what we call proper row and column vectors!
 To create a sub-block of a given matrix we pass two indexers,
 possibly of length greater than one:
 
-```{r}
+```{r select5}
 A[1:2, c(1, 2, 4)] # rows 1,2 columns 1,2,4
 B[c("a", "b"), c(1, 2, 4)]
 A[c(1, 3), 3]
@@ -631,13 +674,13 @@ A[c(1, 3), 3, drop=FALSE]
 We can also subset a matrix with a logical matrix of the same size.
 This always yields a (flat) vector in return.
 
-```{r}
+```{r select6}
 A[A>8]
 ```
 
 Logical vectors can also be used as indexers:
 
-```{r}
+```{r select7}
 A[c(TRUE, FALSE, TRUE),] # select 1st and 3rd row
 A[,colMeans(A)>6] # columns with means > 6
 ```
@@ -650,7 +693,7 @@ with a 2-column matrix `I`, i.e., `A[I]`.
 This allows for an easy access to
 `A[I[1,1], I[1,2]]`, `A[I[2,1], I[2,2]]`, `A[I[3,1], I[3,2]]`, ...
 
-```{r}
+```{r select8}
 I <- cbind(c(1, 3, 2, 1, 2),
            c(2, 3, 2, 1, 4)
 )
@@ -663,14 +706,6 @@ This is exactly
 
 ## Further Reading
 
-#### {.allowframebreaks .unnumbered}
+Recommended further reading: [@Rintro]
 
-Recommended further reading:
-
-- [@Rintro]
-
-Other:
-
-- [@mml]
-- [@rprogdatascience]
-- [@r4ds]
+Other: [@mml], [@rprogdatascience], [@r4ds]

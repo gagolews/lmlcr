@@ -7,7 +7,7 @@ R `data.frame`s are similar to matrices in the sense that
 we use them to store tabular data.
 However, in data frames each column can be of different type:
 
-```{r}
+```{r df1}
 head(iris)
 head(rpart::car90, 2)
 ```
@@ -18,7 +18,7 @@ head(rpart::car90, 2)
 Most frequently, we will be creating data frames
 based on a series of numeric, logical, characters vectors of identical lengths.
 
-```{r,echo=-(1:2)}
+```{r df2,echo=-(1:2)}
 set.seed(1236)
 options(stringsAsFactors=TRUE)
 x <- data.frame(
@@ -33,7 +33,7 @@ print(x)
 Note that when we create objects of type data frame,
 strings are automatically converted to factors.
 
-```{r}
+```{r df3}
 class(x$w)
 ```
 
@@ -42,14 +42,14 @@ Throughout the history of computing with R, this has caused way too many bugs
 In order to change this behaviour, either pass `stringsAsFactors=FALSE`
 argument to `data.frame()` or switch this feature off globally (recommended):
 
-```{r}
+```{r df4}
 options(stringsAsFactors=FALSE)
 ```
 
 
 Some objects, such as matrices, can easily be coerced to data frames:
 
-```{r}
+```{r df5}
 (A <- matrix(1:12, byrow=TRUE, nrow=3,
     dimnames=list(
         NULL,     # row labels
@@ -58,9 +58,9 @@ Some objects, such as matrices, can easily be coerced to data frames:
 as.data.frame(A)
 ```
 
-Named lists are amongst other candidates for conversion:
+Named lists are amongst other candidates for a meaningful conversion:
 
-```{r}
+```{r df6}
 (l <- lapply(split(iris$Sepal.Length, iris$Species),
     function(x) {
         c(min=min(x), median=median(x), mean=mean(x), max=max(x))
@@ -79,7 +79,7 @@ In particular, `read.csv()` (see `?read.table` for a long list
 of tunable parameters) imports data from plain text files
 organised in a tabular manner (such as *c*omma-*s*eparated lists of *v*alues):
 
-```{r}
+```{r csv}
 f <- tempfile() # temporary file name
 write.csv(x, f, row.names=FALSE) # save data frame to file
 cat(readLines(f), sep="\n") # print file contents
@@ -100,7 +100,7 @@ environments, spreadsheets etc.).
 First of all, we should note that
 each data frame is in fact represented as an ordinary named list:
 
-```{r}
+```{r dfclass}
 class(x)
 typeof(x)
 ```
@@ -109,7 +109,7 @@ Each column is stored as a separate list item.
 Having said that, we shouldn't be surprised that we already know
 how to perform quite a few operations on data frames:
 
-```{r}
+```{r listdf}
 length(x) # number of columns
 names(x)  # column labels
 x$u # accessing column `u` (synonym: x[["u"]])
@@ -127,19 +127,19 @@ sapply(x, class) # apply class() on each column
 Data frames can be considered as "generalised" matrices.
 Therefore, operations such as subsetting will work in the same manner.
 
-```{r}
+```{r matsubs1}
 dim(x) # number of rows and columns
 x[1:2,] # first two rows
-x[,c(1,3)] # 1st and 3rd column
-x[,1]
-x[,1,drop=FALSE]
+x[,c(1,3)] # 1st and 3rd column, synonym: x[c(1,3)]
+x[,1] # synonym: x[[1]]
+x[,1,drop=FALSE] # synonym: x[1]
 ```
 
 Take a special note of selecting rows based on logical vectors.
 For instance, let's extract all the rows from `x` for which the values
 in the column named `u` are greater than 0.5:
 
-```{r}
+```{r matsubs2}
 x[x$u>0.5, ]
 ```
 
@@ -147,7 +147,7 @@ Moreover, subsetting based on integer vectors can be used to
 change the order of rows. Here is how we can sort the rows in `x`
 with respect to the values in column `u`:
 
-```{r}
+```{r matsubs3}
 (x_sorted <- x[order(x$u),])
 ```
 
@@ -161,7 +161,7 @@ of calling `order(x$u)`.
 
 On a side note, we can re-set the row names by referring to:
 
-```{r}
+```{r rownamesreset}
 row.names(x_sorted) <- NULL
 x_sorted
 ```
@@ -176,13 +176,15 @@ x_sorted
 
 We already know how to filter rows based on logical conditions, e.g.:
 
-```{r}
+```{r iris}
+iris[iris$Petal.Width >= 1.2 & iris$Petal.Width <= 1.3,
+    c("Petal.Width", "Species")]
 iris[iris$Sepal.Length > 6.5 & iris$Species == "versicolor", ]
 ```
 
 and aggregate information in individual columns:
 
-```{r}
+```{r summary}
 sapply(iris[1:4], summary)
 ```
 
@@ -198,7 +200,7 @@ aggregate(ToothGrowth["len"], ToothGrowth[c("supp", "dose")], median)
 Taking into account that `split()` accepts a data frame input as well,
 we can perform what follows:
 
-```{r}
+```{r sapply}
 sapply(
     # split iris into 3 sub-data.frames:
     split(iris, iris[5]),
@@ -235,10 +237,9 @@ to write programs that manipulate unevaluated R expressions.
 
 For instance, take a close look at the following plot:
 
-```{r,echo=-1}
-par(mar=c(4,4,0.5,0.5))
+```{r plotz}
 z <- seq(-2*pi, 2*pi, length.out=101)
-plot(z, sin(z), type='l', las=1)
+plot(z, sin(z), type="l")
 ```
 
 How did the `plot()` function know that we are plotting `sin` of `z`?
@@ -247,7 +248,7 @@ of an object (such as the result of evaluating `sin(z)`, which is
 a vector of 101 reals) but also to the expression that was passed as
 a function's argument itself.
 
-```{r}
+```{r test_meta}
 test_meta <- function(x) {
     cat("x equals to ", x, "\n") # \n == newline
     cat("x stemmed from ", deparse(substitute(x)), "\n")
@@ -263,7 +264,7 @@ we should always refer to the documentation.
 
 For instance, consider the `subset()` function:
 
-```{r}
+```{r subset}
 head(iris)
 subset(iris, Sepal.Length>7.5, select=-(Sepal.Width:Petal.Width))
 ```
@@ -272,10 +273,11 @@ Neither `Sepal.Length>6` nor `-(Sepal.Width:Petal.Width)` make sense
 as standalone R expressions! However, according to the `subset()` function's
 own rules, the former expression is considered as a row selector
 (here, `Sepal.Length` refers to a particular column *within* the `iris` data frame).
-The latter plays the role of a column filter (select everything but all the column
+The latter plays the role of a column filter (select everything but all the columns
 between...).
 
-The data.table and dplyr functions rely on this language feature
+The data.table and dplyr packages (which are very popular)
+rely on this language feature
 all the time, so we shouldn't be surprised when we see them.
 
 . . .
@@ -287,7 +289,7 @@ thanks to metaprogramming.
 R expressions separated by a tilde (`~`).
 For example:
 
-```{r}
+```{r formula}
 len ~ supp+dose
 ```
 
@@ -297,7 +299,7 @@ accept formulas as arguments and can interpret them in various different ways.
 For example, the `lm()` function that fits a linear regression model,
 uses formulas to specify the output and input variables:
 
-```{r}
+```{r lm}
 lm(Sepal.Length~Petal.Length+Sepal.Width, data=iris)
 ```
 
@@ -305,14 +307,13 @@ On the other hand, `boxplot()` allows for creating
 separate box-and-whisker plots for each subgroup given by a combination
 of factors.
 
-```{r, echo=-1}
-par(mar=c(4,4,0.5,0.5))
-boxplot(len~supp+dose, data=ToothGrowth, las=1, horizontal=TRUE)
+```{r boxplot}
+boxplot(len~supp+dose, data=ToothGrowth, horizontal=TRUE)
 ```
 
 The `aggregate()` function supports formulas too:
 
-```{r}
+```{r aggregate}
 aggregate(cbind(Sepal.Length, Sepal.Width)~Species, data=iris, mean)
 ```
 
@@ -327,22 +328,13 @@ with a formula -- information on that can be found in `?lm`, `?boxplot`,
 
 ## Further Reading
 
-#### {.allowframebreaks .unnumbered}
+Recommended further reading: [@Rintro]
 
-Recommended further reading:
-
-- [@Rintro]
-
-Other:
-
-- [@rprogdatascience]
-- [@r4ds]
+Other: [@rprogdatascience], [@r4ds]
 
 R packages dplyr and data.table implement the most common
 data frame wrangling procedures. You may find them very useful.
 Moreover, they are very fast even for large data sets.
 Additionally, the magrittr package provides a pipe operator, `%>%`,
 that simplifies the writing of complex, nested function calls.
-
-
-many users find useful.
+Do note that not everyone is a big fan of these, however.

@@ -18,6 +18,8 @@ repositories).
 
 > From now on we assume that you have installed the R environment.
 
+
+
 ## Installing an IDE
 
 As we wish to make our first steps with the R language
@@ -35,7 +37,7 @@ advanced users.
 
 ## Installing Recommended Packages
 
-Once we got the above up and running, from within RStudio,
+Once we get the above up and running, from within RStudio,
 we need to install a few packages which we're going to use during the course
 of this course. Execute the following commands in the R console
 (bottom-left Rstudio pane):
@@ -79,9 +81,9 @@ install_tensorflow()
 ```
 
 
-## First R Script
+## First R Script in RStudio
 
-Let's open Rstudio and perform the following steps:
+Let's open RStudio and perform the following steps:
 
 1.  Create a New Project where we will store all the scripts
     related to this book. Click *File* → *New Project*
@@ -131,8 +133,8 @@ Let's open Rstudio and perform the following steps:
     The last line generates a nice plot which will appear in the
     bottom-right pane.
 
-While you learn, we recommend that, you get used to writing your
+While you learn, we recommend that you get used to writing your
 code in an R script and executing it just as we did above.
 
-> On a side note, You can execute (source) the whole script
+> On a side note, you can execute (source) the whole script
 by pressing Ctrl+Shift+S (Cmd+Shift+S on MacOS).

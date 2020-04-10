@@ -1376,7 +1376,6 @@ solution_end() #############################################################
 
 ### Remarks
 
----
 
 In supervised learning, with each input point,
 there's an associated reference output value.
@@ -1397,7 +1396,6 @@ of many variables, i.e., $p>1$, called multiple regression.
 
 ### Further Reading
 
-#### {.allowframebreaks .unnumbered}
 
 Recommended further reading:  [@islr: Chapters 1, 2 and 3]
 
