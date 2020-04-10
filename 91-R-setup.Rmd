@@ -2,6 +2,16 @@
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
+
+<!--
+
+TODO: Mention knitr+markdown and add OnTrack exercises?
+This can be left for the Deep R book.
+
+-->
+
+
+
 ## Installing R
 
 R and Python are *the* languages of modern data science.

@@ -447,7 +447,7 @@ plot(x, sin(x), type="l")
 lines(x, cos(x), col="red") # add a curve to the current plot
 ```
 
-Try increasing the `length.out` argument to make the curves smoother.
+> Try increasing the `length.out` argument to make the curves smoother.
 
 
 
@@ -1315,6 +1315,18 @@ t <- list(1:10, c(1, 2, NA, 4, 5))
 unlist(lapply(t, mean))
 unlist(lapply(t, mean, na.rm=TRUE))
 ```
+
+
+
+
+
+<!--
+
+TODO: Add OnTrack exercises
+
+-->
+
+
 
 
 ## Further Reading
