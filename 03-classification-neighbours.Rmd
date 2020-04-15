@@ -72,12 +72,11 @@ Example plot of a synthetic dataset
 with the reference binary $y$s.
 
 The "true" decision boundary is at $X_1=0$ but the classes
-slightly overlap (dataset is a bit noisy).
+slightly overlap (the dataset is a bit noisy).
 
 
 
-```{r,echo=FALSE,fig.height=5}
-par(mar=c(4,4,0.5,0.5))
+```{r classify_intro,echo=FALSE}
 set.seed(123)
 n0 <- 50 # n0 points in class 0
 n1 <- 50 # n1 points in class 1
@@ -87,8 +86,9 @@ Xs <- rbind(
 )
 Ys <- factor(rep(c("0", "1"), c(n0, n1)))
 
-plot(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys], las=1, xlab="X1", ylab="X2", asp=1)
-legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"))
+plot(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys], xlab="X1", ylab="X2", asp=1)
+legend("topleft", col=c(1,2), pch=c(1,2),
+    legend=c("Class 0", "Class 1"), bg="white")
 abline(v=0, lty=3, col="blue")
 ```
 
@@ -97,13 +97,13 @@ abline(v=0, lty=3, col="blue")
 
 ---
 
-For illustration, let's consider the Wine Quality dataset
+For illustration, let's consider the Wine Quality dataset [@wines]
 that can be downloaded from the UCI Machine Learning Repository
 (https://archive.ics.uci.edu/ml/datasets/Wine+Quality) --
 white wines only.
 
 
-```{r input1}
+```{r input1,cache=TRUE}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
@@ -117,8 +117,6 @@ Moreover, there is a wine rating (which we won't consider here)
 on the scale 0 (bad) to 10 (excellent)
 given by wine experts.
 
-Source: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
-Modeling wine preferences by data mining from physicochemical properties. *Decision Support Systems*, **47**(4):547-553, 2009.
 
 
 ---
@@ -126,7 +124,7 @@ Modeling wine preferences by data mining from physicochemical properties. *Decis
 The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
 consists of the first 10 numeric variables:
 
-```{r input2,dependson='input1'}
+```{r input2,dependson='input1',cache=TRUE}
 X <- as.matrix(wines[,1:10])
 dim(X)
 head(X, 2) # first two rows
@@ -144,7 +142,7 @@ We will convert this dependent variable to a binary one:
 - 0 == (`alcohol  < 12`) == lower-alcohol wines1
 - 1 == (`alcohol >= 12`) == higher-alcohol wines
 
-```{r input3,dependson='input2'}
+```{r input3,dependson='input2',cache=TRUE}
 # recall that TRUE == 1
 Y <- factor(as.character(as.numeric(wines$alcohol >= 12)))
 table(Y)
@@ -189,7 +187,7 @@ on a random **train-test split** of the original dataset:
 
 60/40% train-test split in R:
 
-```{R input4,dependson='input3'}
+```{r input4,dependson='input3',cache=TRUE}
 set.seed(123) # reproducibility matters
 random_indices <- sample(n)
 head(random_indices) # preview
@@ -268,44 +266,38 @@ locate the nearest point.
 
 
 
-```{r,echo=FALSE,plot_knn,cache=TRUE}
+```{r plot_knn,echo=FALSE,cache=TRUE}
 plot_knn <- function(K) {
     xx1 <- seq(-4, 4, length.out=250)
     xx2 <- seq(-4, 4, length.out=250)
     xx <- expand.grid(xx1, xx2)
     yy <- FNN::knn(Xs, xx, Ys, k=K)
-    par(mar=c(4,4,2.5,0.5))
     image(xx1, xx2, matrix(as.numeric(yy)-1, nrow=length(xx1), ncol=length(xx2)),
-          col=c("#00000044", "#ff000044"), las=1, xlab="X1", ylab="X2", asp=1,
+          col=c("#00000044", "#ff000044"), xlab="X1", ylab="X2", asp=1,
           main=sprintf("K-NN Class Bounds, K=%d", K))
-
-
     points(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys])
-    legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"), bg="white")
+    legend("topleft", col=c(1,2), pch=c(1,2),
+        legend=c("Class 0", "Class 1"), bg="white")
     abline(v=0, lty=3, col="blue")
 }
 ```
 
 
 
-```{r,echo=FALSE,fig.height=5,cache=TRUE,dependson='plot_knn'}
+```{r fig_plot_knn1,echo=FALSE,cache=TRUE,dependson='plot_knn'}
 plot_knn(1)
 ```
 
----
 
-
-```{r,echo=FALSE,fig.height=5,cache=TRUE,dependson='plot_knn'}
+```{r fig_plot_knn3,echo=FALSE,cache=TRUE,dependson='plot_knn'}
 plot_knn(3)
 ```
 
 Increasing $K$ somehow smoothens the decision boundary (this makes it
 less "local" and more "global").
 
----
 
-
-```{r,echo=FALSE,fig.height=5,cache=TRUE,dependson='plot_knn'}
+```{r fig_plot_knn25,echo=FALSE,cache=TRUE,dependson='plot_knn'}
 plot_knn(25)
 ```
 
@@ -324,14 +316,14 @@ We shall be calling the `knn()` function from package `FNN`
 to classify the points from the test sample
 extracted from the `wines` dataset:
 
-```{r,message=FALSE}
+```{r libFNN,message=FALSE}
 library("FNN")
 ```
 
 
-Let us make prediction using the 5-nn classifier:
+Let's make prediction using the 5-nn classifier:
 
-```{r}
+```{r Y_knn5}
 Y_knn5 <- knn(X_train, X_test, Y_train, k=5)
 head(Y_test, 28) # True Ys
 head(Y_knn5, 28) # Predicted Ys
@@ -344,7 +336,7 @@ mean(Y_test == Y_knn5) # accuracy
 
 9-nn classifier:
 
-```{r}
+```{r Y_knn9}
 Y_knn9 <- knn(X_train, X_test, Y_train, k=9)
 head(Y_test, 28) # True Ys
 head(Y_knn9, 28) # Predicted Ys
@@ -388,10 +380,10 @@ that is 0.5 standard deviations above the mean.
 
 ---
 
-Let us compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
+Let's compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
 and `X_test`, respectively.
 
-```{r}
+```{r standardise1}
 means <- apply(X, 2, mean) # column means
 sds   <- apply(X, 2, sd)   # column standard deviations
 Z_train <- X_train # to be done
@@ -405,7 +397,7 @@ for (j in 1:ncol(X)) {
 
 Alternatively:
 
-```{r}
+```{r standardise2}
 Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
 Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 ```
@@ -413,9 +405,9 @@ Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 
 ---
 
-Let us compute the accuracy of K-NN classifiers acting on standardised data.
+Let's compute the accuracy of K-NN classifiers acting on standardised data.
 
-```{r,message=FALSE}
+```{r standardise3,message=FALSE}
 Y_knn5s <- knn(Z_train, Z_test, Y_train, k=5)
 mean(Y_test == Y_knn5s) # accuracy
 Y_knn9s <- knn(Z_train, Z_test, Y_train, k=9)
@@ -452,7 +444,7 @@ when dealing with real-world problems.
 
 Feature selection -- example (manually selected columns):
 
-```{r,message=FALSE}
+```{r standardise4,message=FALSE}
 features <- c("density", "residual.sugar")
 Y_knn5s <- knn(Z_train[,features], Z_test[,features],
     Y_train, k=5)
@@ -501,14 +493,14 @@ A **confusion matrix** is used to summarise
 the correctness of predictions for the whole sample:
 
 
-```{r}
+```{r confusion1}
 Y_pred <- knn(Z_train, Z_test, Y_train, k=9)
 (C <- table(Y_pred, Y_test))
 ```
 
 For example,
 
-```{r}
+```{r confusion2}
 C[1,1] # number of TNs
 C[2,1] # number of FPs
 ```
@@ -531,7 +523,7 @@ y_i = \hat{y}_i
 where $\mathbb{I}$ is the indicator function,
 $\mathbb{I}(l)=1$ if logical condition $l$ is true and $0$ otherwise.
 
-```{r}
+```{r accuracy}
 mean(Y_test == Y_pred) # accuracy
 (C[1,1]+C[2,2])/sum(C) # equivalently
 ```
@@ -573,7 +565,7 @@ aim to address this problem.
 If the classifier outputs $1$,
 what is the probability that this is indeed true?
 
-```{r}
+```{r precision}
 C[2,2]/(C[2,2]+C[2,1]) # Precision
 ```
 
@@ -589,7 +581,7 @@ If the true class is $1$, what is the probability that the classifier
 will detect it?
 
 
-```{r}
+```{r recall}
 C[2,2]/(C[2,2]+C[1,2]) # Recall
 ```
 
@@ -628,7 +620,7 @@ and recall:
 
 > Show that the above equality holds.
 
-```{r}
+```{r fmeasure}
 C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]) # F
 ```
 
@@ -637,7 +629,7 @@ C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]) # F
 
 The following function can come in handy in the future:
 
-```{r}
+```{r get_metrics}
 get_metrics <- function(Y_pred, Y_test)
 {
     C <- table(Y_pred, Y_test) # confusion matrix
@@ -657,7 +649,7 @@ get_metrics <- function(Y_pred, Y_test)
 ---
 
 
-```{r}
+```{r get_metrics2}
 get_metrics(Y_pred, Y_test)
 ```
 
@@ -673,14 +665,14 @@ Best == one that has the highest *predictive power*.
 
 Best == with respect to some chosen metric (accuracy, recall, precision, F-measure, ...)
 
-Let us study how the metrics on the test set change as functions of the number of nearest neighbours considered, $K$.
+Let's study how the metrics on the test set change as functions of the number of nearest neighbours considered, $K$.
 
 ---
 
 
 Auxiliary function:
 
-```{r}
+```{r whichK1,cache=TRUE}
 knn_metrics <- function(k, X_train, X_test, Y_train, Y_test)
 {
     Y_pred <- knn(X_train, X_test, Y_train, k=k) # classify
@@ -690,7 +682,7 @@ knn_metrics <- function(k, X_train, X_test, Y_train, Y_test)
 
 For example:
 
-```{r,cache=TRUE}
+```{r whichK2,cache=TRUE}
 knn_metrics(5, Z_train, Z_test, Y_train, Y_test)
 ```
 
@@ -700,7 +692,7 @@ knn_metrics(5, Z_train, Z_test, Y_train, Y_test)
 
 Example call to evaluate metrics as a function of different $K$s:
 
-```{r,cache=TRUE}
+```{r whichK3,cache=TRUE}
 Ks <- seq(1, 19, by=2)
 Ps <- as.data.frame(t(
     sapply(Ks, # on each element in this vector
@@ -726,7 +718,7 @@ corresponding to different columns in the result.
 
 Example results:
 
-```{r}
+```{r whichK4,cache=TRUE}
 round(cbind(K=Ks, Ps), 2)
 ```
 
@@ -737,42 +729,37 @@ A picture is worth a thousand tables though (see `?matplot` in R).
 ---
 
 
-```{r,echo=FALSE,cache=TRUE,fig.height=6}
+```{r whichK5,echo=FALSE,cache=TRUE}
+par(mfrow=c(1,2))
 Ks <- seq(1, 51, by=2)
 Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
   knn_metrics,     # apply this function
   Z_train, Z_test, Y_train, Y_test # also passing these as args
 )))
-par(mar=c(4,4,2.5,0.5))
-matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Standardised Data (Z_train, Z_test)")
-legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
-```
+matplot(Ks, Ps[,1:4], xlab="K", ylab="Metric", type="l",
+    ylim=c(0,1), main="Standardised Data (Z_train, Z_test)")
+legend("bottom", legend=names(Ps[,1:4]),
+    col=1:4, lty=1:4, ncol=2, bg="white")
 
-
-
-
----
-
-
-```{r,echo=FALSE,cache=TRUE,fig.height=6}
 Ks <- seq(1, 51, by=2)
 Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
   knn_metrics,     # apply this function
   X_train, X_test, Y_train, Y_test # also passing these as args
 )))
-par(mar=c(4,4,2.5,0.5))
-matplot(Ks, Ps[,1:4], las=1, xlab="K", ylab="Metric", type="l", ylim=c(0,1), main="Raw Data (X_train, X_test)")
-legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
+matplot(Ks, Ps[,1:4], xlab="K", ylab="Metric", type="l",
+    ylim=c(0,1), main="Raw Data (X_train, X_test)")
+# legend("top", legend=names(Ps[,1:4]),
+#     col=1:4, lty=1:4, ncol=4, bg="white")
 ```
 
 <!--
 
 (\*) **ROC** (Receiver Operating Characteristic) curve:
 
-```{r,fig.height=5}
+```{r }
 TPR <- Ps$TP/(Ps$TP+Ps$FN) # True Positive Rate (recall)
 FPR <- Ps$FP/(Ps$FP+Ps$TN) # False Positive Rate
-plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1), las=1)
+plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1))
 abline(a=0, b=1, lty=3)
 ```
 
@@ -829,7 +816,7 @@ The best you can do is to "guess".-->
 
 An example way to perform a 60/20/20% train-validation-test split:
 
-```{R}
+```{r train_val_test_split}
 set.seed(123) # reproducibility matters
 random_indices <- sample(n)
 n1 <- floor(n*0.6)
@@ -862,7 +849,7 @@ Recall that (see Appendix B for more details)
 `factor` type in R is a very convenient means to encode categorical data
 (such as $\mathbf{y}$):
 
-```{r}
+```{r factor1}
 x <- c("yes", "no", "no", "yes", "no")
 f <- factor(x, levels=c("no", "yes"))
 f
@@ -877,7 +864,7 @@ with elements in $\{1,\dots,M\}$, where $M$ is the number of possible levels.
 
 Labels, used to "decipher" the numeric codes, are stored separately.
 
-```{r}
+```{r factor2}
 as.numeric(f) # 2nd label, 1st label, 1st label etc.
 levels(f)
 levels(f) <- c("failure", "success") # re-encode
@@ -890,7 +877,7 @@ f
 
 ---
 
-Let us implement a K-NN classifier ourselves
+Let's implement a K-NN classifier ourselves
 by using a top-bottom approach.
 
 We will start with a general description of the admissible inputs
@@ -901,7 +888,7 @@ conveniently manageable chunks.
 
 The function's declaration will look like:
 
-```{r,eval=FALSE}
+```{r our_knn1,eval=FALSE}
 our_knn <- function(X_train, X_test, Y_train, k=1) {
     # k=1 denotes a parameter with a default value
     # ...
@@ -912,7 +899,7 @@ our_knn <- function(X_train, X_test, Y_train, k=1) {
 
 Load an example dataset on which we will test our algorithm:
 
-```{r}
+```{r our_knn2}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines <- wines[wines$color == "white",]
 X <- as.matrix(wines[,1:10])
@@ -925,7 +912,7 @@ Note that `Y` is now a factor object.
 
 Train-test split:
 
-```{r}
+```{r our_knn3}
 set.seed(123)
 random_indices <- sample(n)
 train_indices <- random_indices[1:floor(n*0.6)]
@@ -945,7 +932,7 @@ Y_test  <- Y[-train_indices]
 First, we should specify the type and form of the arguments
 we're expecting:
 
-```{r,eval=FALSE,our_knn_paramchecks}
+```{r our_knn_paramchecks,eval=FALSE}
 # this is the body of our_knn() - part 1
 stopifnot(is.numeric(X_train), is.matrix(X_train))
 stopifnot(is.numeric(X_test), is.matrix(X_test))
@@ -972,7 +959,7 @@ $\mathtt{Y\_train}\in\{1,\dots,M\}^{\mathtt{n\_train}}$
 Next, we will call the (to-be-done) function `our_get_knnx()`,
 which seeks nearest neighbours of all the points:
 
-```{r,eval=FALSE,our_knn_flow1}
+```{r our_knn_flow1,eval=FALSE}
 # our_get_knnx returns a matrix nn_indices of size n_test*k,
 # where nn_indices[i,j] denotes the index of
 # X_test[i,]'s j-th nearest neighbour in X_train.
@@ -987,7 +974,7 @@ Then, for each point in `X_test`,
 we fetch the labels corresponding to its nearest neighbours
 and compute their mode:
 
-```{r,eval=FALSE,our_knn_flow2}
+```{r our_knn_flow2,eval=FALSE}
 Y_pred <- numeric(n_test) # vector of length n_test
 # For now we will operate on the integer labels in {1,...,M}
 Y_train_int <- as.numeric(Y_train)
@@ -1002,14 +989,14 @@ for (i in 1:n_test) {
 Finally, we should convert the resulting integer vector
 to an object of type `factor`:
 
-```{r,eval=FALSE,our_knn_flow3}
+```{r our_knn_flow3,eval=FALSE}
 # Convert Y_pred to factor:
 return(factor(Y_pred, labels=levels(Y_train)))
 ```
 
 
 
-```{r,echo=FALSE}
+```{r our_knn_final,echo=FALSE}
 our_knn <- function(X_train, X_test, Y_train, k=1) {
 
     <<our_knn_paramchecks>>
@@ -1053,7 +1040,7 @@ To implement the mode, we can use the `tabulate()` function.
 
 For example:
 
-```{R}
+```{r tabulate}
 tabulate(c(1, 2, 1, 1, 1, 5, 2))
 ```
 
@@ -1071,7 +1058,7 @@ For that, we can use the `sample()` function.
 
 An example implementation:
 
-```{r}
+```{r our_mode}
 our_mode <- function(Y) {
     # tabulate() will take care of
     # checking the correctness of Y
@@ -1084,7 +1071,7 @@ our_mode <- function(Y) {
 
 ---
 
-```{r,echo=-1}
+```{r our_mode2,echo=-1}
 set.seed(7)
 our_mode(c(1, 1, 1, 1))
 our_mode(c(2, 2, 2, 2))
@@ -1107,7 +1094,7 @@ It is the function responsible for seeking the indices of nearest neighbours.
 It turns out this function will  actually constitute the K-NN classifier's performance
 bottleneck in case of big data samples.
 
-```{r}
+```{r our_get_knnx}
 # our_get_knnx returns a matrix nn_indices of size n_test*k,
 # where nn_indices[i,j] denotes the index of
 # X_test[i,]'s j-th nearest neighbour in X_train.
@@ -1124,7 +1111,7 @@ our_get_knnx <- function(X_train, X_test, k) {
 A naive approach to `our_get_knnx()` relies on computing all pairwise distances,
 and sorting them.
 
-```{r}
+```{r our_get_knnx2}
 our_get_knnx <- function(X_train, X_test, k) {
     n_test <- nrow(X_test)
     nn_indices <- matrix(NA_real_, nrow=n_test, ncol=k)
@@ -1145,7 +1132,7 @@ our_get_knnx <- function(X_train, X_test, k) {
 
 A comparison with `FNN:knn()`:
 
-```{r,cache=TRUE}
+```{r fnn_knn,cache=TRUE}
 system.time(Ya <- knn(X_train, X_test, Y_train, k=5))
 system.time(Yb <- our_knn(X_train, X_test, Y_train, k=5))
 mean(Ya == Yb) # 1.0 on perfect match
@@ -1162,7 +1149,7 @@ Both functions return identical results but our implementation is "slightly" slo
 R, on the other hand (just like Python and Matlab) is interpreted, therefore
 as a rule of thumb we should consider it an order of magnitude slower (see, however, the Julia language).
 
-Let us substitute our naive implementation with the equivalent one,
+Let's substitute our naive implementation with the equivalent one,
 but written in C++ (available in the `FNN` package).
 
 > (\*) Note that we could write a C++ implementation ourselves,
@@ -1170,7 +1157,7 @@ see the Rcpp package for seamless R and C++ integration.
 
 ---
 
-```{r,cache=TRUE}
+```{r our_get_knnx_time,cache=TRUE}
 our_get_knnx <- function(X_train, X_test, k) {
     # this is used by our_knn()
     FNN::get.knnx(X_train, X_test, k, algorithm="brute")$nn.index
@@ -1206,11 +1193,11 @@ kd-trees.
 ---
 
 
-```{r,test_speed,cache=TRUE}
+```{r test_speed,cache=TRUE}
 library("microbenchmark")
 test_speed <- function(n, p, k) {
     A <- matrix(runif(n*p), nrow=n, ncol=p)
-    s <- summary(microbenchmark(
+    s <- summary(microbenchmark::microbenchmark(
         brute=FNN::get.knnx(A, A, k, algorithm="brute"),
         kd_tree=FNN::get.knnx(A, A, k, algorithm="kd_tree"),
         times=3
@@ -1223,7 +1210,7 @@ test_speed <- function(n, p, k) {
 
 ---
 
-```{r,cache=TRUE,dependson='test_speed'}
+```{r test_speed2cache=TRUE,dependson='test_speed'}
 test_speed(10000, 2, 5)
 test_speed(10000, 5, 5)
 test_speed(10000, 10, 5)
@@ -1301,7 +1288,7 @@ one string into another.
 
 For instance:
 
-```{r}
+```{r adist}
 adist("happy", "nap")
 ```
 
@@ -1377,7 +1364,7 @@ based on the `ISLR::Credit` data set.
 
 
 
-```{r}
+```{r knnreg1}
 library("ISLR") # Credit dataset
 Xc <- as.matrix(as.numeric(Credit$Balance[Credit$Balance>0]))
 Yc <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
@@ -1385,7 +1372,7 @@ Yc <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
 
 
 
-```{r,message=FALSE}
+```{r knnreg2,message=FALSE}
 library("FNN") # knn.reg function
 x <- as.matrix(seq(min(Xc), max(Xc), length.out=101))
 y1  <- knn.reg(Xc, x, Yc, k=1)$pred
@@ -1395,9 +1382,8 @@ y25 <- knn.reg(Xc, x, Yc, k=25)$pred
 
 ---
 
-```{r, fig.height=5,message=FALSE,echo=-1}
-par(mar=c(4,4,0.5,0.5))
-plot(Xc, Yc, las=1, col="#666666c0",
+```{r knnreg3,message=FALSE}
+plot(Xc, Yc, col="#666666c0",
     xlab="Balance", ylab="Rating")
 lines(x, y1,  col=2, lwd=3)
 lines(x, y5,  col=3, lwd=3)

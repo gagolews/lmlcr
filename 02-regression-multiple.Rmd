@@ -660,23 +660,23 @@ set.seed(123)
 x <- runif(25)
 
 y <- 7*x+3+rnorm(25,0,0.5)
-plot(x, y, las=1, axes=FALSE, ann=FALSE)
+plot(x, y, axes=FALSE, ann=FALSE)
 legend("topleft", bg="white", legend=c(sprintf("r=%.2f", cor(x,y)), "positive correlation"))
 box()
 
 y <- -7*x+3+rnorm(25,0,0.5)
-plot(x, y, las=1, axes=FALSE, ann=FALSE)
+plot(x, y, axes=FALSE, ann=FALSE)
 legend("topright", bg="white", legend=c(sprintf("r=%.2f", cor(x,y)), "negative correlation"))
 box()
 
 y <- runif(25)
-plot(x, y, las=1, axes=FALSE, ann=FALSE)
+plot(x, y, axes=FALSE, ann=FALSE)
 legend("topleft", bg="white", legend=c(sprintf("r=%.2f", cor(x,y)), "no correlation"))
 box()
 
 x <- runif(25)
 y <- abs((x-0.5)*100)+rnorm(length(x))
-plot(x, y, las=1, axes=FALSE, ann=FALSE)
+plot(x, y, axes=FALSE, ann=FALSE)
 legend("top", bg="white", legend=c(sprintf("r=%.2f", cor(x,y)), "non-linear correlation"))
 box()
 
@@ -1077,7 +1077,7 @@ is often done by repeating stuff.
 ```{r anscombe3}
 ans1 <- data.frame(x=anscombe$x1, y=anscombe$y1)
 f1 <- lm(y~x, data=ans1)
-plot(ans1$x, ans1$y, las=1)
+plot(ans1$x, ans1$y)
 abline(f1, col="red")
 ```
 
@@ -1100,7 +1100,7 @@ How to fit a polynomial model is explained above.
 ```{r anscombe4}
 ans2 <- data.frame(x=anscombe$x2, y=anscombe$y2)
 f2 <- lm(y~x+I(x^2), data=ans2)
-plot(ans2$x, ans2$y, las=1)
+plot(ans2$x, ans2$y)
 x_plot <- seq(4, 14, by=0.1)
 y_plot <- predict(f2, data.frame(x=x_plot))
 lines(x_plot, y_plot, col="red")

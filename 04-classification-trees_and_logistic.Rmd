@@ -63,8 +63,7 @@ healthy | ill
 The synthetic 2D dataset once again (true decision boundary is at $X_1=0$):
 
 
-```{r,echo=FALSE,fig.height=6}
-par(mar=c(4,4,0.5,0.5))
+```{r,echo=FALSE}
 set.seed(123)
 n0 <- 50 # n0 points in class 0
 n1 <- 50 # n0 points in class 0
@@ -74,8 +73,8 @@ Xs <- rbind(
 )
 Ys <- factor(rep(c("0", "1"), c(n0, n1)))
 
-plot(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys], las=1, xlab="X1", ylab="X2", asp=1)
-legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"))
+plot(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys], xlab="X1", ylab="X2", asp=1)
+legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"), bg="white")
 abline(v=0, lty=3, col="blue")
 ```
 
@@ -247,7 +246,7 @@ This idea inspired the notion of **decision trees** [@cart].
 ---
 
 
-```{r,echo=FALSE,out.width='100%',fig.width=10,fig.height=5}
+```{r plot_rpart,echo=FALSE}
 library("rpart")
 library("rpart.plot")
 set.seed(123)
@@ -262,9 +261,8 @@ plot_rpart <- function(ts, XYs) {
   dimnames(xx)[[2]] <- names(XYs)[1:2]
 
   yy <- predict(ts, data.frame(xx, names=c("V1", "V2")), type="class")
-  par(mar=c(4,4,2.5,0.5))
   image(xx1, xx2, matrix(as.numeric(yy)-1, nrow=length(xx1), ncol=length(xx2)),
-        col=c("#00000044", "#ff000044"), las=1, xlab="X1", ylab="X2", asp=1,
+        col=c("#00000044", "#ff000044"), xlab="X1", ylab="X2", asp=1,
         main=sprintf("Decision Tree Class Bounds, cp=%g", cp))
 
 
@@ -296,7 +294,7 @@ Each tree node reports 3 pieces of information:
 ---
 
 
-```{r,echo=FALSE,out.width='100%',fig.width=10,fig.height=5}
+```{r plot_rpart2,echo=FALSE}
 cp <- 0.01
 ts <- rpart(Y~., data=XYs, method="class", cp=cp)
 par(mfrow=c(1,2))
@@ -308,7 +306,7 @@ rpart.plot(ts)
 ---
 
 
-```{r,echo=FALSE,out.width='100%',fig.width=10,fig.height=5}
+```{r plot_rpart3,echo=FALSE}
 cp <- 0.001
 control <- list(minsplit=1, minbucket=5)
 ts <- rpart(Y~., data=XYs, method="class", cp=cp, control=control)
@@ -331,7 +329,7 @@ rpart.plot(ts, tweak=1.2)
 We will use the `rpart()` function from the `rpart` package
 to build a classification tree.
 
-```{r}
+```{r rpart_load}
 library("rpart")
 library("rpart.plot")
 set.seed(123)
@@ -340,7 +338,7 @@ set.seed(123)
 `rpart()` uses a formula (`~`) interface, hence it will be easier
 to feed it with data in a data.frame form.
 
-```{r}
+```{r xy_data}
 XY_train <- cbind(as.data.frame(X_train), Y=Y_train)
 XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 ```
@@ -350,8 +348,7 @@ XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 
 Fit and plot a decision tree:
 
-```{r,echo=-1,out.width="100%",fig.width=8,fig.height=5}
-par(mar=c(0,0,0,0))
+```{r plot_rpart1}
 t1 <- rpart(Y~., data=XY_train, method="class")
 rpart.plot(t1, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
@@ -369,9 +366,8 @@ Only the `alcohol` variable is taken into account.
 Well note how these two distributions are shifted:
 
 ```{r,echo=-1}
-par(mar=c(4,4,0.5,0.5))
 #vioplot::vioplot(alcohol~Y, data=XY_train,
-#    horizontal=TRUE, las=1)
+#    horizontal=TRUE)
 ```
 
 ---
@@ -381,7 +377,7 @@ par(mar=c(4,4,0.5,0.5))
 
 Make predictions:
 
-```{r}
+```{r predict_rpart1}
 Y_pred <- predict(t1, XY_test, type="class")
 get_metrics(Y_pred, Y_test)
 ```
@@ -391,7 +387,7 @@ get_metrics(Y_pred, Y_test)
 > (\*) Interestingly, `rpart()` also provides us with information
 about the importance degrees of each independent variable.
 
-```{r}
+```{r importances}
 t1$variable.importance/sum(t1$variable.importance)
 ```
 
@@ -400,7 +396,7 @@ t1$variable.importance/sum(t1$variable.importance)
 We can build a less complex tree by playing
 with the `cp` parameter.
 
-```{r,out.width='100%',fig.width=10,fig.height=5}
+```{r plot_rpart222}
 # cp = complexity parameter, smaller → more complex tree
 t2 <- rpart(Y~., data=XY_train, method="class", cp=0.1)
 rpart.plot(t2, tweak=1.1, fallen.leaves=FALSE, digits=3)
@@ -409,7 +405,7 @@ rpart.plot(t2, tweak=1.1, fallen.leaves=FALSE, digits=3)
 
 ---
 
-```{r}
+```{r predict_rpart222}
 Y_pred <- predict(t2, XY_test, type="class")
 get_metrics(Y_pred, Y_test)
 ```
@@ -545,9 +541,8 @@ round(get_metrics(Y_pred, XY_test_r$Y), 3)
 The threshold $T=0.5$  could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample).
 
-```{r,echo=FALSE,cache=TRUE,fig.height=5, lm4,dependson='lm3',cache=TRUE}
+```{r lm3b,echo=FALSE,cache=TRUE,dependson='lm3',cache=TRUE}
 set.seed(123)
-par(mar=c(4,4,0.5,0.5))
 f_r <- lm(Y~density+residual.sugar+pH, data=XY_train_r)
 Y_pred_r <- predict(f_r, XY_test_r)
 Ts <- seq(0.1, 0.85, by=0.05)
@@ -556,8 +551,8 @@ Ps <- as.data.frame(t(sapply(Ts, function(t) {
   get_metrics(factor(Y_pred, levels=c("0", "1")), factor(XY_test_r$Y, levels=c("0", "1")))
 })))
 
-matplot(Ts, Ps[,1:4], las=1, xlab="T", ylab="Metric", type="l", ylim=c(0,1))
-legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4)
+matplot(Ts, Ps[,1:4], xlab="T", ylab="Metric", type="l", ylim=c(0,1))
+legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4, bg="white")
 ```
 
 
@@ -595,11 +590,10 @@ A popular choice is the **logistic sigmoid function**,
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]
 
-```{r,echo=FALSE,cache=TRUE,fig.height=5,sigmoid}
-par(mar=c(4,4,0.5,0.5))
+```{r sigmoid,echo=FALSE,cache=TRUE,fig.height=5}
 xxx <- seq(-3, 3, length.out=101)
 yyy <- 1/(1+exp(-xxx))
-plot(xxx, yyy, type='l', xlab='y', ylab=expression(phi(y)), las=1, ylim=c(0,1))
+plot(xxx, yyy, type='l', xlab='y', ylab=expression(phi(y)), ylim=c(0,1))
 abline(v=0, lty=3)
 abline(h=c(0, 0.5, 1), lty=3)
 ```
@@ -629,7 +623,7 @@ using the `density` variable.
 > "logit" below denotes the inverse of the logistic sigmoid function.
 
 
-```{r}
+```{r glm1}
 f <- glm(Y~density, data=XY_train, family=binomial("logit"))
 summary(f)
 ```
@@ -637,15 +631,14 @@ summary(f)
 ---
 
 
-```{r,echo=FALSE,cache=TRUE,fig.height=5,        eval=TRUE}
-par(mar=c(4,4,0.5,0.5))
+```{r glm2,echo=FALSE,cache=TRUE,eval=TRUE}
 xxx <- seq(min(XY_train$density), max(XY_train$density), length.out=101)
 yyy <- 1/(1+exp(-(f$coef[1]+f$coef[2]*xxx)))
-plot(xxx, yyy, type='l', xlab='density', ylab="P(Y=1|density)", las=1, ylim=c(0,1))
+plot(xxx, yyy, type='l', xlab='density', ylab="P(Y=1|density)", ylim=c(0,1))
 points(XY_train$density, jitter(as.numeric(XY_train$Y)-1, 0.1), col=
     c("#00000011", "#ff000011")[as.numeric(XY_train$Y)], pch=16)
 abline(h=c(0, 0.5, 1), lty=3)
-legend(8, 0.95, legend=sprintf("1/(1+exp(-(%+g%+g*density))", f$coef[1], f$coef[2]), lty=1)
+legend(8, 0.95, legend=sprintf("1/(1+exp(-(%+g%+g*density))", f$coef[1], f$coef[2]), lty=1, bg="white")
 ```
 
 ---
