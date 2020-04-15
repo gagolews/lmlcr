@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 13:27 (123f7fe)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 15:21 (14cd6aa)</a></li>
 
 </ul>
 
@@ -557,17 +557,17 @@ we assume that each <span class="math inline">\(y_i\)</span> is a descriptive la
 <hr />
 <p>For illustration, we’ll be considering the Wine Quality dataset
 (white wines only):</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
-<a class="sourceLine" id="cb391-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
-<a class="sourceLine" id="cb391-3" title="3">(n &lt;-<span class="st"> </span><span class="kw">nrow</span>(wines)) <span class="co"># number of samples</span></a></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
+<a class="sourceLine" id="cb392-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
+<a class="sourceLine" id="cb392-3" title="3">(n &lt;-<span class="st"> </span><span class="kw">nrow</span>(wines)) <span class="co"># number of samples</span></a></code></pre></div>
 <pre><code>## [1] 4898</code></pre>
 <hr />
 <p>The input matrix <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span>
 consists of the first 10 numeric variables:</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
-<a class="sourceLine" id="cb393-2" title="2"><span class="kw">dim</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
+<a class="sourceLine" id="cb394-2" title="2"><span class="kw">dim</span>(X)</a></code></pre></div>
 <pre><code>## [1] 4898   10</code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" title="1"><span class="kw">head</span>(X, <span class="dv">2</span>) <span class="co"># first two rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1"><span class="kw">head</span>(X, <span class="dv">2</span>) <span class="co"># first two rows</span></a></code></pre></div>
 <pre><code>##      fixed.acidity volatile.acidity citric.acid residual.sugar
 ## 1600           7.0             0.27        0.36           20.7
 ## 1601           6.3             0.30        0.34            1.6
@@ -584,61 +584,61 @@ consists of the first 10 numeric variables:</p>
 <li>0 == (<code>alcohol  &lt; 12</code>) == lower-alcohol wines</li>
 <li>1 == (<code>alcohol &gt;= 12</code>) == higher-alcohol wines</li>
 </ul>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" title="1"><span class="co"># recall that TRUE == 1</span></a>
-<a class="sourceLine" id="cb397-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(<span class="kw">as.numeric</span>(wines<span class="op">$</span>alcohol <span class="op">&gt;=</span><span class="st"> </span><span class="dv">12</span>)))</a>
-<a class="sourceLine" id="cb397-3" title="3"><span class="kw">table</span>(Y)</a></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1"><span class="co"># recall that TRUE == 1</span></a>
+<a class="sourceLine" id="cb398-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(<span class="kw">as.numeric</span>(wines<span class="op">$</span>alcohol <span class="op">&gt;=</span><span class="st"> </span><span class="dv">12</span>)))</a>
+<a class="sourceLine" id="cb398-3" title="3"><span class="kw">table</span>(Y)</a></code></pre></div>
 <pre><code>## Y
 ##    0    1 
 ## 4085  813</code></pre>
 <hr />
 <p>60/40% train-test split:</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb399-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
-<a class="sourceLine" id="cb399-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
-<a class="sourceLine" id="cb399-3" title="3"><span class="kw">head</span>(random_indices) <span class="co"># preview</span></a></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
+<a class="sourceLine" id="cb400-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
+<a class="sourceLine" id="cb400-3" title="3"><span class="kw">head</span>(random_indices) <span class="co"># preview</span></a></code></pre></div>
 <pre><code>## [1] 2463 2511 2227  526 4291 2986</code></pre>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" title="1"><span class="co"># first 60% of the indices (they are arranged randomly)</span></a>
-<a class="sourceLine" id="cb401-2" title="2"><span class="co"># will constitute the train sample:</span></a>
-<a class="sourceLine" id="cb401-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)]</a>
-<a class="sourceLine" id="cb401-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
-<a class="sourceLine" id="cb401-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
-<a class="sourceLine" id="cb401-6" title="6"><span class="co"># the remaining indices (40%) go to the test sample:</span></a>
-<a class="sourceLine" id="cb401-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
-<a class="sourceLine" id="cb401-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1"><span class="co"># first 60% of the indices (they are arranged randomly)</span></a>
+<a class="sourceLine" id="cb402-2" title="2"><span class="co"># will constitute the train sample:</span></a>
+<a class="sourceLine" id="cb402-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)]</a>
+<a class="sourceLine" id="cb402-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
+<a class="sourceLine" id="cb402-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
+<a class="sourceLine" id="cb402-6" title="6"><span class="co"># the remaining indices (40%) go to the test sample:</span></a>
+<a class="sourceLine" id="cb402-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
+<a class="sourceLine" id="cb402-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
 <hr />
 <p>Let’s also compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
-<a class="sourceLine" id="cb402-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
-<a class="sourceLine" id="cb402-3" title="3">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
-<a class="sourceLine" id="cb402-4" title="4">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
+<a class="sourceLine" id="cb403-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
+<a class="sourceLine" id="cb403-3" title="3">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
+<a class="sourceLine" id="cb403-4" title="4">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
-<a class="sourceLine" id="cb403-2" title="2">{</a>
-<a class="sourceLine" id="cb403-3" title="3">    C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test) <span class="co"># confusion matrix</span></a>
-<a class="sourceLine" id="cb403-4" title="4">    <span class="kw">stopifnot</span>(<span class="kw">dim</span>(C) <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb403-5" title="5">    <span class="kw">c</span>(<span class="dt">Acc=</span>(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C), <span class="co"># accuracy</span></a>
-<a class="sourceLine" id="cb403-6" title="6">      <span class="dt">Prec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># precision</span></a>
-<a class="sourceLine" id="cb403-7" title="7">      <span class="dt">Rec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]), <span class="co"># recall</span></a>
-<a class="sourceLine" id="cb403-8" title="8">      <span class="dt">F=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># F-measure</span></a>
-<a class="sourceLine" id="cb403-9" title="9">      <span class="co"># Confusion matrix items:</span></a>
-<a class="sourceLine" id="cb403-10" title="10">      <span class="dt">TN=</span>C[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">FN=</span>C[<span class="dv">1</span>,<span class="dv">2</span>],</a>
-<a class="sourceLine" id="cb403-11" title="11">      <span class="dt">FP=</span>C[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">TP=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb403-12" title="12">    ) <span class="co"># return a named vector</span></a>
-<a class="sourceLine" id="cb403-13" title="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
+<a class="sourceLine" id="cb404-2" title="2">{</a>
+<a class="sourceLine" id="cb404-3" title="3">    C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test) <span class="co"># confusion matrix</span></a>
+<a class="sourceLine" id="cb404-4" title="4">    <span class="kw">stopifnot</span>(<span class="kw">dim</span>(C) <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb404-5" title="5">    <span class="kw">c</span>(<span class="dt">Acc=</span>(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C), <span class="co"># accuracy</span></a>
+<a class="sourceLine" id="cb404-6" title="6">      <span class="dt">Prec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># precision</span></a>
+<a class="sourceLine" id="cb404-7" title="7">      <span class="dt">Rec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]), <span class="co"># recall</span></a>
+<a class="sourceLine" id="cb404-8" title="8">      <span class="dt">F=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># F-measure</span></a>
+<a class="sourceLine" id="cb404-9" title="9">      <span class="co"># Confusion matrix items:</span></a>
+<a class="sourceLine" id="cb404-10" title="10">      <span class="dt">TN=</span>C[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">FN=</span>C[<span class="dv">1</span>,<span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb404-11" title="11">      <span class="dt">FP=</span>C[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">TP=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb404-12" title="12">    ) <span class="co"># return a named vector</span></a>
+<a class="sourceLine" id="cb404-13" title="13">}</a></code></pre></div>
 <hr />
 <p>Let’s go back to the K-NN algorithm.</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a>
-<a class="sourceLine" id="cb404-2" title="2">Y_knn5   &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb404-3" title="3">Y_knn9   &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb404-4" title="4">Y_knn5s  &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb404-5" title="5">Y_knn9s  &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a>
+<a class="sourceLine" id="cb405-2" title="2">Y_knn5   &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb405-3" title="3">Y_knn9   &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb405-4" title="4">Y_knn5s  &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb405-5" title="5">Y_knn9s  &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1"><span class="kw">cbind</span>(</a>
-<a class="sourceLine" id="cb405-2" title="2">    <span class="dt">Knn5=</span><span class="kw">get_metrics</span>(Y_knn5, Y_test),</a>
-<a class="sourceLine" id="cb405-3" title="3">    <span class="dt">Knn9=</span><span class="kw">get_metrics</span>(Y_knn9, Y_test),</a>
-<a class="sourceLine" id="cb405-4" title="4">    <span class="dt">Knn5s=</span><span class="kw">get_metrics</span>(Y_knn5s, Y_test),</a>
-<a class="sourceLine" id="cb405-5" title="5">    <span class="dt">Knn9s=</span><span class="kw">get_metrics</span>(Y_knn9s, Y_test)</a>
-<a class="sourceLine" id="cb405-6" title="6">)</a></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1"><span class="kw">cbind</span>(</a>
+<a class="sourceLine" id="cb406-2" title="2">    <span class="dt">Knn5=</span><span class="kw">get_metrics</span>(Y_knn5, Y_test),</a>
+<a class="sourceLine" id="cb406-3" title="3">    <span class="dt">Knn9=</span><span class="kw">get_metrics</span>(Y_knn9, Y_test),</a>
+<a class="sourceLine" id="cb406-4" title="4">    <span class="dt">Knn5s=</span><span class="kw">get_metrics</span>(Y_knn5s, Y_test),</a>
+<a class="sourceLine" id="cb406-5" title="5">    <span class="dt">Knn9s=</span><span class="kw">get_metrics</span>(Y_knn9s, Y_test)</a>
+<a class="sourceLine" id="cb406-6" title="6">)</a></code></pre></div>
 <pre><code>##              Knn5         Knn9        Knn5s        Knn9s
 ## Acc     0.8173469    0.8193878    0.9102041    0.9122449
 ## Prec    0.3867403    0.3495935    0.8025751    0.8310502
@@ -690,17 +690,17 @@ consist of decision rules of the form:</p>
 <hr />
 <p>We will use the <code>rpart()</code> function from the <code>rpart</code> package
 to build a classification tree.</p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1"><span class="kw">library</span>(<span class="st">&quot;rpart&quot;</span>)</a>
-<a class="sourceLine" id="cb407-2" title="2"><span class="kw">library</span>(<span class="st">&quot;rpart.plot&quot;</span>)</a>
-<a class="sourceLine" id="cb407-3" title="3"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1"><span class="kw">library</span>(<span class="st">&quot;rpart&quot;</span>)</a>
+<a class="sourceLine" id="cb408-2" title="2"><span class="kw">library</span>(<span class="st">&quot;rpart.plot&quot;</span>)</a>
+<a class="sourceLine" id="cb408-3" title="3"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a></code></pre></div>
 <p><code>rpart()</code> uses a formula (<code>~</code>) interface, hence it will be easier
 to feed it with data in a data.frame form.</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">XY_train &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train), <span class="dt">Y=</span>Y_train)</a>
-<a class="sourceLine" id="cb408-2" title="2">XY_test &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test), <span class="dt">Y=</span>Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">XY_train &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train), <span class="dt">Y=</span>Y_train)</a>
+<a class="sourceLine" id="cb409-2" title="2">XY_test &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test), <span class="dt">Y=</span>Y_test)</a></code></pre></div>
 <hr />
 <p>Fit and plot a decision tree:</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb409-2" title="2"><span class="kw">rpart.plot</span>(t1, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb410-2" title="2"><span class="kw">rpart.plot</span>(t1, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-10-1.svg" alt="plot of chunk unnamed-chunk-10" style="width:100.0%" /></p>
 <hr />
 <!--
@@ -722,8 +722,8 @@ Well note how these two distributions are shifted:
 
 -->
 <p>Make predictions:</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t1, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb410-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t1, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb411-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9285714    0.8062284    0.7350158    0.7689769 
 ##           TN           FN           FP           TP 
@@ -733,7 +733,7 @@ Well note how these two distributions are shifted:
 <p>(*) Interestingly, <code>rpart()</code> also provides us with information
 about the importance degrees of each independent variable.</p>
 </blockquote>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1">t1<span class="op">$</span>variable.importance<span class="op">/</span><span class="kw">sum</span>(t1<span class="op">$</span>variable.importance)</a></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">t1<span class="op">$</span>variable.importance<span class="op">/</span><span class="kw">sum</span>(t1<span class="op">$</span>variable.importance)</a></code></pre></div>
 <pre><code>##              density       residual.sugar        fixed.acidity 
 ##          0.656248965          0.198422128          0.030516677 
 ##            chlorides                   pH     volatile.acidity 
@@ -745,26 +745,26 @@ about the importance degrees of each independent variable.</p>
 <hr />
 <p>We can build a less complex tree by playing
 with the <code>cp</code> parameter.</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
-<a class="sourceLine" id="cb414-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb414-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
+<a class="sourceLine" id="cb415-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb415-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-14-1.svg" alt="plot of chunk unnamed-chunk-14" style="width:100.0%" /></p>
 <hr />
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb415-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb416-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9025510    0.8387097    0.4921136    0.6202783 
 ##           TN           FN           FP           TP 
 ## 1613.0000000  161.0000000   30.0000000  156.0000000</code></pre>
 <hr />
 <p>A more complex tree:</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
-<a class="sourceLine" id="cb417-2" title="2">t3 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.00001</span>)</a>
-<a class="sourceLine" id="cb417-3" title="3"><span class="kw">rpart.plot</span>(t3, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
+<a class="sourceLine" id="cb418-2" title="2">t3 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.00001</span>)</a>
+<a class="sourceLine" id="cb418-3" title="3"><span class="kw">rpart.plot</span>(t3, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-16-1.svg" alt="plot of chunk unnamed-chunk-16" style="width:100.0%" /></p>
 <hr />
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t3, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb418-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t3, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb419-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9183673    0.7343284    0.7760252    0.7546012 
 ##           TN           FN           FP           TP 
@@ -831,22 +831,22 @@ bagging
 <p>This approach was pretty effective.</p>
 <p>Theoretically, we could treat the class labels as numeric <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s
 and apply regression models in a binary classification task.</p>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train),</a>
-<a class="sourceLine" id="cb420-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_train)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
-<a class="sourceLine" id="cb420-3" title="3">)</a>
-<a class="sourceLine" id="cb420-4" title="4">XY_test_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test),</a>
-<a class="sourceLine" id="cb420-5" title="5">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_test)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
-<a class="sourceLine" id="cb420-6" title="6">)</a>
-<a class="sourceLine" id="cb420-7" title="7">f_r &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>pH, <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train),</a>
+<a class="sourceLine" id="cb421-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_train)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
+<a class="sourceLine" id="cb421-3" title="3">)</a>
+<a class="sourceLine" id="cb421-4" title="4">XY_test_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test),</a>
+<a class="sourceLine" id="cb421-5" title="5">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_test)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
+<a class="sourceLine" id="cb421-6" title="6">)</a>
+<a class="sourceLine" id="cb421-7" title="7">f_r &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>pH, <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">Y_pred_r &lt;-<span class="st"> </span><span class="kw">predict</span>(f_r, XY_test_r)</a>
-<a class="sourceLine" id="cb421-2" title="2"><span class="kw">summary</span>(Y_pred_r)</a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">Y_pred_r &lt;-<span class="st"> </span><span class="kw">predict</span>(f_r, XY_test_r)</a>
+<a class="sourceLine" id="cb422-2" title="2"><span class="kw">summary</span>(Y_pred_r)</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## -3.04678 -0.02106  0.11917  0.16452  0.34906  0.88921</code></pre>
 <p>The predicted outputs, <span class="math inline">\(\hat{Y}\)</span>, are arbitrary real numbers,
 but we can convert them to binary ones by checking if, e.g., <span class="math inline">\(\hat{Y}&gt;0.5\)</span>.</p>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred_r<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb423-2" title="2"><span class="kw">round</span>(<span class="kw">get_metrics</span>(Y_pred, XY_test_r<span class="op">$</span>Y), <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_pred_r<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb424-2" title="2"><span class="kw">round</span>(<span class="kw">get_metrics</span>(Y_pred, XY_test_r<span class="op">$</span>Y), <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##      Acc     Prec      Rec        F       TN       FN       FP 
 ##    0.927    0.865    0.647    0.740 1611.000  112.000   32.000 
 ##       TP 
@@ -896,8 +896,8 @@ using the <code>density</code> variable.</p>
 <blockquote>
 <p>“logit” below denotes the inverse of the logistic sigmoid function.</p>
 </blockquote>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb425-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb426-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Y ~ density, family = binomial(&quot;logit&quot;), data = XY_train)
@@ -924,23 +924,23 @@ using the <code>density</code> variable.</p>
 <p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-21-1.svg" alt="plot of chunk unnamed-chunk-21" /></p>
 <hr />
 <p>Some predicted probabilities:</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## 1602 1605 1607 1608 1609 1613 1614 1615 1621 1622 1623 1627 
 ## 0.01 0.01 0.00 0.02 0.03 0.36 0.00 0.31 0.36 0.06 0.03 0.00</code></pre>
 <p>We classify <span class="math inline">\(Y\)</span> as 1 if the corresponding membership probability
 is greater than <span class="math inline">\(0.5\)</span>.</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb429-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb430-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.8979592    0.7276265    0.5899054    0.6515679 
 ##           TN           FN           FP           TP 
 ## 1573.0000000  130.0000000   70.0000000  187.0000000</code></pre>
 <hr />
 <p>And now a fit based on some other input variables:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
-<a class="sourceLine" id="cb431-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb431-3" title="3">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb431-4" title="4"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
+<a class="sourceLine" id="cb432-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb432-3" title="3">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb432-4" title="4"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9321429    0.8239437    0.7381703    0.7787022 
 ##           TN           FN           FP           TP 

@@ -83,13 +83,22 @@ setHook("before.plot.new", function() {
 plot.window_new <- function (xlim, ylim, log = "", asp = NA, ...)
 {
     .External.graphics(C_plot_window, xlim, ylim, log, asp, ...)
-    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col="#00000010")
-    abline(v=axTicks(1), col="white", lwd=1.5, lty=1)
-    abline(h=axTicks(2), col="white", lwd=1.5, lty=1)
-    box()
-    invisible()
 
+    if (all(par("mar") == c(2.5,2.5,1,0.5))) {
+        x1 <- par("usr")[1]
+        x2 <- par("usr")[2]
+        if (par("xlog")) { x1 <- 10^x1; x2 <- 10^x2 }
+        y1 <- par("usr")[3]
+        y2 <- par("usr")[4]
+        if (par("ylog")) { y1 <- 10^y1; y2 <- 10^y2 }
+        rect(x1, y1, x2, y2, col="#00000010")
+        abline(v=axTicks(1), col="white", lwd=1.5, lty=1)
+        abline(h=axTicks(2), col="white", lwd=1.5, lty=1)
+        box()
+    }
+    invisible()
 }
+
 environment(plot.window_new) <- environment(plot.window)
 unlockBinding("plot.window", getNamespace("graphics"))
 assign("plot.window", plot.window_new, getNamespace("graphics"))
