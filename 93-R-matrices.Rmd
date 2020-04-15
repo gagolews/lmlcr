@@ -392,9 +392,11 @@ c_{i,j} = \mathbf{a}_{i,\cdot} \cdot \mathbf{b}_{\cdot,j}
 for $i=1,\dots,n$ and $j=1,\dots,m$.
 
 
-> As an exercise, we recommend multiplying
+{ BEGIN exercise }
+Multiply
 a few simple matrices of sizes $2\times 2$, $2\times 3$, $3\times 2$ etc.
 using pen and paper and checking the results in R.
+{ END exercise }
 
 <!-- TODO: graphical interpretation -->
 
@@ -493,7 +495,10 @@ only if $\mathbf{x}\in\mathbb{R}^{p\times 1}$ is a column vector.
 Similarly, $\mathbf{y}\mathbf{A}$ makes only sense
 whenever $\mathbf{y}\in\mathbb{R}^{1\times n}$ is a row vector.
 
-> Please take notice of the fact that we consistently
+
+Remark.
+
+: Please take notice of the fact that we consistently
 discriminate between different bold math fonts and letter cases:
 $\mathbf{X}$ is a matrix, $\mathbf{x}$ is a row or column vector
 (still a matrix, but a sequence-like one)

@@ -49,6 +49,20 @@
 
 
 
+<style type="text/css">
+div.exercise {
+    font-style: italic;
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+details.solution {
+    border-left: 2px solid #ff8888;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+</style>
 
 
 <style type="text/css">
@@ -469,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
 
 </ul>
 
@@ -504,7 +518,6 @@ their goals*.
 
 We build AI systems to **solve various problems** under
 the assumption of **availability of data**.
-
 
 
 
@@ -602,7 +615,6 @@ sociology, agriculture, engineering, biotechnology, pharmacy, medicine, you name
 <h2><span class="header-section-number">1.1</span> Machine Learning</h2>
 <div id="what-is-machine-learning" class="section level3">
 <h3><span class="header-section-number">1.1.1</span> What is Machine Learning?</h3>
-<hr />
 <p>An <strong>algorithm</strong> is a well-defined sequence of instructions that,
 for a given sequence of input arguments,
 yields some desired output.</p>
@@ -616,7 +628,6 @@ manually programmed.</p>
 </div>
 <div id="main-types-of-machine-learning-problems" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Main Types of Machine Learning Problems</h3>
-<hr />
 <p>Machine Learning Problems include, but are not limited to:</p>
 <ul>
 <li><p><strong>Supervised learning</strong> – for every input point (e.g., a photo)
@@ -638,7 +649,6 @@ what to do to survive as long as possible)</p></li>
 <h2><span class="header-section-number">1.2</span> Supervised Learning</h2>
 <div id="formalism" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> Formalism</h3>
-<hr />
 <p>Let <span class="math inline">\(\mathbf{X}=\{\mathfrak{X}_1,\dots,\mathfrak{X}_n\}\)</span>
 be an input sample (“a database”)
 that consists of <span class="math inline">\(n\)</span> objects.</p>
@@ -649,34 +659,32 @@ is represented using <span class="math inline">\(p\)</span> numbers for some <sp
 <em>a sequence of <span class="math inline">\(p\)</span> numbers</em> or
 <em>a point in a <span class="math inline">\(p\)</span>-dimensional real space</em>
 or <em>an element of a real <span class="math inline">\(p\)</span>-space</em> etc.).</p>
-<p>Of course, this setting is <em>abstract</em> in the sense that
+<p>If we have “complex” objects on input,
+we can always try representing them as <strong>feature vectors</strong> (e.g.,
+come up with numeric attributes that best describe them in a task at hand).</p>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Consider the following problems:</p>
+<ol style="list-style-type: decimal">
+<li><p>How would you represent a patient in a clinic?</p></li>
+<li><p>How would you represent a car in an insurance company’s database?</p></li>
+<li>How would you represent a student in an university?</li>
+</ol>
+</div>
+<p>Of course, our setting is <em>abstract</em> in the sense that
 there might be different realities <em>hidden</em> behind these symbols.</p>
 <p>This is what maths is for – creating <em>abstractions</em> or <em>models</em>
 of complex entities/phenomena so that they can be much more easily manipulated
-or understood.</p>
-<blockquote>
-<p>This is very powerful – let’s spend a moment
-contemplating how many real-world situations fit into this framework.</p>
-</blockquote>
-<hr />
-<p>If we have “complex” objects on input,
-we can try representing them as <strong>feature vectors</strong> (e.g.,
-come up with numeric attributes that best describe them in a task at hand).</p>
-<blockquote>
-<p>How would you represent a patient in a clinic?</p>
-</blockquote>
-<blockquote>
-<p>How would you represent a car in an insurance company’s database?</p>
-</blockquote>
-<blockquote>
-<p>How would you represent a student in an university?</p>
-</blockquote>
+or understood.
+This is very powerful – spend a moment
+contemplating how many real-world situations fit into our framework.</p>
 <p>This also includes image/video data, e.g., a 1920×1080 pixel image
 can be “unwound” to a “flat” vector of length 2,073,600.</p>
 <p>(*) There are some algorithms such as Multidimensional Scaling,
 Locally Linear Embedding, IsoMap etc.
 that can do that automagically.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In cases such as this we say that we deal with <em>structured (tabular) data</em><br />
 – <span class="math inline">\(\mathbf{X}\)</span> can be written as an (<span class="math inline">\(n\times p\)</span>)-matrix:
 <span class="math display">\[
@@ -691,11 +699,13 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} \\
 \right]
 \]</span>
 Mathematically, we denote this as <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times d}\)</span>.</p>
-<blockquote>
-<p>Structured data == think: Excel/Calc spreadsheets, SQL tables etc.</p>
-</blockquote>
-<hr />
-<p><strong>Example</strong>: The famous Fisher’s Iris flower dataset, see <code>?iris</code> in R
+<dl>
+<dt>Remark.</dt>
+<dd><p>Structured data == think: Excel/Calc spreadsheets, SQL tables etc.</p>
+</dd>
+</dl>
+<p>For an example, consider the famous Fisher’s Iris flower dataset,
+see <code>?iris</code> in R
 and <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set" class="uri">https://en.wikipedia.org/wiki/Iris_flower_data_set</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">X &lt;-<span class="st"> </span>iris[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>] <span class="co"># first 6 rows and 4 columns</span></a>
 <a class="sourceLine" id="cb1-2" title="2">X         <span class="co"># or: print(X)</span></a></code></pre></div>
@@ -710,14 +720,12 @@ and <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set" class="uri">htt
 <pre><code>## [1] 6 4</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">dim</span>(iris) <span class="co"># for the full dataset</span></a></code></pre></div>
 <pre><code>## [1] 150   5</code></pre>
-<hr />
 <p><span class="math inline">\(x_{i,j}\in\mathbb{R}\)</span>
 represents the <span class="math inline">\(j\)</span>-th feature of the <span class="math inline">\(i\)</span>-th observation,
 <span class="math inline">\(j=1,\dots,p\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>.</p>
 <p>For instance:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">X[<span class="dv">3</span>, <span class="dv">2</span>] <span class="co"># 3rd row, 2nd column</span></a></code></pre></div>
 <pre><code>## [1] 3.2</code></pre>
-<hr />
 <p>The third observation (data point, row in <span class="math inline">\(\mathbf{X}\)</span>)
 consists of items <span class="math inline">\((x_{3,1}, \dots, x_{3,p})\)</span> that can be extracted by calling:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">X[<span class="dv">3</span>,]</a></code></pre></div>
@@ -727,7 +735,6 @@ consists of items <span class="math inline">\((x_{3,1}, \dots, x_{3,p})\)</span>
 <pre><code>## [1] 4.7 3.2 1.3 0.2</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">length</span>(X[<span class="dv">3</span>,])</a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<hr />
 <p>Moreover, the second feature/variable/column
 is comprised of
 <span class="math inline">\((x_{1,2}, x_{2,2}, \dots, x_{n,2})\)</span>:</p>
@@ -735,7 +742,6 @@ is comprised of
 <pre><code>## [1] 3.5 3.0 3.2 3.1 3.6 3.9</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">length</span>(X[,<span class="dv">2</span>])</a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<hr />
 <p>We will sometimes use the following notation to emphasise that
 the <span class="math inline">\(\mathbf{X}\)</span> matrix consists of <span class="math inline">\(n\)</span> rows
 or <span class="math inline">\(p\)</span> columns:</p>
@@ -758,7 +764,6 @@ or <span class="math inline">\(p\)</span> columns:</p>
 \end{array}
 \right].
 \]</span></p>
-<hr />
 <p>Here, <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> is a <em>row vector</em> of length <span class="math inline">\(p\)</span>,
 i.e., a <span class="math inline">\((1\times p)\)</span>-matrix:</p>
 <p><span class="math display">\[
@@ -796,15 +801,12 @@ think of this as a kind of rotation; it allows us to introduce a set of
 </div>
 <div id="desired-outputs" class="section level3">
 <h3><span class="header-section-number">1.2.2</span> Desired Outputs</h3>
-<hr />
 <p>In supervised learning,
 apart from the inputs we are also given the corresponding
 reference/desired outputs.</p>
-<blockquote>
 <p>The aim of supervised learning is to try to create an “algorithm” that,
 given an input point, generates an output that is as <em>close</em> as possible
 to the desired one. The given data sample will be used to “train” this “model”.</p>
-</blockquote>
 <p>Usually the reference outputs are encoded as individual numbers (scalars)
 or textual labels.</p>
 <p>In other words, with each input <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> we associate
@@ -815,7 +817,6 @@ the desired output <span class="math inline">\(y_i\)</span>:</p>
 ## 14           4.3         3.0          1.1         0.1    setosa
 ## 50           5.0         3.3          1.4         0.2    setosa
 ## 118          7.7         3.8          6.7         2.2 virginica</code></pre>
-<hr />
 <p>Hence, our dataset is <span class="math inline">\([\mathbf{X}\ \mathbf{y}]\)</span> –
 each object is represented as a row vector
 <span class="math inline">\([\mathbf{x}_{i,\cdot}\ y_i]\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>:</p>
@@ -851,31 +852,23 @@ y_{n} \\
 </div>
 <div id="types-of-supervised-learning-problems" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> Types of Supervised Learning Problems</h3>
-<hr />
 <p>Depending on the type of the elements in <span class="math inline">\(\mathbf{y}\)</span>
 (the domain of <span class="math inline">\(\mathbf{y}\)</span>),
 supervised learning problems are usually
 classified as:</p>
 <ul>
 <li><p><strong>regression</strong> – each <span class="math inline">\(y_i\)</span> is a real number</p>
-<blockquote>
 <p>e.g., <span class="math inline">\(y_i=\)</span> future market stock price
-with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> prices from <span class="math inline">\(p\)</span> previous days</p>
-</blockquote></li>
+with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> prices from <span class="math inline">\(p\)</span> previous days</p></li>
 <li><p><strong>classification</strong> – each <span class="math inline">\(y_i\)</span> is a discrete label</p>
-<blockquote>
 <p>e.g., <span class="math inline">\(y_i=\)</span> healthy (0) or ill (1)
-with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> a patient’s health record</p>
-</blockquote></li>
+with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> a patient’s health record</p></li>
 <li><p><strong>ordinal regression</strong> (a.k.a. ordinal classification) – each <span class="math inline">\(y_i\)</span> is a rank</p>
-<blockquote>
 <p>e.g., <span class="math inline">\(y_i=\)</span> rating of a product on the scale 1–5
-with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span class="math inline">\(p\)</span> most similar products</p>
-</blockquote></li>
+with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span class="math inline">\(p\)</span> most similar products</p></li>
 </ul>
-<hr />
+<div class="exercise"><strong>Exercise.</strong>
 <p>Example Problems – Discussion:</p>
-<blockquote>
 <p>Which of the following are instances of classification problems? Which of them are regression tasks?</p>
 <p>What kind of data should you gather in order to tackle them?</p>
 <ul>
@@ -889,8 +882,7 @@ with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span
 <li>Detect unattended luggage in airport security camera footage</li>
 <li>Turn on emergency braking to avoid a collision with pedestrians</li>
 </ul>
-</blockquote>
-<hr />
+</div>
 <p>A single dataset can become an instance of many different ML problems.</p>
 <p>Examples – the <code>wines</code> dataset:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
@@ -901,20 +893,17 @@ with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span
 ## 1     0.076                  11                   34  0.9978
 ##     pH sulphates alcohol response color
 ## 1 3.51      0.56     9.4        5   red</code></pre>
-<hr />
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">summary</span>(wines<span class="op">$</span>alcohol) <span class="co"># continuous variable</span></a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    8.00    9.50   10.30   10.49   11.30   14.90</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">hist</span>(wines<span class="op">$</span>alcohol, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>); <span class="kw">box</span>()</a></code></pre></div>
 <p><img src="01-regression-simple-figures/wines_regression-1.svg" alt="plot of chunk wines_regression" /></p>
-<hr />
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">table</span>(wines<span class="op">$</span>color) <span class="co"># binary variable</span></a></code></pre></div>
 <pre><code>## 
 ##   red white 
 ##  1599  4898</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">barplot</span>(<span class="kw">table</span>(wines<span class="op">$</span>color), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">6000</span>))</a></code></pre></div>
 <p><img src="01-regression-simple-figures/wines_binary-1.svg" alt="plot of chunk wines_binary" /></p>
-<hr />
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">table</span>(wines<span class="op">$</span>response) <span class="co"># ordinal variable</span></a></code></pre></div>
 <pre><code>## 
 ##    3    4    5    6    7    8    9 
@@ -927,7 +916,6 @@ with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span
 <h2><span class="header-section-number">1.3</span> Simple Regression</h2>
 <div id="introduction" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> Introduction</h3>
-<hr />
 <p><strong>Simple regression</strong> is the easiest setting to start with – let’s assume
 <span class="math inline">\(p=1\)</span>, i.e., all inputs are 1-dimensional.
 Denote <span class="math inline">\(x_i=x_{i,1}\)</span>.</p>
@@ -936,13 +924,11 @@ to illustrate all the concepts graphically.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
 <a class="sourceLine" id="cb32-2" title="2"><span class="kw">plot</span>(Credit<span class="op">$</span>Balance, Credit<span class="op">$</span>Rating) <span class="co"># scatter plot</span></a></code></pre></div>
 <p><img src="01-regression-simple-figures/credit_scatter-1.svg" alt="plot of chunk credit_scatter" /></p>
-<hr />
 <p>In what follows we will be modelling the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>) in USD
 for customers with positive Balance only.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
 <a class="sourceLine" id="cb33-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
-<hr />
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">plot</span>(X, Y)</a></code></pre></div>
 <p><img src="01-regression-simple-figures/credit_XY_plot-1.svg" alt="plot of chunk credit_XY_plot" /></p>
 <p>Our aim is to construct a function <span class="math inline">\(f\)</span> that
@@ -951,7 +937,6 @@ for customers with positive Balance only.</p>
 <p>We are equipped with <span class="math inline">\(n=310\)</span> reference (observed) Ratings
 <span class="math inline">\(\mathbf{y}=[y_1\ \cdots\ y_n]^T\)</span>
 for particular Balances <span class="math inline">\(\mathbf{x}=[x_1\ \cdots\ x_n]^T\)</span>.</p>
-<hr />
 <p>Note the following naming conventions:</p>
 <ul>
 <li><p>Variable types:</p>
@@ -965,21 +950,15 @@ for particular Balances <span class="math inline">\(\mathbf{x}=[x_1\ \cdots\ x_n
 <li><p><span class="math inline">\(\mathbf{y}=[y_1\ \cdots\ y_n]^T\)</span> – values actually observed</p></li>
 </ul></li>
 </ul>
-<hr />
 <p>The model will not be ideal, but it might be usable:</p>
 <ul>
 <li><p>We will be able to <strong>predict</strong> the rating of any new client.</p>
-<blockquote>
-<p>What should be the rating of a client with Balance of $1500?<br />
-What should be the rating of a client with Balance of $2500?</p>
-</blockquote></li>
+<p>What should be the rating of a client with Balance of $1500?</p>
+<p>What should be the rating of a client with Balance of $2500?</p></li>
 <li><p>We will be able to <strong>describe</strong> (understand) this reality using a single mathematical formula
 so as to infer that there is an association between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></p>
-<blockquote>
-<p>Think of “data compression” and laws of physics, e.g., <span class="math inline">\(E=mc^2\)</span>.</p>
-</blockquote></li>
+<p>Think of “data compression” and laws of physics, e.g., <span class="math inline">\(E=mc^2\)</span>.</p></li>
 </ul>
-<hr />
 <p>(*) Mathematically, we will assume that there is some “true” function that models the data
 (true relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>),
 but the observed outputs are subject to <strong>additive error</strong>:
@@ -988,7 +967,6 @@ but the observed outputs are subject to <strong>additive error</strong>:
 errors are independent of each other,
 have expected value of <span class="math inline">\(0\)</span> (there is no systematic error = unbiased)
 and that they follow a normal distribution.</p>
-<hr />
 <p>(*) We denote this as <span class="math inline">\(\varepsilon\sim\mathcal{N}(0, \sigma)\)</span>
 (read: random variable <span class="math inline">\(\varepsilon\)</span> follows a normal distribution
 with expected value of <span class="math inline">\(0\)</span> and standard deviation of <span class="math inline">\(\sigma\)</span> for some <span class="math inline">\(\sigma\ge 0\)</span>).</p>
@@ -999,12 +977,10 @@ of <span class="math inline">\(\mathcal{N}(0, \sigma)\)</span> for different <sp
 </div>
 <div id="search-space-and-objective" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> Search Space and Objective</h3>
-<hr />
 <p>There are many different functions that can be <strong>fitted</strong> into
 the observed <span class="math inline">\((\mathbf{x},\mathbf{y})\)</span>.</p>
 <p><img src="01-regression-simple-figures/credit_different_models-1.svg" alt="plot of chunk credit_different_models" /></p>
 <p>Thus, we need a <strong>model selection criterion</strong>.</p>
-<hr />
 <p>Usually, we will be interested in a model
 that minimises appropriately aggregated <strong>residuals</strong>
 <span class="math inline">\(f(x_i)-y_i\)</span>, i.e.,
@@ -1016,7 +992,6 @@ for <span class="math inline">\(i=1,\dots,n\)</span>.</p>
 dashed lines – they measure the discrepancy between
 the outputs generated by the model (what we get)
 and the true outputs (what we want).</p>
-<hr />
 <p>Top choice: sum of squared residuals:
 <span class="math display">\[
 \begin{array}{rl}
@@ -1026,20 +1001,21 @@ and the true outputs (what we want).</p>
 \displaystyle\sum_{i=1}^n \left( f(x_i)-y_i \right)^2
 \end{array}
 \]</span></p>
-<blockquote>
-<p>Read “<span class="math inline">\(\sum_{i=1}^n z_i\)</span>” as “the sum of <span class="math inline">\(z_i\)</span> for <span class="math inline">\(i\)</span> from <span class="math inline">\(1\)</span> to <span class="math inline">\(n\)</span>”;
+<dl>
+<dt>Remark.</dt>
+<dd><p>Read “<span class="math inline">\(\sum_{i=1}^n z_i\)</span>” as “the sum of <span class="math inline">\(z_i\)</span> for <span class="math inline">\(i\)</span> from <span class="math inline">\(1\)</span> to <span class="math inline">\(n\)</span>”;
 this is just a shorthand for <span class="math inline">\(z_1+z_2+\dots+z_n\)</span>.</p>
-</blockquote>
-<blockquote>
-<p>The notation <span class="math inline">\(\mathrm{SSR}(f|\mathbf{x},\mathbf{y})\)</span> means that
+</dd>
+<dt>Remark.</dt>
+<dd><p>The notation <span class="math inline">\(\mathrm{SSR}(f|\mathbf{x},\mathbf{y})\)</span> means that
 it is the error measure
 corresponding to the model <span class="math inline">\((f)\)</span> <em>given</em> our data.<br />
 We could’ve denoted it with <span class="math inline">\(\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)\)</span>
 or even <span class="math inline">\(\mathrm{SSR}(f)\)</span> to emphasise that <span class="math inline">\(\mathbf{x},\mathbf{y}\)</span>
 are just fixed values and we are not interested
 in changing them at all (they are “global variables”).</p>
-</blockquote>
-<hr />
+</dd>
+</dl>
 <p>We enjoy SSR because (amongst others):</p>
 <ul>
 <li><p>larger errors are penalised much more than smaller ones</p>
@@ -1063,7 +1039,6 @@ studied already by Gauss in the late 18th century)</p>
 <li>regularised SSR, e.g., lasso or ridge regression (in the case of multiple input variables)</li>
 <li>sum or median of absolute values (robust regression)</li>
 </ul>
-<hr />
 <p>Fitting a model to data can be written as an optimisation problem:</p>
 <p><span class="math display">\[
 \min_{f\in\mathcal{F}} \mathrm{SSR}(f|\mathbf{x},\mathbf{y}),
@@ -1088,7 +1063,6 @@ an elegant way to define an inline function <span class="math inline">\(f\)</spa
 <h2><span class="header-section-number">1.4</span> Simple Linear Regression</h2>
 <div id="introduction-1" class="section level3">
 <h3><span class="header-section-number">1.4.1</span> Introduction</h3>
-<hr />
 <p>If the family of admissible models <span class="math inline">\(\mathcal{F}\)</span> consists only of all linear functions of one variable,
 we deal with a <strong>simple linear regression</strong>.</p>
 <p>Our problem becomes:</p>
@@ -1101,18 +1075,16 @@ a+bx_i-y_i
 <p>This is the <strong>method of least squares</strong>.</p>
 <p>This is particularly nice, because our search space
 is just <span class="math inline">\(\mathbb{R}^2\)</span> – easy to handle both analytically and numerically.</p>
-<hr />
 <p><img src="01-regression-simple-figures/credit_different_lines_ssr-1.svg" alt="plot of chunk credit_different_lines_ssr" /></p>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Which of these is the least squares solution?</p>
-</blockquote>
+</div>
 <!-- TODO:
 heatmap of SSR(a,b) for a = [0,1], b=[0,300]
 -->
 </div>
 <div id="solution-in-r" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Solution in R</h3>
-<hr />
 <p>Let’s fit the linear model minimising the SSR in R.
 The <code>lm()</code> function (<code>l</code>inear <code>m</code>odels) has a convenient <em>formula</em>-based interface.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X)</a></code></pre></div>
@@ -1182,12 +1154,10 @@ using the <code>predict()</code> function"</p>
 <p>This is more than the highest possible rating – we have extrapolated
 way beyond the observable data range.</p>
 <p>Note that our <span class="math inline">\(Y=a+bX\)</span> model is <strong>interpretable</strong>
-and <strong>well-behaving</strong>:</p>
-<blockquote>
-<p>(not all machine learning models will have this feature,
+and <strong>well-behaving</strong>
+(not all machine learning models will have this feature,
 think: deep neural networks,
-which we rather conceive as <em>black boxes</em>)</p>
-</blockquote>
+which we rather conceive as <em>black boxes</em>):</p>
 <ul>
 <li><p>we know that by increasing <span class="math inline">\(X\)</span> by a small amount,
 <span class="math inline">\(Y\)</span> will also increase (positive correlation),</p></li>
@@ -1224,12 +1194,13 @@ a = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - b  \dfrac{1}{n} \displays
 </div>
 <div id="derivation-of-the-solution" class="section level3">
 <h3><span class="header-section-number">1.4.4</span> Derivation of the Solution (**)</h3>
-<hr />
-<blockquote>
-<p>(You can safely skip this part if you are yet to know
+<dl>
+<dt>Remark.</dt>
+<dd><p>You can safely skip this part if you are yet to know
 how to search for a minimum of a function of many variables
-and what are partial derivatives)</p>
-</blockquote>
+and what are partial derivatives.</p>
+</dd>
+</dl>
 <p>Denote with:</p>
 <p><span class="math display">\[
 E(a,b)=\mathrm{SSR}(x\mapsto a+bx|\mathbf{x},\mathbf{y})
@@ -1243,7 +1214,6 @@ then its partial derivatives vanish therein,
 i.e., <span class="math inline">\(\partial E/\partial a(a^*, b^*) = 0\)</span> and <span class="math inline">\(\partial E/\partial b(a^*, b^*)=0\)</span>.</p>
 </dd>
 </dl>
-<hr />
 <p>We have:</p>
 <p><span class="math display">\[
 E(a,b)   = \displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) ^2.
@@ -1268,7 +1238,6 @@ E_b'(a,b)=&2\displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) \\
 \]-->
 <p>We seek <span class="math inline">\(a,b\)</span> such that <span class="math inline">\(\frac{\partial E}{\partial a}(a,b) = 0\)</span>
 and <span class="math inline">\(\frac{\partial E}{\partial b}(a,b)=0\)</span>.</p>
-<hr />
 <p><span class="math display">\[
 \left\{
 \begin{array}{rl}
@@ -1287,7 +1256,6 @@ b \displaystyle\sum_{i=1}^n x_i x_i + a \displaystyle\sum_{i=1}^n x_i = &amp; \d
 \end{array}
 \right.
 \]</span></p>
-<hr />
 <p>It is left as an exercise to show that the solution is:</p>
 <p><span class="math display">\[
 \left\{
@@ -1310,7 +1278,6 @@ Pearson's r introduced in the next chapter though
 (a <- cor(x,y)*sd(y)/sd(x))
 (b <- mean(y)-a*mean(x))
 -->
-<hr />
 <p>(**) In the next chapter, we will introduce the notion of Pearson’s
 linear coefficient, <span class="math inline">\(r\)</span> (see <code>cor()</code> in R). It might be shown that
 <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> can also be rewritten as:</p>
@@ -1346,7 +1313,7 @@ the statistician Francis Anscombe in the early 1970s.</p>
 that encodes four separate datasets:
 <code>anscombe$x1</code> and <code>anscombe$y1</code> define the first pair of variables,
 <code>anscombe$x2</code> and <code>anscombe$y2</code> define the second pair and so forth.</p>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Split the above data (manually) into four data frames
 <code>ans1</code>, …, <code>ans4</code> with columns <code>x</code> and <code>y</code>.</p>
 <p>For example, <code>ans1</code> should look like:</p>
@@ -1363,20 +1330,18 @@ that encodes four separate datasets:
 ## 9  12 10.84
 ## 10  7  4.82
 ## 11  5  5.68</code></pre>
-</blockquote>
-<details>
-<p><summary style="color: blue">Click here for a solution</summary></p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1">ans1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x1, <span class="dt">y=</span>anscombe<span class="op">$</span>y1)</a>
 <a class="sourceLine" id="cb66-2" title="2">ans2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x2, <span class="dt">y=</span>anscombe<span class="op">$</span>y2)</a>
 <a class="sourceLine" id="cb66-3" title="3">ans3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x3, <span class="dt">y=</span>anscombe<span class="op">$</span>y3)</a>
 <a class="sourceLine" id="cb66-4" title="4">ans4 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x4, <span class="dt">y=</span>anscombe<span class="op">$</span>y4)</a>
 <a class="sourceLine" id="cb66-5" title="5"><span class="kw">print</span>(ans1)</a></code></pre></div>
 </details>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Compute the mean of each <code>x</code> and <code>y</code> variable.</p>
-</blockquote>
-<details>
-<p><summary style="color: blue">Click here for a solution</summary></p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">mean</span>(ans1<span class="op">$</span>x) <span class="co"># individual column</span></a></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">mean</span>(ans1<span class="op">$</span>y) <span class="co"># individual column</span></a></code></pre></div>
@@ -1389,14 +1354,13 @@ that encodes four separate datasets:
 ## 9.000000 9.000000 9.000000 9.000000 7.500909 7.500909 7.500000 
 ##       y4 
 ## 7.500909</code></pre>
-<em>Comment: This is really interesting, all the means of <code>x</code> columns
-as well as the means of <code>y</code>s are almost identical.</em>
+<p><em>Comment: This is really interesting, all the means of <code>x</code> columns
+as well as the means of <code>y</code>s are almost identical.</em></p>
 </details>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Compute the standard deviation of each <code>x</code> and <code>y</code> variable.</p>
-</blockquote>
-<details>
-<p><summary style="color: blue">Click here for a solution</summary></p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>The solution is similar to the previous one, just replace <code>mean</code> with <code>sd</code>.
 Here, to learn something new, we will use the <code>knitr::kable()</code> function
 that pretty-prints a given matrix or data frame:</p>
@@ -1447,10 +1411,9 @@ that pretty-prints a given matrix or data frame:</p>
 <p><em>Comment: This is even more interesting, because the numbers agree up to 2 decimal digits.</em></p>
 </details>
 <!--
-> Compute the Pearson linear correlation coefficient
-> for each of the four pairs of `x` and `y`.
-
-<details><summary style="color: blue">Click here for a solution</summary>
+TODO: cor() covered later
+Compute the Pearson linear correlation coefficient
+for each of the four pairs of `x` and `y`.
 
 To recall, this can be done with the `cor()` function.
 What is the Pearson $r$ coefficient is explained in Lecture 3.
@@ -1492,16 +1455,13 @@ cor(ans4$x, ans4$y)
 *Comment: We get a feeling that we're being tricked by Anscombe...
 All the variables are highly correlated, and the correlation
 coefficients are more or less the same.*
-
-</details>
 -->
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Fit a simple linear regression model for each data set.
 Draw the scatter plots again (<code>plot()</code>)
 and add the regression lines (<code>lines()</code> or <code>abline()</code>).</p>
-</blockquote>
-<details>
-<p><summary style="color: blue">Click here for a solution</summary></p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>To recall, this can be done with the <code>lm()</code> function
 explained in Lecture 2.</p>
 <p>At this point we should already have become lazy – the tasks are very
@@ -1533,13 +1493,12 @@ that does all the above for any data set:</p>
 <p><em>Comment: All the estimated models are virtually the same,
 the regression lines are <span class="math inline">\(y=0.5x+3\)</span>.</em></p>
 </details>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Create scatter plots of the residuals (predicted <span class="math inline">\(\hat{y}_i\)</span> minus
 true <span class="math inline">\(y_i\)</span>) as a function of the predicted <span class="math inline">\(\hat{y}_i=f(x_i)\)</span> for every
 <span class="math inline">\(i=1,\dots,11\)</span>.</p>
-</blockquote>
-<details>
-<p><summary style="color: blue">Click here for a solution</summary></p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>To recall, the model predictions can be generated by (amongst others)
 calling the <code>predict()</code> function.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">y_pred1 &lt;-<span class="st"> </span><span class="kw">predict</span>(f1, ans1)</a>
@@ -1560,17 +1519,16 @@ All the other cases are “alarming” in the sense that
 they suggest that the obtained models are “suspicious”
 (perhaps data cleansing is needed or a linear model is not at all appropriate).</em></p>
 </details>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Draw conclusions (in your own words).</p>
-</blockquote>
-<details>
-<p><summary style="color: blue">Click here for a solution</summary></p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>We’re being taught a lesson here: don’t perform data analysis tasks
 automatically, don’t look at bare numbers only, visualise your data first!</p>
 </details>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Read more about Anscombe’s quartet at <a href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet" class="uri">https://en.wikipedia.org/wiki/Anscombe%27s_quartet</a></p>
-</blockquote>
+</div>
 </div>
 </div>
 <div id="outro" class="section level2">

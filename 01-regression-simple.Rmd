@@ -3,6 +3,7 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
+
 <!-- TODO
 
 
@@ -16,7 +17,6 @@ their goals*.
 
 We build AI systems to **solve various problems** under
 the assumption of **availability of data**.
-
 
 
 
@@ -115,7 +115,8 @@ sociology, agriculture, engineering, biotechnology, pharmacy, medicine, you name
 
 ### What is Machine Learning?
 
----
+
+
 
 An **algorithm** is a well-defined sequence of instructions that,
 for a given sequence of input arguments,
@@ -141,7 +142,8 @@ In other words, we need **data**.
 
 ### Main Types of Machine Learning Problems
 
----
+
+
 
 Machine Learning Problems include, but are not limited to:
 
@@ -169,7 +171,8 @@ what to do to survive as long as possible)
 
 ### Formalism
 
----
+
+
 
 Let $\mathbf{X}=\{\mathfrak{X}_1,\dots,\mathfrak{X}_n\}$
 be an input sample ("a database")
@@ -186,29 +189,32 @@ We denote this fact as $\mathfrak{X}_i\in \mathbb{R}^p$
 *a point in a $p$-dimensional real space*
 or *an element of a real $p$-space* etc.).
 
+If we have "complex" objects on input,
+we can always try representing them as **feature vectors** (e.g.,
+come up with numeric attributes that best describe them in a task at hand).
+
+{ BEGIN exercise }
+Consider the following problems:
+
+1. How would you represent a patient in a clinic?
+
+2. How would you represent a car in an insurance company's database?
+
+3. How would you represent a student in an university?
+{ END exercise }
 
 
-Of course, this setting is *abstract* in the sense that
+
+
+
+Of course, our setting is *abstract* in the sense that
 there might be different realities *hidden* behind these symbols.
 
 This is what maths is for -- creating *abstractions* or *models*
 of complex entities/phenomena so that they can be much more easily manipulated
 or understood.
-
-> This is very powerful -- let's spend a moment
-contemplating how many real-world situations fit into this framework.
-
----
-
-If we have "complex" objects on input,
-we can try representing them as **feature vectors** (e.g.,
-come up with numeric attributes that best describe them in a task at hand).
-
-> How would you represent a patient in a clinic?
-
-> How would you represent a car in an insurance company's database?
-
-> How would you represent a student in an university?
+This is very powerful -- spend a moment
+contemplating how many real-world situations fit into our framework.
 
 
 
@@ -219,9 +225,7 @@ can be "unwound" to a "flat" vector of length 2,073,600.
 Locally Linear Embedding, IsoMap etc.
 that can do that automagically.
 
-
----
-
+. . .
 
 
 
@@ -240,15 +244,23 @@ x_{n,1} & x_{n,2} & \cdots & x_{n,p} \\
 \]
 Mathematically, we denote this as $\mathbf{X}\in\mathbb{R}^{n\times d}$.
 
-> Structured data == think: Excel/Calc spreadsheets, SQL tables etc.
 
 
 
 
----
+Remark.
+
+: Structured data == think: Excel/Calc spreadsheets, SQL tables etc.
 
 
-**Example**: The famous Fisher's Iris flower dataset, see `?iris` in R
+
+
+
+
+
+
+For an example, consider the famous Fisher's Iris flower dataset,
+see `?iris` in R
 and https://en.wikipedia.org/wiki/Iris_flower_data_set.
 
 ```{r show_iris}
@@ -258,7 +270,8 @@ dim(X)    # gives n and p
 dim(iris) # for the full dataset
 ```
 
----
+
+
 
 $x_{i,j}\in\mathbb{R}$
 represents the $j$-th feature of the $i$-th observation,
@@ -271,7 +284,8 @@ X[3, 2] # 3rd row, 2nd column
 ```
 
 
----
+
+
 
 The third observation (data point, row in $\mathbf{X}$)
 consists of items $(x_{3,1}, \dots, x_{3,p})$ that can be extracted by calling:
@@ -285,7 +299,8 @@ as.numeric(X[3,]) # drops names
 length(X[3,])
 ```
 
----
+
+
 
 Moreover, the second feature/variable/column
 is comprised of
@@ -297,7 +312,8 @@ length(X[,2])
 ```
 
 
----
+
+
 
 We will sometimes use the following notation to emphasise that
 the $\mathbf{X}$ matrix  consists of $n$ rows
@@ -323,7 +339,8 @@ or $p$ columns:
 \right].
 \]
 
----
+
+
 
 Here, $\mathbf{x}_{i,\cdot}$ is a *row vector* of length $p$,
 i.e., a $(1\times p)$-matrix:
@@ -368,13 +385,14 @@ think of this as a kind of rotation; it allows us to introduce a set of
 
 ### Desired Outputs
 
----
+
+
 
 In supervised learning,
 apart from the inputs we are also given the corresponding
 reference/desired outputs.
 
-> The aim of supervised learning is to try to create an "algorithm" that,
+The aim of supervised learning is to try to create an "algorithm" that,
 given an input point, generates an output that is as *close* as possible
 to the desired one. The given data sample will be used to "train" this "model".
 
@@ -390,7 +408,8 @@ set.seed(123)
 iris[sample(nrow(iris), 3), ]  # three random rows
 ```
 
----
+
+
 
 
 Hence, our dataset is $[\mathbf{X}\ \mathbf{y}]$ --
@@ -433,7 +452,8 @@ y_{n} \\
 
 ### Types of Supervised Learning Problems
 
----
+
+
 
 Depending on the type of the elements in $\mathbf{y}$
 (the domain of $\mathbf{y}$),
@@ -442,40 +462,44 @@ classified as:
 
 - **regression** -- each $y_i$ is a real number
 
-    > e.g., $y_i=$ future market stock price
+    e.g., $y_i=$ future market stock price
     with $\mathbf{x}_{i,\cdot}=$ prices from $p$ previous days
 
 - **classification** -- each $y_i$ is a discrete label
 
-    > e.g., $y_i=$ healthy (0) or ill (1)
+    e.g., $y_i=$ healthy (0) or ill (1)
     with $\mathbf{x}_{i,\cdot}=$ a patient's health record
 
 
 - **ordinal regression** (a.k.a. ordinal classification) -- each $y_i$ is a rank
 
-    > e.g., $y_i=$ rating of a product on the scale 1--5
+    e.g., $y_i=$ rating of a product on the scale 1--5
     with $\mathbf{x}_{i,\cdot}=$ ratings of $p$ most similar products
 
 
----
 
+
+
+{ BEGIN exercise }
 Example Problems -- Discussion:
 
-> Which of the following are instances of classification problems? Which of them are regression tasks?
->
-> What kind of data should you gather in order to tackle them?
->
-> - Detect email spam
-> - Predict a market stock price
-> - Predict the likeability of a new ad
-> - Assess credit risk
-> - Detect tumour tissues in medical images
-> - Predict time-to-recovery of cancer patients
-> - Recognise smiling faces on photographs
-> - Detect unattended luggage in airport security camera footage
-> - Turn on emergency braking to avoid a collision with pedestrians
+Which of the following are instances of classification problems? Which of them are regression tasks?
 
----
+What kind of data should you gather in order to tackle them?
+
+- Detect email spam
+- Predict a market stock price
+- Predict the likeability of a new ad
+- Assess credit risk
+- Detect tumour tissues in medical images
+- Predict time-to-recovery of cancer patients
+- Recognise smiling faces on photographs
+- Detect unattended luggage in airport security camera footage
+- Turn on emergency braking to avoid a collision with pedestrians
+{ END exercise }
+
+
+
 
 A single dataset can become an instance of many different ML problems.
 
@@ -487,7 +511,8 @@ wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines[1,]
 ```
 
----
+
+
 
 
 ```{r wines_regression}
@@ -495,7 +520,8 @@ summary(wines$alcohol) # continuous variable
 hist(wines$alcohol, main="", col="white"); box()
 ```
 
----
+
+
 
 
 ```{r wines_binary}
@@ -503,7 +529,8 @@ table(wines$color) # binary variable
 barplot(table(wines$color), col="white", ylim=c(0, 6000))
 ```
 
----
+
+
 
 
 ```{r wines_ordinal}
@@ -518,7 +545,8 @@ barplot(table(wines$response), col="white", ylim=c(0, 3000))
 
 ### Introduction
 
----
+
+
 
 **Simple regression** is the easiest setting to start with -- let's assume
 $p=1$, i.e., all inputs are 1-dimensional.
@@ -532,7 +560,8 @@ library("ISLR") # Credit dataset
 plot(Credit$Balance, Credit$Rating) # scatter plot
 ```
 
----
+
+
 
 In what follows we will be modelling the Credit Rating ($Y$)
 as a function of the average Credit Card Balance ($X$) in USD
@@ -543,7 +572,8 @@ X <- as.matrix(as.numeric(Credit$Balance[Credit$Balance>0]))
 Y <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
 ```
 
----
+
+
 
 ```{r credit_XY_plot}
 plot(X, Y)
@@ -557,7 +587,8 @@ We are equipped with $n=`r length(X)`$ reference (observed) Ratings
 $\mathbf{y}=[y_1\ \cdots\ y_n]^T$
 for particular Balances $\mathbf{x}=[x_1\ \cdots\ x_n]^T$.
 
----
+
+
 
 
 Note the following naming conventions:
@@ -577,25 +608,28 @@ Note the following naming conventions:
 
 
 
----
+
+
 
 The model will not be ideal, but it might be usable:
 
 - We will be able to **predict** the rating of any new client.
 
 
-    > What should be the rating of a client with Balance of \$1500?\
-    > What should be the rating of a client with Balance of \$2500?
+    What should be the rating of a client with Balance of \$1500?
+
+    What should be the rating of a client with Balance of \$2500?
 
 - We will be able to **describe** (understand) this reality using a single mathematical formula
 so as to infer that there is an association between $X$ and $Y$
 
-    > Think of "data compression" and laws of physics, e.g., $E=mc^2$.
+    Think of "data compression" and laws of physics, e.g., $E=mc^2$.
 
 
 
 
----
+
+
 
 
 (\*) Mathematically, we will assume that there is some "true" function that models the data
@@ -609,7 +643,8 @@ errors are independent of each other,
 have expected value of $0$ (there is no systematic error = unbiased)
 and that they follow a normal distribution.
 
----
+
+
 
 (\*) We denote this as $\varepsilon\sim\mathcal{N}(0, \sigma)$
 (read: random variable $\varepsilon$ follows a normal distribution
@@ -633,7 +668,8 @@ abline(v=0, lty=3, col="gray")
 
 ### Search Space and Objective
 
----
+
+
 
 There are many different functions that can be **fitted** into
 the observed $(\mathbf{x},\mathbf{y})$.
@@ -669,7 +705,8 @@ Thus, we need a **model selection criterion**.
 
 
 
----
+
+
 
 
 Usually, we will be interested in a model
@@ -706,7 +743,8 @@ the outputs generated by the model (what we get)
 and the true outputs (what we want).
 
 
----
+
+
 
 
 Top choice: sum of squared residuals:
@@ -719,18 +757,28 @@ Top choice: sum of squared residuals:
 \end{array}
 \]
 
-> Read "$\sum_{i=1}^n z_i$" as "the sum of $z_i$ for $i$ from $1$ to $n$";
+
+Remark.
+
+: Read "$\sum_{i=1}^n z_i$" as "the sum of $z_i$ for $i$ from $1$ to $n$";
 this is just a shorthand for $z_1+z_2+\dots+z_n$.
 
-> The notation $\mathrm{SSR}(f|\mathbf{x},\mathbf{y})$ means that
+
+
+Remark.
+
+: The notation $\mathrm{SSR}(f|\mathbf{x},\mathbf{y})$ means that
 it is the error measure
 corresponding to the model $(f)$ *given* our data.\
-> We could've  denoted it  with $\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)$
+We could've  denoted it  with $\mathrm{SSR}_{\mathbf{x},\mathbf{y}}(f)$
 or even $\mathrm{SSR}(f)$ to emphasise that $\mathbf{x},\mathbf{y}$
 are just fixed  values and we are not  interested
 in changing them at all (they are "global variables").
 
----
+
+
+
+
 
 We enjoy SSR because (amongst others):
 
@@ -759,7 +807,8 @@ We enjoy SSR because (amongst others):
 
 
 
----
+
+
 
 
 
@@ -798,7 +847,8 @@ an elegant way to define an inline function $f$ such that $f(x)=x^2$)
 
 ### Introduction
 
----
+
+
 
 If the family of admissible models $\mathcal{F}$ consists only of all linear functions of one variable,
 we deal with a **simple linear regression**.
@@ -820,7 +870,8 @@ This is the **method of least squares**.
 This is particularly nice, because our search space
 is just $\mathbb{R}^2$ -- easy to handle both analytically and numerically.
 
----
+
+
 
 ```{r credit_different_lines_ssr,echo=FALSE,fig.height=4}
 plot(X, Y, col="#00000044")
@@ -840,8 +891,10 @@ legend("topleft",
     ), bg="white")
 ```
 
-> Which of these is the least squares solution?
 
+{ BEGIN exercise }
+Which of these is the least squares solution?
+{ END exercise }
 
 
 <!-- TODO:
@@ -854,7 +907,8 @@ heatmap of SSR(a,b) for a = [0,1], b=[0,300]
 
 ### Solution in R
 
----
+
+
 
 Let's fit the linear model minimising the SSR in R.
 The `lm()` function (`l`inear `m`odels) has a convenient *formula*-based interface.
@@ -958,11 +1012,10 @@ way beyond the observable data range.
 
 
 Note that our $Y=a+bX$ model is **interpretable**
-and **well-behaving**:
-
-> (not all machine learning models will have this feature,
-> think: deep neural networks,
-> which we rather conceive as *black boxes*)
+and **well-behaving**
+(not all machine learning models will have this feature,
+think: deep neural networks,
+which we rather conceive as *black boxes*):
 
 * we know that by increasing $X$ by a small amount,
 $Y$ will also increase (positive correlation),
@@ -1007,11 +1060,16 @@ c(a, b) # the same as f$coefficients
 
 ### Derivation of the Solution (\*\*)
 
----
 
-> (You can safely skip this part if you are yet to know
+
+
+Remark.
+
+: You can safely skip this part if you are yet to know
 how to search for a minimum of a function of many variables
-and what are partial derivatives)
+and what are partial derivatives.
+
+
 
 Denote with:
 
@@ -1031,7 +1089,8 @@ then its partial derivatives vanish therein,
 i.e., $\partial E/\partial a(a^*, b^*) = 0$ and $\partial E/\partial b(a^*, b^*)=0$.
 
 
----
+
+
 
 We have:
 
@@ -1065,7 +1124,8 @@ E_b'(a,b)=&2\displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) \\
 We seek $a,b$ such that $\frac{\partial E}{\partial a}(a,b) = 0$
 and $\frac{\partial E}{\partial b}(a,b)=0$.
 
----
+
+
 
 \[
 \left\{
@@ -1089,7 +1149,8 @@ b \displaystyle\sum_{i=1}^n x_i x_i + a \displaystyle\sum_{i=1}^n x_i = & \displ
 \right.
 \]
 
----
+
+
 
 It is left as an exercise to show that the solution is:
 
@@ -1123,7 +1184,8 @@ Pearson's r introduced in the next chapter though
 
 
 
----
+
+
 
 (\*\*) In the next chapter, we will introduce the notion of Pearson's
 linear coefficient, $r$ (see `cor()` in R). It might be shown that
@@ -1157,38 +1219,41 @@ that encodes four separate datasets:
 
 
 
-> Split the above data (manually) into four data frames
-> `ans1`, ..., `ans4` with columns `x` and `y`.
->
-> For example, `ans1` should look like:
->
-> ```{r anscombe1,echo=-(1:4)}
-> ans1 <- data.frame(x=anscombe$x1, y=anscombe$y1)
-> ans2 <- data.frame(x=anscombe$x2, y=anscombe$y2)
-> ans3 <- data.frame(x=anscombe$x3, y=anscombe$y3)
-> ans4 <- data.frame(x=anscombe$x4, y=anscombe$y4)
-> print(ans1)
-> ```
 
+{ BEGIN exercise }
+Split the above data (manually) into four data frames
+`ans1`, ..., `ans4` with columns `x` and `y`.
 
-```{r results="asis",echo=FALSE}
-solution_begin() ###########################################################
+For example, `ans1` should look like:
+
+```{r anscombe1,echo=-(1:4)}
+ans1 <- data.frame(x=anscombe$x1, y=anscombe$y1)
+ans2 <- data.frame(x=anscombe$x2, y=anscombe$y2)
+ans3 <- data.frame(x=anscombe$x3, y=anscombe$y3)
+ans4 <- data.frame(x=anscombe$x4, y=anscombe$y4)
+print(ans1)
 ```
+{ END exercise }
+
+
+
+
+
+{ BEGIN solution }
 
 ```{r anscombe1apply, eval=FALSE}
 <<anscombe1>>
 ```
 
-```{r results="asis",echo=FALSE}
-solution_end() #############################################################
-```
+{ END solution }
 
 
-> Compute the mean of each `x` and `y` variable.
 
-```{r results="asis",echo=FALSE}
-solution_begin() ###########################################################
-```
+{ BEGIN exercise }
+Compute the mean of each `x` and `y` variable.
+{ END exercise }
+
+{ BEGIN solution }
 
 ```{r anscombe_mean}
 mean(ans1$x) # individual column
@@ -1200,18 +1265,16 @@ sapply(anscombe, mean) # all columns in the full anscombe dataset
 
 *Comment: This is really interesting, all the means of `x` columns
 as well as the means of `y`s are almost identical.*
-```{r results="asis",echo=FALSE}
-solution_end() #############################################################
-```
+{ END solution }
 
 
 
 
-> Compute the standard deviation of each `x` and `y` variable.
+{ BEGIN exercise }
+Compute the standard deviation of each `x` and `y` variable.
+{ END exercise }
 
-```{r results="asis",echo=FALSE}
-solution_begin() ###########################################################
-```
+{ BEGIN solution }
 
 The solution is similar to the previous one, just replace `mean` with `sd`.
 Here, to learn something new, we will use the `knitr::kable()` function
@@ -1225,17 +1288,12 @@ knitr::kable(results, col.names="standard deviation")
 
 *Comment: This is even more interesting, because the numbers agree up to 2 decimal digits.*
 
-```{r results="asis",echo=FALSE}
-solution_end() #############################################################
-```
+{ END solution }
 
 <!--
-> Compute the Pearson linear correlation coefficient
-> for each of the four pairs of `x` and `y`.
-
-```{r results="asis",echo=FALSE}
-solution_begin() ###########################################################
-```
+TODO: cor() covered later
+Compute the Pearson linear correlation coefficient
+for each of the four pairs of `x` and `y`.
 
 To recall, this can be done with the `cor()` function.
 What is the Pearson $r$ coefficient is explained in Lecture 3.
@@ -1251,19 +1309,17 @@ cor(ans4$x, ans4$y)
 *Comment: We get a feeling that we're being tricked by Anscombe...
 All the variables are highly correlated, and the correlation
 coefficients are more or less the same.*
-
-```{r results="asis",echo=FALSE}
-solution_end() #############################################################
-```
 -->
 
-> Fit a simple linear regression model for each data set.
-> Draw the scatter plots again (`plot()`)
-> and add the regression lines (`lines()` or `abline()`).
 
-```{r results="asis",echo=FALSE}
-solution_begin() ###########################################################
-```
+
+{ BEGIN exercise }
+Fit a simple linear regression model for each data set.
+Draw the scatter plots again (`plot()`)
+and add the regression lines (`lines()` or `abline()`).
+{ END exercise }
+
+{ BEGIN solution }
 
 To recall, this can be done with the `lm()` function
 explained in Lecture 2.
@@ -1296,22 +1352,19 @@ f4 <- fit_models(ans4)
 *Comment: All the estimated models are virtually the same,
 the regression lines are $y=0.5x+3$.*
 
-```{r results="asis",echo=FALSE}
-solution_end() #############################################################
-```
+{ END solution }
 
 
 
 
 
+{ BEGIN exercise }
+Create scatter plots of the residuals (predicted $\hat{y}_i$ minus
+true $y_i$) as a function of the predicted $\hat{y}_i=f(x_i)$ for every
+$i=1,\dots,11$.
+{ END exercise }
 
-> Create scatter plots of the residuals (predicted $\hat{y}_i$ minus
-> true $y_i$) as a function of the predicted $\hat{y}_i=f(x_i)$ for every
-> $i=1,\dots,11$.
-
-```{r results="asis",echo=FALSE}
-solution_begin() ###########################################################
-```
+{ BEGIN solution }
 
 To recall, the model predictions can be generated by (amongst others)
 calling the `predict()` function.
@@ -1341,30 +1394,25 @@ All the other cases are "alarming" in the sense that
 they suggest that the obtained models are "suspicious"
 (perhaps data cleansing is needed or a linear model is not at all appropriate).*
 
-```{r results="asis",echo=FALSE}
-solution_end() #############################################################
-```
+{ END solution }
 
 
 
-> Draw conclusions (in your own words).
+{ BEGIN exercise }
+Draw conclusions (in your own words).
+{ END exercise }
 
-```{r results="asis",echo=FALSE}
-solution_begin() ###########################################################
-```
-
+{ BEGIN solution }
 We're being taught a lesson here: don't perform data analysis tasks
 automatically, don't look at bare numbers only, visualise your data first!
-
-```{r results="asis",echo=FALSE}
-solution_end() #############################################################
-```
+{ END solution }
 
 
 
 
-> Read more about Anscombe's quartet at https://en.wikipedia.org/wiki/Anscombe%27s_quartet
-
+{ BEGIN exercise }
+Read more about Anscombe's quartet at https://en.wikipedia.org/wiki/Anscombe%27s_quartet
+{ END exercise }
 
 
 

@@ -46,7 +46,8 @@ In this chapter we are  interested in  **classification** tasks;
 we assume that each $y_i$ is a *label*  (e.g., a character string) --
 it is of quantitative/categorical type.
 
----
+
+
 
 Most commonly, we are faced with **binary classification** tasks
 where there are only two possible distinct labels.
@@ -66,7 +67,8 @@ healthy | ill
 On the other hand, in **multiclass classification**,
 we assume that each $y_i$ takes more than two possible values.
 
----
+
+
 
 Example plot of a synthetic dataset
 with the reference binary $y$s.
@@ -95,7 +97,8 @@ abline(v=0, lty=3, col="blue")
 
 ### Data
 
----
+
+
 
 For illustration, let's consider the Wine Quality dataset [@wines]
 that can be downloaded from the UCI Machine Learning Repository
@@ -119,7 +122,8 @@ given by wine experts.
 
 
 
----
+
+
 
 The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
 consists of the first 10 numeric variables:
@@ -133,7 +137,8 @@ head(X, 2) # first two rows
 
 
 
----
+
+
 
 The 11th variable measures the amount of alcohol (in %).
 
@@ -158,7 +163,8 @@ binary classification task.
 
 ### Training and Test Sets
 
----
+
+
 
 Recall that we are genuinely  interested in the construction of supervised learning models for the two following purposes:
 
@@ -180,10 +186,15 @@ on a random **train-test split** of the original dataset:
 - *training sample*  (usually 60-80% of the observations) -- used to construct a model,
 - *test sample* (remaining 40-20%) -- used to assess the goodness of fit.
 
-> **Test sample must not be used in the training phase!** (No cheating!)
 
 
----
+Remark.
+
+: **Test sample must not be used in the training phase!** (No cheating!)
+
+
+
+
 
 60/40% train-test split in R:
 
@@ -207,7 +218,8 @@ Y_test  <- Y[-train_indices]
 
 ### Discussed Methods
 
----
+
+
 
 Our aim is to build a classifier that takes 10 wine physicochemical
 features and determines whether it's a "strong" wine.
@@ -227,9 +239,16 @@ classification algorithms:
 
 ### Introduction
 
----
 
-> "If you don't know what to do in a situation, just act like the people around you"
+
+
+
+Rule.
+
+: "If you don't know what to do in a situation, just act like the people around you"
+
+
+
 
 For some integer $K\ge 1$, the **K-Nearest Neighbour  (*K-NN*) Classifier**
 proceeds as follows.
@@ -248,7 +267,8 @@ denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$:
 
 <!-- > If a mode is not unique, return a randomly chosen mode (ties are broken at random). -->
 
----
+
+
 
 
 
@@ -308,7 +328,8 @@ is at $X_1=0$. The 25-NN classifier did quite a good job.
 
 ### Example in R
 
----
+
+
 
 
 
@@ -331,7 +352,8 @@ mean(Y_test == Y_knn5) # accuracy
 ```
 
 
----
+
+
 
 
 9-nn classifier:
@@ -347,7 +369,8 @@ mean(Y_test == Y_knn9) # accuracy
 
 ### Feature Engineering
 
----
+
+
 
 Note that the Euclidean distance that we used above
 implicitly assumes that every feature (independent variable)
@@ -359,7 +382,8 @@ we often perform conversions of units of measurement (kg → g, feet → m etc.)
 Transforming a single feature may drastically change the metric structure of the dataset
 and therefore highly affect the obtained predictions.
 
----
+
+
 
 To "bring data to the same scale", we often apply a trick called **standardization**.
 
@@ -378,7 +402,8 @@ the units are cancelled out).
 Z-scores are easy to interpret, e.g., 0.5 denotes an observation
 that is 0.5 standard deviations above the mean.
 
----
+
+
 
 Let's compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
 and `X_test`, respectively.
@@ -403,7 +428,8 @@ Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 ```
 
 
----
+
+
 
 Let's compute the accuracy of K-NN classifiers acting on standardised data.
 
@@ -417,7 +443,8 @@ mean(Y_test == Y_knn9s) # accuracy
 The accuracy is much better.
 
 
----
+
+
 
 Standardisation is an example of *feature engineering*.
 
@@ -440,7 +467,8 @@ A may fail in the B case and vice versa. However, the more exercises you solve,
 the greater the arsenal of ideas/possible approaches you will have at hand
 when dealing with real-world problems.
 
----
+
+
 
 Feature selection -- example (manually selected columns):
 
@@ -454,9 +482,10 @@ Y_knn9s <- knn(Z_train[,features], Z_test[,features],
 mean(Y_test == Y_knn9s) # accuracy
 ```
 
-> Try to find a combination of 2-4 features (by guessing or applying magic tricks)
+{ BEGIN exercise }
+Try to find a combination of 2-4 features (by guessing or applying magic tricks)
 that increases the accuracy of a $K$-NN classifier on this dataset.
-
+{ END exercise }
 
 
 
@@ -464,7 +493,8 @@ that increases the accuracy of a $K$-NN classifier on this dataset.
 
 ### Performance Metrics
 
----
+
+
 
 
 Recall that $y_i$ denotes the true label associated with the $i$-th observation.
@@ -487,7 +517,8 @@ Note that the terms **positive** and **negative** refer to
 the classifier's output, i.e., occur when $\hat{y}_i$ is equal to $1$ and $0$, respectively.
 
 
----
+
+
 
 A **confusion matrix** is used to summarise
 the correctness of predictions for the whole sample:
@@ -506,7 +537,8 @@ C[2,1] # number of FPs
 ```
 
 
----
+
+
 
 
 **Accuracy** is the ratio of the correctly classified instances
@@ -528,19 +560,26 @@ mean(Y_test == Y_pred) # accuracy
 (C[1,1]+C[2,2])/sum(C) # equivalently
 ```
 
----
+
+
 
 In many applications we are dealing with **unbalanced problems**, where
 the case $y_i=1$ is relatively rare,
 yet predicting it  correctly is much more important than being
 accurate with respect to class $0$.
 
-> Think of medical applications, e.g., HIV testing
+
+Remark.
+
+: Think of medical applications, e.g., HIV testing
 or tumour diagnosis.
 
 In such a case, *accuracy* as a metric fails to quantify what we are aiming for.
 
-> If only 1% of the cases have true $y_i=1$,
+
+Remark.
+
+: If only 1% of the cases have true $y_i=1$,
 then a dummy classifier that always
 outputs $\hat{y}_i=0$ has 99% accuracy.
 
@@ -551,7 +590,8 @@ aim to address this problem.
 
 
 
----
+
+
 
 **Precision**
 
@@ -569,7 +609,8 @@ what is the probability that this is indeed true?
 C[2,2]/(C[2,2]+C[2,1]) # Precision
 ```
 
----
+
+
 
 **Recall** (a.k.a. sensitivity, hit rate or true positive rate)
 
@@ -586,11 +627,15 @@ C[2,2]/(C[2,2]+C[1,2]) # Recall
 ```
 
 
----
 
-> Precision or recall? It depends on an application.
-> Think of medical diagnosis, medical screening, plagiarism detection, etc.
-> --- which measure is more important in each of the settings listed?
+
+
+
+Remark.
+
+: Precision or recall? It depends on an application.
+Think of medical diagnosis, medical screening, plagiarism detection,
+etc. --- which measure is more important in each of the settings listed?
 
 
 
@@ -618,14 +663,20 @@ and recall:
 \]
 
 
-> Show that the above equality holds.
+{ BEGIN exercise }
+Show that the above equality holds.
+{ END exercise }
+
+
+
 
 ```{r fmeasure}
 C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]) # F
 ```
 
 
----
+
+
 
 The following function can come in handy in the future:
 
@@ -646,7 +697,8 @@ get_metrics <- function(Y_pred, Y_test)
 ```
 
 
----
+
+
 
 
 ```{r get_metrics2}
@@ -656,7 +708,8 @@ get_metrics(Y_pred, Y_test)
 
 ### How to Choose K for K-NN Classification?
 
----
+
+
 
 We haven't yet considered the question which $K$ yields *the best*
 classifier.
@@ -667,7 +720,8 @@ Best == with respect to some chosen metric (accuracy, recall, precision, F-measu
 
 Let's study how the metrics on the test set change as functions of the number of nearest neighbours considered, $K$.
 
----
+
+
 
 
 Auxiliary function:
@@ -687,7 +741,8 @@ knn_metrics(5, Z_train, Z_test, Y_train, Y_test)
 ```
 
 
----
+
+
 
 
 Example call to evaluate metrics as a function of different $K$s:
@@ -702,18 +757,27 @@ Ps <- as.data.frame(t(
 ```
 
 
-> Note that `sapply(X, f, arg1, arg2, ...)`
+
+Remark.
+
+: Note that `sapply(X, f, arg1, arg2, ...)`
 outputs a list `Y` such that
 `Y[[i]] = f(X[i], arg1, arg2, ...)`
 which is then simplified to a matrix.
 
-> We transpose this result, `t()`, in order to get each metric
+
+
+
+Remark.
+
+: We transpose this result, `t()`, in order to get each metric
 corresponding to different columns in the result.
+As usual, if you keep wondering, e.g.,  why `t()`, play with
+the code yourself -- it's fun fun fun.
 
-> As usual, if you keep wondering, e.g.,  why `t()`, play with the code yourself -- it's fun fun fun.
 
 
----
+
 
 
 Example results:
@@ -726,7 +790,8 @@ A picture is worth a thousand tables though (see `?matplot` in R).
 
 
 
----
+
+
 
 
 ```{r whichK5,echo=FALSE,cache=TRUE}
@@ -771,7 +836,8 @@ abline(a=0, b=1, lty=3)
 
 ### Training, Validation and Test sets
 
----
+
+
 
 
 In the $K$-NN classification task, there are many hyperparameters to tune up:
@@ -786,13 +852,18 @@ In the $K$-NN classification task, there are many hyperparameters to tune up:
 - Which metric should be used?
 -->
 
-> **If we select the best hyperparameter set based on test
-sample error, we will run into the trap of overfitting again**.
 
-> This time we'll be overfitting to the test set --- the model that is optimal
+
+
+Remark.
+
+: **If we select the best hyperparameter set based on test
+sample error, we will run into the trap of overfitting again**.
+This time we'll be overfitting to the test set --- the model that is optimal
 for a given test sample doesn't have to generalise well to other test samples (!).
 
----
+
+
 
 
 In order to overcome this problem,
@@ -802,7 +873,12 @@ we can perform a random **train-validation-test split** of the original dataset:
 - *validation sample* (e.g., 20%) -- used to tune the hyperparameters of the classifier
 - *test sample* (e.g., 20%) -- used to assess the goodness of fit
 
-> (\*) If our dataset is too small,
+
+
+
+Remark.
+
+: (\*) If our dataset is too small,
 we can use various *crossvalidation* techniques
 instead of a train-validate-test split.
 
@@ -812,7 +888,8 @@ you will never have access to the final test sample used to determine the winner
 The best you can do is to "guess".-->
 
 
----
+
+
 
 An example way to perform a 60/20/20% train-validation-test split:
 
@@ -832,9 +909,10 @@ stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
 ```
 
 
-> As an exercise, find the best $K$ on the validation set and compute the error metrics
+{ BEGIN exercise }
+Find the best $K$ on the validation set and compute the error metrics
 on the test set.
-
+{ END exercise }
 
 
 
@@ -843,7 +921,8 @@ on the test set.
 
 ### Factor Data Type
 
----
+
+
 
 Recall that (see Appendix B for more details)
 `factor` type in R is a very convenient means to encode categorical data
@@ -856,7 +935,8 @@ f
 table(f) # counts
 ```
 
----
+
+
 
 Internally, objects of type `factor` are represented as integer vectors
 with elements in $\{1,\dots,M\}$, where $M$ is the number of possible levels.
@@ -875,7 +955,8 @@ f
 
 ### Main Routine (\*)
 
----
+
+
 
 Let's implement a K-NN classifier ourselves
 by using a top-bottom approach.
@@ -895,7 +976,8 @@ our_knn <- function(X_train, X_test, Y_train, k=1) {
 }
 ```
 
----
+
+
 
 Load an example dataset on which we will test our algorithm:
 
@@ -923,7 +1005,8 @@ Y_test  <- Y[-train_indices]
 ```
 
 
----
+
+
 
 
 
@@ -952,9 +1035,14 @@ $\mathtt{X\_train}\in\mathbb{R}^{\mathtt{n\_train}\times \mathtt{p}}$,
 $\mathtt{X\_test}\in\mathbb{R}^{\mathtt{n\_test}\times \mathtt{p}}$ and
 $\mathtt{Y\_train}\in\{1,\dots,M\}^{\mathtt{n\_train}}$
 
-> Recall that R `factor` objects are internally encoded as integer vectors.
 
----
+
+Remark.
+
+: Recall that R `factor` objects are internally encoded as integer vectors.
+
+
+
 
 Next, we will call the (to-be-done) function `our_get_knnx()`,
 which seeks nearest neighbours of all the points:
@@ -968,7 +1056,8 @@ nn_indices <- our_get_knnx(X_train, X_test, k)
 ```
 
 
----
+
+
 
 Then, for each point in `X_test`,
 we fetch the labels corresponding to its nearest neighbours
@@ -1032,11 +1121,15 @@ test_our_mode <- function() {
 
 ### Mode
 
----
+
+
 
 To implement the mode, we can use the `tabulate()` function.
 
-> Read the function's man page, see `?tabulate`.
+
+{ BEGIN exercise }
+Read the function's man page, see `?tabulate`.
+{ END exercise }
 
 For example:
 
@@ -1044,17 +1137,21 @@ For example:
 tabulate(c(1, 2, 1, 1, 1, 5, 2))
 ```
 
----
+
+
 
 There might be multiple modes -- in such a case, we should pick one at random.
 
 For that, we can use the `sample()` function.
 
-> Read the function's man page, see `?sample`.
-> Note that its behaviour is different when it's first argument is a vector of length 1.
+
+{ BEGIN exercise }
+Read the function's man page, see `?sample`.
+Note that its behaviour is different when it's first argument is a vector of length 1.
+{ END exercise }
 
 
----
+
 
 An example implementation:
 
@@ -1069,7 +1166,8 @@ our_mode <- function(Y) {
 }
 ```
 
----
+
+
 
 ```{r our_mode2,echo=-1}
 set.seed(7)
@@ -1085,7 +1183,8 @@ our_mode(c(1, 1, 3, 3, 2))
 
 ###  NN Search Routines (\*)
 
----
+
+
 
 Last but not least, we should implement the `our_get_knnx()` function.
 
@@ -1105,7 +1204,8 @@ our_get_knnx <- function(X_train, X_test, k) {
 ```
 
 
----
+
+
 
 
 A naive approach to `our_get_knnx()` relies on computing all pairwise distances,
@@ -1128,7 +1228,8 @@ our_get_knnx <- function(X_train, X_test, k) {
 
 
 
----
+
+
 
 A comparison with `FNN:knn()`:
 
@@ -1140,7 +1241,8 @@ mean(Ya == Yb) # 1.0 on perfect match
 
 Both functions return identical results but our implementation is "slightly" slower.
 
----
+
+
 
 
 
@@ -1152,10 +1254,14 @@ as a rule of thumb we should consider it an order of magnitude slower (see, howe
 Let's substitute our naive implementation with the equivalent one,
 but written in C++ (available in the `FNN` package).
 
-> (\*) Note that we could write a C++ implementation ourselves,
+
+Remark.
+
+: (\*) Note that we can write a C++ implementation ourselves,
 see the Rcpp package for seamless R and C++ integration.
 
----
+
+
 
 ```{r our_get_knnx_time,cache=TRUE}
 our_get_knnx <- function(X_train, X_test, k) {
@@ -1167,7 +1273,8 @@ system.time(Yb <- our_knn(X_train, X_test, Y_train, k=5))
 mean(Ya == Yb) # 1.0 on perfect match
 ```
 
----
+
+
 
 Note that our solution requires $c\cdot n_\text{test}\cdot n_\text{train}\cdot p$
 arithmetic operations for some $c>1$.
@@ -1183,14 +1290,18 @@ It turns out that there are special **spatial data structures**
 -- such as *metric trees* -- that aim to speed up searching for nearest
 neighbours in *low-dimensional spaces* (for small $p$).
 
-> (\*) Searching in high-dimensional spaces is hard due to the so-called
+
+Remark.
+
+: (\*) Searching in high-dimensional spaces is hard due to the so-called
 curse of dimensionality.
 
 
 For example, `FNN::get.knnx()` also implements the so-called
 kd-trees.
 
----
+
+
 
 
 ```{r test_speed,cache=TRUE}
@@ -1208,7 +1319,8 @@ test_speed <- function(n, p, k) {
 ```
 
 
----
+
+
 
 ```{r test_speed2cache=TRUE,dependson='test_speed'}
 test_speed(10000, 2, 5)
@@ -1227,7 +1339,8 @@ test_speed(10000, 20, 5)
 
 ### Different Metrics (\*)
 
----
+
+
 
 The Euclidean distance is just one particular example
 of many possible **metrics** (metric == a mathematical term,
@@ -1243,14 +1356,18 @@ it is a function $d:X\times X\to [0,\infty]$ such that for all $x,x',x''\in X$:
 - $d(x, x'') \le d(x, x') + d(x', x'')$ (it fulfils the triangle inequality)
 
 
-> (*) Not all the properties are required in all the applications;
+
+Remark.
+
+: (*) Not all the properties are required in all the applications;
 sometimes we might need a few additional ones.
 
 We can easily generalise the way we introduced the K-NN method
 to have a classifier that is based on a point's neighbourhood
 with respect to any metric.
 
----
+
+
 
 Example metrics on $\mathbb{R}^p$:
 
@@ -1274,7 +1391,8 @@ d_p(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_p = \left( \sum_{i=1
 \]
 -->
 
----
+
+
 
 We can define metrics on different spaces too.
 
@@ -1297,7 +1415,8 @@ This is because we need 1 substitution and 2 deletions,
 happy → nappy → napp → nap.
 
 
----
+
+
 
 
 
@@ -1321,7 +1440,8 @@ of numerous string metrics.
 
 ### Remarks
 
----
+
+
 
 Note that K-NN is suitable for any kind of multiclass classification.
 
@@ -1338,7 +1458,8 @@ somehow to allow for more classes.
 
 ### Side Note: K-NN Regression
 
----
+
+
 
 The K-Nearest Neighbour scheme is intuitively pleasing.
 
@@ -1356,7 +1477,8 @@ denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$,
 
 
 
----
+
+
 
 Recall our modelling of the Credit Rating ($Y$)
 as a function of the average Credit Card Balance ($X$)
@@ -1380,7 +1502,8 @@ y5  <- knn.reg(Xc, x, Yc, k=5)$pred
 y25 <- knn.reg(Xc, x, Yc, k=25)$pred
 ```
 
----
+
+
 
 ```{r knnreg3,message=FALSE}
 plot(Xc, Yc, col="#666666c0",

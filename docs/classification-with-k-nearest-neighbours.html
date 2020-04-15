@@ -49,6 +49,20 @@
 
 
 
+<style type="text/css">
+div.exercise {
+    font-style: italic;
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+details.solution {
+    border-left: 2px solid #ff8888;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+</style>
 
 
 <style type="text/css">
@@ -469,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
 
 </ul>
 
@@ -520,11 +534,12 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} \\
 \end{array}
 \right].
 \]</span></p>
-<div class="incremental">
+<div style="margin-top: 1em">
+
+</div>
 <p>In this chapter we are interested in <strong>classification</strong> tasks;
 we assume that each <span class="math inline">\(y_i\)</span> is a <em>label</em> (e.g., a character string) –
 it is of quantitative/categorical type.</p>
-<hr />
 <p>Most commonly, we are faced with <strong>binary classification</strong> tasks
 where there are only two possible distinct labels.</p>
 <p>We traditionally denote them with <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s.</p>
@@ -557,17 +572,14 @@ where there are only two possible distinct labels.</p>
 </table>
 <p>On the other hand, in <strong>multiclass classification</strong>,
 we assume that each <span class="math inline">\(y_i\)</span> takes more than two possible values.</p>
-<hr />
 <p>Example plot of a synthetic dataset
 with the reference binary <span class="math inline">\(y\)</span>s.</p>
 <p>The “true” decision boundary is at <span class="math inline">\(X_1=0\)</span> but the classes
 slightly overlap (the dataset is a bit noisy).</p>
 <p><img src="03-classification-neighbours-figures/classify_intro-1.svg" alt="plot of chunk classify_intro" /></p>
 </div>
-</div>
 <div id="data" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Data</h3>
-<hr />
 <p>For illustration, let’s consider the Wine Quality dataset <span class="citation">(Cortez et al. <a href="references.html#ref-wines">2009</a>)</span>
 that can be downloaded from the UCI Machine Learning Repository
 (<a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality" class="uri">https://archive.ics.uci.edu/ml/datasets/Wine+Quality</a>) –
@@ -582,7 +594,6 @@ see <a href="https://www.vinhoverde.pt/en/homepage" class="uri">https://www.vinh
 Moreover, there is a wine rating (which we won’t consider here)
 on the scale 0 (bad) to 10 (excellent)
 given by wine experts.</p>
-<hr />
 <p>The input matrix <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span>
 consists of the first 10 numeric variables:</p>
 <div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
@@ -598,7 +609,6 @@ consists of the first 10 numeric variables:</p>
 ##       pH sulphates
 ## 1600 3.0      0.45
 ## 1601 3.3      0.49</code></pre>
-<hr />
 <p>The 11th variable measures the amount of alcohol (in %).</p>
 <p>We will convert this dependent variable to a binary one:</p>
 <ul>
@@ -616,7 +626,6 @@ binary classification task.</p>
 </div>
 <div id="training-and-test-sets" class="section level3">
 <h3><span class="header-section-number">3.1.3</span> Training and Test Sets</h3>
-<hr />
 <p>Recall that we are genuinely interested in the construction of supervised learning models for the two following purposes:</p>
 <ul>
 <li><strong>description</strong> – to explain a given dataset in simpler terms,</li>
@@ -629,17 +638,20 @@ for inputs that are yet to be observed.</li>
 <li>we want our models to <em>generalise</em> well
 to new data.</li>
 </ul>
-<div class="incremental">
+<div style="margin-top: 1em">
+
+</div>
 <p>One way to assess if a model has sufficient predictive power is based
 on a random <strong>train-test split</strong> of the original dataset:</p>
 <ul>
 <li><em>training sample</em> (usually 60-80% of the observations) – used to construct a model,</li>
 <li><em>test sample</em> (remaining 40-20%) – used to assess the goodness of fit.</li>
 </ul>
-<blockquote>
-<p><strong>Test sample must not be used in the training phase!</strong> (No cheating!)</p>
-</blockquote>
-<hr />
+<dl>
+<dt>Remark.</dt>
+<dd><p><strong>Test sample must not be used in the training phase!</strong> (No cheating!)</p>
+</dd>
+</dl>
 <p>60/40% train-test split in R:</p>
 <div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
 <a class="sourceLine" id="cb282-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
@@ -654,10 +666,8 @@ on a random <strong>train-test split</strong> of the original dataset:</p>
 <a class="sourceLine" id="cb284-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
 <a class="sourceLine" id="cb284-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
 </div>
-</div>
 <div id="discussed-methods" class="section level3">
 <h3><span class="header-section-number">3.1.4</span> Discussed Methods</h3>
-<hr />
 <p>Our aim is to build a classifier that takes 10 wine physicochemical
 features and determines whether it’s a “strong” wine.</p>
 <p>We will discuss 3 simple and educational (yet practically useful)
@@ -673,10 +683,11 @@ classification algorithms:</p>
 <h2><span class="header-section-number">3.2</span> K-nearest Neighbour Classifier</h2>
 <div id="introduction-4" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Introduction</h3>
-<hr />
-<blockquote>
-<p>“If you don’t know what to do in a situation, just act like the people around you”</p>
-</blockquote>
+<dl>
+<dt>Rule.</dt>
+<dd><p>“If you don’t know what to do in a situation, just act like the people around you”</p>
+</dd>
+</dl>
 <p>For some integer <span class="math inline">\(K\ge 1\)</span>, the <strong>K-Nearest Neighbour (<em>K-NN</em>) Classifier</strong>
 proceeds as follows.</p>
 <p>To classify a new point <span class="math inline">\(\mathbf{x}&#39;\)</span>:</p>
@@ -694,7 +705,6 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 <li>return their <em>mode</em> as a result, i.e., the most frequently occurring label (a.k.a. <em>majority vote</em>)</li>
 </ol>
 <!-- > If a mode is not unique, return a randomly chosen mode (ties are broken at random). -->
-<hr />
 <p>Here is how <span class="math inline">\(K\)</span>-NN classifier works on a synthetic 2D dataset.</p>
 <p>Gray and pink regions depict how new points would be classified.</p>
 <p>In particular 1-NN is “greedy” in the sense that we just
@@ -709,7 +719,6 @@ is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite
 </div>
 <div id="example-in-r" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Example in R</h3>
-<hr />
 <p>We shall be calling the <code>knn()</code> function from package <code>FNN</code>
 to classify the points from the test sample
 extracted from the <code>wines</code> dataset:</p>
@@ -724,7 +733,6 @@ extracted from the <code>wines</code> dataset:</p>
 ## Levels: 0 1</code></pre>
 <div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.8173469</code></pre>
-<hr />
 <p>9-nn classifier:</p>
 <div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1">Y_knn9 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
 <a class="sourceLine" id="cb292-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
@@ -738,7 +746,6 @@ extracted from the <code>wines</code> dataset:</p>
 </div>
 <div id="feature-engineering" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Feature Engineering</h3>
-<hr />
 <p>Note that the Euclidean distance that we used above
 implicitly assumes that every feature (independent variable)
 is on the same scale.</p>
@@ -746,7 +753,6 @@ is on the same scale.</p>
 we often perform conversions of units of measurement (kg → g, feet → m etc.).</p>
 <p>Transforming a single feature may drastically change the metric structure of the dataset
 and therefore highly affect the obtained predictions.</p>
-<hr />
 <p>To “bring data to the same scale”, we often apply a trick called <strong>standardization</strong>.</p>
 <p>Computing the so-called <strong>Z-scores</strong> of the <span class="math inline">\(j\)</span>-th feature, <span class="math inline">\(\mathbf{x}_{\cdot,j}\)</span>,
 is done by subtracting from each observation the sample mean and dividing the result by the sample
@@ -757,7 +763,6 @@ standard deviation:</p>
 the units are cancelled out).</p>
 <p>Z-scores are easy to interpret, e.g., 0.5 denotes an observation
 that is 0.5 standard deviations above the mean.</p>
-<hr />
 <p>Let’s compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
@@ -771,7 +776,6 @@ and <code>X_test</code>, respectively.</p>
 <p>Alternatively:</p>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
 <a class="sourceLine" id="cb299-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
-<hr />
 <p>Let’s compute the accuracy of K-NN classifiers acting on standardised data.</p>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb300-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
@@ -780,7 +784,6 @@ and <code>X_test</code>, respectively.</p>
 <a class="sourceLine" id="cb302-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9122449</code></pre>
 <p>The accuracy is much better.</p>
-<hr />
 <p>Standardisation is an example of <em>feature engineering</em>.</p>
 <p>Good models rarely work well “straight out of the box” – if that was the case,
 we wouldn’t need data scientists and machine learning engineers!</p>
@@ -798,7 +801,6 @@ hence most textbooks are not really eager for discussing such topics
 A may fail in the B case and vice versa. However, the more exercises you solve,
 the greater the arsenal of ideas/possible approaches you will have at hand
 when dealing with real-world problems.</p>
-<hr />
 <p>Feature selection – example (manually selected columns):</p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1">features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;density&quot;</span>, <span class="st">&quot;residual.sugar&quot;</span>)</a>
 <a class="sourceLine" id="cb304-2" title="2">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
@@ -809,17 +811,16 @@ when dealing with real-world problems.</p>
 <a class="sourceLine" id="cb306-2" title="2">    Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
 <a class="sourceLine" id="cb306-3" title="3"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9255102</code></pre>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Try to find a combination of 2-4 features (by guessing or applying magic tricks)
 that increases the accuracy of a <span class="math inline">\(K\)</span>-NN classifier on this dataset.</p>
-</blockquote>
+</div>
 </div>
 </div>
 <div id="model-assessment-and-selection" class="section level2">
 <h2><span class="header-section-number">3.3</span> Model Assessment and Selection</h2>
 <div id="performance-metrics" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Performance Metrics</h3>
-<hr />
 <p>Recall that <span class="math inline">\(y_i\)</span> denotes the true label associated with the <span class="math inline">\(i\)</span>-th observation.</p>
 <p>Let <span class="math inline">\(\hat{y}_i\)</span> denote the classifier’s output for a given <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span>.</p>
 <p>Ideally, we’d wish that <span class="math inline">\(\hat{y}_i=y_i\)</span>.</p>
@@ -848,7 +849,6 @@ that increases the accuracy of a <span class="math inline">\(K\)</span>-NN class
 </table>
 <p>Note that the terms <strong>positive</strong> and <strong>negative</strong> refer to
 the classifier’s output, i.e., occur when <span class="math inline">\(\hat{y}_i\)</span> is equal to <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span>, respectively.</p>
-<hr />
 <p>A <strong>confusion matrix</strong> is used to summarise
 the correctness of predictions for the whole sample:</p>
 <div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
@@ -862,7 +862,6 @@ the correctness of predictions for the whole sample:</p>
 <pre><code>## [1] 1606</code></pre>
 <div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">C[<span class="dv">2</span>,<span class="dv">1</span>] <span class="co"># number of FPs</span></a></code></pre></div>
 <pre><code>## [1] 37</code></pre>
-<hr />
 <p><strong>Accuracy</strong> is the ratio of the correctly classified instances
 to all the instances.</p>
 <p>In other words, it is the probability of making a correct prediction.</p>
@@ -878,24 +877,26 @@ where <span class="math inline">\(\mathbb{I}\)</span> is the indicator function,
 <pre><code>## [1] 0.9122449</code></pre>
 <div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1">(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C) <span class="co"># equivalently</span></a></code></pre></div>
 <pre><code>## [1] 0.9122449</code></pre>
-<hr />
 <p>In many applications we are dealing with <strong>unbalanced problems</strong>, where
 the case <span class="math inline">\(y_i=1\)</span> is relatively rare,
 yet predicting it correctly is much more important than being
 accurate with respect to class <span class="math inline">\(0\)</span>.</p>
-<blockquote>
-<p>Think of medical applications, e.g., HIV testing
+<dl>
+<dt>Remark.</dt>
+<dd><p>Think of medical applications, e.g., HIV testing
 or tumour diagnosis.</p>
-</blockquote>
+</dd>
+</dl>
 <p>In such a case, <em>accuracy</em> as a metric fails to quantify what we are aiming for.</p>
-<blockquote>
-<p>If only 1% of the cases have true <span class="math inline">\(y_i=1\)</span>,
+<dl>
+<dt>Remark.</dt>
+<dd><p>If only 1% of the cases have true <span class="math inline">\(y_i=1\)</span>,
 then a dummy classifier that always
 outputs <span class="math inline">\(\hat{y}_i=0\)</span> has 99% accuracy.</p>
-</blockquote>
+</dd>
+</dl>
 <p>Metrics such as precision and recall (and their aggregated version, F-measure)
 aim to address this problem.</p>
-<hr />
 <p><strong>Precision</strong></p>
 <p><span class="math display">\[
 \text{Precision} = \frac{\text{TP}}{\text{TP}+\text{FP}}
@@ -904,7 +905,6 @@ aim to address this problem.</p>
 what is the probability that this is indeed true?</p>
 <div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># Precision</span></a></code></pre></div>
 <pre><code>## [1] 0.8310502</code></pre>
-<hr />
 <p><strong>Recall</strong> (a.k.a. sensitivity, hit rate or true positive rate)</p>
 <p><span class="math display">\[
 \text{Recall} = \frac{\text{TP}}{\text{TP}+\text{FN}}
@@ -913,12 +913,13 @@ what is the probability that this is indeed true?</p>
 will detect it?</p>
 <div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]) <span class="co"># Recall</span></a></code></pre></div>
 <pre><code>## [1] 0.5741325</code></pre>
-<hr />
-<blockquote>
-<p>Precision or recall? It depends on an application.
-Think of medical diagnosis, medical screening, plagiarism detection, etc.
-— which measure is more important in each of the settings listed?</p>
-</blockquote>
+<dl>
+<dt>Remark.</dt>
+<dd><p>Precision or recall? It depends on an application.
+Think of medical diagnosis, medical screening, plagiarism detection,
+etc. — which measure is more important in each of the settings listed?</p>
+</dd>
+</dl>
 <p>As a compromise, we can use the <strong>F-measure</strong>
 (a.k.a. <span class="math inline">\(F_1\)</span>-measure),
 which is the harmonic mean of precision
@@ -939,12 +940,11 @@ and recall:</p>
 =
 \frac{\text{TP}}{\text{TP} + \frac{\text{FP} + \text{FN}}{2}}
 \]</span></p>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Show that the above equality holds.</p>
-</blockquote>
+</div>
 <div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># F</span></a></code></pre></div>
 <pre><code>## [1] 0.6791045</code></pre>
-<hr />
 <p>The following function can come in handy in the future:</p>
 <div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
 <a class="sourceLine" id="cb324-2" title="2">{</a>
@@ -959,7 +959,6 @@ and recall:</p>
 <a class="sourceLine" id="cb324-11" title="11">      <span class="dt">FP=</span>C[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">TP=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]</a>
 <a class="sourceLine" id="cb324-12" title="12">    ) <span class="co"># return a named vector</span></a>
 <a class="sourceLine" id="cb324-13" title="13">}</a></code></pre></div>
-<hr />
 <div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9122449    0.8310502    0.5741325    0.6791045 
@@ -968,13 +967,11 @@ and recall:</p>
 </div>
 <div id="how-to-choose-k-for-k-nn-classification" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> How to Choose K for K-NN Classification?</h3>
-<hr />
 <p>We haven’t yet considered the question which <span class="math inline">\(K\)</span> yields <em>the best</em>
 classifier.</p>
 <p>Best == one that has the highest <em>predictive power</em>.</p>
 <p>Best == with respect to some chosen metric (accuracy, recall, precision, F-measure, …)</p>
 <p>Let’s study how the metrics on the test set change as functions of the number of nearest neighbours considered, <span class="math inline">\(K\)</span>.</p>
-<hr />
 <p>Auxiliary function:</p>
 <div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">knn_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(k, X_train, X_test, Y_train, Y_test)</a>
 <a class="sourceLine" id="cb327-2" title="2">{</a>
@@ -987,7 +984,6 @@ classifier.</p>
 ##    0.9102041    0.8025751    0.5899054    0.6800000 
 ##           TN           FN           FP           TP 
 ## 1597.0000000  130.0000000   46.0000000  187.0000000</code></pre>
-<hr />
 <p>Example call to evaluate metrics as a function of different <span class="math inline">\(K\)</span>s:</p>
 <div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1">Ks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">19</span>, <span class="dt">by=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb330-2" title="2">Ps &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(</a>
@@ -995,20 +991,20 @@ classifier.</p>
 <a class="sourceLine" id="cb330-4" title="4">        knn_metrics,     <span class="co"># apply this function</span></a>
 <a class="sourceLine" id="cb330-5" title="5">        Z_train, Z_test, Y_train, Y_test <span class="co"># aux args</span></a>
 <a class="sourceLine" id="cb330-6" title="6">    )))</a></code></pre></div>
-<blockquote>
-<p>Note that <code>sapply(X, f, arg1, arg2, ...)</code>
+<dl>
+<dt>Remark.</dt>
+<dd><p>Note that <code>sapply(X, f, arg1, arg2, ...)</code>
 outputs a list <code>Y</code> such that
 <code>Y[[i]] = f(X[i], arg1, arg2, ...)</code>
 which is then simplified to a matrix.</p>
-</blockquote>
-<blockquote>
-<p>We transpose this result, <code>t()</code>, in order to get each metric
-corresponding to different columns in the result.</p>
-</blockquote>
-<blockquote>
-<p>As usual, if you keep wondering, e.g., why <code>t()</code>, play with the code yourself – it’s fun fun fun.</p>
-</blockquote>
-<hr />
+</dd>
+<dt>Remark.</dt>
+<dd><p>We transpose this result, <code>t()</code>, in order to get each metric
+corresponding to different columns in the result.
+As usual, if you keep wondering, e.g., why <code>t()</code>, play with
+the code yourself – it’s fun fun fun.</p>
+</dd>
+</dl>
 <p>Example results:</p>
 <div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" title="1"><span class="kw">round</span>(<span class="kw">cbind</span>(<span class="dt">K=</span>Ks, Ps), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##     K  Acc Prec  Rec    F   TN  FN FP  TP
@@ -1023,7 +1019,6 @@ corresponding to different columns in the result.</p>
 ## 9  17 0.91 0.83 0.54 0.65 1607 147 36 170
 ## 10 19 0.90 0.80 0.52 0.63 1602 151 41 166</code></pre>
 <p>A picture is worth a thousand tables though (see <code>?matplot</code> in R).</p>
-<hr />
 <p><img src="03-classification-neighbours-figures/whichK5-1.svg" alt="plot of chunk whichK5" /></p>
 <!--
 
@@ -1043,7 +1038,6 @@ abline(a=0, b=1, lty=3)
 </div>
 <div id="training-validation-and-test-sets" class="section level3">
 <h3><span class="header-section-number">3.3.3</span> Training, Validation and Test sets</h3>
-<hr />
 <p>In the <span class="math inline">\(K\)</span>-NN classification task, there are many hyperparameters to tune up:</p>
 <ul>
 <li><p>Which <span class="math inline">\(K\)</span> should we choose?</p></li>
@@ -1053,15 +1047,14 @@ abline(a=0, b=1, lty=3)
 <!--
 - Which metric should be used?
 -->
-<blockquote>
-<p><strong>If we select the best hyperparameter set based on test
-sample error, we will run into the trap of overfitting again</strong>.</p>
-</blockquote>
-<blockquote>
-<p>This time we’ll be overfitting to the test set — the model that is optimal
+<dl>
+<dt>Remark.</dt>
+<dd><p><strong>If we select the best hyperparameter set based on test
+sample error, we will run into the trap of overfitting again</strong>.
+This time we’ll be overfitting to the test set — the model that is optimal
 for a given test sample doesn’t have to generalise well to other test samples (!).</p>
-</blockquote>
-<hr />
+</dd>
+</dl>
 <p>In order to overcome this problem,
 we can perform a random <strong>train-validation-test split</strong> of the original dataset:</p>
 <ul>
@@ -1069,15 +1062,16 @@ we can perform a random <strong>train-validation-test split</strong> of the orig
 <li><em>validation sample</em> (e.g., 20%) – used to tune the hyperparameters of the classifier</li>
 <li><em>test sample</em> (e.g., 20%) – used to assess the goodness of fit</li>
 </ul>
-<blockquote>
-<p>(*) If our dataset is too small,
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) If our dataset is too small,
 we can use various <em>crossvalidation</em> techniques
 instead of a train-validate-test split.</p>
-</blockquote>
+</dd>
+</dl>
 <!--By the way, this is how most data mining competitions are assessed --
 you will never have access to the final test sample used to determine the winner.
 The best you can do is to "guess".-->
-<hr />
 <p>An example way to perform a 60/20/20% train-validation-test split:</p>
 <div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
 <a class="sourceLine" id="cb333-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
@@ -1091,17 +1085,16 @@ The best you can do is to "guess".-->
 <a class="sourceLine" id="cb333-10" title="10">Y2_test  &lt;-<span class="st"> </span>Y[random_indices[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n ]  ]</a>
 <a class="sourceLine" id="cb333-11" title="11"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X2_train)<span class="op">+</span><span class="kw">nrow</span>(X2_valid)<span class="op">+</span><span class="kw">nrow</span>(X2_test)</a>
 <a class="sourceLine" id="cb333-12" title="12">    <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(X))</a></code></pre></div>
-<blockquote>
-<p>As an exercise, find the best <span class="math inline">\(K\)</span> on the validation set and compute the error metrics
+<div class="exercise"><strong>Exercise.</strong>
+<p>Find the best <span class="math inline">\(K\)</span> on the validation set and compute the error metrics
 on the test set.</p>
-</blockquote>
+</div>
 </div>
 </div>
 <div id="implementing-a-k-nn-classifier" class="section level2">
 <h2><span class="header-section-number">3.4</span> Implementing a K-NN Classifier (*)</h2>
 <div id="factor-data-type" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Factor Data Type</h3>
-<hr />
 <p>Recall that (see Appendix B for more details)
 <code>factor</code> type in R is a very convenient means to encode categorical data
 (such as <span class="math inline">\(\mathbf{y}\)</span>):</p>
@@ -1114,7 +1107,6 @@ on the test set.</p>
 <pre><code>## f
 ##  no yes 
 ##   3   2</code></pre>
-<hr />
 <p>Internally, objects of type <code>factor</code> are represented as integer vectors
 with elements in <span class="math inline">\(\{1,\dots,M\}\)</span>, where <span class="math inline">\(M\)</span> is the number of possible levels.</p>
 <p>Labels, used to “decipher” the numeric codes, are stored separately.</p>
@@ -1129,7 +1121,6 @@ with elements in <span class="math inline">\(\{1,\dots,M\}\)</span>, where <span
 </div>
 <div id="main-routine" class="section level3">
 <h3><span class="header-section-number">3.4.2</span> Main Routine (*)</h3>
-<hr />
 <p>Let’s implement a K-NN classifier ourselves
 by using a top-bottom approach.</p>
 <p>We will start with a general description of the admissible inputs
@@ -1141,7 +1132,6 @@ conveniently manageable chunks.</p>
 <a class="sourceLine" id="cb344-2" title="2">    <span class="co"># k=1 denotes a parameter with a default value</span></a>
 <a class="sourceLine" id="cb344-3" title="3">    <span class="co"># ...</span></a>
 <a class="sourceLine" id="cb344-4" title="4">}</a></code></pre></div>
-<hr />
 <p>Load an example dataset on which we will test our algorithm:</p>
 <div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
 <a class="sourceLine" id="cb345-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
@@ -1156,7 +1146,6 @@ conveniently manageable chunks.</p>
 <a class="sourceLine" id="cb346-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
 <a class="sourceLine" id="cb346-6" title="6">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
 <a class="sourceLine" id="cb346-7" title="7">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
-<hr />
 <p>First, we should specify the type and form of the arguments
 we’re expecting:</p>
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1"><span class="co"># this is the body of our_knn() - part 1</span></a>
@@ -1174,10 +1163,11 @@ we’re expecting:</p>
 <p><span class="math inline">\(\mathtt{X\_train}\in\mathbb{R}^{\mathtt{n\_train}\times \mathtt{p}}\)</span>,
 <span class="math inline">\(\mathtt{X\_test}\in\mathbb{R}^{\mathtt{n\_test}\times \mathtt{p}}\)</span> and
 <span class="math inline">\(\mathtt{Y\_train}\in\{1,\dots,M\}^{\mathtt{n\_train}}\)</span></p>
-<blockquote>
-<p>Recall that R <code>factor</code> objects are internally encoded as integer vectors.</p>
-</blockquote>
-<hr />
+<dl>
+<dt>Remark.</dt>
+<dd><p>Recall that R <code>factor</code> objects are internally encoded as integer vectors.</p>
+</dd>
+</dl>
 <p>Next, we will call the (to-be-done) function <code>our_get_knnx()</code>,
 which seeks nearest neighbours of all the points:</p>
 <div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
@@ -1185,7 +1175,6 @@ which seeks nearest neighbours of all the points:</p>
 <a class="sourceLine" id="cb348-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
 <a class="sourceLine" id="cb348-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
 <a class="sourceLine" id="cb348-5" title="5">nn_indices &lt;-<span class="st"> </span><span class="kw">our_get_knnx</span>(X_train, X_test, k)</a></code></pre></div>
-<hr />
 <p>Then, for each point in <code>X_test</code>,
 we fetch the labels corresponding to its nearest neighbours
 and compute their mode:</p>
@@ -1228,22 +1217,19 @@ test_our_mode <- function() {
 </div>
 <div id="mode" class="section level3">
 <h3><span class="header-section-number">3.4.3</span> Mode</h3>
-<hr />
 <p>To implement the mode, we can use the <code>tabulate()</code> function.</p>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Read the function’s man page, see <code>?tabulate</code>.</p>
-</blockquote>
+</div>
 <p>For example:</p>
 <div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1"><span class="kw">tabulate</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 4 2 0 0 1</code></pre>
-<hr />
 <p>There might be multiple modes – in such a case, we should pick one at random.</p>
 <p>For that, we can use the <code>sample()</code> function.</p>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Read the function’s man page, see <code>?sample</code>.
 Note that its behaviour is different when it’s first argument is a vector of length 1.</p>
-</blockquote>
-<hr />
+</div>
 <p>An example implementation:</p>
 <div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1">our_mode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
 <a class="sourceLine" id="cb353-2" title="2">    <span class="co"># tabulate() will take care of</span></a>
@@ -1253,7 +1239,6 @@ Note that its behaviour is different when it’s first argument is a vector of l
 <a class="sourceLine" id="cb353-6" title="6">    <span class="cf">if</span> (<span class="kw">length</span>(mode_candidates) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">return</span>(mode_candidates)</a>
 <a class="sourceLine" id="cb353-7" title="7">    <span class="cf">else</span> <span class="kw">return</span>(<span class="kw">sample</span>(mode_candidates, <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb353-8" title="8">}</a></code></pre></div>
-<hr />
 <div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
@@ -1267,7 +1252,6 @@ Note that its behaviour is different when it’s first argument is a vector of l
 </div>
 <div id="nn-search-routines" class="section level3">
 <h3><span class="header-section-number">3.4.4</span> NN Search Routines (*)</h3>
-<hr />
 <p>Last but not least, we should implement the <code>our_get_knnx()</code> function.</p>
 <p>It is the function responsible for seeking the indices of nearest neighbours.</p>
 <p>It turns out this function will actually constitute the K-NN classifier’s performance
@@ -1279,7 +1263,6 @@ bottleneck in case of big data samples.</p>
 <a class="sourceLine" id="cb364-5" title="5">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
 <a class="sourceLine" id="cb364-6" title="6">    <span class="co"># ...</span></a>
 <a class="sourceLine" id="cb364-7" title="7">}</a></code></pre></div>
-<hr />
 <p>A naive approach to <code>our_get_knnx()</code> relies on computing all pairwise distances,
 and sorting them.</p>
 <div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
@@ -1291,10 +1274,9 @@ and sorting them.</p>
 <a class="sourceLine" id="cb365-7" title="7">        <span class="co"># now d[j] is the distance</span></a>
 <a class="sourceLine" id="cb365-8" title="8">        <span class="co"># between X_train[j,] and X_test[i,]</span></a>
 <a class="sourceLine" id="cb365-9" title="9">        nn_indices[i,] &lt;-<span class="st"> </span><span class="kw">order</span>(d)[<span class="dv">1</span><span class="op">:</span>k]</a>
-<a class="sourceLine" id="cb365-10" title="10">    }</a>
-<a class="sourceLine" id="cb365-11" title="11">    nn_indices</a>
+<a class="sourceLine" id="cb365-10" title="10"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb365-11" title="11"><span class="st">    </span>nn_indices</a>
 <a class="sourceLine" id="cb365-12" title="12">}</a></code></pre></div>
-<hr />
 <p>A comparison with <code>FNN:knn()</code>:</p>
 <div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
@@ -1305,17 +1287,17 @@ and sorting them.</p>
 <div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Both functions return identical results but our implementation is “slightly” slower.</p>
-<hr />
 <p><code>FNN:knn()</code> is efficiently written in C++, which is a compiled programming language.</p>
 <p>R, on the other hand (just like Python and Matlab) is interpreted, therefore
 as a rule of thumb we should consider it an order of magnitude slower (see, however, the Julia language).</p>
 <p>Let’s substitute our naive implementation with the equivalent one,
 but written in C++ (available in the <code>FNN</code> package).</p>
-<blockquote>
-<p>(*) Note that we could write a C++ implementation ourselves,
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Note that we can write a C++ implementation ourselves,
 see the Rcpp package for seamless R and C++ integration.</p>
-</blockquote>
-<hr />
+</dd>
+</dl>
 <div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
 <a class="sourceLine" id="cb372-2" title="2">    <span class="co"># this is used by our_knn()</span></a>
 <a class="sourceLine" id="cb372-3" title="3">    FNN<span class="op">::</span><span class="kw">get.knnx</span>(X_train, X_test, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>)<span class="op">$</span>nn.index</a>
@@ -1328,24 +1310,26 @@ see the Rcpp package for seamless R and C++ integration.</p>
 ##   0.044   0.000   0.044</code></pre>
 <div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<hr />
 <p>Note that our solution requires <span class="math inline">\(c\cdot n_\text{test}\cdot n_\text{train}\cdot p\)</span>
 arithmetic operations for some <span class="math inline">\(c&gt;1\)</span>.
 The overall cost of sorting is at least <span class="math inline">\(d\cdot n_\text{test}\cdot n_\text{train}\cdot\log n_\text{train}\)</span>
 for some <span class="math inline">\(d&gt;1\)</span>.</p>
 <p>This does not scale well with both <span class="math inline">\(n_\text{test}\)</span> and <span class="math inline">\(n_\text{train}\)</span>
 (think – big data).</p>
-<div class="incremental">
+<div style="margin-top: 1em">
+
+</div>
 <p>It turns out that there are special <strong>spatial data structures</strong>
 – such as <em>metric trees</em> – that aim to speed up searching for nearest
 neighbours in <em>low-dimensional spaces</em> (for small <span class="math inline">\(p\)</span>).</p>
-<blockquote>
-<p>(*) Searching in high-dimensional spaces is hard due to the so-called
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Searching in high-dimensional spaces is hard due to the so-called
 curse of dimensionality.</p>
-</blockquote>
+</dd>
+</dl>
 <p>For example, <code>FNN::get.knnx()</code> also implements the so-called
 kd-trees.</p>
-<hr />
 <div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
 <a class="sourceLine" id="cb378-2" title="2">test_speed &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, k) {</a>
 <a class="sourceLine" id="cb378-3" title="3">    A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
@@ -1357,24 +1341,21 @@ kd-trees.</p>
 <a class="sourceLine" id="cb378-9" title="9">    <span class="co"># minima of 3 time measurements:</span></a>
 <a class="sourceLine" id="cb378-10" title="10">    <span class="kw">structure</span>(s<span class="op">$</span>min, <span class="dt">names=</span><span class="kw">as.character</span>(s<span class="op">$</span>expr))</a>
 <a class="sourceLine" id="cb378-11" title="11">}</a></code></pre></div>
-<hr />
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.28515946 0.01180919</code></pre>
+## 0.31313241 0.01275763</code></pre>
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.42030521 0.06050009</code></pre>
+## 0.44530681 0.06491523</code></pre>
 <div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-## 0.6362496 0.6313469</code></pre>
+## 0.6496742 0.6937348</code></pre>
 <div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##    brute  kd_tree 
-## 1.266438 5.332102</code></pre>
-</div>
+## 1.248648 5.236185</code></pre>
 </div>
 <div id="different-metrics" class="section level3">
 <h3><span class="header-section-number">3.4.5</span> Different Metrics (*)</h3>
-<hr />
 <p>The Euclidean distance is just one particular example
 of many possible <strong>metrics</strong> (metric == a mathematical term,
 above we have used this term in a more relaxed fashion, when referring
@@ -1387,14 +1368,15 @@ it is a function <span class="math inline">\(d:X\times X\to [0,\infty]\)</span> 
 <li><span class="math inline">\(d(x, x&#39;) = d(x&#39;, x)\)</span> (it is symmetric)</li>
 <li><span class="math inline">\(d(x, x&#39;&#39;) \le d(x, x&#39;) + d(x&#39;, x&#39;&#39;)\)</span> (it fulfils the triangle inequality)</li>
 </ul>
-<blockquote>
-<p>(*) Not all the properties are required in all the applications;
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Not all the properties are required in all the applications;
 sometimes we might need a few additional ones.</p>
-</blockquote>
+</dd>
+</dl>
 <p>We can easily generalise the way we introduced the K-NN method
 to have a classifier that is based on a point’s neighbourhood
 with respect to any metric.</p>
-<hr />
 <p>Example metrics on <span class="math inline">\(\mathbb{R}^p\)</span>:</p>
 <ul>
 <li><strong>Euclidean</strong>
@@ -1416,7 +1398,6 @@ These are all examples of $L_p$ metrics, $p\ge 1$:
 d_p(\mathbf{x}, \mathbf{x}') = \| \mathbf{x}-\mathbf{x}' \|_p = \left( \sum_{i=1}^p |x_i-x_i'|^p \right)^{1/p}
 \]
 -->
-<hr />
 <p>We can define metrics on different spaces too.</p>
 <p>For example, the <strong>Levenshtein distance</strong> is a popular choice
 for comparing character strings (also DNA sequences etc.)</p>
@@ -1429,7 +1410,6 @@ one string into another.</p>
 ## [1,]    3</code></pre>
 <p>This is because we need 1 substitution and 2 deletions,</p>
 <p>happy → nappy → napp → nap.</p>
-<hr />
 <p>See also:</p>
 <ul>
 <li>the Hamming distance for categorical vectors (or strings of equal lengths),</li>
@@ -1445,7 +1425,6 @@ of numerous string metrics.</p>
 <h2><span class="header-section-number">3.5</span> Outro</h2>
 <div id="remarks-2" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Remarks</h3>
-<hr />
 <p>Note that K-NN is suitable for any kind of multiclass classification.</p>
 <p>In the next part we will discuss some other noteworthy classifiers:</p>
 <ul>
@@ -1457,7 +1436,6 @@ somehow to allow for more classes.</p>
 </div>
 <div id="side-note-k-nn-regression" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> Side Note: K-NN Regression</h3>
-<hr />
 <p>The K-Nearest Neighbour scheme is intuitively pleasing.</p>
 <p>No wonder it has inspired a similar approach for solving a regression task.</p>
 <p>In order to make a prediction for a new point <span class="math inline">\(\mathbf{x}&#39;\)</span>:</p>
@@ -1468,7 +1446,6 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 <li>return their arithmetic mean as a result,
 <span class="math display">\[\hat{y}=\frac{1}{K} \sum_{j=1}^K y_{i_j}.\]</span></li>
 </ol>
-<hr />
 <p>Recall our modelling of the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>)
 based on the <code>ISLR::Credit</code> data set.</p>
@@ -1480,7 +1457,6 @@ based on the <code>ISLR::Credit</code> data set.</p>
 <a class="sourceLine" id="cb390-3" title="3">y1  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">1</span>)<span class="op">$</span>pred</a>
 <a class="sourceLine" id="cb390-4" title="4">y5  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">5</span>)<span class="op">$</span>pred</a>
 <a class="sourceLine" id="cb390-5" title="5">y25 &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">25</span>)<span class="op">$</span>pred</a></code></pre></div>
-<hr />
 <div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
 <a class="sourceLine" id="cb391-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Rating&quot;</span>)</a>
 <a class="sourceLine" id="cb391-3" title="3"><span class="kw">lines</span>(x, y1,  <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>

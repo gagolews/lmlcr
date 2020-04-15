@@ -26,7 +26,10 @@ It can be downloaded from the R project website,
 see https://www.r-project.org/ (or installed through system-specific package
 repositories).
 
-> From now on we assume that you have installed the R environment.
+
+Remark.
+
+: From now on we assume that you have installed the R environment.
 
 
 
@@ -37,7 +40,10 @@ as stress- and hassle-free as possible, let's stick to a very user-friendly
 development environment called RStudio, which can be downloaded from
 https://rstudio.com/products/rstudio/ (choose RStudio Desktop Open Source Edition).
 
-> There are of course many other options for working with R, both interactive
+
+Remark.
+
+: There are of course many other options for working with R, both interactive
 and non-interactive, including Jupyter Notebooks (see https://irkernel.github.io/),
 dynamically generated reports (see https://yihui.org/knitr/options/)
 and plain shell scripts executed from a terminal.
@@ -77,7 +83,10 @@ we will need some Python environment, for example
 the Anaconda Distribution Python 3.x, see
 https://www.anaconda.com/distribution/.
 
-> Do **not** download Python 2.7.
+
+Remark.
+
+: Do **not** download Python 2.7.
 
 Installation instructions can be found at
 https://docs.anaconda.com/anaconda/install/.
@@ -101,7 +110,8 @@ Let's open RStudio and perform the following steps:
     in any location you like.
     Choose *New Project* as the project type.
 
-    > From now on, we are assuming that the project name is *LMLCR*
+
+    From now on, we are assuming that the project name is *LMLCR*
     and the project has been opened. All source files we create
     will be relative to the project directory.
 
@@ -112,7 +122,7 @@ Let's open RStudio and perform the following steps:
     Standard keyboard shortcuts are available, such as CTRL+C
     and CTRL+V (Cmd+C and Cmd+V on MacOS) for copy and paste, respectively.
 
-    > A list of keyboard shortcuts is available at
+    A list of keyboard shortcuts is available at
     https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts
 
 3.  Input the following R code into the editor:
@@ -146,5 +156,5 @@ Let's open RStudio and perform the following steps:
 While you learn, we recommend that you get used to writing your
 code in an R script and executing it just as we did above.
 
-> On a side note, you can execute (source) the whole script
+On a side note, you can execute (source) the whole script
 by pressing Ctrl+Shift+S (Cmd+Shift+S on MacOS).

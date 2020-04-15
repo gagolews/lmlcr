@@ -40,7 +40,8 @@ In this chapter we are still  interested in  **classification** tasks;
 we assume that each $y_i$ is a descriptive label.
 
 
----
+
+
 
 Let's assume that we are faced with **binary classification** tasks.
 
@@ -58,7 +59,8 @@ healthy | ill
 
 
 
----
+
+
 
 The synthetic 2D dataset once again (true decision boundary is at $X_1=0$):
 
@@ -87,7 +89,8 @@ abline(v=0, lty=3, col="blue")
 
 ### Data
 
----
+
+
 
 For illustration, we'll be considering the Wine Quality dataset
 (white wines only):
@@ -99,7 +102,8 @@ wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
 
----
+
+
 
 The input matrix $\mathbf{X}\in\mathbb{R}^{n\times p}$
 consists of the first 10 numeric variables:
@@ -113,7 +117,8 @@ head(X, 2) # first two rows
 
 
 
----
+
+
 
 The 11th variable measures the amount of alcohol (in %).
 
@@ -130,7 +135,8 @@ table(Y)
 
 
 
----
+
+
 
 60/40% train-test split:
 
@@ -150,7 +156,8 @@ Y_test  <- Y[-train_indices]
 
 
 
----
+
+
 
 Let's also compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
 and `X_test`, respectively.
@@ -164,7 +171,8 @@ Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 
 
 
----
+
+
 
 
 ```{r loaded,dependson='load5',cache=TRUE}
@@ -183,7 +191,8 @@ get_metrics <- function(Y_pred, Y_test)
 }
 ```
 
----
+
+
 
 
 
@@ -241,7 +250,8 @@ These can be organised into a **hierarchy** for greater readability.
 This idea inspired the notion of **decision trees** [@cart].
 
 
----
+
+
 
 
 ```{r plot_rpart,echo=FALSE}
@@ -289,7 +299,8 @@ Each tree node reports 3 pieces of information:
 
 
 
----
+
+
 
 
 ```{r plot_rpart2,echo=FALSE}
@@ -301,7 +312,8 @@ rpart.plot(ts)
 ```
 
 
----
+
+
 
 
 ```{r plot_rpart3,echo=FALSE}
@@ -320,7 +332,8 @@ rpart.plot(ts, tweak=1.2)
 
 ### Example in R
 
----
+
+
 
 
 
@@ -341,19 +354,22 @@ XY_train <- cbind(as.data.frame(X_train), Y=Y_train)
 XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 ```
 
----
+
+
 
 
 Fit and plot a decision tree:
 
-```{r plot_rpart1}
+```{r plot_rpart1,fig.height=5,echo=-1}
+par(mar=c(0,0,0,0))
 t1 <- rpart(Y~., data=XY_train, method="class")
 rpart.plot(t1, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
 
 
 
----
+
+
 
 <!--
 The fitted model is rather... simple.
@@ -368,7 +384,8 @@ Well note how these two distributions are shifted:
 #    horizontal=TRUE)
 ```
 
----
+
+
 
 
 -->
@@ -380,28 +397,35 @@ Y_pred <- predict(t1, XY_test, type="class")
 get_metrics(Y_pred, Y_test)
 ```
 
----
 
-> (\*) Interestingly, `rpart()` also provides us with information
+
+
+
+Remark.
+
+: (\*) Interestingly, `rpart()` also provides us with information
 about the importance degrees of each independent variable.
 
 ```{r importances}
 t1$variable.importance/sum(t1$variable.importance)
 ```
 
----
+
+
 
 We can build a less complex tree by playing
 with the `cp` parameter.
 
-```{r plot_rpart222}
+```{r plot_rpart222,echo=-1}
+par(mar=c(0,0,0,0))
 # cp = complexity parameter, smaller → more complex tree
 t2 <- rpart(Y~., data=XY_train, method="class", cp=0.1)
 rpart.plot(t2, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
 
 
----
+
+
 
 ```{r predict_rpart222}
 Y_pred <- predict(t2, XY_test, type="class")
@@ -410,20 +434,23 @@ get_metrics(Y_pred, Y_test)
 
 
 
----
+
+
 
 A more complex tree:
 
-```{r,out.width='100%',fig.width=10,fig.height=5}
+```{r tree333,fig.height=5,echo=-1}
+par(mar=c(0,0,0,0))
 # cp = complexity parameter, smaller → more complex tree
 t3 <- rpart(Y~., data=XY_train, method="class", cp=0.00001)
 rpart.plot(t3, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
 
 
----
 
-```{r}
+
+
+```{r tree333pred}
 Y_pred <- predict(t3, XY_test, type="class")
 get_metrics(Y_pred, Y_test)
 ```
@@ -431,7 +458,8 @@ get_metrics(Y_pred, Y_test)
 
 ### A Note on Decision Tree Learning
 
----
+
+
 
 Learning an optimal decision tree is a computationally hard problem
 -- we need some heuristics.
@@ -456,7 +484,8 @@ Examples:
 
 ## ...
 
----
+
+
 
 
 just show how to use it
@@ -473,7 +502,8 @@ bagging
 ```
 
 
----
+
+
 
 
 ```{r}
@@ -494,7 +524,8 @@ bagging
 
 ### Motivation
 
----
+
+
 
 
 Recall that for a regression task, we fitted a very simple family of models
@@ -518,7 +549,8 @@ XY_test_r <- cbind(as.data.frame(X_test),
 f_r <- lm(Y~density+residual.sugar+pH, data=XY_train_r)
 ```
 
----
+
+
 
 
 ```{r lm2,dependson='lm1',cache=TRUE}
@@ -534,7 +566,8 @@ Y_pred <- as.numeric(Y_pred_r>0.5)
 round(get_metrics(Y_pred, XY_test_r$Y), 3)
 ```
 
----
+
+
 
 The threshold $T=0.5$  could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample).
@@ -562,7 +595,8 @@ There are better models.
 
 ### Logistic Model
 
----
+
+
 
 Inspired by this idea, we could try modelling
 the ***probability* that a given point belongs to class $1$**.
@@ -577,10 +611,14 @@ so as to get:
 
 $\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)$
 
-> The above reads as "Probability that $Y$ is from class 1 given $\mathbf{X}$
+
+Remark.
+
+: The above reads as "Probability that $Y$ is from class 1 given $\mathbf{X}$
 and $\boldsymbol\beta$".
 
----
+
+
 
 A popular choice is the **logistic sigmoid function**,
 
@@ -588,7 +626,7 @@ A popular choice is the **logistic sigmoid function**,
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]
 
-```{r sigmoid,echo=FALSE,cache=TRUE,fig.height=5}
+```{r sigmoid,echo=FALSE,cache=TRUE}
 xxx <- seq(-3, 3, length.out=101)
 yyy <- 1/(1+exp(-xxx))
 plot(xxx, yyy, type='l', xlab='y', ylab=expression(phi(y)), ylim=c(0,1))
@@ -597,7 +635,8 @@ abline(h=c(0, 0.5, 1), lty=3)
 ```
 
 
----
+
+
 
 Hence our model becomes:
 
@@ -612,13 +651,17 @@ We call it a **generalised linear model** (glm).
 
 ### Example in R
 
----
+
+
 
 Let us first fit
 a simple  (i.e., $p=1$) logistic regression model
 using the `density` variable.
 
-> "logit" below denotes the inverse of the logistic sigmoid function.
+
+Remark.
+
+: "logit" below denotes the inverse of the logistic sigmoid function.
 
 
 ```{r glm1}
@@ -626,7 +669,8 @@ f <- glm(Y~density, data=XY_train, family=binomial("logit"))
 summary(f)
 ```
 
----
+
+
 
 
 ```{r glm2,echo=FALSE,cache=TRUE,eval=TRUE}
@@ -639,7 +683,8 @@ abline(h=c(0, 0.5, 1), lty=3)
 legend(8, 0.95, legend=sprintf("1/(1+exp(-(%+g%+g*density))", f$coef[1], f$coef[2]), lty=1, bg="white")
 ```
 
----
+
+
 
 Some predicted probabilities:
 
@@ -656,7 +701,8 @@ Y_pred <- as.numeric(predict(f, XY_test, type="response")>0.5)
 get_metrics(Y_pred, Y_test)
 ```
 
----
+
+
 
 And now a fit based on some other input variables:
 
@@ -668,9 +714,10 @@ get_metrics(Y_pred, Y_test)
 ```
 
 
-> Exercise: try fitting the models based on different combinations
+{ BEGIN exercise }
+Try fitting the models based on different combinations
 of features.
-
+{ END exercise }
 
 
 
@@ -678,7 +725,8 @@ of features.
 
 ### Loss Function
 
----
+
+
 
 The fitting of the model can be written as an optimisation task:
 
@@ -703,7 +751,8 @@ e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
 The corresponding loss function has not only nice statistical properties (\*\*)
 but also an intuitive interpretation.
 
----
+
+
 
 Note that the predicted $\hat{y}$ is in $(0,1)$ and the true $y$ equals to either 0 or 1.
 
@@ -731,13 +780,20 @@ e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
     - we penalise heavily the case where $1-\hat{y}$ is small (we'd be happy
     if the classifier was sure that $1-\hat{y}\simeq 1$, because this is the ground-truth)
 
----
 
-> (\*) Interestingly, there is no analytical formula
+
+
+
+Remark.
+
+: (\*) Interestingly, there is no analytical formula
 for the optimal set of parameters ($\beta_0,\beta_1,\dots,\beta_p$)
 minimising the log-loss.
 
-> In the chapter on optimisation, we shall see that
+
+Remark.
+
+: In the chapter on optimisation, we shall see that
 the solution to the logistic regression can be solved numerically
 by means of quite simple iterative algorithms.
 
@@ -745,7 +801,8 @@ by means of quite simple iterative algorithms.
 
 ### Remarks
 
----
+
+
 
 Other prominent classification algorithms:
 
@@ -754,7 +811,8 @@ Other prominent classification algorithms:
 - (Artificial) (Deep) Neural Networks.
 
 
----
+
+
 
 Interestingly, in the next chapter we will  note that the logistic regression model
 is a special case of a *feed-forward single layer neural network*.

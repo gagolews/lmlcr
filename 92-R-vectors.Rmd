@@ -159,7 +159,11 @@ mode(x)
 class(x)
 ```
 
-> These two functions might return different results.
+
+
+Remark.
+
+: These two functions might return different results.
 For instance, in the next chapter we note that
 a numeric matrix will yield `mode()` of `numeric` and
 `class()` of `matrix`.
@@ -290,7 +294,10 @@ Mathematically, we sometimes refer to a vector that is reduced to a single compo
 as a *scalar*. We are used to denoting such objects with lowercase letters
 such as $a, b, i, s, x\in\mathbb{R}$.
 
-> Note that some programming languages distinguish between
+
+Remark.
+
+: Note that some programming languages distinguish between
 atomic numerical entities and length-one vectors, e.g., `7` vs. `[7]` in Python.
 This is not the case in R, where `length(7)` returns 1.
 
@@ -358,7 +365,10 @@ x/y
 y^x
 ```
 
-> `1e+12` is a number written in the *scientific notation*.
+
+Remark.
+
+: `1e+12` is a number written in the *scientific notation*.
 It means "1 times 10 to the power of 12", i.e., $1\times 10^{12}$. Physicists
 love this notation, because they are used to dealing with very small (think sizes of quarks) and very large (think distances between galaxies) entities.
 
@@ -405,10 +415,16 @@ $\frac{1}{n-1} \sum_{i=1}^n \left(x_i - \frac{1}{n}\sum_{j=1}^n x_j \right)^2$
 
 see also: `min()`, `max()`, `median()`, `quantile()`.
 
-> Remember that you can always access the R manual by typing
+
+Remark.
+
+: Remember that you can always access the R manual by typing
 `?functionname`, e.g., `?quantile`.
 
-> Note that $\sum_{i=1}^n x_i$ can also be written
+
+Remark.
+
+: Note that $\sum_{i=1}^n x_i$ can also be written
 as $\displaystyle\sum_{i=1}^n x_i$ or even $\displaystyle\sum_{i=1,\dots,n} x_i$.
 These all mean the sum of $x_i$ for $i$ from $1$ to $n$,
 that is, the sum of $x_1$, $x_2$, ..., $x_n$,
@@ -447,8 +463,10 @@ plot(x, sin(x), type="l")
 lines(x, cos(x), col="red") # add a curve to the current plot
 ```
 
-> Try increasing the `length.out` argument to make the curves smoother.
 
+{ BEGIN exercise }
+Try increasing the `length.out` argument to make the curves smoother.
+{ END exercise }
 
 
 ### Norms and Distances
@@ -526,7 +544,10 @@ v <- c(1, 1)
 sum(u*v)
 ```
 
-> (\*) Note that the squared Euclidean norm of a vector is equal to the dot
+
+Remark.
+
+: (\*) Note that the squared Euclidean norm of a vector is equal to the dot
 product of the vector and itself,
 $\|\boldsymbol{x}\|^2 = \boldsymbol{x}\cdot\boldsymbol{x}$.
 
@@ -600,7 +621,10 @@ We can also make use of the `na.rm` parameter of the `mean()` function
 mean(x, na.rm=TRUE)
 ```
 
-> Note that in R, a dot has no special meaning.
+
+Remark.
+
+: Note that in R, a dot has no special meaning.
 `na.omit` is as good of a function's name or variable identifier
 as `na_omit`, `naOmit`, `NAOMIT`, `naomit` and `NaOmit`.
 Note that, however, R is a case-sensitive language -- these are all different
@@ -642,7 +666,10 @@ class(x)
 length(x)
 ```
 
-> By default, `T` is a synonym for `TRUE` and `F` for `FALSE`. This
+
+Remark.
+
+: By default, `T` is a synonym for `TRUE` and `F` for `FALSE`. This
 may be changed though so it's better not to rely on these.
 
 

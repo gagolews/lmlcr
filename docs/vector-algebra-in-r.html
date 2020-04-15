@@ -49,6 +49,20 @@
 
 
 
+<style type="text/css">
+div.exercise {
+    font-style: italic;
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+details.solution {
+    border-left: 2px solid #ff8888;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+</style>
 
 
 <style type="text/css">
@@ -469,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
 
 </ul>
 
@@ -576,8 +590,8 @@ much faster than the <code>for</code> loop-based one (a.k.a. “iterative” sty
 <a class="sourceLine" id="cb679-14" title="14">    <span class="dt">t2=</span>{</a>
 <a class="sourceLine" id="cb679-15" title="15">        <span class="co"># &quot;vectorised&quot; style</span></a>
 <a class="sourceLine" id="cb679-16" title="16">        <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb679-17" title="17">    }</a>
-<a class="sourceLine" id="cb679-18" title="18">), <span class="dt">signif=</span><span class="dv">3</span>, <span class="dt">unit=</span><span class="st">&#39;relative&#39;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb679-17" title="17"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb679-18" title="18"><span class="er">)</span>, signif=<span class="dv">3</span>, unit=<span class="st">&#39;relative&#39;</span><span class="er">)</span></a></code></pre></div>
 <pre><code>## Unit: relative
 ##  expr min  lq mean median   uq  max neval
 ##    t1 124 118  101    100 97.9 87.5   100
@@ -609,12 +623,14 @@ we call:</p>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<blockquote>
-<p>These two functions might return different results.
+<dl>
+<dt>Remark.</dt>
+<dd><p>These two functions might return different results.
 For instance, in the next chapter we note that
 a numeric matrix will yield <code>mode()</code> of <code>numeric</code> and
 <code>class()</code> of <code>matrix</code>.</p>
-</blockquote>
+</dd>
+</dl>
 <p>What is more, we can get the number of elements in <code>x</code> by calling:</p>
 <div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
@@ -702,11 +718,13 @@ Read more at <code>?sample</code>.</p>
 <p>Mathematically, we sometimes refer to a vector that is reduced to a single component
 as a <em>scalar</em>. We are used to denoting such objects with lowercase letters
 such as <span class="math inline">\(a, b, i, s, x\in\mathbb{R}\)</span>.</p>
-<blockquote>
-<p>Note that some programming languages distinguish between
+<dl>
+<dt>Remark.</dt>
+<dd><p>Note that some programming languages distinguish between
 atomic numerical entities and length-one vectors, e.g., <code>7</code> vs. <code>[7]</code> in Python.
 This is not the case in R, where <code>length(7)</code> returns 1.</p>
-</blockquote>
+</dd>
+</dl>
 <p>Vector-scalar arithmetic operations
 such as <span class="math inline">\(s\boldsymbol{x}\)</span> (multiplication of a vector <span class="math inline">\(\boldsymbol{x}=(x_1,\dots, x_n)\)</span>
 by a scalar <span class="math inline">\(s\)</span>) result in a vector <span class="math inline">\(\boldsymbol{y}\)</span> such that <span class="math inline">\(y_i=s x_i\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>.</p>
@@ -748,11 +766,13 @@ for elementwise multiplication, division and exponentiation, this is available i
 <pre><code>## [1] 1.000 0.200 0.030 0.004</code></pre>
 <div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb748-1" title="1">y<span class="op">^</span>x</a></code></pre></div>
 <pre><code>## [1] 1e+00 1e+02 1e+06 1e+12</code></pre>
-<blockquote>
-<p><code>1e+12</code> is a number written in the <em>scientific notation</em>.
+<dl>
+<dt>Remark.</dt>
+<dd><p><code>1e+12</code> is a number written in the <em>scientific notation</em>.
 It means “1 times 10 to the power of 12”, i.e., <span class="math inline">\(1\times 10^{12}\)</span>. Physicists
 love this notation, because they are used to dealing with very small (think sizes of quarks) and very large (think distances between galaxies) entities.</p>
-</blockquote>
+</dd>
+</dl>
 <p>Moreover, in R the <strong>recycling rule</strong> is applied if we perform elementwise
 operations on vectors of <em>different</em> lengths – the shorter
 vector is recycled as many times as needed to match the length of the longer
@@ -786,18 +806,20 @@ that makes sense.</p>
 <li><code>sd(x)</code> = <code>sqrt(var(x))</code> – standard deviation</li>
 </ul>
 <p>see also: <code>min()</code>, <code>max()</code>, <code>median()</code>, <code>quantile()</code>.</p>
-<blockquote>
-<p>Remember that you can always access the R manual by typing
+<dl>
+<dt>Remark.</dt>
+<dd><p>Remember that you can always access the R manual by typing
 <code>?functionname</code>, e.g., <code>?quantile</code>.</p>
-</blockquote>
-<blockquote>
-<p>Note that <span class="math inline">\(\sum_{i=1}^n x_i\)</span> can also be written
+</dd>
+<dt>Remark.</dt>
+<dd><p>Note that <span class="math inline">\(\sum_{i=1}^n x_i\)</span> can also be written
 as <span class="math inline">\(\displaystyle\sum_{i=1}^n x_i\)</span> or even <span class="math inline">\(\displaystyle\sum_{i=1,\dots,n} x_i\)</span>.
 These all mean the sum of <span class="math inline">\(x_i\)</span> for <span class="math inline">\(i\)</span> from <span class="math inline">\(1\)</span> to <span class="math inline">\(n\)</span>,
 that is, the sum of <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, …, <span class="math inline">\(x_n\)</span>,
 i.e.,
 <span class="math inline">\(x_1+x_2+\dots+x_n\)</span>.</p>
-</blockquote>
+</dd>
+</dl>
 <div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" title="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</a>
 <a class="sourceLine" id="cb761-2" title="2"><span class="kw">mean</span>(x)</a></code></pre></div>
 <pre><code>## [1] 0.4972778</code></pre>
@@ -824,9 +846,9 @@ integers between 1 and 9:</p>
 <a class="sourceLine" id="cb771-2" title="2"><span class="kw">plot</span>(x, <span class="kw">sin</span>(x), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a>
 <a class="sourceLine" id="cb771-3" title="3"><span class="kw">lines</span>(x, <span class="kw">cos</span>(x), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># add a curve to the current plot</span></a></code></pre></div>
 <p><img src="92-R-vectors-figures/sincos-1.svg" alt="plot of chunk sincos" /></p>
-<blockquote>
+<div class="exercise"><strong>Exercise.</strong>
 <p>Try increasing the <code>length.out</code> argument to make the curves smoother.</p>
-</blockquote>
+</div>
 </div>
 <div id="norms-and-distances" class="section level3">
 <h3><span class="header-section-number">B.2.6</span> Norms and Distances</h3>
@@ -885,11 +907,13 @@ elementwise vector multiplication in R – the result is a single number.</p>
 <a class="sourceLine" id="cb780-2" title="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb780-3" title="3"><span class="kw">sum</span>(u<span class="op">*</span>v)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<blockquote>
-<p>(*) Note that the squared Euclidean norm of a vector is equal to the dot
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Note that the squared Euclidean norm of a vector is equal to the dot
 product of the vector and itself,
 <span class="math inline">\(\|\boldsymbol{x}\|^2 = \boldsymbol{x}\cdot\boldsymbol{x}\)</span>.</p>
-</blockquote>
+</dd>
+</dl>
 <p>(*) Interestingly, a dot product has a nice geometrical interpretation:
 <span class="math display">\[
 \boldsymbol{x}\cdot\boldsymbol{y} = \|\boldsymbol{x}\| \|\boldsymbol{y}\|
@@ -935,14 +959,16 @@ we can get rid of the missing values by calling <code>na.omit()</code>:</p>
 (however, not every aggregation function has it – always refer to documentation).</p>
 <div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1"><span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<blockquote>
-<p>Note that in R, a dot has no special meaning.
+<dl>
+<dt>Remark.</dt>
+<dd><p>Note that in R, a dot has no special meaning.
 <code>na.omit</code> is as good of a function’s name or variable identifier
 as <code>na_omit</code>, <code>naOmit</code>, <code>NAOMIT</code>, <code>naomit</code> and <code>NaOmit</code>.
 Note that, however, R is a case-sensitive language – these are all different
 symbols.
 Read more in the <em>Details</em> section of <code>?make.names</code>.</p>
-</blockquote>
+</dd>
+</dl>
 <p>Moreover, some arithmetic operations can result in infinities (<span class="math inline">\(\pm \infty\)</span>):</p>
 <div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1"><span class="kw">log</span>(<span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## [1] -Inf</code></pre>
@@ -976,10 +1002,12 @@ but a “invalid” result.</p>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 <div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb819-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<blockquote>
-<p>By default, <code>T</code> is a synonym for <code>TRUE</code> and <code>F</code> for <code>FALSE</code>. This
+<dl>
+<dt>Remark.</dt>
+<dd><p>By default, <code>T</code> is a synonym for <code>TRUE</code> and <code>F</code> for <code>FALSE</code>. This
 may be changed though so it’s better not to rely on these.</p>
-</blockquote>
+</dd>
+</dl>
 </div>
 <div id="logical-operations" class="section level3">
 <h3><span class="header-section-number">B.3.2</span> Logical Operations</h3>

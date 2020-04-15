@@ -49,6 +49,20 @@
 
 
 
+<style type="text/css">
+div.exercise {
+    font-style: italic;
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+details.solution {
+    border-left: 2px solid #ff8888;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+</style>
 
 
 <style type="text/css">
@@ -469,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
 
 </ul>
 
@@ -509,9 +523,11 @@ operating systems.
 It can be downloaded from the R project website,
 see <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a> (or installed through system-specific package
 repositories).</p>
-<blockquote>
-<p>From now on we assume that you have installed the R environment.</p>
-</blockquote>
+<dl>
+<dt>Remark.</dt>
+<dd><p>From now on we assume that you have installed the R environment.</p>
+</dd>
+</dl>
 </div>
 <div id="installing-an-ide" class="section level2">
 <h2><span class="header-section-number">A.2</span> Installing an IDE</h2>
@@ -519,14 +535,16 @@ repositories).</p>
 as stress- and hassle-free as possible, let’s stick to a very user-friendly
 development environment called RStudio, which can be downloaded from
 <a href="https://rstudio.com/products/rstudio/" class="uri">https://rstudio.com/products/rstudio/</a> (choose RStudio Desktop Open Source Edition).</p>
-<blockquote>
-<p>There are of course many other options for working with R, both interactive
+<dl>
+<dt>Remark.</dt>
+<dd><p>There are of course many other options for working with R, both interactive
 and non-interactive, including Jupyter Notebooks (see <a href="https://irkernel.github.io/" class="uri">https://irkernel.github.io/</a>),
 dynamically generated reports (see <a href="https://yihui.org/knitr/options/" class="uri">https://yihui.org/knitr/options/</a>)
 and plain shell scripts executed from a terminal.
 However, for now let’s leave that to more
 advanced users.</p>
-</blockquote>
+</dd>
+</dl>
 </div>
 <div id="installing-recommended-packages" class="section level2">
 <h2><span class="header-section-number">A.3</span> Installing Recommended Packages</h2>
@@ -544,9 +562,11 @@ of this course. Execute the following commands in the R console
 we will need some Python environment, for example
 the Anaconda Distribution Python 3.x, see
 <a href="https://www.anaconda.com/distribution/" class="uri">https://www.anaconda.com/distribution/</a>.</p>
-<blockquote>
-<p>Do <strong>not</strong> download Python 2.7.</p>
-</blockquote>
+<dl>
+<dt>Remark.</dt>
+<dd><p>Do <strong>not</strong> download Python 2.7.</p>
+</dd>
+</dl>
 <p>Installation instructions can be found at
 <a href="https://docs.anaconda.com/anaconda/install/" class="uri">https://docs.anaconda.com/anaconda/install/</a>.
 This is required for the R packages tensorflow and keras,
@@ -564,20 +584,16 @@ related to this book. Click <em>File</em> → <em>New Project</em>
 and then choose to start in a brand new working directory,
 in any location you like.
 Choose <em>New Project</em> as the project type.</p>
-<blockquote>
 <p>From now on, we are assuming that the project name is <em>LMLCR</em>
 and the project has been opened. All source files we create
-will be relative to the project directory.</p>
-</blockquote></li>
+will be relative to the project directory.</p></li>
 <li><p>Create a new R source file, <em>File</em> → <em>New File</em> → <em>R Script</em>.
 Save the file as, for example, <em>sandbox_01.R</em>.</p>
 <p>The source editor (top left pane) behaves just like any other text editor.
 Standard keyboard shortcuts are available, such as CTRL+C
 and CTRL+V (Cmd+C and Cmd+V on MacOS) for copy and paste, respectively.</p>
-<blockquote>
 <p>A list of keyboard shortcuts is available at
-<a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts" class="uri">https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts</a></p>
-</blockquote></li>
+<a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts" class="uri">https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts</a></p></li>
 <li><p>Input the following R code into the editor:</p>
 <div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" title="1"><span class="co"># My first R script</span></a>
 <a class="sourceLine" id="cb673-2" title="2"><span class="co"># This is a comment</span></a>
@@ -602,10 +618,8 @@ bottom-right pane.</p></li>
 </ol>
 <p>While you learn, we recommend that you get used to writing your
 code in an R script and executing it just as we did above.</p>
-<blockquote>
 <p>On a side note, you can execute (source) the whole script
 by pressing Ctrl+Shift+S (Cmd+Shift+S on MacOS).</p>
-</blockquote>
 
 </div>
 </div>

@@ -49,6 +49,20 @@
 
 
 
+<style type="text/css">
+div.exercise {
+    font-style: italic;
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+details.solution {
+    border-left: 2px solid #ff8888;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+</style>
 
 
 <style type="text/css">
@@ -469,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
 
 </ul>
 
@@ -514,10 +528,11 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} &amp; y_n\\
 \end{array}
 \right].
 \]</span></p>
-<div class="incremental">
+<div style="margin-top: 1em">
+
+</div>
 <p>In this chapter we are still interested in <strong>classification</strong> tasks;
 we assume that each <span class="math inline">\(y_i\)</span> is a descriptive label.</p>
-<hr />
 <p>Let’s assume that we are faced with <strong>binary classification</strong> tasks.</p>
 <p>Hence, there are only two possible labels that we traditionally denote with <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s.</p>
 <p>For example:</p>
@@ -547,21 +562,17 @@ we assume that each <span class="math inline">\(y_i\)</span> is a descriptive la
 </tr>
 </tbody>
 </table>
-<hr />
 <p>The synthetic 2D dataset once again (true decision boundary is at <span class="math inline">\(X_1=0\)</span>):</p>
 <p><img src="04-classification-trees_and_logistic-figures/synthetic-1.svg" alt="plot of chunk synthetic" /></p>
 </div>
-</div>
 <div id="data-1" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Data</h3>
-<hr />
 <p>For illustration, we’ll be considering the Wine Quality dataset
 (white wines only):</p>
 <div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
 <a class="sourceLine" id="cb392-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
 <a class="sourceLine" id="cb392-3" title="3">(n &lt;-<span class="st"> </span><span class="kw">nrow</span>(wines)) <span class="co"># number of samples</span></a></code></pre></div>
 <pre><code>## [1] 4898</code></pre>
-<hr />
 <p>The input matrix <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span>
 consists of the first 10 numeric variables:</p>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
@@ -577,7 +588,6 @@ consists of the first 10 numeric variables:</p>
 ##       pH sulphates
 ## 1600 3.0      0.45
 ## 1601 3.3      0.49</code></pre>
-<hr />
 <p>The 11th variable measures the amount of alcohol (in %).</p>
 <p>We will convert this dependent variable to a binary one:</p>
 <ul>
@@ -590,7 +600,6 @@ consists of the first 10 numeric variables:</p>
 <pre><code>## Y
 ##    0    1 
 ## 4085  813</code></pre>
-<hr />
 <p>60/40% train-test split:</p>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
 <a class="sourceLine" id="cb400-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
@@ -604,14 +613,12 @@ consists of the first 10 numeric variables:</p>
 <a class="sourceLine" id="cb402-6" title="6"><span class="co"># the remaining indices (40%) go to the test sample:</span></a>
 <a class="sourceLine" id="cb402-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
 <a class="sourceLine" id="cb402-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
-<hr />
 <p>Let’s also compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
 <div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
 <a class="sourceLine" id="cb403-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
 <a class="sourceLine" id="cb403-3" title="3">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
 <a class="sourceLine" id="cb403-4" title="4">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
-<hr />
 <div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
 <a class="sourceLine" id="cb404-2" title="2">{</a>
 <a class="sourceLine" id="cb404-3" title="3">    C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test) <span class="co"># confusion matrix</span></a>
@@ -625,7 +632,6 @@ and <code>X_test</code>, respectively.</p>
 <a class="sourceLine" id="cb404-11" title="11">      <span class="dt">FP=</span>C[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">TP=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]</a>
 <a class="sourceLine" id="cb404-12" title="12">    ) <span class="co"># return a named vector</span></a>
 <a class="sourceLine" id="cb404-13" title="13">}</a></code></pre></div>
-<hr />
 <p>Let’s go back to the K-NN algorithm.</p>
 <div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a>
 <a class="sourceLine" id="cb405-2" title="2">Y_knn5   &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
@@ -670,7 +676,6 @@ consist of decision rules of the form:</p>
 <p><strong>IF <span class="math inline">\(x_{i,j_1}\le v_1\)</span> AND … AND <span class="math inline">\(x_{i,j_r}\le v_r\)</span> THEN <span class="math inline">\(\hat{y}_i=1\)</span>.</strong></p>
 <p>These can be organised into a <strong>hierarchy</strong> for greater readability.</p>
 <p>This idea inspired the notion of <strong>decision trees</strong> <span class="citation">(Breiman et al. <a href="references.html#ref-cart">1984</a>)</span>.</p>
-<hr />
 <p><img src="04-classification-trees_and_logistic-figures/plot_rpart-1.svg" alt="plot of chunk plot_rpart" /></p>
 <p>Each tree node reports 3 pieces of information:</p>
 <ul>
@@ -678,14 +683,11 @@ consist of decision rules of the form:</p>
 <li>(relative) proportion of 1s represented in a node</li>
 <li>(absolute) proportion of all observations in a node</li>
 </ul>
-<hr />
 <p><img src="04-classification-trees_and_logistic-figures/plot_rpart2-1.svg" alt="plot of chunk plot_rpart2" /></p>
-<hr />
 <p><img src="04-classification-trees_and_logistic-figures/plot_rpart3-1.svg" alt="plot of chunk plot_rpart3" /></p>
 </div>
 <div id="example-in-r-1" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Example in R</h3>
-<hr />
 <p>We will use the <code>rpart()</code> function from the <code>rpart</code> package
 to build a classification tree.</p>
 <div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1"><span class="kw">library</span>(<span class="st">&quot;rpart&quot;</span>)</a>
@@ -695,12 +697,10 @@ to build a classification tree.</p>
 to feed it with data in a data.frame form.</p>
 <div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">XY_train &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train), <span class="dt">Y=</span>Y_train)</a>
 <a class="sourceLine" id="cb409-2" title="2">XY_test &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test), <span class="dt">Y=</span>Y_test)</a></code></pre></div>
-<hr />
 <p>Fit and plot a decision tree:</p>
 <div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb410-2" title="2"><span class="kw">rpart.plot</span>(t1, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/plot_rpart1-1.svg" alt="plot of chunk plot_rpart1" /></p>
-<hr />
 <!--
 The fitted model is rather... simple.
 
@@ -714,7 +714,8 @@ Well note how these two distributions are shifted:
 #    horizontal=TRUE)
 ```
 
----
+
+
 
 
 -->
@@ -725,11 +726,12 @@ Well note how these two distributions are shifted:
 ##    0.9285714    0.8062284    0.7350158    0.7689769 
 ##           TN           FN           FP           TP 
 ## 1587.0000000   84.0000000   56.0000000  233.0000000</code></pre>
-<hr />
-<blockquote>
-<p>(*) Interestingly, <code>rpart()</code> also provides us with information
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Interestingly, <code>rpart()</code> also provides us with information
 about the importance degrees of each independent variable.</p>
-</blockquote>
+</dd>
+</dl>
 <div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">t1<span class="op">$</span>variable.importance<span class="op">/</span><span class="kw">sum</span>(t1<span class="op">$</span>variable.importance)</a></code></pre></div>
 <pre><code>##              density       residual.sugar        fixed.acidity 
 ##          0.656248965          0.198422128          0.030516677 
@@ -739,27 +741,23 @@ about the importance degrees of each independent variable.</p>
 ##          0.018429283          0.014048245          0.011920068 
 ##  free.sulfur.dioxide 
 ##          0.008657918</code></pre>
-<hr />
 <p>We can build a less complex tree by playing
 with the <code>cp</code> parameter.</p>
 <div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
 <a class="sourceLine" id="cb415-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.1</span>)</a>
 <a class="sourceLine" id="cb415-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="04-classification-trees_and_logistic-figures/plot_rpart222-1.svg" alt="plot of chunk plot_rpart222" /></p>
-<hr />
 <div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb416-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9025510    0.8387097    0.4921136    0.6202783 
 ##           TN           FN           FP           TP 
 ## 1613.0000000  161.0000000   30.0000000  156.0000000</code></pre>
-<hr />
 <p>A more complex tree:</p>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
 <a class="sourceLine" id="cb418-2" title="2">t3 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.00001</span>)</a>
 <a class="sourceLine" id="cb418-3" title="3"><span class="kw">rpart.plot</span>(t3, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-3-1.svg" alt="plot of chunk unnamed-chunk-3" style="width:100.0%" /></p>
-<hr />
+<p><img src="04-classification-trees_and_logistic-figures/tree333-1.svg" alt="plot of chunk tree333" /></p>
 <div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t3, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb419-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
@@ -769,7 +767,6 @@ with the <code>cp</code> parameter.</p>
 </div>
 <div id="a-note-on-decision-tree-learning" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> A Note on Decision Tree Learning</h3>
-<hr />
 <p>Learning an optimal decision tree is a computationally hard problem
 – we need some heuristics.</p>
 <p>Examples:</p>
@@ -786,7 +783,8 @@ with the <code>cp</code> parameter.</p>
 
 ## ...
 
----
+
+
 
 
 just show how to use it
@@ -804,7 +802,8 @@ bagging
 ```
 
 
----
+
+
 
 
 
@@ -822,7 +821,6 @@ bagging
 <h2><span class="header-section-number">4.3</span> Binary Logistic Regression</h2>
 <div id="motivation" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Motivation</h3>
-<hr />
 <p>Recall that for a regression task, we fitted a very simple family of models
 – the linear ones – by minimising the sum of squared residuals.</p>
 <p>This approach was pretty effective.</p>
@@ -835,7 +833,6 @@ and apply regression models in a binary classification task.</p>
 <a class="sourceLine" id="cb421-5" title="5">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_test)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
 <a class="sourceLine" id="cb421-6" title="6">)</a>
 <a class="sourceLine" id="cb421-7" title="7">f_r &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>pH, <span class="dt">data=</span>XY_train_r)</a></code></pre></div>
-<hr />
 <div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">Y_pred_r &lt;-<span class="st"> </span><span class="kw">predict</span>(f_r, XY_test_r)</a>
 <a class="sourceLine" id="cb422-2" title="2"><span class="kw">summary</span>(Y_pred_r)</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
@@ -848,7 +845,6 @@ but we can convert them to binary ones by checking if, e.g., <span class="math i
 ##    0.927    0.865    0.647    0.740 1611.000  112.000   32.000 
 ##       TP 
 ##  205.000</code></pre>
-<hr />
 <p>The threshold <span class="math inline">\(T=0.5\)</span> could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample).</p>
 <p><img src="04-classification-trees_and_logistic-figures/lm3b-1.svg" alt="plot of chunk lm3b" /></p>
@@ -857,7 +853,6 @@ There are better models.</p>
 </div>
 <div id="logistic-model" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Logistic Model</h3>
-<hr />
 <p>Inspired by this idea, we could try modelling
 the <strong><em>probability</em> that a given point belongs to class <span class="math inline">\(1\)</span></strong>.</p>
 <p>This could also provide us with the <em>confidence</em> in our prediction.</p>
@@ -866,17 +861,17 @@ the <strong><em>probability</em> that a given point belongs to class <span class
 of some function <span class="math inline">\(\phi:\mathbb{R}\to[0,1]\)</span> (preferably S-shaped == sigmoid),
 so as to get:</p>
 <p><span class="math inline">\(\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)\)</span></p>
-<blockquote>
-<p>The above reads as “Probability that <span class="math inline">\(Y\)</span> is from class 1 given <span class="math inline">\(\mathbf{X}\)</span>
+<dl>
+<dt>Remark.</dt>
+<dd><p>The above reads as “Probability that <span class="math inline">\(Y\)</span> is from class 1 given <span class="math inline">\(\mathbf{X}\)</span>
 and <span class="math inline">\(\boldsymbol\beta\)</span>”.</p>
-</blockquote>
-<hr />
+</dd>
+</dl>
 <p>A popular choice is the <strong>logistic sigmoid function</strong>,</p>
 <p><span class="math display">\[
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]</span></p>
 <p><img src="04-classification-trees_and_logistic-figures/sigmoid-1.svg" alt="plot of chunk sigmoid" /></p>
-<hr />
 <p>Hence our model becomes:</p>
 <p><span class="math display">\[
 Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
@@ -886,13 +881,14 @@ Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
 </div>
 <div id="example-in-r-2" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Example in R</h3>
-<hr />
 <p>Let us first fit
 a simple (i.e., <span class="math inline">\(p=1\)</span>) logistic regression model
 using the <code>density</code> variable.</p>
-<blockquote>
-<p>“logit” below denotes the inverse of the logistic sigmoid function.</p>
-</blockquote>
+<dl>
+<dt>Remark.</dt>
+<dd><p>“logit” below denotes the inverse of the logistic sigmoid function.</p>
+</dd>
+</dl>
 <div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
 <a class="sourceLine" id="cb426-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
 <pre><code>## 
@@ -917,9 +913,7 @@ using the <code>density</code> variable.</p>
 ## AIC: 1422.9
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
-<hr />
 <p><img src="04-classification-trees_and_logistic-figures/glm2-1.svg" alt="plot of chunk glm2" /></p>
-<hr />
 <p>Some predicted probabilities:</p>
 <div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## 1602 1605 1607 1608 1609 1613 1614 1615 1621 1622 1623 1627 
@@ -932,7 +926,6 @@ is greater than <span class="math inline">\(0.5\)</span>.</p>
 ##    0.8979592    0.7276265    0.5899054    0.6515679 
 ##           TN           FN           FP           TP 
 ## 1573.0000000  130.0000000   70.0000000  187.0000000</code></pre>
-<hr />
 <p>And now a fit based on some other input variables:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
 <a class="sourceLine" id="cb432-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
@@ -942,14 +935,13 @@ is greater than <span class="math inline">\(0.5\)</span>.</p>
 ##    0.9321429    0.8239437    0.7381703    0.7787022 
 ##           TN           FN           FP           TP 
 ## 1593.0000000   83.0000000   50.0000000  234.0000000</code></pre>
-<blockquote>
-<p>Exercise: try fitting the models based on different combinations
+<div class="exercise"><strong>Exercise.</strong>
+<p>Try fitting the models based on different combinations
 of features.</p>
-</blockquote>
+</div>
 </div>
 <div id="loss-function" class="section level3">
 <h3><span class="header-section-number">4.3.4</span> Loss Function</h3>
-<hr />
 <p>The fitting of the model can be written as an optimisation task:</p>
 <p><span class="math display">\[
 \min_{\beta_0, \beta_1,\dots, \beta_p\in\mathbb{R}}
@@ -966,7 +958,6 @@ e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
 \]</span></p>
 <p>The corresponding loss function has not only nice statistical properties (**)
 but also an intuitive interpretation.</p>
-<hr />
 <p>Note that the predicted <span class="math inline">\(\hat{y}\)</span> is in <span class="math inline">\((0,1)\)</span> and the true <span class="math inline">\(y\)</span> equals to either 0 or 1.</p>
 <p>Recall also that <span class="math inline">\(\log t\in(-\infty, 0)\)</span> for <span class="math inline">\(t\in (0,1)\)</span>.</p>
 <p><span class="math display">\[
@@ -989,31 +980,30 @@ as <span class="math inline">\(t\to 0\)</span></li>
 if the classifier was sure that <span class="math inline">\(1-\hat{y}\simeq 1\)</span>, because this is the ground-truth)</li>
 </ul></li>
 </ul>
-<hr />
-<blockquote>
-<p>(*) Interestingly, there is no analytical formula
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Interestingly, there is no analytical formula
 for the optimal set of parameters (<span class="math inline">\(\beta_0,\beta_1,\dots,\beta_p\)</span>)
 minimising the log-loss.</p>
-</blockquote>
-<blockquote>
-<p>In the chapter on optimisation, we shall see that
+</dd>
+<dt>Remark.</dt>
+<dd><p>In the chapter on optimisation, we shall see that
 the solution to the logistic regression can be solved numerically
 by means of quite simple iterative algorithms.</p>
-</blockquote>
+</dd>
+</dl>
 </div>
 </div>
 <div id="outro-3" class="section level2">
 <h2><span class="header-section-number">4.4</span> Outro</h2>
 <div id="remarks-3" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> Remarks</h3>
-<hr />
 <p>Other prominent classification algorithms:</p>
 <ul>
 <li>Naive Bayes and other probabilistic approaches,</li>
 <li>Support Vector Machines (SVMs) and other kernel methods,</li>
 <li>(Artificial) (Deep) Neural Networks.</li>
 </ul>
-<hr />
 <p>Interestingly, in the next chapter we will note that the logistic regression model
 is a special case of a <em>feed-forward single layer neural network</em>.</p>
 <p>We will also generalise the binary logistic regression to the case of

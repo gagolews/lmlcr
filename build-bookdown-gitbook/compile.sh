@@ -46,5 +46,17 @@ Rscript -e "\
 rm -f "${knitrfile}"
 
 sed -i -e 's/tmp-bookdown-gitbook\///g' "${outfile}"
+sed -i -e 's/^---$/<div style="margin-top: 1em"><\/div>/g' "${outfile}"
+sed -i -e 's/^. . .$/<div style="margin-top: 1em"><\/div>/g' "${outfile}"
+
+
+sed -i -r 's/^\{ BEGIN solution \}$/```{=html}\n<details class="solution"><summary style="color: blue">Click here for a solution.<\/summary>\n```/g'  "${outfile}"
+sed -i -r 's/^\{ END solution \}$/```{=html}\n<\/details>\n```/g'  "${outfile}"
+
+sed -i -r 's/^\{ BEGIN exercise \}$/```{=html}\n<div class="exercise"><strong>Exercise.<\/strong>\n```/g'  "${outfile}"
+sed -i -r 's/^\{ END exercise \}$/```{=html}\n<\/div>\n```/g'  "${outfile}"
+
+
+
 
 echo "Finished compiling ${1} → ${outfile}. OK."

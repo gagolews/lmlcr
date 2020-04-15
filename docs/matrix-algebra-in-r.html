@@ -49,6 +49,20 @@
 
 
 
+<style type="text/css">
+div.exercise {
+    font-style: italic;
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+details.solution {
+    border-left: 2px solid #ff8888;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+</style>
 
 
 <style type="text/css">
@@ -469,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
 
 </ul>
 
@@ -861,11 +875,11 @@ c_{i,j} = \mathbf{a}_{i,\cdot} \cdot \mathbf{b}_{\cdot,j}
 = \sum_{k=1}^p a_{i,k} b_{k, j}
 \]</span>
 for <span class="math inline">\(i=1,\dots,n\)</span> and <span class="math inline">\(j=1,\dots,m\)</span>.</p>
-<blockquote>
-<p>As an exercise, we recommend multiplying
+<div class="exercise"><strong>Exercise.</strong>
+<p>Multiply
 a few simple matrices of sizes <span class="math inline">\(2\times 2\)</span>, <span class="math inline">\(2\times 3\)</span>, <span class="math inline">\(3\times 2\)</span> etc.
 using pen and paper and checking the results in R.</p>
-</blockquote>
+</div>
 <!-- TODO: graphical interpretation -->
 <p>Also remember that, mathematically,
 <em>squaring</em> a matrix is done in terms of matrix multiplication,
@@ -948,13 +962,15 @@ only if <span class="math inline">\(\mathbf{x}\in\mathbb{R}^{p\times 1}\)</span>
 Similarly, <span class="math inline">\(\mathbf{y}\mathbf{A}\)</span> makes only sense
 whenever <span class="math inline">\(\mathbf{y}\in\mathbb{R}^{1\times n}\)</span> is a row vector.</p>
 </blockquote>
-<blockquote>
-<p>Please take notice of the fact that we consistently
+<dl>
+<dt>Remark.</dt>
+<dd><p>Please take notice of the fact that we consistently
 discriminate between different bold math fonts and letter cases:
 <span class="math inline">\(\mathbf{X}\)</span> is a matrix, <span class="math inline">\(\mathbf{x}\)</span> is a row or column vector
 (still a matrix, but a sequence-like one)
 and <span class="math inline">\(\boldsymbol{x}\)</span> is an ordinary vector (one-dimensional sequence).</p>
-</blockquote>
+</dd>
+</dl>
 <!--
 > This is why, e.g., the $i$-th row of $\mathbf{X}$ is denoted
 with $\mathbf{x}_{i,\cdot}$ -- to emphasise that it is a row vector.

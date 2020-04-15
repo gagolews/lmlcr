@@ -47,5 +47,10 @@ rm -f "${knitrfile}"
 
 sed -i -e 's/tmp-bookdown-latex\///g' "${outfile}"
 sed -i -e 's/^---$/\\bigskip/g' "${outfile}"
+sed -i -e 's/^. . .$/\\bigskip/g' "${outfile}"
+
+sed -i -r 's/^\{ BEGIN ([a-z]+) \}$/```{=latex}\n\\begin{\1}\n```/g'  "${outfile}"
+sed -i -r 's/^\{ END ([a-z]+) \}$/```{=latex}\n\\end{\1}\n```/g'  "${outfile}"
+
 
 echo "Finished compiling ${1} → ${outfile}. OK."

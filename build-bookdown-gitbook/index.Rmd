@@ -9,6 +9,8 @@ output:
             "--highlight-style=tango", "--email-obfuscation=none",
             "--section-divs", "--csl=bibstyle.csl"]
         fig_caption: false
+        includes:
+            in_header: preamble.html
         config:
             download: ["lmlcr.pdf"]
             fontsettings:

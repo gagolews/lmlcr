@@ -1,1 +1,24 @@
 \usepackage{xcolor}
+\definecolor{darkgray}{cmyk}{0.0,0.9,0.0,0.95}
+\usepackage{amsmath}%
+\usepackage{wasysym}%
+
+
+
+\newenvironment{exercise}{%
+\bigskip\noindent\textbf{Exercise. }%
+\it\ignorespaces%
+}{\ignorespaces%
+\hfill$\square$%
+}
+
+
+\newenvironment{solution}{%
+\bigskip\noindent\textbf{Solution. }%
+\small\color{darkgray}\ignorespaces%
+}{\ignorespaces%
+\hfill$\blacksquare$%
+}
+
+
+
