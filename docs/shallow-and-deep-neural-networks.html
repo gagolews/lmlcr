@@ -373,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.3" data-path="recommender-systems.html"><a href="recommender-systems.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="section-9.html"><a href="section-9.html"><i class="fa fa-check"></i>}</a></li>
+<li class="chapter" data-level="" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i>}</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
 <li class="chapter" data-level="A.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-10 15:18 (d7e591e)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 13:27 (123f7fe)</a></li>
 
 </ul>
 
@@ -610,12 +610,12 @@ classifiers (see the notes below), but it’s a great educational example.</p>
 <hr />
 <p>Accessing MNIST via the keras package
 (which we will use throughout this chapter anyway) is easy:</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
-<a class="sourceLine" id="cb437-2" title="2">mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</a>
-<a class="sourceLine" id="cb437-3" title="3">X_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb437-4" title="4">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
-<a class="sourceLine" id="cb437-5" title="5">X_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb437-6" title="6">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
+<a class="sourceLine" id="cb433-2" title="2">mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</a>
+<a class="sourceLine" id="cb433-3" title="3">X_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb433-4" title="4">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
+<a class="sourceLine" id="cb433-5" title="5">X_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb433-6" title="6">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
 <!--
 
 
@@ -634,40 +634,40 @@ for (file in files) {
 -->
 <hr />
 <p><code>X_train</code> and <code>X_test</code> consist of 28×28 pixel images.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1"><span class="kw">dim</span>(X_train)</a></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1"><span class="kw">dim</span>(X_train)</a></code></pre></div>
 <pre><code>## [1] 60000    28    28</code></pre>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" title="1"><span class="kw">dim</span>(X_test)</a></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1"><span class="kw">dim</span>(X_test)</a></code></pre></div>
 <pre><code>## [1] 10000    28    28</code></pre>
 <blockquote>
 <p><code>X_train</code> and <code>X_test</code> are 3-dimensional arrays, think
 of them as vectors of 60000 and 10000 matrices of size 28×28, respectively.</p>
 </blockquote>
 <p>These are greyscale images, with 0 = black, …, 255 = white:</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" title="1"><span class="kw">range</span>(X_train)</a></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1"><span class="kw">range</span>(X_train)</a></code></pre></div>
 <pre><code>## [1]   0 255</code></pre>
 <p>It is better to convert the colour values to 0.0 = black, …, 1.0 = white:</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" title="1">X_train &lt;-<span class="st"> </span>X_train<span class="op">/</span><span class="dv">255</span></a>
-<a class="sourceLine" id="cb444-2" title="2">X_test  &lt;-<span class="st"> </span>X_test<span class="op">/</span><span class="dv">255</span></a></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" title="1">X_train &lt;-<span class="st"> </span>X_train<span class="op">/</span><span class="dv">255</span></a>
+<a class="sourceLine" id="cb440-2" title="2">X_test  &lt;-<span class="st"> </span>X_test<span class="op">/</span><span class="dv">255</span></a></code></pre></div>
 <hr />
 <p><code>Y_train</code> and <code>Y_test</code> are the corresponding integer labels:</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1"><span class="kw">length</span>(Y_train)</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="kw">length</span>(Y_train)</a></code></pre></div>
 <pre><code>## [1] 60000</code></pre>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1"><span class="kw">length</span>(Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1"><span class="kw">length</span>(Y_test)</a></code></pre></div>
 <pre><code>## [1] 10000</code></pre>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1"><span class="kw">table</span>(Y_train) <span class="co"># label distribution in train sample</span></a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1"><span class="kw">table</span>(Y_train) <span class="co"># label distribution in train sample</span></a></code></pre></div>
 <pre><code>## Y_train
 ##    0    1    2    3    4    5    6    7    8    9 
 ## 5923 6742 5958 6131 5842 5421 5918 6265 5851 5949</code></pre>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1"><span class="kw">table</span>(Y_test)  <span class="co"># label distribution in test sample</span></a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1"><span class="kw">table</span>(Y_test)  <span class="co"># label distribution in test sample</span></a></code></pre></div>
 <pre><code>## Y_test
 ##    0    1    2    3    4    5    6    7    8    9 
 ##  980 1135 1032 1010  982  892  958 1028  974 1009</code></pre>
 <hr />
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1">id &lt;-<span class="st"> </span><span class="dv">123</span> <span class="co"># which image to show</span></a>
-<a class="sourceLine" id="cb453-2" title="2"><span class="kw">image</span>(<span class="dt">z=</span><span class="kw">t</span>(X_train[id,,]), <span class="dt">col=</span><span class="kw">grey.colors</span>(<span class="dv">256</span>, <span class="dv">0</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb453-3" title="3">    <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb453-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>,</a>
-<a class="sourceLine" id="cb453-5" title="5">    <span class="dt">legend=</span><span class="kw">sprintf</span>(<span class="st">&quot;True label=%d&quot;</span>, Y_train[id]))</a></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1">id &lt;-<span class="st"> </span><span class="dv">123</span> <span class="co"># which image to show</span></a>
+<a class="sourceLine" id="cb449-2" title="2"><span class="kw">image</span>(<span class="dt">z=</span><span class="kw">t</span>(X_train[id,,]), <span class="dt">col=</span><span class="kw">grey.colors</span>(<span class="dv">256</span>, <span class="dv">0</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb449-3" title="3">    <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb449-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>,</a>
+<a class="sourceLine" id="cb449-5" title="5">    <span class="dt">legend=</span><span class="kw">sprintf</span>(<span class="st">&quot;True label=%d&quot;</span>, Y_train[id]))</a></code></pre></div>
 <p><img src="05-classification-nnets-figures/mnist_info2b-1.png" alt="plot of chunk mnist_info2b" style="width:80.0%" /></p>
 </div>
 </div>
@@ -682,8 +682,8 @@ this seems so complicated!”.</p>
 <p>Instead of playing with <span class="math inline">\(n\)</span> matrices, each of size 28×28,
 we may “flatten” the images so as to get
 <span class="math inline">\(n\)</span> “long” vectors of length <span class="math inline">\(p=784\)</span>.</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" title="1">X_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(X_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a>
-<a class="sourceLine" id="cb454-2" title="2">X_test2  &lt;-<span class="st"> </span><span class="kw">matrix</span>(X_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" title="1">X_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(X_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a>
+<a class="sourceLine" id="cb450-2" title="2">X_test2  &lt;-<span class="st"> </span><span class="kw">matrix</span>(X_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a></code></pre></div>
 <p>The classifiers studied here do not take the “spatial” positioning of
 the pixels into account anyway.</p>
 <blockquote>
@@ -754,15 +754,15 @@ as <span class="math inline">\(e^0=1\)</span> and consider only the classes <spa
 <p>The above transformation (that maps 10 arbitrary real numbers
 to positive ones that sum to 1)
 is called the <strong>softmax</strong> function (or <em>softargmax</em>).</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1">softmax &lt;-<span class="st"> </span><span class="cf">function</span>(T) {</a>
-<a class="sourceLine" id="cb455-2" title="2">    T2 &lt;-<span class="st"> </span><span class="kw">exp</span>(T) <span class="co"># ignore the minus sign above</span></a>
-<a class="sourceLine" id="cb455-3" title="3">    T2<span class="op">/</span><span class="kw">sum</span>(T2)</a>
-<a class="sourceLine" id="cb455-4" title="4">}</a>
-<a class="sourceLine" id="cb455-5" title="5"><span class="kw">round</span>(<span class="kw">rbind</span>(</a>
-<a class="sourceLine" id="cb455-6" title="6">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)),</a>
-<a class="sourceLine" id="cb455-7" title="7">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)),</a>
-<a class="sourceLine" id="cb455-8" title="8">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">9</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)),</a>
-<a class="sourceLine" id="cb455-9" title="9">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">9</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">8</span>))), <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1">softmax &lt;-<span class="st"> </span><span class="cf">function</span>(T) {</a>
+<a class="sourceLine" id="cb451-2" title="2">    T2 &lt;-<span class="st"> </span><span class="kw">exp</span>(T) <span class="co"># ignore the minus sign above</span></a>
+<a class="sourceLine" id="cb451-3" title="3">    T2<span class="op">/</span><span class="kw">sum</span>(T2)</a>
+<a class="sourceLine" id="cb451-4" title="4">}</a>
+<a class="sourceLine" id="cb451-5" title="5"><span class="kw">round</span>(<span class="kw">rbind</span>(</a>
+<a class="sourceLine" id="cb451-6" title="6">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)),</a>
+<a class="sourceLine" id="cb451-7" title="7">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)),</a>
+<a class="sourceLine" id="cb451-8" title="8">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">9</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)),</a>
+<a class="sourceLine" id="cb451-9" title="9">    <span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">9</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">8</span>))), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    0    0 1.00    0    0    0 0.00    0    0  0.00
 ## [2,]    0    0 0.50    0    0    0 0.50    0    0  0.00
@@ -775,10 +775,10 @@ is called the <strong>softmax</strong> function (or <em>softargmax</em>).</p>
 <p>The ten class-belongingness-degrees can be decoded
 to obtain a single label by simply choosing
 the class that is assigned the highest probability.</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1">y_pred &lt;-<span class="st"> </span><span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">9</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">8</span>))</a>
-<a class="sourceLine" id="cb457-2" title="2"><span class="kw">round</span>(y_pred, <span class="dv">2</span>) <span class="co"># probabilities of class 0, 1, 2, ..., 9</span></a></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1">y_pred &lt;-<span class="st"> </span><span class="kw">softmax</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">9</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb453-2" title="2"><span class="kw">round</span>(y_pred, <span class="dv">2</span>) <span class="co"># probabilities of class 0, 1, 2, ..., 9</span></a></code></pre></div>
 <pre><code>##  [1] 0.00 0.00 0.67 0.00 0.00 0.00 0.24 0.00 0.00 0.09</code></pre>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" title="1"><span class="kw">which.max</span>(y_pred)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1"><span class="kw">which.max</span>(y_pred)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <blockquote>
 <p><code>which.max(y)</code> returns an index <code>k</code> such that
@@ -791,19 +791,19 @@ we will apply the <strong>one-hot-encoding</strong> of the labels.</p>
 <p>Here, each label will be represented as a 0-1 probability vector
 – with probability 1 corresponding to the true class only.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1">y &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># true class (example)</span></a>
-<a class="sourceLine" id="cb461-2" title="2">y2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb461-3" title="3">y2[y<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># +1 because we need 0..9 -&gt; 1..10</span></a>
-<a class="sourceLine" id="cb461-4" title="4">y2  <span class="co"># one-hot-encoded y</span></a></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1">y &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># true class (example)</span></a>
+<a class="sourceLine" id="cb457-2" title="2">y2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb457-3" title="3">y2[y<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># +1 because we need 0..9 -&gt; 1..10</span></a>
+<a class="sourceLine" id="cb457-4" title="4">y2  <span class="co"># one-hot-encoded y</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 1 0 0 0 0 0 0 0</code></pre>
 <hr />
 <p>To one-hot encode the reference outputs in R,
 we start with a matrix of size <span class="math inline">\(n\times 10\)</span> populated with “0”s:</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" title="1">Y_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y_train), <span class="dt">ncol=</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" title="1">Y_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y_train), <span class="dt">ncol=</span><span class="dv">10</span>)</a></code></pre></div>
 <p>Next, for every <span class="math inline">\(i\)</span>, we insert a “1” in the <span class="math inline">\(i\)</span>-th row
 and the (<code>Y_train[</code><span class="math inline">\(i\)</span><code>]+1</code>)-th column:</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1"><span class="co"># Note the &quot;+1&quot; 0..9 -&gt; 1..10</span></a>
-<a class="sourceLine" id="cb464-2" title="2">Y_train2[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y_train), Y_train<span class="op">+</span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1"><span class="co"># Note the &quot;+1&quot; 0..9 -&gt; 1..10</span></a>
+<a class="sourceLine" id="cb460-2" title="2">Y_train2[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y_train), Y_train<span class="op">+</span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">1</span></a></code></pre></div>
 <blockquote>
 <p>In R, indexing a matrix <code>A</code> with a 2-column matrix <code>B</code>, i.e., <code>A[B]</code>,
 allows for an easy access to
@@ -811,9 +811,9 @@ allows for an easy access to
 </blockquote>
 <hr />
 <p>Sanity check:</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" title="1"><span class="kw">head</span>(Y_train)</a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1"><span class="kw">head</span>(Y_train)</a></code></pre></div>
 <pre><code>## [1] 5 0 4 1 9 2</code></pre>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" title="1"><span class="kw">head</span>(Y_train2)</a></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" title="1"><span class="kw">head</span>(Y_train2)</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    0    0    0    0    0    1    0    0    0     0
 ## [2,]    1    0    0    0    0    0    0    0    0     0
@@ -824,29 +824,29 @@ allows for an easy access to
 <hr />
 <p>Let us generalise the above idea and write a function
 that can one-hot-encode any vector of integer labels:</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" title="1">one_hot_encode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
-<a class="sourceLine" id="cb469-2" title="2">    <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(Y))</a>
-<a class="sourceLine" id="cb469-3" title="3">    c1 &lt;-<span class="st"> </span><span class="kw">min</span>(Y) <span class="co"># first class label</span></a>
-<a class="sourceLine" id="cb469-4" title="4">    cK &lt;-<span class="st"> </span><span class="kw">max</span>(Y) <span class="co"># last class label</span></a>
-<a class="sourceLine" id="cb469-5" title="5">    K &lt;-<span class="st"> </span>cK<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span> <span class="co"># number of classes</span></a>
-<a class="sourceLine" id="cb469-6" title="6"></a>
-<a class="sourceLine" id="cb469-7" title="7">    Y2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y), <span class="dt">ncol=</span>K)</a>
-<a class="sourceLine" id="cb469-8" title="8">    Y2[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y), Y<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb469-9" title="9">    Y2</a>
-<a class="sourceLine" id="cb469-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" title="1">one_hot_encode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
+<a class="sourceLine" id="cb465-2" title="2">    <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(Y))</a>
+<a class="sourceLine" id="cb465-3" title="3">    c1 &lt;-<span class="st"> </span><span class="kw">min</span>(Y) <span class="co"># first class label</span></a>
+<a class="sourceLine" id="cb465-4" title="4">    cK &lt;-<span class="st"> </span><span class="kw">max</span>(Y) <span class="co"># last class label</span></a>
+<a class="sourceLine" id="cb465-5" title="5">    K &lt;-<span class="st"> </span>cK<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span> <span class="co"># number of classes</span></a>
+<a class="sourceLine" id="cb465-6" title="6"></a>
+<a class="sourceLine" id="cb465-7" title="7">    Y2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y), <span class="dt">ncol=</span>K)</a>
+<a class="sourceLine" id="cb465-8" title="8">    Y2[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y), Y<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb465-9" title="9">    Y2</a>
+<a class="sourceLine" id="cb465-10" title="10">}</a></code></pre></div>
 <p>Encode <code>Y_train</code> and <code>Y_test</code>:</p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1">Y_train2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_train)</a>
-<a class="sourceLine" id="cb470-2" title="2">Y_test2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1">Y_train2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_train)</a>
+<a class="sourceLine" id="cb466-2" title="2">Y_test2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_test)</a></code></pre></div>
 </div>
 <div id="cross-entropy-revisited" class="section level3">
 <h3><span class="header-section-number">5.2.5</span> Cross-entropy Revisited</h3>
 <hr />
 <p>In essence, we will be comparing
 the probability vectors as generated by a classifier, <span class="math inline">\(\hat{Y}\)</span>:</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1"><span class="kw">round</span>(y_pred, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" title="1"><span class="kw">round</span>(y_pred, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##  [1] 0.00 0.00 0.67 0.00 0.00 0.00 0.24 0.00 0.00 0.09</code></pre>
 <p>with the one-hot-encoded true probabilities, <span class="math inline">\(Y\)</span>:</p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1">y2</a></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" title="1">y2</a></code></pre></div>
 <pre><code>##  [1] 0 0 1 0 0 0 0 0 0 0</code></pre>
 <hr />
 <p>It turns out that one of the definitions of cross-entropy introduced above
@@ -887,7 +887,7 @@ generated by the model:
 \]</span></li>
 </ul>
 <p>can be computed as:</p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" title="1"><span class="kw">sum</span>(y2<span class="op">*</span><span class="kw">log</span>(y_pred))</a></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1"><span class="kw">sum</span>(y2<span class="op">*</span><span class="kw">log</span>(y_pred))</a></code></pre></div>
 <pre><code>## [1] -0.4078174</code></pre>
 </div>
 <div id="problem-formulation-in-matrix-form" class="section level3">
@@ -1008,20 +1008,20 @@ that uses the softmax as the activation function.</p>
 <p>To train such a neural network (fit a multinomial logistic regression model),
 we will use the keras package,
 a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" title="1"><span class="co"># Start with an empty model</span></a>
-<a class="sourceLine" id="cb477-2" title="2">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
-<a class="sourceLine" id="cb477-3" title="3"><span class="co"># Add a single layer with 10 units and softmax activation</span></a>
-<a class="sourceLine" id="cb477-4" title="4"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
-<a class="sourceLine" id="cb477-5" title="5"><span class="co"># We will be minimising the cross-entropy,</span></a>
-<a class="sourceLine" id="cb477-6" title="6"><span class="co"># sgd == stochastic gradient descent, see the next chapter</span></a>
-<a class="sourceLine" id="cb477-7" title="7"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
-<a class="sourceLine" id="cb477-8" title="8">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
-<a class="sourceLine" id="cb477-9" title="9"><span class="co"># Fit the model</span></a>
-<a class="sourceLine" id="cb477-10" title="10"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1"><span class="co"># Start with an empty model</span></a>
+<a class="sourceLine" id="cb473-2" title="2">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
+<a class="sourceLine" id="cb473-3" title="3"><span class="co"># Add a single layer with 10 units and softmax activation</span></a>
+<a class="sourceLine" id="cb473-4" title="4"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
+<a class="sourceLine" id="cb473-5" title="5"><span class="co"># We will be minimising the cross-entropy,</span></a>
+<a class="sourceLine" id="cb473-6" title="6"><span class="co"># sgd == stochastic gradient descent, see the next chapter</span></a>
+<a class="sourceLine" id="cb473-7" title="7"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
+<a class="sourceLine" id="cb473-8" title="8">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
+<a class="sourceLine" id="cb473-9" title="9"><span class="co"># Fit the model</span></a>
+<a class="sourceLine" id="cb473-10" title="10"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a></code></pre></div>
 <hr />
 <p>Predict over the test set and one-hot-decode the output probabilities:</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
-<a class="sourceLine" id="cb478-2" title="2"><span class="kw">round</span>(<span class="kw">head</span>(Y_pred2), <span class="dv">2</span>) <span class="co"># predicted class probabilities</span></a></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
+<a class="sourceLine" id="cb474-2" title="2"><span class="kw">round</span>(<span class="kw">head</span>(Y_pred2), <span class="dv">2</span>) <span class="co"># predicted class probabilities</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,] 0.00 0.00 0.00 0.00 0.00 0.00 0.00 1.00 0.00  0.00
 ## [2,] 0.01 0.00 0.85 0.02 0.00 0.02 0.08 0.00 0.01  0.00
@@ -1029,14 +1029,14 @@ a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.</p>
 ## [4,] 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00  0.00
 ## [5,] 0.00 0.00 0.01 0.00 0.87 0.00 0.01 0.02 0.02  0.07
 ## [6,] 0.00 0.97 0.00 0.01 0.00 0.00 0.00 0.00 0.01  0.00</code></pre>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
-<a class="sourceLine" id="cb480-2" title="2"><span class="kw">head</span>(Y_pred, <span class="dv">20</span>) <span class="co"># predicted outputs</span></a></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
+<a class="sourceLine" id="cb476-2" title="2"><span class="kw">head</span>(Y_pred, <span class="dv">20</span>) <span class="co"># predicted outputs</span></a></code></pre></div>
 <pre><code>##  [1] 7 2 1 0 4 1 4 9 6 9 0 6 9 0 1 5 9 7 3 4</code></pre>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" title="1"><span class="kw">head</span>(Y_test, <span class="dv">20</span>) <span class="co"># true outputs</span></a></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1"><span class="kw">head</span>(Y_test, <span class="dv">20</span>) <span class="co"># true outputs</span></a></code></pre></div>
 <pre><code>##  [1] 7 2 1 0 4 1 4 9 5 9 0 6 9 0 1 5 9 7 3 4</code></pre>
 <hr />
 <p>Accuracy on the test set:</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred)</a></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred)</a></code></pre></div>
 <pre><code>## [1] 0.9097</code></pre>
 <hr />
 <p>Performance metrics for each digit separately:</p>
@@ -1210,16 +1210,16 @@ to handle numerically than the others, depending on the implementation.</p>
 <h3><span class="header-section-number">5.4.3</span> Example in R - 2 Layers</h3>
 <hr />
 <p>2-layer Neural Network 784-800-10</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
-<a class="sourceLine" id="cb487-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">800</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
-<a class="sourceLine" id="cb487-3" title="3"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>,  <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
-<a class="sourceLine" id="cb487-4" title="4"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
-<a class="sourceLine" id="cb487-5" title="5">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
-<a class="sourceLine" id="cb487-6" title="6"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb487-7" title="7"></a>
-<a class="sourceLine" id="cb487-8" title="8">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
-<a class="sourceLine" id="cb487-9" title="9">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
-<a class="sourceLine" id="cb487-10" title="10"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
+<a class="sourceLine" id="cb483-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">800</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
+<a class="sourceLine" id="cb483-3" title="3"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>,  <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
+<a class="sourceLine" id="cb483-4" title="4"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
+<a class="sourceLine" id="cb483-5" title="5">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
+<a class="sourceLine" id="cb483-6" title="6"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb483-7" title="7"></a>
+<a class="sourceLine" id="cb483-8" title="8">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
+<a class="sourceLine" id="cb483-9" title="9">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
+<a class="sourceLine" id="cb483-10" title="10"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
 <pre><code>## [1] 0.9417</code></pre>
 <hr />
 <p>Performance metrics for each digit separately:</p>
@@ -1357,20 +1357,20 @@ to handle numerically than the others, depending on the implementation.</p>
 <h3><span class="header-section-number">5.4.4</span> Example in R - 6 Layers</h3>
 <hr />
 <p>6-layer <em>Deep</em> Neural Network 784-2500-2000-1500-1000-500-10</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
-<a class="sourceLine" id="cb489-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">2500</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
-<a class="sourceLine" id="cb489-3" title="3"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">2000</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
-<a class="sourceLine" id="cb489-4" title="4"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">1500</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
-<a class="sourceLine" id="cb489-5" title="5"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">1000</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
-<a class="sourceLine" id="cb489-6" title="6"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">500</span>,  <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
-<a class="sourceLine" id="cb489-7" title="7"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>,   <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
-<a class="sourceLine" id="cb489-8" title="8"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
-<a class="sourceLine" id="cb489-9" title="9">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
-<a class="sourceLine" id="cb489-10" title="10"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb489-11" title="11"></a>
-<a class="sourceLine" id="cb489-12" title="12">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
-<a class="sourceLine" id="cb489-13" title="13">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
-<a class="sourceLine" id="cb489-14" title="14"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
+<a class="sourceLine" id="cb485-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">2500</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
+<a class="sourceLine" id="cb485-3" title="3"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">2000</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
+<a class="sourceLine" id="cb485-4" title="4"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">1500</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
+<a class="sourceLine" id="cb485-5" title="5"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">1000</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
+<a class="sourceLine" id="cb485-6" title="6"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">500</span>,  <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
+<a class="sourceLine" id="cb485-7" title="7"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>,   <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
+<a class="sourceLine" id="cb485-8" title="8"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
+<a class="sourceLine" id="cb485-9" title="9">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
+<a class="sourceLine" id="cb485-10" title="10"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb485-11" title="11"></a>
+<a class="sourceLine" id="cb485-12" title="12">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
+<a class="sourceLine" id="cb485-13" title="13">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
+<a class="sourceLine" id="cb485-14" title="14"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
 <pre><code>## [1] 0.9729</code></pre>
 <hr />
 <p>Performance metrics for each digit separately:</p>
@@ -1536,9 +1536,9 @@ in very detail.</p>
 <p>Luckily, we can apply it on each image anyway.</p>
 <p>See the GitHub repository at <a href="https://github.com/gagolews/Playground.R" class="uri">https://github.com/gagolews/Playground.R</a>
 for an example notebook and the <code>deskew.R</code> script.</p>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" title="1"><span class="co"># See https://github.com/gagolews/Playground.R</span></a>
-<a class="sourceLine" id="cb491-2" title="2"><span class="kw">source</span>(<span class="st">&quot;~/R/Playground.R/deskew.R&quot;</span>)</a>
-<a class="sourceLine" id="cb491-3" title="3"><span class="co"># new_image &lt;- deskew(old_image)</span></a></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1"><span class="co"># See https://github.com/gagolews/Playground.R</span></a>
+<a class="sourceLine" id="cb487-2" title="2"><span class="kw">source</span>(<span class="st">&quot;~/R/Playground.R/deskew.R&quot;</span>)</a>
+<a class="sourceLine" id="cb487-3" title="3"><span class="co"># new_image &lt;- deskew(old_image)</span></a></code></pre></div>
 <hr />
 <p><img src="05-classification-nnets-figures/deskew2-1.png" alt="plot of chunk deskew2" style="width:80.0%" /></p>
 <p>In each pair, the left image (black background) is the original one,
@@ -1546,29 +1546,29 @@ and the right image (palette inverted for purely dramatic effects)
 is its deskewed version.</p>
 <hr />
 <p>Deskew everything:</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" title="1">Z_train &lt;-<span class="st"> </span>X_train</a>
-<a class="sourceLine" id="cb492-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_train)[<span class="dv">1</span>]) {</a>
-<a class="sourceLine" id="cb492-3" title="3">    Z_train[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_train[i,,])</a>
-<a class="sourceLine" id="cb492-4" title="4">}</a>
-<a class="sourceLine" id="cb492-5" title="5">Z_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a>
-<a class="sourceLine" id="cb492-6" title="6"></a>
-<a class="sourceLine" id="cb492-7" title="7"></a>
-<a class="sourceLine" id="cb492-8" title="8">Z_test &lt;-<span class="st"> </span>X_test</a>
-<a class="sourceLine" id="cb492-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_test)[<span class="dv">1</span>]) {</a>
-<a class="sourceLine" id="cb492-10" title="10">  Z_test[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_test[i,,])</a>
-<a class="sourceLine" id="cb492-11" title="11">}</a>
-<a class="sourceLine" id="cb492-12" title="12">Z_test2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" title="1">Z_train &lt;-<span class="st"> </span>X_train</a>
+<a class="sourceLine" id="cb488-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_train)[<span class="dv">1</span>]) {</a>
+<a class="sourceLine" id="cb488-3" title="3">    Z_train[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_train[i,,])</a>
+<a class="sourceLine" id="cb488-4" title="4">}</a>
+<a class="sourceLine" id="cb488-5" title="5">Z_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a>
+<a class="sourceLine" id="cb488-6" title="6"></a>
+<a class="sourceLine" id="cb488-7" title="7"></a>
+<a class="sourceLine" id="cb488-8" title="8">Z_test &lt;-<span class="st"> </span>X_test</a>
+<a class="sourceLine" id="cb488-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_test)[<span class="dv">1</span>]) {</a>
+<a class="sourceLine" id="cb488-10" title="10">  Z_test[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_test[i,,])</a>
+<a class="sourceLine" id="cb488-11" title="11">}</a>
+<a class="sourceLine" id="cb488-12" title="12">Z_test2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a></code></pre></div>
 <hr />
 <p>Multinomial logistic regression model (1-layer NN):</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
-<a class="sourceLine" id="cb493-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
-<a class="sourceLine" id="cb493-3" title="3"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
-<a class="sourceLine" id="cb493-4" title="4">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
-<a class="sourceLine" id="cb493-5" title="5"><span class="kw">fit</span>(model, Z_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb493-6" title="6"></a>
-<a class="sourceLine" id="cb493-7" title="7">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, Z_test2)</a>
-<a class="sourceLine" id="cb493-8" title="8">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
-<a class="sourceLine" id="cb493-9" title="9"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
+<a class="sourceLine" id="cb489-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
+<a class="sourceLine" id="cb489-3" title="3"><span class="kw">compile</span>(model, <span class="dt">optimizer=</span><span class="st">&#39;sgd&#39;</span>,</a>
+<a class="sourceLine" id="cb489-4" title="4">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
+<a class="sourceLine" id="cb489-5" title="5"><span class="kw">fit</span>(model, Z_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb489-6" title="6"></a>
+<a class="sourceLine" id="cb489-7" title="7">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, Z_test2)</a>
+<a class="sourceLine" id="cb489-8" title="8">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
+<a class="sourceLine" id="cb489-9" title="9"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
 <pre><code>## [1] 0.9449</code></pre>
 <hr />
 <p>Performance metrics for each digit separately:</p>
@@ -1757,7 +1757,7 @@ or at ImageNet (<a href="http://image-net.org/index" class="uri">http://image-ne
 </div>
 <div id="further-reading-4" class="section level3">
 <h3><span class="header-section-number">5.6.3</span> Further Reading</h3>
-<div id="section-4" class="section level4 allowframebreaks unnumbered">
+<div id="section-1" class="section level4 allowframebreaks unnumbered">
 <h4></h4>
 <p>Recommended further reading:</p>
 <ul>

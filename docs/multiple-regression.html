@@ -373,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.3" data-path="recommender-systems.html"><a href="recommender-systems.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="section-9.html"><a href="section-9.html"><i class="fa fa-check"></i>}</a></li>
+<li class="chapter" data-level="" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i>}</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
 <li class="chapter" data-level="A.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-10 15:18 (d7e591e)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 13:27 (123f7fe)</a></li>
 
 </ul>
 
@@ -496,7 +496,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> Introduction</h2>
 <div id="formalism-1" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Formalism</h3>
-<hr />
 <p>Let <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span> be an input matrix
 that consists of <span class="math inline">\(n\)</span> points in a <span class="math inline">\(p\)</span>-dimensional space.</p>
 <p>In other words, we have a database on <span class="math inline">\(n\)</span> objects, each of which
@@ -512,7 +511,6 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} \\
 \end{array}
 \right]
 \]</span></p>
-<hr />
 <p>Recall that in supervised learning,
 apart from <span class="math inline">\(\mathbf{X}\)</span>, we are also given the corresponding <span class="math inline">\(\mathbf{y}\)</span>;
 with each input point <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> we associate the desired output <span class="math inline">\(y_i\)</span>.</p>
@@ -536,26 +534,26 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} &amp; y_n\\
 </div>
 <div id="simple-linear-regression---recap" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Simple Linear Regression - Recap</h3>
-<hr />
 <p>In a simple regression task, we have assumed that <span class="math inline">\(p=1\)</span> – there is only
 one independent variable,
 denoted <span class="math inline">\(x_i=x_{i,1}\)</span>.</p>
-<p>We restricted ourselves to linear models of the form <span class="math inline">\(Y=f(X)=aX+b\)</span> that minimised the sum of squared residuals (SSR), i.e.,</p>
+<p>We restricted ourselves to linear models of the form <span class="math inline">\(Y=f(X)=a+bX\)</span>
+that minimised the sum of squared residuals (SSR), i.e.,</p>
 <p><span class="math display">\[
 \min_{a,b\in\mathbb{R}} \sum_{i=1}^n \left(
-ax_i+b-y_i
+a+bx_i-y_i
 \right)^2.
 \]</span></p>
 <p>The solution is:</p>
 <p><span class="math display">\[
 \left\{
 \begin{array}{rl}
-a  = &amp; \dfrac{
+b  = &amp; \dfrac{
 n \displaystyle\sum_{i=1}^n x_i y_i - \displaystyle\sum_{i=1}^n  y_i \displaystyle\sum_{i=1}^n x_i
 }{
 n \displaystyle\sum_{i=1}^n x_i x_i -   \displaystyle\sum_{i=1}^n x_i\displaystyle\sum_{i=1}^n x_i
 }\\
-b = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+a = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - b  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
 \end{array}
 \right.
 \]</span></p>
@@ -574,9 +572,9 @@ b = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displays
 ## (Intercept)            X  
 ##    226.4711       0.2661</code></pre>
 <hr />
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
 <a class="sourceLine" id="cb89-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/simple_recap2-1.svg" alt="plot of chunk simple_recap2" /></p>
 </div>
 </div>
 <div id="multiple-linear-regression" class="section level2">
@@ -594,7 +592,7 @@ Y = f(X_1,\dots,X_p)   \qquad (+\varepsilon)
 <span class="math display">\[
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p.
 \]</span></p>
-<p>Above we studied the case where <span class="math inline">\(p=1\)</span> with <span class="math inline">\(\beta_1=a\)</span> and <span class="math inline">\(\beta_0=b\)</span>.</p>
+<p>Above we studied the case where <span class="math inline">\(p=1\)</span>, i.e., <span class="math inline">\(Y=a+bX_1\)</span> with <span class="math inline">\(\beta_0=a\)</span> and <span class="math inline">\(\beta_1=b\)</span>.</p>
 <hr />
 <p>The above equation defines:</p>
 <ul>
@@ -604,7 +602,7 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p.
 </ul>
 <p>Most people find it difficult to imagine objects in high dimensions,
 but we are lucky to have this thing called maths.</p>
-<p><img src="02-regression-multiple-figures/scatterplot3dexample-1.png" alt="plot of chunk scatterplot3dexample" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/scatterplot3dexample-1.svg" alt="plot of chunk scatterplot3dexample" /></p>
 </div>
 <div id="fitting-a-linear-model-in-r" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Fitting a Linear Model in R</h3>
@@ -624,13 +622,12 @@ but we are lucky to have this thing called maths.</p>
 ## 172.5586670   0.1828011   2.1976461</code></pre>
 <hr />
 <p>By the way, the above 3D scatter plot was generated by calling:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb92-2" title="2"><span class="kw">library</span>(<span class="st">&quot;scatterplot3d&quot;</span>)</a>
-<a class="sourceLine" id="cb92-3" title="3">s3d &lt;-<span class="st"> </span><span class="kw">scatterplot3d</span>(X1, X2, Y,</a>
-<a class="sourceLine" id="cb92-4" title="4">  <span class="dt">angle=</span><span class="dv">60</span>, <span class="co"># change angle to reveal more</span></a>
-<a class="sourceLine" id="cb92-5" title="5">  <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Income&quot;</span>,</a>
-<a class="sourceLine" id="cb92-6" title="6">  <span class="dt">zlab=</span><span class="st">&quot;Credit Rating&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb92-7" title="7">s3d<span class="op">$</span><span class="kw">plane3d</span>(f, <span class="dt">lty.box=</span><span class="st">&quot;solid&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">library</span>(<span class="st">&quot;scatterplot3d&quot;</span>)</a>
+<a class="sourceLine" id="cb92-2" title="2">s3d &lt;-<span class="st"> </span><span class="kw">scatterplot3d</span>(X1, X2, Y,</a>
+<a class="sourceLine" id="cb92-3" title="3">  <span class="dt">angle=</span><span class="dv">60</span>, <span class="co"># change angle to reveal more</span></a>
+<a class="sourceLine" id="cb92-4" title="4">  <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Income&quot;</span>,</a>
+<a class="sourceLine" id="cb92-5" title="5">  <span class="dt">zlab=</span><span class="st">&quot;Credit Rating&quot;</span>)</a>
+<a class="sourceLine" id="cb92-6" title="6">s3d<span class="op">$</span><span class="kw">plane3d</span>(f, <span class="dt">lty.box=</span><span class="st">&quot;solid&quot;</span>)</a></code></pre></div>
 <p>(<code>s3d</code> is an R list, one of its elements named <code>plane3d</code> is a function object – this is legal)</p>
 </div>
 </div>
@@ -654,11 +651,11 @@ but we are lucky to have this thing called maths.</p>
 </tr>
 <tr class="even">
 <td>Rating ~ Balance</td>
-<td><span class="math inline">\(Y=a X_1 + b\)</span> (<span class="math inline">\(\beta_0=b, \beta_1=a, \beta_2=0\)</span>)</td>
+<td><span class="math inline">\(Y=a + b X_1\)</span> (<span class="math inline">\(\beta_0=a, \beta_1=b, \beta_2=0\)</span>)</td>
 </tr>
 <tr class="odd">
 <td>Rating ~ Income</td>
-<td><span class="math inline">\(Y=a X_2 + b\)</span> (<span class="math inline">\(\beta_0=b, \beta_1=0, \beta_2=a\)</span>)</td>
+<td><span class="math inline">\(Y=a + b X_2\)</span> (<span class="math inline">\(\beta_0=a, \beta_1=0, \beta_2=b\)</span>)</td>
 </tr>
 </tbody>
 </table>
@@ -684,8 +681,8 @@ the former must yield a not-worse SSR.
 This is because in the case of <span class="math inline">\(Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2\)</span>,
 setting <span class="math inline">\(\beta_1\)</span> to 0 (just one of uncountably many possible <span class="math inline">\(\beta_1\)</span>s,
 if it happens to be the <em>best</em> one, good for us)
-gives <span class="math inline">\(Y=a X_2 + b\)</span>
-whereas by setting <span class="math inline">\(\beta_2\)</span> to 0 we obtain <span class="math inline">\(Y=a X_1 + b\)</span>.</p>
+gives $Y=a + b X_2 $
+whereas by setting <span class="math inline">\(\beta_2\)</span> to 0 we obtain <span class="math inline">\(Y=a + b X_1\)</span>.</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="kw">sum</span>(f12<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 358260.6</code></pre>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="kw">sum</span>(f1<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
@@ -815,24 +812,24 @@ on a <strong>box and whisker plot</strong>:</p>
 <li>Box and whiskers altogether have width <span class="math inline">\(\le\)</span> 4 IQR</li>
 <li>Outliers == observations potentially worth inspecting (is it a bug or a feature?)</li>
 </ul>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/boxplot-1.svg" alt="plot of chunk boxplot" /></p>
 <hr />
 <p>A picture is worth a thousand words:</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1"><span class="kw">boxplot</span>(<span class="dt">las=</span><span class="dv">1</span>, <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>,</a>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1"><span class="kw">boxplot</span>(<span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>,</a>
 <a class="sourceLine" id="cb133-2" title="2">  <span class="kw">list</span>(<span class="dt">f12=</span>f12<span class="op">$</span>residuals, <span class="dt">f1=</span>f1<span class="op">$</span>residuals, <span class="dt">f2=</span>f2<span class="op">$</span>residuals))</a>
 <a class="sourceLine" id="cb133-3" title="3"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/boxplot_residuals-1.svg" alt="plot of chunk boxplot_residuals" /></p>
 <hr />
 <p><em>Violin plot</em> – a blend of a box plot and a (kernel) density estimator (histogram-like):</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1"><span class="kw">library</span>(<span class="st">&quot;vioplot&quot;</span>)</a>
-<a class="sourceLine" id="cb134-2" title="2"><span class="kw">vioplot</span>(<span class="dt">las=</span><span class="dv">1</span>, <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>,</a>
+<a class="sourceLine" id="cb134-2" title="2"><span class="kw">vioplot</span>(<span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>,</a>
 <a class="sourceLine" id="cb134-3" title="3">  <span class="kw">list</span>(<span class="dt">f12=</span>f12<span class="op">$</span>residuals, <span class="dt">f1=</span>f1<span class="op">$</span>residuals, <span class="dt">f2=</span>f2<span class="op">$</span>residuals))</a>
 <a class="sourceLine" id="cb134-4" title="4"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/violinplot_residuals-1.svg" alt="plot of chunk violinplot_residuals" /></p>
 <hr />
 <p>By the way, this is Rating (<span class="math inline">\(Y\)</span>) as function of Balance (<span class="math inline">\(X_1\)</span>, top subfigure)
 and Income (<span class="math inline">\(X_2\)</span>, bottom subfigure).</p>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/x12_y-1.svg" alt="plot of chunk x12_y" /></p>
 <hr />
 <p>Descriptive statistics for absolute values of residuals:</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1"><span class="kw">summary</span>(<span class="kw">abs</span>(f12<span class="op">$</span>residuals))</a></code></pre></div>
@@ -846,11 +843,11 @@ and Income (<span class="math inline">\(X_2\)</span>, bottom subfigure).</p>
 ##   0.6545  29.8540  59.6756  64.1506  95.7384 195.1557</code></pre>
 <hr />
 <p>This picture is worth $1000:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"><span class="kw">boxplot</span>(<span class="dt">las=</span><span class="dv">1</span>, <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;abs(residuals)&quot;</span>,</a>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"><span class="kw">boxplot</span>(<span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;abs(residuals)&quot;</span>,</a>
 <a class="sourceLine" id="cb141-2" title="2">  <span class="kw">list</span>(<span class="dt">f12=</span><span class="kw">abs</span>(f12<span class="op">$</span>residuals), <span class="dt">f1=</span><span class="kw">abs</span>(f1<span class="op">$</span>residuals),</a>
 <a class="sourceLine" id="cb141-3" title="3">       <span class="dt">f2=</span><span class="kw">abs</span>(f2<span class="op">$</span>residuals)))</a>
 <a class="sourceLine" id="cb141-4" title="4"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/absresiduals_boxplot-1.svg" alt="plot of chunk absresiduals_boxplot" /></p>
 <hr />
 <p>If we didn’t know the range of the dependent variable
 (in our case we do know that the credit rating is on the scale 0–1000),
@@ -950,7 +947,7 @@ wait… <em>best</em> requires some sort of criterion, right?</p>
 – so as to get an impression of how individual variables interact with each other.</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1"><span class="kw">pairs</span>(C)</a></code></pre></div>
 <hr />
-<p><img src="02-regression-multiple-figures/unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-5-1.svg" alt="plot of chunk unnamed-chunk-5" /></p>
 <hr />
 <p>Seems like <code>Rating</code> depends on <code>Limit</code> almost linearly…</p>
 <p>Pearson’s <span class="math inline">\(r\)</span> – linear correlation coefficient:</p>
@@ -970,7 +967,7 @@ r(\boldsymbol{x},\boldsymbol{y}) = \frac{
 <!-- TODO anscombe -->
 <hr />
 <p>Interpretation:</p>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-6-1.svg" alt="plot of chunk unnamed-chunk-6" /></p>
 <hr />
 <p>Compute Pearson’s <span class="math inline">\(r\)</span> between all pairs of variables:</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">round</span>(<span class="kw">cor</span>(C), <span class="dv">3</span>)</a></code></pre></div>
@@ -1279,7 +1276,7 @@ Note that a polynomial of degree 1 is just a line.</p>
 <a class="sourceLine" id="cb178-3" title="3"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">1</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb178-4" title="4"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">3</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb178-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">14</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-32-1.png" alt="plot of chunk unnamed-chunk-32" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-13-1.svg" alt="plot of chunk unnamed-chunk-13" /></p>
 <p>There’s clearly a problem with the degree-14 polynomial.</p>
 </div>
 <div id="predictive-vs.-descriptive-power" class="section level3">
@@ -1303,7 +1300,7 @@ to error):</p>
 <a class="sourceLine" id="cb181-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
 <a class="sourceLine" id="cb181-3" title="3"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <hr />
-<p><img src="02-regression-multiple-figures/unnamed-chunk-35-1.png" alt="plot of chunk unnamed-chunk-35" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-16-1.svg" alt="plot of chunk unnamed-chunk-16" /></p>
 <hr />
 <p>Let’s fit polynomials of different degrees:</p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">las=</span><span class="dv">1</span>)</a>
@@ -1322,7 +1319,7 @@ to error):</p>
 <a class="sourceLine" id="cb182-14" title="14">    MSE_test[d]  &lt;-<span class="st"> </span><span class="kw">mean</span>((y<span class="op">-</span><span class="kw">true_model</span>(x))<span class="op">^</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb182-15" title="15">}</a></code></pre></div>
 <hr />
-<p><img src="02-regression-multiple-figures/unnamed-chunk-36-1.png" alt="plot of chunk unnamed-chunk-36" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-17-1.svg" alt="plot of chunk unnamed-chunk-17" /></p>
 <hr />
 <p>Compare the mean squared error (MSE) for the observed vs. future data points:</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="kw">matplot</span>(<span class="dv">1</span><span class="op">:</span>dmax, <span class="kw">cbind</span>(MSE_train, MSE_test), <span class="dt">type=</span><span class="st">&#39;b&#39;</span>,</a>
@@ -1333,7 +1330,7 @@ to error):</p>
 <a class="sourceLine" id="cb183-6" title="6">    <span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</a></code></pre></div>
 <p>Note the logarithmic scale on the <span class="math inline">\(y\)</span> axis.</p>
 <hr />
-<p><img src="02-regression-multiple-figures/unnamed-chunk-37-1.png" alt="plot of chunk unnamed-chunk-37" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-18-1.svg" alt="plot of chunk unnamed-chunk-18" /></p>
 <hr />
 <p>This is a very typical behaviour!</p>
 <ul>
@@ -1391,7 +1388,7 @@ is often done by repeating stuff.</p>
 <a class="sourceLine" id="cb186-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans1)</a>
 <a class="sourceLine" id="cb186-3" title="3"><span class="kw">plot</span>(ans1<span class="op">$</span>x, ans1<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb186-4" title="4"><span class="kw">abline</span>(f1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<img src="02-regression-multiple-figures/unnamed-chunk-40-1.png" alt="plot of chunk unnamed-chunk-40" style="width:80.0%" />
+<img src="02-regression-multiple-figures/unnamed-chunk-21-1.svg" alt="plot of chunk unnamed-chunk-21" />
 </details>
 <blockquote>
 <p>In <code>ans2</code>, fit a quadratic model (<span class="math inline">\(y=a x^2 + b x + c\)</span>).</p>
@@ -1405,7 +1402,7 @@ is often done by repeating stuff.</p>
 <a class="sourceLine" id="cb187-4" title="4">x_plot &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">4</span>, <span class="dv">14</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</a>
 <a class="sourceLine" id="cb187-5" title="5">y_plot &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(<span class="dt">x=</span>x_plot))</a>
 <a class="sourceLine" id="cb187-6" title="6"><span class="kw">lines</span>(x_plot, y_plot, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-43-1.png" alt="plot of chunk unnamed-chunk-43" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-24-1.svg" alt="plot of chunk unnamed-chunk-24" /></p>
 <p><em>Comment: This is an almost-perfect fit! Clearly,
 the second Anscombe dataset isn’t a case of linearly
 dependent variables.</em></p>
@@ -1419,7 +1416,7 @@ and fit a regression line.</p>
 <p>Let’s plot the data set first.</p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">ans3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x3, <span class="dt">y=</span>anscombe<span class="op">$</span>y3)</a>
 <a class="sourceLine" id="cb188-2" title="2"><span class="kw">plot</span>(ans3<span class="op">$</span>x, ans3<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-46-1.png" alt="plot of chunk unnamed-chunk-46" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-27-1.svg" alt="plot of chunk unnamed-chunk-27" /></p>
 <p>Indeed, the observation at <span class="math inline">\(x\simeq 13\)</span> is an obvious outlier.
 Perhaps the easiest way
 to remove it is to call:</p>
@@ -1429,7 +1426,7 @@ to remove it is to call:</p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">f3b &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans3b)</a>
 <a class="sourceLine" id="cb190-2" title="2"><span class="kw">plot</span>(ans3b<span class="op">$</span>x, ans3b<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb190-3" title="3"><span class="kw">abline</span>(f3b, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-48-1.png" alt="plot of chunk unnamed-chunk-48" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-29-1.svg" alt="plot of chunk unnamed-chunk-29" /></p>
 <em>Comment: Now what’s we call linearly correlated data.
 By the way, Pearson’s coefficient now equals <code>0.9999966</code>.</em>
 </details>
@@ -1623,7 +1620,7 @@ is given by: <span class="math inline">\(R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left
 <pre><code>## [1] &quot;life_expectancy_at_birth&quot;
 ##          RMSE      MAE        R2
 ## [1,] 5.429182 4.372718 0.4309554</code></pre>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-65-1.png" alt="plot of chunk unnamed-chunk-65" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-46-1.svg" alt="plot of chunk unnamed-chunk-46" /></p>
 <p><em>Comment: Unfortunately, we were misled by the high correlation coefficients
 between the <span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span>s:
 the low actual <span class="math inline">\(R^2\)</span> scores indicate that these models should not
@@ -1803,7 +1800,7 @@ calling the <code>formula()</code> function.</p>
 ##                                      3625</code></pre>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]], <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
 <a class="sourceLine" id="cb223-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-81-1.png" alt="plot of chunk unnamed-chunk-81" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-62-1.svg" alt="plot of chunk unnamed-chunk-62" /></p>
 <p>This is great.</p>
 <p>Wait, hold on a second! The fitted lines are not present on the plots!</p>
 <blockquote>
@@ -1858,7 +1855,7 @@ indexing an object <code>x</code> with a factor <code>f</code>,
 ##                                      3625</code></pre>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]], <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
 <a class="sourceLine" id="cb234-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-86-1.png" alt="plot of chunk unnamed-chunk-86" style="width:80.0%" /></p>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-67-1.svg" alt="plot of chunk unnamed-chunk-67" /></p>
 <p>Seriously, I really like the R language, but this <code>stringsAsFactors</code>
 thing is it’s weakest spot. Just fire up <code>options(stringsAsFactors=FALSE)</code>
 next time! (Which I of course won’t). End of story.</p>
@@ -1877,10 +1874,9 @@ of the GDP/person.</p>
 </blockquote>
 <details>
 <p><summary style="color: blue">Click here for a solution</summary></p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="kw">hist</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">las=</span><span class="dv">1</span>); <span class="kw">box</span>()</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-91-1.png" alt="plot of chunk unnamed-chunk-91" style="width:80.0%" /></p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">las=</span><span class="dv">1</span>); <span class="kw">box</span>()</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-91-2.png" alt="plot of chunk unnamed-chunk-91" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="kw">hist</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">las=</span><span class="dv">1</span>); <span class="kw">box</span>()</a>
+<a class="sourceLine" id="cb236-2" title="2"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">las=</span><span class="dv">1</span>); <span class="kw">box</span>()</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-72-1.svg" alt="plot of chunk unnamed-chunk-72" /><img src="02-regression-multiple-figures/unnamed-chunk-72-2.svg" alt="plot of chunk unnamed-chunk-72" /></p>
 <p><em>Comment: The distribution of the GDP is right-skewed: most countries
 have small GDP. However, few of them (those in the “right tail” of the distribution)
 are very very rich. There is the famous observation made by V. Pareto
@@ -1897,13 +1893,13 @@ Note that you can only compute logarithms of positive real numbers.</em></p>
 <p>Non-technical audience might be confused when asked to contemplate
 the distribution of the logarithm of a variable. Let’s make it
 more user-friendly by nicely re-labelling the X axis:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">axes=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb238-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;GDP per capita (thousands USD)&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb238-3" title="3"><span class="kw">box</span>()</a>
-<a class="sourceLine" id="cb238-4" title="4"><span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">las=</span><span class="dv">1</span>) <span class="co"># Y axis</span></a>
-<a class="sourceLine" id="cb238-5" title="5">at &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">20000</span>, <span class="dv">50000</span>, <span class="dv">100000</span>, <span class="dv">200000</span>)</a>
-<a class="sourceLine" id="cb238-6" title="6"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">log</span>(at), <span class="dt">labels=</span>at<span class="op">/</span><span class="dv">1000</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-92-1.png" alt="plot of chunk unnamed-chunk-92" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">axes=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb237-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;GDP per capita (thousands USD)&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb237-3" title="3"><span class="kw">box</span>()</a>
+<a class="sourceLine" id="cb237-4" title="4"><span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">las=</span><span class="dv">1</span>) <span class="co"># Y axis</span></a>
+<a class="sourceLine" id="cb237-5" title="5">at &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">20000</span>, <span class="dv">50000</span>, <span class="dv">100000</span>, <span class="dv">200000</span>)</a>
+<a class="sourceLine" id="cb237-6" title="6"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">log</span>(at), <span class="dt">labels=</span>at<span class="op">/</span><span class="dv">1000</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-73-1.svg" alt="plot of chunk unnamed-chunk-73" /></p>
 <p><em>Comment: This is still a plot of the logarithm of the
 distribution of the per capita GDP, but it’s somehow “hidden” behind
 the human-readable axis labels. Nice.</em></p>
@@ -1917,12 +1913,12 @@ as a function of <code>gdp_per_capita_ppp</code>.</p>
 <p>Easy. We have already done than in one of the previous exercises.
 Yet, to learn something new, let’s note that the <code>plot()</code> function
 accepts formulas as well.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb239-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb239-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;purple&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-95-1.png" alt="plot of chunk unnamed-chunk-95" style="width:80.0%" /></p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb238-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb238-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;purple&quot;</span>)</a>
+<a class="sourceLine" id="cb238-4" title="4"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
 <pre><code>## [1] 0.4309554</code></pre>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-76-1.svg" alt="plot of chunk unnamed-chunk-76" /></p>
 <p><em>Comment: This is not a good model.</em></p>
 </details>
 <blockquote>
@@ -1937,13 +1933,13 @@ Compute the correlation coefficient between
 and generate fancy X axis labels ourselves. However,
 the <code>plot()</code> function has the <code>log</code> argument (see <code>?plot.default</code>)
 which provides us with all we need.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth,</a>
-<a class="sourceLine" id="cb242-2" title="2">    <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-98-1.png" alt="plot of chunk unnamed-chunk-98" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth,</a>
+<a class="sourceLine" id="cb240-2" title="2">    <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-79-1.svg" alt="plot of chunk unnamed-chunk-79" /></p>
 <p>Here is the <em>linear</em> correlation coefficient between the logarithm
 of the GDP/person and the life expectancy.</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">cor</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), factbook<span class="op">$</span>life_expectancy_at_birth,</a>
-<a class="sourceLine" id="cb243-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw">cor</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), factbook<span class="op">$</span>life_expectancy_at_birth,</a>
+<a class="sourceLine" id="cb241-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 0.8066505</code></pre>
 <p>It’s quite high, therefore we can try</p>
 </details>
@@ -1956,15 +1952,15 @@ by means of <code>log(gdp_per_capita_ppp)</code>.</p>
 <p>We would like to fit a model of the form <span class="math inline">\(Y=a\log X+b\)</span>.
 The formula <code>life_expectancy_at_birth~log(gdp_per_capita_ppp)</code>
 should do the trick here.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb245-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb245-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;pink3&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-102-1.png" alt="plot of chunk unnamed-chunk-102" style="width:80.0%" /></p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1">f<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb243-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb243-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;pink3&quot;</span>)</a>
+<a class="sourceLine" id="cb243-4" title="4">f<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>##             (Intercept) log(gdp_per_capita_ppp) 
 ##               28.306385                4.817806</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
 <pre><code>## [1] 0.650685</code></pre>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-83-1.svg" alt="plot of chunk unnamed-chunk-83" /></p>
 <p><em>Comment: That is an okay model (in terms of the coefficient of determination).</em></p>
 </details>
 <blockquote>
@@ -1977,15 +1973,15 @@ with a standard, non-logarithmic X axis.</p>
 <span class="math inline">\(Y\simeq4.82 \log X+28.31\)</span>.
 To depict it on a plot with linear (non-logarithmic) axes,
 we can compute this formula on multiple points by hand.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth, <span class="dt">las=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb250-2" title="2"></a>
-<a class="sourceLine" id="cb250-3" title="3"><span class="co"># many points on the X axis:</span></a>
-<a class="sourceLine" id="cb250-4" title="4">xxx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb250-5" title="5">            <span class="kw">max</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb250-6" title="6">            <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb250-7" title="7">yyy &lt;-<span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span><span class="kw">log</span>(xxx)</a>
-<a class="sourceLine" id="cb250-8" title="8"><span class="kw">lines</span>(xxx, yyy, <span class="dt">col=</span><span class="st">&quot;turquoise3&quot;</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-105-1.png" alt="plot of chunk unnamed-chunk-105" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb247-2" title="2"></a>
+<a class="sourceLine" id="cb247-3" title="3"><span class="co"># many points on the X axis:</span></a>
+<a class="sourceLine" id="cb247-4" title="4">xxx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb247-5" title="5">            <span class="kw">max</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb247-6" title="6">            <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb247-7" title="7">yyy &lt;-<span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span><span class="kw">log</span>(xxx)</a>
+<a class="sourceLine" id="cb247-8" title="8"><span class="kw">lines</span>(xxx, yyy, <span class="dt">col=</span><span class="st">&quot;turquoise3&quot;</span>)</a></code></pre></div>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-86-1.svg" alt="plot of chunk unnamed-chunk-86" /></p>
 <p><em>Comment: Well, people are not immortal…
 The original (linear) model didn’t really take that into account.
 Also, recall that correlation is not causation.
@@ -2000,24 +1996,24 @@ Do the cool staff, do something for the others. Life’s not about money.</em></
 <p>Let’s play with World Factbook 2020
 (<code>world_factbook_2020.csv</code>) once again.
 World is an interesting place, so we’re far from being bored with this dataset.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>,</a>
-<a class="sourceLine" id="cb251-2" title="2">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb248-2" title="2">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Let’s restrict ourselves to the following columns, mostly
 related to imports and exports:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1">factbookn &lt;-<span class="st"> </span>factbook[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>,</a>
-<a class="sourceLine" id="cb252-2" title="2">    <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>, <span class="st">&quot;electricity_exports&quot;</span>, <span class="st">&quot;electricity_imports&quot;</span>,</a>
-<a class="sourceLine" id="cb252-3" title="3">    <span class="st">&quot;military_expenditures&quot;</span>, <span class="st">&quot;crude_oil_exports&quot;</span>, <span class="st">&quot;crude_oil_imports&quot;</span>,</a>
-<a class="sourceLine" id="cb252-4" title="4">    <span class="st">&quot;natural_gas_exports&quot;</span>, <span class="st">&quot;natural_gas_imports&quot;</span>,</a>
-<a class="sourceLine" id="cb252-5" title="5">    <span class="st">&quot;reserves_of_foreign_exchange_and_gold&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1">factbookn &lt;-<span class="st"> </span>factbook[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>,</a>
+<a class="sourceLine" id="cb249-2" title="2">    <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>, <span class="st">&quot;electricity_exports&quot;</span>, <span class="st">&quot;electricity_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb249-3" title="3">    <span class="st">&quot;military_expenditures&quot;</span>, <span class="st">&quot;crude_oil_exports&quot;</span>, <span class="st">&quot;crude_oil_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb249-4" title="4">    <span class="st">&quot;natural_gas_exports&quot;</span>, <span class="st">&quot;natural_gas_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb249-5" title="5">    <span class="st">&quot;reserves_of_foreign_exchange_and_gold&quot;</span>)]</a></code></pre></div>
 <p>Let’s compute the per capita versions of the above, by dividing
 all values by each country’s population:</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(factbookn))</a>
-<a class="sourceLine" id="cb253-2" title="2">    factbookn[[i]] &lt;-<span class="st"> </span>factbookn[[i]]<span class="op">/</span>factbook<span class="op">$</span>population</a></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(factbookn))</a>
+<a class="sourceLine" id="cb250-2" title="2">    factbookn[[i]] &lt;-<span class="st"> </span>factbookn[[i]]<span class="op">/</span>factbook<span class="op">$</span>population</a></code></pre></div>
 <p>We are going to build a few multiple regression models using the
 <code>step()</code> function, which is not too fond of missing values, therefore
 they should be removed first:</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1">factbookn &lt;-<span class="st"> </span><span class="kw">na.omit</span>(factbookn)</a>
-<a class="sourceLine" id="cb254-2" title="2"><span class="kw">c</span>(<span class="kw">nrow</span>(factbook), <span class="kw">nrow</span>(factbookn)) <span class="co"># how many countries were omitted?</span></a></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">factbookn &lt;-<span class="st"> </span><span class="kw">na.omit</span>(factbookn)</a>
+<a class="sourceLine" id="cb251-2" title="2"><span class="kw">c</span>(<span class="kw">nrow</span>(factbook), <span class="kw">nrow</span>(factbookn)) <span class="co"># how many countries were omitted?</span></a></code></pre></div>
 <pre><code>## [1] 261 157</code></pre>
 <blockquote>
 <p>Build a model for <code>gdp_purchasing_power_parity</code> as a function
@@ -2027,9 +2023,8 @@ of <code>imports</code> and <code>exports</code> (all per capita).</p>
 <p><summary style="color: blue">Click here for a solution</summary></p>
 <p>Let’s first take a look at how the aforementioned variables
 are related to each other:</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="kw">pairs</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)], <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="02-regression-multiple-figures/unnamed-chunk-112-1.png" alt="plot of chunk unnamed-chunk-112" style="width:80.0%" /></p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1"><span class="kw">cor</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="kw">pairs</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)], <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb253-2" title="2"><span class="kw">cor</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a></code></pre></div>
 <pre><code>##                             gdp_purchasing_power_parity
 ## gdp_purchasing_power_parity                   1.0000000
 ## imports                                       0.8289144
@@ -2038,15 +2033,16 @@ are related to each other:</p>
 ## gdp_purchasing_power_parity 0.8289144 0.8189854
 ## imports                     1.0000000 0.9424084
 ## exports                     0.9424084 1.0000000</code></pre>
+<p><img src="02-regression-multiple-figures/unnamed-chunk-93-1.svg" alt="plot of chunk unnamed-chunk-93" /></p>
 <p>They are nicely correlated. Moreover, they are on a similar scale
 (“tens of thousands of USD per capita”).</p>
 <p>Fitting the requested model yields:</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1"><span class="kw">options</span>(<span class="dt">scipen=</span><span class="dv">10</span>) <span class="co"># prefer &quot;decimal&quot; over &quot;scientific&quot; notation</span></a>
-<a class="sourceLine" id="cb259-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>imports<span class="op">+</span>exports, <span class="dt">data=</span>factbookn)</a>
-<a class="sourceLine" id="cb259-3" title="3">f1<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1"><span class="kw">options</span>(<span class="dt">scipen=</span><span class="dv">10</span>) <span class="co"># prefer &quot;decimal&quot; over &quot;scientific&quot; notation</span></a>
+<a class="sourceLine" id="cb255-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>imports<span class="op">+</span>exports, <span class="dt">data=</span>factbookn)</a>
+<a class="sourceLine" id="cb255-3" title="3">f1<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>##  (Intercept)      imports      exports 
 ## 9852.5381318    1.4419398    0.7806693</code></pre>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="kw">summary</span>(f1)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1"><span class="kw">summary</span>(f1)<span class="op">$</span>adj.r.squared</a></code></pre></div>
 <pre><code>## [1] 0.6959805</code></pre>
 </details>
 <blockquote>
@@ -2055,10 +2051,10 @@ a model for <code>gdp_purchasing_power_parity</code> per capita.</p>
 </blockquote>
 <details>
 <p><summary style="color: blue">Click here for a solution</summary></p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1">f2 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn), <span class="co"># empty model</span></a>
-<a class="sourceLine" id="cb263-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn)), <span class="co"># full model</span></a>
-<a class="sourceLine" id="cb263-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb263-4" title="4">f2</a></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1">f2 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn), <span class="co"># empty model</span></a>
+<a class="sourceLine" id="cb259-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn)), <span class="co"># full model</span></a>
+<a class="sourceLine" id="cb259-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb259-4" title="4">f2</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = gdp_purchasing_power_parity ~ imports + crude_oil_exports + 
@@ -2070,7 +2066,7 @@ a model for <code>gdp_purchasing_power_parity</code> per capita.</p>
 ##            7603.236                1.775           128472.216  
 ##   crude_oil_imports  electricity_imports  natural_gas_imports  
 ##          100781.638                1.621                3.131</code></pre>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="kw">summary</span>(f2)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="kw">summary</span>(f2)<span class="op">$</span>adj.r.squared</a></code></pre></div>
 <pre><code>## [1] 0.7865036</code></pre>
 <p><em>Comment: Interestingly, it’s mostly the import-related variables
 that contribute to the GDP per capita. However, the model
@@ -2088,10 +2084,10 @@ for <code>gdp_purchasing_power_parity</code> per capita.</p>
 </blockquote>
 <details>
 <p><summary style="color: blue">Click here for a solution</summary></p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1">f3 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn),</a>
-<a class="sourceLine" id="cb267-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn)),</a>
-<a class="sourceLine" id="cb267-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb267-4" title="4">f3</a></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1">f3 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn),</a>
+<a class="sourceLine" id="cb263-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn)),</a>
+<a class="sourceLine" id="cb263-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb263-4" title="4">f3</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = gdp_purchasing_power_parity ~ imports + electricity_imports + 
@@ -2103,7 +2099,7 @@ for <code>gdp_purchasing_power_parity</code> per capita.</p>
 ##            7603.236                1.775                1.621  
 ##   crude_oil_exports    crude_oil_imports  natural_gas_imports  
 ##          128472.216           100781.638                3.131</code></pre>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="kw">summary</span>(f3)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="kw">summary</span>(f3)<span class="op">$</span>adj.r.squared</a></code></pre></div>
 <pre><code>## [1] 0.7865036</code></pre>
 <p><em>Comment: This is the same model as the one found by forward selection, i.e., <code>f2</code>.</em></p>
 </details>
@@ -2371,17 +2367,17 @@ of matrices for efficiency and numerical accuracy reasons.</p>
 </blockquote>
 <hr />
 <p>Numeric example – solution via <code>lm()</code>:</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1">X1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb271-2" title="2">X2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Income[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb271-3" title="3">Y  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb271-4" title="4"><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span>X2)<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1">X1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb267-2" title="2">X2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Income[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb267-3" title="3">Y  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb267-4" title="4"><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span>X2)<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>## (Intercept)          X1          X2 
 ## 172.5586670   0.1828011   2.1976461</code></pre>
 <p>Recalling that <span class="math inline">\(\mathbf{A}^T \mathbf{B}\)</span> can be computed
 by calling <code>t(A) %*% B</code> or – even faster – by calling <code>crossprod(A, B)</code>,
 we can also use <code>solve()</code> to obtain the same result:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1">X_dot &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, X1, X2)</a>
-<a class="sourceLine" id="cb273-2" title="2"><span class="kw">solve</span>( <span class="kw">crossprod</span>(X_dot, X_dot), <span class="kw">crossprod</span>(X_dot, Y) )</a></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1">X_dot &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, X1, X2)</a>
+<a class="sourceLine" id="cb269-2" title="2"><span class="kw">solve</span>( <span class="kw">crossprod</span>(X_dot, X_dot), <span class="kw">crossprod</span>(X_dot, Y) )</a></code></pre></div>
 <pre><code>##           [,1]
 ##    172.5586670
 ## X1   0.1828011
@@ -2424,13 +2420,13 @@ i.e., the normalised dot product of the centred versions of the two vectors.</p>
 <p>(**) Recalling from the previous chapter that <span class="math inline">\(\mathbf{A}^T \mathbf{A}\)</span>
 gives the dot product between all the pairs of columns in a matrix <span class="math inline">\(\mathbf{A}\)</span>,
 we can implement an equivalent version of <code>cor(C)</code> as follows:</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb275-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Limit&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
-<a class="sourceLine" id="cb275-3" title="3">    <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
-<a class="sourceLine" id="cb275-4" title="4">C_centred &lt;-<span class="st"> </span><span class="kw">apply</span>(C, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a>
-<a class="sourceLine" id="cb275-5" title="5">C_normalised &lt;-<span class="st"> </span><span class="kw">apply</span>(C_centred, <span class="dv">2</span>, <span class="cf">function</span>(c)</a>
-<a class="sourceLine" id="cb275-6" title="6">    c<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(c<span class="op">^</span><span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb275-7" title="7"><span class="kw">round</span>(<span class="kw">t</span>(C_normalised) <span class="op">%*%</span><span class="st"> </span>C_normalised, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb271-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Limit&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
+<a class="sourceLine" id="cb271-3" title="3">    <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
+<a class="sourceLine" id="cb271-4" title="4">C_centred &lt;-<span class="st"> </span><span class="kw">apply</span>(C, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a>
+<a class="sourceLine" id="cb271-5" title="5">C_normalised &lt;-<span class="st"> </span><span class="kw">apply</span>(C_centred, <span class="dv">2</span>, <span class="cf">function</span>(c)</a>
+<a class="sourceLine" id="cb271-6" title="6">    c<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(c<span class="op">^</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb271-7" title="7"><span class="kw">round</span>(<span class="kw">t</span>(C_normalised) <span class="op">%*%</span><span class="st"> </span>C_normalised, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##           Rating  Limit Income   Age Education Balance
 ## Rating     1.000  0.996  0.831 0.167    -0.040   0.798
 ## Limit      0.996  1.000  0.834 0.164    -0.032   0.796
@@ -2441,18 +2437,9 @@ we can implement an equivalent version of <code>cor(C)</code> as follows:</p>
 </div>
 <div id="further-reading-1" class="section level3">
 <h3><span class="header-section-number">2.5.6</span> Further Reading</h3>
-<div id="section-1" class="section level4 allowframebreaks unnumbered">
-<h4></h4>
-<p>Recommended further reading:</p>
-<ul>
-<li><span class="citation">(James et al. <a href="references.html#ref-islr">2017</a>: Chapters 1, 2 and 3)</span></li>
-</ul>
-<p>Other:</p>
-<ul>
-<li><span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>: Chapter 1, Sections 3.2 and 3.3)</span></li>
-</ul>
+<p>Recommended further reading: <span class="citation">(James et al. <a href="references.html#ref-islr">2017</a>: Chapters 1, 2 and 3)</span></p>
+<p>Other: <span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>: Chapter 1, Sections 3.2 and 3.3)</span></p>
 
-</div>
 </div>
 </div>
 </div>

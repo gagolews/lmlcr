@@ -8,7 +8,6 @@
 
 ### Classification Task
 
----
 
 Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
 that consists of $n$ points in a $p$-dimensional space (each of the $n$ objects
@@ -1412,8 +1411,4 @@ lines(x, y25, col=4, lwd=3)
 
 ### Further Reading
 
-#### {.allowframebreaks .unnumbered}
-
-Recommended further reading:
-
-- [@esl: Section 13.3]
+Recommended further reading: [@esl: Section 13.3]

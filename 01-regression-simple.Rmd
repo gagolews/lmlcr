@@ -3,8 +3,6 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
-<!-- TODO change aX+b to a+bX -->
-
 <!-- TODO
 
 
@@ -785,7 +783,7 @@ are many functions that give SSR of $0$.
 - $\mathcal{F}=\{ x\mapsto x^2, x\mapsto \cos(x), x\mapsto \exp(2x+7)-9 \}$ -- obviously
 an ad-hoc choice but you can easily choose the best amongst the 3 by computing 3 sums of squares.
 
-- $\mathcal{F}=\{ x\mapsto ax+b\}$ -- the space of linear functions of one variable
+- $\mathcal{F}=\{ x\mapsto a+bx\}$ -- the space of linear functions of one variable
 
 - etc.
 
@@ -810,7 +808,7 @@ Our problem becomes:
 
 \[
 \min_{a,b\in\mathbb{R}} \sum_{i=1}^n \left(
-ax_i+b-y_i
+a+bx_i-y_i
 \right)^2
 \]
 
@@ -836,9 +834,9 @@ legend("topleft",
     lty=1,
     col=c(2,3,4),
     legend=c(
-        sprintf("y=%.3fx+%03.0f; SSR=%.0f",m1$coefficients[2],m1$coefficients[1], sum(m1$residuals^2)),
-        sprintf("y=%.3fx+%03.0f; SSR=%.0f",m2$coefficients[1],0, sum(m2$residuals^2)),
-        sprintf("y=%.3fx+%03.0f; SSR=%.0f",m3$coefficients[2],m3$coefficients[1], sum(m3$residuals^2))
+        sprintf("y=%03.0f+%.3fx; SSR=%.0f",m1$coefficients[1],m1$coefficients[2], sum(m1$residuals^2)),
+        sprintf("y=%03.0f+%.3fx; SSR=%.0f",0,                 m2$coefficients[1], sum(m2$residuals^2)),
+        sprintf("y=%03.0f+%.3fx; SSR=%.0f",m3$coefficients[1],m3$coefficients[2], sum(m3$residuals^2))
     ), bg="white")
 ```
 
@@ -880,21 +878,21 @@ print(f)
 
 Hence, the fitted model is:
 \[
-Y = f(X) = `r f$coefficient[2]`X+`r f$coefficient[1]`
+Y = f(X) = `r f$coefficient[1]`+`r f$coefficient[2]` X
 \qquad (+ \varepsilon)
 \]
 
 
-Coefficient $a$ (slope):
+Coefficient $a$ (intercept):
 
 ```{r credit_print_lm_2}
-f$coefficient[2]
+f$coefficient[1]
 ```
 
-Coefficient $b$ (intercept):
+Coefficient $b$ (slope):
 
 ```{r credit_print_lm_1}
-f$coefficient[1]
+f$coefficient[2]
 ```
 
 Plotting:
@@ -909,7 +907,7 @@ SSR:
 
 ```{r credit_ssr_lm}
 sum(f$residuals^2)
-sum((f$coefficient[2]*X+f$coefficient[1]-Y)^2) # equivalent
+sum((f$coefficient[1]+f$coefficient[2]*X-Y)^2) # equivalent
 ```
 
 We can predict the model's output for yet-unobserved inputs by
@@ -917,7 +915,7 @@ writing:
 
 ```{r credit_predict_lm}
 X_new <- c(1500, 2000, 2500) # example inputs
-f$coefficient[2]*X_new + f$coefficient[1]
+f$coefficient[1] + f$coefficient[2]*X_new
 ```
 
 
@@ -937,7 +935,7 @@ f <- lm(Rating~Balance, data=XY)
 ```
 
 now `Balance` and `Rating` refer to column names in the `XY` data frame,
-and not the objects in the R's "workspace".
+and not the objects in R's "workspace".
 
 Based on the above, we can make a prediction
 using the `predict()` function"
@@ -959,7 +957,7 @@ way beyond the observable data range.
 
 
 
-Note that our $Y=aX+b$ model is **interpretable**
+Note that our $Y=a+bX$ model is **interpretable**
 and **well-behaving**:
 
 > (not all machine learning models will have this feature,
@@ -988,12 +986,12 @@ that the solution is:
 \[
 \left\{
 \begin{array}{rl}
-a  = & \dfrac{
+b  = & \dfrac{
 n \displaystyle\sum_{i=1}^n x_i y_i - \displaystyle\sum_{i=1}^n  y_i \displaystyle\sum_{i=1}^n x_i
 }{
 n \displaystyle\sum_{i=1}^n x_i x_i -   \displaystyle\sum_{i=1}^n x_i\displaystyle\sum_{i=1}^n x_i
 }\\
-b = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+a = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - b  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
 \end{array}
 \right.
 \]
@@ -1002,8 +1000,8 @@ Which can be implemented in R as follows:
 
 ```{r lm_estimate_manual}
 n <- length(X)
-a <- (n*sum(X*Y)-sum(X)*sum(Y))/(n*sum(X*X)-sum(X)^2)
-b <- mean(Y)-a*mean(X)
+b <- (n*sum(X*Y)-sum(X)*sum(Y))/(n*sum(X*X)-sum(X)^2)
+a <- mean(Y)-b*mean(X)
 c(a, b) # the same as f$coefficients
 ```
 
@@ -1018,8 +1016,8 @@ and what are partial derivatives)
 Denote with:
 
 \[
-E(a,b)=\mathrm{SSR}(x\mapsto ax+b|\mathbf{x},\mathbf{y})
-=\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2.
+E(a,b)=\mathrm{SSR}(x\mapsto a+bx|\mathbf{x},\mathbf{y})
+=\sum_{i=1}^n \left( a+bx_i - y_i \right) ^2.
 \]
 
 We seek the minimum of $E$ w.r.t. both $a,b$.
@@ -1038,7 +1036,7 @@ i.e., $\partial E/\partial a(a^*, b^*) = 0$ and $\partial E/\partial b(a^*, b^*)
 We have:
 
 \[
-E(a,b)   = \displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) ^2.
+E(a,b)   = \displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) ^2.
 \]
 
 We need to compute the partial derivatives $\partial E/\partial a$ (derivative of $E$
@@ -1059,8 +1057,8 @@ Useful rules -- derivatives w.r.t. $a$ (denote $f'(a)=(f(a))'$):
 
 <!--\[
 \begin{array}{rl}
-E_a'(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) x_i \\
-E_b'(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) \\
+E_a'(a,b)=&2\displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) x_i \\
+E_b'(a,b)=&2\displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) \\
 \end{array}
 \]-->
 
@@ -1072,8 +1070,8 @@ and $\frac{\partial E}{\partial b}(a,b)=0$.
 \[
 \left\{
 \begin{array}{rl}
-\frac{\partial E}{\partial a}(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) x_i = 0 \\
-\frac{\partial E}{\partial b}(a,b)=&2\displaystyle\sum_{i=1}^n \left( ax_i+b - y_i \right) = 0\\
+\frac{\partial E}{\partial a}(a,b)=&2\displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) = 0\\
+\frac{\partial E}{\partial b}(a,b)=&2\displaystyle\sum_{i=1}^n \left( a+bx_i - y_i \right) x_i = 0 \\
 \end{array}
 \right.
 \]
@@ -1085,8 +1083,8 @@ Rearranging like back in the school days:
 \[
 \left\{
 \begin{array}{rl}
-a \displaystyle\sum_{i=1}^n x_i x_i + b \displaystyle\sum_{i=1}^n x_i = & \displaystyle\sum_{i=1}^n x_i y_i \\
-a \displaystyle\sum_{i=1}^n x_i+ b n = & \displaystyle\sum_{i=1}^n  y_i  \\
+b \displaystyle\sum_{i=1}^n x_i+ a n = & \displaystyle\sum_{i=1}^n  y_i  \\
+b \displaystyle\sum_{i=1}^n x_i x_i + a \displaystyle\sum_{i=1}^n x_i = & \displaystyle\sum_{i=1}^n x_i y_i \\
 \end{array}
 \right.
 \]
@@ -1098,12 +1096,12 @@ It is left as an exercise to show that the solution is:
 \[
 \left\{
 \begin{array}{rl}
-a^*  = & \dfrac{
+b^*  = & \dfrac{
 n \displaystyle\sum_{i=1}^n x_i y_i - \displaystyle\sum_{i=1}^n  y_i \displaystyle\sum_{i=1}^n x_i
 }{
 n \displaystyle\sum_{i=1}^n x_i x_i -   \displaystyle\sum_{i=1}^n x_i\displaystyle\sum_{i=1}^n x_i
 }\\
-b^* = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - a^*  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
+a^* = & \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - b^*  \dfrac{1}{n} \displaystyle\sum_{i=1}^n x_i  \\
 \end{array}
 \right.
 \]
@@ -1132,8 +1130,8 @@ linear coefficient, $r$ (see `cor()` in R). It might be shown that
 $a$ and $b$ can also be rewritten as:
 
 ```{r ab_coef_cor}
-(a <- cor(X,Y)*sd(Y)/sd(X))
-(b <- mean(Y)-a*mean(X))
+(b <- cor(X,Y)*sd(Y)/sd(X))
+(a <- mean(Y)-b*mean(X))
 ```
 
 <!-- TODO show optim() -->
@@ -1320,10 +1318,10 @@ calling the `predict()` function.
 
 
 ```{r anscombe_resid}
-y_pred1 <- predict(f1, ans1) # x column in ans1...
-y_pred2 <- predict(f2, ans2) # ...is only taken into account
-y_pred3 <- predict(f3, ans3) # this is the same as...
-y_pred4 <- predict(f4, ans4) # f4$coefficients[2]*ans4$x + f4$coefficients[1]
+y_pred1 <- predict(f1, ans1)
+y_pred2 <- predict(f2, ans2)
+y_pred3 <- predict(f3, ans3)
+y_pred4 <- predict(f4, ans4)
 ```
 
 Plots of residuals as a function of the predicted (fitted) values:

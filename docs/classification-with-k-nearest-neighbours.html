@@ -373,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.3" data-path="recommender-systems.html"><a href="recommender-systems.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="section-9.html"><a href="section-9.html"><i class="fa fa-check"></i>}</a></li>
+<li class="chapter" data-level="" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i>}</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
 <li class="chapter" data-level="A.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-10 15:18 (d7e591e)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 13:27 (123f7fe)</a></li>
 
 </ul>
 
@@ -495,7 +495,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
 <div id="classification-task" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Classification Task</h3>
-<hr />
 <p>Let <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span> be an input matrix
 that consists of <span class="math inline">\(n\)</span> points in a <span class="math inline">\(p\)</span>-dimensional space (each of the <span class="math inline">\(n\)</span> objects
 is described by means of <span class="math inline">\(p\)</span> numerical features).</p>
@@ -563,7 +562,7 @@ we assume that each <span class="math inline">\(y_i\)</span> takes more than two
 with the reference binary <span class="math inline">\(y\)</span>s.</p>
 <p>The “true” decision boundary is at <span class="math inline">\(X_1=0\)</span> but the classes
 slightly overlap (dataset is a bit noisy).</p>
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" style="width:80.0%" /></p>
+<p><img src="03-classification-neighbours-figures/unnamed-chunk-2-1.svg" alt="plot of chunk unnamed-chunk-2" /></p>
 </div>
 </div>
 <div id="data" class="section level3">
@@ -573,9 +572,9 @@ slightly overlap (dataset is a bit noisy).</p>
 that can be downloaded from the UCI Machine Learning Repository
 (<a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality" class="uri">https://archive.ics.uci.edu/ml/datasets/Wine+Quality</a>) –
 white wines only.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
-<a class="sourceLine" id="cb277-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
-<a class="sourceLine" id="cb277-3" title="3">(n &lt;-<span class="st"> </span><span class="kw">nrow</span>(wines)) <span class="co"># number of samples</span></a></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
+<a class="sourceLine" id="cb273-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
+<a class="sourceLine" id="cb273-3" title="3">(n &lt;-<span class="st"> </span><span class="kw">nrow</span>(wines)) <span class="co"># number of samples</span></a></code></pre></div>
 <pre><code>## [1] 4898</code></pre>
 <p>These are Vinho Verde wine samples from the north of Portugal,
 see <a href="https://www.vinhoverde.pt/en/homepage" class="uri">https://www.vinhoverde.pt/en/homepage</a>.</p>
@@ -588,10 +587,10 @@ Modeling wine preferences by data mining from physicochemical properties. <em>De
 <hr />
 <p>The input matrix <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span>
 consists of the first 10 numeric variables:</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
-<a class="sourceLine" id="cb279-2" title="2"><span class="kw">dim</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
+<a class="sourceLine" id="cb275-2" title="2"><span class="kw">dim</span>(X)</a></code></pre></div>
 <pre><code>## [1] 4898   10</code></pre>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="kw">head</span>(X, <span class="dv">2</span>) <span class="co"># first two rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1"><span class="kw">head</span>(X, <span class="dv">2</span>) <span class="co"># first two rows</span></a></code></pre></div>
 <pre><code>##      fixed.acidity volatile.acidity citric.acid residual.sugar
 ## 1600           7.0             0.27        0.36           20.7
 ## 1601           6.3             0.30        0.34            1.6
@@ -608,9 +607,9 @@ consists of the first 10 numeric variables:</p>
 <li>0 == (<code>alcohol  &lt; 12</code>) == lower-alcohol wines1</li>
 <li>1 == (<code>alcohol &gt;= 12</code>) == higher-alcohol wines</li>
 </ul>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="co"># recall that TRUE == 1</span></a>
-<a class="sourceLine" id="cb283-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(<span class="kw">as.numeric</span>(wines<span class="op">$</span>alcohol <span class="op">&gt;=</span><span class="st"> </span><span class="dv">12</span>)))</a>
-<a class="sourceLine" id="cb283-3" title="3"><span class="kw">table</span>(Y)</a></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1"><span class="co"># recall that TRUE == 1</span></a>
+<a class="sourceLine" id="cb279-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(<span class="kw">as.numeric</span>(wines<span class="op">$</span>alcohol <span class="op">&gt;=</span><span class="st"> </span><span class="dv">12</span>)))</a>
+<a class="sourceLine" id="cb279-3" title="3"><span class="kw">table</span>(Y)</a></code></pre></div>
 <pre><code>## Y
 ##    0    1 
 ## 4085  813</code></pre>
@@ -644,18 +643,18 @@ on a random <strong>train-test split</strong> of the original dataset:</p>
 </blockquote>
 <hr />
 <p>60/40% train-test split in R:</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
-<a class="sourceLine" id="cb285-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
-<a class="sourceLine" id="cb285-3" title="3"><span class="kw">head</span>(random_indices) <span class="co"># preview</span></a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
+<a class="sourceLine" id="cb281-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
+<a class="sourceLine" id="cb281-3" title="3"><span class="kw">head</span>(random_indices) <span class="co"># preview</span></a></code></pre></div>
 <pre><code>## [1] 2463 2511 2227  526 4291 2986</code></pre>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="co"># first 60% of the indices (they are arranged randomly)</span></a>
-<a class="sourceLine" id="cb287-2" title="2"><span class="co"># will constitute the train sample:</span></a>
-<a class="sourceLine" id="cb287-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)]</a>
-<a class="sourceLine" id="cb287-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
-<a class="sourceLine" id="cb287-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
-<a class="sourceLine" id="cb287-6" title="6"><span class="co"># the remaining indices (40%) go to the test sample:</span></a>
-<a class="sourceLine" id="cb287-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
-<a class="sourceLine" id="cb287-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="co"># first 60% of the indices (they are arranged randomly)</span></a>
+<a class="sourceLine" id="cb283-2" title="2"><span class="co"># will constitute the train sample:</span></a>
+<a class="sourceLine" id="cb283-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)]</a>
+<a class="sourceLine" id="cb283-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
+<a class="sourceLine" id="cb283-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
+<a class="sourceLine" id="cb283-6" title="6"><span class="co"># the remaining indices (40%) go to the test sample:</span></a>
+<a class="sourceLine" id="cb283-7" title="7">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
+<a class="sourceLine" id="cb283-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
 </div>
 </div>
 <div id="discussed-methods" class="section level3">
@@ -702,13 +701,13 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 <p>Gray and pink regions depict how new points would be classified.</p>
 <p>In particular 1-NN is “greedy” in the sense that we just
 locate the nearest point.</p>
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:80.0%" /></p>
+<p><img src="03-classification-neighbours-figures/unnamed-chunk-3-1.svg" alt="plot of chunk unnamed-chunk-3" /></p>
 <hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" style="width:80.0%" /></p>
+<p><img src="03-classification-neighbours-figures/unnamed-chunk-4-1.svg" alt="plot of chunk unnamed-chunk-4" /></p>
 <p>Increasing <span class="math inline">\(K\)</span> somehow smoothens the decision boundary (this makes it
 less “local” and more “global”).</p>
 <hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" style="width:80.0%" /></p>
+<p><img src="03-classification-neighbours-figures/unnamed-chunk-5-1.svg" alt="plot of chunk unnamed-chunk-5" /></p>
 <p>Recall that the “true” decision boundary for this synthetic dataset
 is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite a good job.</p>
 </div>
@@ -718,27 +717,27 @@ is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite
 <p>We shall be calling the <code>knn()</code> function from package <code>FNN</code>
 to classify the points from the test sample
 extracted from the <code>wines</code> dataset:</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a></code></pre></div>
 <p>Let us make prediction using the 5-nn classifier:</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1">Y_knn5 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb289-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1">Y_knn5 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb285-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1"><span class="kw">head</span>(Y_knn5, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="kw">head</span>(Y_knn5, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
 <pre><code>##  [1] 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.8173469</code></pre>
 <hr />
 <p>9-nn classifier:</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1">Y_knn9 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb295-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1">Y_knn9 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb291-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1"><span class="kw">head</span>(Y_knn9, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1"><span class="kw">head</span>(Y_knn9, <span class="dv">28</span>) <span class="co"># Predicted Ys</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ## Levels: 0 1</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.8193878</code></pre>
 </div>
 <div id="feature-engineering" class="section level3">
@@ -765,24 +764,24 @@ that is 0.5 standard deviations above the mean.</p>
 <hr />
 <p>Let us compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
-<a class="sourceLine" id="cb301-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
-<a class="sourceLine" id="cb301-3" title="3">Z_train &lt;-<span class="st"> </span>X_train <span class="co"># to be done</span></a>
-<a class="sourceLine" id="cb301-4" title="4">Z_test  &lt;-<span class="st"> </span>X_test  <span class="co"># to be done</span></a>
-<a class="sourceLine" id="cb301-5" title="5"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(X)) {</a>
-<a class="sourceLine" id="cb301-6" title="6">    Z_train[,j] &lt;-<span class="st"> </span>(Z_train[,j]<span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
-<a class="sourceLine" id="cb301-7" title="7">    Z_test[,j]  &lt;-<span class="st"> </span>(Z_test[,j] <span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
-<a class="sourceLine" id="cb301-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
+<a class="sourceLine" id="cb297-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
+<a class="sourceLine" id="cb297-3" title="3">Z_train &lt;-<span class="st"> </span>X_train <span class="co"># to be done</span></a>
+<a class="sourceLine" id="cb297-4" title="4">Z_test  &lt;-<span class="st"> </span>X_test  <span class="co"># to be done</span></a>
+<a class="sourceLine" id="cb297-5" title="5"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(X)) {</a>
+<a class="sourceLine" id="cb297-6" title="6">    Z_train[,j] &lt;-<span class="st"> </span>(Z_train[,j]<span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
+<a class="sourceLine" id="cb297-7" title="7">    Z_test[,j]  &lt;-<span class="st"> </span>(Z_test[,j] <span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
+<a class="sourceLine" id="cb297-8" title="8">}</a></code></pre></div>
 <p>Alternatively:</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
-<a class="sourceLine" id="cb302-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
+<a class="sourceLine" id="cb298-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <hr />
 <p>Let us compute the accuracy of K-NN classifiers acting on standardised data.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb303-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb299-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9102041</code></pre>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb305-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb301-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9122449</code></pre>
 <p>The accuracy is much better.</p>
 <hr />
@@ -805,14 +804,14 @@ the greater the arsenal of ideas/possible approaches you will have at hand
 when dealing with real-world problems.</p>
 <hr />
 <p>Feature selection – example (manually selected columns):</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1">features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;density&quot;</span>, <span class="st">&quot;residual.sugar&quot;</span>)</a>
-<a class="sourceLine" id="cb307-2" title="2">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
-<a class="sourceLine" id="cb307-3" title="3">    Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb307-4" title="4"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" title="1">features &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;density&quot;</span>, <span class="st">&quot;residual.sugar&quot;</span>)</a>
+<a class="sourceLine" id="cb303-2" title="2">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
+<a class="sourceLine" id="cb303-3" title="3">    Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb303-4" title="4"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9168367</code></pre>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
-<a class="sourceLine" id="cb309-2" title="2">    Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb309-3" title="3"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
+<a class="sourceLine" id="cb305-2" title="2">    Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb305-3" title="3"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9255102</code></pre>
 <blockquote>
 <p>Try to find a combination of 2-4 features (by guessing or applying magic tricks)
@@ -856,16 +855,16 @@ the classifier’s output, i.e., occur when <span class="math inline">\(\hat{y}_
 <hr />
 <p>A <strong>confusion matrix</strong> is used to summarise
 the correctness of predictions for the whole sample:</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb311-2" title="2">(C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test))</a></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb307-2" title="2">(C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test))</a></code></pre></div>
 <pre><code>##       Y_test
 ## Y_pred    0    1
 ##      0 1606  135
 ##      1   37  182</code></pre>
 <p>For example,</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1">C[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># number of TNs</span></a></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1">C[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># number of TNs</span></a></code></pre></div>
 <pre><code>## [1] 1606</code></pre>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" title="1">C[<span class="dv">2</span>,<span class="dv">1</span>] <span class="co"># number of FPs</span></a></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1">C[<span class="dv">2</span>,<span class="dv">1</span>] <span class="co"># number of FPs</span></a></code></pre></div>
 <pre><code>## [1] 37</code></pre>
 <hr />
 <p><strong>Accuracy</strong> is the ratio of the correctly classified instances
@@ -879,9 +878,9 @@ y_i = \hat{y}_i
 \]</span>
 where <span class="math inline">\(\mathbb{I}\)</span> is the indicator function,
 <span class="math inline">\(\mathbb{I}(l)=1\)</span> if logical condition <span class="math inline">\(l\)</span> is true and <span class="math inline">\(0\)</span> otherwise.</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9122449</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1">(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C) <span class="co"># equivalently</span></a></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" title="1">(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C) <span class="co"># equivalently</span></a></code></pre></div>
 <pre><code>## [1] 0.9122449</code></pre>
 <hr />
 <p>In many applications we are dealing with <strong>unbalanced problems</strong>, where
@@ -907,7 +906,7 @@ aim to address this problem.</p>
 \]</span></p>
 <p>If the classifier outputs <span class="math inline">\(1\)</span>,
 what is the probability that this is indeed true?</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># Precision</span></a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># Precision</span></a></code></pre></div>
 <pre><code>## [1] 0.8310502</code></pre>
 <hr />
 <p><strong>Recall</strong> (a.k.a. sensitivity, hit rate or true positive rate)</p>
@@ -916,7 +915,7 @@ what is the probability that this is indeed true?</p>
 \]</span></p>
 <p>If the true class is <span class="math inline">\(1\)</span>, what is the probability that the classifier
 will detect it?</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]) <span class="co"># Recall</span></a></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]) <span class="co"># Recall</span></a></code></pre></div>
 <pre><code>## [1] 0.5741325</code></pre>
 <hr />
 <blockquote>
@@ -947,25 +946,25 @@ and recall:</p>
 <blockquote>
 <p>Show that the above equality holds.</p>
 </blockquote>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># F</span></a></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># F</span></a></code></pre></div>
 <pre><code>## [1] 0.6791045</code></pre>
 <hr />
 <p>The following function can come in handy in the future:</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
-<a class="sourceLine" id="cb327-2" title="2">{</a>
-<a class="sourceLine" id="cb327-3" title="3">    C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test) <span class="co"># confusion matrix</span></a>
-<a class="sourceLine" id="cb327-4" title="4">    <span class="kw">stopifnot</span>(<span class="kw">dim</span>(C) <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb327-5" title="5">    <span class="kw">c</span>(<span class="dt">Acc=</span>(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C), <span class="co"># accuracy</span></a>
-<a class="sourceLine" id="cb327-6" title="6">      <span class="dt">Prec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># precision</span></a>
-<a class="sourceLine" id="cb327-7" title="7">      <span class="dt">Rec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]), <span class="co"># recall</span></a>
-<a class="sourceLine" id="cb327-8" title="8">      <span class="dt">F=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># F-measure</span></a>
-<a class="sourceLine" id="cb327-9" title="9">      <span class="co"># Confusion matrix items:</span></a>
-<a class="sourceLine" id="cb327-10" title="10">      <span class="dt">TN=</span>C[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">FN=</span>C[<span class="dv">1</span>,<span class="dv">2</span>],</a>
-<a class="sourceLine" id="cb327-11" title="11">      <span class="dt">FP=</span>C[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">TP=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb327-12" title="12">    ) <span class="co"># return a named vector</span></a>
-<a class="sourceLine" id="cb327-13" title="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
+<a class="sourceLine" id="cb323-2" title="2">{</a>
+<a class="sourceLine" id="cb323-3" title="3">    C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test) <span class="co"># confusion matrix</span></a>
+<a class="sourceLine" id="cb323-4" title="4">    <span class="kw">stopifnot</span>(<span class="kw">dim</span>(C) <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb323-5" title="5">    <span class="kw">c</span>(<span class="dt">Acc=</span>(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C), <span class="co"># accuracy</span></a>
+<a class="sourceLine" id="cb323-6" title="6">      <span class="dt">Prec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># precision</span></a>
+<a class="sourceLine" id="cb323-7" title="7">      <span class="dt">Rec=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]), <span class="co"># recall</span></a>
+<a class="sourceLine" id="cb323-8" title="8">      <span class="dt">F=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="co"># F-measure</span></a>
+<a class="sourceLine" id="cb323-9" title="9">      <span class="co"># Confusion matrix items:</span></a>
+<a class="sourceLine" id="cb323-10" title="10">      <span class="dt">TN=</span>C[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">FN=</span>C[<span class="dv">1</span>,<span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb323-11" title="11">      <span class="dt">FP=</span>C[<span class="dv">2</span>,<span class="dv">1</span>], <span class="dt">TP=</span>C[<span class="dv">2</span>,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb323-12" title="12">    ) <span class="co"># return a named vector</span></a>
+<a class="sourceLine" id="cb323-13" title="13">}</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" title="1"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9122449    0.8310502    0.5741325    0.6791045 
 ##           TN           FN           FP           TP 
@@ -981,25 +980,25 @@ classifier.</p>
 <p>Let us study how the metrics on the test set change as functions of the number of nearest neighbours considered, <span class="math inline">\(K\)</span>.</p>
 <hr />
 <p>Auxiliary function:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1">knn_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(k, X_train, X_test, Y_train, Y_test)</a>
-<a class="sourceLine" id="cb330-2" title="2">{</a>
-<a class="sourceLine" id="cb330-3" title="3">    Y_pred &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span>k) <span class="co"># classify</span></a>
-<a class="sourceLine" id="cb330-4" title="4">    <span class="kw">get_metrics</span>(Y_pred, Y_test)</a>
-<a class="sourceLine" id="cb330-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1">knn_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(k, X_train, X_test, Y_train, Y_test)</a>
+<a class="sourceLine" id="cb326-2" title="2">{</a>
+<a class="sourceLine" id="cb326-3" title="3">    Y_pred &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span>k) <span class="co"># classify</span></a>
+<a class="sourceLine" id="cb326-4" title="4">    <span class="kw">get_metrics</span>(Y_pred, Y_test)</a>
+<a class="sourceLine" id="cb326-5" title="5">}</a></code></pre></div>
 <p>For example:</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" title="1"><span class="kw">knn_metrics</span>(<span class="dv">5</span>, Z_train, Z_test, Y_train, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1"><span class="kw">knn_metrics</span>(<span class="dv">5</span>, Z_train, Z_test, Y_train, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9102041    0.8025751    0.5899054    0.6800000 
 ##           TN           FN           FP           TP 
 ## 1597.0000000  130.0000000   46.0000000  187.0000000</code></pre>
 <hr />
 <p>Example call to evaluate metrics as a function of different <span class="math inline">\(K\)</span>s:</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1">Ks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">19</span>, <span class="dt">by=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb333-2" title="2">Ps &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(</a>
-<a class="sourceLine" id="cb333-3" title="3">    <span class="kw">sapply</span>(Ks, <span class="co"># on each element in this vector</span></a>
-<a class="sourceLine" id="cb333-4" title="4">        knn_metrics,     <span class="co"># apply this function</span></a>
-<a class="sourceLine" id="cb333-5" title="5">        Z_train, Z_test, Y_train, Y_test <span class="co"># aux args</span></a>
-<a class="sourceLine" id="cb333-6" title="6">    )))</a></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" title="1">Ks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">19</span>, <span class="dt">by=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb329-2" title="2">Ps &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(</a>
+<a class="sourceLine" id="cb329-3" title="3">    <span class="kw">sapply</span>(Ks, <span class="co"># on each element in this vector</span></a>
+<a class="sourceLine" id="cb329-4" title="4">        knn_metrics,     <span class="co"># apply this function</span></a>
+<a class="sourceLine" id="cb329-5" title="5">        Z_train, Z_test, Y_train, Y_test <span class="co"># aux args</span></a>
+<a class="sourceLine" id="cb329-6" title="6">    )))</a></code></pre></div>
 <blockquote>
 <p>Note that <code>sapply(X, f, arg1, arg2, ...)</code>
 outputs a list <code>Y</code> such that
@@ -1015,7 +1014,7 @@ corresponding to different columns in the result.</p>
 </blockquote>
 <hr />
 <p>Example results:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1"><span class="kw">round</span>(<span class="kw">cbind</span>(<span class="dt">K=</span>Ks, Ps), <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1"><span class="kw">round</span>(<span class="kw">cbind</span>(<span class="dt">K=</span>Ks, Ps), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##     K  Acc Prec  Rec    F   TN  FN FP  TP
 ## 1   1 0.92 0.76 0.72 0.74 1573  90 70 227
 ## 2   3 0.92 0.79 0.66 0.72 1588 108 55 209
@@ -1029,9 +1028,9 @@ corresponding to different columns in the result.</p>
 ## 10 19 0.90 0.80 0.52 0.63 1602 151 41 166</code></pre>
 <p>A picture is worth a thousand tables though (see <code>?matplot</code> in R).</p>
 <hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" style="width:80.0%" /></p>
+<p><img src="03-classification-neighbours-figures/unnamed-chunk-25-1.svg" alt="plot of chunk unnamed-chunk-25" /></p>
 <hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26" style="width:80.0%" /></p>
+<p><img src="03-classification-neighbours-figures/unnamed-chunk-26-1.svg" alt="plot of chunk unnamed-chunk-26" /></p>
 <!--
 
 (\*) **ROC** (Receiver Operating Characteristic) curve:
@@ -1044,7 +1043,7 @@ plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1), las=1)
 abline(a=0, b=1, lty=3)
 ```
 
-![plot of chunk unnamed-chunk-27](03-classification-neighbours-figures/unnamed-chunk-27-1.png){width=80%}
+![plot of chunk unnamed-chunk-27](03-classification-neighbours-figures/unnamed-chunk-27-1.svg)
 
 -->
 </div>
@@ -1086,18 +1085,18 @@ you will never have access to the final test sample used to determine the winner
 The best you can do is to "guess".-->
 <hr />
 <p>An example way to perform a 60/20/20% train-validation-test split:</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
-<a class="sourceLine" id="cb336-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
-<a class="sourceLine" id="cb336-3" title="3">n1 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)</a>
-<a class="sourceLine" id="cb336-4" title="4">n2 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.8</span>)</a>
-<a class="sourceLine" id="cb336-5" title="5">X2_train &lt;-<span class="st"> </span>X[random_indices[<span class="dv">1</span>     <span class="op">:</span>n1], ]</a>
-<a class="sourceLine" id="cb336-6" title="6">Y2_train &lt;-<span class="st"> </span>Y[random_indices[<span class="dv">1</span>     <span class="op">:</span>n1]  ]</a>
-<a class="sourceLine" id="cb336-7" title="7">X2_valid &lt;-<span class="st"> </span>X[random_indices[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2], ]</a>
-<a class="sourceLine" id="cb336-8" title="8">Y2_valid &lt;-<span class="st"> </span>Y[random_indices[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2]  ]</a>
-<a class="sourceLine" id="cb336-9" title="9">X2_test  &lt;-<span class="st"> </span>X[random_indices[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n ], ]</a>
-<a class="sourceLine" id="cb336-10" title="10">Y2_test  &lt;-<span class="st"> </span>Y[random_indices[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n ]  ]</a>
-<a class="sourceLine" id="cb336-11" title="11"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X2_train)<span class="op">+</span><span class="kw">nrow</span>(X2_valid)<span class="op">+</span><span class="kw">nrow</span>(X2_test)</a>
-<a class="sourceLine" id="cb336-12" title="12">    <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(X))</a></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># reproducibility matters</span></a>
+<a class="sourceLine" id="cb332-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
+<a class="sourceLine" id="cb332-3" title="3">n1 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb332-4" title="4">n2 &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb332-5" title="5">X2_train &lt;-<span class="st"> </span>X[random_indices[<span class="dv">1</span>     <span class="op">:</span>n1], ]</a>
+<a class="sourceLine" id="cb332-6" title="6">Y2_train &lt;-<span class="st"> </span>Y[random_indices[<span class="dv">1</span>     <span class="op">:</span>n1]  ]</a>
+<a class="sourceLine" id="cb332-7" title="7">X2_valid &lt;-<span class="st"> </span>X[random_indices[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2], ]</a>
+<a class="sourceLine" id="cb332-8" title="8">Y2_valid &lt;-<span class="st"> </span>Y[random_indices[(n1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n2]  ]</a>
+<a class="sourceLine" id="cb332-9" title="9">X2_test  &lt;-<span class="st"> </span>X[random_indices[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n ], ]</a>
+<a class="sourceLine" id="cb332-10" title="10">Y2_test  &lt;-<span class="st"> </span>Y[random_indices[(n2<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n ]  ]</a>
+<a class="sourceLine" id="cb332-11" title="11"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X2_train)<span class="op">+</span><span class="kw">nrow</span>(X2_valid)<span class="op">+</span><span class="kw">nrow</span>(X2_test)</a>
+<a class="sourceLine" id="cb332-12" title="12">    <span class="op">==</span><span class="st"> </span><span class="kw">nrow</span>(X))</a></code></pre></div>
 <blockquote>
 <p>As an exercise, find the best <span class="math inline">\(K\)</span> on the validation set and compute the error metrics
 on the test set.</p>
@@ -1112,12 +1111,12 @@ on the test set.</p>
 <p>Recall that (see Appendix B for more details)
 <code>factor</code> type in R is a very convenient means to encode categorical data
 (such as <span class="math inline">\(\mathbf{y}\)</span>):</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</a>
-<a class="sourceLine" id="cb337-2" title="2">f &lt;-<span class="st"> </span><span class="kw">factor</span>(x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>))</a>
-<a class="sourceLine" id="cb337-3" title="3">f</a></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</a>
+<a class="sourceLine" id="cb333-2" title="2">f &lt;-<span class="st"> </span><span class="kw">factor</span>(x, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>))</a>
+<a class="sourceLine" id="cb333-3" title="3">f</a></code></pre></div>
 <pre><code>## [1] yes no  no  yes no 
 ## Levels: no yes</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1"><span class="kw">table</span>(f) <span class="co"># counts</span></a></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1"><span class="kw">table</span>(f) <span class="co"># counts</span></a></code></pre></div>
 <pre><code>## f
 ##  no yes 
 ##   3   2</code></pre>
@@ -1125,12 +1124,12 @@ on the test set.</p>
 <p>Internally, objects of type <code>factor</code> are represented as integer vectors
 with elements in <span class="math inline">\(\{1,\dots,M\}\)</span>, where <span class="math inline">\(M\)</span> is the number of possible levels.</p>
 <p>Labels, used to “decipher” the numeric codes, are stored separately.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1"><span class="kw">as.numeric</span>(f) <span class="co"># 2nd label, 1st label, 1st label etc.</span></a></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1"><span class="kw">as.numeric</span>(f) <span class="co"># 2nd label, 1st label, 1st label etc.</span></a></code></pre></div>
 <pre><code>## [1] 2 1 1 2 1</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" title="1"><span class="kw">levels</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1"><span class="kw">levels</span>(f)</a></code></pre></div>
 <pre><code>## [1] &quot;no&quot;  &quot;yes&quot;</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1"><span class="kw">levels</span>(f) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;failure&quot;</span>, <span class="st">&quot;success&quot;</span>) <span class="co"># re-encode</span></a>
-<a class="sourceLine" id="cb345-2" title="2">f</a></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1"><span class="kw">levels</span>(f) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;failure&quot;</span>, <span class="st">&quot;success&quot;</span>) <span class="co"># re-encode</span></a>
+<a class="sourceLine" id="cb341-2" title="2">f</a></code></pre></div>
 <pre><code>## [1] success failure failure success failure
 ## Levels: failure success</code></pre>
 </div>
@@ -1144,39 +1143,39 @@ and the expected output.</p>
 <p>Then we will arrange the processing of data into
 conveniently manageable chunks.</p>
 <p>The function’s declaration will look like:</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1">our_knn &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb347-2" title="2">    <span class="co"># k=1 denotes a parameter with a default value</span></a>
-<a class="sourceLine" id="cb347-3" title="3">    <span class="co"># ...</span></a>
-<a class="sourceLine" id="cb347-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" title="1">our_knn &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb343-2" title="2">    <span class="co"># k=1 denotes a parameter with a default value</span></a>
+<a class="sourceLine" id="cb343-3" title="3">    <span class="co"># ...</span></a>
+<a class="sourceLine" id="cb343-4" title="4">}</a></code></pre></div>
 <hr />
 <p>Load an example dataset on which we will test our algorithm:</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
-<a class="sourceLine" id="cb348-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
-<a class="sourceLine" id="cb348-3" title="3">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
-<a class="sourceLine" id="cb348-4" title="4">Y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(<span class="kw">as.numeric</span>(wines<span class="op">$</span>alcohol <span class="op">&gt;=</span><span class="st"> </span><span class="dv">12</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1">wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/winequality-all.csv&quot;</span>, <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>)</a>
+<a class="sourceLine" id="cb344-2" title="2">wines &lt;-<span class="st"> </span>wines[wines<span class="op">$</span>color <span class="op">==</span><span class="st"> &quot;white&quot;</span>,]</a>
+<a class="sourceLine" id="cb344-3" title="3">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(wines[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
+<a class="sourceLine" id="cb344-4" title="4">Y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(<span class="kw">as.numeric</span>(wines<span class="op">$</span>alcohol <span class="op">&gt;=</span><span class="st"> </span><span class="dv">12</span>)))</a></code></pre></div>
 <p>Note that <code>Y</code> is now a factor object.</p>
 <p>Train-test split:</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb349-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
-<a class="sourceLine" id="cb349-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)]</a>
-<a class="sourceLine" id="cb349-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
-<a class="sourceLine" id="cb349-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
-<a class="sourceLine" id="cb349-6" title="6">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
-<a class="sourceLine" id="cb349-7" title="7">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb345-2" title="2">random_indices &lt;-<span class="st"> </span><span class="kw">sample</span>(n)</a>
+<a class="sourceLine" id="cb345-3" title="3">train_indices &lt;-<span class="st"> </span>random_indices[<span class="dv">1</span><span class="op">:</span><span class="kw">floor</span>(n<span class="op">*</span><span class="fl">0.6</span>)]</a>
+<a class="sourceLine" id="cb345-4" title="4">X_train &lt;-<span class="st"> </span>X[train_indices,]</a>
+<a class="sourceLine" id="cb345-5" title="5">Y_train &lt;-<span class="st"> </span>Y[train_indices]</a>
+<a class="sourceLine" id="cb345-6" title="6">X_test  &lt;-<span class="st"> </span>X[<span class="op">-</span>train_indices,]</a>
+<a class="sourceLine" id="cb345-7" title="7">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
 <hr />
 <p>First, we should specify the type and form of the arguments
 we’re expecting:</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" title="1"><span class="co"># this is the body of our_knn() - part 1</span></a>
-<a class="sourceLine" id="cb350-2" title="2"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_train), <span class="kw">is.matrix</span>(X_train))</a>
-<a class="sourceLine" id="cb350-3" title="3"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_test), <span class="kw">is.matrix</span>(X_test))</a>
-<a class="sourceLine" id="cb350-4" title="4"><span class="kw">stopifnot</span>(<span class="kw">is.factor</span>(Y_train))</a>
-<a class="sourceLine" id="cb350-5" title="5"><span class="kw">stopifnot</span>(<span class="kw">ncol</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">ncol</span>(X_test))</a>
-<a class="sourceLine" id="cb350-6" title="6"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">length</span>(Y_train))</a>
-<a class="sourceLine" id="cb350-7" title="7"><span class="kw">stopifnot</span>(k <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb350-8" title="8">n_train &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_train)</a>
-<a class="sourceLine" id="cb350-9" title="9">n_test  &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
-<a class="sourceLine" id="cb350-10" title="10">p &lt;-<span class="st"> </span><span class="kw">ncol</span>(X_train)</a>
-<a class="sourceLine" id="cb350-11" title="11">M &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(Y_train))</a></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" title="1"><span class="co"># this is the body of our_knn() - part 1</span></a>
+<a class="sourceLine" id="cb346-2" title="2"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_train), <span class="kw">is.matrix</span>(X_train))</a>
+<a class="sourceLine" id="cb346-3" title="3"><span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(X_test), <span class="kw">is.matrix</span>(X_test))</a>
+<a class="sourceLine" id="cb346-4" title="4"><span class="kw">stopifnot</span>(<span class="kw">is.factor</span>(Y_train))</a>
+<a class="sourceLine" id="cb346-5" title="5"><span class="kw">stopifnot</span>(<span class="kw">ncol</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">ncol</span>(X_test))</a>
+<a class="sourceLine" id="cb346-6" title="6"><span class="kw">stopifnot</span>(<span class="kw">nrow</span>(X_train) <span class="op">==</span><span class="st"> </span><span class="kw">length</span>(Y_train))</a>
+<a class="sourceLine" id="cb346-7" title="7"><span class="kw">stopifnot</span>(k <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb346-8" title="8">n_train &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_train)</a>
+<a class="sourceLine" id="cb346-9" title="9">n_test  &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
+<a class="sourceLine" id="cb346-10" title="10">p &lt;-<span class="st"> </span><span class="kw">ncol</span>(X_train)</a>
+<a class="sourceLine" id="cb346-11" title="11">M &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(Y_train))</a></code></pre></div>
 <p>Therefore,</p>
 <p><span class="math inline">\(\mathtt{X\_train}\in\mathbb{R}^{\mathtt{n\_train}\times \mathtt{p}}\)</span>,
 <span class="math inline">\(\mathtt{X\_test}\in\mathbb{R}^{\mathtt{n\_test}\times \mathtt{p}}\)</span> and
@@ -1187,28 +1186,28 @@ we’re expecting:</p>
 <hr />
 <p>Next, we will call the (to-be-done) function <code>our_get_knnx()</code>,
 which seeks nearest neighbours of all the points:</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
-<a class="sourceLine" id="cb351-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
-<a class="sourceLine" id="cb351-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
-<a class="sourceLine" id="cb351-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
-<a class="sourceLine" id="cb351-5" title="5">nn_indices &lt;-<span class="st"> </span><span class="kw">our_get_knnx</span>(X_train, X_test, k)</a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
+<a class="sourceLine" id="cb347-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
+<a class="sourceLine" id="cb347-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
+<a class="sourceLine" id="cb347-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
+<a class="sourceLine" id="cb347-5" title="5">nn_indices &lt;-<span class="st"> </span><span class="kw">our_get_knnx</span>(X_train, X_test, k)</a></code></pre></div>
 <hr />
 <p>Then, for each point in <code>X_test</code>,
 we fetch the labels corresponding to its nearest neighbours
 and compute their mode:</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">numeric</span>(n_test) <span class="co"># vector of length n_test</span></a>
-<a class="sourceLine" id="cb352-2" title="2"><span class="co"># For now we will operate on the integer labels in {1,...,M}</span></a>
-<a class="sourceLine" id="cb352-3" title="3">Y_train_int &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_train)</a>
-<a class="sourceLine" id="cb352-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
-<a class="sourceLine" id="cb352-5" title="5">    <span class="co"># Get the labels of the NNs of the i-th point:</span></a>
-<a class="sourceLine" id="cb352-6" title="6">    nn_labels_i &lt;-<span class="st"> </span>Y_train_int[nn_indices[i,]]</a>
-<a class="sourceLine" id="cb352-7" title="7">    <span class="co"># Compute the mode (majority vote):</span></a>
-<a class="sourceLine" id="cb352-8" title="8">    Y_pred[i] &lt;-<span class="st"> </span><span class="kw">our_mode</span>(nn_labels_i) <span class="co"># in {1,...,M}</span></a>
-<a class="sourceLine" id="cb352-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">numeric</span>(n_test) <span class="co"># vector of length n_test</span></a>
+<a class="sourceLine" id="cb348-2" title="2"><span class="co"># For now we will operate on the integer labels in {1,...,M}</span></a>
+<a class="sourceLine" id="cb348-3" title="3">Y_train_int &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Y_train)</a>
+<a class="sourceLine" id="cb348-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
+<a class="sourceLine" id="cb348-5" title="5">    <span class="co"># Get the labels of the NNs of the i-th point:</span></a>
+<a class="sourceLine" id="cb348-6" title="6">    nn_labels_i &lt;-<span class="st"> </span>Y_train_int[nn_indices[i,]]</a>
+<a class="sourceLine" id="cb348-7" title="7">    <span class="co"># Compute the mode (majority vote):</span></a>
+<a class="sourceLine" id="cb348-8" title="8">    Y_pred[i] &lt;-<span class="st"> </span><span class="kw">our_mode</span>(nn_labels_i) <span class="co"># in {1,...,M}</span></a>
+<a class="sourceLine" id="cb348-9" title="9">}</a></code></pre></div>
 <p>Finally, we should convert the resulting integer vector
 to an object of type <code>factor</code>:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1"><span class="co"># Convert Y_pred to factor:</span></a>
-<a class="sourceLine" id="cb353-2" title="2"><span class="kw">return</span>(<span class="kw">factor</span>(Y_pred, <span class="dt">labels=</span><span class="kw">levels</span>(Y_train)))</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" title="1"><span class="co"># Convert Y_pred to factor:</span></a>
+<a class="sourceLine" id="cb349-2" title="2"><span class="kw">return</span>(<span class="kw">factor</span>(Y_pred, <span class="dt">labels=</span><span class="kw">levels</span>(Y_train)))</a></code></pre></div>
 <!--
 **Test-driven development** -- before writing
 
@@ -1241,7 +1240,7 @@ test_our_mode <- function() {
 <p>Read the function’s man page, see <code>?tabulate</code>.</p>
 </blockquote>
 <p>For example:</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" title="1"><span class="kw">tabulate</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" title="1"><span class="kw">tabulate</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 4 2 0 0 1</code></pre>
 <hr />
 <p>There might be multiple modes – in such a case, we should pick one at random.</p>
@@ -1252,24 +1251,24 @@ Note that its behaviour is different when it’s first argument is a vector of l
 </blockquote>
 <hr />
 <p>An example implementation:</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1">our_mode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
-<a class="sourceLine" id="cb356-2" title="2">    <span class="co"># tabulate() will take care of</span></a>
-<a class="sourceLine" id="cb356-3" title="3">    <span class="co"># checking the correctness of Y</span></a>
-<a class="sourceLine" id="cb356-4" title="4">    t &lt;-<span class="st"> </span><span class="kw">tabulate</span>(Y)</a>
-<a class="sourceLine" id="cb356-5" title="5">    mode_candidates &lt;-<span class="st"> </span><span class="kw">which</span>(t <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(t))</a>
-<a class="sourceLine" id="cb356-6" title="6">    <span class="cf">if</span> (<span class="kw">length</span>(mode_candidates) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">return</span>(mode_candidates)</a>
-<a class="sourceLine" id="cb356-7" title="7">    <span class="cf">else</span> <span class="kw">return</span>(<span class="kw">sample</span>(mode_candidates, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb356-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1">our_mode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
+<a class="sourceLine" id="cb352-2" title="2">    <span class="co"># tabulate() will take care of</span></a>
+<a class="sourceLine" id="cb352-3" title="3">    <span class="co"># checking the correctness of Y</span></a>
+<a class="sourceLine" id="cb352-4" title="4">    t &lt;-<span class="st"> </span><span class="kw">tabulate</span>(Y)</a>
+<a class="sourceLine" id="cb352-5" title="5">    mode_candidates &lt;-<span class="st"> </span><span class="kw">which</span>(t <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(t))</a>
+<a class="sourceLine" id="cb352-6" title="6">    <span class="cf">if</span> (<span class="kw">length</span>(mode_candidates) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">return</span>(mode_candidates)</a>
+<a class="sourceLine" id="cb352-7" title="7">    <span class="cf">else</span> <span class="kw">return</span>(<span class="kw">sample</span>(mode_candidates, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb352-8" title="8">}</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>))</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" title="1"><span class="kw">our_mode</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="nn-search-routines" class="section level3">
@@ -1279,37 +1278,37 @@ Note that its behaviour is different when it’s first argument is a vector of l
 <p>It is the function responsible for seeking the indices of nearest neighbours.</p>
 <p>It turns out this function will actually constitute the K-NN classifier’s performance
 bottleneck in case of big data samples.</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
-<a class="sourceLine" id="cb367-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
-<a class="sourceLine" id="cb367-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
-<a class="sourceLine" id="cb367-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
-<a class="sourceLine" id="cb367-5" title="5">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
-<a class="sourceLine" id="cb367-6" title="6">    <span class="co"># ...</span></a>
-<a class="sourceLine" id="cb367-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" title="1"><span class="co"># our_get_knnx returns a matrix nn_indices of size n_test*k,</span></a>
+<a class="sourceLine" id="cb363-2" title="2"><span class="co"># where nn_indices[i,j] denotes the index of</span></a>
+<a class="sourceLine" id="cb363-3" title="3"><span class="co"># X_test[i,]&#39;s j-th nearest neighbour in X_train.</span></a>
+<a class="sourceLine" id="cb363-4" title="4"><span class="co"># (It is the point X_train[nn_indices[i,j],]).</span></a>
+<a class="sourceLine" id="cb363-5" title="5">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
+<a class="sourceLine" id="cb363-6" title="6">    <span class="co"># ...</span></a>
+<a class="sourceLine" id="cb363-7" title="7">}</a></code></pre></div>
 <hr />
 <p>A naive approach to <code>our_get_knnx()</code> relies on computing all pairwise distances,
 and sorting them.</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
-<a class="sourceLine" id="cb368-2" title="2">    n_test &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
-<a class="sourceLine" id="cb368-3" title="3">    nn_indices &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA_real_</span>, <span class="dt">nrow=</span>n_test, <span class="dt">ncol=</span>k)</a>
-<a class="sourceLine" id="cb368-4" title="4">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
-<a class="sourceLine" id="cb368-5" title="5">        d &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(x)</a>
-<a class="sourceLine" id="cb368-6" title="6">            <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>X_test[i,])<span class="op">^</span><span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb368-7" title="7">        <span class="co"># now d[j] is the distance</span></a>
-<a class="sourceLine" id="cb368-8" title="8">        <span class="co"># between X_train[j,] and X_test[i,]</span></a>
-<a class="sourceLine" id="cb368-9" title="9">        nn_indices[i,] &lt;-<span class="st"> </span><span class="kw">order</span>(d)[<span class="dv">1</span><span class="op">:</span>k]</a>
-<a class="sourceLine" id="cb368-10" title="10">    }</a>
-<a class="sourceLine" id="cb368-11" title="11">    nn_indices</a>
-<a class="sourceLine" id="cb368-12" title="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
+<a class="sourceLine" id="cb364-2" title="2">    n_test &lt;-<span class="st"> </span><span class="kw">nrow</span>(X_test)</a>
+<a class="sourceLine" id="cb364-3" title="3">    nn_indices &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA_real_</span>, <span class="dt">nrow=</span>n_test, <span class="dt">ncol=</span>k)</a>
+<a class="sourceLine" id="cb364-4" title="4">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_test) {</a>
+<a class="sourceLine" id="cb364-5" title="5">        d &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb364-6" title="6">            <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>X_test[i,])<span class="op">^</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb364-7" title="7">        <span class="co"># now d[j] is the distance</span></a>
+<a class="sourceLine" id="cb364-8" title="8">        <span class="co"># between X_train[j,] and X_test[i,]</span></a>
+<a class="sourceLine" id="cb364-9" title="9">        nn_indices[i,] &lt;-<span class="st"> </span><span class="kw">order</span>(d)[<span class="dv">1</span><span class="op">:</span>k]</a>
+<a class="sourceLine" id="cb364-10" title="10">    }</a>
+<a class="sourceLine" id="cb364-11" title="11">    nn_indices</a>
+<a class="sourceLine" id="cb364-12" title="12">}</a></code></pre></div>
 <hr />
 <p>A comparison with <code>FNN:knn()</code>:</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" title="1"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.137   0.000   0.137</code></pre>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+##   0.129   0.000   0.129</code></pre>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##  28.460   0.043  34.517</code></pre>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
+##  14.526   0.004  14.531</code></pre>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Both functions return identical results but our implementation is “slightly” slower.</p>
 <hr />
@@ -1323,17 +1322,17 @@ but written in C++ (available in the <code>FNN</code> package).</p>
 see the Rcpp package for seamless R and C++ integration.</p>
 </blockquote>
 <hr />
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
-<a class="sourceLine" id="cb375-2" title="2">    <span class="co"># this is used by our_knn()</span></a>
-<a class="sourceLine" id="cb375-3" title="3">    FNN<span class="op">::</span><span class="kw">get.knnx</span>(X_train, X_test, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>)<span class="op">$</span>nn.index</a>
-<a class="sourceLine" id="cb375-4" title="4">}</a>
-<a class="sourceLine" id="cb375-5" title="5"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" title="1">our_get_knnx &lt;-<span class="st"> </span><span class="cf">function</span>(X_train, X_test, k) {</a>
+<a class="sourceLine" id="cb371-2" title="2">    <span class="co"># this is used by our_knn()</span></a>
+<a class="sourceLine" id="cb371-3" title="3">    FNN<span class="op">::</span><span class="kw">get.knnx</span>(X_train, X_test, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>)<span class="op">$</span>nn.index</a>
+<a class="sourceLine" id="cb371-4" title="4">}</a>
+<a class="sourceLine" id="cb371-5" title="5"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.333   0.000   0.333</code></pre>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
+##   0.129   0.000   0.129</code></pre>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.092   0.000   0.124</code></pre>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
+##   0.045   0.000   0.045</code></pre>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <hr />
 <p>Note that our solution requires <span class="math inline">\(c\cdot n_\text{test}\cdot n_\text{train}\cdot p\)</span>
@@ -1353,30 +1352,30 @@ curse of dimensionality.</p>
 <p>For example, <code>FNN::get.knnx()</code> also implements the so-called
 kd-trees.</p>
 <hr />
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
-<a class="sourceLine" id="cb381-2" title="2">test_speed &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, k) {</a>
-<a class="sourceLine" id="cb381-3" title="3">    A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
-<a class="sourceLine" id="cb381-4" title="4">    s &lt;-<span class="st"> </span><span class="kw">summary</span>(<span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb381-5" title="5">        <span class="dt">brute=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>),</a>
-<a class="sourceLine" id="cb381-6" title="6">        <span class="dt">kd_tree=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;kd_tree&quot;</span>),</a>
-<a class="sourceLine" id="cb381-7" title="7">        <span class="dt">times=</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb381-8" title="8">    ), <span class="dt">unit=</span><span class="st">&quot;s&quot;</span>)</a>
-<a class="sourceLine" id="cb381-9" title="9">    <span class="co"># minima of 3 time measurements:</span></a>
-<a class="sourceLine" id="cb381-10" title="10">    <span class="kw">structure</span>(s<span class="op">$</span>min, <span class="dt">names=</span><span class="kw">as.character</span>(s<span class="op">$</span>expr))</a>
-<a class="sourceLine" id="cb381-11" title="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
+<a class="sourceLine" id="cb377-2" title="2">test_speed &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, k) {</a>
+<a class="sourceLine" id="cb377-3" title="3">    A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
+<a class="sourceLine" id="cb377-4" title="4">    s &lt;-<span class="st"> </span><span class="kw">summary</span>(<span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb377-5" title="5">        <span class="dt">brute=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>),</a>
+<a class="sourceLine" id="cb377-6" title="6">        <span class="dt">kd_tree=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;kd_tree&quot;</span>),</a>
+<a class="sourceLine" id="cb377-7" title="7">        <span class="dt">times=</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb377-8" title="8">    ), <span class="dt">unit=</span><span class="st">&quot;s&quot;</span>)</a>
+<a class="sourceLine" id="cb377-9" title="9">    <span class="co"># minima of 3 time measurements:</span></a>
+<a class="sourceLine" id="cb377-10" title="10">    <span class="kw">structure</span>(s<span class="op">$</span>min, <span class="dt">names=</span><span class="kw">as.character</span>(s<span class="op">$</span>expr))</a>
+<a class="sourceLine" id="cb377-11" title="11">}</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.98042515 0.02965602</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##    brute  kd_tree 
-## 1.220812 0.118461</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##    brute  kd_tree 
-## 2.133787 1.450614</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
+## 0.30499483 0.01282345</code></pre>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-##  3.287279 12.060329</code></pre>
+## 0.4388909 0.0628802</code></pre>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##     brute   kd_tree 
+## 0.6339672 0.6298461</code></pre>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##    brute  kd_tree 
+## 1.217814 5.282542</code></pre>
 </div>
 </div>
 <div id="different-metrics" class="section level3">
@@ -1431,7 +1430,7 @@ for comparing character strings (also DNA sequences etc.)</p>
 single-character insertions, deletions or substitutions to change
 one string into another.</p>
 <p>For instance:</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">adist</span>(<span class="st">&quot;happy&quot;</span>, <span class="st">&quot;nap&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1"><span class="kw">adist</span>(<span class="st">&quot;happy&quot;</span>, <span class="st">&quot;nap&quot;</span>)</a></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    3</code></pre>
 <p>This is because we need 1 substitution and 2 deletions,</p>
@@ -1479,32 +1478,26 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 <p>Recall our modelling of the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>)
 based on the <code>ISLR::Credit</code> data set.</p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
-<a class="sourceLine" id="cb392-2" title="2">Xc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
-<a class="sourceLine" id="cb392-3" title="3">Yc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>) <span class="co"># knn.reg function</span></a>
-<a class="sourceLine" id="cb393-2" title="2">x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">seq</span>(<span class="kw">min</span>(Xc), <span class="kw">max</span>(Xc), <span class="dt">length.out=</span><span class="dv">101</span>))</a>
-<a class="sourceLine" id="cb393-3" title="3">y1  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">1</span>)<span class="op">$</span>pred</a>
-<a class="sourceLine" id="cb393-4" title="4">y5  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">5</span>)<span class="op">$</span>pred</a>
-<a class="sourceLine" id="cb393-5" title="5">y25 &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">25</span>)<span class="op">$</span>pred</a></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
+<a class="sourceLine" id="cb388-2" title="2">Xc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
+<a class="sourceLine" id="cb388-3" title="3">Yc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>) <span class="co"># knn.reg function</span></a>
+<a class="sourceLine" id="cb389-2" title="2">x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">seq</span>(<span class="kw">min</span>(Xc), <span class="kw">max</span>(Xc), <span class="dt">length.out=</span><span class="dv">101</span>))</a>
+<a class="sourceLine" id="cb389-3" title="3">y1  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">1</span>)<span class="op">$</span>pred</a>
+<a class="sourceLine" id="cb389-4" title="4">y5  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">5</span>)<span class="op">$</span>pred</a>
+<a class="sourceLine" id="cb389-5" title="5">y25 &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">25</span>)<span class="op">$</span>pred</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
-<a class="sourceLine" id="cb394-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Rating&quot;</span>)</a>
-<a class="sourceLine" id="cb394-3" title="3"><span class="kw">lines</span>(x, y1,  <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb394-4" title="4"><span class="kw">lines</span>(x, y5,  <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb394-5" title="5"><span class="kw">lines</span>(x, y25, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-48-1.png" alt="plot of chunk unnamed-chunk-48" style="width:80.0%" /></p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
+<a class="sourceLine" id="cb390-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Rating&quot;</span>)</a>
+<a class="sourceLine" id="cb390-3" title="3"><span class="kw">lines</span>(x, y1,  <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb390-4" title="4"><span class="kw">lines</span>(x, y5,  <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb390-5" title="5"><span class="kw">lines</span>(x, y25, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
+<p><img src="03-classification-neighbours-figures/unnamed-chunk-48-1.svg" alt="plot of chunk unnamed-chunk-48" /></p>
 </div>
 <div id="further-reading-2" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Further Reading</h3>
-<div id="section-2" class="section level4 allowframebreaks unnumbered">
-<h4></h4>
-<p>Recommended further reading:</p>
-<ul>
-<li><span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>: Section 13.3)</span></li>
-</ul>
+<p>Recommended further reading: <span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>: Section 13.3)</span></p>
 
-</div>
 </div>
 </div>
 </div>

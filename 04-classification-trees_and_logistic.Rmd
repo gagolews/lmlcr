@@ -7,7 +7,6 @@
 
 ### Classification Task
 
----
 
 Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
 that consists of $n$ points in a $p$-dimensional space (each of the $n$ objects
@@ -784,12 +783,6 @@ Trees can also be used for regression tasks, see R package `rpart`.
 
 ### Further Reading
 
-#### {.allowframebreaks .unnumbered}
+Recommended further reading: [@islr: Chapters 4 and 8]
 
-Recommended further reading:
-
-- [@islr: Chapters 4 and 8]
-
-Other:
-
-- [@esl: Chapters 4 and 7 as well as (\*) Chapters 9,  10,  13, 15]
+Other: [@esl: Chapters 4 and 7 as well as (\*) Chapters 9,  10,  13, 15]
