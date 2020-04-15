@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 15:21 (14cd6aa)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
 
 </ul>
 
@@ -561,14 +561,14 @@ we assume that each <span class="math inline">\(y_i\)</span> takes more than two
 <p>Example plot of a synthetic dataset
 with the reference binary <span class="math inline">\(y\)</span>s.</p>
 <p>The “true” decision boundary is at <span class="math inline">\(X_1=0\)</span> but the classes
-slightly overlap (dataset is a bit noisy).</p>
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-2-1.svg" alt="plot of chunk unnamed-chunk-2" /></p>
+slightly overlap (the dataset is a bit noisy).</p>
+<p><img src="03-classification-neighbours-figures/classify_intro-1.svg" alt="plot of chunk classify_intro" /></p>
 </div>
 </div>
 <div id="data" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Data</h3>
 <hr />
-<p>For illustration, let’s consider the Wine Quality dataset
+<p>For illustration, let’s consider the Wine Quality dataset <span class="citation">(Cortez et al. <a href="references.html#ref-wines">2009</a>)</span>
 that can be downloaded from the UCI Machine Learning Repository
 (<a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality" class="uri">https://archive.ics.uci.edu/ml/datasets/Wine+Quality</a>) –
 white wines only.</p>
@@ -582,8 +582,6 @@ see <a href="https://www.vinhoverde.pt/en/homepage" class="uri">https://www.vinh
 Moreover, there is a wine rating (which we won’t consider here)
 on the scale 0 (bad) to 10 (excellent)
 given by wine experts.</p>
-<p>Source: P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
-Modeling wine preferences by data mining from physicochemical properties. <em>Decision Support Systems</em>, <strong>47</strong>(4):547-553, 2009.</p>
 <hr />
 <p>The input matrix <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span>
 consists of the first 10 numeric variables:</p>
@@ -701,13 +699,11 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 <p>Gray and pink regions depict how new points would be classified.</p>
 <p>In particular 1-NN is “greedy” in the sense that we just
 locate the nearest point.</p>
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-3-1.svg" alt="plot of chunk unnamed-chunk-3" /></p>
-<hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-4-1.svg" alt="plot of chunk unnamed-chunk-4" /></p>
+<p><img src="03-classification-neighbours-figures/fig_plot_knn1-1.svg" alt="plot of chunk fig_plot_knn1" /></p>
+<p><img src="03-classification-neighbours-figures/fig_plot_knn3-1.svg" alt="plot of chunk fig_plot_knn3" /></p>
 <p>Increasing <span class="math inline">\(K\)</span> somehow smoothens the decision boundary (this makes it
 less “local” and more “global”).</p>
-<hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-5-1.svg" alt="plot of chunk unnamed-chunk-5" /></p>
+<p><img src="03-classification-neighbours-figures/fig_plot_knn25-1.svg" alt="plot of chunk fig_plot_knn25" /></p>
 <p>Recall that the “true” decision boundary for this synthetic dataset
 is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite a good job.</p>
 </div>
@@ -718,7 +714,7 @@ is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite
 to classify the points from the test sample
 extracted from the <code>wines</code> dataset:</p>
 <div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</a></code></pre></div>
-<p>Let us make prediction using the 5-nn classifier:</p>
+<p>Let’s make prediction using the 5-nn classifier:</p>
 <div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1">Y_knn5 &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb286-2" title="2"><span class="kw">head</span>(Y_test, <span class="dv">28</span>) <span class="co"># True Ys</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -762,7 +758,7 @@ the units are cancelled out).</p>
 <p>Z-scores are easy to interpret, e.g., 0.5 denotes an observation
 that is 0.5 standard deviations above the mean.</p>
 <hr />
-<p>Let us compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
+<p>Let’s compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
 <a class="sourceLine" id="cb298-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
@@ -776,7 +772,7 @@ and <code>X_test</code>, respectively.</p>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
 <a class="sourceLine" id="cb299-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <hr />
-<p>Let us compute the accuracy of K-NN classifiers acting on standardised data.</p>
+<p>Let’s compute the accuracy of K-NN classifiers acting on standardised data.</p>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb300-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
 <pre><code>## [1] 0.9102041</code></pre>
@@ -977,7 +973,7 @@ and recall:</p>
 classifier.</p>
 <p>Best == one that has the highest <em>predictive power</em>.</p>
 <p>Best == with respect to some chosen metric (accuracy, recall, precision, F-measure, …)</p>
-<p>Let us study how the metrics on the test set change as functions of the number of nearest neighbours considered, <span class="math inline">\(K\)</span>.</p>
+<p>Let’s study how the metrics on the test set change as functions of the number of nearest neighbours considered, <span class="math inline">\(K\)</span>.</p>
 <hr />
 <p>Auxiliary function:</p>
 <div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">knn_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(k, X_train, X_test, Y_train, Y_test)</a>
@@ -1028,9 +1024,7 @@ corresponding to different columns in the result.</p>
 ## 10 19 0.90 0.80 0.52 0.63 1602 151 41 166</code></pre>
 <p>A picture is worth a thousand tables though (see <code>?matplot</code> in R).</p>
 <hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-25-1.svg" alt="plot of chunk unnamed-chunk-25" /></p>
-<hr />
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-26-1.svg" alt="plot of chunk unnamed-chunk-26" /></p>
+<p><img src="03-classification-neighbours-figures/whichK5-1.svg" alt="plot of chunk whichK5" /></p>
 <!--
 
 (\*) **ROC** (Receiver Operating Characteristic) curve:
@@ -1039,11 +1033,11 @@ corresponding to different columns in the result.</p>
 ```r
 TPR <- Ps$TP/(Ps$TP+Ps$FN) # True Positive Rate (recall)
 FPR <- Ps$FP/(Ps$FP+Ps$TN) # False Positive Rate
-plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1), las=1)
+plot(FPR, TPR, asp=1, xlim=c(0,1), ylim=c(0,1))
 abline(a=0, b=1, lty=3)
 ```
 
-![plot of chunk unnamed-chunk-27](03-classification-neighbours-figures/unnamed-chunk-27-1.svg)
+![plot of chunk unnamed-chunk-2](03-classification-neighbours-figures/unnamed-chunk-2-1.svg)
 
 -->
 </div>
@@ -1136,7 +1130,7 @@ with elements in <span class="math inline">\(\{1,\dots,M\}\)</span>, where <span
 <div id="main-routine" class="section level3">
 <h3><span class="header-section-number">3.4.2</span> Main Routine (*)</h3>
 <hr />
-<p>Let us implement a K-NN classifier ourselves
+<p>Let’s implement a K-NN classifier ourselves
 by using a top-bottom approach.</p>
 <p>We will start with a general description of the admissible inputs
 and the expected output.</p>
@@ -1304,10 +1298,10 @@ and sorting them.</p>
 <p>A comparison with <code>FNN:knn()</code>:</p>
 <div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.129   0.000   0.129</code></pre>
+##   0.119   0.000   0.119</code></pre>
 <div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##  14.526   0.004  14.531</code></pre>
+##  14.219   0.000  14.219</code></pre>
 <div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Both functions return identical results but our implementation is “slightly” slower.</p>
@@ -1315,7 +1309,7 @@ and sorting them.</p>
 <p><code>FNN:knn()</code> is efficiently written in C++, which is a compiled programming language.</p>
 <p>R, on the other hand (just like Python and Matlab) is interpreted, therefore
 as a rule of thumb we should consider it an order of magnitude slower (see, however, the Julia language).</p>
-<p>Let us substitute our naive implementation with the equivalent one,
+<p>Let’s substitute our naive implementation with the equivalent one,
 but written in C++ (available in the <code>FNN</code> package).</p>
 <blockquote>
 <p>(*) Note that we could write a C++ implementation ourselves,
@@ -1328,10 +1322,10 @@ see the Rcpp package for seamless R and C++ integration.</p>
 <a class="sourceLine" id="cb372-4" title="4">}</a>
 <a class="sourceLine" id="cb372-5" title="5"><span class="kw">system.time</span>(Ya &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.129   0.000   0.129</code></pre>
+##   0.128   0.000   0.128</code></pre>
 <div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" title="1"><span class="kw">system.time</span>(Yb &lt;-<span class="st"> </span><span class="kw">our_knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>))</a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.045   0.000   0.045</code></pre>
+##   0.044   0.000   0.044</code></pre>
 <div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1"><span class="kw">mean</span>(Ya <span class="op">==</span><span class="st"> </span>Yb) <span class="co"># 1.0 on perfect match</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <hr />
@@ -1355,7 +1349,7 @@ kd-trees.</p>
 <div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
 <a class="sourceLine" id="cb378-2" title="2">test_speed &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, k) {</a>
 <a class="sourceLine" id="cb378-3" title="3">    A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>p), <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
-<a class="sourceLine" id="cb378-4" title="4">    s &lt;-<span class="st"> </span><span class="kw">summary</span>(<span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb378-4" title="4">    s &lt;-<span class="st"> </span><span class="kw">summary</span>(microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>(</a>
 <a class="sourceLine" id="cb378-5" title="5">        <span class="dt">brute=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;brute&quot;</span>),</a>
 <a class="sourceLine" id="cb378-6" title="6">        <span class="dt">kd_tree=</span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(A, A, k, <span class="dt">algorithm=</span><span class="st">&quot;kd_tree&quot;</span>),</a>
 <a class="sourceLine" id="cb378-7" title="7">        <span class="dt">times=</span><span class="dv">3</span></a>
@@ -1366,16 +1360,16 @@ kd-trees.</p>
 <hr />
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.30499483 0.01282345</code></pre>
+## 0.28515946 0.01180919</code></pre>
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##     brute   kd_tree 
-## 0.4388909 0.0628802</code></pre>
+<pre><code>##      brute    kd_tree 
+## 0.42030521 0.06050009</code></pre>
 <div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-## 0.6339672 0.6298461</code></pre>
+## 0.6362496 0.6313469</code></pre>
 <div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##    brute  kd_tree 
-## 1.217814 5.282542</code></pre>
+## 1.266438 5.332102</code></pre>
 </div>
 </div>
 <div id="different-metrics" class="section level3">
@@ -1487,12 +1481,12 @@ based on the <code>ISLR::Credit</code> data set.</p>
 <a class="sourceLine" id="cb390-4" title="4">y5  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">5</span>)<span class="op">$</span>pred</a>
 <a class="sourceLine" id="cb390-5" title="5">y25 &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">25</span>)<span class="op">$</span>pred</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
 <a class="sourceLine" id="cb391-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Rating&quot;</span>)</a>
 <a class="sourceLine" id="cb391-3" title="3"><span class="kw">lines</span>(x, y1,  <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb391-4" title="4"><span class="kw">lines</span>(x, y5,  <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb391-5" title="5"><span class="kw">lines</span>(x, y25, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="03-classification-neighbours-figures/unnamed-chunk-48-1.svg" alt="plot of chunk unnamed-chunk-48" /></p>
+<p><img src="03-classification-neighbours-figures/knnreg3-1.svg" alt="plot of chunk knnreg3" /></p>
 </div>
 <div id="further-reading-2" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Further Reading</h3>

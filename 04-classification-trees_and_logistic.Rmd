@@ -63,7 +63,7 @@ healthy | ill
 The synthetic 2D dataset once again (true decision boundary is at $X_1=0$):
 
 
-```{r,echo=FALSE}
+```{r synthetic,echo=FALSE}
 set.seed(123)
 n0 <- 50 # n0 points in class 0
 n1 <- 50 # n0 points in class 0
@@ -189,7 +189,7 @@ get_metrics <- function(Y_pred, Y_test)
 
 Let's go back to the K-NN algorithm.
 
-```{r}
+```{r fnn1}
 library("FNN")
 Y_knn5   <- knn(X_train, X_test, Y_train, k=5)
 Y_knn9   <- knn(X_train, X_test, Y_train, k=9)
@@ -197,9 +197,9 @@ Y_knn5s  <- knn(Z_train, Z_test, Y_train, k=5)
 Y_knn9s  <- knn(Z_train, Z_test, Y_train, k=9)
 ```
 
----
+Recall the quality metrics we have obtained previously (as a point of reference):
 
-```{r}
+```{r fnn2}
 cbind(
     Knn5=get_metrics(Y_knn5, Y_test),
     Knn9=get_metrics(Y_knn9, Y_test),
@@ -208,7 +208,6 @@ cbind(
 )
 ```
 
----
 
 In this chapter we discuss the following simple and educational (yet practically useful)
 classification algorithms:
@@ -217,13 +216,12 @@ classification algorithms:
 - *logistic regression*.
 
 
+
+
 ## Decision Trees
 
 ### Introduction
 
-
-
----
 
 Note that a K-NN classifier discussed in the previous chapter
 is **model-free**.
@@ -552,7 +550,7 @@ Ps <- as.data.frame(t(sapply(Ts, function(t) {
 })))
 
 matplot(Ts, Ps[,1:4], xlab="T", ylab="Metric", type="l", ylim=c(0,1))
-legend("top", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=4, bg="white")
+legend("bottomleft", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=2, bg="white")
 ```
 
 

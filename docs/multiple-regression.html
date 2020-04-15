@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 15:21 (14cd6aa)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
 
 </ul>
 
@@ -1402,7 +1402,7 @@ split the above data into four data frames
 is often done by repeating stuff.</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">ans1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x1, <span class="dt">y=</span>anscombe<span class="op">$</span>y1)</a>
 <a class="sourceLine" id="cb187-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans1)</a>
-<a class="sourceLine" id="cb187-3" title="3"><span class="kw">plot</span>(ans1<span class="op">$</span>x, ans1<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb187-3" title="3"><span class="kw">plot</span>(ans1<span class="op">$</span>x, ans1<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb187-4" title="4"><span class="kw">abline</span>(f1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="02-regression-multiple-figures/anscombe3-1.svg" alt="plot of chunk anscombe3" /></p>
 </details>
@@ -1414,7 +1414,7 @@ is often done by repeating stuff.</p>
 <p>How to fit a polynomial model is explained above.</p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">ans2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x2, <span class="dt">y=</span>anscombe<span class="op">$</span>y2)</a>
 <a class="sourceLine" id="cb188-2" title="2">f2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>ans2)</a>
-<a class="sourceLine" id="cb188-3" title="3"><span class="kw">plot</span>(ans2<span class="op">$</span>x, ans2<span class="op">$</span>y, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb188-3" title="3"><span class="kw">plot</span>(ans2<span class="op">$</span>x, ans2<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb188-4" title="4">x_plot &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">4</span>, <span class="dv">14</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</a>
 <a class="sourceLine" id="cb188-5" title="5">y_plot &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(<span class="dt">x=</span>x_plot))</a>
 <a class="sourceLine" id="cb188-6" title="6"><span class="kw">lines</span>(x_plot, y_plot, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>

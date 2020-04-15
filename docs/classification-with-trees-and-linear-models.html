@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 15:21 (14cd6aa)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 16:10 (259f611)</a></li>
 
 </ul>
 
@@ -549,7 +549,7 @@ we assume that each <span class="math inline">\(y_i\)</span> is a descriptive la
 </table>
 <hr />
 <p>The synthetic 2D dataset once again (true decision boundary is at <span class="math inline">\(X_1=0\)</span>):</p>
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-2-1.svg" alt="plot of chunk unnamed-chunk-2" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/synthetic-1.svg" alt="plot of chunk synthetic" /></p>
 </div>
 </div>
 <div id="data-1" class="section level3">
@@ -632,7 +632,7 @@ and <code>X_test</code>, respectively.</p>
 <a class="sourceLine" id="cb405-3" title="3">Y_knn9   &lt;-<span class="st"> </span><span class="kw">knn</span>(X_train, X_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
 <a class="sourceLine" id="cb405-4" title="4">Y_knn5s  &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb405-5" title="5">Y_knn9s  &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a></code></pre></div>
-<hr />
+<p>Recall the quality metrics we have obtained previously (as a point of reference):</p>
 <div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1"><span class="kw">cbind</span>(</a>
 <a class="sourceLine" id="cb406-2" title="2">    <span class="dt">Knn5=</span><span class="kw">get_metrics</span>(Y_knn5, Y_test),</a>
 <a class="sourceLine" id="cb406-3" title="3">    <span class="dt">Knn9=</span><span class="kw">get_metrics</span>(Y_knn9, Y_test),</a>
@@ -648,7 +648,6 @@ and <code>X_test</code>, respectively.</p>
 ## FN    247.0000000  274.0000000  130.0000000  135.0000000
 ## FP    111.0000000   80.0000000   46.0000000   37.0000000
 ## TP     70.0000000   43.0000000  187.0000000  182.0000000</code></pre>
-<hr />
 <p>In this chapter we discuss the following simple and educational (yet practically useful)
 classification algorithms:</p>
 <ul>
@@ -661,7 +660,6 @@ classification algorithms:</p>
 <h2><span class="header-section-number">4.2</span> Decision Trees</h2>
 <div id="introduction-6" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Introduction</h3>
-<hr />
 <p>Note that a K-NN classifier discussed in the previous chapter
 is <strong>model-free</strong>.
 The whole training set must be stored and referred to at all times.</p>
@@ -673,7 +671,7 @@ consist of decision rules of the form:</p>
 <p>These can be organised into a <strong>hierarchy</strong> for greater readability.</p>
 <p>This idea inspired the notion of <strong>decision trees</strong> <span class="citation">(Breiman et al. <a href="references.html#ref-cart">1984</a>)</span>.</p>
 <hr />
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-5-1.svg" alt="plot of chunk unnamed-chunk-5" style="width:100.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/plot_rpart-1.svg" alt="plot of chunk plot_rpart" /></p>
 <p>Each tree node reports 3 pieces of information:</p>
 <ul>
 <li>dominating class (0 or 1)</li>
@@ -681,9 +679,9 @@ consist of decision rules of the form:</p>
 <li>(absolute) proportion of all observations in a node</li>
 </ul>
 <hr />
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-6-1.svg" alt="plot of chunk unnamed-chunk-6" style="width:100.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/plot_rpart2-1.svg" alt="plot of chunk plot_rpart2" /></p>
 <hr />
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-7-1.svg" alt="plot of chunk unnamed-chunk-7" style="width:100.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/plot_rpart3-1.svg" alt="plot of chunk plot_rpart3" /></p>
 </div>
 <div id="example-in-r-1" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Example in R</h3>
@@ -701,7 +699,7 @@ to feed it with data in a data.frame form.</p>
 <p>Fit and plot a decision tree:</p>
 <div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb410-2" title="2"><span class="kw">rpart.plot</span>(t1, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-10-1.svg" alt="plot of chunk unnamed-chunk-10" style="width:100.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/plot_rpart1-1.svg" alt="plot of chunk plot_rpart1" /></p>
 <hr />
 <!--
 The fitted model is rather... simple.
@@ -713,8 +711,7 @@ Well note how these two distributions are shifted:
 
 
 ```r
-#vioplot::vioplot(alcohol~Y, data=XY_train,
-#    horizontal=TRUE, las=1)
+#    horizontal=TRUE)
 ```
 
 ---
@@ -748,7 +745,7 @@ with the <code>cp</code> parameter.</p>
 <div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
 <a class="sourceLine" id="cb415-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.1</span>)</a>
 <a class="sourceLine" id="cb415-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-14-1.svg" alt="plot of chunk unnamed-chunk-14" style="width:100.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/plot_rpart222-1.svg" alt="plot of chunk plot_rpart222" /></p>
 <hr />
 <div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb416-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
@@ -761,7 +758,7 @@ with the <code>cp</code> parameter.</p>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
 <a class="sourceLine" id="cb418-2" title="2">t3 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.00001</span>)</a>
 <a class="sourceLine" id="cb418-3" title="3"><span class="kw">rpart.plot</span>(t3, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-16-1.svg" alt="plot of chunk unnamed-chunk-16" style="width:100.0%" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-3-1.svg" alt="plot of chunk unnamed-chunk-3" style="width:100.0%" /></p>
 <hr />
 <div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t3, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb419-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
@@ -854,7 +851,7 @@ but we can convert them to binary ones by checking if, e.g., <span class="math i
 <hr />
 <p>The threshold <span class="math inline">\(T=0.5\)</span> could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample).</p>
-<p><img src="04-classification-trees_and_logistic-figures/lm4-1.svg" alt="plot of chunk lm4" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/lm3b-1.svg" alt="plot of chunk lm3b" /></p>
 <p>Despite we can, we shouldn’t use linear regression for classification.
 There are better models.</p>
 </div>
@@ -921,7 +918,7 @@ using the <code>density</code> variable.</p>
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
 <hr />
-<p><img src="04-classification-trees_and_logistic-figures/unnamed-chunk-21-1.svg" alt="plot of chunk unnamed-chunk-21" /></p>
+<p><img src="04-classification-trees_and_logistic-figures/glm2-1.svg" alt="plot of chunk glm2" /></p>
 <hr />
 <p>Some predicted probabilities:</p>
 <div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
