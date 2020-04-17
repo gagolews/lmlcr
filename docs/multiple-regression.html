@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 21:10 (d74d842)</a></li>
 
 </ul>
 
@@ -571,7 +571,7 @@ a = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - b  \dfrac{1}{n} \displays
 \end{array}
 \right.
 \]</span></p>
-<p>Fitting in R:</p>
+<p>Fitting in R can be performed by calling the <code>lm()</code> function:</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
 <a class="sourceLine" id="cb87-2" title="2">X &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
 <a class="sourceLine" id="cb87-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
@@ -584,11 +584,13 @@ a = &amp; \dfrac{1}{n}\displaystyle\sum_{i=1}^n  y_i - b  \dfrac{1}{n} \displays
 ## Coefficients:
 ## (Intercept)            X  
 ##    226.4711       0.2661</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
+<p>Figure <a href="multiple-regression.html#fig:simple_recap2">1</a> gives the scatter plot
+of Y vs. X together with the fitted simple linear model.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">xlab=</span><span class="st">&quot;X (Balance)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Y (Credit)&quot;</span>)</a>
 <a class="sourceLine" id="cb89-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/simple_recap2-1.svg" alt="Figure 1: plot of chunk simple_recap2" id="fig:simple_recap2" />
-<p class="caption">Figure 1: plot of chunk simple_recap2</p>
+<img src="02-regression-multiple-figures/simple_recap2-1.svg" alt="Figure 1: Fitted regression line for the Credit dataset" id="fig:simple_recap2" />
+<p class="caption">Figure 1: Fitted regression line for the Credit dataset</p>
 </div>
 </div>
 </div>
@@ -609,15 +611,15 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p.
 <p>Above we studied the case where <span class="math inline">\(p=1\)</span>, i.e., <span class="math inline">\(Y=a+bX_1\)</span> with <span class="math inline">\(\beta_0=a\)</span> and <span class="math inline">\(\beta_1=b\)</span>.</p>
 <p>The above equation defines:</p>
 <ul>
-<li><span class="math inline">\(p=1\)</span> — a line</li>
-<li><span class="math inline">\(p=2\)</span> — a plane</li>
-<li><span class="math inline">\(p\ge 3\)</span> — a hyperplane</li>
+<li><span class="math inline">\(p=1\)</span> — a line (see Figure <a href="multiple-regression.html#fig:simple_recap2">1</a>),</li>
+<li><span class="math inline">\(p=2\)</span> — a plane (see Figure <a href="multiple-regression.html#fig:scatterplot3dexample">2</a>),</li>
+<li><span class="math inline">\(p\ge 3\)</span> — a hyperplane (well, most people find it difficult
+to imagine objects in high dimensions,
+but we are lucky to have this thing called maths).</li>
 </ul>
-<p>Most people find it difficult to imagine objects in high dimensions,
-but we are lucky to have this thing called maths.</p>
 <div class="figure">
-<img src="02-regression-multiple-figures/scatterplot3dexample-1.svg" alt="Figure 2: plot of chunk scatterplot3dexample" id="fig:scatterplot3dexample" />
-<p class="caption">Figure 2: plot of chunk scatterplot3dexample</p>
+<img src="02-regression-multiple-figures/scatterplot3dexample-1.svg" alt="Figure 2: Fitted regression plane for the Credit dataset" id="fig:scatterplot3dexample" />
+<p class="caption">Figure 2: Fitted regression plane for the Credit dataset</p>
 </div>
 </div>
 <div id="fitting-a-linear-model-in-r" class="section level3">
@@ -635,12 +637,13 @@ but we are lucky to have this thing called maths.</p>
 <a class="sourceLine" id="cb90-5" title="5">f<span class="op">$</span>coefficients <span class="co"># ß0, ß1, ß2</span></a></code></pre></div>
 <pre><code>## (Intercept)          X1          X2 
 ## 172.5586670   0.1828011   2.1976461</code></pre>
-<p>By the way, the above 3D scatter plot was generated by calling:</p>
+<p>By the way, the 3D scatter plot in Figure <a href="multiple-regression.html#fig:scatterplot3dexample">2</a>
+was generated by calling:</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">library</span>(<span class="st">&quot;scatterplot3d&quot;</span>)</a>
 <a class="sourceLine" id="cb92-2" title="2">s3d &lt;-<span class="st"> </span><span class="kw">scatterplot3d</span>(X1, X2, Y,</a>
 <a class="sourceLine" id="cb92-3" title="3">    <span class="dt">angle=</span><span class="dv">60</span>, <span class="co"># change angle to reveal more</span></a>
 <a class="sourceLine" id="cb92-4" title="4">    <span class="dt">highlight.3d=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Income&quot;</span>,</a>
-<a class="sourceLine" id="cb92-5" title="5">    <span class="dt">zlab=</span><span class="st">&quot;Credit Rating&quot;</span>)</a>
+<a class="sourceLine" id="cb92-5" title="5">    <span class="dt">zlab=</span><span class="st">&quot;Rating&quot;</span>)</a>
 <a class="sourceLine" id="cb92-6" title="6">s3d<span class="op">$</span><span class="kw">plane3d</span>(f, <span class="dt">lty.box=</span><span class="st">&quot;solid&quot;</span>)</a></code></pre></div>
 <p>(<code>s3d</code> is an R list, one of its elements named <code>plane3d</code> is a function object – this is legal)</p>
 </div>
@@ -649,18 +652,19 @@ but we are lucky to have this thing called maths.</p>
 <h2><span class="header-section-number">2.3</span> Finding the Best Model</h2>
 <div id="model-diagnostics" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Model Diagnostics</h3>
-<p>Here is Rating (<span class="math inline">\(Y\)</span>) as function of Balance (<span class="math inline">\(X_1\)</span>, left subfigure)
-and Income (<span class="math inline">\(X_2\)</span>, right subfigure).</p>
+<p>Here is Rating (<span class="math inline">\(Y\)</span>) as function of Balance (<span class="math inline">\(X_1\)</span>, lefthand side of Figure <a href="multiple-regression.html#fig:x12_y">3</a>)
+and Income (<span class="math inline">\(X_2\)</span>, righthand side of Figure <a href="multiple-regression.html#fig:x12_y">3</a>).</p>
 <div class="figure">
-<img src="02-regression-multiple-figures/x12_y-1.svg" alt="Figure 3: plot of chunk x12_y" id="fig:x12_y" />
-<p class="caption">Figure 3: plot of chunk x12_y</p>
+<img src="02-regression-multiple-figures/x12_y-1.svg" alt="Figure 3: Scatter plots of Y vs. X_1 and X_2" id="fig:x12_y" />
+<p class="caption">Figure 3: Scatter plots of <span class="math inline">\(Y\)</span> vs. <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span></p>
 </div>
-<p>Moreover, here’s a (hopefully readable) where Rating <span class="math inline">\(Y\)</span>
+<p>Moreover, Figure <a href="multiple-regression.html#fig:x12_ycolmap">4</a> depicts
+(in a hopefully readable manner) both <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> with Rating <span class="math inline">\(Y\)</span>
 encoded with a colour (low ratings are green, high ratings are red;
 some rating values are explicitly printed out within the plot).</p>
 <div class="figure">
-<img src="02-regression-multiple-figures/x12_ycolmap-1.svg" alt="Figure 4: plot of chunk x12_ycolmap" id="fig:x12_ycolmap" />
-<p class="caption">Figure 4: plot of chunk x12_ycolmap</p>
+<img src="02-regression-multiple-figures/x12_ycolmap-1.svg" alt="Figure 4: A heatmap for Rating as a function of Balance and Income; greens represent low credit ratings, whereas reds – high ones" id="fig:x12_ycolmap" />
+<p class="caption">Figure 4: A heatmap for Rating as a function of Balance and Income; greens represent low credit ratings, whereas reds – high ones</p>
 </div>
 <p>Consider the three following models.</p>
 <table>
@@ -838,8 +842,9 @@ bunch of descriptive statistics:</p>
 <p>For example, 1st quartile is the observation <span class="math inline">\(q\)</span> such that
 25% values are <span class="math inline">\(\le q\)</span> and 75% values are <span class="math inline">\(\ge q\)</span>,
 see <code>?quantile</code> in R.</p>
-<p>Graphically, it is nice to summarise the empirical distribution of the residuals
-on a <strong>box and whisker plot</strong>:</p>
+<p>Graphically, it is nice to summarise the empirical distribution
+of the residuals on a <strong>box and whisker plot</strong>.
+Here is the key to decipher Figure <a href="multiple-regression.html#fig:boxplot_explained">5</a>:</p>
 <ul>
 <li>IQR == Interquartile range == Q3<span class="math inline">\(-\)</span>Q1 (box width)</li>
 <li>The box contains 50% of the “most typical” observations</li>
@@ -847,25 +852,25 @@ on a <strong>box and whisker plot</strong>:</p>
 <li>Outliers == observations potentially worth inspecting (is it a bug or a feature?)</li>
 </ul>
 <div class="figure">
-<img src="02-regression-multiple-figures/boxplot_explained-1.svg" alt="Figure 5: plot of chunk boxplot_explained" id="fig:boxplot_explained" />
-<p class="caption">Figure 5: plot of chunk boxplot_explained</p>
+<img src="02-regression-multiple-figures/boxplot_explained-1.svg" alt="Figure 5: An example boxplot" id="fig:boxplot_explained" />
+<p class="caption">Figure 5: An example boxplot</p>
 </div>
-<p>A picture is worth a thousand words:</p>
+<p>Figure <a href="multiple-regression.html#fig:boxplot_residuals">6</a> is worth a thousand words:</p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1"><span class="kw">boxplot</span>(<span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>,</a>
 <a class="sourceLine" id="cb133-2" title="2">  <span class="kw">list</span>(<span class="dt">f12=</span>f12<span class="op">$</span>residuals, <span class="dt">f1=</span>f1<span class="op">$</span>residuals, <span class="dt">f2=</span>f2<span class="op">$</span>residuals))</a>
 <a class="sourceLine" id="cb133-3" title="3"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/boxplot_residuals-1.svg" alt="Figure 6: plot of chunk boxplot_residuals" id="fig:boxplot_residuals" />
-<p class="caption">Figure 6: plot of chunk boxplot_residuals</p>
+<img src="02-regression-multiple-figures/boxplot_residuals-1.svg" alt="Figure 6: Box plots of the residuals for the three models studied" id="fig:boxplot_residuals" />
+<p class="caption">Figure 6: Box plots of the residuals for the three models studied</p>
 </div>
-<p>Here is a <em>violin plot</em> – a blend of a box plot and a (kernel) density estimator (histogram-like):</p>
+<p>Figure <a href="multiple-regression.html#fig:violinplot_residuals">7</a> gives a <em>violin plot</em> – a blend of a box plot and a (kernel) density estimator (histogram-like):</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1"><span class="kw">library</span>(<span class="st">&quot;vioplot&quot;</span>)</a>
 <a class="sourceLine" id="cb134-2" title="2"><span class="kw">vioplot</span>(<span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">xlab=</span><span class="st">&quot;residuals&quot;</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>,</a>
 <a class="sourceLine" id="cb134-3" title="3">  <span class="kw">list</span>(<span class="dt">f12=</span>f12<span class="op">$</span>residuals, <span class="dt">f1=</span>f1<span class="op">$</span>residuals, <span class="dt">f2=</span>f2<span class="op">$</span>residuals))</a>
 <a class="sourceLine" id="cb134-4" title="4"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/violinplot_residuals-1.svg" alt="Figure 7: plot of chunk violinplot_residuals" id="fig:violinplot_residuals" />
-<p class="caption">Figure 7: plot of chunk violinplot_residuals</p>
+<img src="02-regression-multiple-figures/violinplot_residuals-1.svg" alt="Figure 7: Violin plots of the residuals for the three models studied" id="fig:violinplot_residuals" />
+<p class="caption">Figure 7: Violin plots of the residuals for the three models studied</p>
 </div>
 <p>We can also take a look at the absolute values of the residuals.
 Here are some descriptive statistics:</p>
@@ -878,14 +883,14 @@ Here are some descriptive statistics:</p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1"><span class="kw">summary</span>(<span class="kw">abs</span>(f2<span class="op">$</span>residuals))</a></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ##   0.6545  29.8540  59.6756  64.1506  95.7384 195.1557</code></pre>
-<p>This picture is worth $1000:</p>
+<p>Figure <a href="multiple-regression.html#fig:absresiduals_boxplot">8</a> is worth $1000:</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"><span class="kw">boxplot</span>(<span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;abs(residuals)&quot;</span>,</a>
 <a class="sourceLine" id="cb141-2" title="2">  <span class="kw">list</span>(<span class="dt">f12=</span><span class="kw">abs</span>(f12<span class="op">$</span>residuals), <span class="dt">f1=</span><span class="kw">abs</span>(f1<span class="op">$</span>residuals),</a>
 <a class="sourceLine" id="cb141-3" title="3">       <span class="dt">f2=</span><span class="kw">abs</span>(f2<span class="op">$</span>residuals)))</a>
 <a class="sourceLine" id="cb141-4" title="4"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/absresiduals_boxplot-1.svg" alt="Figure 8: plot of chunk absresiduals_boxplot" id="fig:absresiduals_boxplot" />
-<p class="caption">Figure 8: plot of chunk absresiduals_boxplot</p>
+<img src="02-regression-multiple-figures/absresiduals_boxplot-1.svg" alt="Figure 8: Box plots of the modules of the residuals for the three models studied" id="fig:absresiduals_boxplot" />
+<p class="caption">Figure 8: Box plots of the modules of the residuals for the three models studied</p>
 </div>
 </div>
 <div id="coefficient-of-determination-r-squared" class="section level4">
@@ -962,8 +967,10 @@ and the residuals.</p>
 </div>
 <div id="residuals-vs.-fitted-plot" class="section level4">
 <h4><span class="header-section-number">2.3.1.4</span> Residuals vs. Fitted Plot</h4>
-<p>We can also create scatter plots of the residuals (predicted <span class="math inline">\(\hat{y}_i\)</span> minus
-true <span class="math inline">\(y_i\)</span>) as a function of the predicted <span class="math inline">\(\hat{y}_i=f(\mathbf{x}_{i,\cdot})\)</span></p>
+<p>We can also create scatter plots of the residuals
+(predicted <span class="math inline">\(\hat{y}_i\)</span> minus
+true <span class="math inline">\(y_i\)</span>) as a function of the predicted
+<span class="math inline">\(\hat{y}_i=f(\mathbf{x}_{i,\cdot})\)</span>, see Figure <a href="multiple-regression.html#fig:resid_vs_fitted">9</a>.</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">Y_pred12 &lt;-<span class="st"> </span><span class="kw">predict</span>(f12, <span class="kw">data.frame</span>(X1, X2))</a>
 <a class="sourceLine" id="cb160-2" title="2">Y_pred1  &lt;-<span class="st"> </span><span class="kw">predict</span>(f1, <span class="kw">data.frame</span>(X1))</a>
 <a class="sourceLine" id="cb160-3" title="3">Y_pred2  &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(X2))</a>
@@ -972,8 +979,8 @@ true <span class="math inline">\(y_i\)</span>) as a function of the predicted <s
 <a class="sourceLine" id="cb160-6" title="6"><span class="kw">plot</span>(Y_pred1,  Y_pred1 <span class="op">-</span>Y)</a>
 <a class="sourceLine" id="cb160-7" title="7"><span class="kw">plot</span>(Y_pred2,  Y_pred2 <span class="op">-</span>Y)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/resid_vs_fitted-1.svg" alt="Figure 9: plot of chunk resid_vs_fitted" id="fig:resid_vs_fitted" />
-<p class="caption">Figure 9: plot of chunk resid_vs_fitted</p>
+<img src="02-regression-multiple-figures/resid_vs_fitted-1.svg" alt="Figure 9: Residuals vs. fitted outputs for the three regression models" id="fig:resid_vs_fitted" />
+<p class="caption">Figure 9: Residuals vs. fitted outputs for the three regression models</p>
 </div>
 <p>Ideally (provided that the hypothesis that the dependent variable
 is indeed a linear function of the dependent variable(s) is true),
@@ -1012,12 +1019,14 @@ How do we choose the <em>best</em> set of inputs?</p>
 wait… <em>best</em> requires some sort of criterion, right?</p>
 </dd>
 </dl>
-<p>First, however, let’s draw a matrix of scatter plots for every pair of variables
-– so as to get an impression of how individual variables interact with each other.</p>
+<p>First, however, let’s draw a matrix of scatter plots for
+every pair of variables
+– so as to get an impression of how individual variables
+interact with each other, see Figure <a href="multiple-regression.html#fig:pairs">10</a>.</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">pairs</span>(C)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/pairs-1.svg" alt="Figure 10: plot of chunk pairs" id="fig:pairs" />
-<p class="caption">Figure 10: plot of chunk pairs</p>
+<img src="02-regression-multiple-figures/pairs-1.svg" alt="Figure 10: Scatter plot matrix for the Credit dataset" id="fig:pairs" />
+<p class="caption">Figure 10: Scatter plot matrix for the Credit dataset</p>
 </div>
 <p>It seems like <code>Rating</code> depends on <code>Limit</code> almost linearly…
 We have a tool to actually quantify the degree of linear dependence
@@ -1036,11 +1045,10 @@ r(\boldsymbol{x},\boldsymbol{y}) = \frac{
 <li><span class="math inline">\(r=-1\)</span> – negative linear dependence (<span class="math inline">\(y\)</span> decreases as <span class="math inline">\(x\)</span> increases)</li>
 <li><span class="math inline">\(r\simeq 0\)</span> – uncorrelated or non-linearly dependent</li>
 </ul>
-<!-- TODO anscombe -->
-<p>Interpretation:</p>
+<p>Figure <a href="multiple-regression.html#fig:pearson_interpret">11</a> gives an illustration of the above.</p>
 <div class="figure">
-<img src="02-regression-multiple-figures/pearson_interpret-1.svg" alt="Figure 11: plot of chunk pearson_interpret" id="fig:pearson_interpret" />
-<p class="caption">Figure 11: plot of chunk pearson_interpret</p>
+<img src="02-regression-multiple-figures/pearson_interpret-1.svg" alt="Figure 11: Different datasets and the corresponding Pearson’s r coefficients" id="fig:pearson_interpret" />
+<p class="caption">Figure 11: Different datasets and the corresponding Pearson’s <span class="math inline">\(r\)</span> coefficients</p>
 </div>
 <p>To compute Pearson’s <span class="math inline">\(r\)</span> between all pairs of variables, we call:</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="kw">round</span>(<span class="kw">cor</span>(C), <span class="dv">3</span>)</a></code></pre></div>
@@ -1339,7 +1347,7 @@ of the form <code>Y~poly(X, d)</code> or <code>Y~X+I(X^2)+I(X^3)+...</code></p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">f1_<span class="dv">1</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1)</a>
 <a class="sourceLine" id="cb178-2" title="2">f1_<span class="dv">3</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">3</span>)) <span class="co"># also: Y~poly(X1, 3)</span></a>
 <a class="sourceLine" id="cb178-3" title="3">f1_<span class="dv">14</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X1, <span class="dv">14</span>))</a></code></pre></div>
-<p>Above we have fit polynomials of degrees 1, 3 and 14.
+<p>Above we have fitted the polynomials of degrees 1, 3 and 14.
 Note that a polynomial of degree 1 is just a line.</p>
 <p>Let us depict the three models:</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">plot</span>(X1, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
@@ -1348,10 +1356,10 @@ Note that a polynomial of degree 1 is just a line.</p>
 <a class="sourceLine" id="cb179-4" title="4"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">3</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb179-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">14</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/poly2-1.svg" alt="Figure 12: plot of chunk poly2" id="fig:poly2" />
-<p class="caption">Figure 12: plot of chunk poly2</p>
+<img src="02-regression-multiple-figures/poly2-1.svg" alt="Figure 12: Polynomials of different degrees fitted to the Credit dataset" id="fig:poly2" />
+<p class="caption">Figure 12: Polynomials of different degrees fitted to the Credit dataset</p>
 </div>
-<p>There’s clearly a problem with the degree-14 polynomial.</p>
+<p>From Figure <a href="multiple-regression.html#fig:poly2">12</a> we see that there’s clearly a problem with the degree-14 polynomial.</p>
 </div>
 <div id="predictive-vs.-descriptive-power" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> Predictive vs. Descriptive Power</h3>
@@ -1363,19 +1371,20 @@ but fails to produce good results for the points that are yet to come.</p>
 <p>We say that it <strong>generalises</strong> poorly to unseen data.</p>
 <p>Assume our true model is of the form:</p>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">true_model &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="dv">3</span><span class="op">*</span>x<span class="op">^</span><span class="dv">3</span><span class="op">+</span><span class="dv">5</span></a></code></pre></div>
-<p>And we generate the following random sample from this model (with <span class="math inline">\(Y\)</span> subject
-to error):</p>
+<p>Let’s generate the following random sample from this model (with <span class="math inline">\(Y\)</span> subject
+to error), see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE1">13</a>:</p>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">n &lt;-<span class="st"> </span><span class="dv">25</span></a>
 <a class="sourceLine" id="cb181-2" title="2">X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb181-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">true_model</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(n, <span class="dt">sd=</span><span class="fl">0.1</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">plot</span>(X, Y)</a>
-<a class="sourceLine" id="cb182-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb182-3" title="3"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb181-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">true_model</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(n, <span class="dt">sd=</span><span class="fl">0.1</span>) <span class="co"># add normally-distributed noise</span></a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># to assure reproducibility</span></a>
+<a class="sourceLine" id="cb182-2" title="2"><span class="kw">plot</span>(X, Y)</a>
+<a class="sourceLine" id="cb182-3" title="3">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb182-4" title="4"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/figBIASVARIANCE1-1.svg" alt="Figure 13: plot of chunk figBIASVARIANCE1" id="fig:figBIASVARIANCE1" />
-<p class="caption">Figure 13: plot of chunk figBIASVARIANCE1</p>
+<img src="02-regression-multiple-figures/figBIASVARIANCE1-1.svg" alt="Figure 13: Synthetic data generated by means of the formula Y=3x^3+5 (+ noise)" id="fig:figBIASVARIANCE1" />
+<p class="caption">Figure 13: Synthetic data generated by means of the formula <span class="math inline">\(Y=3x^3+5\)</span> (<span class="math inline">\(+\)</span> noise)</p>
 </div>
-<p>Let’s fit polynomials of different degrees:</p>
+<p>Let’s fit polynomials of different degrees, see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE2">14</a>.</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="kw">plot</span>(X, Y)</a>
 <a class="sourceLine" id="cb183-2" title="2"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb183-3" title="3"></a>
@@ -1392,19 +1401,27 @@ to error):</p>
 <a class="sourceLine" id="cb183-14" title="14">    MSE_test[d]  &lt;-<span class="st"> </span><span class="kw">mean</span>((y<span class="op">-</span><span class="kw">true_model</span>(x))<span class="op">^</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb183-15" title="15">}</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/figBIASVARIANCE2-1.svg" alt="Figure 14: plot of chunk figBIASVARIANCE2" id="fig:figBIASVARIANCE2" />
-<p class="caption">Figure 14: plot of chunk figBIASVARIANCE2</p>
+<img src="02-regression-multiple-figures/figBIASVARIANCE2-1.svg" alt="Figure 14: Polynomials fitted to our synthetic dataset" id="fig:figBIASVARIANCE2" />
+<p class="caption">Figure 14: Polynomials fitted to our synthetic dataset</p>
 </div>
-<p>Compare the mean squared error (MSE) for the observed vs. future data points:</p>
+<p>Some of the polynomials are fitted too well!</p>
+<dl>
+<dt>Remark</dt>
+<dd><p>(*) The oscillation of the high-degree polynomials at the domain
+boundaries is known as the Runge phenomenon.</p>
+</dd>
+</dl>
+<p>Compare the mean squared error (MSE) for the observed vs. future data points,
+see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE3">15</a>.</p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1"><span class="kw">matplot</span>(<span class="dv">1</span><span class="op">:</span>dmax, <span class="kw">cbind</span>(MSE_train, MSE_test), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>,</a>
-<a class="sourceLine" id="cb184-2" title="2">    <span class="dt">ylim=</span><span class="kw">c</span>(<span class="fl">1e-3</span>, <span class="fl">1e3</span>), <span class="dt">log=</span><span class="st">&quot;y&quot;</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb184-2" title="2">    <span class="dt">ylim=</span><span class="kw">c</span>(<span class="fl">1e-3</span>, <span class="fl">2e3</span>), <span class="dt">log=</span><span class="st">&quot;y&quot;</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
 <a class="sourceLine" id="cb184-3" title="3">    <span class="dt">xlab=</span><span class="st">&quot;Model complexity (polynomial degree)&quot;</span>,</a>
 <a class="sourceLine" id="cb184-4" title="4">    <span class="dt">ylab=</span><span class="st">&quot;MSE&quot;</span>)</a>
-<a class="sourceLine" id="cb184-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;MSE train&quot;</span>, <span class="st">&quot;MSE test&quot;</span>),</a>
+<a class="sourceLine" id="cb184-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;MSE on original data&quot;</span>, <span class="st">&quot;MSE on the whole range&quot;</span>),</a>
 <a class="sourceLine" id="cb184-6" title="6">    <span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/figBIASVARIANCE3-1.svg" alt="Figure 15: plot of chunk figBIASVARIANCE3" id="fig:figBIASVARIANCE3" />
-<p class="caption">Figure 15: plot of chunk figBIASVARIANCE3</p>
+<img src="02-regression-multiple-figures/figBIASVARIANCE3-1.svg" alt="Figure 15: MSE on the dataset used to construct the model vs. MSE on a whole range of points as function of the polynomial degree" id="fig:figBIASVARIANCE3" />
+<p class="caption">Figure 15: MSE on the dataset used to construct the model vs. MSE on a whole range of points as function of the polynomial degree</p>
 </div>
 <p>Note the logarithmic scale on the <span class="math inline">\(y\)</span> axis.</p>
 <p>This is a very typical behaviour!</p>
@@ -1457,15 +1474,16 @@ split the above data into four data frames
 <p>In <code>ans1</code>, fit a regression line to the data set as-is.</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
-<p>We’ve done that already. What a wonderful exercise, thank you – learning
-is often done by repeating stuff.</p>
+<p>We’ve done that already, see Figure <a href="multiple-regression.html#fig:anscombe3">16</a>.
+What a wonderful exercise, thank you – effective
+learning is often done by repeating stuff.</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">ans1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x1, <span class="dt">y=</span>anscombe<span class="op">$</span>y1)</a>
 <a class="sourceLine" id="cb187-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans1)</a>
 <a class="sourceLine" id="cb187-3" title="3"><span class="kw">plot</span>(ans1<span class="op">$</span>x, ans1<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb187-4" title="4"><span class="kw">abline</span>(f1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/anscombe3-1.svg" alt="Figure 16: plot of chunk anscombe3" id="fig:anscombe3" />
-<p class="caption">Figure 16: plot of chunk anscombe3</p>
+<img src="02-regression-multiple-figures/anscombe3-1.svg" alt="Figure 16: Fitted regression line for ans1" id="fig:anscombe3" />
+<p class="caption">Figure 16: Fitted regression line for <code>ans1</code></p>
 </div>
 </details>
 <div class="exercise"><strong>Exercise.</strong>
@@ -1480,10 +1498,11 @@ is often done by repeating stuff.</p>
 <a class="sourceLine" id="cb188-5" title="5">y_plot &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(<span class="dt">x=</span>x_plot))</a>
 <a class="sourceLine" id="cb188-6" title="6"><span class="kw">lines</span>(x_plot, y_plot, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/anscombe4-1.svg" alt="Figure 17: plot of chunk anscombe4" id="fig:anscombe4" />
-<p class="caption">Figure 17: plot of chunk anscombe4</p>
+<img src="02-regression-multiple-figures/anscombe4-1.svg" alt="Figure 17: Fitted quadratic model for ans2" id="fig:anscombe4" />
+<p class="caption">Figure 17: Fitted quadratic model for <code>ans2</code></p>
 </div>
-<p><em>Comment: This is an almost-perfect fit! Clearly,
+<p><em>Comment: From Figure <a href="multiple-regression.html#fig:anscombe4">17</a> we see that it’s
+an almost-perfect fit! Clearly,
 the second Anscombe dataset isn’t a case of linearly
 dependent variables.</em></p>
 </details>
@@ -1492,12 +1511,12 @@ dependent variables.</em></p>
 and fit a regression line.</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
-<p>Let’s plot the data set first.</p>
+<p>Let’s plot the data set first, see Figure <a href="multiple-regression.html#fig:anscombe5">18</a>.</p>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">ans3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x3, <span class="dt">y=</span>anscombe<span class="op">$</span>y3)</a>
 <a class="sourceLine" id="cb189-2" title="2"><span class="kw">plot</span>(ans3<span class="op">$</span>x, ans3<span class="op">$</span>y)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/anscombe5-1.svg" alt="Figure 18: plot of chunk anscombe5" id="fig:anscombe5" />
-<p class="caption">Figure 18: plot of chunk anscombe5</p>
+<img src="02-regression-multiple-figures/anscombe5-1.svg" alt="Figure 18: Scatter plot for ans3" id="fig:anscombe5" />
+<p class="caption">Figure 18: Scatter plot for <code>ans3</code></p>
 </div>
 <p>Indeed, the observation at <span class="math inline">\(x\simeq 13\)</span> is an obvious outlier.
 Perhaps the easiest way
@@ -1509,10 +1528,10 @@ to remove it is to call:</p>
 <a class="sourceLine" id="cb191-2" title="2"><span class="kw">plot</span>(ans3b<span class="op">$</span>x, ans3b<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb191-3" title="3"><span class="kw">abline</span>(f3b, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/anscombe7-1.svg" alt="Figure 19: plot of chunk anscombe7" id="fig:anscombe7" />
-<p class="caption">Figure 19: plot of chunk anscombe7</p>
+<img src="02-regression-multiple-figures/anscombe7-1.svg" alt="Figure 19: Scatter plot for ans3 with the outlier removed and the fitted linear model" id="fig:anscombe7" />
+<p class="caption">Figure 19: Scatter plot for <code>ans3</code> with the outlier removed and the fitted linear model</p>
 </div>
-<p><em>Comment: Now what’s we call linearly correlated data.
+<p><em>Comment: Now Figure <a href="multiple-regression.html#fig:anscombe7">19</a> is what we call linearly correlated data.
 By the way, Pearson’s coefficient now equals <code>0.9999966</code>.</em></p>
 </details>
 </div>
@@ -1671,12 +1690,7 @@ but we are lazy. Being lazy when it comes to computer
 programming is often a virtue, not a flaw in one’s character.</p>
 <p>Instead, we will run a <code>for</code> loop that extracts the pairs of
 interesting columns and constructs a formula based on two vectors
-(<code>lm(Y~X)</code>).</p>
-<p>Recall that the root mean squared error is the square root of
-the arithmetic mean of the squared residuals.
-Mean absolute error is the average of the absolute values of the residuals.
-The coefficient of determination
-is given by: <span class="math inline">\(R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left(y_i-f(\mathbf{x}_{i,\cdot})\right)^2}{\sum_{i=1}^{n} \left(y_i-\bar{y}\right)^2}\)</span>.</p>
+(<code>lm(Y~X)</code>), see Figure <a href="multiple-regression.html#fig:factbookA6">20</a>.</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4 plots on a 2x2 grid</span></a>
 <a class="sourceLine" id="cb203-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
 <a class="sourceLine" id="cb203-3" title="3">    <span class="kw">print</span>(most_correlated[i])</a>
@@ -1703,9 +1717,14 @@ is given by: <span class="math inline">\(R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left
 ##          RMSE      MAE        R2
 ## [1,] 5.429182 4.372718 0.4309554</code></pre>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookA6-1.svg" alt="Figure 20: plot of chunk factbookA6" id="fig:factbookA6" />
-<p class="caption">Figure 20: plot of chunk factbookA6</p>
+<img src="02-regression-multiple-figures/factbookA6-1.svg" alt="Figure 20: A scatter plot matrix and regression lines for the 4 variables most correlated with the per capita GDP" id="fig:factbookA6" />
+<p class="caption">Figure 20: A scatter plot matrix and regression lines for the 4 variables most correlated with the per capita GDP</p>
 </div>
+<p>Recall that the root mean squared error is the square root of
+the arithmetic mean of the squared residuals.
+Mean absolute error is the average of the absolute values of the residuals.
+The coefficient of determination
+is given by: <span class="math inline">\(R^2(f) = 1 - \frac{\sum_{i=1}^{n} \left(y_i-f(\mathbf{x}_{i,\cdot})\right)^2}{\sum_{i=1}^{n} \left(y_i-\bar{y}\right)^2}\)</span>.</p>
 <p><em>Comment: Unfortunately, we were misled by the high correlation coefficients
 between the <span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span>s:
 the low actual <span class="math inline">\(R^2\)</span> scores indicate that these models should not
@@ -1884,11 +1903,11 @@ calling the <code>formula()</code> function.</p>
 <a class="sourceLine" id="cb224-2" title="2">    <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
 <a class="sourceLine" id="cb224-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookB9-1.svg" alt="Figure 21: plot of chunk factbookB9" id="fig:factbookB9" />
-<p class="caption">Figure 21: plot of chunk factbookB9</p>
+<img src="02-regression-multiple-figures/factbookB9-1.svg" alt="Figure 21: Most correlated pair of variables and the invisible regression line" id="fig:factbookB9" />
+<p class="caption">Figure 21: Most correlated pair of variables and the invisible regression line</p>
 </div>
-<p>This is great.</p>
-<p>Wait, hold on a second! The fitted lines are not present on the plots!</p>
+<p>Figure <a href="multiple-regression.html#fig:factbookB9">21</a> is just great.</p>
+<p>Wait, hold on a second! The fitted line is not present on the plot!</p>
 <div class="exercise"><strong>Exercise.</strong>
 <p>There is a serious, extremely hard-to-detect bug in the above code.
 The reader is kindly asked to try to identify it.</p>
@@ -1919,7 +1938,7 @@ indexing an object <code>x</code> with a factor <code>f</code>,
 <p>and not:</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1"><span class="kw">as.character</span>(C_top[<span class="dv">1</span>,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## [1] &quot;electricity_installed_generating_capacity&quot;</code></pre>
-<p>Here is a corrected version:</p>
+<p>Here is a corrected version, see <a href="multiple-regression.html#fig:factbookB13">22</a>.</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1">C &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
 <a class="sourceLine" id="cb233-2" title="2">    <span class="dt">col1=</span>rrr[<span class="kw">lower.tri</span>(rrr)],</a>
 <a class="sourceLine" id="cb233-3" title="3">    <span class="dt">col2=</span>ccc[<span class="kw">lower.tri</span>(ccc)],</a>
@@ -1943,8 +1962,8 @@ indexing an object <code>x</code> with a factor <code>f</code>,
 <a class="sourceLine" id="cb235-2" title="2">    <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
 <a class="sourceLine" id="cb235-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookB13-1.svg" alt="Figure 22: plot of chunk factbookB13" id="fig:factbookB13" />
-<p class="caption">Figure 22: plot of chunk factbookB13</p>
+<img src="02-regression-multiple-figures/factbookB13-1.svg" alt="Figure 22: A bugfixed version of Figure 21" id="fig:factbookB13" />
+<p class="caption">Figure 22: A bugfixed version of Figure <a href="multiple-regression.html#fig:factbookB9">21</a></p>
 </div>
 <p>Seriously, I really like the R language, but this <code>stringsAsFactors</code>
 thing is it’s weakest spot. Just fire up <code>options(stringsAsFactors=FALSE)</code>
@@ -1967,12 +1986,15 @@ of the GDP/person.</p>
 <a class="sourceLine" id="cb237-2" title="2"><span class="kw">hist</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a>
 <a class="sourceLine" id="cb237-3" title="3"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookC2-1.svg" alt="Figure 23: plot of chunk factbookC2" id="fig:factbookC2" />
-<p class="caption">Figure 23: plot of chunk factbookC2</p>
+<img src="02-regression-multiple-figures/factbookC2-1.svg" alt="Figure 23: Histograms of the empirical distribution of the GDP per capita with linear (left) and log (right) scale on the X axis" id="fig:factbookC2" />
+<p class="caption">Figure 23: Histograms of the empirical distribution of the GDP per capita with linear (left) and log (right) scale on the X axis</p>
 </div>
-<p><em>Comment: The distribution of the GDP is right-skewed: most countries
-have small GDP. However, few of them (those in the “right tail” of the distribution)
-are very very rich. There is the famous observation made by V. Pareto
+<p><em>Comment: In Figure <a href="multiple-regression.html#fig:factbookC2">23</a> we see that
+distribution of the GDP is right-skewed: most countries
+have small GDP. However, few of them
+(those in the “right tail” of the distribution)
+are very very rich (hey, how about taxing the richest countries?!).
+There is the famous observation made by V. Pareto
 stating that most assets are in the hands of the “wealthy minority”
 (compare: power law, rich-get-richer rule, preferential attachment in complex networks).
 Interestingly, many real-world-phenomena are distributed similarly
@@ -1985,7 +2007,10 @@ where <span class="math inline">\(e\simeq 2.72\)</span> is the Euler constant, s
 Note that you can only compute logarithms of positive real numbers.</em></p>
 <p>Non-technical audience might be confused when asked to contemplate
 the distribution of the logarithm of a variable. Let’s make it
-more user-friendly by nicely re-labelling the X axis:</p>
+more user-friendly (on the other hand, we could’ve asked them
+to harden up…)
+by nicely re-labelling the X axis,
+see Figure <a href="multiple-regression.html#fig:factbookC3">24</a>.</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">axes=</span><span class="ot">FALSE</span>,</a>
 <a class="sourceLine" id="cb238-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;GDP per capita (thousands USD)&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a>
 <a class="sourceLine" id="cb238-3" title="3"><span class="kw">box</span>()</a>
@@ -1993,8 +2018,8 @@ more user-friendly by nicely re-labelling the X axis:</p>
 <a class="sourceLine" id="cb238-5" title="5">at &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">20000</span>, <span class="dv">50000</span>, <span class="dv">100000</span>, <span class="dv">200000</span>)</a>
 <a class="sourceLine" id="cb238-6" title="6"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">log</span>(at), <span class="dt">labels=</span>at<span class="op">/</span><span class="dv">1000</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookC3-1.svg" alt="Figure 24: plot of chunk factbookC3" id="fig:factbookC3" />
-<p class="caption">Figure 24: plot of chunk factbookC3</p>
+<img src="02-regression-multiple-figures/factbookC3-1.svg" alt="Figure 24: Histogram of the empirical distribution of the GDP per capita now with human-readable X axis labels (not the logarithmic scale)" id="fig:factbookC3" />
+<p class="caption">Figure 24: Histogram of the empirical distribution of the GDP per capita now with human-readable X axis labels (not the logarithmic scale)</p>
 </div>
 <p><em>Comment: This is still a plot of the logarithm of the
 distribution of the per capita GDP, but it’s somehow “hidden” behind
@@ -2014,10 +2039,11 @@ accepts formulas as well.</p>
 <a class="sourceLine" id="cb239-4" title="4"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
 <pre><code>## [1] 0.4309554</code></pre>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookC4-1.svg" alt="Figure 25: plot of chunk factbookC4" id="fig:factbookC4" />
-<p class="caption">Figure 25: plot of chunk factbookC4</p>
+<img src="02-regression-multiple-figures/factbookC4-1.svg" alt="Figure 25: Linear model fitted for life expectancy vs. GDP/person" id="fig:factbookC4" />
+<p class="caption">Figure 25: Linear model fitted for life expectancy vs. GDP/person</p>
 </div>
-<p><em>Comment: This is not a good model.</em></p>
+<p><em>Comment: From Figure <a href="multiple-regression.html#fig:factbookC4">25</a> we see that
+this is not a good model.</em></p>
 </details>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Draw a scatter plot of <code>life_expectancy_at_birth</code> as a function
@@ -2029,20 +2055,20 @@ Compute the correlation coefficient between
 <p>We could apply the <code>log()</code>-transformation manually
 and generate fancy X axis labels ourselves. However,
 the <code>plot()</code> function has the <code>log</code> argument (see <code>?plot.default</code>)
-which provides us with all we need.</p>
+which provides us with all we need, see Figure <a href="multiple-regression.html#fig:factbookC5">26</a>.</p>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp,</a>
 <a class="sourceLine" id="cb241-2" title="2">    factbook<span class="op">$</span>life_expectancy_at_birth,</a>
 <a class="sourceLine" id="cb241-3" title="3">    <span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookC5-1.svg" alt="Figure 26: plot of chunk factbookC5" id="fig:factbookC5" />
-<p class="caption">Figure 26: plot of chunk factbookC5</p>
+<img src="02-regression-multiple-figures/factbookC5-1.svg" alt="Figure 26: Scatter plot of life expectancy vs. GDP/person with log scale on the X axis" id="fig:factbookC5" />
+<p class="caption">Figure 26: Scatter plot of life expectancy vs. GDP/person with log scale on the X axis</p>
 </div>
 <p>Here is the <em>linear</em> correlation coefficient between the logarithm
 of the GDP/person and the life expectancy.</p>
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">cor</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), factbook<span class="op">$</span>life_expectancy_at_birth,</a>
 <a class="sourceLine" id="cb242-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 0.8066505</code></pre>
-<p>It’s quite high, therefore we can try</p>
+<p>The correlation is quite high, hence the following task.</p>
 </details>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Fit a model predicting <code>life_expectancy_at_birth</code>
@@ -2054,17 +2080,17 @@ The formula <code>life_expectancy_at_birth~log(gdp_per_capita_ppp)</code>
 should do the trick here.</p>
 <div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
 <a class="sourceLine" id="cb244-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb244-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;pink3&quot;</span>)</a>
+<a class="sourceLine" id="cb244-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb244-4" title="4">f<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>##             (Intercept) log(gdp_per_capita_ppp) 
 ##               28.306385                4.817806</code></pre>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
 <pre><code>## [1] 0.650685</code></pre>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookC7-1.svg" alt="Figure 27: plot of chunk factbookC7" id="fig:factbookC7" />
-<p class="caption">Figure 27: plot of chunk factbookC7</p>
+<img src="02-regression-multiple-figures/factbookC7-1.svg" alt="Figure 27: Linear model fitted for life expectancy vs. the logarithm of GDP/person" id="fig:factbookC7" />
+<p class="caption">Figure 27: Linear model fitted for life expectancy vs. the logarithm of GDP/person</p>
 </div>
-<p><em>Comment: That is an okay model (in terms of the coefficient of determination).</em></p>
+<p><em>Comment: That is an okay model (in terms of the coefficient of determination), see Figure <a href="multiple-regression.html#fig:factbookC7">27</a>.</em></p>
 </details>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Draw the fitted logarithmic model on a scatter plot
@@ -2074,7 +2100,8 @@ with a standard, non-logarithmic X axis.</p>
 <p>The model fitted above is of the form
 <span class="math inline">\(Y\simeq4.82 \log X+28.31\)</span>.
 To depict it on a plot with linear (non-logarithmic) axes,
-we can compute this formula on multiple points by hand.</p>
+we can compute this formula on multiple points by hand,
+see Figure <a href="multiple-regression.html#fig:factbookC8">28</a>.</p>
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth)</a>
 <a class="sourceLine" id="cb248-2" title="2"></a>
 <a class="sourceLine" id="cb248-3" title="3"><span class="co"># many points on the X axis:</span></a>
@@ -2082,10 +2109,10 @@ we can compute this formula on multiple points by hand.</p>
 <a class="sourceLine" id="cb248-5" title="5">            <span class="kw">max</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb248-6" title="6">            <span class="dt">length.out=</span><span class="dv">101</span>)</a>
 <a class="sourceLine" id="cb248-7" title="7">yyy &lt;-<span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span><span class="kw">log</span>(xxx)</a>
-<a class="sourceLine" id="cb248-8" title="8"><span class="kw">lines</span>(xxx, yyy, <span class="dt">col=</span><span class="st">&quot;turquoise3&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb248-8" title="8"><span class="kw">lines</span>(xxx, yyy, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookC8-1.svg" alt="Figure 28: plot of chunk factbookC8" id="fig:factbookC8" />
-<p class="caption">Figure 28: plot of chunk factbookC8</p>
+<img src="02-regression-multiple-figures/factbookC8-1.svg" alt="Figure 28: Logarithmic model fitted for life expectancy vs. GDP/person" id="fig:factbookC8" />
+<p class="caption">Figure 28: Logarithmic model fitted for life expectancy vs. GDP/person</p>
 </div>
 <p><em>Comment: Well, people are not immortal…
 The original (linear) model didn’t really take that into account.
@@ -2127,7 +2154,7 @@ of <code>imports</code> and <code>exports</code> (all per capita).</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>Let’s first take a look at how the aforementioned variables
-are related to each other:</p>
+are related to each other, see Figure <a href="multiple-regression.html#fig:factbookD5">29</a>.</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1"><span class="kw">pairs</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a>
 <a class="sourceLine" id="cb254-2" title="2"><span class="kw">cor</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a></code></pre></div>
 <pre><code>##                             gdp_purchasing_power_parity
@@ -2139,8 +2166,8 @@ are related to each other:</p>
 ## imports                     1.0000000 0.9424084
 ## exports                     0.9424084 1.0000000</code></pre>
 <div class="figure">
-<img src="02-regression-multiple-figures/factbookD5-1.svg" alt="Figure 29: plot of chunk factbookD5" id="fig:factbookD5" />
-<p class="caption">Figure 29: plot of chunk factbookD5</p>
+<img src="02-regression-multiple-figures/factbookD5-1.svg" alt="Figure 29: Scatter plot matrix for GDP, imports and exports" id="fig:factbookD5" />
+<p class="caption">Figure 29: Scatter plot matrix for GDP, imports and exports</p>
 </div>
 <p>They are nicely correlated. Moreover, they are on a similar scale
 (“tens of thousands of USD per capita”).</p>

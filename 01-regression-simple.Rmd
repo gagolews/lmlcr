@@ -512,28 +512,33 @@ wines[1,]
 ```
 
 
+`alcohol` is a numeric (quantitative) variable (see Figure {@fig:wines_regression} for a histogram depicting its empirical distribution):
 
 
-
-```{r wines_regression}
+```{r wines_regression,fig.cap="Quantitative (numeric) outputs lead to regression problems"}
 summary(wines$alcohol) # continuous variable
 hist(wines$alcohol, main="", col="white"); box()
 ```
 
+`color` is a quantitative variable with two possible outcomes (see Figure {@fig:wines_binary} for a bar plot):
 
 
 
-
-```{r wines_binary}
+```{r wines_binary,fig.cap="Quantitative outputs lead to classification tasks"}
 table(wines$color) # binary variable
 barplot(table(wines$color), col="white", ylim=c(0, 6000))
 ```
 
 
+Moreover, `response` is an ordinal variable, representing
+a wine's rating as assigned by a wine expert
+(see  Figure {@fig:wines_ordinal} for a barplot).
+Note that although the ranks are represented with numbers,
+we they are not continuous variables. Moreover,
+these ranks are something more than just labels -- they are linearly
+ordered, we know what's the smallest rank and whats the greatest one.
 
-
-
-```{r wines_ordinal}
+```{r wines_ordinal,fig.cap="Ordinal variables constitute ordinal regression tasks"}
 table(wines$response) # ordinal variable
 barplot(table(wines$response), col="white", ylim=c(0, 3000))
 ```
@@ -555,28 +560,30 @@ Denote $x_i=x_{i,1}$.
 We will use it to build many intuitions, for example, it'll be easy
 to illustrate all the concepts graphically.
 
-```{r credit_scatter}
+```{r credit_scatter,fig.cap="A scatter plot of  Rating vs. Balance"}
 library("ISLR") # Credit dataset
 plot(Credit$Balance, Credit$Rating) # scatter plot
 ```
 
 
-
-
 In what follows we will be modelling the Credit Rating ($Y$)
 as a function of the average Credit Card Balance ($X$) in USD
-for customers with positive Balance only.
+for customers *with positive Balance only*.
+It is because it is evident from Figure {@fig:credit_scatter}
+that some customers with zero balance obtained a credit rating
+based on some external data source that we don't have access to in
+our very setting.
 
 ```{r credit_XY}
 X <- as.matrix(as.numeric(Credit$Balance[Credit$Balance>0]))
 Y <- as.matrix(as.numeric(Credit$Rating[Credit$Balance>0]))
 ```
 
+Figure {@fig:credit_XY_plot} gives the updated scatter plot
+with the zero-balance clients "taken care of".
 
-
-
-```{r credit_XY_plot}
-plot(X, Y)
+```{r credit_XY_plot,fig.cap="A scatter plot of  Rating vs. Balance with clients of Balance=0 removed"}
+plot(X, Y, xlab="X (Balance)", ylab="Y (Rating)")
 ```
 
 Our aim is to construct a function $f$ that
@@ -651,12 +658,13 @@ and that they follow a normal distribution.
 with expected value of $0$ and standard deviation of $\sigma$ for some $\sigma\ge 0$).
 
 $\sigma$ controls the amount of noise (and hence, uncertainty).
-Here is the plot of the probability distribution function (PDFs, densities)
+Figure {@fig:normal_distribs} gives the plot of the probability
+distribution function (PDFs, densities)
 of $\mathcal{N}(0, \sigma)$ for different $\sigma$s:
 
 
 
-```{r normal_distribs, echo=FALSE, message=FALSE, fig.cap="Probability distribution functions of normal distributions with different standard deviations $\\sigma$."}
+```{r normal_distribs, echo=FALSE, message=FALSE, fig.cap="Probability density functions of normal distributions with different standard deviations $\\sigma$."}
 y <- seq(-3,3,length.out=101)
 plot(y, dnorm(y, mean=0), type='l', ann=FALSE, ylim=c(0,dnorm(0,0,0.5)))
 lines(y, dnorm(y, mean=0, sd=0.5), type='l', col=2, lty=2)
@@ -672,9 +680,13 @@ abline(v=0, lty=3, col="gray")
 
 
 There are many different functions that can be **fitted** into
-the observed $(\mathbf{x},\mathbf{y})$.
+the observed $(\mathbf{x},\mathbf{y})$,
+compare Figure {@fig:credit_different_models}.
+Some of them are better than the other (with respect to
+different aspects, such as fit quality, simplicity etc.).
 
-```{r credit_different_models, echo=FALSE, message=FALSE}
+
+```{r credit_different_models, echo=FALSE, message=FALSE,fig.cap="Different polynomial models fitted to data"}
 library("RColorBrewer")
 library("Cairo")
 pal <- RColorBrewer::brewer.pal(6, "Dark2")
@@ -701,7 +713,9 @@ lines(X[order(X)], Y[order(Y)],col=pal[3],lty=3,lwd=3)
 abline(lm(Y~X), col=pal[4],lwd=3,lty=4)
 ```
 
-Thus, we need a **model selection criterion**.
+Thus, we need a formal **model selection criterion**
+that could enable as to tackle the model fitting
+task on a computer.
 
 
 
@@ -716,7 +730,7 @@ $f(x_i)-y_i$, i.e.,
 often denoted with $\hat{y}_i-y_i$,
 for $i=1,\dots,n$.
 
-```{r credit_residuals, echo=FALSE, message=FALSE}
+```{r credit_residuals, echo=FALSE, message=FALSE,fig.cap="Residuals are defined as the differences between the predicted and observed outputs $\\hat{y}_i-y_i$"}
 plot(X, Y, col=1, xlim=c(1500,2000), ylim=c(400, 1000))
 f <- lm(Y~poly(X, 2))
 x <- seq(min(X), max(X), length.out=101)
@@ -731,14 +745,14 @@ points(X, Y2, pch=7, col="red")
 
 
 legend("bottomright",
-    legend=c("observed Y", "predicted Y", "fitted model"),
+    legend=c("observed output", "predicted output", "fitted model"),
     pch=c(1,7, NA), lty=c(NA, NA, 1), lwd=c(NA, NA, 2),
     col=c(1, "red", pal[1]), bg="white")
 ```
 
 
-In the plot above, the residuals are just lengths of the
-dashed lines -- they measure the discrepancy between
+In Figure {@fig:credit_residuals}, the residuals correspond to the
+lengths of the dashed line segments -- they measure the discrepancy between
 the outputs generated by the model (what we get)
 and the true outputs (what we want).
 
@@ -873,7 +887,7 @@ is just $\mathbb{R}^2$ -- easy to handle both analytically and numerically.
 
 
 
-```{r credit_different_lines_ssr,echo=FALSE,fig.height=4}
+```{r credit_different_lines_ssr,echo=FALSE,fig.height=4,fig.cap="Three simple linear models together with the corresponding SSRs"}
 plot(X, Y, col="#00000044")
 m1 <- lm(Y~X)
 abline(m1, col=2,lwd=3)
@@ -893,7 +907,7 @@ legend("topleft",
 
 
 { BEGIN exercise }
-Which of these is the least squares solution?
+Which of lines in Figure {@fig:credit_different_lines_ssr} is the least squares solution?
 { END exercise }
 
 
@@ -949,9 +963,9 @@ Coefficient $b$ (slope):
 f$coefficient[2]
 ```
 
-Plotting:
+Plotting, see Figure {@fig:credit_plot_lm}:
 
-```{r credit_plot_lm}
+```{r credit_plot_lm, fig.cap="Fitted regression line"}
 plot(X, Y, col="#000000aa")
 abline(f, col=2, lwd=3)
 ```
@@ -1341,7 +1355,7 @@ fit_models <- function(ans) {
 
 Now we can apply it on the four particular examples.
 
-```{r anscombe_fit_apply,fig.height=6}
+```{r anscombe_fit_apply,fig.height=6,fig.cap="Fitted regression lines for the Anscombe quartet"}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
 f1 <- fit_models(ans1)
 f2 <- fit_models(ans2)
@@ -1350,7 +1364,8 @@ f4 <- fit_models(ans4)
 ```
 
 *Comment: All the estimated models are virtually the same,
-the regression lines are $y=0.5x+3$.*
+the regression lines are
+$y=0.5x+3$, compare Figure {@fig:anscombe_fit_apply}.*
 
 { END solution }
 
@@ -1377,9 +1392,10 @@ y_pred3 <- predict(f3, ans3)
 y_pred4 <- predict(f4, ans4)
 ```
 
-Plots of residuals as a function of the predicted (fitted) values:
+Plots of residuals as a function of the predicted (fitted) values
+are given in Figure {@fig:anscombe_resid_plot}.
 
-```{r anscombe_resid_plot,fig.height=6}
+```{r anscombe_resid_plot,fig.height=6,fig.cap="Residuals vs. fitted values for the regression lines fitted to the Anscombe quartet"}
 par(mfrow=c(2, 2)) # four plots on 1 figure (2x2 grid)
 plot(y_pred1, y_pred1-ans1$y)
 plot(y_pred2, y_pred2-ans2$y)

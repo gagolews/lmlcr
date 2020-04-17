@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 21:10 (d74d842)</a></li>
 
 </ul>
 
@@ -893,31 +893,40 @@ with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span
 ## 1     0.076                  11                   34  0.9978
 ##     pH sulphates alcohol response color
 ## 1 3.51      0.56     9.4        5   red</code></pre>
+<p><code>alcohol</code> is a numeric (quantitative) variable (see Figure <a href="simple-linear-regression.html#fig:wines_regression">1</a> for a histogram depicting its empirical distribution):</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">summary</span>(wines<span class="op">$</span>alcohol) <span class="co"># continuous variable</span></a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    8.00    9.50   10.30   10.49   11.30   14.90</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">hist</span>(wines<span class="op">$</span>alcohol, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
-<img src="01-regression-simple-figures/wines_regression-1.svg" alt="Figure 1: plot of chunk wines_regression" id="fig:wines_regression" />
-<p class="caption">Figure 1: plot of chunk wines_regression</p>
+<img src="01-regression-simple-figures/wines_regression-1.svg" alt="Figure 1: Quantitative (numeric) outputs lead to regression problems" id="fig:wines_regression" />
+<p class="caption">Figure 1: Quantitative (numeric) outputs lead to regression problems</p>
 </div>
+<p><code>color</code> is a quantitative variable with two possible outcomes (see Figure <a href="simple-linear-regression.html#fig:wines_binary">2</a> for a bar plot):</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">table</span>(wines<span class="op">$</span>color) <span class="co"># binary variable</span></a></code></pre></div>
 <pre><code>## 
 ##   red white 
 ##  1599  4898</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">barplot</span>(<span class="kw">table</span>(wines<span class="op">$</span>color), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">6000</span>))</a></code></pre></div>
 <div class="figure">
-<img src="01-regression-simple-figures/wines_binary-1.svg" alt="Figure 2: plot of chunk wines_binary" id="fig:wines_binary" />
-<p class="caption">Figure 2: plot of chunk wines_binary</p>
+<img src="01-regression-simple-figures/wines_binary-1.svg" alt="Figure 2: Quantitative outputs lead to classification tasks" id="fig:wines_binary" />
+<p class="caption">Figure 2: Quantitative outputs lead to classification tasks</p>
 </div>
+<p>Moreover, <code>response</code> is an ordinal variable, representing
+a wine’s rating as assigned by a wine expert
+(see Figure <a href="simple-linear-regression.html#fig:wines_ordinal">3</a> for a barplot).
+Note that although the ranks are represented with numbers,
+we they are not continuous variables. Moreover,
+these ranks are something more than just labels – they are linearly
+ordered, we know what’s the smallest rank and whats the greatest one.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">table</span>(wines<span class="op">$</span>response) <span class="co"># ordinal variable</span></a></code></pre></div>
 <pre><code>## 
 ##    3    4    5    6    7    8    9 
 ##   30  216 2138 2836 1079  193    5</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">barplot</span>(<span class="kw">table</span>(wines<span class="op">$</span>response), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a></code></pre></div>
 <div class="figure">
-<img src="01-regression-simple-figures/wines_ordinal-1.svg" alt="Figure 3: plot of chunk wines_ordinal" id="fig:wines_ordinal" />
-<p class="caption">Figure 3: plot of chunk wines_ordinal</p>
+<img src="01-regression-simple-figures/wines_ordinal-1.svg" alt="Figure 3: Ordinal variables constitute ordinal regression tasks" id="fig:wines_ordinal" />
+<p class="caption">Figure 3: Ordinal variables constitute ordinal regression tasks</p>
 </div>
 </div>
 </div>
@@ -933,18 +942,24 @@ to illustrate all the concepts graphically.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
 <a class="sourceLine" id="cb32-2" title="2"><span class="kw">plot</span>(Credit<span class="op">$</span>Balance, Credit<span class="op">$</span>Rating) <span class="co"># scatter plot</span></a></code></pre></div>
 <div class="figure">
-<img src="01-regression-simple-figures/credit_scatter-1.svg" alt="Figure 4: plot of chunk credit_scatter" id="fig:credit_scatter" />
-<p class="caption">Figure 4: plot of chunk credit_scatter</p>
+<img src="01-regression-simple-figures/credit_scatter-1.svg" alt="Figure 4: A scatter plot of Rating vs. Balance" id="fig:credit_scatter" />
+<p class="caption">Figure 4: A scatter plot of Rating vs. Balance</p>
 </div>
 <p>In what follows we will be modelling the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>) in USD
-for customers with positive Balance only.</p>
+for customers <em>with positive Balance only</em>.
+It is because it is evident from Figure <a href="simple-linear-regression.html#fig:credit_scatter">4</a>
+that some customers with zero balance obtained a credit rating
+based on some external data source that we don’t have access to in
+our very setting.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
 <a class="sourceLine" id="cb33-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">plot</span>(X, Y)</a></code></pre></div>
+<p>Figure <a href="simple-linear-regression.html#fig:credit_XY_plot">5</a> gives the updated scatter plot
+with the zero-balance clients “taken care of”.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">xlab=</span><span class="st">&quot;X (Balance)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Y (Rating)&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="01-regression-simple-figures/credit_XY_plot-1.svg" alt="Figure 5: plot of chunk credit_XY_plot" id="fig:credit_XY_plot" />
-<p class="caption">Figure 5: plot of chunk credit_XY_plot</p>
+<img src="01-regression-simple-figures/credit_XY_plot-1.svg" alt="Figure 5: A scatter plot of Rating vs. Balance with clients of Balance=0 removed" id="fig:credit_XY_plot" />
+<p class="caption">Figure 5: A scatter plot of Rating vs. Balance with clients of Balance=0 removed</p>
 </div>
 <p>Our aim is to construct a function <span class="math inline">\(f\)</span> that
 <strong>models</strong> Rating as a function of Balance,
@@ -986,22 +1001,28 @@ and that they follow a normal distribution.</p>
 (read: random variable <span class="math inline">\(\varepsilon\)</span> follows a normal distribution
 with expected value of <span class="math inline">\(0\)</span> and standard deviation of <span class="math inline">\(\sigma\)</span> for some <span class="math inline">\(\sigma\ge 0\)</span>).</p>
 <p><span class="math inline">\(\sigma\)</span> controls the amount of noise (and hence, uncertainty).
-Here is the plot of the probability distribution function (PDFs, densities)
+Figure <a href="simple-linear-regression.html#fig:normal_distribs">6</a> gives the plot of the probability
+distribution function (PDFs, densities)
 of <span class="math inline">\(\mathcal{N}(0, \sigma)\)</span> for different <span class="math inline">\(\sigma\)</span>s:</p>
 <div class="figure">
-<img src="01-regression-simple-figures/normal_distribs-1.svg" alt="Figure 6: Probability distribution functions of normal distributions with different standard deviations \sigma." id="fig:normal_distribs" />
-<p class="caption">Figure 6: Probability distribution functions of normal distributions with different standard deviations <span class="math inline">\(\sigma\)</span>.</p>
+<img src="01-regression-simple-figures/normal_distribs-1.svg" alt="Figure 6: Probability density functions of normal distributions with different standard deviations \sigma." id="fig:normal_distribs" />
+<p class="caption">Figure 6: Probability density functions of normal distributions with different standard deviations <span class="math inline">\(\sigma\)</span>.</p>
 </div>
 </div>
 <div id="search-space-and-objective" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> Search Space and Objective</h3>
 <p>There are many different functions that can be <strong>fitted</strong> into
-the observed <span class="math inline">\((\mathbf{x},\mathbf{y})\)</span>.</p>
+the observed <span class="math inline">\((\mathbf{x},\mathbf{y})\)</span>,
+compare Figure <a href="simple-linear-regression.html#fig:credit_different_models">7</a>.
+Some of them are better than the other (with respect to
+different aspects, such as fit quality, simplicity etc.).</p>
 <div class="figure">
-<img src="01-regression-simple-figures/credit_different_models-1.svg" alt="Figure 7: plot of chunk credit_different_models" id="fig:credit_different_models" />
-<p class="caption">Figure 7: plot of chunk credit_different_models</p>
+<img src="01-regression-simple-figures/credit_different_models-1.svg" alt="Figure 7: Different polynomial models fitted to data" id="fig:credit_different_models" />
+<p class="caption">Figure 7: Different polynomial models fitted to data</p>
 </div>
-<p>Thus, we need a <strong>model selection criterion</strong>.</p>
+<p>Thus, we need a formal <strong>model selection criterion</strong>
+that could enable as to tackle the model fitting
+task on a computer.</p>
 <p>Usually, we will be interested in a model
 that minimises appropriately aggregated <strong>residuals</strong>
 <span class="math inline">\(f(x_i)-y_i\)</span>, i.e.,
@@ -1009,11 +1030,11 @@ that minimises appropriately aggregated <strong>residuals</strong>
 often denoted with <span class="math inline">\(\hat{y}_i-y_i\)</span>,
 for <span class="math inline">\(i=1,\dots,n\)</span>.</p>
 <div class="figure">
-<img src="01-regression-simple-figures/credit_residuals-1.svg" alt="Figure 8: plot of chunk credit_residuals" id="fig:credit_residuals" />
-<p class="caption">Figure 8: plot of chunk credit_residuals</p>
+<img src="01-regression-simple-figures/credit_residuals-1.svg" alt="Figure 8: Residuals are defined as the differences between the predicted and observed outputs \hat{y}_i-y_i" id="fig:credit_residuals" />
+<p class="caption">Figure 8: Residuals are defined as the differences between the predicted and observed outputs <span class="math inline">\(\hat{y}_i-y_i\)</span></p>
 </div>
-<p>In the plot above, the residuals are just lengths of the
-dashed lines – they measure the discrepancy between
+<p>In Figure <a href="simple-linear-regression.html#fig:credit_residuals">8</a>, the residuals correspond to the
+lengths of the dashed line segments – they measure the discrepancy between
 the outputs generated by the model (what we get)
 and the true outputs (what we want).</p>
 <p>Top choice: sum of squared residuals:
@@ -1100,11 +1121,11 @@ a+bx_i-y_i
 <p>This is particularly nice, because our search space
 is just <span class="math inline">\(\mathbb{R}^2\)</span> – easy to handle both analytically and numerically.</p>
 <div class="figure">
-<img src="01-regression-simple-figures/credit_different_lines_ssr-1.svg" alt="Figure 9: plot of chunk credit_different_lines_ssr" id="fig:credit_different_lines_ssr" />
-<p class="caption">Figure 9: plot of chunk credit_different_lines_ssr</p>
+<img src="01-regression-simple-figures/credit_different_lines_ssr-1.svg" alt="Figure 9: Three simple linear models together with the corresponding SSRs" id="fig:credit_different_lines_ssr" />
+<p class="caption">Figure 9: Three simple linear models together with the corresponding SSRs</p>
 </div>
 <div class="exercise"><strong>Exercise.</strong>
-<p>Which of these is the least squares solution?</p>
+<p>Which of lines in Figure <a href="simple-linear-regression.html#fig:credit_different_lines_ssr">9</a> is the least squares solution?</p>
 </div>
 <!-- TODO:
 heatmap of SSR(a,b) for a = [0,1], b=[0,300]
@@ -1141,12 +1162,12 @@ Y = f(X) = 226.4711446+0.2661459 X
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">f<span class="op">$</span>coefficient[<span class="dv">2</span>]</a></code></pre></div>
 <pre><code>##         X 
 ## 0.2661459</code></pre>
-<p>Plotting:</p>
+<p>Plotting, see Figure <a href="simple-linear-regression.html#fig:credit_plot_lm">10</a>:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
 <a class="sourceLine" id="cb42-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="01-regression-simple-figures/credit_plot_lm-1.svg" alt="Figure 10: plot of chunk credit_plot_lm" id="fig:credit_plot_lm" />
-<p class="caption">Figure 10: plot of chunk credit_plot_lm</p>
+<img src="01-regression-simple-figures/credit_plot_lm-1.svg" alt="Figure 10: Fitted regression line" id="fig:credit_plot_lm" />
+<p class="caption">Figure 10: Fitted regression line</p>
 </div>
 <p>SSR:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">sum</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
@@ -1520,11 +1541,12 @@ that does all the above for any data set:</p>
 <pre><code>## (Intercept)           x 
 ##   3.0017273   0.4999091</code></pre>
 <div class="figure">
-<img src="01-regression-simple-figures/anscombe_fit_apply-1.svg" alt="Figure 11: plot of chunk anscombe_fit_apply" id="fig:anscombe_fit_apply" />
-<p class="caption">Figure 11: plot of chunk anscombe_fit_apply</p>
+<img src="01-regression-simple-figures/anscombe_fit_apply-1.svg" alt="Figure 11: Fitted regression lines for the Anscombe quartet" id="fig:anscombe_fit_apply" />
+<p class="caption">Figure 11: Fitted regression lines for the Anscombe quartet</p>
 </div>
 <p><em>Comment: All the estimated models are virtually the same,
-the regression lines are <span class="math inline">\(y=0.5x+3\)</span>.</em></p>
+the regression lines are
+<span class="math inline">\(y=0.5x+3\)</span>, compare Figure <a href="simple-linear-regression.html#fig:anscombe_fit_apply">11</a>.</em></p>
 </details>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Create scatter plots of the residuals (predicted <span class="math inline">\(\hat{y}_i\)</span> minus
@@ -1538,15 +1560,16 @@ calling the <code>predict()</code> function.</p>
 <a class="sourceLine" id="cb85-2" title="2">y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, ans2)</a>
 <a class="sourceLine" id="cb85-3" title="3">y_pred3 &lt;-<span class="st"> </span><span class="kw">predict</span>(f3, ans3)</a>
 <a class="sourceLine" id="cb85-4" title="4">y_pred4 &lt;-<span class="st"> </span><span class="kw">predict</span>(f4, ans4)</a></code></pre></div>
-<p>Plots of residuals as a function of the predicted (fitted) values:</p>
+<p>Plots of residuals as a function of the predicted (fitted) values
+are given in Figure <a href="simple-linear-regression.html#fig:anscombe_resid_plot">12</a>.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># four plots on 1 figure (2x2 grid)</span></a>
 <a class="sourceLine" id="cb86-2" title="2"><span class="kw">plot</span>(y_pred1, y_pred1<span class="op">-</span>ans1<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb86-3" title="3"><span class="kw">plot</span>(y_pred2, y_pred2<span class="op">-</span>ans2<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb86-4" title="4"><span class="kw">plot</span>(y_pred3, y_pred3<span class="op">-</span>ans3<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb86-5" title="5"><span class="kw">plot</span>(y_pred4, y_pred4<span class="op">-</span>ans4<span class="op">$</span>y)</a></code></pre></div>
 <div class="figure">
-<img src="01-regression-simple-figures/anscombe_resid_plot-1.svg" alt="Figure 12: plot of chunk anscombe_resid_plot" id="fig:anscombe_resid_plot" />
-<p class="caption">Figure 12: plot of chunk anscombe_resid_plot</p>
+<img src="01-regression-simple-figures/anscombe_resid_plot-1.svg" alt="Figure 12: Residuals vs. fitted values for the regression lines fitted to the Anscombe quartet" id="fig:anscombe_resid_plot" />
+<p class="caption">Figure 12: Residuals vs. fitted values for the regression lines fitted to the Anscombe quartet</p>
 </div>
 <p><em>Comment: Ideally, the residuals shouldn’t be correlated
 with the predicted values – they should “oscillate” randomly
