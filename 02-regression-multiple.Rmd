@@ -440,7 +440,7 @@ on a **box and whisker plot**:
 * Outliers == observations potentially worth inspecting (is it a bug or a feature?)
 
 
-```{r boxplot,echo=FALSE}
+```{r boxplot_explained,echo=FALSE}
 x <- f1$residuals
 boxplot(x, horizontal=TRUE, xlim=c(-0.3, 2.3), ylim=c(-300, 300), col="white")
 

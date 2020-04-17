@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -594,7 +594,7 @@ much faster than the <code>for</code> loop-based one (a.k.a. “iterative” sty
 <a class="sourceLine" id="cb679-18" title="18"><span class="er">)</span>, signif=<span class="dv">3</span>, unit=<span class="st">&#39;relative&#39;</span><span class="er">)</span></a></code></pre></div>
 <pre><code>## Unit: relative
 ##  expr min  lq mean median   uq  max neval
-##    t1 124 118  101    100 97.9 87.5   100
+##    t1 127 123  102    117 93.9 91.7   100
 ##    t2   1   1    1      1  1.0  1.0   100</code></pre>
 </div>
 <div id="numeric-vectors" class="section level2">
@@ -696,11 +696,15 @@ we can obtain <em>reproducible</em> results.</p>
 <pre><code>## [1] 0.2875775 0.7883051 0.4089769 0.8830174 0.9404673</code></pre>
 <p>Note the difference between the uniform distribution on <span class="math inline">\([0,1]\)</span>
 and the normal distribution with expected value of <span class="math inline">\(0\)</span> and standard deviation
-of <span class="math inline">\(1\)</span> (also called the standard normal distribution).</p>
+of <span class="math inline">\(1\)</span> (also called the standard normal distribution),
+see Figure <a href="vector-algebra-in-r.html#fig:runif_vs_rnorm">1</a>.</p>
 <div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># align plots in one row and two columns</span></a>
 <a class="sourceLine" id="cb723-2" title="2"><span class="kw">hist</span>(<span class="kw">runif</span>(<span class="dv">10000</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2500</span>)); <span class="kw">box</span>()</a>
 <a class="sourceLine" id="cb723-3" title="3"><span class="kw">hist</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2500</span>)); <span class="kw">box</span>()</a></code></pre></div>
-<p><img src="92-R-vectors-figures/runif_vs_rnorm-1.svg" alt="plot of chunk runif_vs_rnorm" /></p>
+<div class="figure">
+<img src="92-R-vectors-figures/runif_vs_rnorm-1.svg" alt="Figure 1: Uniformly vs. normally distributed random variables" id="fig:runif_vs_rnorm" />
+<p class="caption">Figure 1: Uniformly vs. normally distributed random variables</p>
+</div>
 <p>Another useful function samples a number of values from a given vector,
 either with or without replacement:</p>
 <div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb724-1" title="1"><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">8</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="co"># with replacement</span></a></code></pre></div>
@@ -841,11 +845,15 @@ integers between 1 and 9:</p>
 <div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1"><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)</a></code></pre></div>
 <pre><code>## [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490
 ## [7] 2.645751 2.828427 3.000000</code></pre>
-<p>An example plot of the sine and cosine functions:</p>
+<p>Vectorisation is super-convenient when it comes to, for instance,
+plotting (see Figure <a href="vector-algebra-in-r.html#fig:sincos">2</a>).</p>
 <div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">6</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">51</span>)</a>
 <a class="sourceLine" id="cb771-2" title="2"><span class="kw">plot</span>(x, <span class="kw">sin</span>(x), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a>
 <a class="sourceLine" id="cb771-3" title="3"><span class="kw">lines</span>(x, <span class="kw">cos</span>(x), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># add a curve to the current plot</span></a></code></pre></div>
-<p><img src="92-R-vectors-figures/sincos-1.svg" alt="plot of chunk sincos" /></p>
+<div class="figure">
+<img src="92-R-vectors-figures/sincos-1.svg" alt="Figure 2: An example plot of the sine and cosine functions" id="fig:sincos" />
+<p class="caption">Figure 2: An example plot of the sine and cosine functions</p>
+</div>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Try increasing the <code>length.out</code> argument to make the curves smoother.</p>
 </div>
@@ -926,8 +934,11 @@ Note that we can get the cosine part by computing the dot product
 of the <em>normalised</em>
 vectors, i.e., such that their lengths are equal to 1.</p>
 <p>For example, the two vectors <code>u</code> and <code>v</code> defined above
-can be depicted as:</p>
-<p><img src="92-R-vectors-figures/vectorplot-1.svg" alt="plot of chunk vectorplot" /></p>
+can be depicted as in Figure <a href="vector-algebra-in-r.html#fig:vectorplot">3</a>.</p>
+<div class="figure">
+<img src="92-R-vectors-figures/vectorplot-1.svg" alt="Figure 3: Example vectors in 2D" id="fig:vectorplot" />
+<p class="caption">Figure 3: Example vectors in 2D</p>
+</div>
 <p>We can compute the angle between them by calling:</p>
 <div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1">(len_u &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>(u<span class="op">^</span><span class="dv">2</span>))) <span class="co"># length == Euclidean norm</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
@@ -1392,8 +1403,12 @@ to which class:</p>
 <a class="sourceLine" id="cb997-3" title="3">     <span class="dt">col=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species), <span class="co"># colours</span></a>
 <a class="sourceLine" id="cb997-4" title="4">     <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)</a>
 <a class="sourceLine" id="cb997-5" title="5">)</a></code></pre></div>
-<p><img src="92-R-vectors-figures/irisplot-1.svg" alt="plot of chunk irisplot" /></p>
-<p>The above was possible because the Species column is a factor object
+<div class="figure">
+<img src="92-R-vectors-figures/irisplot_factors-1.svg" alt="Figure 4: as.numeric() on factors can be used to create different plotting styles" id="fig:irisplot_factors" />
+<p class="caption">Figure 4: <code>as.numeric()</code> on factors can be used to create different plotting styles</p>
+</div>
+<p>The above (see Figure <a href="vector-algebra-in-r.html#fig:irisplot_factors">4</a>)
+was possible because the Species column is a factor object
 with:</p>
 <div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb998-1" title="1"><span class="kw">levels</span>(iris<span class="op">$</span>Species)</a></code></pre></div>
 <pre><code>## [1] &quot;setosa&quot;     &quot;versicolor&quot; &quot;virginica&quot;</code></pre>

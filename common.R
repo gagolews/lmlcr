@@ -10,7 +10,33 @@ reticulate::use_python("/opt/anaconda3/bin/python")
 ################################################################################
 
 library("knitr")
+library("stringi")
+
+hook_plot_md_pandoc_new <- function (x, options)
+{
+    if (options$fig.show == "animate")
+        return(hook_plot_html(x, options))
+    file <- stri_replace_first_regex(x, "\\.(pdf|png|jpg|svg)", "")
+    base = opts_knit$get("base.url") %n% ""
+    cap = .img.cap(options)
+    at = paste(c(
+        sprintf("#fig:%s", options[["label"]]),  # Marek's hack
+        sprintf("width=%s", options[["out.width"]]),
+        sprintf("height=%s", options[["out.height"]]), options[["out.extra"]]),
+        collapse = " ")
+    if (at != "") {
+        at = paste0("{", at, "}")
+    }
+    sprintf("![%s](%s)%s", cap, file, at)
+}
+
+environment(hook_plot_md_pandoc_new) <- environment(knitr:::hook_plot_md_pandoc)
+unlockBinding("hook_plot_md_pandoc", getNamespace("knitr"))
+assign("hook_plot_md_pandoc", hook_plot_md_pandoc_new, getNamespace("knitr"))
+
 knit_hooks$set(plot=knitr:::hook_plot_md_pandoc)
+
+
 
 
 # ..output_language <- if (is.null(opts_chunk$get("output_language"))) "???" else
@@ -79,6 +105,8 @@ setHook("before.plot.new", function() {
     par(cex.lab=1)
     par(font.lab=3)
 }, "replace")
+
+
 
 plot.window_new <- function (xlim, ylim, log = "", asp = NA, ...)
 {

@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -897,19 +897,28 @@ with <span class="math inline">\(\mathbf{x}_{i,\cdot}=\)</span> ratings of <span
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    8.00    9.50   10.30   10.49   11.30   14.90</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">hist</span>(wines<span class="op">$</span>alcohol, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>); <span class="kw">box</span>()</a></code></pre></div>
-<p><img src="01-regression-simple-figures/wines_regression-1.svg" alt="plot of chunk wines_regression" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/wines_regression-1.svg" alt="Figure 1: plot of chunk wines_regression" id="fig:wines_regression" />
+<p class="caption">Figure 1: plot of chunk wines_regression</p>
+</div>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">table</span>(wines<span class="op">$</span>color) <span class="co"># binary variable</span></a></code></pre></div>
 <pre><code>## 
 ##   red white 
 ##  1599  4898</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">barplot</span>(<span class="kw">table</span>(wines<span class="op">$</span>color), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">6000</span>))</a></code></pre></div>
-<p><img src="01-regression-simple-figures/wines_binary-1.svg" alt="plot of chunk wines_binary" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/wines_binary-1.svg" alt="Figure 2: plot of chunk wines_binary" id="fig:wines_binary" />
+<p class="caption">Figure 2: plot of chunk wines_binary</p>
+</div>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">table</span>(wines<span class="op">$</span>response) <span class="co"># ordinal variable</span></a></code></pre></div>
 <pre><code>## 
 ##    3    4    5    6    7    8    9 
 ##   30  216 2138 2836 1079  193    5</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">barplot</span>(<span class="kw">table</span>(wines<span class="op">$</span>response), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a></code></pre></div>
-<p><img src="01-regression-simple-figures/wines_ordinal-1.svg" alt="plot of chunk wines_ordinal" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/wines_ordinal-1.svg" alt="Figure 3: plot of chunk wines_ordinal" id="fig:wines_ordinal" />
+<p class="caption">Figure 3: plot of chunk wines_ordinal</p>
+</div>
 </div>
 </div>
 <div id="simple-regression" class="section level2">
@@ -923,14 +932,20 @@ Denote <span class="math inline">\(x_i=x_{i,1}\)</span>.</p>
 to illustrate all the concepts graphically.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
 <a class="sourceLine" id="cb32-2" title="2"><span class="kw">plot</span>(Credit<span class="op">$</span>Balance, Credit<span class="op">$</span>Rating) <span class="co"># scatter plot</span></a></code></pre></div>
-<p><img src="01-regression-simple-figures/credit_scatter-1.svg" alt="plot of chunk credit_scatter" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/credit_scatter-1.svg" alt="Figure 4: plot of chunk credit_scatter" id="fig:credit_scatter" />
+<p class="caption">Figure 4: plot of chunk credit_scatter</p>
+</div>
 <p>In what follows we will be modelling the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>) in USD
 for customers with positive Balance only.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
 <a class="sourceLine" id="cb33-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">plot</span>(X, Y)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/credit_XY_plot-1.svg" alt="plot of chunk credit_XY_plot" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/credit_XY_plot-1.svg" alt="Figure 5: plot of chunk credit_XY_plot" id="fig:credit_XY_plot" />
+<p class="caption">Figure 5: plot of chunk credit_XY_plot</p>
+</div>
 <p>Our aim is to construct a function <span class="math inline">\(f\)</span> that
 <strong>models</strong> Rating as a function of Balance,
 <span class="math inline">\(f(X)=Y\)</span>.</p>
@@ -973,13 +988,19 @@ with expected value of <span class="math inline">\(0\)</span> and standard devia
 <p><span class="math inline">\(\sigma\)</span> controls the amount of noise (and hence, uncertainty).
 Here is the plot of the probability distribution function (PDFs, densities)
 of <span class="math inline">\(\mathcal{N}(0, \sigma)\)</span> for different <span class="math inline">\(\sigma\)</span>s:</p>
-<p><img src="01-regression-simple-figures/normal_distribs-1.svg" alt="Probability distribution functions of normal distributions with different standard deviations \sigma." /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/normal_distribs-1.svg" alt="Figure 6: Probability distribution functions of normal distributions with different standard deviations \sigma." id="fig:normal_distribs" />
+<p class="caption">Figure 6: Probability distribution functions of normal distributions with different standard deviations <span class="math inline">\(\sigma\)</span>.</p>
+</div>
 </div>
 <div id="search-space-and-objective" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> Search Space and Objective</h3>
 <p>There are many different functions that can be <strong>fitted</strong> into
 the observed <span class="math inline">\((\mathbf{x},\mathbf{y})\)</span>.</p>
-<p><img src="01-regression-simple-figures/credit_different_models-1.svg" alt="plot of chunk credit_different_models" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/credit_different_models-1.svg" alt="Figure 7: plot of chunk credit_different_models" id="fig:credit_different_models" />
+<p class="caption">Figure 7: plot of chunk credit_different_models</p>
+</div>
 <p>Thus, we need a <strong>model selection criterion</strong>.</p>
 <p>Usually, we will be interested in a model
 that minimises appropriately aggregated <strong>residuals</strong>
@@ -987,7 +1008,10 @@ that minimises appropriately aggregated <strong>residuals</strong>
 <strong>predicted outputs minus observed outputs</strong>,
 often denoted with <span class="math inline">\(\hat{y}_i-y_i\)</span>,
 for <span class="math inline">\(i=1,\dots,n\)</span>.</p>
-<p><img src="01-regression-simple-figures/credit_residuals-1.svg" alt="plot of chunk credit_residuals" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/credit_residuals-1.svg" alt="Figure 8: plot of chunk credit_residuals" id="fig:credit_residuals" />
+<p class="caption">Figure 8: plot of chunk credit_residuals</p>
+</div>
 <p>In the plot above, the residuals are just lengths of the
 dashed lines – they measure the discrepancy between
 the outputs generated by the model (what we get)
@@ -1075,7 +1099,10 @@ a+bx_i-y_i
 <p>This is the <strong>method of least squares</strong>.</p>
 <p>This is particularly nice, because our search space
 is just <span class="math inline">\(\mathbb{R}^2\)</span> – easy to handle both analytically and numerically.</p>
-<p><img src="01-regression-simple-figures/credit_different_lines_ssr-1.svg" alt="plot of chunk credit_different_lines_ssr" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/credit_different_lines_ssr-1.svg" alt="Figure 9: plot of chunk credit_different_lines_ssr" id="fig:credit_different_lines_ssr" />
+<p class="caption">Figure 9: plot of chunk credit_different_lines_ssr</p>
+</div>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Which of these is the least squares solution?</p>
 </div>
@@ -1117,7 +1144,10 @@ Y = f(X) = 226.4711446+0.2661459 X
 <p>Plotting:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">plot</span>(X, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
 <a class="sourceLine" id="cb42-2" title="2"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/credit_plot_lm-1.svg" alt="plot of chunk credit_plot_lm" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/credit_plot_lm-1.svg" alt="Figure 10: plot of chunk credit_plot_lm" id="fig:credit_plot_lm" />
+<p class="caption">Figure 10: plot of chunk credit_plot_lm</p>
+</div>
 <p>SSR:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">sum</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 2132108</code></pre>
@@ -1489,7 +1519,10 @@ that does all the above for any data set:</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1">f4 &lt;-<span class="st"> </span><span class="kw">fit_models</span>(ans4)</a></code></pre></div>
 <pre><code>## (Intercept)           x 
 ##   3.0017273   0.4999091</code></pre>
-<p><img src="01-regression-simple-figures/anscombe_fit_apply-1.svg" alt="plot of chunk anscombe_fit_apply" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/anscombe_fit_apply-1.svg" alt="Figure 11: plot of chunk anscombe_fit_apply" id="fig:anscombe_fit_apply" />
+<p class="caption">Figure 11: plot of chunk anscombe_fit_apply</p>
+</div>
 <p><em>Comment: All the estimated models are virtually the same,
 the regression lines are <span class="math inline">\(y=0.5x+3\)</span>.</em></p>
 </details>
@@ -1511,7 +1544,10 @@ calling the <code>predict()</code> function.</p>
 <a class="sourceLine" id="cb86-3" title="3"><span class="kw">plot</span>(y_pred2, y_pred2<span class="op">-</span>ans2<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb86-4" title="4"><span class="kw">plot</span>(y_pred3, y_pred3<span class="op">-</span>ans3<span class="op">$</span>y)</a>
 <a class="sourceLine" id="cb86-5" title="5"><span class="kw">plot</span>(y_pred4, y_pred4<span class="op">-</span>ans4<span class="op">$</span>y)</a></code></pre></div>
-<p><img src="01-regression-simple-figures/anscombe_resid_plot-1.svg" alt="plot of chunk anscombe_resid_plot" /></p>
+<div class="figure">
+<img src="01-regression-simple-figures/anscombe_resid_plot-1.svg" alt="Figure 12: plot of chunk anscombe_resid_plot" id="fig:anscombe_resid_plot" />
+<p class="caption">Figure 12: plot of chunk anscombe_resid_plot</p>
+</div>
 <p><em>Comment: Ideally, the residuals shouldn’t be correlated
 with the predicted values – they should “oscillate” randomly
 around 0. This is only the case of the first dataset.

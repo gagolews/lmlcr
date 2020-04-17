@@ -1,0 +1,20 @@
+---
+title: "Lightweight Machine Learning Classics with R"
+author: "Marek Gagolewski"
+date: "@DATE@"
+site: bookdown::bookdown_site
+output:
+    bookdown::pdf_book:
+        pandoc_args: ["--default-image-extension=.pdf",
+            "--toc-depth=3",
+            "--csl=bibstyle.csl",
+            "--filter=/usr/local/bin/pandoc-fignos"]
+        includes:
+            in_header: preamble.tex
+        fig_caption: false
+documentclass: book
+bibliography: [bibliography.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: gagolews/lmlcr
+---

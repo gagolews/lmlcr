@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -509,21 +509,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.1</span> Unsupervised Learning</h2>
 <div id="introduction-12" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Introduction</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In <strong>unsupervised learning</strong> (learning without a teacher),
 the input data points <span class="math inline">\(\mathbf{x}_{1,\cdot},\dots,\mathbf{x}_{n,\cdot}\)</span>
 are not assigned any reference labels.</p>
-<p><img src="07-clustering-figures/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-1-1.svg" alt="Figure 1: plot of chunk unnamed-chunk-1" id="fig:unnamed-chunk-1" />
+<p class="caption">Figure 1: plot of chunk unnamed-chunk-1</p>
+</div>
 <p>Our aim now is to discover the <strong>underlying structure in the data</strong>.</p>
 </div>
 <div id="main-types-of-unsupervised-learning-problems" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> Main Types of Unsupervised Learning Problems</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In <strong>dimensionality reduction</strong> we seek a meaningful <em>projection</em> of a high dimensional
 space (think: many variables/columns).</p>
-<p><img src="07-clustering-figures/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-2-1.svg" alt="Figure 2: plot of chunk unnamed-chunk-2" id="fig:unnamed-chunk-2" />
+<p class="caption">Figure 2: plot of chunk unnamed-chunk-2</p>
+</div>
 <p>This might enable us to plot high-dimensional data or understand its structure better.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Example methods:</p>
 <ul>
 <li>Multidimensional scaling (MDS)</li>
@@ -532,21 +544,33 @@ space (think: many variables/columns).</p>
 <li>t-SNE</li>
 <li>Autoencoders (deep learning)</li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In <strong>anomaly detection</strong>, out task is to identify rare, suspicious, ab-normal
 or out-standing items.</p>
-<p><img src="07-clustering-figures/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-3-1.svg" alt="Figure 3: plot of chunk unnamed-chunk-3" id="fig:unnamed-chunk-3" />
+<p class="caption">Figure 3: plot of chunk unnamed-chunk-3</p>
+</div>
 <p>For example, these can be cars on walkways in a park’s security camera footage.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The aim of <strong>clustering</strong> is to automatically discover some <em>naturally occurring</em>
 subgroups in the data set.</p>
-<p><img src="07-clustering-figures/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-4-1.svg" alt="Figure 4: plot of chunk unnamed-chunk-4" id="fig:unnamed-chunk-4" />
+<p class="caption">Figure 4: plot of chunk unnamed-chunk-4</p>
+</div>
 <p>For example, these may be customers having different shopping patterns
 (such as “young parents”, “students”, “boomers”).</p>
 </div>
 <div id="clustering-1" class="section level3">
 <h3><span class="header-section-number">7.1.3</span> Clustering</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>More formally, given <span class="math inline">\(K\ge 2\)</span>, <strong>clustering</strong> aims is to find a <em>special kind</em>
 of a <strong><span class="math inline">\(K\)</span>-partition</strong> of the input data set <span class="math inline">\(\mathbf{X}\)</span>.</p>
 <p><span class="math inline">\(\mathcal{C}=\{C_1,\dots,C_K\}\)</span> is a <span class="math inline">\(K\)</span>-partition of <span class="math inline">\(\mathbf{X}\)</span> of size <span class="math inline">\(n\)</span>,
@@ -562,7 +586,9 @@ whenever:</p>
 <p>“<span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> is labelled <span class="math inline">\(j\)</span> iff it belongs to cluster <span class="math inline">\(C_j\)</span>,
 i.e., <span class="math inline">\(i\in C_j\)</span>”.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Example applications of clustering:</p>
 <ul>
 <li><em>taxonomization</em>: e.g.,
@@ -578,7 +604,9 @@ e.g., recommender systems indicating content
 that was rated highly by users from the same group
 or learning multiple manifolds in a dimension reduction task.</li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The number of possible <span class="math inline">\(K\)</span>-partitions of a set with <span class="math inline">\(n\)</span> elements is given by
 <em>the Stirling number of the second kind</em>:</p>
 <p><span class="math display">\[
@@ -593,7 +621,9 @@ and <span class="math inline">\(\left\{{n \atop 3}\right\}=O(3^n)\)</span> – t
 so that those within each cluster are more <strong>closely related</strong>
 to one another than objects assigned to different clusters” <span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>)</span>.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>There are two main types of clustering algorithms:</p>
 <ul>
 <li><strong>parametric</strong> (model-based):
@@ -610,7 +640,9 @@ perhaps in the presence of noise points,</li>
 <li>e.g., single linkage agglomerative clustering, Genie, (H)DBSCAN, BIRCH.</li>
 </ul></li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In this chapter we’ll take a look at two clustering approaches:</p>
 <ul>
 <li><em>K-means clustering</em> that looks for a specific number of clusters</li>
@@ -623,7 +655,9 @@ of nested data partitions</li>
 <h2><span class="header-section-number">7.2</span> K-means Clustering</h2>
 <div id="example-in-r-5" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Example in R</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let us apply <span class="math inline">\(K\)</span>-means clustering to find <span class="math inline">\(K=3\)</span> groups
 in the famous Fisher’s <code>iris</code> data set (variables <code>Sepal.Width</code>
 and <code>Petal.Length</code> variables only)</p>
@@ -641,16 +675,23 @@ and <code>Petal.Length</code> variables only)</p>
 <p>Later we’ll see that <code>nstart</code> is responsible for random restarting the
 (local) optimisation procedure, just like we did in the previous chapter.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species), <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="07-clustering-figures/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-6-1.svg" alt="Figure 5: plot of chunk unnamed-chunk-6" id="fig:unnamed-chunk-6" />
+<p class="caption">Figure 5: plot of chunk unnamed-chunk-6</p>
+</div>
 <p>The colours indicate the detected clusters,</p>
 <p>while the plotting characters – the true iris species</p>
 <blockquote>
 <p>Note that they were not used during the clustering procedure!<br />
 (we’re dealing with unsupervised learning)</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>A contingency table for detected vs. true clusters:</p>
 <div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" title="1">(C &lt;-<span class="st"> </span><span class="kw">table</span>(km<span class="op">$</span>cluster, iris<span class="op">$</span>Species))</a></code></pre></div>
 <pre><code>##    
@@ -664,7 +705,9 @@ and <code>Petal.Length</code> variables only)</p>
 </div>
 <div id="problem-statement" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Problem Statement</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The aim of <span class="math inline">\(K\)</span>-means clustering is to find <span class="math inline">\(K\)</span> “good” cluster centres
 <span class="math inline">\(\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}\)</span>.</p>
 <p>Then, a point <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> will be assigned to the
@@ -674,7 +717,9 @@ cluster represented by the closest centre.</p>
 <span class="math display">\[
 d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}) = \| \mathbf{x}_{i,\cdot} - \boldsymbol\mu_{k,\cdot} \|^2 =  \sum_{j=1}^p \left(x_{i,j}-\mu_{k,j}\right)^2
 \]</span></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The <span class="math inline">\(i\)</span>-th point’s cluster is determined by:
 <span class="math display">\[
 \mathrm{C}(i) = \mathrm{arg}\min_{k=1,\dots,K}
@@ -682,7 +727,9 @@ d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}),
 \]</span>
 where <span class="math inline">\(\mathrm{arg}\min\)</span> == argument minimum == the index <span class="math inline">\(k\)</span> that minimises
 the given expression.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In the previous example, we have:</p>
 <div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" title="1">km<span class="op">$</span>centers</a></code></pre></div>
 <pre><code>##   Petal.Length Sepal.Width
@@ -691,15 +738,25 @@ the given expression.</p>
 ## 3     1.462000    3.428000</code></pre>
 <div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">asp=</span><span class="dv">1</span>) <span class="co"># asp=1 gives the same scale on both axes</span></a>
 <a class="sourceLine" id="cb564-2" title="2"><span class="kw">points</span>(km<span class="op">$</span>centers, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
-<p><img src="07-clustering-figures/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-8-1.svg" alt="Figure 6: plot of chunk unnamed-chunk-8" id="fig:unnamed-chunk-8" />
+<p class="caption">Figure 6: plot of chunk unnamed-chunk-8</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Here is the partition of the whole <span class="math inline">\(\mathbb{R}^2\)</span> space
 into clusters based on the closeness to the three cluster centres:</p>
-<p><img src="07-clustering-figures/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-9-1.svg" alt="Figure 7: plot of chunk unnamed-chunk-9" id="fig:unnamed-chunk-9" />
+<p class="caption">Figure 7: plot of chunk unnamed-chunk-9</p>
+</div>
 <blockquote>
 <p>(*) For the interested, see “Voronoi diagrams”.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>To compute the pairwise distances, we may call <code>pdist::pdist()</code>:</p>
 <div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb565-1" title="1"><span class="kw">library</span>(<span class="st">&quot;pdist&quot;</span>)</a>
 <a class="sourceLine" id="cb565-2" title="2">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, km<span class="op">$</span>centers))</a>
@@ -712,7 +769,9 @@ into clusters based on the closeness to the three cluster centres:</p>
 ## [5,] 3.048705 4.309613 0.18283319
 ## [6,] 2.868316 4.065708 0.52860963</code></pre>
 <p>…</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Therefore, the cluster memberships (<span class="math inline">\(\mathrm{arg}\min\)</span>s) can be determined by:</p>
 <div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" title="1">(idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min))</a></code></pre></div>
 <pre><code>##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
@@ -726,7 +785,9 @@ into clusters based on the closeness to the three cluster centres:</p>
 </div>
 <div id="algorithms-for-the-k-means-problem" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> Algorithms for the K-means Problem</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>How to find “good” cluster centres?</p>
 <p>In the <span class="math inline">\(K\)</span>-means clustering, we wish to find <span class="math inline">\(\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}\)</span>
 that minimise the total within-cluster distances (distances from each point
@@ -749,7 +810,9 @@ belongingness mapping, <span class="math inline">\(\mathrm{C}\)</span>.</p>
 Unfortunately, the <span class="math inline">\(\min\)</span> operator in the objective function
 makes this optimisation problem not tractable
 with the methods discussed in the previous chapter.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The above problem is <em>hard</em> to solve.</p>
 <blockquote>
 <p>(*) More precisely, it is an NP-hard problem.</p>
@@ -768,7 +831,9 @@ of within-cluster distance) amongst them. This does not guarantee
 finding the optimal solution, especially in high-dimensional spaces,
 but increases the likelihood of such.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Lloyd’s algorithm (1957) is sometimes referred to as “the” K-means algorithm:</p>
 <ol style="list-style-type: decimal">
 <li><p>Start with random cluster centres <span class="math inline">\(\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}\)</span>.</p></li>
@@ -777,7 +842,9 @@ but increases the likelihood of such.</p>
 of the coordinates of all the point indices <span class="math inline">\(i\)</span> such that <span class="math inline">\(C(i)=k\)</span>.</p></li>
 <li><p>If the cluster centres changed since last iteration, go to step 2, otherwise stop and return the result.</p></li>
 </ol>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>(*) Example implementation:</p>
 <div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1">K &lt;-<span class="st"> </span><span class="dv">3</span></a>
 <a class="sourceLine" id="cb571-2" title="2"></a>
@@ -792,7 +859,9 @@ of the coordinates of all the point indices <span class="math inline">\(i\)</spa
 <a class="sourceLine" id="cb573-2" title="2">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))</a>
 <a class="sourceLine" id="cb573-3" title="3"><span class="co"># Let idx[i] be the centre closest to the i-th point</span></a>
 <a class="sourceLine" id="cb573-4" title="4">idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" title="1"><span class="cf">repeat</span> {</a>
 <a class="sourceLine" id="cb574-2" title="2">    <span class="co"># Previous cluster belongingness:</span></a>
 <a class="sourceLine" id="cb574-3" title="3">    old_idx &lt;-<span class="st"> </span>idx</a>
@@ -806,7 +875,9 @@ of the coordinates of all the point indices <span class="math inline">\(i\)</spa
 <a class="sourceLine" id="cb574-11" title="11">    <span class="co"># Check if converged already:</span></a>
 <a class="sourceLine" id="cb574-12" title="12">    <span class="cf">if</span> (<span class="kw">all</span>(idx <span class="op">==</span><span class="st"> </span>old_idx)) <span class="cf">break</span></a>
 <a class="sourceLine" id="cb574-13" title="13">}</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" title="1">M <span class="co"># our result</span></a></code></pre></div>
 <pre><code>##   Petal.Length Sepal.Width
 ## 1     1.462000    3.428000
@@ -823,7 +894,7 @@ of the coordinates of all the point indices <span class="math inline">\(i\)</spa
 
 ## TODO
 
----
+<div style="margin-top: 1em"></div>
 
 TODO maybe k-medoids, nice for optimisation
 plus they allow for different metrics
@@ -839,14 +910,18 @@ alternatively, DBSCAN or PCA or MDS or ...
 <h2><span class="header-section-number">7.3</span> Hierarchical Methods</h2>
 <div id="introduction-13" class="section level3">
 <h3><span class="header-section-number">7.3.1</span> Introduction</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In K-means, we need to specify the number of clusters, <span class="math inline">\(K\)</span>, in advance.</p>
 <p>What if we don’t know it?</p>
 <p>There is no guarantee that a <span class="math inline">\((K+1)\)</span>-partition is “similar” to the <span class="math inline">\(K\)</span>-one.</p>
 <p>Hierarchical methods, on the other hand, output a whole hierarchy
 of mutually <em>nested</em> partitions, which increase the interpretability of the results.</p>
 <p>A <span class="math inline">\(K\)</span>-partition for any <span class="math inline">\(K\)</span> can be extracted later.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Here we are interested in <strong>agglomerative</strong> algorithms.</p>
 <p>At the lowest level of the hierarchy, each point belongs to its own
 cluster (there are <span class="math inline">\(n\)</span> singletons).</p>
@@ -856,7 +931,9 @@ we select a pair of clusters to be merged.</p>
 </div>
 <div id="example-in-r-6" class="section level3">
 <h3><span class="header-section-number">7.3.2</span> Example in R</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb579-1" title="1"><span class="co"># Distances between all pairs of points:</span></a>
 <a class="sourceLine" id="cb579-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
 <a class="sourceLine" id="cb579-3" title="3"><span class="co"># Apply Complete Linkage (the default, see below):</span></a>
@@ -869,7 +946,9 @@ we select a pair of clusters to be merged.</p>
 ## Cluster method   : complete 
 ## Distance         : euclidean 
 ## Number of objects: 150</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1"><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>) <span class="co"># extract the 3-partition</span></a></code></pre></div>
 <pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ##  [30] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2
@@ -877,19 +956,31 @@ we select a pair of clusters to be merged.</p>
 ##  [88] 2 2 2 2 2 2 2 2 2 2 2 2 2 3 2 3 3 3 3 2 3 3 3 2 3 3 2 2 2
 ## [117] 3 3 3 2 3 2 3 2 3 3 2 2 3 3 3 3 3 2 3 3 3 3 2 3 3 2 2 3 3
 ## [146] 2 2 2 3 2</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Different cuts of the hierarchy:</p>
-<p><img src="07-clustering-figures/unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-18-1.svg" alt="Figure 8: plot of chunk unnamed-chunk-18" id="fig:unnamed-chunk-18" />
+<p class="caption">Figure 8: plot of chunk unnamed-chunk-18</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>A <strong>dendrogram</strong> depicts the distances (* as defined by the linkage function)
 between the clusters merged at every stage. This can provide us with the insight
 into the underlying data structure.</p>
 <div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
-<p><img src="07-clustering-figures/unnamed-chunk-20-1.png" alt="plot of chunk unnamed-chunk-20" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-19-1.svg" alt="Figure 9: plot of chunk unnamed-chunk-19" id="fig:unnamed-chunk-19" />
+<p class="caption">Figure 9: plot of chunk unnamed-chunk-19</p>
+</div>
 </div>
 <div id="agglomerative-hierarchical-clustering" class="section level3">
 <h3><span class="header-section-number">7.3.3</span> Agglomerative Hierarchical Clustering</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Initially, <span class="math inline">\(\mathcal{C}^{(0)}=\{\{1\},\dots,\{n\}\}\)</span>,
 i.e., each point is a member of its own cluster.</p>
 <p>While a <strong>hierarchical agglomerative clustering</strong> algorithm is being computed,
@@ -911,7 +1002,9 @@ with <span class="math inline">\(\mathcal{C}^{(n-1)}=\left\{ \{1,2,\dots,n\} \ri
 </div>
 <div id="linkage-functions" class="section level3">
 <h3><span class="header-section-number">7.3.4</span> Linkage Functions</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>A pair of clusters <span class="math inline">\(C_u^{(k)}\)</span> and <span class="math inline">\(C_v^{(k)}\)</span> to be merged with each other
 is determined by:
 <span class="math display">\[
@@ -924,7 +1017,9 @@ not sets of points.</p>
 to whole sets.</p>
 <p>We will assume that <span class="math inline">\(d^*(\{\mathbf{x}_{i,\cdot}\},\{\mathbf{x}_{j,\cdot}\})= d(\mathbf{x}_{i,\cdot},\mathbf{x}_{j,\cdot})\)</span>, i.e., the distance between
 singleton clusters is the same as the distance between the points themselves.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>There are many popular choices of <span class="math inline">\(d^*\)</span> (which in the context of
 hierarchical clustering we call a <strong>linkage function</strong>)</p>
 <ul>
@@ -941,24 +1036,59 @@ d_C^*(A,B) = \max_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b})
 d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\mathbf{a},\mathbf{b})
 \]</span></li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Computing linkages – an illustration:</p>
-<p><img src="07-clustering-figures/unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" style="width:100.0%" /></p>
-<hr />
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-20-1.svg" alt="Figure 10: plot of chunk unnamed-chunk-20" id="fig:unnamed-chunk-20" style="width:100.0%" />
+<p class="caption">Figure 10: plot of chunk unnamed-chunk-20</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Complete linkage (again):</p>
-<p><img src="07-clustering-figures/unnamed-chunk-22-1.png" alt="plot of chunk unnamed-chunk-22" style="width:80.0%" /></p>
-<hr />
-<p><img src="07-clustering-figures/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-21-1.svg" alt="Figure 11: plot of chunk unnamed-chunk-21" id="fig:unnamed-chunk-21" />
+<p class="caption">Figure 11: plot of chunk unnamed-chunk-21</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-22-1.svg" alt="Figure 12: plot of chunk unnamed-chunk-22" id="fig:unnamed-chunk-22" />
+<p class="caption">Figure 12: plot of chunk unnamed-chunk-22</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Average linkage:</p>
-<p><img src="07-clustering-figures/unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" style="width:80.0%" /></p>
-<hr />
-<p><img src="07-clustering-figures/unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-23-1.svg" alt="Figure 13: plot of chunk unnamed-chunk-23" id="fig:unnamed-chunk-23" />
+<p class="caption">Figure 13: plot of chunk unnamed-chunk-23</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-24-1.svg" alt="Figure 14: plot of chunk unnamed-chunk-24" id="fig:unnamed-chunk-24" />
+<p class="caption">Figure 14: plot of chunk unnamed-chunk-24</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Single linkage (this is a typical behaviour!):</p>
-<p><img src="07-clustering-figures/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26" style="width:80.0%" /></p>
-<hr />
-<p><img src="07-clustering-figures/unnamed-chunk-27-1.png" alt="plot of chunk unnamed-chunk-27" style="width:80.0%" /></p>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-25-1.svg" alt="Figure 15: plot of chunk unnamed-chunk-25" id="fig:unnamed-chunk-25" />
+<p class="caption">Figure 15: plot of chunk unnamed-chunk-25</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="07-clustering-figures/unnamed-chunk-26-1.svg" alt="Figure 16: plot of chunk unnamed-chunk-26" id="fig:unnamed-chunk-26" />
+<p class="caption">Figure 16: plot of chunk unnamed-chunk-26</p>
+</div>
 <!--Single linkage clustering --
 a {\color{blue2}\bf hierarchical agglomerative clustering algorithm}.
 
@@ -994,7 +1124,9 @@ $-->
 <h2><span class="header-section-number">7.4</span> Outro</h2>
 <div id="remarks-6" class="section level3">
 <h3><span class="header-section-number">7.4.1</span> Remarks</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The aim of K-means is to find
 <span class="math inline">\(K\)</span> clusters based on the notion of the points’ closeness
 to the cluster centres.</p>
@@ -1007,7 +1139,9 @@ using other methods.</p>
 <p>Iterative K-means algorithms are very fast even for large data sets,
 but they may fail to find a desirable solution, see the next chapter
 for discussion.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>On the other hand, hierarchical methods output
 a whole family of mutually nested partitions, which may provide us
 with insight into the underlying data structure.</p>
@@ -1021,7 +1155,9 @@ implementation of some methods available via a call to <code>hclust()</code>.
 See also the <code>genie</code> package for a robust algorithm
 based on the minimum spanning tree, which can be computed quickly.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Unsupervised learning is often performed during the data pre-processing
 and exploration stage.</p>
 <p>Assessing the quality of clustering is particularly challenging as,
@@ -1037,7 +1173,9 @@ useful to fit separate models to each cluster.</p>
 </div>
 <div id="other-noteworthy-clustering-algorithms" class="section level3">
 <h3><span class="header-section-number">7.4.2</span> Other Noteworthy Clustering Algorithms</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Other noteworthy clustering approaches:</p>
 <ul>
 <li>Genie (see R package <code>genie</code>) <span class="citation">(Gagolewski et al. <a href="references.html#ref-genie">2016</a>, Cena &amp; Gagolewski <a href="references.html#ref-genieowa">2020</a>)</span></li>

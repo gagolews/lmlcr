@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -509,7 +509,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.1</span> Introduction</h2>
 <div id="optimisation-problem" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Optimisation Problem</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><strong>Mathematical optimisation</strong> (a.k.a. mathematical programming)
 deals with the study of algorithms to solve problems related
 to selecting the <em>best</em> element amongst the set of available alternatives.</p>
@@ -533,7 +535,9 @@ i.e., we will assume the search space is <span class="math inline">\(D=\mathbb{R
 </div>
 <div id="example-optimisation-problems-in-machine-learning" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> Example Optimisation Problems in Machine Learning</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In <strong>multiple linear regression</strong> we were minimising
 the sum of squared residuals
 <span class="math display">\[
@@ -552,7 +556,9 @@ the sum of squared residuals
 </div>
 <div id="types-of-minima-and-maxima" class="section level3">
 <h3><span class="header-section-number">6.1.3</span> Types of Minima and Maxima</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Note that minimising <span class="math inline">\(f\)</span> is the same as maximising <span class="math inline">\(\bar{f}=-f\)</span>.</p>
 <p>In other words, <span class="math inline">\(\min_{{x}\in D} f({x})\)</span>
 and <span class="math inline">\(\max_{{x}\in D} -f({x})\)</span> represent the same optimisation problems
@@ -563,29 +569,46 @@ and <span class="math inline">\(\max_{{x}\in D} -f({x})\)</span> represent the s
 <span class="math inline">\(f({x}^*)\le f({x})\)</span> for all <span class="math inline">\({x}\in D\)</span>.</p>
 <p>A <strong>maximum</strong> of <span class="math inline">\(f\)</span> is a point <span class="math inline">\({x}^*\)</span> such that
 <span class="math inline">\(f({x}^*)\ge f({x})\)</span> for all <span class="math inline">\({x}\in D\)</span>.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Assuming that <span class="math inline">\(D=\mathbb{R}\)</span>, here is an example objective function, <span class="math inline">\(f:\mathbb{D}\to\mathbb{R}\)</span>,
 that has a minimum at <span class="math inline">\({x}^*=1\)</span>
 with <span class="math inline">\(f(x^*)=-2\)</span>.</p>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2" style="width:80.0%" /></p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-1-1.svg" alt="Figure 1: plot of chunk unnamed-chunk-1" id="fig:unnamed-chunk-1" />
+<p class="caption">Figure 1: plot of chunk unnamed-chunk-1</p>
+</div>
 <p><span class="math inline">\(\min_{x\in \mathbb{R}} f(x)=-2\)</span> (value of <span class="math inline">\(f\)</span> at the minimum)</p>
 <p><span class="math inline">\(\mathrm{arg}\min_{x\in \mathbb{R}} f(x)=1\)</span> (location of the minimum)</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>By definition, a minimum/maximum <strong>might not necessarily be unique</strong>.
 This depends on a problem.</p>
 <p>Assuming that <span class="math inline">\(D=\mathbb{R}\)</span>, here is an example objective function, <span class="math inline">\(f:\mathbb{D}\to\mathbb{R}\)</span>,
 that has multiple minima; every <span class="math inline">\({x}^*\in[1-\sqrt{2},1+\sqrt{2}]\)</span>
 yields <span class="math inline">\(f(x^*)=0\)</span>.</p>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" style="width:80.0%" /></p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-2-1.svg" alt="Figure 2: plot of chunk unnamed-chunk-2" id="fig:unnamed-chunk-2" />
+<p class="caption">Figure 2: plot of chunk unnamed-chunk-2</p>
+</div>
 <blockquote>
 <p>If this was the case of some machine learning problem, it’d mean
 that we could have many equally well-performing models,
 and hence many equivalent explanations of the same phenomenon.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Moreover, it may happen that a function has <strong>multiple local minima</strong>.</p>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-3-1.svg" alt="Figure 3: plot of chunk unnamed-chunk-3" id="fig:unnamed-chunk-3" />
+<p class="caption">Figure 3: plot of chunk unnamed-chunk-3</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>We say that <span class="math inline">\(f\)</span> has a <strong>local minimum</strong>
 at <span class="math inline">\(\mathbf{x}^+\in D\)</span>,
 if for some neighbourhood <span class="math inline">\(B(\mathbf{x}^+)\)</span> of <span class="math inline">\(\mathbf{x}^+\)</span>
@@ -603,7 +626,9 @@ i.e., <span class="math inline">\(\{\mathbf{y}: \|\mathbf{x}-\mathbf{y}\|&lt;r\}
 (read: the set of all the points with Euclidean distances
 to <span class="math inline">\(\mathbf{x}\)</span> less than <span class="math inline">\(r\)</span>).</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>To avoid ambiguity, the “true” minimum (a point <span class="math inline">\({x}^*\)</span> such that
 <span class="math inline">\(f({x}^*)\le f({x})\)</span> for all <span class="math inline">\({x}\in D\)</span>) is sometimes also referred to as
 a <strong>global</strong> minimum.</p>
@@ -616,13 +641,20 @@ and fail to return the global one.</p>
 <p>Moreover, we cannot often be sure if the result returned by an algorithm
 is indeed a global minimum. Maybe there exists a better solution
 that hasn’t been considered yet?</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Smooth vs non-smooth vs noisy objectives:</p>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" style="width:80.0%" /></p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-4-1.svg" alt="Figure 4: plot of chunk unnamed-chunk-4" id="fig:unnamed-chunk-4" />
+<p class="caption">Figure 4: plot of chunk unnamed-chunk-4</p>
+</div>
 </div>
 <div id="example-objective-over-a-2d-domain" class="section level3">
 <h3><span class="header-section-number">6.1.4</span> Example Objective over a 2D Domain</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Of course, our objective function does not necessarily have to be defined
 over a one-dimensional domain.</p>
 <p>For example, consider the following function:
@@ -638,7 +670,9 @@ at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) --
 <a class="sourceLine" id="cb492-5" title="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
 <a class="sourceLine" id="cb492-6" title="6"><span class="co"># and applies a given function on each point</span></a>
 <a class="sourceLine" id="cb492-7" title="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>There are four local minima:</p>
 <table>
 <thead>
@@ -675,27 +709,49 @@ at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) --
 <div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Let’s explore various ways of depicting <span class="math inline">\(f\)</span>.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>A contour plot:</p>
 <div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" title="1"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
 <a class="sourceLine" id="cb495-2" title="2"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-7-1.svg" alt="Figure 5: plot of chunk unnamed-chunk-7" id="fig:unnamed-chunk-7" />
+<p class="caption">Figure 5: plot of chunk unnamed-chunk-7</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>A filled contour plot (a heatmap):</p>
 <div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1"><span class="kw">filled.contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-8-1.svg" alt="Figure 6: plot of chunk unnamed-chunk-8" id="fig:unnamed-chunk-8" />
+<p class="caption">Figure 6: plot of chunk unnamed-chunk-8</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Alternatively:</p>
 <div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" title="1"><span class="kw">image</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb497-2" title="2"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-9-1.svg" alt="Figure 7: plot of chunk unnamed-chunk-9" id="fig:unnamed-chunk-9" />
+<p class="caption">Figure 7: plot of chunk unnamed-chunk-9</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>A perspective plot:</p>
 <div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
 <a class="sourceLine" id="cb498-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
 <a class="sourceLine" id="cb498-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-10-1.svg" alt="Figure 8: plot of chunk unnamed-chunk-10" id="fig:unnamed-chunk-10" />
+<p class="caption">Figure 8: plot of chunk unnamed-chunk-10</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <blockquote>
 <p>As usual, depicting functions that are defined over
 high-dimensional (3D and higher) domains
@@ -713,7 +769,9 @@ Golden section search
 <h2><span class="header-section-number">6.2</span> Iterative Methods</h2>
 <div id="introduction-11" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> Introduction</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Many optimisation algorithms are built around the following scheme:</p>
 <p><em>starting from a random point, perform a walk,
 in each step deciding where to go based on the idea
@@ -725,7 +783,9 @@ many people along the way, but you’ll eventually (because most people are good
 get to some CBD
 (say, in Perth).</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>More formally, we are interested in iterative
 algorithms that operate in a greedy-like fashion:</p>
 <ol style="list-style-type: decimal">
@@ -747,7 +807,9 @@ algorithms that operate in a greedy-like fashion:</p>
 </div>
 <div id="example-in-r-4" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> Example in R</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>R has a built-in <code>optim()</code> function that provides an implementation
 of (amongst others) <strong>the BFGS method</strong>
 (proposed by Broyden, Fletcher, Goldfarb and Shanno in 1970).</p>
@@ -760,7 +822,9 @@ You will be able to derive similar algorithms (called quasi-Newton ones) yoursel
 once you get to know about Taylor series approximation
 by taking a course on calculus.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Here, we shall use the BFGS as a <em>black-box</em> continuous optimisation method,
 i.e., without going into how it has been defined (it’s too early for this).
 However, this will still enable us to identify a few interesting
@@ -773,7 +837,9 @@ behavioural patterns.</p>
 on input, returns a single number)</li>
 </ul>
 <!-- this will be slow for high-dimensional search spaces $D$ -->
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let us minimise the <span class="math inline">\(g\)</span> function defined above (the one with the 2D domain):</p>
 <div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb500-1" title="1"><span class="co"># g needs to be rewritten to accept a 2-ary vector</span></a>
 <a class="sourceLine" id="cb500-2" title="2">g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x12) <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>])</a>
@@ -781,7 +847,9 @@ on input, returns a single number)</li>
 <a class="sourceLine" id="cb500-4" title="4">(x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>))</a></code></pre></div>
 <pre><code>## [1] -2.124225  2.883051</code></pre>
 <div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" title="1">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb503-1" title="1">res</a></code></pre></div>
 <pre><code>## $par
 ## [1] -1.542255  2.156405
@@ -800,7 +868,9 @@ on input, returns a single number)</li>
 ## NULL</code></pre>
 <p><code>par</code> gives the location of the local minimum found</p>
 <p><code>value</code> gives the value of <span class="math inline">\(g\)</span> at <code>par</code></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>We can even depict the points that the algorithm is “visiting”:</p>
 <blockquote>
 <p>(*) Technically, the algorithm needs to evaluate a few more points
@@ -812,12 +882,19 @@ in order to make the decision on where to go next (BFGS approximates the Hessian
 <a class="sourceLine" id="cb505-4" title="4">}</a>
 <a class="sourceLine" id="cb505-5" title="5"><span class="kw">contour</span>(x1, x2, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
 <a class="sourceLine" id="cb505-6" title="6">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised_plot, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
-<hr />
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" style="width:80.0%" /></p>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-14-1.svg" alt="Figure 9: plot of chunk unnamed-chunk-14" id="fig:unnamed-chunk-14" />
+<p class="caption">Figure 9: plot of chunk unnamed-chunk-14</p>
+</div>
 </div>
 <div id="convergence-to-local-optima" class="section level3">
 <h3><span class="header-section-number">6.2.3</span> Convergence to Local Optima</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>We were lucky, because the local minimum that the algorithm has found
 coincides with the global minimum.</p>
 <p>Let’s see where does the algorithm converge if we start it
@@ -834,18 +911,30 @@ uniformly distributed over the square <span class="math inline">\([-5,5]\times[-
 ##     0 0.695 1.356 1.705 
 ##   273   352   156   219</code></pre>
 <p>We find the global minimum only in <span class="math inline">\(\sim 25\%\)</span> cases! :(</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb508-1" title="1"><span class="kw">hist</span>(res_value, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">breaks=</span><span class="dv">100</span>)</a>
 <a class="sourceLine" id="cb508-2" title="2"><span class="kw">box</span>()</a></code></pre></div>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-16-1.svg" alt="Figure 10: plot of chunk unnamed-chunk-16" id="fig:unnamed-chunk-16" />
+<p class="caption">Figure 10: plot of chunk unnamed-chunk-16</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Here is a depiction of all the random starting points and where
 do we converge from them:</p>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" style="width:80.0%" /></p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-17-1.svg" alt="Figure 11: plot of chunk unnamed-chunk-17" id="fig:unnamed-chunk-17" />
+<p class="caption">Figure 11: plot of chunk unnamed-chunk-17</p>
+</div>
 </div>
 <div id="random-restarts" class="section level3">
 <h3><span class="header-section-number">6.2.4</span> Random Restarts</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><strong>A “remedy”</strong>: repeated local search</p>
 <p>In order to robustify an optimisation
 procedure it is often advised to consider
@@ -860,10 +949,12 @@ and pick the best solution amongst the identified local optima.</p>
 <a class="sourceLine" id="cb509-7" title="7">        res &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">par_generator</span>(), ...)</a>
 <a class="sourceLine" id="cb509-8" title="8">        <span class="cf">if</span> (res<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>res_best<span class="op">$</span>value)</a>
 <a class="sourceLine" id="cb509-9" title="9">            res_best &lt;-<span class="st"> </span>res <span class="co"># a better candidate found</span></a>
-<a class="sourceLine" id="cb509-10" title="10">    }</a>
-<a class="sourceLine" id="cb509-11" title="11">    res_best</a>
+<a class="sourceLine" id="cb509-10" title="10"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb509-11" title="11"><span class="st">    </span>res_best</a>
 <a class="sourceLine" id="cb509-12" title="12">}</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb510-1" title="1"><span class="kw">optim_with_restarts</span>(<span class="cf">function</span>() <span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>),</a>
 <a class="sourceLine" id="cb510-2" title="2">    g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">N=</span><span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## $par
@@ -881,7 +972,9 @@ and pick the best solution amongst the identified local optima.</p>
 ## 
 ## $message
 ## NULL</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Can we guarantee that the global minimum will be found within <span class="math inline">\(N\)</span> tries? <strong>No.</strong></p>
 </div>
 </div>
@@ -889,7 +982,9 @@ and pick the best solution amongst the identified local optima.</p>
 <h2><span class="header-section-number">6.3</span> Gradient Descent</h2>
 <div id="function-gradient" class="section level3">
 <h3><span class="header-section-number">6.3.1</span> Function Gradient (*)</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>How to choose the [guessed direction] in our iterative optimisation algorithm?</p>
 <p>If we are minimising a smooth function, the simplest possible choice
 is to use the information included in the objective’s <strong>gradient</strong>,
@@ -917,13 +1012,17 @@ denoted
 is like an ordinary derivative w.r.t. <span class="math inline">\(x_i\)</span>
 where <span class="math inline">\(x_1,...,x_{i-1},x_{i+1},...,x_p\)</span> are assumed constant.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <blockquote>
 <p>Function differentiation is an important concept – see how it’s referred to
 in, e.g., the Keras manual at <a href="https://keras.rstudio.com/reference/fit.html" class="uri">https://keras.rstudio.com/reference/fit.html</a>.
 Don’t worry though – we take our time with this – Melbourne wasn’t built in a day.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Recall our <span class="math inline">\(g\)</span> function defined above:
 <span class="math display">\[
 g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\right)
@@ -948,12 +1047,14 @@ g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\
 <a class="sourceLine" id="cb512-4" title="4">        <span class="dv">2</span><span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">+</span><span class="dv">4</span><span class="op">*</span>x[<span class="dv">2</span>]<span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)</a>
 <a class="sourceLine" id="cb512-5" title="5">    )<span class="op">/</span>(</a>
 <a class="sourceLine" id="cb512-6" title="6">        (x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span></a>
-<a class="sourceLine" id="cb512-7" title="7">    )</a>
-<a class="sourceLine" id="cb512-8" title="8">}</a></code></pre></div>
+<a class="sourceLine" id="cb512-7" title="7"><span class="op">&lt;</span>div <span class="dt">style=</span><span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb512-8" title="8"><span class="er">}</span></a></code></pre></div>
 </div>
 <div id="three-facts-on-the-gradient" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> Three Facts on the Gradient</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>For now, we should emphasise three important facts:</p>
 <p> <br />
 </p>
@@ -969,7 +1070,9 @@ we can rely on its finite differences approximation:</p>
 }
 \]</span>
 for some small <span class="math inline">\(\delta&gt;0\)</span>, say, <span class="math inline">\(\delta=10^{-6}\)</span>.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Example implementation:</p>
 <div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb513-1" title="1"><span class="co"># gradient of f at x=c(x[1],...,x[p])</span></a>
 <a class="sourceLine" id="cb513-2" title="2">grad &lt;-<span class="st"> </span><span class="cf">function</span>(f, x, <span class="dt">delta=</span><span class="fl">1e-6</span>) {</a>
@@ -979,8 +1082,8 @@ for some small <span class="math inline">\(\delta&gt;0\)</span>, say, <span clas
 <a class="sourceLine" id="cb513-6" title="6">        xi &lt;-<span class="st"> </span>x</a>
 <a class="sourceLine" id="cb513-7" title="7">        xi[i] &lt;-<span class="st"> </span>xi[i]<span class="op">+</span>delta</a>
 <a class="sourceLine" id="cb513-8" title="8">        gf[i] &lt;-<span class="st"> </span><span class="kw">f</span>(xi)</a>
-<a class="sourceLine" id="cb513-9" title="9">    }</a>
-<a class="sourceLine" id="cb513-10" title="10">    (gf<span class="op">-</span><span class="kw">f</span>(x))<span class="op">/</span>delta</a>
+<a class="sourceLine" id="cb513-9" title="9"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb513-10" title="10"><span class="st">    </span>(gf<span class="op">-</span><span class="kw">f</span>(x))<span class="op">/</span>delta</a>
 <a class="sourceLine" id="cb513-11" title="11">}</a></code></pre></div>
 <blockquote>
 <p>(*) Interestingly, some modern vector/matrix algebra frameworks
@@ -988,7 +1091,9 @@ like TensorFlow (upon which keras is built) or PyTorch, feature
 methods to “derive” the gradient algorithmically
 (autodiff; automatic differentiation).</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Sanity check:</p>
 <div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb514-1" title="1"><span class="kw">grad</span>(g_vectorised, <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] -3.186485 -1.365634</code></pre>
@@ -1000,7 +1105,9 @@ methods to “derive” the gradient algorithmically
 <pre><code>## [1] 4.129167e-09 3.577146e-10</code></pre>
 <p>BTW, there is also the <code>grad()</code> function in package numDeriv
 that might be a little more accurate (uses a different approximation).</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><strong>Fact 2.</strong></p>
 <p>The gradient of <span class="math inline">\(f\)</span> at <span class="math inline">\(\mathbf{x}\)</span>, <span class="math inline">\(\nabla f(\mathbf{x})\)</span>,
 is a vector that points in the direction of the steepest slope.</p>
@@ -1016,7 +1123,9 @@ We will refer to the desired step size as the <strong>learning rate</strong>, <s
 </p>
 <p>This will be called the <strong>gradient descent</strong> method (GD;
 Cauchy, 1847).</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><strong>Fact 3.</strong></p>
 <p>If a function <span class="math inline">\(f\)</span> has a local minimum at <span class="math inline">\(\mathbf{x}^*\)</span>,
 then <span class="math inline">\(\nabla {f}(\mathbf{x}^*)=[0,\dots,0]\)</span>.</p>
@@ -1032,7 +1141,9 @@ is positive-definite.</p>
 </div>
 <div id="gradient-descent-algorithm-gd" class="section level3">
 <h3><span class="header-section-number">6.3.3</span> Gradient Descent Algorithm (GD)</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>An implementation of the gradient descent algorithm:</p>
 <div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" title="1"><span class="co"># par   - initial guess</span></a>
 <a class="sourceLine" id="cb522-2" title="2"><span class="co"># fn    - a function to be minimised</span></a>
@@ -1040,7 +1151,9 @@ is positive-definite.</p>
 <a class="sourceLine" id="cb522-4" title="4"><span class="co"># eta   - learning rate</span></a>
 <a class="sourceLine" id="cb522-5" title="5"><span class="co"># maxit - maximum number of iterations</span></a>
 <a class="sourceLine" id="cb522-6" title="6"><span class="co"># tol   - convergence tolerance</span></a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb523-1" title="1">optim_gd &lt;-<span class="st"> </span><span class="cf">function</span>(par, fn, gr, <span class="dt">eta=</span><span class="fl">0.01</span>,</a>
 <a class="sourceLine" id="cb523-2" title="2">                        <span class="dt">maxit=</span><span class="dv">1000</span>, <span class="dt">tol=</span><span class="fl">1e-8</span>) {</a>
 <a class="sourceLine" id="cb523-3" title="3">    f_last &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
@@ -1049,15 +1162,17 @@ is positive-definite.</p>
 <a class="sourceLine" id="cb523-6" title="6">        f_cur &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
 <a class="sourceLine" id="cb523-7" title="7">        <span class="cf">if</span> (<span class="kw">abs</span>(f_cur<span class="op">-</span>f_last) <span class="op">&lt;</span><span class="st"> </span>tol) <span class="cf">break</span></a>
 <a class="sourceLine" id="cb523-8" title="8">        f_last &lt;-<span class="st"> </span>f_cur</a>
-<a class="sourceLine" id="cb523-9" title="9">    }</a>
-<a class="sourceLine" id="cb523-10" title="10">    <span class="kw">list</span>( <span class="co"># see ?optim, section `Value`</span></a>
+<a class="sourceLine" id="cb523-9" title="9"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb523-10" title="10"><span class="st">    </span><span class="kw">list</span>( <span class="co"># see ?optim, section `Value`</span></a>
 <a class="sourceLine" id="cb523-11" title="11">        <span class="dt">par=</span>par,</a>
 <a class="sourceLine" id="cb523-12" title="12">        <span class="dt">value=</span><span class="kw">g_vectorised</span>(par),</a>
 <a class="sourceLine" id="cb523-13" title="13">        <span class="dt">counts=</span>i,</a>
 <a class="sourceLine" id="cb523-14" title="14">        <span class="dt">convergence=</span><span class="kw">as.integer</span>(i<span class="op">==</span>maxit)</a>
-<a class="sourceLine" id="cb523-15" title="15">    )</a>
-<a class="sourceLine" id="cb523-16" title="16">}</a></code></pre></div>
-<hr />
+<a class="sourceLine" id="cb523-15" title="15"><span class="op">&lt;</span>div <span class="dt">style=</span><span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb523-16" title="16"><span class="er">}</span></a></code></pre></div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Tests of the <span class="math inline">\(g\)</span> function:</p>
 <div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.01</span></a>
 <a class="sourceLine" id="cb524-2" title="2"><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a></code></pre></div>
@@ -1072,31 +1187,48 @@ is positive-definite.</p>
 ## 
 ## $convergence
 ## [1] 0</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Zooming in the contour plot to see the actual path (<span class="math inline">\(\eta=0.01\)</span>):</p>
-<p><img src="06-optimisation-iterative-figures/etastepplot-1.png" alt="plot of chunk etastepplot" style="width:80.0%" /></p>
 <pre><code>## List of 4
 ##  $ par        : num [1:2] -1.54 2.16
 ##  $ value      : num 1.33e-08
 ##  $ counts     : int 135
 ##  $ convergence: int 0</code></pre>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/etastepplot-1.svg" alt="Figure 12: plot of chunk etastepplot" id="fig:etastepplot" />
+<p class="caption">Figure 12: plot of chunk etastepplot</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Now with <span class="math inline">\(\eta=0.05\)</span>:</p>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26" style="width:80.0%" /></p>
 <pre><code>## List of 4
 ##  $ par        : num [1:2] -1.54 2.15
 ##  $ value      : num 0.000203
 ##  $ counts     : int 417
 ##  $ convergence: int 0</code></pre>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-25-1.svg" alt="Figure 13: plot of chunk unnamed-chunk-25" id="fig:unnamed-chunk-25" />
+<p class="caption">Figure 13: plot of chunk unnamed-chunk-25</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>And now with <span class="math inline">\(\eta=0.1\)</span>:</p>
-<p><img src="06-optimisation-iterative-figures/unnamed-chunk-27-1.png" alt="plot of chunk unnamed-chunk-27" style="width:80.0%" /></p>
 <pre><code>## List of 4
 ##  $ par        : num [1:2] -1.52 2.33
 ##  $ value      : num 0.507
 ##  $ counts     : int 1000
 ##  $ convergence: int 1</code></pre>
-<hr />
+<div class="figure">
+<img src="06-optimisation-iterative-figures/unnamed-chunk-26-1.svg" alt="Figure 14: plot of chunk unnamed-chunk-26" id="fig:unnamed-chunk-26" />
+<p class="caption">Figure 14: plot of chunk unnamed-chunk-26</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>If the learning rate <span class="math inline">\(\eta\)</span> is too small, the convergence might be too slow
 and we might get stuck in a plateau.</p>
 <p>On the other hand, if <span class="math inline">\(\eta\)</span> is too large, we might be overshooting
@@ -1119,7 +1251,9 @@ and minimise oscillations.</p></li>
 </div>
 <div id="example-mnist" class="section level3">
 <h3><span class="header-section-number">6.3.4</span> Example: MNIST</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Recall that in the previous chapter we’ve
 studied the MNIST dataset.</p>
 <p>Let us go back to the task of fitting a multiclass logistic regression model.</p>
@@ -1133,7 +1267,9 @@ studied the MNIST dataset.</p>
 <a class="sourceLine" id="cb529-8" title="8"><span class="co"># get the corresponding labels in {0,1,...,9}:</span></a>
 <a class="sourceLine" id="cb529-9" title="9">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
 <a class="sourceLine" id="cb529-10" title="10">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The labels need to be one-hot encoded:</p>
 <div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" title="1">one_hot_encode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
 <a class="sourceLine" id="cb530-2" title="2">    <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(Y))</a>
@@ -1147,7 +1283,9 @@ studied the MNIST dataset.</p>
 <a class="sourceLine" id="cb530-10" title="10"></a>
 <a class="sourceLine" id="cb530-11" title="11">Y_train2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_train)</a>
 <a class="sourceLine" id="cb530-12" title="12">Y_test2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_test)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Recall that the output of the logistic regression model
 (1-layer neural network with softmax) can be written
 in the matrix form as:
@@ -1170,7 +1308,9 @@ that the <span class="math inline">\(i\)</span>-th image depicts the <span class
 <a class="sourceLine" id="cb531-2" title="2"><span class="co"># and add a column of 1s</span></a>
 <a class="sourceLine" id="cb531-3" title="3">X_train1 &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a>
 <a class="sourceLine" id="cb531-4" title="4">X_test1  &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" title="1">softmax &lt;-<span class="st"> </span><span class="cf">function</span>(T) {</a>
 <a class="sourceLine" id="cb532-2" title="2">    T &lt;-<span class="st"> </span><span class="kw">exp</span>(T)</a>
 <a class="sourceLine" id="cb532-3" title="3">    T<span class="op">/</span><span class="kw">rowSums</span>(T)</a>
@@ -1179,7 +1319,9 @@ that the <span class="math inline">\(i\)</span>-th image depicts the <span class
 <a class="sourceLine" id="cb532-6" title="6">nn_predict &lt;-<span class="st"> </span><span class="cf">function</span>(B, X) {</a>
 <a class="sourceLine" id="cb532-7" title="7">    <span class="kw">softmax</span>(X <span class="op">%*%</span><span class="st"> </span>B)</a>
 <a class="sourceLine" id="cb532-8" title="8">}</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Define the functions to compute cross-entropy (which we shall minimise)
 and accuracy (which we shall report to a user):</p>
 <div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" title="1">accuracy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
@@ -1193,7 +1335,9 @@ and accuracy (which we shall report to a user):</p>
 <a class="sourceLine" id="cb533-9" title="9">cross_entropy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
 <a class="sourceLine" id="cb533-10" title="10">    <span class="op">-</span><span class="kw">sum</span>(Y_true<span class="op">*</span><span class="kw">log</span>(Y_pred))<span class="op">/</span><span class="kw">nrow</span>(Y_true)</a>
 <a class="sourceLine" id="cb533-11" title="11">}</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>(*) Cross-entropy in non-matrix form
 (<span class="math inline">\(n\)</span> – number of samples, <span class="math inline">\(K\)</span> – number of classes,
 <span class="math inline">\(p+1\)</span> – number of model parameters;
@@ -1222,7 +1366,9 @@ E(\mathbf{B}) &amp;=&amp; -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \d
 \right)
 \end{array}
 \]</span></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>(***) Partial derivative of cross-entropy w.r.t. <span class="math inline">\(\beta_{a,b}\)</span> in non-matrix form:</p>
 <p><span class="math display">\[
 \begin{array}{rcl}
@@ -1247,7 +1393,9 @@ E(\mathbf{B}) &amp;=&amp; -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \d
 \right)
 \end{array}
 \]</span></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>It may be shown (*) that the gradient of cross-entropy
 (with respect to the parameter matrix <span class="math inline">\(\mathbf{B}\)</span>)
 can be expressed in the matrix form as:</p>
@@ -1262,7 +1410,9 @@ can be expressed in the matrix form as:</p>
 we can always substitute the gradient
 with the finite differences (yet, these will be slower). :)</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let us implement the gradient descent method:</p>
 <div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" title="1"><span class="co"># random matrix of size 785x10 - initial guess</span></a>
 <a class="sourceLine" id="cb535-2" title="2">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
@@ -1274,11 +1424,13 @@ with the finite differences (yet, these will be slower). :)</p>
 <a class="sourceLine" id="cb535-8" title="8">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
 <a class="sourceLine" id="cb535-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
 <a class="sourceLine" id="cb535-10" title="10">            X_train1, Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a>
-<a class="sourceLine" id="cb535-11" title="11">    }</a>
-<a class="sourceLine" id="cb535-12" title="12">}) <span class="co"># `user` - processing time in seconds:</span></a></code></pre></div>
+<a class="sourceLine" id="cb535-11" title="11"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb535-12" title="12">}<span class="er">)</span> <span class="co"># `user` - processing time in seconds:</span></a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##  70.081  12.013  67.708</code></pre>
-<hr />
+##  46.400   7.058  30.836</code></pre>
+<div style="margin-top: 1em">
+
+</div>
 <p>Unfortunately, the method’s convergence is really slow
 (we are optimising over <span class="math inline">\(7850\)</span> parameters…)
 and the results after 100 iterations are disappointing:</p>
@@ -1289,7 +1441,9 @@ and the results after 100 iterations are disappointing:</p>
 </div>
 <div id="stochastic-gradient-descent-sgd" class="section level3">
 <h3><span class="header-section-number">6.3.5</span> Stochastic Gradient Descent (SGD)</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In turns out that there’s a simple cure for that.</p>
 <p>Sometimes the true global minimum of cross-entropy for the whole training set
 is not exactly what we really want.</p>
@@ -1299,7 +1453,9 @@ but what we really want is to minimise the test error</strong>
 <p>It is rational to assume that both the train and the test set
 consist of random digits independently sampled from the set of “all the possible
 digits out there in the world”.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Looking at the objective (cross-entropy):
 <span class="math display">\[
 E(\mathbf{B}) =
@@ -1320,7 +1476,9 @@ E(\mathbf{B}) =
 <p>Technically, this is sometimes referred to as <strong>mini-batch</strong> gradient descent;
 there are a few variations popular in the literature, we pick the most intuitive now.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Stochastic gradient descent:</p>
 <div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
 <a class="sourceLine" id="cb541-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
@@ -1334,18 +1492,22 @@ there are a few variations popular in the literature, we pick the most intuitive
 <a class="sourceLine" id="cb541-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
 <a class="sourceLine" id="cb541-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
 <a class="sourceLine" id="cb541-12" title="12">        )</a>
-<a class="sourceLine" id="cb541-13" title="13">    }</a>
-<a class="sourceLine" id="cb541-14" title="14">})</a></code></pre></div>
+<a class="sourceLine" id="cb541-13" title="13"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb541-14" title="14">}<span class="er">)</span></a></code></pre></div>
 <pre><code>##    user  system elapsed 
-##   3.017   0.016   1.411</code></pre>
-<hr />
+##   0.325   0.016   0.091</code></pre>
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
 <pre><code>## [1] 0.40435</code></pre>
 <div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
 <pre><code>## [1] 0.4123</code></pre>
 <p>The errors are slightly worse but that was very quick.</p>
 <p>Why don’t we increase the number of iterations?</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
 <a class="sourceLine" id="cb547-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
 <a class="sourceLine" id="cb547-3" title="3">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
@@ -1358,11 +1520,13 @@ there are a few variations popular in the literature, we pick the most intuitive
 <a class="sourceLine" id="cb547-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
 <a class="sourceLine" id="cb547-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
 <a class="sourceLine" id="cb547-12" title="12">        )</a>
-<a class="sourceLine" id="cb547-13" title="13">    }</a>
-<a class="sourceLine" id="cb547-14" title="14">})</a></code></pre></div>
+<a class="sourceLine" id="cb547-13" title="13"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb547-14" title="14">}<span class="er">)</span></a></code></pre></div>
 <pre><code>##    user  system elapsed 
-## 271.687   0.585 120.396</code></pre>
-<hr />
+##  28.990   0.280   7.332</code></pre>
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
 <pre><code>## [1] 0.8932667</code></pre>
 <div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
@@ -1370,21 +1534,33 @@ there are a few variations popular in the literature, we pick the most intuitive
 <p>This is great.</p>
 <p>Let’s take a closer look at how the train/test error
 behaves in each iteration for different batch sizes.</p>
-<hr />
-<p><img src="06-optimisation-iterative-figures/mnist_sgd-1.png" alt="plot of chunk mnist_sgd" style="width:100.0%" /></p>
+<div style="margin-top: 1em">
+
+</div>
 <pre><code>##    user  system elapsed 
-## 300.297   0.358 156.721</code></pre>
-<hr />
-<p><img src="06-optimisation-iterative-figures/mnist_sgd2b-1.png" alt="plot of chunk mnist_sgd2b" style="width:100.0%" /></p>
+##  71.394   0.023  30.397</code></pre>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/mnist_sgd-1.svg" alt="Figure 15: plot of chunk mnist_sgd" id="fig:mnist_sgd" style="width:100.0%" />
+<p class="caption">Figure 15: plot of chunk mnist_sgd</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <pre><code>##    user  system elapsed 
-## 861.692   0.000 743.601</code></pre>
+## 149.187   0.012  49.534</code></pre>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/mnist_sgd2b-1.svg" alt="Figure 16: plot of chunk mnist_sgd2b" id="fig:mnist_sgd2b" style="width:100.0%" />
+<p class="caption">Figure 16: plot of chunk mnist_sgd2b</p>
+</div>
 </div>
 </div>
 <div id="outro-5" class="section level2">
 <h2><span class="header-section-number">6.4</span> Outro</h2>
 <div id="remarks-5" class="section level3">
 <h3><span class="header-section-number">6.4.1</span> Remarks</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Solving continuous problems with many variables (e.g., deep neural networks)
 is time consuming – the more variables to optimise over (e.g.,
 model parameters, think the number of interconnections between all the neurons), the slower
@@ -1432,7 +1608,9 @@ gradient descent or higher-order methods like the ones available in `optim()`.
 </div>
 <div id="optimisers-in-keras" class="section level3">
 <h3><span class="header-section-number">6.4.2</span> Optimisers in Keras</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Keras implements various optimisers that
 we can refer to in the <code>compile()</code> function,
 see
@@ -1455,7 +1633,9 @@ good intuitions!</p>
 </div>
 <div id="note-on-search-spaces" class="section level3">
 <h3><span class="header-section-number">6.4.3</span> Note on Search Spaces</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Most often, the choice of the search space <span class="math inline">\(D\)</span> in an continuous optimisation
 problem can be:</p>
 <ul>

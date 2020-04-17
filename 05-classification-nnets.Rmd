@@ -677,7 +677,7 @@ A neuron as a mathematical function:
 
 ![Source: https://en.wikipedia.org/wiki/File:Neuron3.png
 by Egm4313.s12 at English Wikipedia, licensed under
-the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuron)
+the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuron){#fig:neuron}
 
 
 
@@ -687,7 +687,7 @@ the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuro
 The **perceptron** (Frank Rosenblatt, 1958) was amongst the first
 models of artificial neurons:
 
-![](figures/perceptron)
+![](figures/perceptron){#fig:perceptron}
 
 
 
@@ -703,14 +703,14 @@ We determine a linear combination (a weighted sum) of 784 inputs
 and then transform it using the logistic sigmoid "activation" function.
 
 
-![](figures/logistic_regression_binary)
+![](figures/logistic_regression_binary){#fig:logistic_regression_binary}
 
 
 ---
 
 A multiclass logistic regression can be depicted as:
 
-![](figures/logistic_regression_multiclass)
+![](figures/logistic_regression_multiclass){#fig:logistic_regression_multiclass}
 
 ---
 
@@ -842,7 +842,7 @@ In a brain, a neuron's output is an input to another neuron.
 
 We could try aligning neurons into many interconnected layers.
 
-![](figures/nnet)
+![](figures/nnet){#fig:nnet}
 
 
 

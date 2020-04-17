@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -833,8 +833,12 @@ to write programs that manipulate unevaluated R expressions.</p>
 <p>For instance, take a close look at the following plot:</p>
 <div class="sourceCode" id="cb1265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1265-1" title="1">z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
 <a class="sourceLine" id="cb1265-2" title="2"><span class="kw">plot</span>(z, <span class="kw">sin</span>(z), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="94-R-data-frames-figures/plotz-1.svg" alt="plot of chunk plotz" /></p>
-<p>How did the <code>plot()</code> function know that we are plotting <code>sin</code> of <code>z</code>?
+<div class="figure">
+<img src="94-R-data-frames-figures/plotz_metaprogramming-1.svg" alt="Figure 1: Metaprogramming in action: Just take a look at the Y axis label" id="fig:plotz_metaprogramming" />
+<p class="caption">Figure 1: Metaprogramming in action: Just take a look at the Y axis label</p>
+</div>
+<p>How did the <code>plot()</code> function know that we are plotting <code>sin</code> of <code>z</code>
+(see Figure <a href="data-frame-wrangling-in-r.html#fig:plotz_metaprogramming">1</a>)?
 It turns out that, at any time, we not only have access to the value
 of an object (such as the result of evaluating <code>sin(z)</code>, which is
 a vector of 101 reals) but also to the expression that was passed as
@@ -899,11 +903,16 @@ uses formulas to specify the output and input variables:</p>
 ## Coefficients:
 ##  (Intercept)  Petal.Length   Sepal.Width  
 ##       2.2491        0.4719        0.5955</code></pre>
-<p>On the other hand, <code>boxplot()</code> allows for creating
+<p>On the other hand, <code>boxplot()</code> (see Figure <a href="data-frame-wrangling-in-r.html#fig:boxplot_metaprogramming">2</a>)
+allows for creating
 separate box-and-whisker plots for each subgroup given by a combination
 of factors.</p>
-<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1276-1" title="1"><span class="kw">boxplot</span>(len<span class="op">~</span>supp<span class="op">+</span>dose, <span class="dt">data=</span>ToothGrowth, <span class="dt">horizontal=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="94-R-data-frames-figures/boxplot-1.svg" alt="plot of chunk boxplot" /></p>
+<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1276-1" title="1"><span class="kw">boxplot</span>(len<span class="op">~</span>supp<span class="op">+</span>dose, <span class="dt">data=</span>ToothGrowth,</a>
+<a class="sourceLine" id="cb1276-2" title="2">    <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<div class="figure">
+<img src="94-R-data-frames-figures/boxplot_metaprogramming-1.svg" alt="Figure 2: Example box plot created via the formula interface" id="fig:boxplot_metaprogramming" />
+<p class="caption">Figure 2: Example box plot created via the formula interface</p>
+</div>
 <p>The <code>aggregate()</code> function supports formulas too:</p>
 <div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1277-1" title="1"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(Sepal.Length, Sepal.Width)<span class="op">~</span>Species, <span class="dt">data=</span>iris, mean)</a></code></pre></div>
 <pre><code>##      Species Sepal.Length Sepal.Width

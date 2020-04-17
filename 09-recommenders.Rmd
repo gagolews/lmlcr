@@ -498,12 +498,10 @@ To recall, the cosine similarity between $\mathbf{a},\mathbf{b}\in\mathbb{R}^m$
 is given by:
 
 \[
-S_C(\mathbf{a},\mathbf{b}) = \frac{ \sum_{i=1}^m a_i b_i
-    }{
-    \sqrt{ \sum_{i=1}^m a_i^2 }
-    \sqrt{ \sum_{i=1}^m b_i^2 }
-    }
-    \]
+S_C(\mathbf{a},\mathbf{b}) = \frac{\sum_{i=1}^m a_i b_i}{
+    \sqrt{\sum_{i=1}^m a_i^2}\sqrt{\sum_{i=1}^m b_i^2}
+}
+\]
 
 In vector/matrix algebra notation (have you noticed this
 section is marked with (\*)?), this is:

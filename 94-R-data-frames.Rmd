@@ -237,12 +237,13 @@ to write programs that manipulate unevaluated R expressions.
 
 For instance, take a close look at the following plot:
 
-```{r plotz}
+```{r plotz_metaprogramming,fig.cap="Metaprogramming in action: Just take a look at the Y axis label"}
 z <- seq(-2*pi, 2*pi, length.out=101)
 plot(z, sin(z), type="l")
 ```
 
-How did the `plot()` function know that we are plotting `sin` of `z`?
+How did the `plot()` function know that we are plotting `sin` of `z`
+(see Figure {@fig:plotz_metaprogramming})?
 It turns out that, at any time, we not only have access to the value
 of an object (such as the result of evaluating `sin(z)`, which is
 a vector of 101 reals) but also to the expression that was passed as
@@ -303,12 +304,14 @@ uses formulas to specify the output and input variables:
 lm(Sepal.Length~Petal.Length+Sepal.Width, data=iris)
 ```
 
-On the other hand, `boxplot()` allows for creating
+On the other hand, `boxplot()` (see Figure {@fig:boxplot_metaprogramming})
+allows for creating
 separate box-and-whisker plots for each subgroup given by a combination
 of factors.
 
-```{r boxplot}
-boxplot(len~supp+dose, data=ToothGrowth, horizontal=TRUE)
+```{r boxplot_metaprogramming,fig.cap="Example box plot created via the formula interface"}
+boxplot(len~supp+dose, data=ToothGrowth,
+    horizontal=TRUE, col="white")
 ```
 
 The `aggregate()` function supports formulas too:

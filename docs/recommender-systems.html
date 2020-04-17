@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -509,7 +509,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">9.1</span> Introduction</h2>
 <div id="what-is-a-recommender-system" class="section level3">
 <h3><span class="header-section-number">9.1.1</span> What is a Recommender System?</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>A <strong>recommender (recommendation) system</strong>
 is a method to predict the rating a <strong>user</strong> would give to an <strong>item</strong>.</p>
 <p>For example:</p>
@@ -518,7 +520,9 @@ is a method to predict the rating a <strong>user</strong> would give to an <stro
 <li>content recommendations on Facebook, Instagram, Twitter or Apple News,</li>
 <li>product recommendations at Amazon or Alibaba.</li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><span class="citation">(Ricci et al. <a href="references.html#ref-ricci_etal">2011</a>)</span> list the following functions of recommender systems:</p>
 <ul>
 <li>increase the number of items sold,</li>
@@ -530,7 +534,9 @@ is a method to predict the rating a <strong>user</strong> would give to an <stro
 </div>
 <div id="the-netflix-prize" class="section level3">
 <h3><span class="header-section-number">9.1.2</span> The Netflix Prize</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In 2006 Netflix (back then a DVD rental company) released one of the most famous
 benchmark sets for recommender systems, which helped boost the research on algorithms in this field.</p>
 <p>See <a href="https://www.kaggle.com/netflix-inc/netflix-prize-data" class="uri">https://www.kaggle.com/netflix-inc/netflix-prize-data</a>;
@@ -551,7 +557,9 @@ and <a href="https://archive.org/details/nf_prize_dataset.tar" class="uri">https
 <li><code>Date</code> of rating in the range 1998-11-01 to 2005-12-31</li>
 </ul></li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The <em>quiz set</em> consists of 1,408,342 ratings
 and it was used by the competitors to assess the quality of their
 algorithms and compute leaderboard scores.</p>
@@ -564,7 +572,9 @@ achieving the winning RMSE of 0.8567 on the test subset.</p>
 </div>
 <div id="main-approaches" class="section level3">
 <h3><span class="header-section-number">9.1.3</span> Main Approaches</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Current recommender systems are quite complex and use a fusion
 of various approaches, also those based on external knowledge bases.</p>
 <p>However, we may distinguish at least two core approaches,
@@ -588,7 +598,9 @@ with which John is yet to interact. John should
 give it a try.</p>
 </blockquote></li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Jim Bennett, vice president of recommendations systems at Netflix
 on the idea behind the original Cinematch algorithm (see <a href="https://www.technologyreview.com/s/406637/the-1-million-netflix-challenge/" class="uri">https://www.technologyreview.com/s/406637/the-1-million-netflix-challenge/</a>):</p>
 <blockquote>
@@ -607,7 +619,9 @@ Netflix Prize FAQ https://web.archive.org/web/20070821194257/http://www.netflixp
 </div>
 <div id="formalism-2" class="section level3">
 <h3><span class="header-section-number">9.1.4</span> Formalism</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let <span class="math inline">\(\mathcal{U}=\{ U_1,\dots,U_m \}\)</span> denote the set of <span class="math inline">\(m\)</span> users.</p>
 <p>Let <span class="math inline">\(\mathcal{I}=\{ I_1,\dots,I_n \}\)</span> denote the set of <span class="math inline">\(n\)</span> items.</p>
 <p>Let <span class="math inline">\(R\in\mathbb{R}^{m\times n}\)</span> be a user-item matrix such that:
@@ -636,7 +650,9 @@ that the <span class="math inline">\(u\)</span>-th user would give to the <span 
 <h2><span class="header-section-number">9.2</span> Collaborative Filtering</h2>
 <div id="example" class="section level3">
 <h3><span class="header-section-number">9.2.1</span> Example</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In <strong>user-based collaborative filtering</strong>, we seek users with similar
 preference profiles/rating patters.</p>
 <blockquote>
@@ -714,7 +730,9 @@ structure.</p>
 <p>Will Sara enjoy her spinach?
 Will Sara enjoy her apple?</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" title="1">R &lt;-<span class="st"> </span><span class="kw">matrix</span>(</a>
 <a class="sourceLine" id="cb613-2" title="2">    <span class="kw">c</span>(</a>
 <a class="sourceLine" id="cb613-3" title="3">     <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>,</a>
@@ -727,9 +745,11 @@ Will Sara enjoy her apple?</p>
 <a class="sourceLine" id="cb613-10" title="10">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb613-11" title="11">        <span class="kw">c</span>(<span class="st">&quot;Anne&quot;</span>, <span class="st">&quot;Beth&quot;</span>, <span class="st">&quot;John&quot;</span>, <span class="st">&quot;Kate&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Sara&quot;</span>),</a>
 <a class="sourceLine" id="cb613-12" title="12">        <span class="kw">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Sushi&quot;</span>, <span class="st">&quot;Spinach&quot;</span>, <span class="st">&quot;Orange&quot;</span>)</a>
-<a class="sourceLine" id="cb613-13" title="13">    )</a>
+<a class="sourceLine" id="cb613-13" title="13"><span class="op">&lt;</span>div <span class="dt">style=</span><span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb613-14" title="14">)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb614-1" title="1">R</a></code></pre></div>
 <pre><code>##      Apple Banana Sushi Spinach Orange
 ## Anne     1      5     5       0      1
@@ -741,7 +761,9 @@ Will Sara enjoy her apple?</p>
 </div>
 <div id="similarity-measures" class="section level3">
 <h3><span class="header-section-number">9.2.2</span> Similarity Measures</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Assuming <span class="math inline">\(\mathbf{a},\mathbf{b}\in\mathbb{N}^k\)</span>
 (in our setting, <span class="math inline">\(k\in\{n,m\}\)</span>),
 let <span class="math inline">\(S\)</span> be the following similarity measure between two vectors of identical lengths
@@ -764,7 +786,9 @@ see also the <code>use</code> argument to the <code>cor()</code> function.</p>
 </div>
 <div id="user-based-collaborative-filtering" class="section level3">
 <h3><span class="header-section-number">9.2.3</span> User-Based Collaborative Filtering</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><strong>User-based</strong> approaches involve comparing each user against every other user
 (pairwise comparisons of the rows in <span class="math inline">\(R\)</span>). This yields a similarity degree
 between the <span class="math inline">\(i\)</span>-th and the <span class="math inline">\(j\)</span>-th user:</p>
@@ -776,9 +800,11 @@ s^U_{i,j} = S(\mathbf{r}_{i,\cdot},\mathbf{r}_{j,\cdot}).
 <a class="sourceLine" id="cb617-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
 <a class="sourceLine" id="cb617-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
 <a class="sourceLine" id="cb617-5" title="5">        SU[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[i,], R[j,])</a>
-<a class="sourceLine" id="cb617-6" title="6">    }</a>
+<a class="sourceLine" id="cb617-6" title="6"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb617-7" title="7">}</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb618-1" title="1"><span class="kw">round</span>(SU, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##      Anne Beth John Kate Mark Sara
 ## Anne 1.00 0.61 0.58 0.61 0.63 0.59
@@ -787,7 +813,9 @@ s^U_{i,j} = S(\mathbf{r}_{i,\cdot},\mathbf{r}_{j,\cdot}).
 ## Kate 0.61 1.00 0.29 1.00 0.39 0.19
 ## Mark 0.63 0.39 0.81 0.39 1.00 0.81
 ## Sara 0.59 0.19 0.50 0.19 0.81 1.00</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In order to obtain the previously unobserved
 rating <span class="math inline">\(\hat{r}_{u,i}\)</span> using the user-based approach, we typically
 look for the <span class="math inline">\(K\)</span> most similar users and aggregate their corresponding
@@ -807,7 +835,9 @@ the more or a weighted arithmetic mean where weights are proportional to <span c
 <blockquote>
 <p>This is similar to the <span class="math inline">\(K\)</span>-nearest neighbour heuristic.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb620-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb620-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SU[<span class="st">&quot;Sara&quot;</span>,],<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 6 5 1 3 2 4</code></pre>
@@ -825,7 +855,9 @@ the more or a weighted arithmetic mean where weights are proportional to <span c
 </div>
 <div id="item-based-collaborative-filtering" class="section level3">
 <h3><span class="header-section-number">9.2.4</span> Item-Based Collaborative Filtering</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><strong>Item-based</strong> schemes rely on pairwise comparisons between the items
 (columns in <span class="math inline">\(R\)</span>). Hence, a similarity degree between the <span class="math inline">\(i\)</span>-th and the <span class="math inline">\(j\)</span>-th
 item is given by:</p>
@@ -837,9 +869,11 @@ s^I_{i,j} = S(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}).
 <a class="sourceLine" id="cb628-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
 <a class="sourceLine" id="cb628-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
 <a class="sourceLine" id="cb628-5" title="5">        SI[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[,i], R[,j])</a>
-<a class="sourceLine" id="cb628-6" title="6">    }</a>
+<a class="sourceLine" id="cb628-6" title="6"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb628-7" title="7">}</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" title="1"><span class="kw">round</span>(SI, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##         Apple Banana Sushi Spinach Orange
 ## Apple    1.00   0.78  0.32    0.38   0.53
@@ -847,7 +881,9 @@ s^I_{i,j} = S(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}).
 ## Sushi    0.32   0.45  1.00    0.81   0.32
 ## Spinach  0.38   0.27  0.81    1.00   0.29
 ## Orange   0.53   0.78  0.32    0.29   1.00</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In order to obtain the previously unobserved
 rating <span class="math inline">\(\hat{r}_{u,i}\)</span> using the item-based approach, we typically
 look for the <span class="math inline">\(K\)</span> most similar items and aggregate their corresponding
@@ -864,7 +900,9 @@ Then <span class="math display">\[
 a weighted arithmetic mean where weights are proportional to <span class="math inline">\(s^I_{i, j_\ell}\)</span>
 or the mode.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb631-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb631-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SI[<span class="st">&quot;Apple&quot;</span>,],<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 1 2 5 4 3</code></pre>
@@ -885,7 +923,9 @@ or the mode.</p>
 <h2><span class="header-section-number">9.3</span> MovieLens Dataset (*)</h2>
 <div id="dataset" class="section level3">
 <h3><span class="header-section-number">9.3.1</span> Dataset</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let us make a few recommendations based on the MovieLens-9/2018-Small
 dataset available at
 <a href="https://grouplens.org/datasets/movielens/latest/" class="uri">https://grouplens.org/datasets/movielens/latest/</a></p>
@@ -897,7 +937,9 @@ with memory usage and run-time.</p>
 (programming-wise), therefore
 we mark them with (*).</p>
 <p>See also <a href="https://movielens.org/" class="uri">https://movielens.org/</a> and <span class="citation">(Harper &amp; Konstan <a href="references.html#ref-movielens">2015</a>)</span>.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb639-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb639-2" title="2">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/movies.csv&quot;</span>)</a>
 <a class="sourceLine" id="cb639-3" title="3"><span class="kw">head</span>(movies, <span class="dv">4</span>)</a></code></pre></div>
@@ -913,7 +955,9 @@ we mark them with (*).</p>
 ## 4                        Comedy|Drama|Romance</code></pre>
 <div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb641-1" title="1"><span class="kw">nrow</span>(movies)</a></code></pre></div>
 <pre><code>## [1] 9742</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb643-1" title="1">ratings &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/ratings.csv&quot;</span>)</a>
 <a class="sourceLine" id="cb643-2" title="2"><span class="kw">head</span>(ratings, <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>##   userId movieId rating timestamp
@@ -930,7 +974,9 @@ we mark them with (*).</p>
 </div>
 <div id="data-cleansing" class="section level3">
 <h3><span class="header-section-number">9.3.2</span> Data Cleansing</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><code>movieId</code>s should be re-encoded, as not every film is mentioned/rated in the database.
 We will re-map the <code>movieId</code>s to consecutive integers.</p>
 <div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb649-1" title="1">movieId2 &lt;-<span class="st"> </span><span class="kw">unique</span>(ratings<span class="op">$</span>movieId) <span class="co"># the list of all rated movieIds</span></a>
@@ -946,7 +992,9 @@ We will re-map the <code>movieId</code>s to consecutive integers.</p>
 <a class="sourceLine" id="cb653-6" title="6"><span class="co"># the movie with Id=i is at the i-th row.</span></a>
 <a class="sourceLine" id="cb653-7" title="7">movies &lt;-<span class="st"> </span>movies[<span class="kw">order</span>(movies<span class="op">$</span>movieId),]</a>
 <a class="sourceLine" id="cb653-8" title="8"><span class="kw">stopifnot</span>(<span class="kw">all</span>(movies<span class="op">$</span>movieId <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span>n)) <span class="co"># sanity check</span></a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>We will use a sparse matrix data type (from R package <code>Matrix</code>)
 to store ratings data. We don’t want to run out of memory!</p>
 <blockquote>
@@ -961,7 +1009,9 @@ to store ratings data. We don’t want to run out of memory!</p>
 RML <- RML[,apply(RML,2,sum)>0]
 # Not each user gave a rating - removing:
 RML <- RML[apply(RML,1,sum)>0,]-->
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" title="1"><span class="co"># Preview:</span></a>
 <a class="sourceLine" id="cb655-2" title="2">RML[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">18</span>]</a></code></pre></div>
 <pre><code>## 6 x 18 sparse Matrix of class &quot;dgCMatrix&quot;
@@ -975,16 +1025,16 @@ RML <- RML[apply(RML,1,sum)>0,]-->
 </div>
 <div id="item-item-similarities" class="section level3">
 <h3><span class="header-section-number">9.3.3</span> Item-Item Similarities</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>To recall, the cosine similarity between <span class="math inline">\(\mathbf{a},\mathbf{b}\in\mathbb{R}^m\)</span>
 is given by:</p>
 <p><span class="math display">\[
-S_C(\mathbf{a},\mathbf{b}) = \frac{ \sum_{i=1}^m a_i b_i
-    }{
-    \sqrt{ \sum_{i=1}^m a_i^2 }
-    \sqrt{ \sum_{i=1}^m b_i^2 }
-    }
-    \]</span></p>
+S_C(\mathbf{a},\mathbf{b}) = \frac{\sum_{i=1}^m a_i b_i}{
+    \sqrt{\sum_{i=1}^m a_i^2}\sqrt{\sum_{i=1}^m b_i^2}
+}
+\]</span></p>
 <p>In vector/matrix algebra notation (have you noticed this
 section is marked with (*)?), this is:</p>
 <p><span class="math display">\[
@@ -999,7 +1049,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 \dots
 }
 \]</span></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Cosine item-item similarities:</p>
 <div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" title="1">norms &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sqrt</span>(<span class="kw">colSums</span>(RML<span class="op">^</span><span class="dv">2</span>)))</a>
 <a class="sourceLine" id="cb657-2" title="2">RMLx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">crossprod</span>(RML, RML))</a>
@@ -1010,7 +1062,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 </div>
 <div id="example-recommendations" class="section level3">
 <h3><span class="header-section-number">9.3.4</span> Example Recommendations</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb658-1" title="1">recommend &lt;-<span class="st"> </span><span class="cf">function</span>(i, K, SI, movies) {</a>
 <a class="sourceLine" id="cb658-2" title="2">    <span class="co"># get K most similar movies to the i-th one</span></a>
 <a class="sourceLine" id="cb658-3" title="3">    ms &lt;-<span class="st"> </span><span class="kw">order</span>(SI[i,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>)</a>
@@ -1018,7 +1072,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 <a class="sourceLine" id="cb658-5" title="5">        <span class="dt">Title=</span>movies<span class="op">$</span>title[ms[<span class="dv">1</span><span class="op">:</span>K]],</a>
 <a class="sourceLine" id="cb658-6" title="6">        <span class="dt">SIC=</span>SI[i,ms[<span class="dv">1</span><span class="op">:</span>K]])</a>
 <a class="sourceLine" id="cb658-7" title="7">}</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb659-1" title="1"><span class="kw">recommend</span>(<span class="dv">1215</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
 <pre><code>## # A tibble: 10 x 2
 ##    Title                                              SIC
@@ -1033,7 +1089,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 ##  8 O Brother, Where Art Thou? (2000)                0.445
 ##  9 Ghost World (2001)                               0.444
 ## 10 Full Metal Jacket (1987)                         0.443</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb661-1" title="1"><span class="kw">recommend</span>(<span class="dv">1</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
 <pre><code>## # A tibble: 10 x 2
 ##    Title                                               SIC
@@ -1052,7 +1110,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 </div>
 <div id="clustering-2" class="section level3">
 <h3><span class="header-section-number">9.3.5</span> Clustering</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>A cosine similarity matrix can be turned into a dissimilarity matrix:</p>
 <div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb663-1" title="1">DI &lt;-<span class="st"> </span><span class="fl">1.0</span><span class="op">-</span>SI</a>
 <a class="sourceLine" id="cb663-2" title="2">DI[DI<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="fl">0.0</span> <span class="co"># account for numeric inaccuracies</span></a>
@@ -1061,7 +1121,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 <div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb664-1" title="1"><span class="kw">library</span>(<span class="st">&quot;genie&quot;</span>)</a>
 <a class="sourceLine" id="cb664-2" title="2">h &lt;-<span class="st"> </span><span class="kw">hclust2</span>(DI)</a>
 <a class="sourceLine" id="cb664-3" title="3">c &lt;-<span class="st"> </span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">20</span>)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Example movies in the 3rd cluster:</p>
 <div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb665-1" title="1"><span class="kw">library</span>(<span class="st">&quot;stringi&quot;</span>)</a>
 <a class="sourceLine" id="cb665-2" title="2"><span class="kw">cat</span>(i, <span class="kw">stri_wrap</span>(<span class="kw">stri_paste</span>(<span class="kw">head</span>(movies<span class="op">$</span>title[c<span class="op">==</span><span class="dv">3</span>], <span class="dv">20</span>),</a>
@@ -1080,7 +1142,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 ## Jones and the Last Crusade (1989), Grosse Pointe Blank
 ## (1997), Austin Powers: International Man of Mystery
 ## (1997), Men in Black (a.k.a. MIB) (1997)</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Example movies in the 5th cluster:</p>
 <div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb667-1" title="1"><span class="kw">cat</span>(i, <span class="kw">stri_wrap</span>(<span class="kw">stri_paste</span>(<span class="kw">head</span>(movies<span class="op">$</span>title[c<span class="op">==</span><span class="dv">5</span>], <span class="dv">20</span>),</a>
 <a class="sourceLine" id="cb667-2" title="2">    <span class="dt">collapse=</span><span class="st">&quot;, &quot;</span>)), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
@@ -1102,7 +1166,9 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 <h2><span class="header-section-number">9.4</span> Outro</h2>
 <div id="remarks-8" class="section level3">
 <h3><span class="header-section-number">9.4.1</span> Remarks</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Good recommender systems are perfect tools to increase the revenue
 of any user-centric enterprise.</p>
 <p>Not a single algorithm, but an ensemble (a proper combination) of different approaches
@@ -1113,7 +1179,9 @@ have already studied – linear models, K-nearest neighbours etc.</p>
 </div>
 <div id="issues" class="section level3">
 <h3><span class="header-section-number">9.4.2</span> Issues</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Building recommender systems is challenging, because
 data is large yet often sparse;</p>
 <blockquote>
@@ -1126,7 +1194,9 @@ the complete dataset that Netflix has):</p>
 <pre><code>## [1] 0.01177558</code></pre>
 <p><em>Sparse matrix</em> (many “zeros” = unassigned ratings) data structure is
 often used for storing of and computing over such data effectively.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Some users are <em>biased</em> in the sense that they are more critical or enthusiastic than
 average users.</p>
 <blockquote>
@@ -1135,7 +1205,9 @@ Would you go to a bar/restaurant ranked 3.0 by you favourite Maps app community?
 </blockquote>
 <p>It is particularly challenging to predict the preferences of users
 that cast few ratings, e.g., those who just signed up (<em>the cold start problem</em>).</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <blockquote>
 <p>“Hill et al. [1995] have shown that users provide inconsistent ratings when asked to rate the same movie at different times. They suggest that an algorithm cannot be more accurate than the variance in a user’s ratings for the same item.” <span class="citation">(Herlocker et al. <a href="references.html#ref-herlocker_etal">2004</a>: p. 6)</span></p>
 </blockquote>

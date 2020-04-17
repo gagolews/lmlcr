@@ -1,6 +1,7 @@
 # (C) 2020 Marek Gagolewski, https://www.gagolewski.com
 
-RMD_SOURCES = \
+FILES_RMD = \
+    00-introduction.Rmd                          \
     01-regression-simple.Rmd                     \
     02-regression-multiple.Rmd                   \
     03-classification-neighbours.Rmd             \
@@ -10,102 +11,87 @@ RMD_SOURCES = \
     07-clustering.Rmd                            \
     08-optimisation-genetic.Rmd                  \
     09-recommenders.Rmd                          \
+    90-convention.Rmd                            \
     91-R-setup.Rmd                               \
     92-R-vectors.Rmd                             \
     93-R-matrices.Rmd                            \
-    94-R-data-frames.Rmd
+    94-R-data-frames.Rmd                         \
+    99-references.Rmd
 
 
-SVG_SOURCES = \
-    figures/combination1.svg                     \
-    figures/combination2.svg                     \
-    figures/combination3.svg                     \
-    figures/convex_concave.svg                   \
-    figures/convex_function.svg                  \
-    figures/convex_set.svg                       \
-    figures/cover.svg                            \
-    figures/crossover.svg                        \
-    figures/neuron.svg                           \
-    figures/logistic_regression_binary.svg       \
-    figures/logistic_regression_multiclass.svg   \
-    figures/nnet.svg                             \
-    figures/perceptron.svg
+FILES_SVGZ = \
+    figures/combination1.svgz                     \
+    figures/combination2.svgz                     \
+    figures/combination3.svgz                     \
+    figures/convex_concave.svgz                   \
+    figures/convex_function.svgz                  \
+    figures/convex_set.svgz                       \
+    figures/cover.svgz                            \
+    figures/crossover.svgz                        \
+    figures/neuron.svgz                           \
+    figures/logistic_regression_binary.svgz       \
+    figures/logistic_regression_multiclass.svgz   \
+    figures/nnet.svgz                             \
+    figures/perceptron.svgz
 
 
 VPATH=.
 
-HTML_OUTDIR=out-html
-BEAMER_OUTDIR=out-beamer
-BOOKDOWN_GITBOOK_OUTDIR=out-bookdown-gitbook
-BOOKDOWN_GITBOOK_TMPDIR=tmp-bookdown-gitbook
-BOOKDOWN_LATEX_OUTDIR=out-bookdown-latex
-BOOKDOWN_LATEX_TMPDIR=tmp-bookdown-latex
 
-HTML_OUTPUTS=$(patsubst %.Rmd,$(HTML_OUTDIR)/%.html,$(RMD_SOURCES))
-BEAMER_OUTPUTS=$(patsubst %.Rmd,$(BEAMER_OUTDIR)/%.pdf,$(RMD_SOURCES))
-BOOKDOWN_GITBOOK_OUTPUTS=$(patsubst %.Rmd,$(BOOKDOWN_GITBOOK_TMPDIR)/%.Rmd,$(RMD_SOURCES))
-BOOKDOWN_LATEX_OUTPUTS=$(patsubst %.Rmd,$(BOOKDOWN_LATEX_TMPDIR)/%.Rmd,$(RMD_SOURCES))
+.PHONY: all docs md latex gitbook figures clean purge
 
-PDF_OUTPUTS=$(patsubst %.svg,%.pdf,$(SVG_SOURCES))
-PNG_OUTPUTS=$(patsubst %.svg,%.png,$(SVG_SOURCES))
+all: docs
 
 
-.PHONY: all public clean purge html beamer bookdown-gitbook bookdown-latex figures
-
-all: please_specify_build_target_manually
-
-html: $(HTML_OUTPUTS)
-
-beamer: $(BEAMER_OUTPUTS)
-
-bookdown-gitbook: out-bookdown-gitbook/index.html
-
-bookdown-latex: out-bookdown-latex/lmlcr.pdf
-
-public: bookdown-gitbook bookdown-latex
+docs: latex gitbook
 	rm -f -r docs
 	mkdir docs
-	cp -f -r out-bookdown-gitbook/* docs/
-	cp -f -r out-bookdown-latex/* docs/
-	cp -f build-bookdown-gitbook/CNAME.tpl docs/CNAME
+	cp -f -r out-gitbook/* docs/
+	cp -f -r out-latex/* docs/
+	cp -f build/CNAME.tpl docs/CNAME
 
-figures: $(PDF_OUTPUTS) $(PNG_OUTPUTS)
 
 clean:
-	rm -f -r tmp-bookdown-gitbook/*.Rmd tmp-bookdown-latex/*.Rmd \
-	         out-beamer out-bookdown-gitbook out-bookdown-latex out-html
+	rm -f -r tmp-beamer tmp-gitbook tmp-latex  \
+	         out-beamer out-gitbook out-latex
 purge:
-	rm -f -r tmp-beamer tmp-bookdown-gitbook tmp-bookdown-latex tmp-html \
-	         out-beamer out-bookdown-gitbook out-bookdown-latex out-html
+	rm -f -r tmp-beamer tmp-gitbook tmp-latex tmp-md \
+	         out-beamer out-gitbook out-latex
 
-out-bookdown-latex/lmlcr.pdf: $(BOOKDOWN_LATEX_OUTPUTS) \
-		00-introduction.Rmd \
-		90-convention.Rmd \
-		99-references.Rmd \
-		build-bookdown-latex/index.Rmd
-	build-bookdown-latex/render.sh
 
-out-bookdown-gitbook/index.html: $(BOOKDOWN_GITBOOK_OUTPUTS) \
-		00-introduction.Rmd \
-		90-convention.Rmd \
-		99-references.Rmd \
-		build-bookdown-gitbook/index.Rmd
-	build-bookdown-gitbook/render.sh
 
-$(BEAMER_OUTDIR)/%.pdf: %.Rmd
-	build-beamer/compile.sh "$<"
+PDF_OUTPUTS=$(patsubst %.svgz,%.pdf,$(FILES_SVGZ))
+SVG_OUTPUTS=$(patsubst %.svgz,%.svg,$(FILES_SVGZ))
 
-$(HTML_OUTDIR)/%.html: %.Rmd
-	build-html/compile.sh "$<"
 
-$(BOOKDOWN_GITBOOK_TMPDIR)/%.Rmd: %.Rmd
-	build-bookdown-gitbook/compile.sh "$<"
+figures: $(PDF_OUTPUTS) $(SVG_OUTPUTS)
 
-$(BOOKDOWN_LATEX_TMPDIR)/%.Rmd: %.Rmd
-	build-bookdown-latex/compile.sh "$<"
+figures/%.svg: figures/%.svgz
+	inkscape "$<" --without-gui --export-plain-svg="$@"
 
-figures/%.png: figures/%.svg
-	inkscape "$<" --without-gui --export-dpi=150 --export-png="$@"
-
-figures/%.pdf: figures/%.svg
+figures/%.pdf: figures/%.svgz
 	inkscape "$<" --without-gui --export-pdf="$@"
+
+
+
+TMP_MD=$(patsubst %.Rmd,tmp-md/%.md,$(FILES_RMD))
+TMP_LATEX=$(patsubst tmp-md/%.md,tmp-latex/%.Rmd,$(TMP_MD))
+TMP_GITBOOK=$(patsubst tmp-md/%.md,tmp-gitbook/%.Rmd,$(TMP_MD))
+
+md: figures $(TMP_MD)
+	build/render_md.sh
+
+latex: $(TMP_LATEX)
+	build/render_latex.sh
+
+gitbook: $(TMP_GITBOOK)
+	build/render_gitbook.sh
+
+tmp-md/%.md: %.Rmd
+	build/Rmd2md.sh "$<"
+
+tmp-latex/%.Rmd: tmp-md/%.md
+	build/md2md_latex.sh "$<"
+
+tmp-gitbook/%.Rmd: tmp-md/%.md
+	build/md2md_gitbook.sh "$<"

@@ -350,7 +350,7 @@ and $\theta_1+\theta_2+\dots+\theta_n=1$.
 
 ---
 
-![](figures/combination1){width=50%}
+![](figures/combination1){#fig:combination1 width=50%}
 
 The set of all convex combinations of two points $x_1,x_2\in D$:
 \[\{\theta x_{1}+(1-\theta)x_{2}: \theta\in [0,1]\}\]
@@ -360,7 +360,7 @@ is just the line segment between these two points.
 
 
 
-![](figures/combination2){width=50%}
+![](figures/combination2){#fig:combination2 width=50%}
 
 The set of all convex combinations
 of 3 points yields a triangle
@@ -369,7 +369,7 @@ of 3 points yields a triangle
 ---
 
 
-![](figures/combination3){width=50%}
+![](figures/combination3){#fig:combination3 width=50%}
 
 More generally, we get the *convex hull* of a set of points --
 the smallest set $C$ enclosing all the points that is convex,
@@ -383,7 +383,7 @@ like a fence.
 ---
 
 
-![](figures/convex_set){width=75%}
+![](figures/convex_set){#fig:convex_set width=75%}
 
 
 
@@ -399,14 +399,14 @@ f(\theta x_{1}+(1-\theta)x_{2})\leq \theta f(x_{1})+(1-\theta)f(x_{2})
 \]
 
 
-![](figures/convex_function){width=75%}
+![](figures/convex_function){#fig:convex_function width=75%}
 
 (function value at any convex combination of two points
 is not greater than that combination of the function values at these two points)
 
 ---
 
-![](figures/convex_concave){width=75%}
+![](figures/convex_concave){#fig:convex_concave width=75%}
 
 
 Convex: $f(\theta x_{1}+(1-\theta)x_{2})\leq \theta f(x_{1})+(1-\theta)f(x_{2})$
@@ -620,7 +620,7 @@ crossover <- function(pop, pairs, K, p) {
 
 ---
 
-![](figures/crossover){width=75%}
+![](figures/crossover){#fig:crossover width=75%}
 
 ---
 

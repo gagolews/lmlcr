@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -563,7 +563,10 @@ we assume that each <span class="math inline">\(y_i\)</span> is a descriptive la
 </tbody>
 </table>
 <p>The synthetic 2D dataset once again (true decision boundary is at <span class="math inline">\(X_1=0\)</span>):</p>
-<p><img src="04-classification-trees_and_logistic-figures/synthetic-1.svg" alt="plot of chunk synthetic" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/synthetic-1.svg" alt="Figure 1: plot of chunk synthetic" id="fig:synthetic" />
+<p class="caption">Figure 1: plot of chunk synthetic</p>
+</div>
 </div>
 <div id="data-1" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Data</h3>
@@ -676,15 +679,24 @@ consist of decision rules of the form:</p>
 <p><strong>IF <span class="math inline">\(x_{i,j_1}\le v_1\)</span> AND … AND <span class="math inline">\(x_{i,j_r}\le v_r\)</span> THEN <span class="math inline">\(\hat{y}_i=1\)</span>.</strong></p>
 <p>These can be organised into a <strong>hierarchy</strong> for greater readability.</p>
 <p>This idea inspired the notion of <strong>decision trees</strong> <span class="citation">(Breiman et al. <a href="references.html#ref-cart">1984</a>)</span>.</p>
-<p><img src="04-classification-trees_and_logistic-figures/plot_rpart-1.svg" alt="plot of chunk plot_rpart" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/plot_rpart-1.svg" alt="Figure 2: plot of chunk plot_rpart" id="fig:plot_rpart" />
+<p class="caption">Figure 2: plot of chunk plot_rpart</p>
+</div>
 <p>Each tree node reports 3 pieces of information:</p>
 <ul>
 <li>dominating class (0 or 1)</li>
 <li>(relative) proportion of 1s represented in a node</li>
 <li>(absolute) proportion of all observations in a node</li>
 </ul>
-<p><img src="04-classification-trees_and_logistic-figures/plot_rpart2-1.svg" alt="plot of chunk plot_rpart2" /></p>
-<p><img src="04-classification-trees_and_logistic-figures/plot_rpart3-1.svg" alt="plot of chunk plot_rpart3" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/plot_rpart2-1.svg" alt="Figure 3: plot of chunk plot_rpart2" id="fig:plot_rpart2" />
+<p class="caption">Figure 3: plot of chunk plot_rpart2</p>
+</div>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/plot_rpart3-1.svg" alt="Figure 4: plot of chunk plot_rpart3" id="fig:plot_rpart3" />
+<p class="caption">Figure 4: plot of chunk plot_rpart3</p>
+</div>
 </div>
 <div id="example-in-r-1" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Example in R</h3>
@@ -700,7 +712,10 @@ to feed it with data in a data.frame form.</p>
 <p>Fit and plot a decision tree:</p>
 <div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb410-2" title="2"><span class="kw">rpart.plot</span>(t1, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="04-classification-trees_and_logistic-figures/plot_rpart1-1.svg" alt="plot of chunk plot_rpart1" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/plot_rpart1-1.svg" alt="Figure 5: plot of chunk plot_rpart1" id="fig:plot_rpart1" />
+<p class="caption">Figure 5: plot of chunk plot_rpart1</p>
+</div>
 <!--
 The fitted model is rather... simple.
 
@@ -746,7 +761,10 @@ with the <code>cp</code> parameter.</p>
 <div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
 <a class="sourceLine" id="cb415-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.1</span>)</a>
 <a class="sourceLine" id="cb415-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="04-classification-trees_and_logistic-figures/plot_rpart222-1.svg" alt="plot of chunk plot_rpart222" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/plot_rpart222-1.svg" alt="Figure 6: plot of chunk plot_rpart222" id="fig:plot_rpart222" />
+<p class="caption">Figure 6: plot of chunk plot_rpart222</p>
+</div>
 <div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb416-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
@@ -757,7 +775,10 @@ with the <code>cp</code> parameter.</p>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
 <a class="sourceLine" id="cb418-2" title="2">t3 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.00001</span>)</a>
 <a class="sourceLine" id="cb418-3" title="3"><span class="kw">rpart.plot</span>(t3, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="04-classification-trees_and_logistic-figures/tree333-1.svg" alt="plot of chunk tree333" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/tree333-1.svg" alt="Figure 7: plot of chunk tree333" id="fig:tree333" />
+<p class="caption">Figure 7: plot of chunk tree333</p>
+</div>
 <div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t3, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb419-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
@@ -847,7 +868,10 @@ but we can convert them to binary ones by checking if, e.g., <span class="math i
 ##  205.000</code></pre>
 <p>The threshold <span class="math inline">\(T=0.5\)</span> could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample).</p>
-<p><img src="04-classification-trees_and_logistic-figures/lm3b-1.svg" alt="plot of chunk lm3b" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/lm3b-1.svg" alt="Figure 8: plot of chunk lm3b" id="fig:lm3b" />
+<p class="caption">Figure 8: plot of chunk lm3b</p>
+</div>
 <p>Despite we can, we shouldn’t use linear regression for classification.
 There are better models.</p>
 </div>
@@ -871,7 +895,10 @@ and <span class="math inline">\(\boldsymbol\beta\)</span>”.</p>
 <p><span class="math display">\[
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]</span></p>
-<p><img src="04-classification-trees_and_logistic-figures/sigmoid-1.svg" alt="plot of chunk sigmoid" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/sigmoid-1.svg" alt="Figure 9: plot of chunk sigmoid" id="fig:sigmoid" />
+<p class="caption">Figure 9: plot of chunk sigmoid</p>
+</div>
 <p>Hence our model becomes:</p>
 <p><span class="math display">\[
 Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
@@ -913,7 +940,10 @@ using the <code>density</code> variable.</p>
 ## AIC: 1422.9
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
-<p><img src="04-classification-trees_and_logistic-figures/glm2-1.svg" alt="plot of chunk glm2" /></p>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/glm2-1.svg" alt="Figure 10: plot of chunk glm2" id="fig:glm2" />
+<p class="caption">Figure 10: plot of chunk glm2</p>
+</div>
 <p>Some predicted probabilities:</p>
 <div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## 1602 1605 1607 1608 1609 1613 1614 1615 1621 1622 1623 1627 

@@ -263,10 +263,10 @@ runif(5, 0, 1) # a,b,c,d,e again!
 
 Note the difference between the uniform distribution on $[0,1]$
 and the normal distribution with expected value of $0$ and standard deviation
-of $1$ (also called the standard normal distribution).
+of $1$ (also called the standard normal distribution),
+see Figure {@fig:runif_vs_rnorm}.
 
-
-```{r runif_vs_rnorm,cache=TRUE}
+```{r runif_vs_rnorm,cache=TRUE,fig.cap="Uniformly vs. normally distributed random variables"}
 par(mfrow=c(1, 2)) # align plots in one row and two columns
 hist(runif(10000, 0, 1), col="white", ylim=c(0, 2500)); box()
 hist(rnorm(10000, 0, 1), col="white", ylim=c(0, 2500)); box()
@@ -455,9 +455,11 @@ integers between 1 and 9:
 sqrt(1:9)
 ```
 
-An example plot of the sine and cosine functions:
 
-```{r sincos}
+Vectorisation is super-convenient when it comes to, for instance,
+plotting (see Figure {@fig:sincos}).
+
+```{r sincos,fig.cap="An example plot of the sine and cosine functions"}
 x <- seq(-2*pi, 6*pi, length.out=51)
 plot(x, sin(x), type="l")
 lines(x, cos(x), col="red") # add a curve to the current plot
@@ -566,9 +568,9 @@ vectors, i.e., such that their lengths are equal to 1.
 
 
 For example, the two vectors `u` and `v` defined above
-can be depicted as:
+can be depicted as in Figure {@fig:vectorplot}.
 
-```{r vectorplot,echo=FALSE}
+```{r vectorplot,echo=FALSE,fig.cap="Example vectors in 2D"}
 plot(rbind(u,v), xlim=c(-0.5, 1.5), ylim=c(-0.5, 1.5), ann=FALSE, asp=1)
 arrows(0, 0, u[1], u[2])
 arrows(0, 0, v[1], v[2])
@@ -1153,7 +1155,7 @@ is an object of type `data.frame`, see below).
 Flowers are of different Species, and we wish to indicate which point belongs
 to which class:
 
-```{r irisplot}
+```{r irisplot_factors,fig.cap="`as.numeric()` on factors can be used to create different plotting styles"}
 which_preview <- c(1, 11, 51, 69, 101) # indexes we show below
 iris$Sepal.Length[which_preview]
 iris$Petal.Width[which_preview]
@@ -1166,7 +1168,8 @@ plot(iris$Sepal.Length, # x (it's a vector)
 )
 ```
 
-The above was possible because the Species column is a factor object
+The above  (see Figure {@fig:irisplot_factors})
+was possible because the Species column is a factor object
 with:
 
 ```{r irisplot2}

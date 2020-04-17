@@ -471,9 +471,9 @@ round(1/A, 2) # rounds every element in 1/A
 
 
 An example plot of the absolute values of sine and cosine functions
-depicted using the `matplot()` function:
+depicted using the `matplot()` function (see Figure {@fig:matplot_sincos}).
 
-```{r sincos}
+```{r matplot_sincos,fig.cap="Example plot with `matplot()`"}
 x <- seq(-2*pi, 6*pi, by=pi/100)
 Y <- cbind(sin(x), cos(x)) # a matrix with two columns
 Y <- abs(Y) # take the absolute value of every element in Y

@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -942,12 +942,15 @@ are also performed in an elementwise manner when applied on a matrix object.</p>
 ## [2,] 0.14 0.12 0.11 0.10 0.09 0.08
 ## [3,] 0.08 0.07 0.07 0.06 0.06 0.06</code></pre>
 <p>An example plot of the absolute values of sine and cosine functions
-depicted using the <code>matplot()</code> function:</p>
+depicted using the <code>matplot()</code> function (see Figure <a href="matrix-algebra-in-r.html#fig:matplot_sincos">1</a>).</p>
 <div class="sourceCode" id="cb1147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1147-1" title="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">6</span><span class="op">*</span>pi, <span class="dt">by=</span>pi<span class="op">/</span><span class="dv">100</span>)</a>
 <a class="sourceLine" id="cb1147-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">sin</span>(x), <span class="kw">cos</span>(x)) <span class="co"># a matrix with two columns</span></a>
 <a class="sourceLine" id="cb1147-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">abs</span>(Y) <span class="co"># take the absolute value of every element in Y</span></a>
 <a class="sourceLine" id="cb1147-4" title="4"><span class="kw">matplot</span>(x, Y, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="93-R-matrices-figures/sincos-1.svg" alt="plot of chunk sincos" /></p>
+<div class="figure">
+<img src="93-R-matrices-figures/matplot_sincos-1.svg" alt="Figure 1: Example plot with matplot()" id="fig:matplot_sincos" />
+<p class="caption">Figure 1: Example plot with <code>matplot()</code></p>
+</div>
 </div>
 <div id="matrix-vector-operations" class="section level3">
 <h3><span class="header-section-number">C.2.7</span> Matrix-Vector Operations</h3>

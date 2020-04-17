@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-15 22:33 (9a3579a)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 17:32 (970e421)</a></li>
 
 </ul>
 
@@ -509,7 +509,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> Introduction</h2>
 <div id="binary-logistic-regression-recap" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Binary Logistic Regression: Recap</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let <span class="math inline">\(\mathbf{X}\in\mathbb{R}^{n\times p}\)</span> be an input matrix
 that consists of <span class="math inline">\(n\)</span> points in a <span class="math inline">\(p\)</span>-dimensional space.</p>
 <p>In other words, we have a database on <span class="math inline">\(n\)</span> objects, each of which
@@ -528,7 +530,9 @@ x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,p} \\
 <p>With each input <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> we associate the desired output
 <span class="math inline">\(y_i\)</span> which is a categorical label – hence we
 will be dealing with <strong>classification</strong> tasks again.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In <strong>binary logistic regression</strong> we were modelling the probabilities that
 a given input belongs to either of the two classes:</p>
 <p><span class="math display">\[
@@ -545,7 +549,9 @@ where <span class="math inline">\(\phi(z) = \frac{1}{1+e^{-z}}\)</span> is the l
 \Pr(Y=0|\mathbf{X},\boldsymbol\beta)=&amp;\displaystyle\frac{e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}\\
 \end{array}
 \]</span></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The fitting of the model was performed by minimising the cross-entropy (log-loss):
 <span class="math display">\[
 \min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
@@ -592,7 +598,9 @@ $\log e^{a} = a$ and $\log 1 = 0$, we can rewrite the above as:-->
     +       \log \left({1+e^{-(\beta_0 + \beta_1 x_{i,1}+ \dots + \beta_p x_{i,p})}}\right)
 \right)
 \]-->
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In this chapter we will generalise the binary logistic regression model:</p>
 <ul>
 <li><p>First we will consider the case of multiclass classification.</p></li>
@@ -602,7 +610,9 @@ case of a feed-forward neural network.</p></li>
 </div>
 <div id="data-2" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Data</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>We will study the famous classic – the MNIST image classification dataset.</p>
 <blockquote>
 <p>== Modified National Institute of Standards and Technology database,
@@ -618,10 +628,17 @@ see <a href="http://yann.lecun.com/exdb/mnist/" class="uri">http://yann.lecun.co
 <p>The dataset is already “too easy” for testing of the state-of-the-art
 classifiers (see the notes below), but it’s a great educational example.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>A few image instances from each class:</p>
-<p><img src="05-classification-nnets-figures/mnist_demo-1.png" alt="plot of chunk mnist_demo" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="05-classification-nnets-figures/mnist_demo-1.svg" alt="Figure 1: plot of chunk mnist_demo" id="fig:mnist_demo" />
+<p class="caption">Figure 1: plot of chunk mnist_demo</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>Accessing MNIST via the keras package
 (which we will use throughout this chapter anyway) is easy:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
@@ -646,7 +663,9 @@ for (file in files) {
 }
 ```
 -->
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><code>X_train</code> and <code>X_test</code> consist of 28×28 pixel images.</p>
 <div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1"><span class="kw">dim</span>(X_train)</a></code></pre></div>
 <pre><code>## [1] 60000    28    28</code></pre>
@@ -662,7 +681,9 @@ of them as vectors of 60000 and 10000 matrices of size 28×28, respectively.</p>
 <p>It is better to convert the colour values to 0.0 = black, …, 1.0 = white:</p>
 <div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1">X_train &lt;-<span class="st"> </span>X_train<span class="op">/</span><span class="dv">255</span></a>
 <a class="sourceLine" id="cb441-2" title="2">X_test  &lt;-<span class="st"> </span>X_test<span class="op">/</span><span class="dv">255</span></a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p><code>Y_train</code> and <code>Y_test</code> are the corresponding integer labels:</p>
 <div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" title="1"><span class="kw">length</span>(Y_train)</a></code></pre></div>
 <pre><code>## [1] 60000</code></pre>
@@ -676,20 +697,27 @@ of them as vectors of 60000 and 10000 matrices of size 28×28, respectively.</p>
 <pre><code>## Y_test
 ##    0    1    2    3    4    5    6    7    8    9 
 ##  980 1135 1032 1010  982  892  958 1028  974 1009</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" title="1">id &lt;-<span class="st"> </span><span class="dv">123</span> <span class="co"># which image to show</span></a>
 <a class="sourceLine" id="cb450-2" title="2"><span class="kw">image</span>(<span class="dt">z=</span><span class="kw">t</span>(X_train[id,,]), <span class="dt">col=</span><span class="kw">grey.colors</span>(<span class="dv">256</span>, <span class="dv">0</span>, <span class="dv">1</span>),</a>
 <a class="sourceLine" id="cb450-3" title="3">    <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>))</a>
 <a class="sourceLine" id="cb450-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>,</a>
 <a class="sourceLine" id="cb450-5" title="5">    <span class="dt">legend=</span><span class="kw">sprintf</span>(<span class="st">&quot;True label=%d&quot;</span>, Y_train[id]))</a></code></pre></div>
-<p><img src="05-classification-nnets-figures/mnist_info2b-1.png" alt="plot of chunk mnist_info2b" style="width:80.0%" /></p>
+<div class="figure">
+<img src="05-classification-nnets-figures/mnist_info2b-1.svg" alt="Figure 2: plot of chunk mnist_info2b" id="fig:mnist_info2b" />
+<p class="caption">Figure 2: plot of chunk mnist_info2b</p>
+</div>
 </div>
 </div>
 <div id="multinomial-logistic-regression" class="section level2">
 <h2><span class="header-section-number">5.2</span> Multinomial Logistic Regression</h2>
 <div id="a-note-on-data-representation" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> A Note on Data Representation</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>So… you may now be wondering “how do we construct an image classifier,
 this seems so complicated!”.</p>
 <p>For a computer, (almost) everything is just numbers.</p>
@@ -708,7 +736,9 @@ e.g., in <span class="citation">(Goodfellow et al. <a href="references.html#ref-
 </div>
 <div id="extending-logistic-regression" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Extending Logistic Regression</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let us generalise the binary logistic regression model
 to a 10-class one (or, more generally, <span class="math inline">\(K\)</span>-class one).</p>
 <p>This time we will be modelling ten probabilities,
@@ -725,7 +755,9 @@ is in fact the <span class="math inline">\(k\)</span>-th digit:</p>
 \]</span></p>
 <p>where <span class="math inline">\(\mathbf{B}\)</span> is the set of underlying model parameters
 (to be determined soon).</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In binary logistic regression,
 the class probabilities are obtained by “cleverly normalising”
 the outputs of a linear model (so that we obtain a value in <span class="math inline">\([0,1]\)</span>).</p>
@@ -741,7 +773,9 @@ representing the model’s definition.</p>
 </blockquote>
 <p>Then, these 10 numbers will have to be normalised
 so as to they are positive and sum to <span class="math inline">\(1\)</span>.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>To maintain the spirit of the original model,
 we can apply <span class="math inline">\(e^{-(\beta_{0,k} + \beta_{1,k} X_{1} + \dots + \beta_{p,k} X_{p})}\)</span>
 to get a positive value,
@@ -764,7 +798,9 @@ as <span class="math inline">\(e^0=1\)</span> and consider only the classes <spa
 </div>
 <div id="softmax-function" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> Softmax Function</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The above transformation (that maps 10 arbitrary real numbers
 to positive ones that sum to 1)
 is called the <strong>softmax</strong> function (or <em>softargmax</em>).</p>
@@ -785,7 +821,9 @@ is called the <strong>softmax</strong> function (or <em>softargmax</em>).</p>
 </div>
 <div id="one-hot-encoding-and-decoding" class="section level3">
 <h3><span class="header-section-number">5.2.4</span> One-Hot Encoding and Decoding</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The ten class-belongingness-degrees can be decoded
 to obtain a single label by simply choosing
 the class that is assigned the highest probability.</p>
@@ -799,7 +837,9 @@ the class that is assigned the highest probability.</p>
 <code>y[k]==max(y)</code> (recall that in R the first element in a vector is at index <code>1</code>).
 Mathematically, we denote this operation as <span class="math inline">\(\mathrm{arg}\max_{k=1,\dots,K} y_k\)</span>.</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>To make processing the outputs of a logistic regression model more convenient,
 we will apply the <strong>one-hot-encoding</strong> of the labels.</p>
 <p>Here, each label will be represented as a 0-1 probability vector
@@ -810,7 +850,9 @@ we will apply the <strong>one-hot-encoding</strong> of the labels.</p>
 <a class="sourceLine" id="cb458-3" title="3">y2[y<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># +1 because we need 0..9 -&gt; 1..10</span></a>
 <a class="sourceLine" id="cb458-4" title="4">y2  <span class="co"># one-hot-encoded y</span></a></code></pre></div>
 <pre><code>##  [1] 0 0 1 0 0 0 0 0 0 0</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>To one-hot encode the reference outputs in R,
 we start with a matrix of size <span class="math inline">\(n\times 10\)</span> populated with “0”s:</p>
 <div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1">Y_train2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y_train), <span class="dt">ncol=</span><span class="dv">10</span>)</a></code></pre></div>
@@ -823,7 +865,9 @@ and the (<code>Y_train[</code><span class="math inline">\(i\)</span><code>]+1</c
 allows for an easy access to
 <code>A[B[1,1], B[1,2]]</code>, <code>A[B[2,1], B[2,2]]</code>, <code>A[B[3,1], B[3,2]]</code>, …</p>
 </blockquote>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Sanity check:</p>
 <div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1"><span class="kw">head</span>(Y_train)</a></code></pre></div>
 <pre><code>## [1] 5 0 4 1 9 2</code></pre>
@@ -835,7 +879,9 @@ allows for an easy access to
 ## [4,]    0    1    0    0    0    0    0    0    0     0
 ## [5,]    0    0    0    0    0    0    0    0    0     1
 ## [6,]    0    0    1    0    0    0    0    0    0     0</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Let us generalise the above idea and write a function
 that can one-hot-encode any vector of integer labels:</p>
 <div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1">one_hot_encode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
@@ -854,7 +900,9 @@ that can one-hot-encode any vector of integer labels:</p>
 </div>
 <div id="cross-entropy-revisited" class="section level3">
 <h3><span class="header-section-number">5.2.5</span> Cross-entropy Revisited</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In essence, we will be comparing
 the probability vectors as generated by a classifier, <span class="math inline">\(\hat{Y}\)</span>:</p>
 <div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1"><span class="kw">round</span>(y_pred, <span class="dv">2</span>)</a></code></pre></div>
@@ -862,7 +910,9 @@ the probability vectors as generated by a classifier, <span class="math inline">
 <p>with the one-hot-encoded true probabilities, <span class="math inline">\(Y\)</span>:</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1">y2</a></code></pre></div>
 <pre><code>##  [1] 0 0 1 0 0 0 0 0 0 0</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>It turns out that one of the definitions of cross-entropy introduced above
 already handles the case of multiclass classification:
 <span class="math display">\[
@@ -872,8 +922,13 @@ E(\mathbf{B}) =
 \]</span>
 The smaller the probability corresponding to the ground-truth class
 outputted by the classifier, the higher the penalty:</p>
-<p><img src="05-classification-nnets-figures/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" style="width:80.0%" /></p>
-<hr />
+<div class="figure">
+<img src="05-classification-nnets-figures/unnamed-chunk-6-1.svg" alt="Figure 3: plot of chunk unnamed-chunk-6" id="fig:unnamed-chunk-6" />
+<p class="caption">Figure 3: plot of chunk unnamed-chunk-6</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>To sum up, we will be solving the optimisation problem:
 <span class="math display">\[
 \min_{\mathbf{B}\in\mathbb{R}^{(p+1)\times 10}}
@@ -883,7 +938,9 @@ outputted by the classifier, the higher the penalty:</p>
 This has no analytical solution,
 but can be solved using iterative methods
 (see the chapter on optimisation).</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>(*) Side note: A single term in the above formula,
 <span class="math display">\[
 \log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\mathbf{B})
@@ -906,7 +963,9 @@ generated by the model:
 </div>
 <div id="problem-formulation-in-matrix-form" class="section level3">
 <h3><span class="header-section-number">5.2.6</span> Problem Formulation in Matrix Form (**)</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The definition of a multinomial logistic regression
 model for a multiclass classification task involving classes <span class="math inline">\(\{1,2,\dots,K\}\)</span>
 is slightly bloated.</p>
@@ -931,7 +990,9 @@ Note that we can always map <span class="math inline">\(b_{j,k}&#39;=-b_{j,k}\)<
 </blockquote>
 <p>It turns out we can make use of matrix notation
 to tidy the above formulas.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Denote the linear combinations prior to computing the softmax function with:
 <span class="math display">\[
 \begin{array}{lcl}
@@ -955,7 +1016,9 @@ t_{i,1}&amp;=&amp;\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,1} &amp;=&amp; \dot{\mat
 t_{i,K}&amp;=&amp;\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,K} &amp;=&amp; \dot{\mathbf{x}}_{i,\cdot}\, \boldsymbol\beta_{\cdot,K}\\
 \end{array}
 \]</span></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>We can get the <span class="math inline">\(K\)</span> linear combinations all at once
 in the form of a row vector by writing:
 <span class="math display">\[
@@ -987,25 +1050,49 @@ will be discussed in the next chapter.</p>
 <h2><span class="header-section-number">5.3</span> Artificial Neural Networks</h2>
 <div id="artificial-neuron" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Artificial Neuron</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>A neuron as a mathematical function:</p>
-<p><img src="figures/neuron.png" alt="Source: https://en.wikipedia.org/wiki/File:Neuron3.png by Egm4313.s12 at English Wikipedia, licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license" /></p>
-<hr />
+<div class="figure">
+<img src="figures/neuron.svg" alt="Figure 4: Source: https://en.wikipedia.org/wiki/File:Neuron3.png by Egm4313.s12 at English Wikipedia, licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license" id="fig:neuron" />
+<p class="caption">Figure 4: Source: <a href="https://en.wikipedia.org/wiki/File:Neuron3.png" class="uri">https://en.wikipedia.org/wiki/File:Neuron3.png</a>
+by Egm4313.s12 at English Wikipedia, licensed under
+the Creative Commons Attribution-Share Alike 3.0 Unported license</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>The <strong>perceptron</strong> (Frank Rosenblatt, 1958) was amongst the first
 models of artificial neurons:</p>
-<p><img src="figures/perceptron.png" /></p>
+<div class="figure">
+<img src="figures/perceptron.svg" alt="Figure 5: " id="fig:perceptron" />
+<p class="caption">Figure 5: </p>
+</div>
 </div>
 <div id="logistic-regression-as-a-neural-network" class="section level3">
 <h3><span class="header-section-number">5.3.2</span> Logistic Regression as a Neural Network</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>The above resembles our binary logistic regression model!</p>
 <p>We determine a linear combination (a weighted sum) of 784 inputs
 and then transform it using the logistic sigmoid “activation” function.</p>
-<p><img src="figures/logistic_regression_binary.png" /></p>
-<hr />
+<div class="figure">
+<img src="figures/logistic_regression_binary.svg" alt="Figure 6: " id="fig:logistic_regression_binary" />
+<p class="caption">Figure 6: </p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>A multiclass logistic regression can be depicted as:</p>
-<p><img src="figures/logistic_regression_multiclass.png" /></p>
-<hr />
+<div class="figure">
+<img src="figures/logistic_regression_multiclass.svg" alt="Figure 7: " id="fig:logistic_regression_multiclass" />
+<p class="caption">Figure 7: </p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>This is an instance of a:</p>
 <ul>
 <li><strong>single layer</strong> (there is only one processing step that consists of 10 units),</li>
@@ -1018,7 +1105,9 @@ that uses the softmax as the activation function.</p>
 </div>
 <div id="example-in-r-3" class="section level3">
 <h3><span class="header-section-number">5.3.3</span> Example in R</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>To train such a neural network (fit a multinomial logistic regression model),
 we will use the keras package,
 a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.</p>
@@ -1032,27 +1121,33 @@ a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.</p>
 <a class="sourceLine" id="cb474-8" title="8">        <span class="dt">loss=</span><span class="st">&#39;categorical_crossentropy&#39;</span>)</a>
 <a class="sourceLine" id="cb474-9" title="9"><span class="co"># Fit the model</span></a>
 <a class="sourceLine" id="cb474-10" title="10"><span class="kw">fit</span>(model, X_train2, Y_train2, <span class="dt">epochs=</span><span class="dv">5</span>)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Predict over the test set and one-hot-decode the output probabilities:</p>
 <div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" title="1">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
 <a class="sourceLine" id="cb475-2" title="2"><span class="kw">round</span>(<span class="kw">head</span>(Y_pred2), <span class="dv">2</span>) <span class="co"># predicted class probabilities</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,] 0.00 0.00 0.00 0.00 0.00 0.00 0.00 1.00 0.00  0.00
-## [2,] 0.01 0.00 0.85 0.02 0.00 0.02 0.08 0.00 0.01  0.00
-## [3,] 0.00 0.95 0.02 0.01 0.00 0.00 0.01 0.01 0.01  0.00
+## [1,] 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.99 0.00  0.00
+## [2,] 0.01 0.00 0.82 0.02 0.00 0.02 0.12 0.00 0.01  0.00
+## [3,] 0.00 0.95 0.02 0.01 0.00 0.00 0.01 0.00 0.01  0.00
 ## [4,] 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00  0.00
-## [5,] 0.00 0.00 0.01 0.00 0.87 0.00 0.01 0.02 0.02  0.07
-## [6,] 0.00 0.97 0.00 0.01 0.00 0.00 0.00 0.00 0.01  0.00</code></pre>
+## [5,] 0.00 0.00 0.01 0.00 0.89 0.00 0.01 0.02 0.01  0.05
+## [6,] 0.00 0.97 0.00 0.01 0.00 0.00 0.00 0.01 0.01  0.00</code></pre>
 <div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
 <a class="sourceLine" id="cb477-2" title="2"><span class="kw">head</span>(Y_pred, <span class="dv">20</span>) <span class="co"># predicted outputs</span></a></code></pre></div>
 <pre><code>##  [1] 7 2 1 0 4 1 4 9 6 9 0 6 9 0 1 5 9 7 3 4</code></pre>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1"><span class="kw">head</span>(Y_test, <span class="dv">20</span>) <span class="co"># true outputs</span></a></code></pre></div>
 <pre><code>##  [1] 7 2 1 0 4 1 4 9 5 9 0 6 9 0 1 5 9 7 3 4</code></pre>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Accuracy on the test set:</p>
 <div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred)</a></code></pre></div>
-<pre><code>## [1] 0.9097</code></pre>
-<hr />
+<pre><code>## [1] 0.9105</code></pre>
+<div style="margin-top: 1em">
+
+</div>
 <p>Performance metrics for each digit separately:</p>
 <table>
 <thead>
@@ -1071,135 +1166,147 @@ a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.</p>
 <tbody>
 <tr class="odd">
 <td align="right">0</td>
-<td align="right">0.9918</td>
-<td align="right">0.9419291</td>
-<td align="right">0.9765306</td>
-<td align="right">0.9589178</td>
-<td align="right">8961</td>
-<td align="right">23</td>
-<td align="right">59</td>
-<td align="right">957</td>
+<td align="right">0.9922</td>
+<td align="right">0.9465347</td>
+<td align="right">0.9755102</td>
+<td align="right">0.9608040</td>
+<td align="right">8966</td>
+<td align="right">24</td>
+<td align="right">54</td>
+<td align="right">956</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
-<td align="right">0.9916</td>
-<td align="right">0.9549784</td>
+<td align="right">0.9919</td>
+<td align="right">0.9574653</td>
 <td align="right">0.9718062</td>
-<td align="right">0.9633188</td>
-<td align="right">8813</td>
+<td align="right">0.9645824</td>
+<td align="right">8816</td>
 <td align="right">32</td>
-<td align="right">52</td>
+<td align="right">49</td>
 <td align="right">1103</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
-<td align="right">0.9780</td>
-<td align="right">0.9134420</td>
-<td align="right">0.8691860</td>
-<td align="right">0.8907646</td>
-<td align="right">8883</td>
-<td align="right">135</td>
-<td align="right">85</td>
-<td align="right">897</td>
+<td align="right">0.9787</td>
+<td align="right">0.9287958</td>
+<td align="right">0.8594961</td>
+<td align="right">0.8928032</td>
+<td align="right">8900</td>
+<td align="right">145</td>
+<td align="right">68</td>
+<td align="right">887</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.9789</td>
-<td align="right">0.9007021</td>
-<td align="right">0.8891089</td>
-<td align="right">0.8948680</td>
-<td align="right">8891</td>
-<td align="right">112</td>
+<td align="right">0.9795</td>
+<td align="right">0.8957719</td>
+<td align="right">0.9019802</td>
+<td align="right">0.8988653</td>
+<td align="right">8884</td>
 <td align="right">99</td>
-<td align="right">898</td>
+<td align="right">106</td>
+<td align="right">911</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
 <td align="right">0.9833</td>
-<td align="right">0.9153925</td>
-<td align="right">0.9144603</td>
-<td align="right">0.9149261</td>
-<td align="right">8935</td>
-<td align="right">84</td>
-<td align="right">83</td>
-<td align="right">898</td>
+<td align="right">0.9022705</td>
+<td align="right">0.9307536</td>
+<td align="right">0.9162907</td>
+<td align="right">8919</td>
+<td align="right">68</td>
+<td align="right">99</td>
+<td align="right">914</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.9769</td>
-<td align="right">0.8948626</td>
-<td align="right">0.8396861</td>
-<td align="right">0.8663968</td>
+<td align="right">0.9761</td>
+<td align="right">0.8938480</td>
+<td align="right">0.8307175</td>
+<td align="right">0.8611273</td>
 <td align="right">9020</td>
-<td align="right">143</td>
+<td align="right">151</td>
 <td align="right">88</td>
-<td align="right">749</td>
+<td align="right">741</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.9877</td>
-<td align="right">0.9229990</td>
-<td align="right">0.9509395</td>
-<td align="right">0.9367609</td>
-<td align="right">8966</td>
-<td align="right">47</td>
-<td align="right">76</td>
-<td align="right">911</td>
+<td align="right">0.9872</td>
+<td align="right">0.9200405</td>
+<td align="right">0.9488518</td>
+<td align="right">0.9342240</td>
+<td align="right">8963</td>
+<td align="right">49</td>
+<td align="right">79</td>
+<td align="right">909</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.9819</td>
-<td align="right">0.9180652</td>
-<td align="right">0.9046693</td>
-<td align="right">0.9113180</td>
-<td align="right">8889</td>
-<td align="right">98</td>
-<td align="right">83</td>
-<td align="right">930</td>
+<td align="right">0.9822</td>
+<td align="right">0.9150391</td>
+<td align="right">0.9114786</td>
+<td align="right">0.9132554</td>
+<td align="right">8885</td>
+<td align="right">91</td>
+<td align="right">87</td>
+<td align="right">937</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.9736</td>
-<td align="right">0.8550000</td>
-<td align="right">0.8778234</td>
-<td align="right">0.8662614</td>
-<td align="right">8881</td>
-<td align="right">119</td>
-<td align="right">145</td>
-<td align="right">855</td>
+<td align="right">0.9727</td>
+<td align="right">0.8446411</td>
+<td align="right">0.8819302</td>
+<td align="right">0.8628830</td>
+<td align="right">8868</td>
+<td align="right">115</td>
+<td align="right">158</td>
+<td align="right">859</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.9757</td>
-<td align="right">0.8711240</td>
-<td align="right">0.8909812</td>
-<td align="right">0.8809407</td>
-<td align="right">8858</td>
-<td align="right">110</td>
-<td align="right">133</td>
-<td align="right">899</td>
+<td align="right">0.9772</td>
+<td align="right">0.8924623</td>
+<td align="right">0.8800793</td>
+<td align="right">0.8862275</td>
+<td align="right">8884</td>
+<td align="right">121</td>
+<td align="right">107</td>
+<td align="right">888</td>
 </tr>
 </tbody>
 </table>
 <p>Note how misleading the individual accuracies are! Averages:</p>
 <pre><code>##       Acc      Prec       Rec         F 
-## 0.9819400 0.9088495 0.9085191 0.9084473</code></pre>
-<hr />
-<p><img src="05-classification-nnets-figures/logistic6-1.png" alt="plot of chunk logistic6" style="width:80.0%" /></p>
+## 0.9821000 0.9096869 0.9092604 0.9091063</code></pre>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="05-classification-nnets-figures/logistic6-1.svg" alt="Figure 8: plot of chunk logistic6" id="fig:logistic6" />
+<p class="caption">Figure 8: plot of chunk logistic6</p>
+</div>
 </div>
 </div>
 <div id="deep-neural-networks" class="section level2">
 <h2><span class="header-section-number">5.4</span> Deep Neural Networks</h2>
 <div id="introduction-8" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> Introduction</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>In a brain, a neuron’s output is an input to another neuron.</p>
 <p>We could try aligning neurons into many interconnected layers.</p>
-<p><img src="figures/nnet.png" /></p>
+<div class="figure">
+<img src="figures/nnet.svg" alt="Figure 9: " id="fig:nnet" />
+<p class="caption">Figure 9: </p>
+</div>
 </div>
 <div id="activation-functions" class="section level3">
 <h3><span class="header-section-number">5.4.2</span> Activation Functions</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Each layer’s outputs should be transformed by some non-linear
 activation function. Otherwise, we’d end up with linear combinations of linear combinations,
 which are linear combinations themselves.</p>
@@ -1222,7 +1329,9 @@ to handle numerically than the others, depending on the implementation.</p>
 </div>
 <div id="example-in-r---2-layers" class="section level3">
 <h3><span class="header-section-number">5.4.3</span> Example in R - 2 Layers</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>2-layer Neural Network 784-800-10</p>
 <div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
 <a class="sourceLine" id="cb484-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">800</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
@@ -1234,8 +1343,10 @@ to handle numerically than the others, depending on the implementation.</p>
 <a class="sourceLine" id="cb484-8" title="8">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
 <a class="sourceLine" id="cb484-9" title="9">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
 <a class="sourceLine" id="cb484-10" title="10"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
-<pre><code>## [1] 0.9417</code></pre>
-<hr />
+<pre><code>## [1] 0.9425</code></pre>
+<div style="margin-top: 1em">
+
+</div>
 <p>Performance metrics for each digit separately:</p>
 <table>
 <thead>
@@ -1254,122 +1365,129 @@ to handle numerically than the others, depending on the implementation.</p>
 <tbody>
 <tr class="odd">
 <td align="right">0</td>
-<td align="right">0.9942</td>
-<td align="right">0.9591633</td>
-<td align="right">0.9826531</td>
-<td align="right">0.9707661</td>
-<td align="right">8979</td>
-<td align="right">17</td>
-<td align="right">41</td>
-<td align="right">963</td>
-</tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">0.9950</td>
-<td align="right">0.9771328</td>
-<td align="right">0.9788546</td>
-<td align="right">0.9779930</td>
-<td align="right">8839</td>
-<td align="right">24</td>
-<td align="right">26</td>
-<td align="right">1111</td>
-</tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">0.9875</td>
-<td align="right">0.9467980</td>
-<td align="right">0.9312016</td>
-<td align="right">0.9389350</td>
-<td align="right">8914</td>
-<td align="right">71</td>
-<td align="right">54</td>
+<td align="right">0.9941</td>
+<td align="right">0.9600400</td>
+<td align="right">0.9806122</td>
+<td align="right">0.9702171</td>
+<td align="right">8980</td>
+<td align="right">19</td>
+<td align="right">40</td>
 <td align="right">961</td>
 </tr>
 <tr class="even">
+<td align="right">1</td>
+<td align="right">0.9946</td>
+<td align="right">0.9695917</td>
+<td align="right">0.9832599</td>
+<td align="right">0.9763780</td>
+<td align="right">8830</td>
+<td align="right">19</td>
+<td align="right">35</td>
+<td align="right">1116</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">0.9871</td>
+<td align="right">0.9537688</td>
+<td align="right">0.9195736</td>
+<td align="right">0.9363592</td>
+<td align="right">8922</td>
+<td align="right">83</td>
+<td align="right">46</td>
+<td align="right">949</td>
+</tr>
+<tr class="even">
 <td align="right">3</td>
-<td align="right">0.9863</td>
-<td align="right">0.9241983</td>
-<td align="right">0.9415842</td>
-<td align="right">0.9328102</td>
-<td align="right">8912</td>
-<td align="right">59</td>
-<td align="right">78</td>
-<td align="right">951</td>
+<td align="right">0.9850</td>
+<td align="right">0.9056604</td>
+<td align="right">0.9504950</td>
+<td align="right">0.9275362</td>
+<td align="right">8890</td>
+<td align="right">50</td>
+<td align="right">100</td>
+<td align="right">960</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.9862</td>
-<td align="right">0.9042146</td>
-<td align="right">0.9613035</td>
-<td align="right">0.9318855</td>
-<td align="right">8918</td>
-<td align="right">38</td>
-<td align="right">100</td>
-<td align="right">944</td>
+<td align="right">0.9891</td>
+<td align="right">0.9440488</td>
+<td align="right">0.9450102</td>
+<td align="right">0.9445293</td>
+<td align="right">8963</td>
+<td align="right">54</td>
+<td align="right">55</td>
+<td align="right">928</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.9867</td>
-<td align="right">0.9407666</td>
-<td align="right">0.9080717</td>
-<td align="right">0.9241301</td>
-<td align="right">9057</td>
-<td align="right">82</td>
-<td align="right">51</td>
-<td align="right">810</td>
+<td align="right">0.9869</td>
+<td align="right">0.9513642</td>
+<td align="right">0.8991031</td>
+<td align="right">0.9244957</td>
+<td align="right">9067</td>
+<td align="right">90</td>
+<td align="right">41</td>
+<td align="right">802</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.9903</td>
-<td align="right">0.9470405</td>
-<td align="right">0.9519833</td>
-<td align="right">0.9495055</td>
-<td align="right">8991</td>
-<td align="right">46</td>
-<td align="right">51</td>
-<td align="right">912</td>
+<td align="right">0.9898</td>
+<td align="right">0.9314516</td>
+<td align="right">0.9645094</td>
+<td align="right">0.9476923</td>
+<td align="right">8974</td>
+<td align="right">34</td>
+<td align="right">68</td>
+<td align="right">924</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.9877</td>
-<td align="right">0.9423265</td>
-<td align="right">0.9377432</td>
-<td align="right">0.9400293</td>
-<td align="right">8913</td>
-<td align="right">64</td>
-<td align="right">59</td>
-<td align="right">964</td>
+<td align="right">0.9876</td>
+<td align="right">0.9475248</td>
+<td align="right">0.9309339</td>
+<td align="right">0.9391560</td>
+<td align="right">8919</td>
+<td align="right">71</td>
+<td align="right">53</td>
+<td align="right">957</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
 <td align="right">0.9853</td>
-<td align="right">0.9215087</td>
-<td align="right">0.9281314</td>
-<td align="right">0.9248082</td>
-<td align="right">8949</td>
-<td align="right">70</td>
-<td align="right">77</td>
-<td align="right">904</td>
+<td align="right">0.9320794</td>
+<td align="right">0.9158111</td>
+<td align="right">0.9238736</td>
+<td align="right">8961</td>
+<td align="right">82</td>
+<td align="right">65</td>
+<td align="right">892</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.9842</td>
-<td align="right">0.9512195</td>
-<td align="right">0.8889990</td>
-<td align="right">0.9190574</td>
-<td align="right">8945</td>
-<td align="right">112</td>
-<td align="right">46</td>
-<td align="right">897</td>
+<td align="right">0.9855</td>
+<td align="right">0.9285714</td>
+<td align="right">0.9276511</td>
+<td align="right">0.9281111</td>
+<td align="right">8919</td>
+<td align="right">73</td>
+<td align="right">72</td>
+<td align="right">936</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<p><img src="05-classification-nnets-figures/deep23-1.png" alt="plot of chunk deep23" style="width:80.0%" /></p>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="05-classification-nnets-figures/deep23-1.svg" alt="Figure 10: plot of chunk deep23" id="fig:deep23" />
+<p class="caption">Figure 10: plot of chunk deep23</p>
+</div>
 </div>
 <div id="example-in-r---6-layers" class="section level3">
 <h3><span class="header-section-number">5.4.4</span> Example in R - 6 Layers</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>6-layer <em>Deep</em> Neural Network 784-2500-2000-1500-1000-500-10</p>
 <div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
 <a class="sourceLine" id="cb486-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">2500</span>, <span class="dt">activation=</span><span class="st">&#39;relu&#39;</span>)</a>
@@ -1385,8 +1503,10 @@ to handle numerically than the others, depending on the implementation.</p>
 <a class="sourceLine" id="cb486-12" title="12">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, X_test2)</a>
 <a class="sourceLine" id="cb486-13" title="13">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
 <a class="sourceLine" id="cb486-14" title="14"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
-<pre><code>## [1] 0.9729</code></pre>
-<hr />
+<pre><code>## [1] 0.972</code></pre>
+<div style="margin-top: 1em">
+
+</div>
 <p>Performance metrics for each digit separately:</p>
 <table>
 <thead>
@@ -1405,125 +1525,132 @@ to handle numerically than the others, depending on the implementation.</p>
 <tbody>
 <tr class="odd">
 <td align="right">0</td>
-<td align="right">0.9965</td>
-<td align="right">0.9846154</td>
-<td align="right">0.9795918</td>
-<td align="right">0.9820972</td>
-<td align="right">9005</td>
-<td align="right">20</td>
-<td align="right">15</td>
-<td align="right">960</td>
+<td align="right">0.9961</td>
+<td align="right">0.9738167</td>
+<td align="right">0.9867347</td>
+<td align="right">0.9802331</td>
+<td align="right">8994</td>
+<td align="right">13</td>
+<td align="right">26</td>
+<td align="right">967</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
-<td align="right">0.9967</td>
-<td align="right">0.9799652</td>
-<td align="right">0.9911894</td>
-<td align="right">0.9855453</td>
-<td align="right">8842</td>
-<td align="right">10</td>
-<td align="right">23</td>
-<td align="right">1125</td>
+<td align="right">0.9975</td>
+<td align="right">0.9902827</td>
+<td align="right">0.9876652</td>
+<td align="right">0.9889722</td>
+<td align="right">8854</td>
+<td align="right">14</td>
+<td align="right">11</td>
+<td align="right">1121</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
-<td align="right">0.9943</td>
-<td align="right">0.9841112</td>
-<td align="right">0.9602713</td>
-<td align="right">0.9720451</td>
-<td align="right">8952</td>
-<td align="right">41</td>
-<td align="right">16</td>
-<td align="right">991</td>
+<td align="right">0.9945</td>
+<td align="right">0.9674641</td>
+<td align="right">0.9796512</td>
+<td align="right">0.9735195</td>
+<td align="right">8934</td>
+<td align="right">21</td>
+<td align="right">34</td>
+<td align="right">1011</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.9950</td>
-<td align="right">0.9838710</td>
-<td align="right">0.9663366</td>
-<td align="right">0.9750250</td>
+<td align="right">0.9946</td>
+<td align="right">0.9838057</td>
+<td align="right">0.9623762</td>
+<td align="right">0.9729730</td>
 <td align="right">8974</td>
-<td align="right">34</td>
+<td align="right">38</td>
 <td align="right">16</td>
-<td align="right">976</td>
+<td align="right">972</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.9948</td>
-<td align="right">0.9678068</td>
-<td align="right">0.9796334</td>
-<td align="right">0.9736842</td>
-<td align="right">8986</td>
-<td align="right">20</td>
-<td align="right">32</td>
-<td align="right">962</td>
+<td align="right">0.9946</td>
+<td align="right">0.9754098</td>
+<td align="right">0.9694501</td>
+<td align="right">0.9724208</td>
+<td align="right">8994</td>
+<td align="right">30</td>
+<td align="right">24</td>
+<td align="right">952</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
 <td align="right">0.9942</td>
-<td align="right">0.9612832</td>
-<td align="right">0.9742152</td>
-<td align="right">0.9677060</td>
-<td align="right">9073</td>
-<td align="right">23</td>
-<td align="right">35</td>
-<td align="right">869</td>
+<td align="right">0.9685393</td>
+<td align="right">0.9663677</td>
+<td align="right">0.9674523</td>
+<td align="right">9080</td>
+<td align="right">30</td>
+<td align="right">28</td>
+<td align="right">862</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.9948</td>
-<td align="right">0.9788584</td>
-<td align="right">0.9665971</td>
-<td align="right">0.9726891</td>
-<td align="right">9022</td>
-<td align="right">32</td>
-<td align="right">20</td>
-<td align="right">926</td>
+<td align="right">0.9955</td>
+<td align="right">0.9780105</td>
+<td align="right">0.9749478</td>
+<td align="right">0.9764767</td>
+<td align="right">9021</td>
+<td align="right">24</td>
+<td align="right">21</td>
+<td align="right">934</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.9936</td>
-<td align="right">0.9643545</td>
-<td align="right">0.9737354</td>
-<td align="right">0.9690223</td>
-<td align="right">8935</td>
-<td align="right">27</td>
-<td align="right">37</td>
-<td align="right">1001</td>
+<td align="right">0.9930</td>
+<td align="right">0.9848178</td>
+<td align="right">0.9464981</td>
+<td align="right">0.9652778</td>
+<td align="right">8957</td>
+<td align="right">55</td>
+<td align="right">15</td>
+<td align="right">973</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.9934</td>
-<td align="right">0.9558233</td>
-<td align="right">0.9774127</td>
-<td align="right">0.9664975</td>
+<td align="right">0.9928</td>
+<td align="right">0.9555556</td>
+<td align="right">0.9712526</td>
+<td align="right">0.9633401</td>
 <td align="right">8982</td>
-<td align="right">22</td>
+<td align="right">28</td>
 <td align="right">44</td>
-<td align="right">952</td>
+<td align="right">946</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.9925</td>
-<td align="right">0.9670000</td>
-<td align="right">0.9583746</td>
-<td align="right">0.9626680</td>
-<td align="right">8958</td>
-<td align="right">42</td>
-<td align="right">33</td>
-<td align="right">967</td>
+<td align="right">0.9912</td>
+<td align="right">0.9415149</td>
+<td align="right">0.9732408</td>
+<td align="right">0.9571150</td>
+<td align="right">8930</td>
+<td align="right">27</td>
+<td align="right">61</td>
+<td align="right">982</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<p><img src="05-classification-nnets-figures/deep63-1.png" alt="plot of chunk deep63" style="width:80.0%" /></p>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="05-classification-nnets-figures/deep63-1.svg" alt="Figure 11: plot of chunk deep63" id="fig:deep63" />
+<p class="caption">Figure 11: plot of chunk deep63</p>
+</div>
 </div>
 </div>
 <div id="preprocessing-of-data" class="section level2">
 <h2><span class="header-section-number">5.5</span> Preprocessing of Data</h2>
 <div id="introduction-9" class="section level3">
 <h3><span class="header-section-number">5.5.1</span> Introduction</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Do not underestimate the power of appropriate data preprocessing —
 deep neural networks are not a universal replacement for a data engineer’s hard work!</p>
 <p>On top of that, they are not interpretable – those are merely black-boxes.</p>
@@ -1541,7 +1668,9 @@ will be provided in the test test.</p>
 </div>
 <div id="image-deskewing" class="section level3">
 <h3><span class="header-section-number">5.5.2</span> Image Deskewing</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Deskewing of images (“straightening” of the digits)
 is amongst the most typical transformations
 that can be applied on MNIST.</p>
@@ -1553,12 +1682,19 @@ for an example notebook and the <code>deskew.R</code> script.</p>
 <div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" title="1"><span class="co"># See https://github.com/gagolews/Playground.R</span></a>
 <a class="sourceLine" id="cb488-2" title="2"><span class="kw">source</span>(<span class="st">&quot;~/R/Playground.R/deskew.R&quot;</span>)</a>
 <a class="sourceLine" id="cb488-3" title="3"><span class="co"># new_image &lt;- deskew(old_image)</span></a></code></pre></div>
-<hr />
-<p><img src="05-classification-nnets-figures/deskew2-1.png" alt="plot of chunk deskew2" style="width:80.0%" /></p>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="05-classification-nnets-figures/deskew2-1.svg" alt="Figure 12: plot of chunk deskew2" id="fig:deskew2" />
+<p class="caption">Figure 12: plot of chunk deskew2</p>
+</div>
 <p>In each pair, the left image (black background) is the original one,
 and the right image (palette inverted for purely dramatic effects)
 is its deskewed version.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Deskew everything:</p>
 <div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1">Z_train &lt;-<span class="st"> </span>X_train</a>
 <a class="sourceLine" id="cb489-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(Z_train)[<span class="dv">1</span>]) {</a>
@@ -1572,7 +1708,9 @@ is its deskewed version.</p>
 <a class="sourceLine" id="cb489-10" title="10">  Z_test[i,,] &lt;-<span class="st"> </span><span class="kw">deskew</span>(Z_test[i,,])</a>
 <a class="sourceLine" id="cb489-11" title="11">}</a>
 <a class="sourceLine" id="cb489-12" title="12">Z_test2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(Z_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</a></code></pre></div>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Multinomial logistic regression model (1-layer NN):</p>
 <div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" title="1">model &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>()</a>
 <a class="sourceLine" id="cb490-2" title="2"><span class="kw">layer_dense</span>(model, <span class="dt">units=</span><span class="dv">10</span>, <span class="dt">activation=</span><span class="st">&#39;softmax&#39;</span>)</a>
@@ -1583,8 +1721,10 @@ is its deskewed version.</p>
 <a class="sourceLine" id="cb490-7" title="7">Y_pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model, Z_test2)</a>
 <a class="sourceLine" id="cb490-8" title="8">Y_pred &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred2, <span class="dv">1</span>, which.max)<span class="op">-</span><span class="dv">1</span> <span class="co"># 1..10 -&gt; 0..9</span></a>
 <a class="sourceLine" id="cb490-9" title="9"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy on the test set</span></a></code></pre></div>
-<pre><code>## [1] 0.9449</code></pre>
-<hr />
+<pre><code>## [1] 0.944</code></pre>
+<div style="margin-top: 1em">
+
+</div>
 <p>Performance metrics for each digit separately:</p>
 <table>
 <thead>
@@ -1604,131 +1744,140 @@ is its deskewed version.</p>
 <tr class="odd">
 <td align="right">0</td>
 <td align="right">0.9936</td>
-<td align="right">0.9525692</td>
-<td align="right">0.9836735</td>
-<td align="right">0.9678715</td>
-<td align="right">8972</td>
-<td align="right">16</td>
-<td align="right">48</td>
-<td align="right">964</td>
+<td align="right">0.9534653</td>
+<td align="right">0.9826531</td>
+<td align="right">0.9678392</td>
+<td align="right">8973</td>
+<td align="right">17</td>
+<td align="right">47</td>
+<td align="right">963</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
 <td align="right">0.9951</td>
-<td align="right">0.9754816</td>
-<td align="right">0.9814978</td>
-<td align="right">0.9784805</td>
-<td align="right">8837</td>
-<td align="right">21</td>
-<td align="right">28</td>
-<td align="right">1114</td>
+<td align="right">0.9763158</td>
+<td align="right">0.9806167</td>
+<td align="right">0.9784615</td>
+<td align="right">8838</td>
+<td align="right">22</td>
+<td align="right">27</td>
+<td align="right">1113</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
 <td align="right">0.9866</td>
-<td align="right">0.9508032</td>
-<td align="right">0.9176357</td>
-<td align="right">0.9339250</td>
-<td align="right">8919</td>
-<td align="right">85</td>
-<td align="right">49</td>
-<td align="right">947</td>
+<td align="right">0.9472112</td>
+<td align="right">0.9215116</td>
+<td align="right">0.9341847</td>
+<td align="right">8915</td>
+<td align="right">81</td>
+<td align="right">53</td>
+<td align="right">951</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.9900</td>
-<td align="right">0.9586694</td>
-<td align="right">0.9415842</td>
-<td align="right">0.9500500</td>
-<td align="right">8949</td>
-<td align="right">59</td>
-<td align="right">41</td>
-<td align="right">951</td>
+<td align="right">0.9901</td>
+<td align="right">0.9541376</td>
+<td align="right">0.9475248</td>
+<td align="right">0.9508197</td>
+<td align="right">8944</td>
+<td align="right">53</td>
+<td align="right">46</td>
+<td align="right">957</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.9882</td>
-<td align="right">0.9354839</td>
-<td align="right">0.9450102</td>
-<td align="right">0.9402229</td>
-<td align="right">8954</td>
-<td align="right">54</td>
-<td align="right">64</td>
-<td align="right">928</td>
+<td align="right">0.9876</td>
+<td align="right">0.9315895</td>
+<td align="right">0.9429735</td>
+<td align="right">0.9372470</td>
+<td align="right">8950</td>
+<td align="right">56</td>
+<td align="right">68</td>
+<td align="right">926</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.9887</td>
-<td align="right">0.9351955</td>
-<td align="right">0.9383408</td>
-<td align="right">0.9367655</td>
-<td align="right">9050</td>
-<td align="right">55</td>
-<td align="right">58</td>
-<td align="right">837</td>
+<td align="right">0.9884</td>
+<td align="right">0.9311111</td>
+<td align="right">0.9394619</td>
+<td align="right">0.9352679</td>
+<td align="right">9046</td>
+<td align="right">54</td>
+<td align="right">62</td>
+<td align="right">838</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.9904</td>
-<td align="right">0.9517820</td>
-<td align="right">0.9478079</td>
-<td align="right">0.9497908</td>
-<td align="right">8996</td>
-<td align="right">50</td>
-<td align="right">46</td>
-<td align="right">908</td>
+<td align="right">0.9906</td>
+<td align="right">0.9605544</td>
+<td align="right">0.9405010</td>
+<td align="right">0.9504219</td>
+<td align="right">9005</td>
+<td align="right">57</td>
+<td align="right">37</td>
+<td align="right">901</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.9884</td>
-<td align="right">0.9569138</td>
-<td align="right">0.9289883</td>
-<td align="right">0.9427443</td>
+<td align="right">0.9886</td>
+<td align="right">0.9570000</td>
+<td align="right">0.9309339</td>
+<td align="right">0.9437870</td>
 <td align="right">8929</td>
-<td align="right">73</td>
+<td align="right">71</td>
 <td align="right">43</td>
-<td align="right">955</td>
+<td align="right">957</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.9846</td>
-<td align="right">0.9051383</td>
-<td align="right">0.9404517</td>
-<td align="right">0.9224572</td>
-<td align="right">8930</td>
-<td align="right">58</td>
-<td align="right">96</td>
-<td align="right">916</td>
+<td align="right">0.9834</td>
+<td align="right">0.8992095</td>
+<td align="right">0.9342916</td>
+<td align="right">0.9164149</td>
+<td align="right">8924</td>
+<td align="right">64</td>
+<td align="right">102</td>
+<td align="right">910</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.9842</td>
-<td align="right">0.9225422</td>
-<td align="right">0.9207136</td>
-<td align="right">0.9216270</td>
-<td align="right">8913</td>
-<td align="right">80</td>
-<td align="right">78</td>
-<td align="right">929</td>
+<td align="right">0.9840</td>
+<td align="right">0.9249249</td>
+<td align="right">0.9157582</td>
+<td align="right">0.9203187</td>
+<td align="right">8916</td>
+<td align="right">85</td>
+<td align="right">75</td>
+<td align="right">924</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<p><img src="05-classification-nnets-figures/deskew6-1.png" alt="plot of chunk deskew6" style="width:80.0%" /></p>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="05-classification-nnets-figures/deskew6-1.svg" alt="Figure 13: plot of chunk deskew6" id="fig:deskew6" />
+<p class="caption">Figure 13: plot of chunk deskew6</p>
+</div>
 </div>
 </div>
 <div id="outro-4" class="section level2">
 <h2><span class="header-section-number">5.6</span> Outro</h2>
 <div id="remarks-4" class="section level3">
 <h3><span class="header-section-number">5.6.1</span> Remarks</h3>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>We have discussed a multinomial logistic regression model
 as a generalisation of the binary one.</p>
 <p>This in turn is a special case of feed-forward neural networks.</p>
 <p>There’s a lot of hype (again…) for deep neural networks in many applications,
 including vision, self-driving cars, natural language processing,
 speech recognition etc.</p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Many different architectures of neural networks and types of units
 are being considered in theory and in practice, e.g.:</p>
 <ul>
@@ -1738,7 +1887,9 @@ deskewing automatically etc.;</li>
 <li>recurrent neural networks can imitate long short-term memory
 that can be used for speech synthesis and time series prediction.</li>
 </ul>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
 <p>Main drawbacks of deep neural networks:</p>
 <ul>
 <li>learning is very slow, especially with very deep architectures (days, weeks);</li>
@@ -1753,11 +1904,23 @@ AI/ML courses and books, such as <span class="citation">(Goodfellow et al. <a hr
 </div>
 <div id="beyond-mnist" class="section level3">
 <h3><span class="header-section-number">5.6.2</span> Beyond MNIST</h3>
-<hr />
-<p><img src="05-classification-nnets-figures/globalsum-1.png" alt="plot of chunk globalsum" style="width:80.0%" /></p>
-<hr />
-<p><img src="05-classification-nnets-figures/globalsum2-1.png" alt="plot of chunk globalsum2" style="width:80.0%" /></p>
-<hr />
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="05-classification-nnets-figures/globalsum-1.svg" alt="Figure 14: plot of chunk globalsum" id="fig:globalsum" />
+<p class="caption">Figure 14: plot of chunk globalsum</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
+<div class="figure">
+<img src="05-classification-nnets-figures/globalsum2-1.svg" alt="Figure 15: plot of chunk globalsum2" id="fig:globalsum2" />
+<p class="caption">Figure 15: plot of chunk globalsum2</p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <p>The MNIST dataset is a classic, although its use in research is discouraged nowadays
 – the dataset is not considered challenging anymore – state of the art classifiers
 can reach <span class="math inline">\(99.8\%\)</span> accuracy.</p>

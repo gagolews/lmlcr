@@ -132,7 +132,7 @@ did the trick.
 library("knitr")
 library("bookdown")
 library("stringi")
-fs <- list.files("..", "\\.Rmd$", full=TRUE)
+fs <- list.files(".", "\\.Rmd$", full=TRUE)
 pkgs <- stri_unique(stri_sort(unlist(lapply(fs, function(f)
     na.omit(stri_match_first_regex(
         readLines(f), "^library\\(['\"]?(.*?)['\"]?\\)")[,2])))))
@@ -141,6 +141,6 @@ pkgs <- stri_unique(stri_sort(unlist(lapply(fs, function(f)
 The following R packages are used or referred to in the text:
 `r stri_flatten(pkgs, collapse=", ")`.
 
-During the writing of this book, I've been mostly listening to the music
+During the writing of this book, I've been listening to the music
 featuring John Coltrane, Krzysztof Komeda,
 Henry Threadgill, Albert Ayler, Paco de Lucia and Tomatito.
