@@ -71,14 +71,13 @@ we assume that each $y_i$ takes more than two possible values.
 
 
 Example plot of a synthetic dataset
-with the reference binary $y$s.
-
+with the reference binary $y$s is given in Figure {@fig:classify_intro}.
 The "true" decision boundary is at $X_1=0$ but the classes
 slightly overlap (the dataset is a bit noisy).
 
 
 
-```{r classify_intro,echo=FALSE}
+```{r classify_intro,echo=FALSE,fig.cap="A synthetic 2D dataset with the true decision boundary at $X_1=0$"}
 set.seed(123)
 n0 <- 50 # n0 points in class 0
 n1 <- 50 # n1 points in class 1
@@ -277,9 +276,8 @@ denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$:
 
 
 Here is how $K$-NN classifier works on a synthetic 2D dataset.
-
+Firstly let's consider $K=1$, see Figure {@fig:fig_plot_knn1}.
 Gray and pink regions depict how new points would be classified.
-
 In particular 1-NN is "greedy" in the sense that we just
 locate the nearest point.
 
@@ -293,8 +291,7 @@ plot_knn <- function(K) {
     xx <- expand.grid(xx1, xx2)
     yy <- FNN::knn(Xs, xx, Ys, k=K)
     image(xx1, xx2, matrix(as.numeric(yy)-1, nrow=length(xx1), ncol=length(xx2)),
-          col=c("#00000044", "#ff000044"), xlab="X1", ylab="X2", asp=1,
-          main=sprintf("K-NN Class Bounds, K=%d", K))
+          col=c("#00000044", "#ff000044"), xlab="X1", ylab="X2", asp=1)
     points(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys])
     legend("topleft", col=c(1,2), pch=c(1,2),
         legend=c("Class 0", "Class 1"), bg="white")
@@ -304,26 +301,36 @@ plot_knn <- function(K) {
 
 
 
-```{r fig_plot_knn1,echo=FALSE,cache=TRUE,dependson='plot_knn'}
+```{r fig_plot_knn1,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="1-NN class bounds for our 2D synthetic dataset"}
 plot_knn(1)
 ```
 
 
-```{r fig_plot_knn3,echo=FALSE,cache=TRUE,dependson='plot_knn'}
-plot_knn(3)
-```
+Remark.
+
+: (\*) 1-NN classification is essentially based
+on a dataset's so-called Voronoi diagram.
+
+
+
 
 Increasing $K$ somehow smoothens the decision boundary (this makes it
 less "local" and more "global").
+Figure {@fig:fig_plot_knn3} depicts the $K=3$ case.
 
-
-```{r fig_plot_knn25,echo=FALSE,cache=TRUE,dependson='plot_knn'}
-plot_knn(25)
+```{r fig_plot_knn3,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="3-NN class bounds for our 2D synthetic dataset"}
+plot_knn(3)
 ```
 
 
+
+```{r fig_plot_knn25,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="25-NN class bounds for our 2D synthetic dataset"}
+plot_knn(25)
+```
+
 Recall that the "true" decision boundary for this synthetic dataset
-is at $X_1=0$. The 25-NN classifier did quite a good job.
+is at $X_1=0$. The 25-NN classifier did quite a good job, see  Figure {@fig:fig_plot_knn25}.
+
 
 
 ### Example in R
@@ -427,8 +434,23 @@ Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
 Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 ```
 
+See Figure {@fig:standardise_depict_hist} for an illustration.
+Note that the righthand figures (histograms of standardised variables)
+are on the same scale now.
 
+```{r standardise_depict_hist,echo=FALSE,fi.height=6,fig.cap="Empirical distribution of two variables (pH on the top, fixed.acidity on the bottom) before (left) and after (right) standardising"}
+par(mfrow=c(2,2))
+hist(X_train[,"pH"], col="white", main=NA, xlim=c(-11,11)); box()
+hist(Z_train[,"pH"], col="white", main=NA, xlim=c(-11,11)); box()
+hist(X_train[,"fixed.acidity"], col="white", main=NA, xlim=c(-11,11)); box()
+hist(Z_train[,"fixed.acidity"], col="white", main=NA, xlim=c(-11,11)); box()
+```
 
+Remark.
+
+: Of course, standardisation is only about shifting and scaling, it
+preserves the shape of the distribution. If the original variable
+is right skewed or bimodal, its standardised version will remain as such.
 
 
 Let's compute the accuracy of K-NN classifiers acting on standardised data.
@@ -786,7 +808,7 @@ Example results:
 round(cbind(K=Ks, Ps), 2)
 ```
 
-A picture is worth a thousand tables though (see `?matplot` in R).
+Figure {@fig:whichK5} is worth a thousand tables though (see `?matplot` in R). The reader is kindly asked to draw conclusions themself.
 
 
 
@@ -794,7 +816,7 @@ A picture is worth a thousand tables though (see `?matplot` in R).
 
 
 
-```{r whichK5,echo=FALSE,cache=TRUE}
+```{r whichK5,echo=FALSE,cache=TRUE,fig.cap="Performance of $K$-nn classifiers as a function of $K$ for standardised and raw data"}
 par(mfrow=c(1,2))
 Ks <- seq(1, 51, by=2)
 Ps <- as.data.frame(t(sapply(Ks, # on each element in this vector
@@ -1445,14 +1467,20 @@ of numerous string metrics.
 
 Note that K-NN is suitable for any kind of multiclass classification.
 
-In the next part we will discuss some other noteworthy classifiers:
+However, in practice it's pretty slow for larger datasets -- to
+classify a single point we have to query the whole training set (which
+should be available at all times).
+
+In the next part we will discuss some other well-known classifiers:
 
 - *Decision trees*
 - *Logistic regression*
 
-
-They are restricted to binary (0/1) outputs. They will have to be extended
+<!--
+They are restricted to binary (0/1) outputs.
+They will have to be extended
 somehow to allow for more classes.
+-->
 
 
 
@@ -1482,7 +1510,7 @@ denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$,
 
 Recall our modelling of the Credit Rating ($Y$)
 as a function of the average Credit Card Balance ($X$)
-based on the `ISLR::Credit` data set.
+based on the `ISLR::Credit` dataset.
 
 
 
@@ -1503,17 +1531,26 @@ y25 <- knn.reg(Xc, x, Yc, k=25)$pred
 ```
 
 
+The three models are depicted in Figure {@fig:knnreg3}.
+Again, the higher the $K$, the smoother the curve. On the other hand, for
+small $K$ we adapt better to what's in a point's neighbourhood.
 
-
-```{r knnreg3,message=FALSE}
+```{r knnreg3,message=FALSE,fig.cap="K-NN regression example"}
 plot(Xc, Yc, col="#666666c0",
     xlab="Balance", ylab="Rating")
 lines(x, y1,  col=2, lwd=3)
 lines(x, y5,  col=3, lwd=3)
 lines(x, y25, col=4, lwd=3)
+legend("topleft", legend=c("K=1", "K=5", "K=25"),
+    col=c(2, 3, 4), lwd=3, bg="white")
 ```
 
+<!--
 
+TODO: exercise -- density, not NN-based classification
+regression - consider the epsilon-neighbourhood.
+
+-->
 
 
 
