@@ -3,6 +3,18 @@
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
+<!-- TODO
+
+move some quality metrics from Ch.2 to Ch.1
+
+what is high correlation? 0.6 is not! time to stop tolerating weak
+associations in the social sciences, you can do better, get
+more data or don't do what you do... :/
+
+different coefficients of correlation (Spearman, Kendall) → Chapter 2
+
+-->
+
 
 <!-- TODO
 
