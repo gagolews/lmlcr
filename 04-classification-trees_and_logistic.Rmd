@@ -62,10 +62,11 @@ healthy | ill
 
 
 
-The synthetic 2D dataset once again (true decision boundary is at $X_1=0$):
+Let's recall the synthetic 2D dataset from the previous chapter
+(true decision boundary is at $X_1=0$), see Figure {@fig:synthetic}.
 
 
-```{r synthetic,echo=FALSE}
+```{r synthetic,echo=FALSE,fig.cap="A synthetic 2D dataset with the true decision boundary at $X_1=0$"}
 set.seed(123)
 n0 <- 50 # n0 points in class 0
 n1 <- 50 # n0 points in class 0
@@ -254,7 +255,7 @@ This idea inspired the notion of **decision trees** [@cart].
 
 
 
-```{r plot_rpart,echo=FALSE}
+```{r plot_rpart,echo=FALSE,fig.cap="The simplest decision tree for the synthetic 2D dataset and the corresponding decision boundaries"}
 library("rpart")
 library("rpart.plot")
 set.seed(123)
@@ -270,8 +271,7 @@ plot_rpart <- function(ts, XYs) {
 
   yy <- predict(ts, data.frame(xx, names=c("V1", "V2")), type="class")
   image(xx1, xx2, matrix(as.numeric(yy)-1, nrow=length(xx1), ncol=length(xx2)),
-        col=c("#00000044", "#ff000044"), xlab="X1", ylab="X2", asp=1,
-        main=sprintf("Decision Tree Class Bounds, cp=%g", cp))
+        col=c("#00000044", "#ff000044"), xlab="X1", ylab="X2", asp=1)
 
 
   points(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys])
@@ -291,6 +291,10 @@ rpart.plot(ts)
 ```
 
 
+Figure {@fig:plot_rpart2} depicts a very simple decision tree
+for the aforementioned synthetic dataset.
+There is only one decision boundary (based on $X_1$) that splits
+data into the "left" and "right" sides.
 Each tree node reports 3 pieces of information:
 
 - dominating class (0 or 1)
@@ -300,10 +304,13 @@ Each tree node reports 3 pieces of information:
 
 
 
+Figures {@fig:plot_rpart2} and {@fig:plot_rpart3} depict
+trees with more decision rules.
+Take a moment to contemplate how the corresponding decision boundaries
+changed with the introduction of new decision rules.
 
 
-
-```{r plot_rpart2,echo=FALSE}
+```{r plot_rpart2,echo=FALSE,fig.cap="A more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries"}
 cp <- 0.01
 ts <- rpart(Y~., data=XYs, method="class", cp=cp)
 par(mfrow=c(1,2))
@@ -314,15 +321,13 @@ rpart.plot(ts)
 
 
 
-
-
-```{r plot_rpart3,echo=FALSE}
+```{r plot_rpart3,echo=FALSE,fig.cap="An even more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries"}
 cp <- 0.001
 control <- list(minsplit=1, minbucket=5)
 ts <- rpart(Y~., data=XYs, method="class", cp=cp, control=control)
 par(mfrow=c(1,2))
 plot_rpart(ts, XYs)
-rpart.plot(ts, tweak=1.2)
+rpart.plot(ts, tweak=1.05)
 ```
 
 
@@ -358,16 +363,37 @@ XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 
 
 
-Fit and plot a decision tree:
+Fit and plot a decision tree, see Figure {@fig:plot_rpart1}.
 
-```{r plot_rpart1,fig.height=5,echo=-1}
+```{r plot_rpart1,fig.height=5,echo=-1,fig.cap="A decision tree for the `wines` dataset"}
 par(mar=c(0,0,0,0))
 t1 <- rpart(Y~., data=XY_train, method="class")
 rpart.plot(t1, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
 
 
+We can build  less or more complex trees by playing
+with the `cp` parameter, see Figures {@fig:plot_rpart222}
+and {@fig:tree333}.
 
+```{r plot_rpart222,echo=-1,fig.cap="A (simpler) decision tree for the `wines` dataset"}
+par(mar=c(0,0,0,0))
+# cp = complexity parameter, smaller → more complex tree
+t2 <- rpart(Y~., data=XY_train, method="class", cp=0.1)
+rpart.plot(t2, tweak=1.1, fallen.leaves=FALSE, digits=3)
+```
+
+
+```{r tree333,fig.height=8,echo=-1,fig.cap="A (more complex) decision tree for the `wines` dataset"}
+par(mar=c(0,0,0,0))
+# cp = complexity parameter, smaller → more complex tree
+t3 <- rpart(Y~., data=XY_train, method="class", cp=0.00001)
+rpart.plot(t3, tweak=1.1, fallen.leaves=FALSE, digits=3)
+```
+
+Trees with few decision rules actually are very nicely interpretable.
+On the other hand, plotting of the complex ones is just hopeless;
+we should treat them as "black boxes" instead.
 
 
 
@@ -390,7 +416,7 @@ Well note how these two distributions are shifted:
 
 -->
 
-Make predictions:
+Let's make some predictions:
 
 ```{r predict_rpart1}
 Y_pred <- predict(t1, XY_test, type="class")
@@ -399,6 +425,16 @@ get_metrics(Y_pred, Y_test)
 
 
 
+```{r predict_rpart222}
+Y_pred <- predict(t2, XY_test, type="class")
+get_metrics(Y_pred, Y_test)
+```
+
+
+```{r tree333pred}
+Y_pred <- predict(t3, XY_test, type="class")
+get_metrics(Y_pred, Y_test)
+```
 
 
 Remark.
@@ -413,47 +449,17 @@ t1$variable.importance/sum(t1$variable.importance)
 
 
 
-We can build a less complex tree by playing
-with the `cp` parameter.
-
-```{r plot_rpart222,echo=-1}
-par(mar=c(0,0,0,0))
-# cp = complexity parameter, smaller → more complex tree
-t2 <- rpart(Y~., data=XY_train, method="class", cp=0.1)
-rpart.plot(t2, tweak=1.1, fallen.leaves=FALSE, digits=3)
-```
-
-
-
-
-
-```{r predict_rpart222}
-Y_pred <- predict(t2, XY_test, type="class")
-get_metrics(Y_pred, Y_test)
-```
 
 
 
 
 
 
-A more complex tree:
-
-```{r tree333,fig.height=5,echo=-1}
-par(mar=c(0,0,0,0))
-# cp = complexity parameter, smaller → more complex tree
-t3 <- rpart(Y~., data=XY_train, method="class", cp=0.00001)
-rpart.plot(t3, tweak=1.1, fallen.leaves=FALSE, digits=3)
-```
 
 
 
 
 
-```{r tree333pred}
-Y_pred <- predict(t3, XY_test, type="class")
-get_metrics(Y_pred, Y_test)
-```
 
 
 ### A Note on Decision Tree Learning
@@ -533,7 +539,7 @@ Recall that for a regression task, we fitted a very simple family of models
 
 This approach was pretty effective.
 
-Theoretically, we could treat the class labels as numeric $0$s and $1$s
+(Very) theoretically, we could treat the class labels as numeric $0$s and $1$s
 and apply regression models in a binary classification task.
 
 
@@ -568,11 +574,13 @@ round(get_metrics(Y_pred, XY_test_r$Y), 3)
 
 
 
+Remark.
 
-The threshold $T=0.5$  could even be treated as a free parameter
-we optimise for (w.r.t. different metrics over the validation sample).
+: (\*) The threshold $T=0.5$  could even be treated as a free parameter
+we optimise for (w.r.t. different metrics over the validation sample),
+see Figure {@fig:lm3b}.
 
-```{r lm3b,echo=FALSE,cache=TRUE,dependson='lm3',cache=TRUE}
+```{r lm3b,echo=FALSE,cache=TRUE,dependson='lm3',cache=TRUE,fig.cap="Quality metrics for a binary classifier \"Classify X as 1 if $f(X)>T$ and as 0 if $f(X)\\le T$\""}
 set.seed(123)
 f_r <- lm(Y~density+residual.sugar+pH, data=XY_train_r)
 Y_pred_r <- predict(f_r, XY_test_r)
@@ -588,7 +596,12 @@ legend("bottomleft", legend=names(Ps[,1:4]), col=1:4, lty=1:4, ncol=2, bg="white
 
 
 Despite we can, we shouldn't use linear regression for classification.
-There are better models.
+Treating class labels  "0" and "1" as ordinary real numbers just doesn't
+cut it -- we intuitively feel that we are doing something *ugly*.
+Luckily, there is a better, more meaningful approach that
+still relies on a linear model, but has the *right* semantics.
+
+
 
 
 
@@ -609,7 +622,9 @@ However, we could transform those real-valued outputs by means
 of some function $\phi:\mathbb{R}\to[0,1]$ (preferably S-shaped == sigmoid),
 so as to get:
 
-$\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)$
+\[
+\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)
+\]
 
 
 Remark.
@@ -621,12 +636,13 @@ and $\boldsymbol\beta$".
 
 
 A popular choice is the **logistic sigmoid function**,
+see Figure {@fig:sigmoid}:
 
 \[
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]
 
-```{r sigmoid,echo=FALSE,cache=TRUE}
+```{r sigmoid,echo=FALSE,cache=TRUE,fig.cap="The logistic sigmoid function, $\\varphi$"}
 xxx <- seq(-3, 3, length.out=101)
 yyy <- 1/(1+exp(-xxx))
 plot(xxx, yyy, type='l', xlab='y', ylab=expression(phi(y)), ylim=c(0,1))
@@ -670,10 +686,11 @@ summary(f)
 ```
 
 
+Figure {@fig:glm2} depicts the obtained probability
+$\Pr(Y=1|\text{density})$.
 
 
-
-```{r glm2,echo=FALSE,cache=TRUE,eval=TRUE}
+```{r glm2,echo=FALSE,cache=TRUE,eval=TRUE,fig.cap="The probability that a given wine is a high-alcohol one given its density; black and red points denote the actual observed data points from the class 0 and 1, respectively"}
 xxx <- seq(min(XY_train$density), max(XY_train$density), length.out=101)
 yyy <- 1/(1+exp(-(f$coef[1]+f$coef[2]*xxx)))
 plot(xxx, yyy, type='l', xlab='density', ylab="P(Y=1|density)", ylim=c(0,1))

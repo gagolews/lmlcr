@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 21:10 (d74d842)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-18 12:13 (aee35cc)</a></li>
 
 </ul>
 
@@ -562,10 +562,11 @@ we assume that each <span class="math inline">\(y_i\)</span> is a descriptive la
 </tr>
 </tbody>
 </table>
-<p>The synthetic 2D dataset once again (true decision boundary is at <span class="math inline">\(X_1=0\)</span>):</p>
+<p>Let’s recall the synthetic 2D dataset from the previous chapter
+(true decision boundary is at <span class="math inline">\(X_1=0\)</span>), see Figure <a href="classification-with-trees-and-linear-models.html#fig:synthetic">1</a>.</p>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/synthetic-1.svg" alt="Figure 1: plot of chunk synthetic" id="fig:synthetic" />
-<p class="caption">Figure 1: plot of chunk synthetic</p>
+<img src="04-classification-trees_and_logistic-figures/synthetic-1.svg" alt="Figure 1: A synthetic 2D dataset with the true decision boundary at X_1=0" id="fig:synthetic" />
+<p class="caption">Figure 1: A synthetic 2D dataset with the true decision boundary at <span class="math inline">\(X_1=0\)</span></p>
 </div>
 </div>
 <div id="data-1" class="section level3">
@@ -680,22 +681,30 @@ consist of decision rules of the form:</p>
 <p>These can be organised into a <strong>hierarchy</strong> for greater readability.</p>
 <p>This idea inspired the notion of <strong>decision trees</strong> <span class="citation">(Breiman et al. <a href="references.html#ref-cart">1984</a>)</span>.</p>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/plot_rpart-1.svg" alt="Figure 2: plot of chunk plot_rpart" id="fig:plot_rpart" />
-<p class="caption">Figure 2: plot of chunk plot_rpart</p>
+<img src="04-classification-trees_and_logistic-figures/plot_rpart-1.svg" alt="Figure 2: The simplest decision tree for the synthetic 2D dataset and the corresponding decision boundaries" id="fig:plot_rpart" />
+<p class="caption">Figure 2: The simplest decision tree for the synthetic 2D dataset and the corresponding decision boundaries</p>
 </div>
-<p>Each tree node reports 3 pieces of information:</p>
+<p>Figure <a href="classification-with-trees-and-linear-models.html#fig:plot_rpart2">3</a> depicts a very simple decision tree
+for the aforementioned synthetic dataset.
+There is only one decision boundary (based on <span class="math inline">\(X_1\)</span>) that splits
+data into the “left” and “right” sides.
+Each tree node reports 3 pieces of information:</p>
 <ul>
 <li>dominating class (0 or 1)</li>
 <li>(relative) proportion of 1s represented in a node</li>
 <li>(absolute) proportion of all observations in a node</li>
 </ul>
+<p>Figures <a href="classification-with-trees-and-linear-models.html#fig:plot_rpart2">3</a> and <a href="classification-with-trees-and-linear-models.html#fig:plot_rpart3">4</a> depict
+trees with more decision rules.
+Take a moment to contemplate how the corresponding decision boundaries
+changed with the introduction of new decision rules.</p>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/plot_rpart2-1.svg" alt="Figure 3: plot of chunk plot_rpart2" id="fig:plot_rpart2" />
-<p class="caption">Figure 3: plot of chunk plot_rpart2</p>
+<img src="04-classification-trees_and_logistic-figures/plot_rpart2-1.svg" alt="Figure 3: A more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries" id="fig:plot_rpart2" />
+<p class="caption">Figure 3: A more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries</p>
 </div>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/plot_rpart3-1.svg" alt="Figure 4: plot of chunk plot_rpart3" id="fig:plot_rpart3" />
-<p class="caption">Figure 4: plot of chunk plot_rpart3</p>
+<img src="04-classification-trees_and_logistic-figures/plot_rpart3-1.svg" alt="Figure 4: An even more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries" id="fig:plot_rpart3" />
+<p class="caption">Figure 4: An even more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries</p>
 </div>
 </div>
 <div id="example-in-r-1" class="section level3">
@@ -709,13 +718,33 @@ to build a classification tree.</p>
 to feed it with data in a data.frame form.</p>
 <div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">XY_train &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train), <span class="dt">Y=</span>Y_train)</a>
 <a class="sourceLine" id="cb409-2" title="2">XY_test &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_test), <span class="dt">Y=</span>Y_test)</a></code></pre></div>
-<p>Fit and plot a decision tree:</p>
+<p>Fit and plot a decision tree, see Figure <a href="classification-with-trees-and-linear-models.html#fig:plot_rpart1">5</a>.</p>
 <div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">t1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>)</a>
 <a class="sourceLine" id="cb410-2" title="2"><span class="kw">rpart.plot</span>(t1, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/plot_rpart1-1.svg" alt="Figure 5: plot of chunk plot_rpart1" id="fig:plot_rpart1" />
-<p class="caption">Figure 5: plot of chunk plot_rpart1</p>
+<img src="04-classification-trees_and_logistic-figures/plot_rpart1-1.svg" alt="Figure 5: A decision tree for the wines dataset" id="fig:plot_rpart1" />
+<p class="caption">Figure 5: A decision tree for the <code>wines</code> dataset</p>
 </div>
+<p>We can build less or more complex trees by playing
+with the <code>cp</code> parameter, see Figures <a href="classification-with-trees-and-linear-models.html#fig:plot_rpart222">6</a>
+and <a href="classification-with-trees-and-linear-models.html#fig:tree333">7</a>.</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
+<a class="sourceLine" id="cb411-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb411-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/plot_rpart222-1.svg" alt="Figure 6: A (simpler) decision tree for the wines dataset" id="fig:plot_rpart222" />
+<p class="caption">Figure 6: A (simpler) decision tree for the <code>wines</code> dataset</p>
+</div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
+<a class="sourceLine" id="cb412-2" title="2">t3 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.00001</span>)</a>
+<a class="sourceLine" id="cb412-3" title="3"><span class="kw">rpart.plot</span>(t3, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="figure">
+<img src="04-classification-trees_and_logistic-figures/tree333-1.svg" alt="Figure 7: A (more complex) decision tree for the wines dataset" id="fig:tree333" />
+<p class="caption">Figure 7: A (more complex) decision tree for the <code>wines</code> dataset</p>
+</div>
+<p>Trees with few decision rules actually are very nicely interpretable.
+On the other hand, plotting of the complex ones is just hopeless;
+we should treat them as “black boxes” instead.</p>
 <!--
 The fitted model is rather... simple.
 
@@ -734,20 +763,32 @@ Well note how these two distributions are shifted:
 
 
 -->
-<p>Make predictions:</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t1, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb411-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<p>Let’s make some predictions:</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t1, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb413-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9285714    0.8062284    0.7350158    0.7689769 
 ##           TN           FN           FP           TP 
 ## 1587.0000000   84.0000000   56.0000000  233.0000000</code></pre>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb415-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<pre><code>##          Acc         Prec          Rec            F 
+##    0.9025510    0.8387097    0.4921136    0.6202783 
+##           TN           FN           FP           TP 
+## 1613.0000000  161.0000000   30.0000000  156.0000000</code></pre>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t3, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
+<a class="sourceLine" id="cb417-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<pre><code>##          Acc         Prec          Rec            F 
+##    0.9183673    0.7343284    0.7760252    0.7546012 
+##           TN           FN           FP           TP 
+## 1554.0000000   71.0000000   89.0000000  246.0000000</code></pre>
 <dl>
 <dt>Remark.</dt>
 <dd><p>(*) Interestingly, <code>rpart()</code> also provides us with information
 about the importance degrees of each independent variable.</p>
 </dd>
 </dl>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">t1<span class="op">$</span>variable.importance<span class="op">/</span><span class="kw">sum</span>(t1<span class="op">$</span>variable.importance)</a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">t1<span class="op">$</span>variable.importance<span class="op">/</span><span class="kw">sum</span>(t1<span class="op">$</span>variable.importance)</a></code></pre></div>
 <pre><code>##              density       residual.sugar        fixed.acidity 
 ##          0.656248965          0.198422128          0.030516677 
 ##            chlorides                   pH     volatile.acidity 
@@ -756,35 +797,6 @@ about the importance degrees of each independent variable.</p>
 ##          0.018429283          0.014048245          0.011920068 
 ##  free.sulfur.dioxide 
 ##          0.008657918</code></pre>
-<p>We can build a less complex tree by playing
-with the <code>cp</code> parameter.</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
-<a class="sourceLine" id="cb415-2" title="2">t2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb415-3" title="3"><span class="kw">rpart.plot</span>(t2, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<div class="figure">
-<img src="04-classification-trees_and_logistic-figures/plot_rpart222-1.svg" alt="Figure 6: plot of chunk plot_rpart222" id="fig:plot_rpart222" />
-<p class="caption">Figure 6: plot of chunk plot_rpart222</p>
-</div>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t2, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb416-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
-<pre><code>##          Acc         Prec          Rec            F 
-##    0.9025510    0.8387097    0.4921136    0.6202783 
-##           TN           FN           FP           TP 
-## 1613.0000000  161.0000000   30.0000000  156.0000000</code></pre>
-<p>A more complex tree:</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="co"># cp = complexity parameter, smaller → more complex tree</span></a>
-<a class="sourceLine" id="cb418-2" title="2">t3 &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>., <span class="dt">data=</span>XY_train, <span class="dt">method=</span><span class="st">&quot;class&quot;</span>, <span class="dt">cp=</span><span class="fl">0.00001</span>)</a>
-<a class="sourceLine" id="cb418-3" title="3"><span class="kw">rpart.plot</span>(t3, <span class="dt">tweak=</span><span class="fl">1.1</span>, <span class="dt">fallen.leaves=</span><span class="ot">FALSE</span>, <span class="dt">digits=</span><span class="dv">3</span>)</a></code></pre></div>
-<div class="figure">
-<img src="04-classification-trees_and_logistic-figures/tree333-1.svg" alt="Figure 7: plot of chunk tree333" id="fig:tree333" />
-<p class="caption">Figure 7: plot of chunk tree333</p>
-</div>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(t3, XY_test, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</a>
-<a class="sourceLine" id="cb419-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
-<pre><code>##          Acc         Prec          Rec            F 
-##    0.9183673    0.7343284    0.7760252    0.7546012 
-##           TN           FN           FP           TP 
-## 1554.0000000   71.0000000   89.0000000  246.0000000</code></pre>
 </div>
 <div id="a-note-on-decision-tree-learning" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> A Note on Decision Tree Learning</h3>
@@ -845,7 +857,7 @@ bagging
 <p>Recall that for a regression task, we fitted a very simple family of models
 – the linear ones – by minimising the sum of squared residuals.</p>
 <p>This approach was pretty effective.</p>
-<p>Theoretically, we could treat the class labels as numeric <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s
+<p>(Very) theoretically, we could treat the class labels as numeric <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s
 and apply regression models in a binary classification task.</p>
 <div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">XY_train_r &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(X_train),</a>
 <a class="sourceLine" id="cb421-2" title="2">    <span class="dt">Y=</span><span class="kw">as.numeric</span>(Y_train)<span class="op">-</span><span class="dv">1</span> <span class="co"># 0.0 or 1.0</span></a>
@@ -866,14 +878,22 @@ but we can convert them to binary ones by checking if, e.g., <span class="math i
 ##    0.927    0.865    0.647    0.740 1611.000  112.000   32.000 
 ##       TP 
 ##  205.000</code></pre>
-<p>The threshold <span class="math inline">\(T=0.5\)</span> could even be treated as a free parameter
-we optimise for (w.r.t. different metrics over the validation sample).</p>
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) The threshold <span class="math inline">\(T=0.5\)</span> could even be treated as a free parameter
+we optimise for (w.r.t. different metrics over the validation sample),
+see Figure <a href="classification-with-trees-and-linear-models.html#fig:lm3b">8</a>.</p>
+</dd>
+</dl>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/lm3b-1.svg" alt="Figure 8: plot of chunk lm3b" id="fig:lm3b" />
-<p class="caption">Figure 8: plot of chunk lm3b</p>
+<img src="04-classification-trees_and_logistic-figures/lm3b-1.svg" alt="Figure 8: Quality metrics for a binary classifier “Classify X as 1 if f(X)&gt;T and as 0 if f(X)\le T”" id="fig:lm3b" />
+<p class="caption">Figure 8: Quality metrics for a binary classifier “Classify X as 1 if <span class="math inline">\(f(X)&gt;T\)</span> and as 0 if <span class="math inline">\(f(X)\le T\)</span>”</p>
 </div>
 <p>Despite we can, we shouldn’t use linear regression for classification.
-There are better models.</p>
+Treating class labels “0” and “1” as ordinary real numbers just doesn’t
+cut it – we intuitively feel that we are doing something <em>ugly</em>.
+Luckily, there is a better, more meaningful approach that
+still relies on a linear model, but has the <em>right</em> semantics.</p>
 </div>
 <div id="logistic-model" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Logistic Model</h3>
@@ -884,20 +904,23 @@ the <strong><em>probability</em> that a given point belongs to class <span class
 <p>However, we could transform those real-valued outputs by means
 of some function <span class="math inline">\(\phi:\mathbb{R}\to[0,1]\)</span> (preferably S-shaped == sigmoid),
 so as to get:</p>
-<p><span class="math inline">\(\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)\)</span></p>
+<p><span class="math display">\[
+\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)
+\]</span></p>
 <dl>
 <dt>Remark.</dt>
 <dd><p>The above reads as “Probability that <span class="math inline">\(Y\)</span> is from class 1 given <span class="math inline">\(\mathbf{X}\)</span>
 and <span class="math inline">\(\boldsymbol\beta\)</span>”.</p>
 </dd>
 </dl>
-<p>A popular choice is the <strong>logistic sigmoid function</strong>,</p>
+<p>A popular choice is the <strong>logistic sigmoid function</strong>,
+see Figure <a href="classification-with-trees-and-linear-models.html#fig:sigmoid">9</a>:</p>
 <p><span class="math display">\[
 \phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
 \]</span></p>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/sigmoid-1.svg" alt="Figure 9: plot of chunk sigmoid" id="fig:sigmoid" />
-<p class="caption">Figure 9: plot of chunk sigmoid</p>
+<img src="04-classification-trees_and_logistic-figures/sigmoid-1.svg" alt="Figure 9: The logistic sigmoid function, \varphi" id="fig:sigmoid" />
+<p class="caption">Figure 9: The logistic sigmoid function, <span class="math inline">\(\varphi\)</span></p>
 </div>
 <p>Hence our model becomes:</p>
 <p><span class="math display">\[
@@ -940,9 +963,11 @@ using the <code>density</code> variable.</p>
 ## AIC: 1422.9
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
+<p>Figure <a href="classification-with-trees-and-linear-models.html#fig:glm2">10</a> depicts the obtained probability
+<span class="math inline">\(\Pr(Y=1|\text{density})\)</span>.</p>
 <div class="figure">
-<img src="04-classification-trees_and_logistic-figures/glm2-1.svg" alt="Figure 10: plot of chunk glm2" id="fig:glm2" />
-<p class="caption">Figure 10: plot of chunk glm2</p>
+<img src="04-classification-trees_and_logistic-figures/glm2-1.svg" alt="Figure 10: The probability that a given wine is a high-alcohol one given its density; black and red points denote the actual observed data points from the class 0 and 1, respectively" id="fig:glm2" />
+<p class="caption">Figure 10: The probability that a given wine is a high-alcohol one given its density; black and red points denote the actual observed data points from the class 0 and 1, respectively</p>
 </div>
 <p>Some predicted probabilities:</p>
 <div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>

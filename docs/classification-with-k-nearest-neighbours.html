@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-17 21:10 (d74d842)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-18 12:13 (aee35cc)</a></li>
 
 </ul>
 
@@ -573,12 +573,12 @@ where there are only two possible distinct labels.</p>
 <p>On the other hand, in <strong>multiclass classification</strong>,
 we assume that each <span class="math inline">\(y_i\)</span> takes more than two possible values.</p>
 <p>Example plot of a synthetic dataset
-with the reference binary <span class="math inline">\(y\)</span>s.</p>
-<p>The “true” decision boundary is at <span class="math inline">\(X_1=0\)</span> but the classes
+with the reference binary <span class="math inline">\(y\)</span>s is given in Figure <a href="classification-with-k-nearest-neighbours.html#fig:classify_intro">1</a>.
+The “true” decision boundary is at <span class="math inline">\(X_1=0\)</span> but the classes
 slightly overlap (the dataset is a bit noisy).</p>
 <div class="figure">
-<img src="03-classification-neighbours-figures/classify_intro-1.svg" alt="Figure 1: plot of chunk classify_intro" id="fig:classify_intro" />
-<p class="caption">Figure 1: plot of chunk classify_intro</p>
+<img src="03-classification-neighbours-figures/classify_intro-1.svg" alt="Figure 1: A synthetic 2D dataset with the true decision boundary at X_1=0" id="fig:classify_intro" />
+<p class="caption">Figure 1: A synthetic 2D dataset with the true decision boundary at <span class="math inline">\(X_1=0\)</span></p>
 </div>
 </div>
 <div id="data" class="section level3">
@@ -708,26 +708,34 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 <li>return their <em>mode</em> as a result, i.e., the most frequently occurring label (a.k.a. <em>majority vote</em>)</li>
 </ol>
 <!-- > If a mode is not unique, return a randomly chosen mode (ties are broken at random). -->
-<p>Here is how <span class="math inline">\(K\)</span>-NN classifier works on a synthetic 2D dataset.</p>
-<p>Gray and pink regions depict how new points would be classified.</p>
-<p>In particular 1-NN is “greedy” in the sense that we just
+<p>Here is how <span class="math inline">\(K\)</span>-NN classifier works on a synthetic 2D dataset.
+Firstly let’s consider <span class="math inline">\(K=1\)</span>, see Figure <a href="classification-with-k-nearest-neighbours.html#fig:fig_plot_knn1">2</a>.
+Gray and pink regions depict how new points would be classified.
+In particular 1-NN is “greedy” in the sense that we just
 locate the nearest point.</p>
 <div class="figure">
-<img src="03-classification-neighbours-figures/fig_plot_knn1-1.svg" alt="Figure 2: plot of chunk fig_plot_knn1" id="fig:fig_plot_knn1" />
-<p class="caption">Figure 2: plot of chunk fig_plot_knn1</p>
+<img src="03-classification-neighbours-figures/fig_plot_knn1-1.svg" alt="Figure 2: 1-NN class bounds for our 2D synthetic dataset" id="fig:fig_plot_knn1" />
+<p class="caption">Figure 2: 1-NN class bounds for our 2D synthetic dataset</p>
 </div>
-<div class="figure">
-<img src="03-classification-neighbours-figures/fig_plot_knn3-1.svg" alt="Figure 3: plot of chunk fig_plot_knn3" id="fig:fig_plot_knn3" />
-<p class="caption">Figure 3: plot of chunk fig_plot_knn3</p>
-</div>
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) 1-NN classification is essentially based
+on a dataset’s so-called Voronoi diagram.</p>
+</dd>
+</dl>
 <p>Increasing <span class="math inline">\(K\)</span> somehow smoothens the decision boundary (this makes it
-less “local” and more “global”).</p>
+less “local” and more “global”).
+Figure <a href="classification-with-k-nearest-neighbours.html#fig:fig_plot_knn3">3</a> depicts the <span class="math inline">\(K=3\)</span> case.</p>
 <div class="figure">
-<img src="03-classification-neighbours-figures/fig_plot_knn25-1.svg" alt="Figure 4: plot of chunk fig_plot_knn25" id="fig:fig_plot_knn25" />
-<p class="caption">Figure 4: plot of chunk fig_plot_knn25</p>
+<img src="03-classification-neighbours-figures/fig_plot_knn3-1.svg" alt="Figure 3: 3-NN class bounds for our 2D synthetic dataset" id="fig:fig_plot_knn3" />
+<p class="caption">Figure 3: 3-NN class bounds for our 2D synthetic dataset</p>
+</div>
+<div class="figure">
+<img src="03-classification-neighbours-figures/fig_plot_knn25-1.svg" alt="Figure 4: 25-NN class bounds for our 2D synthetic dataset" id="fig:fig_plot_knn25" />
+<p class="caption">Figure 4: 25-NN class bounds for our 2D synthetic dataset</p>
 </div>
 <p>Recall that the “true” decision boundary for this synthetic dataset
-is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite a good job.</p>
+is at <span class="math inline">\(X_1=0\)</span>. The 25-NN classifier did quite a good job, see Figure <a href="classification-with-k-nearest-neighbours.html#fig:fig_plot_knn25">4</a>.</p>
 </div>
 <div id="example-in-r" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Example in R</h3>
@@ -788,6 +796,20 @@ and <code>X_test</code>, respectively.</p>
 <p>Alternatively:</p>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
 <a class="sourceLine" id="cb299-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
+<p>See Figure <a href="classification-with-k-nearest-neighbours.html#fig:standardise_depict_hist">5</a> for an illustration.
+Note that the righthand figures (histograms of standardised variables)
+are on the same scale now.</p>
+<div class="figure">
+<img src="03-classification-neighbours-figures/standardise_depict_hist-1.svg" alt="Figure 5: Empirical distribution of two variables (pH on the top, fixed.acidity on the bottom) before (left) and after (right) standardising" id="fig:standardise_depict_hist" />
+<p class="caption">Figure 5: Empirical distribution of two variables (pH on the top, fixed.acidity on the bottom) before (left) and after (right) standardising</p>
+</div>
+<dl>
+<dt>Remark.</dt>
+<dd><p>Of course, standardisation is only about shifting and scaling, it
+preserves the shape of the distribution. If the original variable
+is right skewed or bimodal, its standardised version will remain as such.</p>
+</dd>
+</dl>
 <p>Let’s compute the accuracy of K-NN classifiers acting on standardised data.</p>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb300-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
@@ -1030,10 +1052,10 @@ the code yourself – it’s fun fun fun.</p>
 ## 8  15 0.91 0.82 0.55 0.66 1606 144 37 173
 ## 9  17 0.91 0.83 0.54 0.65 1607 147 36 170
 ## 10 19 0.90 0.80 0.52 0.63 1602 151 41 166</code></pre>
-<p>A picture is worth a thousand tables though (see <code>?matplot</code> in R).</p>
+<p>Figure <a href="classification-with-k-nearest-neighbours.html#fig:whichK5">6</a> is worth a thousand tables though (see <code>?matplot</code> in R). The reader is kindly asked to draw conclusions themself.</p>
 <div class="figure">
-<img src="03-classification-neighbours-figures/whichK5-1.svg" alt="Figure 5: plot of chunk whichK5" id="fig:whichK5" />
-<p class="caption">Figure 5: plot of chunk whichK5</p>
+<img src="03-classification-neighbours-figures/whichK5-1.svg" alt="Figure 6: Performance of K-nn classifiers as a function of K for standardised and raw data" id="fig:whichK5" />
+<p class="caption">Figure 6: Performance of <span class="math inline">\(K\)</span>-nn classifiers as a function of <span class="math inline">\(K\)</span> for standardised and raw data</p>
 </div>
 <!--
 
@@ -1358,16 +1380,16 @@ kd-trees.</p>
 <a class="sourceLine" id="cb378-11" title="11">}</a></code></pre></div>
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.28901597 0.01210287</code></pre>
+## 0.27817314 0.01135426</code></pre>
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.41674136 0.05988727</code></pre>
+## 0.42299420 0.05956368</code></pre>
 <div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-## 0.6350954 0.6270332</code></pre>
+## 0.6243685 0.6266279</code></pre>
 <div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##    brute  kd_tree 
-## 1.232445 5.129849</code></pre>
+## 1.219893 5.290122</code></pre>
 </div>
 <div id="different-metrics" class="section level3">
 <h3><span class="header-section-number">3.4.5</span> Different Metrics (*)</h3>
@@ -1441,13 +1463,19 @@ of numerous string metrics.</p>
 <div id="remarks-2" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Remarks</h3>
 <p>Note that K-NN is suitable for any kind of multiclass classification.</p>
-<p>In the next part we will discuss some other noteworthy classifiers:</p>
+<p>However, in practice it’s pretty slow for larger datasets – to
+classify a single point we have to query the whole training set (which
+should be available at all times).</p>
+<p>In the next part we will discuss some other well-known classifiers:</p>
 <ul>
 <li><em>Decision trees</em></li>
 <li><em>Logistic regression</em></li>
 </ul>
-<p>They are restricted to binary (0/1) outputs. They will have to be extended
-somehow to allow for more classes.</p>
+<!--
+They are restricted to binary (0/1) outputs.
+They will have to be extended
+somehow to allow for more classes.
+-->
 </div>
 <div id="side-note-k-nn-regression" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> Side Note: K-NN Regression</h3>
@@ -1463,7 +1491,7 @@ denoted <span class="math inline">\(\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i
 </ol>
 <p>Recall our modelling of the Credit Rating (<span class="math inline">\(Y\)</span>)
 as a function of the average Credit Card Balance (<span class="math inline">\(X\)</span>)
-based on the <code>ISLR::Credit</code> data set.</p>
+based on the <code>ISLR::Credit</code> dataset.</p>
 <div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1"><span class="kw">library</span>(<span class="st">&quot;ISLR&quot;</span>) <span class="co"># Credit dataset</span></a>
 <a class="sourceLine" id="cb389-2" title="2">Xc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a>
 <a class="sourceLine" id="cb389-3" title="3">Yc &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>]))</a></code></pre></div>
@@ -1472,15 +1500,26 @@ based on the <code>ISLR::Credit</code> data set.</p>
 <a class="sourceLine" id="cb390-3" title="3">y1  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">1</span>)<span class="op">$</span>pred</a>
 <a class="sourceLine" id="cb390-4" title="4">y5  &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">5</span>)<span class="op">$</span>pred</a>
 <a class="sourceLine" id="cb390-5" title="5">y25 &lt;-<span class="st"> </span><span class="kw">knn.reg</span>(Xc, x, Yc, <span class="dt">k=</span><span class="dv">25</span>)<span class="op">$</span>pred</a></code></pre></div>
+<p>The three models are depicted in Figure <a href="classification-with-k-nearest-neighbours.html#fig:knnreg3">7</a>.
+Again, the higher the <span class="math inline">\(K\)</span>, the smoother the curve. On the other hand, for
+small <span class="math inline">\(K\)</span> we adapt better to what’s in a point’s neighbourhood.</p>
 <div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1"><span class="kw">plot</span>(Xc, Yc, <span class="dt">col=</span><span class="st">&quot;#666666c0&quot;</span>,</a>
 <a class="sourceLine" id="cb391-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;Balance&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Rating&quot;</span>)</a>
 <a class="sourceLine" id="cb391-3" title="3"><span class="kw">lines</span>(x, y1,  <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb391-4" title="4"><span class="kw">lines</span>(x, y5,  <span class="dt">col=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb391-5" title="5"><span class="kw">lines</span>(x, y25, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb391-5" title="5"><span class="kw">lines</span>(x, y25, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb391-6" title="6"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;K=1&quot;</span>, <span class="st">&quot;K=5&quot;</span>, <span class="st">&quot;K=25&quot;</span>),</a>
+<a class="sourceLine" id="cb391-7" title="7">    <span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="03-classification-neighbours-figures/knnreg3-1.svg" alt="Figure 6: plot of chunk knnreg3" id="fig:knnreg3" />
-<p class="caption">Figure 6: plot of chunk knnreg3</p>
+<img src="03-classification-neighbours-figures/knnreg3-1.svg" alt="Figure 7: K-NN regression example" id="fig:knnreg3" />
+<p class="caption">Figure 7: K-NN regression example</p>
 </div>
+<!--
+
+TODO: exercise -- density, not NN-based classification
+regression - consider the epsilon-neighbourhood.
+
+-->
 </div>
 <div id="further-reading-2" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Further Reading</h3>
