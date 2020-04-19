@@ -1232,7 +1232,21 @@ or at ImageNet (http://image-net.org/index) for an even greater challenge.
 
 
 
-<!--Common tricks:-->
+<!--
+
+Common tricks with NNets: ...
+
+This is kind of "disgusting" --
+let engineer do whatever it takes to increase some performance metric;
+You only optimise wrt a single criterion, are you controlling other ones?
+
+
+Some people tend to attack every problem with NNets,
+but actually their scope is very limited (computer vision and
+signal processing, ...)
+
+
+-->
 
 
 

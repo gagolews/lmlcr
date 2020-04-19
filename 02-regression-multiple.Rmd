@@ -740,6 +740,15 @@ The best model:
 These two criteria are often mutually exclusive.
 
 
+<!--
+Tension between prediction and description, between technology and science
+
+"what companies want" -- more money (models that increase revenue, even slightly, at all cost)
+
+
+-->
+
+
 Which variables should be included in the optimal model?
 
 
@@ -1107,6 +1116,16 @@ split will be necessary, e.g., 60-20-20\%.
 
 ## Exercises in R
 
+
+<!--
+
+TODO
+
+wines dataset: alcohol~density ????
+
+example of unsuccessful modelling
+
+-->
 
 
 ### Anscombe's Quartet Revisited
