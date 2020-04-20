@@ -136,11 +136,12 @@ x[,1,drop=FALSE] # synonym: x[1]
 ```
 
 Take a special note of selecting rows based on logical vectors.
-For instance, let's extract all the rows from `x` for which the values
-in the column named `u` are greater than 0.5:
+For instance, let's extract all the rows from `x` where the values
+in the column named `u` are between 0.3 and 0.6:
 
 ```{r matsubs2}
-x[x$u>0.5, ]
+x[x$u>=0.3 & x$u<=0.6, ]
+x[!(x[,"u"]<0.3 | x[,"u"]>0.6), ] # equivalent
 ```
 
 Moreover, subsetting based on integer vectors can be used to

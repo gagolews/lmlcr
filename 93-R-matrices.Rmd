@@ -688,6 +688,7 @@ Logical vectors can also be used as indexers:
 ```{r select7}
 A[c(TRUE, FALSE, TRUE),] # select 1st and 3rd row
 A[,colMeans(A)>6] # columns with means > 6
+B[B[,"x"]>1 & B[,"x"]<=9,] # All rows where x is in (1, 9]
 ```
 
 
