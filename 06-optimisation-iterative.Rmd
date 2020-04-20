@@ -7,7 +7,8 @@
 
 ### Optimisation Problem
 
----
+
+
 
 **Mathematical optimisation** (a.k.a. mathematical programming)
 deals with the study of algorithms to solve problems related
@@ -21,7 +22,7 @@ f:D\to\mathbb{R}
 called an **objective function**.
 
 $D$ is  the **search space** (problem domain, feasible set) --
-if defines the set of possible solution candidates.
+if defines the set of possible candidate solutions.
 
 
 An **optimisation task** deals with finding an element ${x}\in D$
@@ -32,7 +33,7 @@ that minimises or maximises $f$:
 \]
 
 
-> In this chapter, we will deal with **unconstrained continuous optimisation**,
+In this chapter, we will deal with **unconstrained continuous optimisation**,
 i.e., we will assume the search space is $D=\mathbb{R}^p$ for some $p$.
 
 
@@ -40,7 +41,8 @@ i.e., we will assume the search space is $D=\mathbb{R}^p$ for some $p$.
 
 ### Example Optimisation Problems in Machine Learning
 
----
+
+
 
 In **multiple linear regression** we were minimising
 the sum of squared residuals
@@ -63,7 +65,8 @@ In **binary logistic regression** we were minimising the cross-entropy:
 
 ### Types of Minima and Maxima
 
----
+
+
 
 
 Note that minimising $f$ is the same as maximising $\bar{f}=-f$.
@@ -72,7 +75,7 @@ In other words, $\min_{{x}\in D} f({x})$
 and $\max_{{x}\in D} -f({x})$ represent the same optimisation problems
 (and hence have identical solutions).
 
-\ \
+. . .
 
 A **minimum** of $f$ is a point ${x}^*$ such that
 $f({x}^*)\le f({x})$ for all ${x}\in D$.
@@ -80,18 +83,19 @@ $f({x}^*)\le f({x})$ for all ${x}\in D$.
 A **maximum** of $f$ is a point ${x}^*$ such that
 $f({x}^*)\ge f({x})$ for all ${x}\in D$.
 
----
 
-Assuming that $D=\mathbb{R}$, here is an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
+
+
+Assuming that $D=\mathbb{R}$, Figure {@fig:f_global_minimum}
+shows an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
 that has a minimum at ${x}^*=1$
 with $f(x^*)=-2$.
 
 
-```{r,echo=FALSE}
-par(mar=c(4,4,0.5,0.5))
+```{r f_global_minimum,echo=FALSE,fig.cap="A function with the global minimum at ${x}^*=1$"}
 x <- seq(-2, 5, length.out=101)
 y <- (x-1)^2-2
-plot(x, y, type='l', xlab='x', ylab='f(x)', las=1, ylim=c(-5, 8))
+plot(x, y, type='l', xlab='x', ylab='f(x)', ylim=c(-5, 8))
 abline(v=1, lty=3)
 abline(h=-2, lty=3)
 text(1, -5, expression(x^"*"), pos=4)
@@ -107,24 +111,25 @@ $\mathrm{arg}\min_{x\in \mathbb{R}} f(x)=1$ (location of the minimum)
 
 
 
----
+
+
 
 
 By definition, a minimum/maximum **might not necessarily be unique**.
 This depends on a problem.
 
 
-Assuming that $D=\mathbb{R}$, here is an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
+Assuming that $D=\mathbb{R}$, Figure {@fig:f_global_minimum_not_unique}
+gives an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
 that has multiple minima; every ${x}^*\in[1-\sqrt{2},1+\sqrt{2}]$
 yields $f(x^*)=0$.
 
 
 
-```{r,echo=FALSE}
-par(mar=c(4,4,0.5,0.5))
+```{r f_global_minimum_not_unique,echo=FALSE,fig.cap="An example function that has multiple minima"}
 x <- seq(-2, 5, length.out=101)
 y <- pmax(0, (x-1)^2-2)
-plot(x, y, type='l', xlab='x', ylab='f(x)', las=1, ylim=c(-5, 8))
+plot(x, y, type='l', xlab='x', ylab='f(x)', ylim=c(-5, 8))
 rect(1-sqrt(2), -8, 1+sqrt(2), 10, col="#00000011", border=NA)
 abline(v=c(1-sqrt(2), 1+sqrt(2)), lty=3)
 abline(h=0, lty=3)
@@ -136,20 +141,23 @@ legend("topleft", lty=1, legend=expression(f(x)*"="*"max(0,"*(x-1)^2-2*")"), bg=
 
 
 
-> If this was the case of some machine learning problem, it'd mean
+Remark.
+
+: If this was the case of some machine learning problem, it'd mean
 that we could have many equally well-performing models,
 and hence many equivalent explanations of the same phenomenon.
 
----
-
-Moreover, it may happen that a function has **multiple local minima**.
 
 
-```{r,echo=FALSE}
-par(mar=c(4,4,0.5,0.5))
+
+Moreover, it may happen that a function has **multiple local minima**,
+compare Figure {@fig:f_global_local_minima}.
+
+
+```{r f_global_local_minima,echo=FALSE,fig.cap="A function with two local minima"}
 x <- seq(-2, 3, length.out=101)
 ff <- function(x) x*(x+1)*(x-1)^2-2
-plot(x, ff(x), type='l', xlab='x', ylab='f(x)', las=1, ylim=c(-5, 8))
+plot(x, ff(x), type='l', xlab='x', ylab='f(x)', ylim=c(-5, 8))
 abline(v=c(1, (-1-sqrt(17))/8, ff((-1-sqrt(17))/8)), lty=3)
 abline(h=c(-2, ff((-1-sqrt(17))/8)), lty=3)
 text((-1-sqrt(17))/8, -5, expression(x^"*"), pos=4)
@@ -159,7 +167,8 @@ text(3, -2, expression(f(x^"+")), pos=3)
 legend("topleft", lty=1, legend=expression(f(x)*"="*x*(x+1)*(x-1)^2-2), bg="white")
 ```
 
----
+
+
 
 
 We say that $f$ has a **local minimum**
@@ -168,24 +177,35 @@ if for some neighbourhood $B(\mathbf{x}^+)$ of $\mathbf{x}^+$
 it holds $f(\mathbf{x}^+) \le f(\mathbf{x})$ for each
 $\mathbf{x}\in B(\mathbf{x}^+)$.
 
-> If $D=\mathbb{R}$, by neighbourhood $B(x)$ of $x$
+Definition.
+
+: If $D=\mathbb{R}$, by neighbourhood $B(x)$ of $x$
 we mean an open interval centred at $x$ of width $2r$
 for some small $r>0$, i.e., $(x-r, x+r)$
 
-> (\*) If $D=\mathbb{R}^p$ (for any $p\ge 1$), by neighbourhood $B(\mathbf{x})$ of $\mathbf{x}$
+Definition.
+
+: (\*) If $D=\mathbb{R}^p$ (for any $p\ge 1$), by neighbourhood $B(\mathbf{x})$ of $\mathbf{x}$
 we mean an *open ball* centred at $\mathbf{x}^+$ of some small radius $r>0$,
 i.e., $\{\mathbf{y}: \|\mathbf{x}-\mathbf{y}\|<r\}$
 (read: the set of all the points with Euclidean distances
 to $\mathbf{x}$ less than $r$).
 
----
+
+
 
 
 To avoid ambiguity, the "true" minimum (a point ${x}^*$ such that
 $f({x}^*)\le f({x})$ for all ${x}\in D$) is sometimes also referred to as
 a **global** minimum.
 
-> Of course, the global minimum is also a function's local minimum.
+
+
+Remark.
+
+: Of course, the global minimum is also a function's local minimum.
+
+
 
 The existence of local minima is problematic
 as most of the optimisation methods might get stuck there
@@ -193,25 +213,27 @@ and fail to return the global one.
 
 Moreover, we  cannot often be sure if the result returned by an algorithm
 is indeed a global minimum. Maybe there exists a better solution
-that hasn't been considered yet?
-
-
----
-
-
-Smooth vs non-smooth vs noisy objectives:
+that hasn't been considered yet? Or maybe the function
+is very noisy (see Figure {@fig:smooth_vs_nonsmooth})?
 
 
 
-```{r,echo=FALSE}
-par(mar=c(4,4,0.5,0.5))
+
+
+
+
+
+
+
+```{r smooth_vs_nonsmooth,echo=FALSE,fig.cap="Smooth vs. non-smooth vs. noisy objective functions"}
 x <- seq(-2, 5, length.out=250)
 set.seed(123)
 xx <- seq(-2, 5, length.out=66)
 fff <- splinefun(xx,rnorm(length(xx),0,1)+((xx-1)^2-2))
 matplot(x, cbind((x-1)^2-2, abs(3*(x-1))-3, fff(x)), type='l',
-xlab='x', ylab=expression(f[i](x)), las=1, ylim=c(-6, 8), col=c(1,2,4),lty=c(1,2,4))
-legend("bottom", ncol=3, legend=c("smooth", "non-smooth", "noisy"), lty=c(1,2,4), col=c(1,2,4))
+xlab='x', ylab=expression(f[i](x)),  ylim=c(-6, 8), col=c(1,2,4),lty=c(1,2,4))
+legend("bottom", ncol=3, legend=c("smooth", "non-smooth", "noisy"),
+    bg="white", lty=c(1,2,4), col=c(1,2,4))
 ```
 
 
@@ -219,7 +241,8 @@ legend("bottom", ncol=3, legend=c("smooth", "non-smooth", "noisy"), lty=c(1,2,4)
 
 ### Example Objective over a 2D Domain
 
----
+
+
 
 
 Of course, our objective function does not necessarily have to be defined
@@ -247,7 +270,8 @@ y  <- outer(x1, x2, g)
 
 
 
----
+
+
 
 There are four local minima:
 
@@ -275,57 +299,51 @@ g(-1.542255693195422641930153, 2.156405289793087261832605)
 ```
 
 Let's explore various ways of depicting $f$.
+A contour plot and a heat map
+are given in Figure {@fig:contour_g}.
 
-
----
-
-A contour plot:
-
-```{r,fig.height=5,echo=-1}
-par(mar=c(4,4,0.5,0.5))
-contour(x1, x2, y, las=1, nlevels=25)
+```{r contour_g,fig.cap="A contour plot and a heat map of $g(x_1,x_2)$"}
+par(mfrow=c(1,2)) # 2 in 1
+# lefthand plot:
+contour(x1, x2, y, nlevels=25)
 points(-1.54226, 2.15641, col=2, pch=3)
-```
-
-
-
-
----
-
-A filled contour plot (a heatmap):
-
-```{r,fig.height=5,echo=-1}
-par(mar=c(4,4,0.5,0.5))
-filled.contour(x1, x2, y, las=1)
-```
-
-
----
-
-Alternatively:
-
-```{r,fig.height=5,echo=-1}
-par(mar=c(4,4,0.5,0.5))
-image(x1, x2, y, las=1)
+# righthand plot:
+image(x1, x2, y)
 contour(x1, x2, y, add=TRUE)
 ```
 
----
+
+<!--
+A filled contour plot (a heat map) is depicted in
+Figure {@fig:filled_contour_g}.
+
+####```{r filled_contour_g,fig.cap="A heat map of $g(x_1,x_2)$"}
+#filled.contour(x1, x2, y)
+####```
+-->
 
 
 
-A perspective plot:
 
-```{r,fig.height=5,echo=-1}
+
+
+
+Two perspective plots (views from different angles) are given
+in {@fig:perspective_g}.
+
+```{r perspective_g,fig.cap="Perspective plots of $g(x_1,x_2)$",echo=-1}
 par(mar=c(0,0,0,0))
 par(mfrow=c(1,2)) # 2 in 1
-persp(x1, x2, y, las=1, phi=30, theta=-5, shade=2, border=NA)
-persp(x1, x2, y, las=1, phi=30, theta=75, shade=2, border=NA)
+persp(x1, x2, y, phi=30, theta=-5, shade=2, border=NA)
+persp(x1, x2, y, phi=30, theta=75, shade=2, border=NA)
 ```
 
----
 
-> As usual, depicting functions that are defined over
+
+
+Remark.
+
+: As usual, depicting functions that are defined over
 high-dimensional (3D and higher) domains
 is... difficult.
 Usually 1D or 2D projections can give us some neat intuitions though.
@@ -348,7 +366,8 @@ Golden section search
 
 ### Introduction
 
----
+
+
 
 
 Many optimisation algorithms are built around the following scheme:
@@ -357,13 +376,16 @@ Many optimisation algorithms are built around the following scheme:
 in each step deciding where to go based on the  idea
 of where the location of the minimum seems to be.*
 
-> Example: cycling from the Deakin University's Burwood Campus to the CBD
-not knowing the route and with GPS disabled  -- you'll have to ask
-many people along the way, but you'll eventually (because most people are good)
-get to some CBD
+Example.
+
+: Imagine you're to cycle from Deakin University's Burwood
+Campus to the CBD not knowing the route and with GPS disabled  --
+you'll have to ask many people along the way, but you'll eventually
+(because most people are good) get to some CBD
 (say, in Perth).
 
----
+
+
 
 More formally, we are interested in iterative
 algorithms that operate in a greedy-like fashion:
@@ -378,7 +400,7 @@ algorithms that operate in a greedy-like fashion:
 3. return $\mathbf{x}^{(i)}$ as result
 
 
-\ \
+. . .
 
 Note that there are two stopping criteria, based on:
 
@@ -390,22 +412,26 @@ Note that there are two stopping criteria, based on:
 
 ### Example in R
 
----
 
 
-R has a built-in `optim()` function that provides an implementation
+
+
+R has a built-in function, `optim()`, that provides an implementation
 of (amongst others) **the BFGS method**
 (proposed by Broyden, Fletcher, Goldfarb and Shanno in 1970).
 
-> (\*) BFGS uses the assumption that the objective function
+Remark.
+
+: (\*) BFGS uses the assumption that the objective function
 is smooth -- the [guessed direction] is determined by computing
 the (partial) derivatives (or their finite-difference approximations).
 However, they might work well even if this is not the case.
 You will be able to derive similar algorithms (called quasi-Newton ones) yourself
 once you get to know about Taylor series approximation
-by taking a course on calculus.
+by reading a book/taking a course on calculus.
 
----
+
+
 
 Here, we shall use the BFGS as a *black-box* continuous optimisation method,
 i.e., without going into how it has been defined (it's too early for this).
@@ -430,7 +456,8 @@ on input, returns a single number)
 
 
 
----
+
+
 
 
 Let us minimise the $g$ function defined above (the one with the 2D domain):
@@ -444,7 +471,8 @@ g_vectorised <- function(x12) g(x12[1], x12[2])
 res <- optim(x12_init, g_vectorised, method="BFGS")
 ```
 
----
+
+
 
 ```{r}
 res
@@ -455,12 +483,15 @@ res
 `value` gives the value of $g$ at `par`
 
 
----
+
+
 
 We can even depict the points that the algorithm is "visiting":
 
 
-> (\*) Technically, the algorithm needs to evaluate a few more points
+Remark.
+
+: (\*) Technically, the algorithm needs to evaluate a few more points
 in order to make the decision on where to go next (BFGS approximates the Hessian matrix).
 
 ```{r,echo=-1,warning=FALSE,gbfgsvisit,fig.keep='none',cache=TRUE}
@@ -469,16 +500,16 @@ g_vectorised_plot <- function(x12) {
     points(x12[1], x12[2], col=2, pch=3) # draw
     g(x12[1], x12[2]) # return value
 }
-contour(x1, x2, y, las=1, nlevels=25)
+contour(x1, x2, y, nlevels=25)
 res <- optim(x12_init, g_vectorised_plot, method="BFGS")
 ```
 
----
 
 
 
-```{r,echo=-1,warning=FALSE,fig.height=5,echo=FALSE,cache=TRUE}
-par(mar=c(2,2,0.5,0.5))
+
+
+```{r,echo=-1,warning=FALSE,echo=FALSE,cache=TRUE}
 <<gbfgsvisit>>
 ```
 
@@ -487,7 +518,8 @@ par(mar=c(2,2,0.5,0.5))
 
 ### Convergence to Local Optima
 
----
+
+
 
 We were lucky, because the local minimum that the algorithm has found
 coincides with the global minimum.
@@ -511,22 +543,21 @@ table(round(res_value,3))
 We find the global minimum only in $\sim 25\%$ cases! :(
 
 
----
 
-```{r,cache=TRUE,echo=-1}
-par(mar=c(4,4,2,0.5))
-hist(res_value, las=1, breaks=100)
-box()
+
+
+```{r,cache=TRUE}
+hist(res_value, col="white", breaks=100); box()
 ```
 
 
----
+
+
 
 Here is a depiction of all the random starting points and where
 do we converge from them:
 
-```{r,echo=FALSE,cache=TRUE, fig.height=5}
-par(mar=c(2,2,0.5,0.5))
+```{r,echo=FALSE,cache=TRUE}
 set.seed(123)
 res <- replicate(1000, {
     # this will be iterated 100 times
@@ -534,8 +565,7 @@ res <- replicate(1000, {
     res <- optim(x12_init, g_vectorised, method="BFGS")
     c(x12_init, res$par, res$value)
 })
-#image(x1, x2, y, las=1)
-contour(x1, x2, y, las=1, nlevels=25)
+contour(x1, x2, y, nlevels=25)
 cc <- cut(res[5,],c(-5, 0.5, 1.0, 1.5, 6))
 arrows(res[1,], res[2,], res[3,], res[4,],
 col=c("#00000066", "#ff000066", "#00ff0066", "#0000ff66")[cc], length=0.01)
@@ -546,7 +576,8 @@ col=c("#00000066", "#ff000066", "#00ff0066", "#0000ff66")[cc], length=0.01)
 
 ### Random Restarts
 
----
+
+
 
 
 
@@ -575,7 +606,8 @@ optim_with_restarts <- function(par_generator, ..., N=10) {
 ```
 
 
----
+
+
 
 ```{r,echo=-1,cache=TRUE}
 set.seed(123)
@@ -584,7 +616,8 @@ optim_with_restarts(function() runif(2, -5, 5),
 ```
 
 
----
+
+
 
 
 
@@ -598,7 +631,8 @@ Can we guarantee that the global minimum will be found within $N$ tries? **No.**
 
 ### Function Gradient (\*)
 
----
+
+
 
 How to choose the [guessed direction] in our iterative optimisation algorithm?
 
@@ -606,9 +640,11 @@ If we are minimising a smooth function, the simplest possible choice
 is to use the information included in the objective's **gradient**,
 which provides us with the direction where the function decreases the fastest.
 
-\ \
+. . .
 
-> (\*) Gradient of $f:\mathbb{R}^p\to\mathbb{R}$,
+Definition.
+
+: (\*) Gradient of $f:\mathbb{R}^p\to\mathbb{R}$,
 denoted $\nabla f:\mathbb{R}^p\to\mathbb{R}^p$
 is the vector of all its partial derivatives,
 ($\nabla$ -- nabla symbol = differential operator)
@@ -628,13 +664,17 @@ $\frac{\partial f}{\partial x_i}$
 is like an ordinary derivative w.r.t. $x_i$
 where $x_1,...,x_{i-1},x_{i+1},...,x_p$ are assumed constant.
 
----
 
-> Function differentiation is an important concept -- see how it's referred to
-in, e.g., the Keras manual at https://keras.rstudio.com/reference/fit.html.
+
+
+Remark.
+
+: Function differentiation is an important concept -- see how it's referred to
+in, e.g., the `keras` package manual at https://keras.rstudio.com/reference/fit.html.
 Don't worry though -- we take our time with this -- Melbourne wasn't built in a day.
 
----
+
+
 
 Recall our $g$ function defined above:
 \[
@@ -670,17 +710,17 @@ grad_g_vectorised <- function(x) {
 
 ### Three Facts on the Gradient
 
----
+
+
 
 For now, we should emphasise three important facts:
 
-\ \
+. . .
 
-**Fact 1.**
+Fact 1.
 
-If we are unable to derive the gradient analytically,
+: If we are unable to derive the gradient analytically,
 we can rely on its finite differences approximation:
-
 \[
 \frac{\partial f}{\partial x_i}(x_1,\dots,x_p) \simeq
 \frac{
@@ -692,7 +732,8 @@ we can rely on its finite differences approximation:
 for some small $\delta>0$, say, $\delta=10^{-6}$.
 
 
----
+
+
 
 Example implementation:
 
@@ -712,13 +753,16 @@ grad <- function(f, x, delta=1e-6) {
 
 
 
-> (\*) Interestingly, some modern vector/matrix algebra frameworks
-like TensorFlow (upon which keras is built) or PyTorch, feature
+Remark.
+
+: (\*) Interestingly, some modern vector/matrix algebra frameworks
+like TensorFlow (upon which `keras` is built) or PyTorch, feature
 methods to "derive" the gradient algorithmically
 (autodiff; automatic differentiation).
 
 
----
+
+
 
 
 Sanity check:
@@ -735,17 +779,22 @@ BTW, there is also the `grad()` function in package numDeriv
 that might be a little more accurate (uses a different approximation).
 
 
----
 
 
-**Fact 2.**
 
-The gradient of $f$ at $\mathbf{x}$, $\nabla f(\mathbf{x})$,
+
+Fact 2a.
+
+: The gradient of $f$ at $\mathbf{x}$, $\nabla f(\mathbf{x})$,
 is a vector that points in the direction of the steepest slope.
 
-Minus gradient, $-\nabla f(\mathbf{x})$, is the direction where the function decreases the fastest.
+Fact 2b.
 
-> (\*) This can be shown by considering a function's first-order Taylor series approximation.
+: Minus gradient, $-\nabla f(\mathbf{x})$, is the direction where the function decreases the fastest.
+
+Remark.
+
+: (\*) This can be shown by considering a function's first-order Taylor series approximation.
 
 
 Therefore, in our iterative algorithm,
@@ -754,24 +803,28 @@ we may try taking the direction of the minus gradient!
 How far in that direction? Well, a bit.
 We will refer to the desired step size as the **learning rate**, $\eta$.
 
-\ \
+. . .
 
 This will be called the **gradient descent** method (GD;
 Cauchy, 1847).
 
 
----
 
 
-**Fact 3.**
 
-If a function $f$ has a  local minimum at $\mathbf{x}^*$,
+
+Fact 3.
+
+: If a function $f$ has a  local minimum at $\mathbf{x}^*$,
 then $\nabla {f}(\mathbf{x}^*)=[0,\dots,0]$.
 
-\ \
+. . .
 
+In fact, we have what follows.
 
-> (\*\*\*) More generally, a twice-differentiable function
+Theorem.
+
+: (\*\*\*) More generally, a twice-differentiable function
 has a local minimum at $\mathbf{x}^*$ if and only if
 its gradient vanishes there and $\nabla^2 {f}(\mathbf{x}^*)$
 (Hessian matrix = matrix of all second-order derivatives)
@@ -788,7 +841,8 @@ is positive-definite.
 
 ### Gradient Descent Algorithm (GD)
 
----
+
+
 
 
 An implementation of the gradient descent algorithm:
@@ -802,7 +856,8 @@ An implementation of the gradient descent algorithm:
 # tol   - convergence tolerance
 ```
 
----
+
+
 
 ```{r}
 optim_gd <- function(par, fn, gr, eta=0.01,
@@ -823,7 +878,8 @@ optim_gd <- function(par, fn, gr, eta=0.01,
 }
 ```
 
----
+
+
 
 Tests of the $g$ function:
 
@@ -832,24 +888,25 @@ eta <- 0.01
 optim_gd(c(-3,1), g_vectorised, grad_g_vectorised, eta=eta)
 ```
 
----
+
+
 
 Zooming in the contour plot to see the actual path ($\eta=`r eta`$):
 
 
 ```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef1',etastepplot}
-par(mar=c(2,2,0.5,0.5))
 set.seed(123)
 g_vectorised_plot <- function(x12) {
     points(x12[1], x12[2], col=2, pch=3) # draw
     g(x12[1], x12[2]) # return value
 }
-contour(x1, x2, y, las=1, nlevels=25, xlim=c(-3, -1), ylim=c(1, 3))
+contour(x1, x2, y, nlevels=25, xlim=c(-3, -1), ylim=c(1, 3))
 res <- optim_gd(c(-3,1), g_vectorised_plot, grad_g_vectorised, eta=eta)
 str(res)
 ```
 
----
+
+
 
 ```{r,echo=FALSE,etadef2,cache=TRUE}
 eta <- 0.05
@@ -860,12 +917,12 @@ Now with $\eta=`r eta`$:
 
 
 ```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef2'}
-par(mar=c(2,2,0.5,0.5))
 <<etastepplot>>
 ```
 
 
----
+
+
 
 ```{r,echo=FALSE,etadef3,cache=TRUE}
 eta <- 0.1
@@ -876,11 +933,11 @@ And now with $\eta=`r eta`$:
 
 
 ```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef3'}
-par(mar=c(2,2,0.5,0.5))
 <<etastepplot>>
 ```
 
----
+
+
 
 
 If the learning rate $\eta$ is too small, the convergence might be too slow
@@ -890,9 +947,9 @@ On the other hand, if $\eta$ is too large, we might be overshooting
 and end up bouncing around the minimum.
 
 
-\ \
+. . .
 
-This is why many optimisation libraries (including keras/TensorFlow) implement some
+This is why many optimisation libraries (including `keras`/TensorFlow) implement some
 of the following ideas:
 
 * *learning rate decay* -- start with large $\eta$,
@@ -904,7 +961,7 @@ $\eta\in[0,\eta_{\max}]$;
 
 * *momentum* -- the update step is based on a combination of the gradient direction
 and the previous change of the parameters, $\Delta\mathbf{x}$;
-can be used too accelerate search in the relevant direction
+can be used to accelerate search in the relevant direction
 and minimise oscillations.
 
 
@@ -912,9 +969,10 @@ and minimise oscillations.
 
 
 
-### Example: MNIST
+### Example: MNIST (\*)
 
----
+
+
 
 Recall that in the previous chapter we've
 studied the MNIST dataset.
@@ -935,7 +993,8 @@ Y_train <- mnist$train$y
 Y_test  <- mnist$test$y
 ```
 
----
+
+
 
 The labels need to be one-hot encoded:
 
@@ -956,7 +1015,8 @@ Y_test2 <- one_hot_encode(Y_test)
 ```
 
 
----
+
+
 
 Recall that the output of the logistic regression model
 (1-layer neural network with softmax) can be written
@@ -985,7 +1045,8 @@ X_train1 <- cbind(1.0, matrix(X_train, ncol=28*28))
 X_test1  <- cbind(1.0, matrix(X_test, ncol=28*28))
 ```
 
----
+
+
 
 ```{r,cache=TRUE,mnist_download4,dependson='mnist_download3'}
 softmax <- function(T) {
@@ -999,7 +1060,8 @@ nn_predict <- function(B, X) {
 ```
 
 
----
+
+
 
 Define the functions to compute cross-entropy (which we shall minimise)
 and accuracy (which we shall report to a user):
@@ -1019,7 +1081,8 @@ cross_entropy <- function(Y_true, Y_pred) {
 }
 ```
 
----
+
+
 
 (\*) Cross-entropy in non-matrix form
 ($n$ -- number of samples, $K$ -- number of classes,
@@ -1051,7 +1114,8 @@ E(\mathbf{B}) &=& -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \displayst
 \end{array}
 \]
 
----
+
+
 
 (\*\*\*) Partial derivative of cross-entropy w.r.t. $\beta_{a,b}$ in non-matrix form:
 
@@ -1079,7 +1143,8 @@ E(\mathbf{B}) &=& -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \displayst
 \end{array}
 \]
 
----
+
+
 
 It may be shown (\*) that the gradient of cross-entropy
 (with respect to the parameter matrix $\mathbf{B}$)
@@ -1095,12 +1160,15 @@ grad_cross_entropy <- function(X, Y_true, Y_pred) {
 }
 ```
 
-> Luckily, we are not overwhelmed with the above, because
+Remark.
+
+: Luckily, we are not overwhelmed with the above, because
 we can always substitute the gradient
 with the finite differences (yet, these will be slower). :)
 
 
----
+
+
 
 Let us implement the gradient descent method:
 
@@ -1121,7 +1189,8 @@ system.time({ # measure time spent
 ```
 
 
----
+
+
 
 Unfortunately, the method's convergence is really slow
 (we are optimising over $7850$ parameters...)
@@ -1136,9 +1205,10 @@ accuracy(Y_test2,  nn_predict(B, X_test1))
 
 
 
-### Stochastic Gradient Descent (SGD)
+### Stochastic Gradient Descent (SGD) (\*)
 
----
+
+
 
 In turns out that there's a simple cure for that.
 
@@ -1153,7 +1223,8 @@ It is rational to assume that both the train and the test set
 consist of random digits independently sampled from the set of "all the possible
 digits out there in the world".
 
----
+
+
 
 
 Looking at the objective (cross-entropy):
@@ -1177,12 +1248,15 @@ where $b$ is some fixed batch size.
 
 Such a scheme is often called **stochastic gradient descent**.
 
-> Technically, this is sometimes referred to as **mini-batch** gradient descent;
+Remark.
+
+: Technically, this is sometimes referred to as **mini-batch** gradient descent;
 there are a few variations popular in the literature, we pick the most intuitive now.
 
 
 
----
+
+
 
 Stochastic gradient descent:
 
@@ -1204,7 +1278,8 @@ system.time({
 ```
 
 
----
+
+
 
 
 ```{r,cache=TRUE,mnist_sgda2,dependson='mnist_sgda1'}
@@ -1217,7 +1292,8 @@ The errors are slightly worse but that was very quick.
 
 Why don't we increase the number of iterations?
 
----
+
+
 
 ```{r,cache=TRUE,mnist_sgda3,dependson='mnist_download6'}
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)),
@@ -1237,7 +1313,8 @@ system.time({
 ```
 
 
----
+
+
 
 
 ```{r,cache=TRUE,mnist_sgda4,dependson='mnist_sgda3'}
@@ -1250,7 +1327,8 @@ This is great.
 Let's take a closer look at how the train/test error
 behaves in each iteration for different batch sizes.
 
----
+
+
 
 ```{r,cache=TRUE,mnist_sgd1,dependson='mnist_download6',echo=FALSE}
 eta <- 0.1
@@ -1258,7 +1336,7 @@ maxit <- 10000
 batch_size <- 32
 ```
 
-```{r,cache=TRUE,mnist_sgd,dependson='mnist_sgd1',echo=FALSE,fig.height=5,fig.width=10,out.width='100%'}
+```{r,cache=TRUE,mnist_sgd,dependson='mnist_sgd1',echo=FALSE}
 set.seed(123)
 # random matrix of size 785x10 - initial guess
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)), nrow=ncol(X_train1))
@@ -1290,11 +1368,10 @@ for (i in 1:maxit) {
 })
 # cat("\n", file=stderr())
 par(mfrow=c(1,2))
-par(mar=c(4,4,0.5,0.5))
-matplot(stat_freq*(1:(maxit%/%stat_freq)), cbind(ce_train, ce_test), las=1, type='l', ylab="cross-entropy", xlab="iteration", log="y")
+matplot(stat_freq*(1:(maxit%/%stat_freq)), cbind(ce_train, ce_test),  type='l', ylab="cross-entropy", xlab="iteration", log="y")
 legend("top", ncol=2, legend=c("train", "test"), lty=1:2, col=1:2)
 matplot(stat_freq*(1:(maxit%/%stat_freq)), cbind(acc_train, acc_test),
-        las=1, type='l', ylab="accuracy", xlab="iteration",
+        type='l', ylab="accuracy", xlab="iteration",
         ylim=c(0.8, 0.93))
 legend("bottom", ncol=2, legend=c(sprintf("eta=%g", eta), sprintf("batch_size=%d", batch_size)))
 print(t)
@@ -1303,7 +1380,8 @@ print(t)
 
 
 
----
+
+
 
 ```{r,cache=TRUE,mnist_sgd2,dependson='mnist_download6',echo=FALSE}
 eta <- 0.1
@@ -1311,7 +1389,7 @@ maxit <- 10000
 batch_size <- 128
 ```
 
-```{r,cache=TRUE,mnist_sgd2b,dependson='mnist_sgd2',echo=FALSE,fig.height=5,fig.width=10,out.width='100%'}
+```{r,cache=TRUE,mnist_sgd2b,dependson='mnist_sgd2',echo=FALSE}
 <<mnist_sgd>>
 ```
 
@@ -1330,7 +1408,8 @@ batch_size <- 128
 
 ### Remarks
 
----
+
+
 
 
 Solving continuous problems with many variables (e.g., deep neural networks)
@@ -1349,15 +1428,17 @@ large number of variables, computing the objective is costly
 
 
 
-> (\*) Good luck
-fitting a logistic regression model to MNIST with `optim()`'s BFGS -- there are 7850 variables.
+Remark.
+
+: (\*) Good luck
+fitting a logistic regression model to MNIST with `optim()`'s BFGS -- there are 7850 variables!
 
 Training deep neural networks with SGD is slow too,
 but there is a trick to propagate weight updates layer by layer,
 called *backpropagation* (actually used in every neural network library),
-see, e.g.,  [@deeplearn].
+see, e.g.,  [@aifaq] and [@deeplearn].
 
-\ \
+. . .
 
 With methods such as GD or SGD, there is no guarantee we reach a minimum,
 but an approximate solution is better than no solution at all.
@@ -1393,9 +1474,10 @@ gradient descent or higher-order methods like the ones available in `optim()`.
 
 ### Optimisers in Keras
 
----
 
-Keras implements various optimisers that
+
+
+`keras` implements various optimisers that
 we can refer to in the `compile()` function,
 see
 https://keras.rstudio.com/reference/compile.html
@@ -1424,7 +1506,8 @@ good intuitions!
 
 ### Note on Search Spaces
 
----
+
+
 
 
 Most often, the choice of the search space $D$ in an continuous optimisation
@@ -1449,9 +1532,4 @@ problem can be:
 
 ### Further Reading
 
-#### {.allowframebreaks .unnumbered}
-
-Recommended further reading:
-
-- [@nocedal_wright]
-- [@fletcher]
+Recommended further reading: [@nocedal_wright] and [@fletcher].

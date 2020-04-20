@@ -8,7 +8,8 @@
 
 ### Introduction
 
----
+
+
 
 
 In **unsupervised learning** (learning without a teacher),
@@ -34,7 +35,8 @@ Our aim now is to discover the **underlying structure in the data**.
 
 
 
----
+
+
 
 
 In **dimensionality reduction** we seek a meaningful *projection* of a high dimensional
@@ -50,7 +52,8 @@ biplot(p, las=1, col=c("#ff000033",1), pch=1, main="Red Wines", xlim=c(-0.05, 0.
 
 This might enable us to plot high-dimensional data or understand its structure better.
 
----
+
+
 
 Example methods:
 
@@ -60,9 +63,10 @@ Example methods:
 - t-SNE
 - Autoencoders (deep learning)
 
----
 
-In **anomaly detection**, out task is to identify rare, suspicious, ab-normal
+
+
+In **anomaly detection**, our task is to identify rare, suspicious, ab-normal
 or out-standing items.
 
 
@@ -76,7 +80,8 @@ points(iris[idx,3], iris[idx,2], cex=3, pch=4, col=2)
 For example, these can be cars on walkways in a park's security camera footage.
 
 
----
+
+
 
 The aim of **clustering** is to automatically discover some *naturally occurring*
 subgroups in the data set.
@@ -95,7 +100,8 @@ For example, these may be customers having different shopping patterns
 
 ### Clustering
 
----
+
+
 
 More formally, given $K\ge 2$, **clustering** aims is to find a *special kind*
 of a **$K$-partition** of the input data set $\mathbf{X}$.
@@ -112,10 +118,13 @@ whenever:
 This can also be thought of as assigning each point a unique label $\{1,\dots,K\}$
 (think: colouring of the points, where each number has a colour).
 
-> "$\mathbf{x}_{i,\cdot}$ is labelled $j$ iff it belongs to cluster $C_j$,
+Remark.
+
+: "$\mathbf{x}_{i,\cdot}$ is labelled $j$ iff it belongs to cluster $C_j$,
 i.e., $i\in C_j$".
 
----
+
+
 
 
 
@@ -136,7 +145,8 @@ Example applications of clustering:
   or learning multiple manifolds in a dimension reduction task.
 
 
----
+
+
 
 
 
@@ -153,14 +163,17 @@ and $\left\{{n \atop 3}\right\}=O(3^n)$ -- that is a lot.
 
 Certainly, we are not just interested in "any" partition.
 
-However, even one of the most famous textbooks provides us with only a vague hint:
+However, even one of the most famous ML textbooks provides us with only a vague hint:
 
-> Clustering concerns "segmenting a collection of objects into subsets
+"Definition".
+
+: Clustering concerns "segmenting a collection of objects into subsets
 so that those within each cluster are more **closely related**
 to one another than objects assigned to different clusters" [@esl].
 
 
----
+
+
 
 There are two main types of clustering algorithms:
 
@@ -176,12 +189,13 @@ There are two main types of clustering algorithms:
     - e.g., single linkage agglomerative clustering, Genie, (H)DBSCAN, BIRCH.
 
 
----
 
 
 
 
-In this chapter we'll take a look at two clustering approaches:
+
+
+In this chapter we'll take a look at two classical approaches to clustering:
 
 - *K-means clustering* that looks for a specific number of clusters
 - *(agglomerative) hierarchical clustering* that outputs a whole hierarchy
@@ -196,7 +210,8 @@ of nested data partitions
 
 ### Example in R
 
----
+
+
 
 Let us apply $K$-means clustering to find $K=3$ groups
 in the famous Fisher's `iris` data set (variables `Sepal.Width`
@@ -209,11 +224,14 @@ km <- kmeans(X, centers=3, nstart=10)
 km$cluster # assigned labels
 ```
 
-> Later we'll see that `nstart` is responsible for random restarting the
+Remark.
+
+: Later we'll see that `nstart` is responsible for random restarting the
 (local) optimisation procedure, just like we did in the previous chapter.
 
 
----
+
+
 
 ```{r,echo=-1}
 par(mar=c(4,4,0.5,0.5))
@@ -221,13 +239,15 @@ plot(X, col=km$cluster, pch=as.numeric(iris$Species), las=1)
 ```
 
 The colours indicate the detected clusters,
-
 while the plotting characters -- the true iris species
 
-> Note that they were not used during the clustering procedure!\
+Remark.
+
+: Note that the true labels were not used during the clustering procedure!
 (we're dealing with unsupervised learning)
 
----
+
+
 
 A contingency table for detected vs. true clusters:
 
@@ -245,7 +265,8 @@ The discovered partition matches the original one very well.
 
 ### Problem Statement
 
----
+
+
 
 The aim of $K$-means clustering is to find $K$ "good" cluster centres
 $\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$.
@@ -262,7 +283,8 @@ d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}) = \| \mathbf{x}_{i,\cdot} - \b
 \]
 
 
----
+
+
 
 The $i$-th point's cluster is determined by:
 \[
@@ -275,7 +297,8 @@ the given expression.
 
 
 
----
+
+
 
 In the previous example, we have:
 
@@ -287,7 +310,8 @@ points(km$centers, cex=2, col=4, pch=16)
 ```
 
 
----
+
+
 
 Here is the partition of the whole $\mathbb{R}^2$ space
 into clusters based on the closeness to the three cluster centres:
@@ -305,9 +329,12 @@ points(X, col=km$cluster)
 points(km$centers, cex=2, col=4, pch=16)
 ```
 
-> (*) For the interested, see "Voronoi diagrams".
+Remark.
 
----
+: (*) For the interested, see "Voronoi diagrams".
+
+
+
 
 To compute the pairwise distances, we may call `pdist::pdist()`:
 
@@ -319,7 +346,8 @@ head(D) # D[i,j] - distance between x[i,] and µ[j,]
 
 ...
 
----
+
+
 
 Therefore, the cluster memberships ($\mathrm{arg}\min$s) can be determined by:
 
@@ -331,7 +359,8 @@ all(km$cluster == idx) # sanity check
 
 ### Algorithms for the K-means Problem
 
----
+
+
 
 How to find "good" cluster centres?
 
@@ -360,30 +389,40 @@ makes this optimisation problem not tractable
 with the methods discussed in the previous chapter.
 
 
----
+
+
 
 The above problem is *hard* to solve.
 
-> (*) More precisely, it is an NP-hard problem.
+
+Remark.
+
+: (*) More precisely, it is an NP-hard problem.
+
 
 Therefore, in practice we use various heuristics to solve it.
 
 `kmeans()` in R implements the Hartigan-Wong, Lloyd, Forgy and MacQueen
 algorithms.
 
-> (*) Technically, there is no such thing as "the K-means algorithm" --
-all the above are particular heuristic approaches to solving the K-means
+
+
+Remark.
+
+: (*) Technically, there is no such thing as "the K-means algorithm" --
+all the aforementioned methods are particular heuristic
+approaches to solving the K-means
 clustering problem as specified by the aforementioned optimisation task.
->
-> By setting `nstart = 10` above, we ask the (Hartigan-Wong) algorithm
+By setting `nstart = 10` above, we ask the (Hartigan-Wong) algorithm
 to find 10 solution candidates obtained by considering different random
 initial clusterings and choose the best one (with respect to the sum
-of within-cluster distance) amongst them. This does not guarantee
+of within-cluster distances) amongst them. This does not guarantee
 finding the optimal solution, especially in high-dimensional spaces,
 but increases the likelihood of such.
 
 
----
+
+
 
 Lloyd's algorithm (1957) is sometimes referred to as "the" K-means algorithm:
 
@@ -394,9 +433,10 @@ Lloyd's algorithm (1957) is sometimes referred to as "the" K-means algorithm:
 3. For each cluster $k\in\{1,\dots,K\}$, compute the new cluster centre $\boldsymbol\mu_{k,\cdot}$ as the componentwise arithmetic mean
 of the coordinates of all the point indices $i$ such that $C(i)=k$.
 
-4. If the cluster centres changed since last iteration, go to step 2, otherwise stop and return the result.
+4. If the cluster centres changed since the last iteration, go to step 2, otherwise stop and return the result.
 
----
+
+
 
 (*) Example implementation:
 
@@ -410,13 +450,15 @@ M
 ```
 
 ```{r}
-# Let D[i,k] bet the distance between the i-th point and the k-th centre:
+# Let D[i,k] bet the distance between the i-th point
+# and the k-th centre:
 D <- as.matrix(pdist(X, M))
 # Let idx[i] be the centre closest to the i-th point
 idx <- apply(D, 1, which.min)
 ```
 
----
+
+
 
 
 ```{r}
@@ -435,7 +477,8 @@ repeat {
 }
 ```
 
----
+
+
 
 ```{r}
 M # our result
@@ -454,7 +497,8 @@ km$center # result of kmeans()
 
 ## TODO
 
----
+
+
 
 TODO maybe k-medoids, nice for optimisation
 plus they allow for different metrics
@@ -473,7 +517,8 @@ alternatively, DBSCAN or PCA or MDS or ...
 
 ### Introduction
 
----
+
+
 
 In K-means, we need to specify the number of clusters, $K$, in advance.
 
@@ -487,7 +532,8 @@ of mutually *nested* partitions, which increase the interpretability of the resu
 A $K$-partition for any $K$ can be extracted later.
 
 
----
+
+
 
 Here we are interested in **agglomerative** algorithms.
 
@@ -504,7 +550,8 @@ we select a pair of clusters to be merged.
 
 ### Example in R
 
----
+
+
 
 ```{r}
 # Distances between all pairs of points:
@@ -514,7 +561,8 @@ h <- hclust(D) # method="complete"
 print(h)
 ```
 
----
+
+
 
 
 ```{r}
@@ -522,7 +570,8 @@ cutree(h, k=3) # extract the 3-partition
 ```
 
 
----
+
+
 
 Different cuts of the hierarchy:
 
@@ -540,7 +589,8 @@ legend("top", legend="k=2")
 ```
 
 
----
+
+
 
 A **dendrogram** depicts the distances (* as defined by the linkage function)
 between the clusters merged at every stage. This can provide us with the insight
@@ -555,7 +605,8 @@ plot(h)
 ### Agglomerative Hierarchical Clustering
 
 
----
+
+
 
 Initially,  $\mathcal{C}^{(0)}=\{\{1\},\dots,\{n\}\}$,
 i.e., each point is a member of its own cluster.
@@ -584,7 +635,8 @@ with $\mathcal{C}^{(n-1)}=\left\{ \{1,2,\dots,n\} \right\}$.
 
 ### Linkage Functions
 
----
+
+
 
 A pair of clusters $C_u^{(k)}$ and $C_v^{(k)}$ to be merged with each other
 is determined by:
@@ -604,26 +656,28 @@ d(\mathbf{x}_{i,\cdot},\mathbf{x}_{j,\cdot})$, i.e., the distance between
 singleton clusters is the same as the distance between the points themselves.
 
 
----
+
+
 
 There are many popular choices of $d^*$ (which in the context of
-hierarchical clustering we call a **linkage function**)
+hierarchical clustering we call a **linkage function**):
 
 
-- Single linkage:
+- single linkage:
 \[
-d_S^*(A,B) = \min_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b})
+d_S^*(A,B) = \min_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b}),
 \]
-- Complete linkage:
+- complete linkage:
 \[
-d_C^*(A,B) = \max_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b})
+d_C^*(A,B) = \max_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b}),
 \]
-- Average linkage:
+- average linkage:
 \[
-d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\mathbf{a},\mathbf{b})
+d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\mathbf{a},\mathbf{b}).
 \]
 
----
+
+
 
 Computing linkages -- an illustration:
 
@@ -688,7 +742,8 @@ points(X[1,], X[2,], col=y, pch=y)
 
 
 
----
+
+
 
 Complete linkage (again):
 
@@ -709,7 +764,8 @@ plot(X, col=cutree(h, k=2), ann=FALSE, las=1)
 legend("top", legend="k=2")
 ```
 
----
+
+
 
 
 ```{r,echo=FALSE,fig.height=5}
@@ -717,7 +773,8 @@ par(mar=c(5,4,2,0.5))
 plot(h)
 ```
 
----
+
+
 
 Average linkage:
 
@@ -735,7 +792,8 @@ plot(X, col=cutree(h, k=2), ann=FALSE, las=1)
 legend("top", legend="k=2")
 ```
 
----
+
+
 
 
 ```{r,echo=FALSE,fig.height=5}
@@ -744,7 +802,8 @@ plot(h)
 ```
 
 
----
+
+
 
 Single linkage (this is a typical behaviour!):
 
@@ -762,7 +821,8 @@ plot(X, col=cutree(h, k=2), ann=FALSE, las=1)
 legend("top", legend="k=2")
 ```
 
----
+
+
 
 
 ```{r,echo=FALSE,fig.height=5}
@@ -811,7 +871,8 @@ $-->
 
 ### Remarks
 
----
+
+
 
 The aim of K-means is to find
 $K$ clusters based on the notion of the points' closeness
@@ -831,7 +892,8 @@ but they may fail to find a desirable solution, see the next chapter
 for discussion.
 
 
----
+
+
 
 On the other hand, hierarchical methods output
 a whole family of mutually nested partitions, which may provide us
@@ -844,7 +906,10 @@ Linkage scheme must be chosen with care.
 
 These are generally slow -- $O(n^2)$ to $O(n^3)$ complexity.
 
-> Note that the `fastcluster` package provides a more efficient
+
+Remark.
+
+: Note that the `fastcluster` package provides a more efficient
 implementation of some methods available via a call to `hclust()`.
 See also the `genie` package for a robust algorithm
 based on the minimum spanning tree, which can be computed quickly.
@@ -853,7 +918,8 @@ based on the minimum spanning tree, which can be computed quickly.
 library("fastcluster")
 ```
 
----
+
+
 
 Unsupervised learning is often performed during the data pre-processing
 and exploration stage.
@@ -877,8 +943,6 @@ useful to fit separate models to each cluster.
 
 ### Other Noteworthy Clustering Algorithms
 
----
-
 Other noteworthy clustering approaches:
 
 - Genie (see R package `genie`) [@genie; @genieowa]
@@ -894,13 +958,7 @@ Other noteworthy clustering approaches:
 
 ### Further Reading
 
-#### {.allowframebreaks .unnumbered}
 
+Recommended further reading: [@islr: Section 10.3]
 
-Recommended further reading:
-
-- [@islr: Section 10.3]
-
-Other:
-
-- [@esl: Section 14.3]
+Other: [@esl: Section 14.3]
