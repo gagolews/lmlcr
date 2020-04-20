@@ -166,7 +166,7 @@ f <- lm(Y~X1+X2)
 ```
 
 ```{r scatterplot3dexample,echo=FALSE,fig.height=4,fig.cap="Fitted regression plane for the Credit dataset"}
-par(mar=c(2, 2, 0, 0)) # to disable our custom plot.window() trickery
+par(ann=FALSE) # to disable our plot.window trickery
 library("scatterplot3d")
 s3d <- scatterplot3d(X1, X2, Y,
     angle=60, # change angle to reveal more

@@ -1252,7 +1252,6 @@ our_get_knnx <- function(X_train, X_test, k) {
 
 
 
-
 A comparison with `FNN:knn()`:
 
 ```{r fnn_knn,cache=TRUE}

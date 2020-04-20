@@ -8,7 +8,8 @@
 
 ### Binary Logistic Regression: Recap
 
----
+
+
 
 Let $\mathbf{X}\in\mathbb{R}^{n\times p}$ be an input matrix
 that consists of $n$ points in a $p$-dimensional space.
@@ -34,7 +35,8 @@ With each input $\mathbf{x}_{i,\cdot}$ we associate the desired output
 $y_i$ which is a categorical label -- hence we
 will be dealing with **classification** tasks again.
 
----
+
+
 
 
 To recall, in **binary logistic regression** we model
@@ -57,7 +59,8 @@ It holds:
 \end{array}
 \]
 
----
+
+
 
 The fitting of the model was performed by minimising the cross-entropy (log-loss):
 \[
@@ -130,7 +133,8 @@ $\log e^{a} = a$ and $\log 1 = 0$, we can rewrite the above as:-->
 
 
 
----
+
+
 
 
 In this chapter we will generalise the binary logistic regression model:
@@ -143,13 +147,14 @@ This will lead to the multinomial logistic regression model.
 case of a feed-forward neural network.
 
 
+
+
+
 ### Data
 
----
 
-We will study the famous classic -- the MNIST image classification dataset.
-
-> == Modified National Institute of Standards and Technology database,
+We will study the famous classic -- the MNIST image classification dataset
+(Modified National Institute of Standards and Technology database),
 see http://yann.lecun.com/exdb/mnist/
 
 It consists of 28×28 pixel images of handwritten digits:
@@ -158,14 +163,17 @@ It consists of 28×28 pixel images of handwritten digits:
 * `t10k`: 10,000 testing images.
 
 
----
 
-A few image instances from each class:
 
-```{r mnist_demo,cache=TRUE,echo=FALSE,fig.height=6,fig.width=12}
+
+A few image instances from each class are depicted in
+Figure {@fig:mnist_demo}.
+
+```{r mnist_demo,cache=TRUE,echo=FALSE,fig.height=3,fig.cap="Example images in the MNIST database"}
 library("keras")
 mnist <- dataset_mnist()
 par(mar=c(0,0,0,0))
+par(ann=FALSE)
 set.seed(123)
 par(mfrow=c(10,20))
 for (i in 0:9) {
@@ -180,14 +188,18 @@ for (i in 0:9) {
 
 There are 10 unique digits, so this is a multiclass classification problem.
 
-> The dataset is already "too easy" for testing of the state-of-the-art
+
+Remark.
+
+: The dataset is already "too easy" for testing of the state-of-the-art
 classifiers (see the notes below), but it's a great educational example.
 
 
 
----
 
-Accessing MNIST via the keras package
+
+
+Accessing MNIST via the `keras` package
 (which we will use throughout this chapter anyway) is easy:
 
 
@@ -221,7 +233,8 @@ for (file in files) {
 -->
 
 
----
+
+
 
 `X_train` and `X_test` consist of 28×28 pixel images.
 
@@ -230,11 +243,12 @@ dim(X_train)
 dim(X_test)
 ```
 
-> `X_train` and `X_test` are 3-dimensional arrays, think
+`X_train` and `X_test` are 3-dimensional arrays, think
 of them as vectors of 60000 and 10000 matrices of size 28×28, respectively.
 
 
----
+
+
 
 
 These are grey-scale images, with 0 = black, ..., 255 = white:
@@ -252,7 +266,8 @@ X_test  <- X_test/255
 ```
 
 
----
+
+
 
 
 `Y_train` and `Y_test` are the corresponding integer labels:
@@ -265,10 +280,12 @@ table(Y_test)  # label distribution in the test sample
 ```
 
 
----
+Here is how we can plot one of the digits (see Figure {@fig:mnist_info2b}):
 
-```{r mnist_info2b,cache=TRUE,fig.height=5,echo=-1}
+
+```{r mnist_info2b,cache=TRUE,echo=-(1:2),fig.cap="Example image from the MNIST dataset"}
 par(mar=c(0,0,0,0))
+par(ann=FALSE)
 id <- 123 # image ID to show
 image(z=t(X_train[id,,]), col=grey.colors(256, 0, 1),
     axes=FALSE, asp=1, ylim=c(1, 0))
@@ -287,7 +304,8 @@ legend("topleft", bg="white",
 
 ### A Note on Data Representation
 
----
+
+
 
 
 So... you may now be wondering "how do we construct an image classifier,
@@ -305,19 +323,21 @@ X_test2  <- matrix(X_test, ncol=28*28)
 ```
 
 The classifiers studied here do not take the "spatial" positioning of
-the pixels into account anyway.
+the pixels into account anyway. Hence, now we're back to our "comfort zone".
 
-> (*) See, however, convolutional neural networks (CNNs),
+
+Remark.
+
+: (*) See, however, convolutional neural networks (CNNs),
 e.g., in [@deeplearn].
-
-Hence, now we're back to our "comfort zone".
 
 
 
 
 ### Extending Logistic Regression
 
----
+
+
 
 
 Let us generalise the binary logistic regression model
@@ -341,7 +361,8 @@ where $\mathbf{B}$ is the set of underlying model parameters
 (to be determined soon).
 
 
----
+
+
 
 In binary logistic regression,
 the class probabilities are obtained by "cleverly normalising" (by means of the logistic sigmoid)
@@ -370,7 +391,8 @@ so as to they are all greater than $0$ and sum to $1$.
 
 
 
----
+
+
 
 To maintain the spirit of the original model,
 we can apply $e^{-(\beta_{0,k} + \beta_{1,k} X_{1} +  \dots + \beta_{p,k} X_{p})}$
@@ -401,7 +423,8 @@ fix $\beta_{0,0}=\beta_{1,0}=\dots=\beta_{p,0}=0$ (as $e^0=1$).
 
 ### Softmax Function
 
----
+
+
 
 The above transformation (that maps 10 arbitrary real numbers
 to positive ones that sum to 1)
@@ -424,7 +447,8 @@ round(rbind(
 
 ### One-Hot Encoding and Decoding
 
----
+
+
 
 The ten class-belongingness-degrees can be decoded
 to obtain a single label by simply choosing
@@ -438,11 +462,17 @@ round(y_pred, 2) # probabilities of Y=0, 1, 2, ..., 9
 which.max(y_pred)-1 # 1..10 -> 0..9
 ```
 
-> `which.max(y)` returns an index `k` such that
-`y[k]==max(y)` (recall that in R the first element in a vector is at index `1`).
-Mathematically, we denote this operation as $\mathrm{arg}\max_{k=1,\dots,K} y_k$.
 
----
+Remark.
+
+: `which.max(y)` returns an index `k` such that
+`y[k]==max(y)` (recall that in R the first element in
+a vector is at index `1`).
+Mathematically, we denote this operation
+as $\mathrm{arg}\max_{k=1,\dots,K} y_k$.
+
+
+
 
 
 To make processing the outputs of a logistic regression model more convenient,
@@ -461,7 +491,8 @@ y2[y+1] <- 1 # +1 because we need 0..9 -> 1..10
 y2  # one-hot-encoded y
 ```
 
----
+
+
 
 To one-hot encode *all* the reference outputs in R,
 we start with a matrix of size $n\times 10$ populated with "0"s:
@@ -478,12 +509,15 @@ and the (`Y_train[`$i$`]+1`)-th column:
 Y_train2[cbind(1:length(Y_train), Y_train+1)] <- 1
 ```
 
-> In R, indexing a matrix `A` with a 2-column matrix `B`, i.e., `A[B]`,
+Remark.
+
+: In R, indexing a matrix `A` with a 2-column matrix `B`, i.e., `A[B]`,
 allows for an easy access to
 `A[B[1,1], B[1,2]]`, `A[B[2,1], B[2,2]]`, `A[B[3,1], B[3,2]]`, ...
 
 
----
+
+
 
 Sanity check:
 
@@ -492,7 +526,8 @@ head(Y_train)
 head(Y_train2)
 ```
 
----
+
+
 
 
 
@@ -523,7 +558,8 @@ Y_test2 <- one_hot_encode(Y_test)
 
 ### Cross-entropy Revisited
 
----
+
+
 
 Our classifier will be outputting $K=10$ probabilities.
 
@@ -547,7 +583,8 @@ with the one-hot-encoded true probabilities, $Y$:
 y2
 ```
 
----
+
+
 
 It turns out that one of the definitions of cross-entropy introduced above
 already handles the case of multiclass classification:
@@ -557,16 +594,18 @@ E(\mathbf{B}) =
 \log \Pr(Y=y_i|\mathbf{x}_{i,\cdot},\mathbf{B}).
 \]
 The smaller the probability corresponding to the ground-truth class
-outputted by the classifier, the higher the penalty:
+outputted by the classifier, the higher the penalty, see
+Figure {@fig:cross_entropy_revisited_example3}.
 
-```{r cross_entropy_revisited_example3,echo=FALSE}
+```{r cross_entropy_revisited_example3,echo=FALSE,fig.cap="The less the classifier is confident about the prediction of the actually true label, the greater the penalty"}
 x <- seq(0.1, 1, length.out=101)
 y <- -log(x)
 plot(x, y, xlab="probability outputted by the classifier",
     ylab="penalty = -log(probability)", type="l")
 ```
 
----
+
+
 
 
 
@@ -584,7 +623,8 @@ but can be solved using iterative methods
 (see the chapter on optimisation).
 
 
----
+
+
 
 
 (*) Side note: A single term in the above formula,
@@ -612,7 +652,8 @@ sum(y2*log(y_pred))
 
 ###  Problem Formulation in Matrix Form  (\*\*)
 
----
+
+
 
 The definition of a multinomial logistic regression
 model for a multiclass classification task involving
@@ -635,13 +676,17 @@ given a parameter matrix $\mathbf{B}^{(p+1)\times K}$, we apply:
 \end{array}
 \]
 
-> We have dropped the minus sign in the exponentiation for the brevity of notation.
+Remark.
+
+: We have dropped the minus sign in the exponentiation for
+brevity of notation.
 Note that we can always map $b_{j,k}'=-b_{j,k}$.
 
 It turns out we can make use of matrix notation
 to tidy the above formulas.
 
----
+
+
 
 Denote the linear combinations prior to computing the softmax function with:
 \[
@@ -668,7 +713,8 @@ t_{i,K}&=&\sum_{j=0}^p \dot{x}_{i,j}\, \beta_{j,K} &=& \dot{\mathbf{x}}_{i,\cdot
 \end{array}
 \]
 
----
+
+
 
 We can get the $K$ linear combinations all at once
 in the form of a row vector by writing:
@@ -707,52 +753,46 @@ will be discussed in the next chapter.
 
 ### Artificial Neuron
 
----
-
-A neuron as a mathematical function:
-
-
-![Source: https://en.wikipedia.org/wiki/File:Neuron3.png
-by Egm4313.s12 at English Wikipedia, licensed under
-the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuron){#fig:neuron width='50%'}
 
 
 
----
+A neuron can be thought of as a mathematical function,
+see Figure {@fig:neuron}, which has its specific inputs
+and an output.
 
+![Neuron as a mathematical (black box) function; image based on: https://en.wikipedia.org/wiki/File:Neuron3.png by Egm4313.s12 at English Wikipedia, licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuron){#fig:neuron width="50%"}
 
-The **perceptron** (Frank Rosenblatt, 1958) was amongst the first
-models of artificial neurons:
+The Linear Threshold Unit (McCulloch and Pitts, 1940s),
+the Perceptron (Rosenblatt, 1958) and the Adaptive Linear Neuron
+(Widrow and Hoff, 1960) were amongst the first
+models of an artificial neuron that could be used
+for the purpose of pattern recognition, see Figure {@fig:perceptron}.
+They can be thought of as processing units that compute
+a weighted sum of the inputs,
+which is then transformed by means of a nonlinear "activation" function.
 
-![](figures/perceptron){#fig:perceptron width='50%'}
+![A simple model of an artificial neuron](figures/perceptron){#fig:perceptron width="72%"}
 
 
 
 
 ### Logistic Regression as a Neural Network
 
----
 
-
-The above resembles our binary logistic regression model!
-
-We determine a linear combination (a weighted sum) of $p$ inputs
+The above resembles our binary logistic regression model,
+where we determine a linear combination (a weighted sum) of $p$ inputs
 and then transform it using the logistic sigmoid "activation" function.
+We can easily depict it in the Figure {@fig:neuron}-style,
+see Figure {@fig:logistic_regression_binary}.
 
 
-![](figures/logistic_regression_binary){#fig:logistic_regression_binary  width='50%'}
+![Binary logistic regression](figures/logistic_regression_binary){#fig:logistic_regression_binary width="75%"}
 
 
----
 
-A multiclass logistic regression can be depicted as:
-
-![](figures/logistic_regression_multiclass){#fig:logistic_regression_multiclass}
-
----
-
-
-This is an instance of a:
+On the other hand, a multiclass logistic regression can be depicted as
+in Figure {@fig:logistic_regression_multiclass}.
+In fact, we can consider it as an instance of a:
 
 - **single layer** (there is only one processing step that consists of 10 units),
 - **densely connected** (all the inputs are connected to all the components below),
@@ -761,13 +801,10 @@ This is an instance of a:
 *artificial* **neural network**
 that uses the softmax as the activation function.
 
-
+![Multinomial logistic regression](figures/logistic_regression_multiclass){#fig:logistic_regression_multiclass width="75%"}
 
 
 ### Example in R
-
----
-
 
 
 ```{r metrics,cache=TRUE,echo=FALSE}
@@ -786,10 +823,11 @@ get_metrics <- function(Y_test, Y_pred)
 
 
 plot_metrics_digits <- function(res, acc, main) {
-  matplot(res$i, res[,3:5], type='b', las=1,
-          xlab='digit', ylab='metric', lty=c(4,2,1), col=c(4,2,1),
-          pch=c(4,2,1), ylim=c(0.8, 1.0), main=main, sub=sprintf("Accuracy=%.3f", acc))
-  legend("bottom", legend=names(res)[3:5], lty=c(4,2,1), col=c(4,2,1), pch=c(4,2,1), ncol=3)
+  matplot(res$i, res[,3:5], type="b",
+          xlab="digit", ylab="metric", lty=c(4,2,1), col=c(4,2,1),
+          pch=c(4,2,1), ylim=c(0.8, 1.0),
+          sub=sprintf("Accuracy=%.3f", acc))
+  legend("bottom", legend=names(res)[3:5], lty=c(4,2,1), col=c(4,2,1), pch=c(4,2,1), ncol=3, bg="white")
   abline(h=colMeans(res[3:5]), lty=c(4,2,1), col=c("#0000ff33", "#00ff0033", "#00000033"))
   abline(h=acc, col="#00000066")
 }
@@ -798,49 +836,71 @@ plot_metrics_digits <- function(res, acc, main) {
 
 
 
-To train such a neural network (fit a multinomial logistic regression model),
-we will use the  keras package,
-a wrapper around the state-of-the-art, GPU-enabled TensorFlow library.
+To train such a neural network (i.e., fit a multinomial
+logistic regression model),
+we will use the `keras` package,
+a wrapper around the (GPU-enabled) TensorFlow library.
+
+The training of the model takes a few minutes (for more complex
+models and bigger datasets -- it could take hours/days).
+Thus, it is wise to store the computed model (the $\mathbf{B}$
+coefficient matrix and the accompanying `keras`'s auxiliary data)
+for further reference:
 
 
-```{r logistic1,cache=TRUE,dependson='mnist_onehot_final',echo=-1}
-options("keras.fit_verbose"=1)
-# Start with an empty model
-model <- keras_model_sequential()
-# Add a single layer with 10 units and softmax activation
-layer_dense(model, units=10, activation='softmax')
-# We will be minimising the cross-entropy,
-# sgd == stochastic gradient descent, see the next chapter
-compile(model, optimizer='sgd',
-        loss='categorical_crossentropy')
-# Fit the model
-fit(model, X_train2, Y_train2, epochs=5)
+```{r logistic1,cache=TRUE,dependson='mnist_onehot_final',warning=FALSE}
+file_name <- "datasets/mnist_keras_model1.h5"
+if (!file.exists(file_name)) { # File doesn't exist -> compute
+    set.seed(123)
+    # Start with an empty model
+    model1 <- keras_model_sequential()
+    # Add a single layer with 10 units and softmax activation
+    layer_dense(model1, units=10, activation="softmax")
+    # We will be minimising the cross-entropy,
+    # sgd == stochastic gradient descent, see the next chapter
+    compile(model1, optimizer="sgd",
+            loss="categorical_crossentropy")
+    # Fit the model (slooooow!)
+    fit(model1, X_train2, Y_train2, epochs=10)
+    # Save the model for future reference
+    save_model_hdf5(model1, file_name)
+} else { # File exists -> reload the model
+    model1 <- load_model_hdf5(file_name)
+}
 ```
 
----
 
-Predict over the test set and one-hot-decode the output probabilities:
+
+
+Let's make predictions over the test set:
 
 ```{r logistic2,cache=TRUE,dependson='logistic1'}
-Y_pred2 <- predict(model, X_test2)
+Y_pred2 <- predict(model1, X_test2)
 round(head(Y_pred2), 2) # predicted class probabilities
+```
+
+
+
+
+Then, we can one-hot-decode the output probabilities:
+
+```{r logistic2a,cache=TRUE,dependson='logistic2'}
 Y_pred <- apply(Y_pred2, 1, which.max)-1 # 1..10 -> 0..9
 head(Y_pred, 20) # predicted outputs
 head(Y_test, 20) # true outputs
 ```
 
 
----
-
 Accuracy on the test set:
 
-```{r logistic3,cache=TRUE,dependson='logistic2'}
+```{r logistic3,cache=TRUE,dependson='logistic2a'}
 mean(Y_test == Y_pred)
 ```
 
----
 
-Performance metrics for each digit separately:
+
+
+Performance metrics for each digit separately (see also Figure {@fig:logistic6}):
 
 ```{r logistic4,cache=TRUE,dependson='logistic3',echo=FALSE}
 res_logistic <- data.frame(t(sapply(0:9, function(i) {
@@ -849,7 +909,8 @@ res_logistic <- data.frame(t(sapply(0:9, function(i) {
 knitr::kable(res_logistic)
 ```
 
----
+
+
 
 Note how misleading the individual accuracies are! Averaging over
 the above table's columns gives:
@@ -858,9 +919,10 @@ the above table's columns gives:
 colMeans(res_logistic[2:5])
 ```
 
----
 
-```{r logistic6,cache=TRUE,dependson='logistic5',echo=FALSE,fig.height=6}
+
+
+```{r logistic6,cache=TRUE,dependson="logistic5",echo=FALSE,fig.cap="Performance metrics for multinomial logistic regression on MNIST"}
 plot_metrics_digits(res_logistic, mean(Y_test == Y_pred), "Multinomial Logistic Regression")
 ```
 
@@ -874,20 +936,22 @@ plot_metrics_digits(res_logistic, mean(Y_test == Y_pred), "Multinomial Logistic 
 
 ### Introduction
 
----
 
 
-In a brain, a neuron's output is an input to another neuron.
 
+
+In a brain, a neuron's output is an input a bunch of other neurons.
 We could try aligning neurons into many interconnected layers.
+This leads to a structure like the one in Figure {@fig:nnet}.
 
-![](figures/nnet){#fig:nnet width='50%'}
+![A multi-layer neural network](figures/nnet){#fig:nnet width="75%"}
 
 
 
 ### Activation Functions
 
----
+
+
 
 
 Each layer's outputs should be transformed by some non-linear
@@ -906,9 +970,9 @@ that can be used in hidden (inner) layers:
 * `relu` -- The rectified linear unit:
 \[\psi(t)=\max(t, 0),\]
 * `sigmoid` -- The logistic sigmoid:
-\[\phi(t)=1 / (1 + \exp(-t)),\]
+\[\phi(t)= \frac{1}{1 + \exp(-t)},\]
 * `tanh` -- The hyperbolic function:
-\[\mathrm{tanh}(t) = (\exp(t) - \exp(-t)) / (\exp(t) + \exp(-t)).\]
+\[\mathrm{tanh}(t) = \frac{\exp(t) - \exp(-t)}{\exp(t) + \exp(-t)}.\]
 
 There is not much difference between them, but some might be more convenient
 to handle numerically than the others, depending on the implementation.
@@ -923,27 +987,36 @@ to handle numerically than the others, depending on the implementation.
 
 ### Example in R - 2 Layers
 
----
 
 
-2-layer Neural Network 784-800-10
 
-```{r deep21,cache=TRUE,dependson='mnist_onehot_final'}
-model <- keras_model_sequential()
-layer_dense(model, units=800, activation='relu')
-layer_dense(model, units=10,  activation='softmax')
-compile(model, optimizer='sgd',
-        loss='categorical_crossentropy')
-fit(model, X_train2, Y_train2, epochs=5)
+Let's construct a 2-layer Neural Network of the type 784-800-10:
 
-Y_pred2 <- predict(model, X_test2)
+```{r deep21,cache=TRUE,dependson='mnist_onehot_final',warning=FALSE}
+file_name <- "datasets/mnist_keras_model2.h5"
+if (!file.exists(file_name)) {
+    set.seed(123)
+    model2 <- keras_model_sequential()
+    layer_dense(model2, units=800, activation="relu")
+    layer_dense(model2, units=10,  activation="softmax")
+    compile(model2, optimizer="sgd",
+            loss="categorical_crossentropy")
+    fit(model2, X_train2, Y_train2, epochs=10)
+    save_model_hdf5(model2, file_name)
+} else {
+    model2 <- load_model_hdf5(file_name)
+}
+
+Y_pred2 <- predict(model2, X_test2)
 Y_pred <- apply(Y_pred2, 1, which.max)-1 # 1..10 -> 0..9
 mean(Y_test == Y_pred) # accuracy on the test set
 ```
 
----
 
-Performance metrics for each digit separately:
+
+
+Performance metrics for each digit separately,
+see also Figure {@fig:deep23}:
 
 ```{r deep22,cache=TRUE,dependson='deep21',echo=FALSE}
 res_2 <- data.frame(t(sapply(0:9, function(i) {
@@ -953,40 +1026,51 @@ knitr::kable(res_2)
 ```
 
 
----
 
-```{r deep23,cache=TRUE,dependson='deep22',echo=FALSE,fig.height=6}
+
+
+```{r deep23,cache=TRUE,dependson='deep22',echo=FALSE,fig.cap="Performance metrics for a 2-layer net 784-800-10 [relu] on MNIST"}
 plot_metrics_digits(res_2, mean(Y_test == Y_pred), "2-layer net 784-800-10 [relu]")
 ```
 
 
 ### Example in R - 6 Layers
 
----
-
-6-layer *Deep* Neural Network 784-2500-2000-1500-1000-500-10
 
 
-```{r deep61,cache=TRUE,dependson='mnist_onehot_final'}
-model <- keras_model_sequential()
-layer_dense(model, units=2500, activation='relu')
-layer_dense(model, units=2000, activation='relu')
-layer_dense(model, units=1500, activation='relu')
-layer_dense(model, units=1000, activation='relu')
-layer_dense(model, units=500,  activation='relu')
-layer_dense(model, units=10,   activation='softmax')
-compile(model, optimizer='sgd',
-        loss='categorical_crossentropy')
-fit(model, X_train2, Y_train2, epochs=5)
+How about a 6-layer *Deep* Neural Network
+like 784-2500-2000-1500-1000-500-10? Here you are:
 
-Y_pred2 <- predict(model, X_test2)
+
+```{r deep61,cache=TRUE,dependson='mnist_onehot_final',warning=FALSE}
+file_name <- "datasets/mnist_keras_model3.h5"
+if (!file.exists(file_name)) {
+    set.seed(123)
+    model3 <- keras_model_sequential()
+    layer_dense(model3, units=2500, activation="relu")
+    layer_dense(model3, units=2000, activation="relu")
+    layer_dense(model3, units=1500, activation="relu")
+    layer_dense(model3, units=1000, activation="relu")
+    layer_dense(model3, units=500,  activation="relu")
+    layer_dense(model3, units=10,   activation="softmax")
+    compile(model3, optimizer="sgd",
+            loss="categorical_crossentropy")
+    fit(model3, X_train2, Y_train2, epochs=10)
+    save_model_hdf5(model3, file_name)
+} else {
+    model3 <- load_model_hdf5(file_name)
+}
+
+Y_pred2 <- predict(model3, X_test2)
 Y_pred <- apply(Y_pred2, 1, which.max)-1 # 1..10 -> 0..9
 mean(Y_test == Y_pred) # accuracy on the test set
 ```
 
----
 
-Performance metrics for each digit separately:
+
+
+Performance metrics for each digit separately,
+see also Figure {@fig:deep63}.
 
 ```{r deep62,cache=TRUE,dependson='deep61',echo=FALSE}
 res_6 <- data.frame(t(sapply(0:9, function(i) {
@@ -995,22 +1079,32 @@ res_6 <- data.frame(t(sapply(0:9, function(i) {
 knitr::kable(res_6)
 ```
 
----
 
-```{r deep63,cache=TRUE,dependson='deep62',echo=FALSE,fig.height=6}
+
+
+```{r deep63,cache=TRUE,dependson='deep62',echo=FALSE,fig.cap="Performance metrics for a 6-layer net 784-2500-2000-1500-1000-500-10 [relu] on MNIST"}
 plot_metrics_digits(res_6, mean(Y_test == Y_pred), "6-layer net 784-2500-2000-1500-1000-500-10 [relu]")
 ```
 
 
-
-
+{ BEGIN exercise }
+Test the performance of different neural network
+architectures (different number of layers, different number
+of neurons in each layer etc.). Yes, it's more art than science!
+Many tried to come up with various "rules of thumb",
+see, for example, the `comp.ai.neural-nets` FAQ [@aifaq] at
+http://www.faqs.org/faqs/ai-faq/neural-nets/part3/preamble.html,
+but what works well in one problem might not be generalisable
+to another one.
+{ END exercise }
 
 
 ## Preprocessing of Data
 
 ### Introduction
 
----
+
+
 
 Do not underestimate the power of appropriate data preprocessing ---
 deep neural networks are not a universal replacement for a data engineer's hard work!
@@ -1033,7 +1127,8 @@ will be provided in the test test.
 
 ### Image Deskewing
 
----
+
+
 
 Deskewing of images ("straightening" of the digits)
 is amongst the most typical transformations
@@ -1056,10 +1151,11 @@ source("~/R/Playground.R/deskew.R")
 
 
 
----
 
 
-```{r deskew2,cache=TRUE,dependson='deskew1',echo=FALSE,fig.height=6,fig.width=12}
+
+
+```{r deskew2,cache=TRUE,dependson='deskew1',echo=FALSE,fig.height=3,fig.cap="Deskewing of the MNIST digits"}
 set.seed(123)
 par(mar=c(0,0,0,0))
 par(mfrow=c(10,20))
@@ -1075,50 +1171,79 @@ for (i in 0:9) {
 }
 ```
 
+Let's take a look at Figure {@fig:deskew2}.
 In each pair, the left image (black background) is the original one,
 and the right image (palette inverted for purely dramatic effects)
 is its deskewed version.
 
----
 
-Deskew everything:
 
-```{r deskew3,cache=TRUE,dependson='deskew2'}
-Z_train <- X_train
-for (i in 1:dim(Z_train)[1]) {
-    Z_train[i,,] <- deskew(Z_train[i,,])
+
+Below we deskew each image in the training as well as in the test sample.
+This also takes a long time, so let's store the resulting objects
+for further reference:
+
+```{r deskew3,cache=TRUE,dependson='deskew2',warning=FALSE}
+file_name <- "datasets/mnist_deskewed_train.rds"
+if (!file.exists(file_name)) {
+    Z_train <- X_train
+    for (i in 1:dim(Z_train)[1]) {
+        Z_train[i,,] <- deskew(Z_train[i,,])
+    }
+    Z_train2 <- matrix(Z_train, ncol=28*28)
+    saveRDS(Z_train2, file_name)
+} else {
+    Z_train2 <- readRDS(file_name)
 }
-Z_train2 <- matrix(Z_train, ncol=28*28)
 
-
-Z_test <- X_test
-for (i in 1:dim(Z_test)[1]) {
-  Z_test[i,,] <- deskew(Z_test[i,,])
+file_name <- "datasets/mnist_deskewed_test.rds"
+if (!file.exists(file_name)) {
+    Z_test <- X_test
+    for (i in 1:dim(Z_test)[1]) {
+        Z_test[i,,] <- deskew(Z_test[i,,])
+    }
+    Z_test2 <- matrix(Z_test, ncol=28*28)
+    saveRDS(Z_test2, file_name)
+} else {
+    Z_test2 <- readRDS(file_name)
 }
-Z_test2 <- matrix(Z_test, ncol=28*28)
 ```
 
+Remark.
 
----
+: RDS in a compressed file format used by R for object serialisation
+(quickly storing its verbatim copies so that they can be reloaded
+at any time).
+
+
 
 Multinomial logistic regression model (1-layer NN):
 
 
-```{r deskew4,cache=TRUE,dependson='deskew3'}
-model <- keras_model_sequential()
-layer_dense(model, units=10, activation='softmax')
-compile(model, optimizer='sgd',
-        loss='categorical_crossentropy')
-fit(model, Z_train2, Y_train2, epochs=5)
+```{r deskew4,cache=TRUE,dependson='deskew3',warning=FALSE}
+file_name <- "datasets/mnist_keras_model1d.h5"
+if (!file.exists(file_name)) {
+    set.seed(123)
+    model1d <- keras_model_sequential()
+    layer_dense(model1d, units=10, activation="softmax")
+    compile(model1d, optimizer="sgd",
+            loss="categorical_crossentropy")
+    fit(model1d, Z_train2, Y_train2, epochs=10)
+    save_model_hdf5(model1d, file_name)
+} else {
+    model1d <- load_model_hdf5(file_name)
+}
 
-Y_pred2 <- predict(model, Z_test2)
+Y_pred2 <- predict(model1d, Z_test2)
 Y_pred <- apply(Y_pred2, 1, which.max)-1 # 1..10 -> 0..9
 mean(Y_test == Y_pred) # accuracy on the test set
 ```
 
----
 
-Performance metrics for each digit separately:
+
+
+Performance metrics for each digit separately,
+see also Figure {@fig:deskew6}.
 
 ```{r deskew5,cache=TRUE,dependson='deskew4',echo=FALSE}
 res_logistic_deskewed <- data.frame(t(sapply(0:9, function(i) {
@@ -1128,9 +1253,10 @@ knitr::kable(res_logistic_deskewed)
 ```
 
 
----
 
-```{r deskew6,cache=TRUE,dependson='deskew5',echo=FALSE,fig.height=6}
+
+
+```{r deskew6,cache=TRUE,dependson='deskew5',echo=FALSE,fig.cap="Performance of Multinomial Logistic Regression on the deskewed MNIST"}
 plot_metrics_digits(res_logistic_deskewed, mean(Y_test == Y_pred),
 "Multinomial Logistic Regression [deskewed]")
 ```
@@ -1141,31 +1267,46 @@ plot_metrics_digits(res_logistic_deskewed, mean(Y_test == Y_pred),
 
 
 
-```{r deep_deskew,cache=TRUE,dependson='mnist_onehot_final',echo=FALSE}
-model <- keras_model_sequential()
-layer_dense(model, units=800, activation='relu')
-layer_dense(model, units=10,  activation='softmax')
-compile(model, optimizer='sgd',
-        loss='categorical_crossentropy')
-fit(model, Z_train2, Y_train2, epochs=5)
-Y_pred2 <- predict(model, Z_test2)
+```{r deep_deskew,cache=TRUE,dependson='mnist_onehot_final',echo=FALSE,warning=FALSE}
+file_name <- "datasets/mnist_keras_model2d.h5"
+if (!file.exists(file_name)) {
+    set.seed(123)
+    model2d <- keras_model_sequential()
+    layer_dense(model2d, units=800, activation="relu")
+    layer_dense(model2d, units=10,  activation="softmax")
+    compile(model2d, optimizer="sgd",
+            loss="categorical_crossentropy")
+    fit(model2d, Z_train2, Y_train2, epochs=10)
+    save_model_hdf5(model2d, file_name)
+} else {
+    model2d <- load_model_hdf5(file_name)
+}
+
+Y_pred2 <- predict(model2d, Z_test2)
 Y_pred <- apply(Y_pred2, 1, which.max)-1 # 1..10 -> 0..9
 res_2_deskewed <- data.frame(t(sapply(0:9, function(i) {
     c(i=i, get_metrics(Y_test==i, Y_pred==i))
 })))
 
 
-model <- keras_model_sequential()
-layer_dense(model, units=2500, activation='relu')
-layer_dense(model, units=2000, activation='relu')
-layer_dense(model, units=1500, activation='relu')
-layer_dense(model, units=1000, activation='relu')
-layer_dense(model, units=500,  activation='relu')
-layer_dense(model, units=10,   activation='softmax')
-compile(model, optimizer='sgd',
-        loss='categorical_crossentropy')
-fit(model, Z_train2, Y_train2, epochs=5)
-Y_pred2 <- predict(model, Z_test2)
+file_name <- "datasets/mnist_keras_model3d.h5"
+if (!file.exists(file_name)) {
+    set.seed(123)
+    model3d <- keras_model_sequential()
+    layer_dense(model3d, units=2500, activation="relu")
+    layer_dense(model3d, units=2000, activation="relu")
+    layer_dense(model3d, units=1500, activation="relu")
+    layer_dense(model3d, units=1000, activation="relu")
+    layer_dense(model3d, units=500,  activation="relu")
+    layer_dense(model3d, units=10,   activation="softmax")
+    compile(model3d, optimizer="sgd",
+            loss="categorical_crossentropy")
+    fit(model3d, Z_train2, Y_train2, epochs=10)
+    save_model_hdf5(model3d, file_name)
+} else {
+    model3d <- load_model_hdf5(file_name)
+}
+Y_pred2 <- predict(model3d, Z_test2)
 Y_pred <- apply(Y_pred2, 1, which.max)-1 # 1..10 -> 0..9
 res_6_deskewed <- data.frame(t(sapply(0:9, function(i) {
     c(i=i, get_metrics(Y_test==i, Y_pred==i))
@@ -1175,35 +1316,49 @@ res_6_deskewed <- data.frame(t(sapply(0:9, function(i) {
 
 ### Summary of All the Models Considered
 
----
 
 
 
-```{r globalsum,cache=TRUE,dependson=c('deep_deskew','deskew6','deep63','deep23','logistic6'),echo=FALSE,fig.height=5,fig.width=6}
-res_F_combined <- as.data.frame(cbind("Logistic"=res_logistic$F,
-    "Logistic [deskewed]"=res_logistic_deskewed$F,
+Let's summarise the quality of all the considered classifiers.
+Figure {@fig:globalsum} gives the F-measures, for each digit
+separately.
+
+```{r globalsum,cache=TRUE,dependson=c('deep_deskew','deskew6','deep63','deep23','logistic6'),echo=FALSE,fig.cap="Summary of F-measures for each classified digit and every method"}
+res_F_combined <- as.data.frame(cbind(
+    "Logistic"=res_logistic$F,
     "2-Layer"=res_2$F,
-    "2-Layer [deskewed]"=res_2_deskewed$F,
     "6-Layer"=res_6$F,
+    "Logistic [deskewed]"=res_logistic_deskewed$F,
+    "2-Layer [deskewed]"=res_2_deskewed$F,
     "6-Layer [deskewed]"=res_6_deskewed$F
 ))
-matplot(0:9, res_F_combined, type='b', las=1,
-          xlab='digit', ylab='metric', lty=c(1,2,1,2,1,2), col=c(1,1,2,2,4,4),
-          pch=c(1,1,2,2,4,4), ylim=c(0.8, 1.0), main="F-measures Summary")
-legend("bottom", legend=names(res_F_combined), lty=c(1,2,1,2,1,2), col=c(1,1,2,2,4,4), pch=c(1,1,2,2,4,4), ncol=2)
+matplot(0:9, res_F_combined, type="b",
+        xlab="digit",
+        ylab="metric",
+        lty=c(1,1,1,2,2,2),
+        col=c(1,2,4,1,2,4),
+        pch=c(1,2,4,1,2,4),
+        ylim=c(0.8, 1.0))
+legend("bottom", legend=names(res_F_combined),
+        lty=c(1,1,1,2,2,2),
+        col=c(1,2,4,1,2,4),
+        pch=c(1,2,4,1,2,4), ncol=2, bg="white")
 #abline(h=colMeans(res[3:5]), lty=c(4,2,1), col=c("#0000ff33", "#00ff0033", "#00000033"))
 #abline(h=acc, col="#00000066")
 ```
 
----
+Note that the applied preprocessing of data increased
+the prediction accuracy.
 
-The same information can also be included on a heat map:
 
-```{r globalsum2,cache=TRUE,dependson=c('globalsum'),echo=FALSE,fig.height=5,fig.width=6}
+The same information can also be included on a heat map
+which is depicted in Figure {@fig:globalsum2}
+(see the `image()` function in R).
+
+```{r globalsum2,cache=TRUE,dependson='globalsum',echo=FALSE,fig.cap="A heat map of F-measures for each classified digit and each method"}
 par(mar=c(3,10,2,1))
-image(0:9, 1:length(res_F_combined), z=as.matrix(res_F_combined), axes=FALSE, ann=FALSE,
-xlab="digit", main="F-measures Heatmap"
-)
+par(ann=FALSE)
+image(0:9, 1:length(res_F_combined), z=as.matrix(res_F_combined), axes=FALSE, ann=FALSE)
 axis(1, labels=0:9, at=0:9)
 axis(2, labels=names((res_F_combined)), at=1:length(res_F_combined), las=1)
 box()
@@ -1220,7 +1375,8 @@ for (i in 0:9)
 
 ### Remarks
 
----
+
+
 
 
 We have discussed a multinomial logistic regression model
@@ -1232,7 +1388,8 @@ There's a lot of hype (again...) for deep neural networks in many applications,
 including vision, self-driving cars, natural language processing,
 speech recognition etc.
 
----
+
+
 
 Many different architectures of neural networks and types of units
 are being considered in theory and in practice, e.g.:
@@ -1243,7 +1400,8 @@ deskewing automatically etc.;
 - recurrent neural networks can  imitate  long/short-term memory
 that  can be used for speech synthesis and time series prediction.
 
----
+
+
 
 Main drawbacks of deep neural networks:
 
@@ -1263,7 +1421,8 @@ AI/ML courses and books, such as [@deeplearn].
 
 ### Beyond MNIST
 
----
+
+
 
 The MNIST dataset is a classic, although its use in deep learning
 research is nowadays discouraged
@@ -1304,22 +1463,14 @@ signal processing, ...)
 
 ### Further Reading
 
-#### {.allowframebreaks .unnumbered}
-
-
 
 ```{R load_tensorflow_nn,echo=FALSE}
 library("tensorflow")
 ```
 
 
-Recommended further reading:
+Recommended further reading: [@islr: Chapter 11], [@aifaq] and [@deeplearn]
 
-- [@islr: Chapter 11]
-- [@deeplearn]
-
-Other:
-
-- keras package tutorials available at:
-    https://cran.r-project.org/web/packages/keras/index.html
-   and https://keras.rstudio.com
+See also the `keras` package tutorials available at:
+https://cran.r-project.org/web/packages/keras/index.html
+and https://keras.rstudio.com.

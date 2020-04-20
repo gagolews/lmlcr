@@ -18,8 +18,8 @@ echo "Compiling ${1} → ${outfile}..."
 rm -f "${outfile}"
 cp "${1}" "${outfile}"
 
-sed -i -e 's/^---$/<div style="margin-top: 1em"><\/div>/g' "${outfile}"
-sed -i -e 's/^. . .$/<div style="margin-top: 1em"><\/div>/g' "${outfile}"
+sed -i -e 's/^\-\-\-$/<div style="margin-top: 1em"><\/div>/g' "${outfile}"
+sed -i -e 's/^\. \. \.$/<div style="margin-top: 1em"><\/div>/g' "${outfile}"
 
 
 sed -i -r 's/^\{ BEGIN solution \}$/```{=html}\n<details class="solution"><summary style="color: blue">Click here for a solution.<\/summary>\n```/g'  "${outfile}"

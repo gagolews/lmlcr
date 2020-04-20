@@ -277,7 +277,6 @@ plot_rpart <- function(ts, XYs) {
   points(Xs[,1], Xs[,2], col=Ys, pch=c(1,2)[Ys])
   legend("topleft", col=c(1,2), pch=c(1,2), legend=c("Class 0", "Class 1"), bg="white")
   abline(v=0, lty=3, col="blue")
-  par(mar=c(0,0,0,0))
 }
 
 
@@ -287,6 +286,8 @@ cp <- 0.5
 ts <- rpart(Y~., data=XYs, method="class", cp=cp)
 par(mfrow=c(1,2))
 plot_rpart(ts, XYs)
+par(mar=c(0,0,0,0))
+par(ann=FALSE)
 rpart.plot(ts)
 ```
 
@@ -315,6 +316,8 @@ cp <- 0.01
 ts <- rpart(Y~., data=XYs, method="class", cp=cp)
 par(mfrow=c(1,2))
 plot_rpart(ts, XYs)
+par(mar=c(0,0,0,0))
+par(ann=FALSE)
 rpart.plot(ts)
 ```
 
@@ -327,6 +330,8 @@ control <- list(minsplit=1, minbucket=5)
 ts <- rpart(Y~., data=XYs, method="class", cp=cp, control=control)
 par(mfrow=c(1,2))
 plot_rpart(ts, XYs)
+par(mar=c(0,0,0,0))
+par(ann=FALSE)
 rpart.plot(ts, tweak=1.05)
 ```
 
@@ -365,8 +370,9 @@ XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 
 Fit and plot a decision tree, see Figure {@fig:plot_rpart1}.
 
-```{r plot_rpart1,fig.height=5,echo=-1,fig.cap="A decision tree for the `wines` dataset"}
+```{r plot_rpart1,fig.height=5,echo=-(1:2),fig.cap="A decision tree for the `wines` dataset"}
 par(mar=c(0,0,0,0))
+par(ann=FALSE)
 t1 <- rpart(Y~., data=XY_train, method="class")
 rpart.plot(t1, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
@@ -376,16 +382,18 @@ We can build  less or more complex trees by playing
 with the `cp` parameter, see Figures {@fig:plot_rpart222}
 and {@fig:tree333}.
 
-```{r plot_rpart222,echo=-1,fig.cap="A (simpler) decision tree for the `wines` dataset"}
+```{r plot_rpart222,echo=-(1:2),fig.cap="A (simpler) decision tree for the `wines` dataset"}
 par(mar=c(0,0,0,0))
+par(ann=FALSE)
 # cp = complexity parameter, smaller → more complex tree
 t2 <- rpart(Y~., data=XY_train, method="class", cp=0.1)
 rpart.plot(t2, tweak=1.1, fallen.leaves=FALSE, digits=3)
 ```
 
 
-```{r tree333,fig.height=8,echo=-1,fig.cap="A (more complex) decision tree for the `wines` dataset"}
+```{r tree333,fig.height=8,echo=-(1:2),fig.cap="A (more complex) decision tree for the `wines` dataset"}
 par(mar=c(0,0,0,0))
+par(ann=FALSE)
 # cp = complexity parameter, smaller → more complex tree
 t3 <- rpart(Y~., data=XY_train, method="class", cp=0.00001)
 rpart.plot(t3, tweak=1.1, fallen.leaves=FALSE, digits=3)

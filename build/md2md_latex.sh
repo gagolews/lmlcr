@@ -18,8 +18,8 @@ echo "Compiling ${1} → ${outfile}..."
 rm -f "${outfile}"
 cp "${1}" "${outfile}"
 
-sed -i -e 's/^---$/\\bigskip/g' "${outfile}"
-sed -i -e 's/^. . .$/\\bigskip/g' "${outfile}"
+sed -i -e 's/^\-\-\-$/\\bigskip/g' "${outfile}"
+sed -i -e 's/^\. \. \.$/\\bigskip/g' "${outfile}"
 
 sed -i -r 's/^\{ BEGIN ([a-z]+) \}$/```{=latex}\n\\begin{\1}\n```/g'  "${outfile}"
 sed -i -r 's/^\{ END ([a-z]+) \}$/```{=latex}\n\\end{\1}\n```/g'  "${outfile}"

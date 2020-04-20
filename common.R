@@ -92,6 +92,7 @@ CairoFonts(
 
 setHook("before.plot.new", function() {
     if (all(par("mar") == c(5.1, 4.1, 4.1, 2.1))) {
+        # the above is the default `mar`, let's change it to a new default!
         par(mar=c(2.5,2.5,1,0.5))
     }
 #     if (..output_language!="tex") {
@@ -112,7 +113,7 @@ plot.window_new <- function (xlim, ylim, log = "", asp = NA, ...)
 {
     .External.graphics(C_plot_window, xlim, ylim, log, asp, ...)
 
-    if (all(par("mar") == c(2.5,2.5,1,0.5))) {
+    if (par("ann") != FALSE) {
         x1 <- par("usr")[1]
         x2 <- par("usr")[2]
         if (par("xlog")) { x1 <- 10^x1; x2 <- 10^x2 }
