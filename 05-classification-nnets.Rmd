@@ -66,7 +66,7 @@ The fitting of the model was performed by minimising the cross-entropy (log-loss
 \[
 \min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
 -\frac{1}{n} \sum_{i=1}^n
-\Bigg(y_i\log \hat{y}_i + (1-y_i)\log \hat{y}_i\Bigg).
+\Bigg(y_i\log \hat{y}_i + (1-y_i)\log (1-\hat{y}_i)\Bigg).
 \]
 where $\hat{y}_i=\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)$.
 
