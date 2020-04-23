@@ -102,21 +102,29 @@ stay calm, it's just an old dog that learned new tricks.
 #### About Me  {.unnumbered}
 
 
-I'm currently a Senior Lecturer in Applied AI at Deakin University
-in Melbourne, Australia
+I'm currently a Senior Lecturer (equivalent to Associate Professor in the US)
+in Applied AI at Deakin University in Melbourne, VIC, Australia
 and an Associate Professor in Data Science at Warsaw University of Technology,
-Poland, where I teach various courses related to
+Poland. My main passion is in research -- my primary interests include
+machine learning and optimisation algorithms, data aggregation and clustering,
+statistical modelling and scientific computing.
+*Explaining* of things matters to me more than merely tuning the knobs
+so as to increase some performance metric (with consequences
+to many other ones); the latter belongs to technology and wizardry,
+not science.
+
+I'm an author of more than 70 publications.
+I've developed several open source R and Python packages, including
+[stringi](http://www.gagolewski.com/software/stringi/),
+which is among the most often downloaded R extensions.
+
+On top of that, I teach various courses related to
 R and Python programming, algorithms,
-data science and machine learning.
+data science and machine learning -- and I'm good at it.
 This book was also influenced by my teaching experience at
 [Data Science Retreat](https://datascienceretreat.com) in Berlin, Germany.
 
-I've create several open source R and Python packages, including
-[stringi](http://www.gagolewski.com/software/stringi/),
-which is among the most often downloaded R extensions.
-I'm an author of more than 70 publications. My research interests include
-machine learning and optimisation algorithms, data aggregation and clustering,
-statistical modelling and scientific computing.
+
 
 
 

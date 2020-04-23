@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-22 10:50 (25ec47d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-23 10:36 (eb03f52)</a></li>
 
 </ul>
 
@@ -669,9 +669,18 @@ while the plotting characters – the true iris species</p>
 ##   1      0         48         9
 ##   2      0          2        41
 ##   3     50          0         0</code></pre>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" title="1"><span class="kw">sum</span>(<span class="kw">apply</span>(C, <span class="dv">1</span>, max))<span class="op">/</span><span class="kw">sum</span>(C) <span class="co"># accuracy</span></a></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" title="1"><span class="kw">sum</span>(<span class="kw">apply</span>(C, <span class="dv">1</span>, max))<span class="op">/</span><span class="kw">sum</span>(C) <span class="co"># &quot;accuracy&quot;</span></a></code></pre></div>
 <pre><code>## [1] 0.9266667</code></pre>
 <p>The discovered partition matches the original one very well.</p>
+<!-- OK, this is not the best measure
+
+TODO: mention ARI and NMI
+
+cite Comparing partitions
+
+genieclust.compare_partitions ?
+
+-->
 </div>
 <div id="problem-statement" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Problem Statement</h3>
@@ -888,17 +897,26 @@ we select a pair of clusters to be merged.</p>
 ## [117] 3 3 3 2 3 2 3 2 3 3 2 2 3 3 3 3 3 2 3 3 3 3 2 3 3 2 2 3 3
 ## [146] 2 2 2 3 2</code></pre>
 <p>Different cuts of the hierarchy:</p>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb581-2" title="2"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-3" title="3"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
+<a class="sourceLine" id="cb581-4" title="4"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
+<a class="sourceLine" id="cb581-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
+<a class="sourceLine" id="cb581-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-18-1.svg" alt="Figure 8: plot of chunk unnamed-chunk-18" id="fig:unnamed-chunk-18" />
-<p class="caption">Figure 8: plot of chunk unnamed-chunk-18</p>
+<img src="07-clustering-figures/complete_linkage_hier5_intro-1.svg" alt="Figure 8: plot of chunk complete_linkage_hier5_intro" id="fig:complete_linkage_hier5_intro" />
+<p class="caption">Figure 8: plot of chunk complete_linkage_hier5_intro</p>
 </div>
 <p>A <strong>dendrogram</strong> depicts the distances (* as defined by the linkage function)
 between the clusters merged at every stage. This can provide us with the insight
 into the underlying data structure.</p>
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-19-1.svg" alt="Figure 9: plot of chunk unnamed-chunk-19" id="fig:unnamed-chunk-19" />
-<p class="caption">Figure 9: plot of chunk unnamed-chunk-19</p>
+<img src="07-clustering-figures/complete_linkage_hier_intro-1.svg" alt="Figure 9: plot of chunk complete_linkage_hier_intro" id="fig:complete_linkage_hier_intro" />
+<p class="caption">Figure 9: plot of chunk complete_linkage_hier_intro</p>
 </div>
 </div>
 <div id="agglomerative-hierarchical-clustering" class="section level3">
@@ -954,35 +972,71 @@ d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\m
 </ul>
 <p>Computing linkages – an illustration:</p>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-20-1.svg" alt="Figure 10: plot of chunk unnamed-chunk-20" id="fig:unnamed-chunk-20" style="width:100.0%" />
-<p class="caption">Figure 10: plot of chunk unnamed-chunk-20</p>
+<img src="07-clustering-figures/linkages-1.svg" alt="Figure 10: plot of chunk linkages" id="fig:linkages" />
+<p class="caption">Figure 10: plot of chunk linkages</p>
 </div>
 <p>Complete linkage (again):</p>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</a>
+<a class="sourceLine" id="cb583-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
+<a class="sourceLine" id="cb583-3" title="3"></a>
+<a class="sourceLine" id="cb583-4" title="4">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</a>
+<a class="sourceLine" id="cb583-5" title="5"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb583-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
+<a class="sourceLine" id="cb583-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
+<a class="sourceLine" id="cb583-10" title="10"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-11" title="11"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
+<a class="sourceLine" id="cb583-12" title="12"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-13" title="13"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-21-1.svg" alt="Figure 11: plot of chunk unnamed-chunk-21" id="fig:unnamed-chunk-21" />
-<p class="caption">Figure 11: plot of chunk unnamed-chunk-21</p>
+<img src="07-clustering-figures/complete_linkage_hier5-1.svg" alt="Figure 11: plot of chunk complete_linkage_hier5" id="fig:complete_linkage_hier5" />
+<p class="caption">Figure 11: plot of chunk complete_linkage_hier5</p>
 </div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-22-1.svg" alt="Figure 12: plot of chunk unnamed-chunk-22" id="fig:unnamed-chunk-22" />
-<p class="caption">Figure 12: plot of chunk unnamed-chunk-22</p>
+<img src="07-clustering-figures/complete_linkage_hier-1.svg" alt="Figure 12: plot of chunk complete_linkage_hier" id="fig:complete_linkage_hier" />
+<p class="caption">Figure 12: plot of chunk complete_linkage_hier</p>
 </div>
 <p>Average linkage:</p>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb585-1" title="1">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;average&quot;</span>)</a>
+<a class="sourceLine" id="cb585-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb585-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
+<a class="sourceLine" id="cb585-5" title="5"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-6" title="6"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
+<a class="sourceLine" id="cb585-7" title="7"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
+<a class="sourceLine" id="cb585-9" title="9"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-23-1.svg" alt="Figure 13: plot of chunk unnamed-chunk-23" id="fig:unnamed-chunk-23" />
-<p class="caption">Figure 13: plot of chunk unnamed-chunk-23</p>
+<img src="07-clustering-figures/average_linkage_hier5-1.svg" alt="Figure 13: plot of chunk average_linkage_hier5" id="fig:average_linkage_hier5" />
+<p class="caption">Figure 13: plot of chunk average_linkage_hier5</p>
 </div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-24-1.svg" alt="Figure 14: plot of chunk unnamed-chunk-24" id="fig:unnamed-chunk-24" />
-<p class="caption">Figure 14: plot of chunk unnamed-chunk-24</p>
+<img src="07-clustering-figures/average_linkage_hier-1.svg" alt="Figure 14: plot of chunk average_linkage_hier" id="fig:average_linkage_hier" />
+<p class="caption">Figure 14: plot of chunk average_linkage_hier</p>
 </div>
 <p>Single linkage (this is a typical behaviour!):</p>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" title="1">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;single&quot;</span>)</a>
+<a class="sourceLine" id="cb587-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb587-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb587-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
+<a class="sourceLine" id="cb587-5" title="5"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb587-6" title="6"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
+<a class="sourceLine" id="cb587-7" title="7"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb587-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
+<a class="sourceLine" id="cb587-9" title="9"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb587-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-25-1.svg" alt="Figure 15: plot of chunk unnamed-chunk-25" id="fig:unnamed-chunk-25" />
-<p class="caption">Figure 15: plot of chunk unnamed-chunk-25</p>
+<img src="07-clustering-figures/single_linkage_hier5-1.svg" alt="Figure 15: plot of chunk single_linkage_hier5" id="fig:single_linkage_hier5" />
+<p class="caption">Figure 15: plot of chunk single_linkage_hier5</p>
 </div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb588-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-26-1.svg" alt="Figure 16: plot of chunk unnamed-chunk-26" id="fig:unnamed-chunk-26" />
-<p class="caption">Figure 16: plot of chunk unnamed-chunk-26</p>
+<img src="07-clustering-figures/single_linkage_hier-1.svg" alt="Figure 16: plot of chunk single_linkage_hier" id="fig:single_linkage_hier" />
+<p class="caption">Figure 16: plot of chunk single_linkage_hier</p>
 </div>
 <!--Single linkage clustering --
 a {\color{blue2}\bf hierarchical agglomerative clustering algorithm}.

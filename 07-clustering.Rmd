@@ -253,11 +253,20 @@ A contingency table for detected vs. true clusters:
 
 ```{r}
 (C <- table(km$cluster, iris$Species))
-sum(apply(C, 1, max))/sum(C) # accuracy
+sum(apply(C, 1, max))/sum(C) # "accuracy"
 ```
 
 The discovered partition matches the original one very well.
 
+<!-- OK, this is not the best measure
+
+TODO: mention ARI and NMI
+
+cite Comparing partitions
+
+genieclust.compare_partitions ?
+
+-->
 
 
 
@@ -553,7 +562,7 @@ we select a pair of clusters to be merged.
 
 
 
-```{r}
+```{r dist_hclust_complete}
 # Distances between all pairs of points:
 D <- dist(X)
 # Apply Complete Linkage (the default, see below):
@@ -565,7 +574,7 @@ print(h)
 
 
 
-```{r}
+```{r cutree}
 cutree(h, k=3) # extract the 3-partition
 ```
 
@@ -575,16 +584,15 @@ cutree(h, k=3) # extract the 3-partition
 
 Different cuts of the hierarchy:
 
-```{r,echo=FALSE,fig.height=5}
+```{r complete_linkage_hier5_intro,fig.height=5}
 par(mfrow=c(2,2))
-par(mar=c(2,2.5,0.1,0.1))
-plot(X, col=cutree(h, k=5), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=5), ann=FALSE)
 legend("top", legend="k=5")
-plot(X, col=cutree(h, k=4), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=4), ann=FALSE)
 legend("top", legend="k=4")
-plot(X, col=cutree(h, k=3), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=3), ann=FALSE)
 legend("top", legend="k=3")
-plot(X, col=cutree(h, k=2), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=2), ann=FALSE)
 legend("top", legend="k=2")
 ```
 
@@ -596,8 +604,7 @@ A **dendrogram** depicts the distances (* as defined by the linkage function)
 between the clusters merged at every stage. This can provide us with the insight
 into the underlying data structure.
 
-```{r,echo=-1}
-par(mar=c(4,4,2,0.5))
+```{r complete_linkage_hier_intro}
 plot(h)
 ```
 
@@ -681,7 +688,7 @@ d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\m
 
 Computing linkages -- an illustration:
 
-```{r,echo=FALSE,fig.width=10,fig.height=5, out.width='100%'}
+```{r linkages,echo=FALSE}
 
 set.seed(123)
 X <- jitter(t(as.matrix(iris[,2:3])))
@@ -699,9 +706,8 @@ kol2 <- rgb(0,0.5,0.0,0.5)
 kol3 <- rgb(0,0.9,0.0,0.9)
 
 par(mfrow=c(1,3))
-par(mar=rep(0.5, 4))
 # single
-plot(X[1,], X[2,], col=y, las=1, pch='.', asp=1, axes=FALSE)
+plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE)
 box()
 # stopifnot(min(d23) < min(d13) && min(d23) < min(d12))
 IDX_single <- which(min(d23) == d, arr.ind=TRUE)[1,]
@@ -714,7 +720,7 @@ legend("bottomright", legend="SINGLE")
 points(X[1,], X[2,], col=y, pch=y)
 
 # complete
-plot(X[1,], X[2,], col=y, las=1, pch='.', asp=1, axes=FALSE)
+plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE)
 box()
 IDX_single <- which(max(d23) == d, arr.ind=TRUE)[1,]
 lines(X[1,IDX_single], X[2,IDX_single], col=kol2, lwd=3)
@@ -726,7 +732,7 @@ legend("bottomright", legend="COMPLETE")
 points(X[1,], X[2,], col=y, pch=y)
 
 # average
-plot(X[1,], X[2,], col=y, las=1, pch='.', asp=1, axes=FALSE)
+plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE)
 box()
 #c(mean(d12), mean(d13), mean(d23))
 for (i in sample(1:50)) {
@@ -747,20 +753,19 @@ points(X[1,], X[2,], col=y, pch=y)
 
 Complete linkage (again):
 
-```{r,echo=FALSE,fig.height=5}
+```{r complete_linkage_hier5,fig.height=5}
 X <- as.matrix(iris[,c(3,2)])
 D <- dist(X)
 
 h <- hclust(D, method="complete")
-par(mfrow=c(2,2))
-par(mar=c(2,2.5,0.1,0.1))
-plot(X, col=cutree(h, k=5), ann=FALSE, las=1)
+par(mfrow=c(2, 2))
+plot(X, col=cutree(h, k=5), ann=FALSE)
 legend("top", legend="k=5")
-plot(X, col=cutree(h, k=4), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=4), ann=FALSE)
 legend("top", legend="k=4")
-plot(X, col=cutree(h, k=3), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=3), ann=FALSE)
 legend("top", legend="k=3")
-plot(X, col=cutree(h, k=2), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=2), ann=FALSE)
 legend("top", legend="k=2")
 ```
 
@@ -768,8 +773,7 @@ legend("top", legend="k=2")
 
 
 
-```{r,echo=FALSE,fig.height=5}
-par(mar=c(5,4,2,0.5))
+```{r complete_linkage_hier,fig.height=5}
 plot(h)
 ```
 
@@ -778,17 +782,16 @@ plot(h)
 
 Average linkage:
 
-```{r,echo=FALSE,fig.height=5}
+```{r average_linkage_hier5,fig.height=5}
 h <- hclust(D, method="average")
 par(mfrow=c(2,2))
-par(mar=c(2,2.5,0.1,0.1))
-plot(X, col=cutree(h, k=5), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=5), ann=FALSE)
 legend("top", legend="k=5")
-plot(X, col=cutree(h, k=4), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=4), ann=FALSE)
 legend("top", legend="k=4")
-plot(X, col=cutree(h, k=3), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=3), ann=FALSE)
 legend("top", legend="k=3")
-plot(X, col=cutree(h, k=2), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=2), ann=FALSE)
 legend("top", legend="k=2")
 ```
 
@@ -796,8 +799,7 @@ legend("top", legend="k=2")
 
 
 
-```{r,echo=FALSE,fig.height=5}
-par(mar=c(5,4,2,0.5))
+```{r average_linkage_hier,fig.height=5}
 plot(h)
 ```
 
@@ -807,17 +809,16 @@ plot(h)
 
 Single linkage (this is a typical behaviour!):
 
-```{r,echo=FALSE,fig.height=5}
+```{r single_linkage_hier5,fig.height=5}
 h <- hclust(D, method="single")
-par(mfrow=c(2,2))
-par(mar=c(2,2.5,0.1,0.1))
-plot(X, col=cutree(h, k=5), ann=FALSE, las=1)
+par(mfrow=c(2, 2))
+plot(X, col=cutree(h, k=5), ann=FALSE)
 legend("top", legend="k=5")
-plot(X, col=cutree(h, k=4), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=4), ann=FALSE)
 legend("top", legend="k=4")
-plot(X, col=cutree(h, k=3), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=3), ann=FALSE)
 legend("top", legend="k=3")
-plot(X, col=cutree(h, k=2), ann=FALSE, las=1)
+plot(X, col=cutree(h, k=2), ann=FALSE)
 legend("top", legend="k=2")
 ```
 
@@ -825,8 +826,7 @@ legend("top", legend="k=2")
 
 
 
-```{r,echo=FALSE,fig.height=5}
-par(mar=c(5,4,2,0.5))
+```{r single_linkage_hier,fig.height=5}
 plot(h)
 ```
 
