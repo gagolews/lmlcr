@@ -404,6 +404,7 @@ This a new feature $\mathbf{z}_{\cdot,j}$ that always has mean 0 and standard de
 
 Moreover, it is *unit-less* (e.g., we divide a value in kgs by a value in kgs,
 the units are cancelled out).
+This, amongst others, prevent one of the features to dominate the other ones.
 
 
 Z-scores are easy to interpret, e.g., 0.5 denotes an observation
@@ -515,7 +516,11 @@ that increases the accuracy of a $K$-NN classifier on this dataset.
 
 ### Performance Metrics
 
+<!--
 
+More metrics: https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics
+
+-->
 
 
 

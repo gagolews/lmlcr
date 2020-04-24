@@ -131,7 +131,7 @@ i.e., $i\in C_j$".
 Example applications of clustering:
 
 
-- *taxonomization*: e.g.,
+- *taxonomisation*: e.g.,
  partition the consumers to more "uniform"
  groups to better understand who they are and what do they need,
 - *image processing*:
@@ -181,7 +181,7 @@ There are two main types of clustering algorithms:
 - **parametric** (model-based):
     - find clusters of specific shapes, or following specific multidimensional
     probability distributions,
-    - e.g., $K$-means, expectation-maximization for Gaussian mixtures (EM),
+    - e.g., $K$-means, expectation-maximisation for Gaussian mixtures (EM),
     average linkage agglomerative clustering;
 - **nonparametric** (model-free):
     - identify high-density or well-separable regions,
