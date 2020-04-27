@@ -14,16 +14,17 @@
 
 In **unsupervised learning** (learning without a teacher),
 the input data points $\mathbf{x}_{1,\cdot},\dots,\mathbf{x}_{n,\cdot}$
-are not assigned any reference labels.
+are not assigned any reference labels (compare Figure {@fig:unsupervised}).
 
 
 
 
-```{r echo=FALSE}
+```{r unsupervised,echo=FALSE,fig.cap="Unsupervised learning: \"But what it is exactly that I have to do here?\""}
 plot(iris[,3], iris[,2], ann=FALSE)
 ```
 
-Our aim now is to discover the **underlying structure in the data**.
+Our aim now is to discover the **underlying structure in the data**,
+whatever that means.
 
 
 
@@ -33,27 +34,33 @@ Our aim now is to discover the **underlying structure in the data**.
 ### Main Types of Unsupervised Learning Problems
 
 
+It turns out, however, that certain classes of unsupervised learning
+problems are not only intellectually stimulating,
+but practically useful at the same time.
 
 
 
 
-
-In **dimensionality reduction** we seek a meaningful *projection* of a high dimensional
+In particular, in **dimensionality reduction** we seek a meaningful
+*projection* of a high dimensional
 space (think: many variables/columns).
 
-```{r echo=FALSE,fig.height=6}
+```{r princomp,echo=FALSE,fig.cap="Principal component analysis (a dimensionality reduction technique) applied on three features of red wines",fig.height=6}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines <- wines[wines$color=='red',]
 p <- princomp(wines[,c(11, 4, 12)])
-biplot(p, col=c("#ff000033",1), pch=1, main="Red Wines", xlim=c(-0.05, 0.23))
+biplot(p, col=c("#ff000033",1), pch=1, xlim=c(-0.05, 0.23), main=NA)
 ```
 
-This might enable us to plot high-dimensional data or understand its structure better.
+For instance, Figure {@fig:princomp} reveals that the
+"alcohol", "response" and "residual.sugar" dimensions of the Wine Quality
+dataset that we have studied earlier on can actually be nicely depicted (with
+no much loss of information) on a two-dimensional plot.
+It turns out that the wine experts' opinion on a wine's quality is highly
+correlated with the amount of... alcohol in a bottle.
+On the other hand, sugar is orthogonal (unrelated) to these two.
 
-
-
-
-Example methods:
+Amongst example dimensionality reduction methods we find:
 
 - Multidimensional scaling (MDS)
 - Principal component analysis (PCA)
@@ -61,64 +68,67 @@ Example methods:
 - t-SNE
 - Autoencoders (deep learning)
 
+See, for example, [@esl] for more details.
+
+. . .
 
 
 
-In **anomaly detection**, our task is to identify rare, suspicious, ab-normal
+Furthermore, in **anomaly detection**, our task is to identify rare, suspicious, ab-normal
 or out-standing items.
+For example, these can be cars on walkways in a park's security camera footage.
 
 
-```{r echo=FALSE}
+```{r anomaly_detection,echo=FALSE,fig.cap="Outliers can be thought of anomalies of some sort"}
 plot(iris[,3], iris[,2], ann=FALSE)
 idx <- c(61, 42, 16, 118, 132)
 points(iris[idx,3], iris[idx,2], cex=3, pch=4, col=2)
 ```
 
-For example, these can be cars on walkways in a park's security camera footage.
 
+. . .
 
-
-
-
-The aim of **clustering** is to automatically discover some *naturally occurring*
+Finally, the aim of **clustering** is to automatically discover some *naturally occurring*
 subgroups in the data set.
-
-
-```{r echo=FALSE}
-plot(iris[,3], iris[,2], ann=FALSE,
-    col=as.numeric(iris[,5]), pch=as.numeric(iris[,5]))
-```
-
 For example, these may be customers having different shopping patterns
 (such as "young parents", "students", "boomers").
 
 
 
+```{r clustering_illustration,echo=FALSE,cache=TRUE,fig.cap="NEWS FLASH! SCIENTISTS SHOWED (by writing about it) THAT SOME VERY IMPORTANT THING (Iris dataset) COMES IN THREE DIFFERENT FLAVOURS (by applying the 3-means clustering algorithm)!"}
+km <- kmeans(iris[,c(3,2)], centers=3, nstart=10)
+plot(iris[,3], iris[,2], ann=FALSE,
+    col=km$cluster, pch=km$cluster)
+```
 
-### Clustering
 
 
 
 
-More formally, given $K\ge 2$, **clustering** aims is to find a *special kind*
+
+### Definitions
+
+
+
+
+Formally, given $K\ge 2$, **clustering** aims is to find a *special kind*
 of a **$K$-partition** of the input data set $\mathbf{X}$.
 
-$\mathcal{C}=\{C_1,\dots,C_K\}$ is a $K$-partition of  $\mathbf{X}$ of size $n$,
-whenever:
+Definition.
 
+:   We say that $\mathcal{C}=\{C_1,\dots,C_K\}$ is a **$K$-partition**
+    of  $\mathbf{X}$ of size $n$,
+    whenever:
 
-- $C_k\neq\emptyset$ for all $k$ (each set is nonempty),
-- $C_k\cap C_l=\emptyset$ for all $k\neq l$ (sets are pairwise disjoint),
-- $\bigcup_{k=1}^K C_k=\{1,\dots,n\}$ (no point is neglected).
+    - $C_k\neq\emptyset$ for all $k$ (each set is nonempty),
+    - $C_k\cap C_l=\emptyset$ for all $k\neq l$ (sets are pairwise disjoint),
+    - $\bigcup_{k=1}^K C_k=\mathbf{X}$ (no point is neglected).
 
 
 This can also be thought of as assigning each point a unique label $\{1,\dots,K\}$
 (think: colouring of the points, where each number has a colour).
-
-Remark.
-
-: "$\mathbf{x}_{i,\cdot}$ is labelled $j$ iff it belongs to cluster $C_j$,
-i.e., $i\in C_j$".
+We will consider the point $\mathbf{x}_{i,\cdot}$ as labelled $j$
+if and only if it belongs to cluster $C_j$, i.e., $\mathbf{x}_{i,\cdot}\in C_j$.
 
 
 
@@ -157,10 +167,12 @@ The number of possible $K$-partitions of a set with $n$ elements is given by
 
 e.g., already $\left\{{n \atop 2}\right\}=2^{n-1}-1$
 and $\left\{{n \atop 3}\right\}=O(3^n)$ -- that is a lot.
+Certainly, we are not just interested in "any" partition -- some of them
+will be more meaningful or valuable than others.
+However, even one of the most famous ML textbooks provides us with only
+a vague hint of what we might be looking for:
 
-Certainly, we are not just interested in "any" partition.
 
-However, even one of the most famous ML textbooks provides us with only a vague hint:
 
 "Definition".
 
@@ -168,15 +180,15 @@ However, even one of the most famous ML textbooks provides us with only a vague 
 so that those within each cluster are more **closely related**
 to one another than objects assigned to different clusters" [@esl].
 
-
-
-
-
-There are two main types of clustering algorithms:
+It is not uncommon <!-- TODO: cite -->
+to equate the general definition of data clustering problems with... the
+particular outputs yield by specific clustering algorithms. It some sense,
+that sounds fair. From this perspective, we might be interested in
+identifying the two main types of clustering algorithms:
 
 
 - **parametric** (model-based):
-    - find clusters of specific shapes, or following specific multidimensional
+    - find clusters of specific shapes or following specific multidimensional
     probability distributions,
     - e.g., $K$-means, expectation-maximisation for Gaussian mixtures (EM),
     average linkage agglomerative clustering;
@@ -187,16 +199,14 @@ There are two main types of clustering algorithms:
 
 
 
-
-
-
-
-
 In this chapter we'll take a look at two classical approaches to clustering:
 
-- *K-means clustering* that looks for a specific number of clusters
+- *K-means clustering* that looks for a specific number of clusters,
 - *(agglomerative) hierarchical clustering* that outputs a whole hierarchy
-of nested data partitions
+of nested data partitions.
+
+
+
 
 
 
@@ -210,51 +220,69 @@ of nested data partitions
 
 
 
-Let us apply $K$-means clustering to find $K=3$ groups
+Let us start by applying the $K$-means clustering method to find $K=3$ groups
 in the famous Fisher's `iris` data set (variables `Sepal.Width`
-and `Petal.Length` variables only)
+and `Petal.Length` variables only):
 
-```{r}
+```{r kmeans1,echo=-1}
+set.seed(123)
 X <- as.matrix(iris[,c(3,2)])
 # never forget to set nstart>>1!
 km <- kmeans(X, centers=3, nstart=10)
-km$cluster # assigned labels
+km$cluster # labels assigned to each of 150 points:
 ```
+
 
 Remark.
 
 : Later we'll see that `nstart` is responsible for random restarting the
-(local) optimisation procedure, just like we did in the previous chapter.
+(local) optimisation procedure, just as we did in the previous chapter.
 
 
 
 
 
-```{r}
+Let's draw a scatter plot that depicts the detected clusters:
+
+```{r kmeans12, fig.cap="3-means clustering on a projection of the Iris dataset"}
+plot(X, col=km$cluster)
+```
+
+The colours in Figure {@fig:kmeans12} indicate the detected clusters.
+The left group is clearly well-separated from the other two.
+
+
+What can we do with this information? Well, if we were experts on plants
+(in the 1930s), that'd definitely be something ground-breaking.
+Figure {@fig:kmeans123} is a version of the aforementioned scatter plot
+now with the true iris species added.
+
+```{r kmeans123, fig.cap="3-means clustering (colours) vs true Iris species (shapes)"}
 plot(X, col=km$cluster, pch=as.numeric(iris$Species))
 ```
 
-The colours indicate the detected clusters,
-while the plotting characters -- the true iris species
 
-Remark.
+Here is a contingency table for detected clusters vs. true iris species:
 
-: Note that the true labels were not used during the clustering procedure!
-(we're dealing with unsupervised learning)
-
-
-
-
-A contingency table for detected vs. true clusters:
-
-```{r}
+```{r kmeans1234}
 (C <- table(km$cluster, iris$Species))
-sum(apply(C, 1, max))/sum(C) # "accuracy"
 ```
 
-The discovered partition matches the original one very well.
+It turns out that the discovered partition matches the original iris
+species very well. We have just made a "discovery" in the field of
+botany (actually some research fields classify their objects of study
+into families, genres etc. by means of such tools).
+
+Were the actual Iris species what we had hoped to match?
+Was that our aim? Well, surely we have had begun our journey with
+"clear minds" (yet with hungry eyes). Note that the true class labels
+were not used during the clustering procedure -- we're dealing with
+an unsupervised learning problem here. The result turned useful,
+it's a win.
 
 <!-- OK, this is not the best measure
+
+sum(apply(C, 1, max))/sum(C) # "accuracy"
 
 TODO: mention ARI and NMI
 
@@ -320,7 +348,7 @@ points(km$centers, cex=2, col=4, pch=16)
 Here is the partition of the whole $\mathbb{R}^2$ space
 into clusters based on the closeness to the three cluster centres:
 
-```{r echo=FALSE,fig.height=6}
+```{r echo=FALSE}
 x <- seq(0, 8, length.out=250)
 y <- seq(1.5, 5.0, length.out=250)
 z <- matrix(NA_real_, length(x), length(y))
@@ -579,16 +607,16 @@ cutree(h, k=3) # extract the 3-partition
 
 Different cuts of the hierarchy:
 
-```{r complete_linkage_hier5_intro,fig.height=5}
+```{r complete_linkage_hier5_intro,fig.height=6}
 par(mfrow=c(2,2))
 plot(X, col=cutree(h, k=5), ann=FALSE)
-legend("top", legend="k=5")
+legend("top", legend="k=5", bg="white")
 plot(X, col=cutree(h, k=4), ann=FALSE)
-legend("top", legend="k=4")
+legend("top", legend="k=4", bg="white")
 plot(X, col=cutree(h, k=3), ann=FALSE)
-legend("top", legend="k=3")
+legend("top", legend="k=3", bg="white")
 plot(X, col=cutree(h, k=2), ann=FALSE)
-legend("top", legend="k=2")
+legend("top", legend="k=2", bg="white")
 ```
 
 
@@ -600,7 +628,7 @@ between the clusters merged at every stage. This can provide us with the insight
 into the underlying data structure.
 
 ```{r complete_linkage_hier_intro}
-plot(h)
+plot(h, labels=FALSE, xlab=NA, main=NA); box()
 ```
 
 
@@ -679,11 +707,10 @@ d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\m
 \]
 
 
+An illustration of the way different linkages are computed
+is given in Figure {@fig:linkages}.
 
-
-Computing linkages -- an illustration:
-
-```{r linkages,echo=FALSE}
+```{r linkages,echo=FALSE,fig.cap="In single linkage, we find the closest pair of points; in complete linkage, we seek the furthest pair; in average linkage, we determine the average pairwise distance"}
 
 set.seed(123)
 X <- jitter(t(as.matrix(iris[,2:3])))
@@ -702,7 +729,7 @@ kol3 <- rgb(0,0.9,0.0,0.9)
 
 par(mfrow=c(1,3))
 # single
-plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE)
+plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
 box()
 # stopifnot(min(d23) < min(d13) && min(d23) < min(d12))
 IDX_single <- which(min(d23) == d, arr.ind=TRUE)[1,]
@@ -711,11 +738,11 @@ IDX_single <- which(min(d13) == d, arr.ind=TRUE)[1,]
 lines(X[1,IDX_single], X[2,IDX_single], col=kol1, lwd=3)
 IDX_single <- which(min(d12) == d, arr.ind=TRUE)[1,]
 lines(X[1,IDX_single], X[2,IDX_single], col=kol2, lwd=3)
-legend("bottomright", legend="SINGLE")
+legend("bottomright", legend="single linkage", bg="white")
 points(X[1,], X[2,], col=y, pch=y)
 
 # complete
-plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE)
+plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
 box()
 IDX_single <- which(max(d23) == d, arr.ind=TRUE)[1,]
 lines(X[1,IDX_single], X[2,IDX_single], col=kol2, lwd=3)
@@ -723,11 +750,11 @@ IDX_single <- which(max(d13) == d, arr.ind=TRUE)[1,]
 lines(X[1,IDX_single], X[2,IDX_single], col=kol1, lwd=3)
 IDX_single <- which(max(d12) == d, arr.ind=TRUE)[1,]
 lines(X[1,IDX_single], X[2,IDX_single], col=kol3, lwd=3)
-legend("bottomright", legend="COMPLETE")
+legend("bottomright", legend="complete linkage", bg="white")
 points(X[1,], X[2,], col=y, pch=y)
 
 # average
-plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE)
+plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
 box()
 #c(mean(d12), mean(d13), mean(d23))
 for (i in sample(1:50)) {
@@ -735,7 +762,7 @@ for (i in sample(1:50)) {
     segments(X[1,0+i], X[2,0+i], X[1,101:150], X[2, 101:150], col=kol2)
     segments(X[1,50+i], X[2, 50+i], X[1,101:150], X[2, 101:150], col=kol3)
 }
-legend("bottomright", legend="AVERAGE")
+legend("bottomright", legend="average linkage", bg="white")
 points(X[1,], X[2,], col=y, pch=y)
 ```
 
@@ -748,28 +775,28 @@ points(X[1,], X[2,], col=y, pch=y)
 
 Complete linkage (again):
 
-```{r complete_linkage_hier5,fig.height=5}
+```{r complete_linkage_hier5,fig.height=6}
 X <- as.matrix(iris[,c(3,2)])
 D <- dist(X)
 
 h <- hclust(D, method="complete")
 par(mfrow=c(2, 2))
 plot(X, col=cutree(h, k=5), ann=FALSE)
-legend("top", legend="k=5")
+legend("top", legend="k=5", bg="white")
 plot(X, col=cutree(h, k=4), ann=FALSE)
-legend("top", legend="k=4")
+legend("top", legend="k=4", bg="white")
 plot(X, col=cutree(h, k=3), ann=FALSE)
-legend("top", legend="k=3")
+legend("top", legend="k=3", bg="white")
 plot(X, col=cutree(h, k=2), ann=FALSE)
-legend("top", legend="k=2")
+legend("top", legend="k=2", bg="white")
 ```
 
 
 
 
 
-```{r complete_linkage_hier,fig.height=5}
-plot(h)
+```{r complete_linkage_hier}
+plot(h, labels=FALSE, xlab=NA, main=NA); box()
 ```
 
 
@@ -777,25 +804,25 @@ plot(h)
 
 Average linkage:
 
-```{r average_linkage_hier5,fig.height=5}
+```{r average_linkage_hier5,fig.height=6}
 h <- hclust(D, method="average")
 par(mfrow=c(2,2))
 plot(X, col=cutree(h, k=5), ann=FALSE)
-legend("top", legend="k=5")
+legend("top", legend="k=5", bg="white")
 plot(X, col=cutree(h, k=4), ann=FALSE)
-legend("top", legend="k=4")
+legend("top", legend="k=4", bg="white")
 plot(X, col=cutree(h, k=3), ann=FALSE)
-legend("top", legend="k=3")
+legend("top", legend="k=3", bg="white")
 plot(X, col=cutree(h, k=2), ann=FALSE)
-legend("top", legend="k=2")
+legend("top", legend="k=2", bg="white")
 ```
 
 
 
 
 
-```{r average_linkage_hier,fig.height=5}
-plot(h)
+```{r average_linkage_hier}
+plot(h, labels=FALSE, xlab=NA, main=NA); box()
 ```
 
 
@@ -804,25 +831,25 @@ plot(h)
 
 Single linkage (this is a typical behaviour!):
 
-```{r single_linkage_hier5,fig.height=5}
+```{r single_linkage_hier5,fig.height=6}
 h <- hclust(D, method="single")
 par(mfrow=c(2, 2))
 plot(X, col=cutree(h, k=5), ann=FALSE)
-legend("top", legend="k=5")
+legend("top", legend="k=5", bg="white")
 plot(X, col=cutree(h, k=4), ann=FALSE)
-legend("top", legend="k=4")
+legend("top", legend="k=4", bg="white")
 plot(X, col=cutree(h, k=3), ann=FALSE)
-legend("top", legend="k=3")
+legend("top", legend="k=3", bg="white")
 plot(X, col=cutree(h, k=2), ann=FALSE)
-legend("top", legend="k=2")
+legend("top", legend="k=2", bg="white")
 ```
 
 
 
 
 
-```{r single_linkage_hier,fig.height=5}
-plot(h)
+```{r single_linkage_hier}
+plot(h, labels=FALSE, xlab=NA, main=NA); box()
 ```
 
 
@@ -869,11 +896,28 @@ $-->
 
 
 
+Unsupervised learning is often performed during the data pre-processing
+and exploration stage.
+Assessing the quality of clustering is particularly challenging as,
+unlike in a supervised setting,
+we have no access to "ground truth" information.
+
+
+
+In practice, we often apply different clustering algorithms
+and just see where they lead us. There's no teacher that would
+tell us what we should do, so whatever we do is awesome, right?
+Well, not precisely. Most frequently, you, my dear reader, will work
+for some party that's genuinely
+interested in your explaining why did you spent the last month coming up
+with nothing useful at all. Thus, the main body of work related to proving
+the use-ful*l*/less-ness will be on us.
+
+
+
 The aim of K-means is to find
 $K$ clusters based on the notion of the points' closeness
-to the cluster centres.
-
-Remember that $K$ must be set in advance.
+to the cluster centres. Remember that $K$ must be set in advance.
 
 By definition (\* via its relation to Voronoi diagrams), all clusters will be of convex shapes.
 
@@ -916,14 +960,8 @@ library("fastcluster")
 
 
 
-Unsupervised learning is often performed during the data pre-processing
-and exploration stage.
-
-Assessing the quality of clustering is particularly challenging as,
-unlike in a supervised setting,
-we have no access to "ground truth" information.
-
-Moreover, some unsupervised methods do not easily generalise to unobserved data.
+Moreover, some unsupervised methods do not easily generalise
+to unobserved data. However, you can then build a classifier (e.g., trees, neural networks) that learns the discovered labels.
 
 Also many clustering methods are based on the notion of pairwise
 distances but these tend to behave weirdly in high-dimensional

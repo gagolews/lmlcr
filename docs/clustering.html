@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="clustering.html"><a href="clustering.html#unsupervised-learning"><i class="fa fa-check"></i><b>7.1</b> Unsupervised Learning</a><ul>
 <li class="chapter" data-level="7.1.1" data-path="clustering.html"><a href="clustering.html#introduction-12"><i class="fa fa-check"></i><b>7.1.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.1.2" data-path="clustering.html"><a href="clustering.html#main-types-of-unsupervised-learning-problems"><i class="fa fa-check"></i><b>7.1.2</b> Main Types of Unsupervised Learning Problems</a></li>
-<li class="chapter" data-level="7.1.3" data-path="clustering.html"><a href="clustering.html#clustering-1"><i class="fa fa-check"></i><b>7.1.3</b> Clustering</a></li>
+<li class="chapter" data-level="7.1.3" data-path="clustering.html"><a href="clustering.html#definitions"><i class="fa fa-check"></i><b>7.1.3</b> Definitions</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>7.2</b> K-means Clustering</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="clustering.html"><a href="clustering.html#example-in-r-5"><i class="fa fa-check"></i><b>7.2.1</b> Example in R</a></li>
@@ -378,7 +378,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3.2" data-path="recommender-systems.html"><a href="recommender-systems.html#data-cleansing"><i class="fa fa-check"></i><b>9.3.2</b> Data Cleansing</a></li>
 <li class="chapter" data-level="9.3.3" data-path="recommender-systems.html"><a href="recommender-systems.html#item-item-similarities"><i class="fa fa-check"></i><b>9.3.3</b> Item-Item Similarities</a></li>
 <li class="chapter" data-level="9.3.4" data-path="recommender-systems.html"><a href="recommender-systems.html#example-recommendations"><i class="fa fa-check"></i><b>9.3.4</b> Example Recommendations</a></li>
-<li class="chapter" data-level="9.3.5" data-path="recommender-systems.html"><a href="recommender-systems.html#clustering-2"><i class="fa fa-check"></i><b>9.3.5</b> Clustering</a></li>
+<li class="chapter" data-level="9.3.5" data-path="recommender-systems.html"><a href="recommender-systems.html#clustering-1"><i class="fa fa-check"></i><b>9.3.5</b> Clustering</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="recommender-systems.html"><a href="recommender-systems.html#outro-8"><i class="fa fa-check"></i><b>9.4</b> Outro</a><ul>
 <li class="chapter" data-level="9.4.1" data-path="recommender-systems.html"><a href="recommender-systems.html#remarks-8"><i class="fa fa-check"></i><b>9.4.1</b> Remarks</a></li>
@@ -482,7 +482,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 14:51 (3378fde)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 16:06 (39df9de)</a></li>
 
 </ul>
 
@@ -510,23 +510,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.1.1</span> Introduction</h3>
 <p>In <strong>unsupervised learning</strong> (learning without a teacher),
 the input data points <span class="math inline">\(\mathbf{x}_{1,\cdot},\dots,\mathbf{x}_{n,\cdot}\)</span>
-are not assigned any reference labels.</p>
+are not assigned any reference labels (compare Figure <a href="clustering.html#fig:unsupervised">1</a>).</p>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-1-1.svg" alt="Figure 1: plot of chunk unnamed-chunk-1" id="fig:unnamed-chunk-1" />
-<p class="caption">Figure 1: plot of chunk unnamed-chunk-1</p>
+<img src="07-clustering-figures/unsupervised-1.svg" alt="Figure 1: Unsupervised learning: “But what it is exactly that I have to do here?”" id="fig:unsupervised" />
+<p class="caption">Figure 1: Unsupervised learning: “But what it is exactly that I have to do here?”</p>
 </div>
-<p>Our aim now is to discover the <strong>underlying structure in the data</strong>.</p>
+<p>Our aim now is to discover the <strong>underlying structure in the data</strong>,
+whatever that means.</p>
 </div>
 <div id="main-types-of-unsupervised-learning-problems" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> Main Types of Unsupervised Learning Problems</h3>
-<p>In <strong>dimensionality reduction</strong> we seek a meaningful <em>projection</em> of a high dimensional
+<p>It turns out, however, that certain classes of unsupervised learning
+problems are not only intellectually stimulating,
+but practically useful at the same time.</p>
+<p>In particular, in <strong>dimensionality reduction</strong> we seek a meaningful
+<em>projection</em> of a high dimensional
 space (think: many variables/columns).</p>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-2-1.svg" alt="Figure 2: plot of chunk unnamed-chunk-2" id="fig:unnamed-chunk-2" />
-<p class="caption">Figure 2: plot of chunk unnamed-chunk-2</p>
+<img src="07-clustering-figures/princomp-1.svg" alt="Figure 2: Principal component analysis (a dimensionality reduction technique) applied on three features of red wines" id="fig:princomp" />
+<p class="caption">Figure 2: Principal component analysis (a dimensionality reduction technique) applied on three features of red wines</p>
 </div>
-<p>This might enable us to plot high-dimensional data or understand its structure better.</p>
-<p>Example methods:</p>
+<p>For instance, Figure <a href="clustering.html#fig:princomp">2</a> reveals that the
+“alcohol”, “response” and “residual.sugar” dimensions of the Wine Quality
+dataset that we have studied earlier on can actually be nicely depicted (with
+no much loss of information) on a two-dimensional plot.
+It turns out that the wine experts’ opinion on a wine’s quality is highly
+correlated with the amount of… alcohol in a bottle.
+On the other hand, sugar is orthogonal (unrelated) to these two.</p>
+<p>Amongst example dimensionality reduction methods we find:</p>
 <ul>
 <li>Multidimensional scaling (MDS)</li>
 <li>Principal component analysis (PCA)</li>
@@ -534,41 +545,49 @@ space (think: many variables/columns).</p>
 <li>t-SNE</li>
 <li>Autoencoders (deep learning)</li>
 </ul>
-<p>In <strong>anomaly detection</strong>, our task is to identify rare, suspicious, ab-normal
-or out-standing items.</p>
-<div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-3-1.svg" alt="Figure 3: plot of chunk unnamed-chunk-3" id="fig:unnamed-chunk-3" />
-<p class="caption">Figure 3: plot of chunk unnamed-chunk-3</p>
+<p>See, for example, <span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>)</span> for more details.</p>
+<div style="margin-top: 1em">
+
 </div>
-<p>For example, these can be cars on walkways in a park’s security camera footage.</p>
-<p>The aim of <strong>clustering</strong> is to automatically discover some <em>naturally occurring</em>
-subgroups in the data set.</p>
+<p>Furthermore, in <strong>anomaly detection</strong>, our task is to identify rare, suspicious, ab-normal
+or out-standing items.
+For example, these can be cars on walkways in a park’s security camera footage.</p>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-4-1.svg" alt="Figure 4: plot of chunk unnamed-chunk-4" id="fig:unnamed-chunk-4" />
-<p class="caption">Figure 4: plot of chunk unnamed-chunk-4</p>
+<img src="07-clustering-figures/anomaly_detection-1.svg" alt="Figure 3: Outliers can be thought of anomalies of some sort" id="fig:anomaly_detection" />
+<p class="caption">Figure 3: Outliers can be thought of anomalies of some sort</p>
 </div>
-<p>For example, these may be customers having different shopping patterns
+<div style="margin-top: 1em">
+
+</div>
+<p>Finally, the aim of <strong>clustering</strong> is to automatically discover some <em>naturally occurring</em>
+subgroups in the data set.
+For example, these may be customers having different shopping patterns
 (such as “young parents”, “students”, “boomers”).</p>
+<div class="figure">
+<img src="07-clustering-figures/clustering_illustration-1.svg" alt="Figure 4: NEWS FLASH! SCIENTISTS SHOWED (by writing about it) THAT SOME VERY IMPORTANT THING (Iris dataset) COMES IN THREE DIFFERENT FLAVOURS (by applying the 3-means clustering algorithm)!" id="fig:clustering_illustration" />
+<p class="caption">Figure 4: NEWS FLASH! SCIENTISTS SHOWED (by writing about it) THAT SOME VERY IMPORTANT THING (Iris dataset) COMES IN THREE DIFFERENT FLAVOURS (by applying the 3-means clustering algorithm)!</p>
 </div>
-<div id="clustering-1" class="section level3">
-<h3><span class="header-section-number">7.1.3</span> Clustering</h3>
-<p>More formally, given <span class="math inline">\(K\ge 2\)</span>, <strong>clustering</strong> aims is to find a <em>special kind</em>
+</div>
+<div id="definitions" class="section level3">
+<h3><span class="header-section-number">7.1.3</span> Definitions</h3>
+<p>Formally, given <span class="math inline">\(K\ge 2\)</span>, <strong>clustering</strong> aims is to find a <em>special kind</em>
 of a <strong><span class="math inline">\(K\)</span>-partition</strong> of the input data set <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<p><span class="math inline">\(\mathcal{C}=\{C_1,\dots,C_K\}\)</span> is a <span class="math inline">\(K\)</span>-partition of <span class="math inline">\(\mathbf{X}\)</span> of size <span class="math inline">\(n\)</span>,
+<dl>
+<dt>Definition.</dt>
+<dd><p>We say that <span class="math inline">\(\mathcal{C}=\{C_1,\dots,C_K\}\)</span> is a <strong><span class="math inline">\(K\)</span>-partition</strong>
+of <span class="math inline">\(\mathbf{X}\)</span> of size <span class="math inline">\(n\)</span>,
 whenever:</p>
 <ul>
 <li><span class="math inline">\(C_k\neq\emptyset\)</span> for all <span class="math inline">\(k\)</span> (each set is nonempty),</li>
 <li><span class="math inline">\(C_k\cap C_l=\emptyset\)</span> for all <span class="math inline">\(k\neq l\)</span> (sets are pairwise disjoint),</li>
-<li><span class="math inline">\(\bigcup_{k=1}^K C_k=\{1,\dots,n\}\)</span> (no point is neglected).</li>
+<li><span class="math inline">\(\bigcup_{k=1}^K C_k=\mathbf{X}\)</span> (no point is neglected).</li>
 </ul>
-<p>This can also be thought of as assigning each point a unique label <span class="math inline">\(\{1,\dots,K\}\)</span>
-(think: colouring of the points, where each number has a colour).</p>
-<dl>
-<dt>Remark.</dt>
-<dd><p>“<span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> is labelled <span class="math inline">\(j\)</span> iff it belongs to cluster <span class="math inline">\(C_j\)</span>,
-i.e., <span class="math inline">\(i\in C_j\)</span>”.</p>
 </dd>
 </dl>
+<p>This can also be thought of as assigning each point a unique label <span class="math inline">\(\{1,\dots,K\}\)</span>
+(think: colouring of the points, where each number has a colour).
+We will consider the point <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> as labelled <span class="math inline">\(j\)</span>
+if and only if it belongs to cluster <span class="math inline">\(C_j\)</span>, i.e., <span class="math inline">\(\mathbf{x}_{i,\cdot}\in C_j\)</span>.</p>
 <p>Example applications of clustering:</p>
 <ul>
 <li><em>taxonomisation</em>: e.g.,
@@ -590,9 +609,11 @@ or learning multiple manifolds in a dimension reduction task.</li>
 \left\{{n \atop K}\right\}={\frac  {1}{K!}}\sum _{{j=0}}^{{K}}(-1)^{{K-j}}{\binom  {K}{j}}j^{n};
 \]</span></p>
 <p>e.g., already <span class="math inline">\(\left\{{n \atop 2}\right\}=2^{n-1}-1\)</span>
-and <span class="math inline">\(\left\{{n \atop 3}\right\}=O(3^n)\)</span> – that is a lot.</p>
-<p>Certainly, we are not just interested in “any” partition.</p>
-<p>However, even one of the most famous ML textbooks provides us with only a vague hint:</p>
+and <span class="math inline">\(\left\{{n \atop 3}\right\}=O(3^n)\)</span> – that is a lot.
+Certainly, we are not just interested in “any” partition – some of them
+will be more meaningful or valuable than others.
+However, even one of the most famous ML textbooks provides us with only
+a vague hint of what we might be looking for:</p>
 <dl>
 <dt>“Definition”.</dt>
 <dd><p>Clustering concerns “segmenting a collection of objects into subsets
@@ -600,11 +621,15 @@ so that those within each cluster are more <strong>closely related</strong>
 to one another than objects assigned to different clusters” <span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>)</span>.</p>
 </dd>
 </dl>
-<p>There are two main types of clustering algorithms:</p>
+<p>It is not uncommon <!-- TODO: cite -->
+to equate the general definition of data clustering problems with… the
+particular outputs yield by specific clustering algorithms. It some sense,
+that sounds fair. From this perspective, we might be interested in
+identifying the two main types of clustering algorithms:</p>
 <ul>
 <li><strong>parametric</strong> (model-based):
 <ul>
-<li>find clusters of specific shapes, or following specific multidimensional
+<li>find clusters of specific shapes or following specific multidimensional
 probability distributions,</li>
 <li>e.g., <span class="math inline">\(K\)</span>-means, expectation-maximisation for Gaussian mixtures (EM),
 average linkage agglomerative clustering;</li>
@@ -618,9 +643,9 @@ perhaps in the presence of noise points,</li>
 </ul>
 <p>In this chapter we’ll take a look at two classical approaches to clustering:</p>
 <ul>
-<li><em>K-means clustering</em> that looks for a specific number of clusters</li>
+<li><em>K-means clustering</em> that looks for a specific number of clusters,</li>
 <li><em>(agglomerative) hierarchical clustering</em> that outputs a whole hierarchy
-of nested data partitions</li>
+of nested data partitions.</li>
 </ul>
 </div>
 </div>
@@ -628,49 +653,62 @@ of nested data partitions</li>
 <h2><span class="header-section-number">7.2</span> K-means Clustering</h2>
 <div id="example-in-r-5" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Example in R</h3>
-<p>Let us apply <span class="math inline">\(K\)</span>-means clustering to find <span class="math inline">\(K=3\)</span> groups
+<p>Let us start by applying the <span class="math inline">\(K\)</span>-means clustering method to find <span class="math inline">\(K=3\)</span> groups
 in the famous Fisher’s <code>iris</code> data set (variables <code>Sepal.Width</code>
-and <code>Petal.Length</code> variables only)</p>
+and <code>Petal.Length</code> variables only):</p>
 <div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</a>
 <a class="sourceLine" id="cb552-2" title="2"><span class="co"># never forget to set nstart&gt;&gt;1!</span></a>
 <a class="sourceLine" id="cb552-3" title="3">km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, <span class="dt">centers=</span><span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb552-4" title="4">km<span class="op">$</span>cluster <span class="co"># assigned labels</span></a></code></pre></div>
-<pre><code>##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
-##  [30] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 1 1 1 1 1 1
-##  [59] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1
-##  [88] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 1 2 2 2 2 2 2 1 2 2
-## [117] 2 2 2 1 2 1 2 1 2 2 1 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2
-## [146] 2 1 2 2 2</code></pre>
+<a class="sourceLine" id="cb552-4" title="4">km<span class="op">$</span>cluster <span class="co"># labels assigned to each of 150 points:</span></a></code></pre></div>
+<pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [30] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 3 3 3 3 3 3
+##  [59] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 3 3 3 3 3 2 3 3 3
+##  [88] 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 3 2 2 2 2 2 2 3 2 2
+## [117] 2 2 2 3 2 3 2 3 2 2 3 3 2 2 2 2 2 2 2 2 2 2 3 2 2 2 2 2 2
+## [146] 2 3 2 2 2</code></pre>
 <dl>
 <dt>Remark.</dt>
 <dd><p>Later we’ll see that <code>nstart</code> is responsible for random restarting the
-(local) optimisation procedure, just like we did in the previous chapter.</p>
+(local) optimisation procedure, just as we did in the previous chapter.</p>
 </dd>
 </dl>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species))</a></code></pre></div>
+<p>Let’s draw a scatter plot that depicts the detected clusters:</p>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-6-1.svg" alt="Figure 5: plot of chunk unnamed-chunk-6" id="fig:unnamed-chunk-6" />
-<p class="caption">Figure 5: plot of chunk unnamed-chunk-6</p>
+<img src="07-clustering-figures/kmeans12-1.svg" alt="Figure 5: 3-means clustering on a projection of the Iris dataset" id="fig:kmeans12" />
+<p class="caption">Figure 5: 3-means clustering on a projection of the Iris dataset</p>
 </div>
-<p>The colours indicate the detected clusters,
-while the plotting characters – the true iris species</p>
-<dl>
-<dt>Remark.</dt>
-<dd><p>Note that the true labels were not used during the clustering procedure!
-(we’re dealing with unsupervised learning)</p>
-</dd>
-</dl>
-<p>A contingency table for detected vs. true clusters:</p>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1">(C &lt;-<span class="st"> </span><span class="kw">table</span>(km<span class="op">$</span>cluster, iris<span class="op">$</span>Species))</a></code></pre></div>
+<p>The colours in Figure <a href="clustering.html#fig:kmeans12">5</a> indicate the detected clusters.
+The left group is clearly well-separated from the other two.</p>
+<p>What can we do with this information? Well, if we were experts on plants
+(in the 1930s), that’d definitely be something ground-breaking.
+Figure <a href="clustering.html#fig:kmeans123">6</a> is a version of the aforementioned scatter plot
+now with the true iris species added.</p>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species))</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/kmeans123-1.svg" alt="Figure 6: 3-means clustering (colours) vs true Iris species (shapes)" id="fig:kmeans123" />
+<p class="caption">Figure 6: 3-means clustering (colours) vs true Iris species (shapes)</p>
+</div>
+<p>Here is a contingency table for detected clusters vs. true iris species:</p>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" title="1">(C &lt;-<span class="st"> </span><span class="kw">table</span>(km<span class="op">$</span>cluster, iris<span class="op">$</span>Species))</a></code></pre></div>
 <pre><code>##    
 ##     setosa versicolor virginica
-##   1      0         48         9
+##   1     50          0         0
 ##   2      0          2        41
-##   3     50          0         0</code></pre>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" title="1"><span class="kw">sum</span>(<span class="kw">apply</span>(C, <span class="dv">1</span>, max))<span class="op">/</span><span class="kw">sum</span>(C) <span class="co"># &quot;accuracy&quot;</span></a></code></pre></div>
-<pre><code>## [1] 0.9266667</code></pre>
-<p>The discovered partition matches the original one very well.</p>
+##   3      0         48         9</code></pre>
+<p>It turns out that the discovered partition matches the original iris
+species very well. We have just made a “discovery” in the field of
+botany (actually some research fields classify their objects of study
+into families, genres etc. by means of such tools).</p>
+<p>Were the actual Iris species what we had hoped to match?
+Was that our aim? Well, surely we have had begun our journey with
+“clear minds” (yet with hungry eyes). Note that the true class labels
+were not used during the clustering procedure – we’re dealing with
+an unsupervised learning problem here. The result turned useful,
+it’s a win.</p>
 <!-- OK, this is not the best measure
+
+sum(apply(C, 1, max))/sum(C) # "accuracy"
 
 TODO: mention ARI and NMI
 
@@ -699,22 +737,22 @@ d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}),
 where <span class="math inline">\(\mathrm{arg}\min\)</span> == argument minimum == the index <span class="math inline">\(k\)</span> that minimises
 the given expression.</p>
 <p>In the previous example, we have:</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" title="1">km<span class="op">$</span>centers</a></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" title="1">km<span class="op">$</span>centers</a></code></pre></div>
 <pre><code>##   Petal.Length Sepal.Width
-## 1     4.328070    2.750877
+## 1     1.462000    3.428000
 ## 2     5.672093    3.032558
-## 3     1.462000    3.428000</code></pre>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">asp=</span><span class="dv">1</span>) <span class="co"># asp=1 gives the same scale on both axes</span></a>
-<a class="sourceLine" id="cb561-2" title="2"><span class="kw">points</span>(km<span class="op">$</span>centers, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
+## 3     4.328070    2.750877</code></pre>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">asp=</span><span class="dv">1</span>) <span class="co"># asp=1 gives the same scale on both axes</span></a>
+<a class="sourceLine" id="cb560-2" title="2"><span class="kw">points</span>(km<span class="op">$</span>centers, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-8-1.svg" alt="Figure 6: plot of chunk unnamed-chunk-8" id="fig:unnamed-chunk-8" />
-<p class="caption">Figure 6: plot of chunk unnamed-chunk-8</p>
+<img src="07-clustering-figures/unnamed-chunk-1-1.svg" alt="Figure 7: plot of chunk unnamed-chunk-1" id="fig:unnamed-chunk-1" />
+<p class="caption">Figure 7: plot of chunk unnamed-chunk-1</p>
 </div>
 <p>Here is the partition of the whole <span class="math inline">\(\mathbb{R}^2\)</span> space
 into clusters based on the closeness to the three cluster centres:</p>
 <div class="figure">
-<img src="07-clustering-figures/unnamed-chunk-9-1.svg" alt="Figure 7: plot of chunk unnamed-chunk-9" id="fig:unnamed-chunk-9" />
-<p class="caption">Figure 7: plot of chunk unnamed-chunk-9</p>
+<img src="07-clustering-figures/unnamed-chunk-2-1.svg" alt="Figure 8: plot of chunk unnamed-chunk-2" id="fig:unnamed-chunk-2" />
+<p class="caption">Figure 8: plot of chunk unnamed-chunk-2</p>
 </div>
 <dl>
 <dt>Remark.</dt>
@@ -722,26 +760,26 @@ into clusters based on the closeness to the three cluster centres:</p>
 </dd>
 </dl>
 <p>To compute the pairwise distances, we may call <code>pdist::pdist()</code>:</p>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" title="1"><span class="kw">library</span>(<span class="st">&quot;pdist&quot;</span>)</a>
-<a class="sourceLine" id="cb562-2" title="2">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, km<span class="op">$</span>centers))</a>
-<a class="sourceLine" id="cb562-3" title="3"><span class="kw">head</span>(D) <span class="co"># D[i,j] - distance between x[i,] and µ[j,]</span></a></code></pre></div>
-<pre><code>##          [,1]     [,2]       [,3]
-## [1,] 3.022380 4.297590 0.09501583
-## [2,] 2.938649 4.272217 0.43246734
-## [3,] 3.061196 4.375298 0.27969268
-## [4,] 2.849538 4.172638 0.33019394
-## [5,] 3.048705 4.309613 0.18283319
-## [6,] 2.868316 4.065708 0.52860963</code></pre>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" title="1"><span class="kw">library</span>(<span class="st">&quot;pdist&quot;</span>)</a>
+<a class="sourceLine" id="cb561-2" title="2">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, km<span class="op">$</span>centers))</a>
+<a class="sourceLine" id="cb561-3" title="3"><span class="kw">head</span>(D) <span class="co"># D[i,j] - distance between x[i,] and µ[j,]</span></a></code></pre></div>
+<pre><code>##            [,1]     [,2]     [,3]
+## [1,] 0.09501583 4.297590 3.022380
+## [2,] 0.43246734 4.272217 2.938649
+## [3,] 0.27969268 4.375298 3.061196
+## [4,] 0.33019394 4.172638 2.849538
+## [5,] 0.18283319 4.309613 3.048705
+## [6,] 0.52860963 4.065708 2.868316</code></pre>
 <p>…</p>
 <p>Therefore, the cluster memberships (<span class="math inline">\(\mathrm{arg}\min\)</span>s) can be determined by:</p>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" title="1">(idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min))</a></code></pre></div>
-<pre><code>##   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
-##  [30] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 1 1 1 1 1 1
-##  [59] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1
-##  [88] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 1 2 2 2 2 2 2 1 2 2
-## [117] 2 2 2 1 2 1 2 1 2 2 1 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2
-## [146] 2 1 2 2 2</code></pre>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" title="1"><span class="kw">all</span>(km<span class="op">$</span>cluster <span class="op">==</span><span class="st"> </span>idx) <span class="co"># sanity check</span></a></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" title="1">(idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min))</a></code></pre></div>
+<pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [30] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 3 3 3 3 3 3
+##  [59] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 3 3 3 3 3 2 3 3 3
+##  [88] 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 3 2 2 2 2 2 2 3 2 2
+## [117] 2 2 2 3 2 3 2 3 2 2 3 3 2 2 2 2 2 2 2 2 2 2 3 2 2 2 2 2 2
+## [146] 2 3 2 2 2</code></pre>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb565-1" title="1"><span class="kw">all</span>(km<span class="op">$</span>cluster <span class="op">==</span><span class="st"> </span>idx) <span class="co"># sanity check</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="algorithms-for-the-k-means-problem" class="section level3">
@@ -800,43 +838,43 @@ of the coordinates of all the point indices <span class="math inline">\(i\)</spa
 <li><p>If the cluster centres changed since the last iteration, go to step 2, otherwise stop and return the result.</p></li>
 </ol>
 <p>(*) Example implementation:</p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb568-1" title="1">K &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb568-2" title="2"></a>
-<a class="sourceLine" id="cb568-3" title="3"><span class="co"># Random initial cluster centres</span></a>
-<a class="sourceLine" id="cb568-4" title="4">M &lt;-<span class="st"> </span><span class="kw">jitter</span>(X[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X), K),])</a>
-<a class="sourceLine" id="cb568-5" title="5">M</a></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" title="1">K &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb567-2" title="2"></a>
+<a class="sourceLine" id="cb567-3" title="3"><span class="co"># Random initial cluster centres</span></a>
+<a class="sourceLine" id="cb567-4" title="4">M &lt;-<span class="st"> </span><span class="kw">jitter</span>(X[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X), K),])</a>
+<a class="sourceLine" id="cb567-5" title="5">M</a></code></pre></div>
 <pre><code>##      Petal.Length Sepal.Width
 ## [1,]     1.106172    2.994400
 ## [2,]     1.394794    3.321308
 ## [3,]     6.754820    3.808716</code></pre>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" title="1"><span class="co"># Let D[i,k] bet the distance between the i-th point</span></a>
-<a class="sourceLine" id="cb570-2" title="2"><span class="co"># and the k-th centre:</span></a>
-<a class="sourceLine" id="cb570-3" title="3">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))</a>
-<a class="sourceLine" id="cb570-4" title="4"><span class="co"># Let idx[i] be the centre closest to the i-th point</span></a>
-<a class="sourceLine" id="cb570-5" title="5">idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a></code></pre></div>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1"><span class="cf">repeat</span> {</a>
-<a class="sourceLine" id="cb571-2" title="2">    <span class="co"># Previous cluster belongingness:</span></a>
-<a class="sourceLine" id="cb571-3" title="3">    old_idx &lt;-<span class="st"> </span>idx</a>
-<a class="sourceLine" id="cb571-4" title="4">    <span class="co"># Split X into a list of K data frames based on old_idx info</span></a>
-<a class="sourceLine" id="cb571-5" title="5">    X_split &lt;-<span class="st"> </span><span class="kw">split</span>(<span class="kw">as.data.frame</span>(X), old_idx)</a>
-<a class="sourceLine" id="cb571-6" title="6">    <span class="co"># Compute componentwise arithmetic means of each data frame - new centres</span></a>
-<a class="sourceLine" id="cb571-7" title="7">    M &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(X_split, colMeans))</a>
-<a class="sourceLine" id="cb571-8" title="8">    <span class="co"># Recompute cluster belongingness</span></a>
-<a class="sourceLine" id="cb571-9" title="9">    D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))</a>
-<a class="sourceLine" id="cb571-10" title="10">    idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a>
-<a class="sourceLine" id="cb571-11" title="11">    <span class="co"># Check if converged already:</span></a>
-<a class="sourceLine" id="cb571-12" title="12">    <span class="cf">if</span> (<span class="kw">all</span>(idx <span class="op">==</span><span class="st"> </span>old_idx)) <span class="cf">break</span></a>
-<a class="sourceLine" id="cb571-13" title="13">}</a></code></pre></div>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb572-1" title="1">M <span class="co"># our result</span></a></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" title="1"><span class="co"># Let D[i,k] bet the distance between the i-th point</span></a>
+<a class="sourceLine" id="cb569-2" title="2"><span class="co"># and the k-th centre:</span></a>
+<a class="sourceLine" id="cb569-3" title="3">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))</a>
+<a class="sourceLine" id="cb569-4" title="4"><span class="co"># Let idx[i] be the centre closest to the i-th point</span></a>
+<a class="sourceLine" id="cb569-5" title="5">idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" title="1"><span class="cf">repeat</span> {</a>
+<a class="sourceLine" id="cb570-2" title="2">    <span class="co"># Previous cluster belongingness:</span></a>
+<a class="sourceLine" id="cb570-3" title="3">    old_idx &lt;-<span class="st"> </span>idx</a>
+<a class="sourceLine" id="cb570-4" title="4">    <span class="co"># Split X into a list of K data frames based on old_idx info</span></a>
+<a class="sourceLine" id="cb570-5" title="5">    X_split &lt;-<span class="st"> </span><span class="kw">split</span>(<span class="kw">as.data.frame</span>(X), old_idx)</a>
+<a class="sourceLine" id="cb570-6" title="6">    <span class="co"># Compute componentwise arithmetic means of each data frame - new centres</span></a>
+<a class="sourceLine" id="cb570-7" title="7">    M &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(X_split, colMeans))</a>
+<a class="sourceLine" id="cb570-8" title="8">    <span class="co"># Recompute cluster belongingness</span></a>
+<a class="sourceLine" id="cb570-9" title="9">    D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))</a>
+<a class="sourceLine" id="cb570-10" title="10">    idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a>
+<a class="sourceLine" id="cb570-11" title="11">    <span class="co"># Check if converged already:</span></a>
+<a class="sourceLine" id="cb570-12" title="12">    <span class="cf">if</span> (<span class="kw">all</span>(idx <span class="op">==</span><span class="st"> </span>old_idx)) <span class="cf">break</span></a>
+<a class="sourceLine" id="cb570-13" title="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1">M <span class="co"># our result</span></a></code></pre></div>
 <pre><code>##   Petal.Length Sepal.Width
 ## 1     1.462000    3.428000
 ## 2     4.328070    2.750877
 ## 3     5.672093    3.032558</code></pre>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" title="1">km<span class="op">$</span>center <span class="co"># result of kmeans()</span></a></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" title="1">km<span class="op">$</span>center <span class="co"># result of kmeans()</span></a></code></pre></div>
 <pre><code>##   Petal.Length Sepal.Width
-## 1     4.328070    2.750877
+## 1     1.462000    3.428000
 ## 2     5.672093    3.032558
-## 3     1.462000    3.428000</code></pre>
+## 3     4.328070    2.750877</code></pre>
 <!--
 
 # TODO: k-medoids???
@@ -875,11 +913,11 @@ we select a pair of clusters to be merged.</p>
 </div>
 <div id="example-in-r-6" class="section level3">
 <h3><span class="header-section-number">7.3.2</span> Example in R</h3>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" title="1"><span class="co"># Distances between all pairs of points:</span></a>
-<a class="sourceLine" id="cb576-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
-<a class="sourceLine" id="cb576-3" title="3"><span class="co"># Apply Complete Linkage (the default, see below):</span></a>
-<a class="sourceLine" id="cb576-4" title="4">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D) <span class="co"># method=&quot;complete&quot;</span></a>
-<a class="sourceLine" id="cb576-5" title="5"><span class="kw">print</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" title="1"><span class="co"># Distances between all pairs of points:</span></a>
+<a class="sourceLine" id="cb575-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
+<a class="sourceLine" id="cb575-3" title="3"><span class="co"># Apply Complete Linkage (the default, see below):</span></a>
+<a class="sourceLine" id="cb575-4" title="4">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D) <span class="co"># method=&quot;complete&quot;</span></a>
+<a class="sourceLine" id="cb575-5" title="5"><span class="kw">print</span>(h)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## hclust(d = D)
@@ -887,7 +925,7 @@ we select a pair of clusters to be merged.</p>
 ## Cluster method   : complete 
 ## Distance         : euclidean 
 ## Number of objects: 150</code></pre>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" title="1"><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>) <span class="co"># extract the 3-partition</span></a></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" title="1"><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>) <span class="co"># extract the 3-partition</span></a></code></pre></div>
 <pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ##  [30] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2
 ##  [59] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
@@ -895,26 +933,26 @@ we select a pair of clusters to be merged.</p>
 ## [117] 3 3 3 2 3 2 3 2 3 3 2 2 3 3 3 3 3 2 3 3 3 3 2 3 3 2 2 3 3
 ## [146] 2 2 2 3 2</code></pre>
 <p>Different cuts of the hierarchy:</p>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb580-2" title="2"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb580-3" title="3"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
-<a class="sourceLine" id="cb580-4" title="4"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb580-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
-<a class="sourceLine" id="cb580-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb580-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
-<a class="sourceLine" id="cb580-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb580-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb579-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb579-2" title="2"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb579-3" title="3"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb579-4" title="4"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb579-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb579-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb579-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb579-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb579-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/complete_linkage_hier5_intro-1.svg" alt="Figure 8: plot of chunk complete_linkage_hier5_intro" id="fig:complete_linkage_hier5_intro" />
-<p class="caption">Figure 8: plot of chunk complete_linkage_hier5_intro</p>
+<img src="07-clustering-figures/complete_linkage_hier5_intro-1.svg" alt="Figure 9: plot of chunk complete_linkage_hier5_intro" id="fig:complete_linkage_hier5_intro" />
+<p class="caption">Figure 9: plot of chunk complete_linkage_hier5_intro</p>
 </div>
 <p>A <strong>dendrogram</strong> depicts the distances (* as defined by the linkage function)
 between the clusters merged at every stage. This can provide us with the insight
 into the underlying data structure.</p>
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" title="1"><span class="kw">plot</span>(h, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">xlab=</span><span class="ot">NA</span>, <span class="dt">main=</span><span class="ot">NA</span>); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/complete_linkage_hier_intro-1.svg" alt="Figure 9: plot of chunk complete_linkage_hier_intro" id="fig:complete_linkage_hier_intro" />
-<p class="caption">Figure 9: plot of chunk complete_linkage_hier_intro</p>
+<img src="07-clustering-figures/complete_linkage_hier_intro-1.svg" alt="Figure 10: plot of chunk complete_linkage_hier_intro" id="fig:complete_linkage_hier_intro" />
+<p class="caption">Figure 10: plot of chunk complete_linkage_hier_intro</p>
 </div>
 </div>
 <div id="agglomerative-hierarchical-clustering" class="section level3">
@@ -968,73 +1006,74 @@ d_C^*(A,B) = \max_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b}),
 d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\mathbf{a},\mathbf{b}).
 \]</span></li>
 </ul>
-<p>Computing linkages – an illustration:</p>
+<p>An illustration of the way different linkages are computed
+is given in Figure <a href="clustering.html#fig:linkages">11</a>.</p>
 <div class="figure">
-<img src="07-clustering-figures/linkages-1.svg" alt="Figure 10: plot of chunk linkages" id="fig:linkages" />
-<p class="caption">Figure 10: plot of chunk linkages</p>
+<img src="07-clustering-figures/linkages-1.svg" alt="Figure 11: In single linkage, we find the closest pair of points; in complete linkage, we seek the furthest pair; in average linkage, we determine the average pairwise distance" id="fig:linkages" />
+<p class="caption">Figure 11: In single linkage, we find the closest pair of points; in complete linkage, we seek the furthest pair; in average linkage, we determine the average pairwise distance</p>
 </div>
 <p>Complete linkage (again):</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</a>
-<a class="sourceLine" id="cb582-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
-<a class="sourceLine" id="cb582-3" title="3"></a>
-<a class="sourceLine" id="cb582-4" title="4">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</a>
-<a class="sourceLine" id="cb582-5" title="5"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb582-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb582-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
-<a class="sourceLine" id="cb582-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb582-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
-<a class="sourceLine" id="cb582-10" title="10"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb582-11" title="11"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
-<a class="sourceLine" id="cb582-12" title="12"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb582-13" title="13"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</a>
+<a class="sourceLine" id="cb581-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
+<a class="sourceLine" id="cb581-3" title="3"></a>
+<a class="sourceLine" id="cb581-4" title="4">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</a>
+<a class="sourceLine" id="cb581-5" title="5"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb581-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb581-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb581-10" title="10"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-11" title="11"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb581-12" title="12"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb581-13" title="13"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/complete_linkage_hier5-1.svg" alt="Figure 11: plot of chunk complete_linkage_hier5" id="fig:complete_linkage_hier5" />
-<p class="caption">Figure 11: plot of chunk complete_linkage_hier5</p>
+<img src="07-clustering-figures/complete_linkage_hier5-1.svg" alt="Figure 12: plot of chunk complete_linkage_hier5" id="fig:complete_linkage_hier5" />
+<p class="caption">Figure 12: plot of chunk complete_linkage_hier5</p>
 </div>
-<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" title="1"><span class="kw">plot</span>(h, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">xlab=</span><span class="ot">NA</span>, <span class="dt">main=</span><span class="ot">NA</span>); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/complete_linkage_hier-1.svg" alt="Figure 12: plot of chunk complete_linkage_hier" id="fig:complete_linkage_hier" />
-<p class="caption">Figure 12: plot of chunk complete_linkage_hier</p>
+<img src="07-clustering-figures/complete_linkage_hier-1.svg" alt="Figure 13: plot of chunk complete_linkage_hier" id="fig:complete_linkage_hier" />
+<p class="caption">Figure 13: plot of chunk complete_linkage_hier</p>
 </div>
 <p>Average linkage:</p>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;average&quot;</span>)</a>
-<a class="sourceLine" id="cb584-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb584-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb584-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
-<a class="sourceLine" id="cb584-5" title="5"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb584-6" title="6"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
-<a class="sourceLine" id="cb584-7" title="7"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb584-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
-<a class="sourceLine" id="cb584-9" title="9"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb584-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" title="1">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;average&quot;</span>)</a>
+<a class="sourceLine" id="cb583-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb583-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb583-5" title="5"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-6" title="6"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb583-7" title="7"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb583-9" title="9"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb583-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/average_linkage_hier5-1.svg" alt="Figure 13: plot of chunk average_linkage_hier5" id="fig:average_linkage_hier5" />
-<p class="caption">Figure 13: plot of chunk average_linkage_hier5</p>
+<img src="07-clustering-figures/average_linkage_hier5-1.svg" alt="Figure 14: plot of chunk average_linkage_hier5" id="fig:average_linkage_hier5" />
+<p class="caption">Figure 14: plot of chunk average_linkage_hier5</p>
 </div>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb585-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1"><span class="kw">plot</span>(h, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">xlab=</span><span class="ot">NA</span>, <span class="dt">main=</span><span class="ot">NA</span>); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/average_linkage_hier-1.svg" alt="Figure 14: plot of chunk average_linkage_hier" id="fig:average_linkage_hier" />
-<p class="caption">Figure 14: plot of chunk average_linkage_hier</p>
+<img src="07-clustering-figures/average_linkage_hier-1.svg" alt="Figure 15: plot of chunk average_linkage_hier" id="fig:average_linkage_hier" />
+<p class="caption">Figure 15: plot of chunk average_linkage_hier</p>
 </div>
 <p>Single linkage (this is a typical behaviour!):</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" title="1">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;single&quot;</span>)</a>
-<a class="sourceLine" id="cb586-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb586-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb586-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>)</a>
-<a class="sourceLine" id="cb586-5" title="5"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb586-6" title="6"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>)</a>
-<a class="sourceLine" id="cb586-7" title="7"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb586-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>)</a>
-<a class="sourceLine" id="cb586-9" title="9"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb586-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb585-1" title="1">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;single&quot;</span>)</a>
+<a class="sourceLine" id="cb585-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb585-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-4" title="4"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb585-5" title="5"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-6" title="6"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb585-7" title="7"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb585-9" title="9"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb585-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/single_linkage_hier5-1.svg" alt="Figure 15: plot of chunk single_linkage_hier5" id="fig:single_linkage_hier5" />
-<p class="caption">Figure 15: plot of chunk single_linkage_hier5</p>
+<img src="07-clustering-figures/single_linkage_hier5-1.svg" alt="Figure 16: plot of chunk single_linkage_hier5" id="fig:single_linkage_hier5" />
+<p class="caption">Figure 16: plot of chunk single_linkage_hier5</p>
 </div>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" title="1"><span class="kw">plot</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" title="1"><span class="kw">plot</span>(h, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">xlab=</span><span class="ot">NA</span>, <span class="dt">main=</span><span class="ot">NA</span>); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
-<img src="07-clustering-figures/single_linkage_hier-1.svg" alt="Figure 16: plot of chunk single_linkage_hier" id="fig:single_linkage_hier" />
-<p class="caption">Figure 16: plot of chunk single_linkage_hier</p>
+<img src="07-clustering-figures/single_linkage_hier-1.svg" alt="Figure 17: plot of chunk single_linkage_hier" id="fig:single_linkage_hier" />
+<p class="caption">Figure 17: plot of chunk single_linkage_hier</p>
 </div>
 <!--Single linkage clustering --
 a {\color{blue2}\bf hierarchical agglomerative clustering algorithm}.
@@ -1071,10 +1110,22 @@ $-->
 <h2><span class="header-section-number">7.4</span> Outro</h2>
 <div id="remarks-6" class="section level3">
 <h3><span class="header-section-number">7.4.1</span> Remarks</h3>
+<p>Unsupervised learning is often performed during the data pre-processing
+and exploration stage.
+Assessing the quality of clustering is particularly challenging as,
+unlike in a supervised setting,
+we have no access to “ground truth” information.</p>
+<p>In practice, we often apply different clustering algorithms
+and just see where they lead us. There’s no teacher that would
+tell us what we should do, so whatever we do is awesome, right?
+Well, not precisely. Most frequently, you, my dear reader, will work
+for some party that’s genuinely
+interested in your explaining why did you spent the last month coming up
+with nothing useful at all. Thus, the main body of work related to proving
+the use-ful<em>l</em>/less-ness will be on us.</p>
 <p>The aim of K-means is to find
 <span class="math inline">\(K\)</span> clusters based on the notion of the points’ closeness
-to the cluster centres.</p>
-<p>Remember that <span class="math inline">\(K\)</span> must be set in advance.</p>
+to the cluster centres. Remember that <span class="math inline">\(K\)</span> must be set in advance.</p>
 <p>By definition (* via its relation to Voronoi diagrams), all clusters will be of convex shapes.</p>
 <p>However, we may try applying <span class="math inline">\(K&#39;\)</span>-means for <span class="math inline">\(K&#39; \gg K\)</span>
 to obtained a “fine grained” data compression and then
@@ -1098,12 +1149,8 @@ See also the <code>genie</code> package for a robust algorithm
 based on the minimum spanning tree, which can be computed quickly.</p>
 </dd>
 </dl>
-<p>Unsupervised learning is often performed during the data pre-processing
-and exploration stage.</p>
-<p>Assessing the quality of clustering is particularly challenging as,
-unlike in a supervised setting,
-we have no access to “ground truth” information.</p>
-<p>Moreover, some unsupervised methods do not easily generalise to unobserved data.</p>
+<p>Moreover, some unsupervised methods do not easily generalise
+to unobserved data. However, you can then build a classifier (e.g., trees, neural networks) that learns the discovered labels.</p>
 <p>Also many clustering methods are based on the notion of pairwise
 distances but these tend to behave weirdly in high-dimensional
 spaces (“the curse of dimensionality”).</p>
