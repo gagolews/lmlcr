@@ -19,9 +19,8 @@ are not assigned any reference labels.
 
 
 
-```{r,echo=FALSE}
-par(mar=c(2,2,0.5,0.5))
-plot(iris[,3], iris[,2], las=1, ann=FALSE)
+```{r echo=FALSE}
+plot(iris[,3], iris[,2], ann=FALSE)
 ```
 
 Our aim now is to discover the **underlying structure in the data**.
@@ -42,12 +41,11 @@ Our aim now is to discover the **underlying structure in the data**.
 In **dimensionality reduction** we seek a meaningful *projection* of a high dimensional
 space (think: many variables/columns).
 
-```{r,echo=FALSE,fig.height=5}
-par(mar=c(4,4,3.5,2))
+```{r echo=FALSE,fig.height=6}
 wines <- read.csv("datasets/winequality-all.csv", comment="#")
 wines <- wines[wines$color=='red',]
 p <- princomp(wines[,c(11, 4, 12)])
-biplot(p, las=1, col=c("#ff000033",1), pch=1, main="Red Wines", xlim=c(-0.05, 0.23))
+biplot(p, col=c("#ff000033",1), pch=1, main="Red Wines", xlim=c(-0.05, 0.23))
 ```
 
 This might enable us to plot high-dimensional data or understand its structure better.
@@ -70,9 +68,8 @@ In **anomaly detection**, our task is to identify rare, suspicious, ab-normal
 or out-standing items.
 
 
-```{r,echo=FALSE}
-par(mar=c(2,2,0.5,0.5))
-plot(iris[,3], iris[,2], las=1, ann=FALSE)
+```{r echo=FALSE}
+plot(iris[,3], iris[,2], ann=FALSE)
 idx <- c(61, 42, 16, 118, 132)
 points(iris[idx,3], iris[idx,2], cex=3, pch=4, col=2)
 ```
@@ -87,9 +84,9 @@ The aim of **clustering** is to automatically discover some *naturally occurring
 subgroups in the data set.
 
 
-```{r,echo=FALSE}
-par(mar=c(2,2,0.5,0.5))
-plot(iris[,3], iris[,2], las=1, ann=FALSE, col=as.numeric(iris[,5]), pch=as.numeric(iris[,5]))
+```{r echo=FALSE}
+plot(iris[,3], iris[,2], ann=FALSE,
+    col=as.numeric(iris[,5]), pch=as.numeric(iris[,5]))
 ```
 
 For example, these may be customers having different shopping patterns
@@ -233,9 +230,8 @@ Remark.
 
 
 
-```{r,echo=-1}
-par(mar=c(4,4,0.5,0.5))
-plot(X, col=km$cluster, pch=as.numeric(iris$Species), las=1)
+```{r}
+plot(X, col=km$cluster, pch=as.numeric(iris$Species))
 ```
 
 The colours indicate the detected clusters,
@@ -311,10 +307,9 @@ the given expression.
 
 In the previous example, we have:
 
-```{r,echo=-1}
-par(mar=c(4,4,0.5,0.5))
+```{r}
 km$centers
-plot(X, col=km$cluster, las=1, asp=1) # asp=1 gives the same scale on both axes
+plot(X, col=km$cluster, asp=1) # asp=1 gives the same scale on both axes
 points(km$centers, cex=2, col=4, pch=16)
 ```
 
@@ -325,15 +320,15 @@ points(km$centers, cex=2, col=4, pch=16)
 Here is the partition of the whole $\mathbb{R}^2$ space
 into clusters based on the closeness to the three cluster centres:
 
-```{r,echo=FALSE, fig.height=5}
-par(mar=c(0,0,0,0))
+```{r echo=FALSE,fig.height=6}
 x <- seq(0, 8, length.out=250)
 y <- seq(1.5, 5.0, length.out=250)
 z <- matrix(NA_real_, length(x), length(y))
 for (i in 1:length(x))
     for (j in 1:length(y))
         z[i,j] <- which.min(colSums(((t(km$centers)-c(x[i],y[j]))^2)))
-image(x, y, z, las=1, ann=FALSE, asp=1, axes=FALSE, col=c("#00000044", "#ff000044", "#00ff0044"))
+image(x, y, z, ann=FALSE, asp=1,
+    axes=FALSE, col=c("#00000044", "#ff000044", "#00ff0044"))
 points(X, col=km$cluster)
 points(km$centers, cex=2, col=4, pch=16)
 ```
@@ -449,7 +444,7 @@ of the coordinates of all the point indices $i$ such that $C(i)=k$.
 
 (*) Example implementation:
 
-```{r,echo=-1}
+```{r echo=-1}
 set.seed(123)
 K <- 3
 
@@ -914,7 +909,7 @@ implementation of some methods available via a call to `hclust()`.
 See also the `genie` package for a robust algorithm
 based on the minimum spanning tree, which can be computed quickly.
 
-```{R,echo=FALSE,message=FALSE}
+```{r echo=FALSE,message=FALSE}
 library("fastcluster")
 ```
 

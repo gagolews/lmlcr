@@ -404,7 +404,8 @@ This a new feature $\mathbf{z}_{\cdot,j}$ that always has mean 0 and standard de
 
 Moreover, it is *unit-less* (e.g., we divide a value in kgs by a value in kgs,
 the units are cancelled out).
-This, amongst others, prevent one of the features to dominate the other ones.
+This, amongst others, prevents one of the features from dominating
+the other ones.
 
 
 Z-scores are easy to interpret, e.g., 0.5 denotes an observation

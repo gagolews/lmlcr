@@ -28,6 +28,7 @@ sed -i -r 's/^\{ END solution \}$/```{=html}\n<\/details>\n```/g'  "${outfile}"
 sed -i -r 's/^\{ BEGIN exercise \}$/```{=html}\n<div class="exercise"><strong>Exercise.<\/strong>\n```/g'  "${outfile}"
 sed -i -r 's/^\{ END exercise \}$/```{=html}\n<\/div>\n```/g'  "${outfile}"
 
+sed -i -r 's/^\{ LATEX (.+) \}$//g'  "${outfile}"
 
 
 dir_fig_in="${1/%.md/}-figures"

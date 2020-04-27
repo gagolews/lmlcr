@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-23 10:36 (eb03f52)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 12:28 (43b2ada)</a></li>
 
 </ul>
 
@@ -931,23 +931,30 @@ subsection.</p>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
 ## [1,]    1    2    3    4    5    6
 ## [2,]   13   14   15   16   17   18</code></pre>
+<p>Of course, a custom function can be provided as well.
+Here we compute the minimum, average and maximum of each row:</p>
+<div class="sourceCode" id="cb1150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1150-1" title="1"><span class="kw">apply</span>(A, <span class="dv">1</span>, <span class="cf">function</span>(row) <span class="kw">c</span>(<span class="kw">min</span>(row), <span class="kw">mean</span>(row), <span class="kw">max</span>(row)))</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  1.0  7.0 13.0
+## [2,]  3.5  9.5 15.5
+## [3,]  6.0 12.0 18.0</code></pre>
 </div>
 <div id="vectorised-special-functions" class="section level3">
 <h3><span class="header-section-number">C.2.6</span> Vectorised Special Functions</h3>
 <p>The special functions mentioned in the previous chapter, e.g.,
 <code>sqrt()</code>, <code>abs()</code>, <code>round()</code>, <code>log()</code>, <code>exp()</code>, <code>cos()</code>, <code>sin()</code>,
 are also performed in an elementwise manner when applied on a matrix object.</p>
-<div class="sourceCode" id="cb1150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1150-1" title="1"><span class="kw">round</span>(<span class="dv">1</span><span class="op">/</span>A, <span class="dv">2</span>) <span class="co"># rounds every element in 1/A</span></a></code></pre></div>
+<div class="sourceCode" id="cb1152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1152-1" title="1"><span class="kw">round</span>(<span class="dv">1</span><span class="op">/</span>A, <span class="dv">2</span>) <span class="co"># rounds every element in 1/A</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
 ## [1,] 1.00 0.50 0.33 0.25 0.20 0.17
 ## [2,] 0.14 0.12 0.11 0.10 0.09 0.08
 ## [3,] 0.08 0.07 0.07 0.06 0.06 0.06</code></pre>
 <p>An example plot of the absolute values of sine and cosine functions
 depicted using the <code>matplot()</code> function (see Figure <a href="matrix-algebra-in-r.html#fig:matplot_sincos">1</a>).</p>
-<div class="sourceCode" id="cb1152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1152-1" title="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">6</span><span class="op">*</span>pi, <span class="dt">by=</span>pi<span class="op">/</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb1152-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">sin</span>(x), <span class="kw">cos</span>(x)) <span class="co"># a matrix with two columns</span></a>
-<a class="sourceLine" id="cb1152-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">abs</span>(Y) <span class="co"># take the absolute value of every element in Y</span></a>
-<a class="sourceLine" id="cb1152-4" title="4"><span class="kw">matplot</span>(x, Y, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1154-1" title="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">6</span><span class="op">*</span>pi, <span class="dt">by=</span>pi<span class="op">/</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb1154-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">sin</span>(x), <span class="kw">cos</span>(x)) <span class="co"># a matrix with two columns</span></a>
+<a class="sourceLine" id="cb1154-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">abs</span>(Y) <span class="co"># take the absolute value of every element in Y</span></a>
+<a class="sourceLine" id="cb1154-4" title="4"><span class="kw">matplot</span>(x, Y, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="93-R-matrices-figures/matplot_sincos-1.svg" alt="Figure 1: Example plot with matplot()" id="fig:matplot_sincos" />
 <p class="caption">Figure 1: Example plot with <code>matplot()</code></p>
@@ -989,18 +996,18 @@ we might want to subtract <span class="math inline">\(m_i\)</span> from each ele
 Here, the <code>apply()</code> function comes in handy again.</p>
 <p>Example: to create a <em>centred</em> version of a given matrix,
 we need to subtract from each element the arithmetic mean of its column.</p>
-<div class="sourceCode" id="cb1153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1153-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb1155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1155-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>)))</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    5
 ## [2,]    2    4    8</code></pre>
-<div class="sourceCode" id="cb1155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1155-1" title="1">(m &lt;-<span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">2</span>, mean)) <span class="co"># same as colMeans(A)</span></a></code></pre></div>
+<div class="sourceCode" id="cb1157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1157-1" title="1">(m &lt;-<span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">2</span>, mean)) <span class="co"># same as colMeans(A)</span></a></code></pre></div>
 <pre><code>## [1] 1.5 3.0 6.5</code></pre>
-<div class="sourceCode" id="cb1157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1157-1" title="1"><span class="kw">t</span>(<span class="kw">apply</span>(A, <span class="dv">1</span>, <span class="cf">function</span>(r) r<span class="op">-</span>m)) <span class="co"># note the transpose here</span></a></code></pre></div>
+<div class="sourceCode" id="cb1159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1159-1" title="1"><span class="kw">t</span>(<span class="kw">apply</span>(A, <span class="dv">1</span>, <span class="cf">function</span>(r) r<span class="op">-</span>m)) <span class="co"># note the transpose here</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] -0.5   -1 -1.5
 ## [2,]  0.5    1  1.5</code></pre>
 <p>The above is equivalent to:</p>
-<div class="sourceCode" id="cb1159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1159-1" title="1"><span class="kw">apply</span>(A, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a></code></pre></div>
+<div class="sourceCode" id="cb1161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1161-1" title="1"><span class="kw">apply</span>(A, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] -0.5   -1 -1.5
 ## [2,]  0.5    1  1.5</code></pre>
@@ -1009,17 +1016,17 @@ we need to subtract from each element the arithmetic mean of its column.</p>
 <div id="matrix-subsetting" class="section level2">
 <h2><span class="header-section-number">C.3</span> Matrix Subsetting</h2>
 <p>Example matrices:</p>
-<div class="sourceCode" id="cb1161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1161-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb1163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1163-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>))</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    2    3    4
 ## [2,]    5    6    7    8
 ## [3,]    9   10   11   12</code></pre>
-<div class="sourceCode" id="cb1163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1163-1" title="1">B &lt;-<span class="st"> </span>A</a>
-<a class="sourceLine" id="cb1163-2" title="2"><span class="kw">dimnames</span>(B) &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1163-3" title="3">    <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>),     <span class="co"># row labels</span></a>
-<a class="sourceLine" id="cb1163-4" title="4">    <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></a>
-<a class="sourceLine" id="cb1163-5" title="5">)</a>
-<a class="sourceLine" id="cb1163-6" title="6">B</a></code></pre></div>
+<div class="sourceCode" id="cb1165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1165-1" title="1">B &lt;-<span class="st"> </span>A</a>
+<a class="sourceLine" id="cb1165-2" title="2"><span class="kw">dimnames</span>(B) &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb1165-3" title="3">    <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>),     <span class="co"># row labels</span></a>
+<a class="sourceLine" id="cb1165-4" title="4">    <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></a>
+<a class="sourceLine" id="cb1165-5" title="5">)</a>
+<a class="sourceLine" id="cb1165-6" title="6">B</a></code></pre></div>
 <pre><code>##   x  y  z  w
 ## a 1  2  3  4
 ## b 5  6  7  8
@@ -1030,9 +1037,9 @@ we need to subtract from each element the arithmetic mean of its column.</p>
 Hence, to extract an element from a matrix, we will need two indices.
 Mathematically, given a matrix <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(a_{i,j}\)</span> stands for the element
 in the <span class="math inline">\(i\)</span>-th row and the <span class="math inline">\(j\)</span>-th column. The same in R:</p>
-<div class="sourceCode" id="cb1165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1165-1" title="1">A[<span class="dv">1</span>, <span class="dv">2</span>] <span class="co"># 1st row, 2nd columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb1167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1167-1" title="1">A[<span class="dv">1</span>, <span class="dv">2</span>] <span class="co"># 1st row, 2nd columns</span></a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb1167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1167-1" title="1">B[<span class="st">&quot;a&quot;</span>, <span class="st">&quot;y&quot;</span>] <span class="co"># using dimnames == B[1,2]</span></a></code></pre></div>
+<div class="sourceCode" id="cb1169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1169-1" title="1">B[<span class="st">&quot;a&quot;</span>, <span class="st">&quot;y&quot;</span>] <span class="co"># using dimnames == B[1,2]</span></a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 </div>
 <div id="selecting-rows-and-columns" class="section level3">
@@ -1092,31 +1099,31 @@ a_{n,j} \\
 \]</span></p>
 <p>We can extract individual rows and columns from a matrix by using
 the following notation:</p>
-<div class="sourceCode" id="cb1169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1169-1" title="1">A[<span class="dv">1</span>,] <span class="co"># 1st row</span></a></code></pre></div>
+<div class="sourceCode" id="cb1171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1171-1" title="1">A[<span class="dv">1</span>,] <span class="co"># 1st row</span></a></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb1171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1171-1" title="1">A[,<span class="dv">2</span>] <span class="co"># 2nd column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1173-1" title="1">A[,<span class="dv">2</span>] <span class="co"># 2nd column</span></a></code></pre></div>
 <pre><code>## [1]  2  6 10</code></pre>
-<div class="sourceCode" id="cb1173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1173-1" title="1">B[<span class="st">&quot;a&quot;</span>,] <span class="co"># of course, B[1,] is still legal</span></a></code></pre></div>
+<div class="sourceCode" id="cb1175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1175-1" title="1">B[<span class="st">&quot;a&quot;</span>,] <span class="co"># of course, B[1,] is still legal</span></a></code></pre></div>
 <pre><code>## x y z w 
 ## 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb1175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1175-1" title="1">B[,<span class="st">&quot;y&quot;</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1177-1" title="1">B[,<span class="st">&quot;y&quot;</span>]</a></code></pre></div>
 <pre><code>##  a  b  c 
 ##  2  6 10</code></pre>
 <p>Note that by extracting a single row/column, we get an atomic (one-dimensional)
 vector. However, we can preserve the dimensionality of the output object
 by passing <code>drop=FALSE</code>:</p>
-<div class="sourceCode" id="cb1177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1177-1" title="1">A[  <span class="dv">1</span>,    , drop=<span class="ot">FALSE</span>] <span class="co"># 1st row</span></a></code></pre></div>
+<div class="sourceCode" id="cb1179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1179-1" title="1">A[  <span class="dv">1</span>,    , drop=<span class="ot">FALSE</span>] <span class="co"># 1st row</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    2    3    4</code></pre>
-<div class="sourceCode" id="cb1179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1179-1" title="1">A[   ,   <span class="dv">2</span>, drop=<span class="ot">FALSE</span>] <span class="co"># 2nd column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1181-1" title="1">A[   ,   <span class="dv">2</span>, drop=<span class="ot">FALSE</span>] <span class="co"># 2nd column</span></a></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    2
 ## [2,]    6
 ## [3,]   10</code></pre>
-<div class="sourceCode" id="cb1181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1181-1" title="1">B[<span class="st">&quot;a&quot;</span>,    , drop=<span class="ot">FALSE</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1183-1" title="1">B[<span class="st">&quot;a&quot;</span>,    , drop=<span class="ot">FALSE</span>]</a></code></pre></div>
 <pre><code>##   x y z w
 ## a 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb1183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1183-1" title="1">B[   , <span class="st">&quot;y&quot;</span>, drop=<span class="ot">FALSE</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1185-1" title="1">B[   , <span class="st">&quot;y&quot;</span>, drop=<span class="ot">FALSE</span>]</a></code></pre></div>
 <pre><code>##    y
 ## a  2
 ## b  6
@@ -1127,17 +1134,17 @@ by passing <code>drop=FALSE</code>:</p>
 <h3><span class="header-section-number">C.3.3</span> Selecting Submatrices</h3>
 <p>To create a sub-block of a given matrix we pass two indexers,
 possibly of length greater than one:</p>
-<div class="sourceCode" id="cb1185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1185-1" title="1">A[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)] <span class="co"># rows 1,2 columns 1,2,4</span></a></code></pre></div>
+<div class="sourceCode" id="cb1187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1187-1" title="1">A[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)] <span class="co"># rows 1,2 columns 1,2,4</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    4
 ## [2,]    5    6    8</code></pre>
-<div class="sourceCode" id="cb1187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1187-1" title="1">B[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb1189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1189-1" title="1">B[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)]</a></code></pre></div>
 <pre><code>##   x y w
 ## a 1 2 4
 ## b 5 6 8</code></pre>
-<div class="sourceCode" id="cb1189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1189-1" title="1">A[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dv">3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1191-1" title="1">A[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dv">3</span>]</a></code></pre></div>
 <pre><code>## [1]  3 11</code></pre>
-<div class="sourceCode" id="cb1191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1191-1" title="1">A[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dv">3</span>, drop=<span class="ot">FALSE</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1193-1" title="1">A[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dv">3</span>, drop=<span class="ot">FALSE</span>]</a></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    3
 ## [2,]   11</code></pre>
@@ -1146,19 +1153,19 @@ possibly of length greater than one:</p>
 <h3><span class="header-section-number">C.3.4</span> Selecting Based on Logical Vectors and Matrices</h3>
 <p>We can also subset a matrix with a logical matrix of the same size.
 This always yields a (flat) vector in return.</p>
-<div class="sourceCode" id="cb1193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1193-1" title="1">A[A<span class="op">&gt;</span><span class="dv">8</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1195-1" title="1">A[A<span class="op">&gt;</span><span class="dv">8</span>]</a></code></pre></div>
 <pre><code>## [1]  9 10 11 12</code></pre>
 <p>Logical vectors can also be used as indexers:</p>
-<div class="sourceCode" id="cb1195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1195-1" title="1">A[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>),] <span class="co"># select 1st and 3rd row</span></a></code></pre></div>
+<div class="sourceCode" id="cb1197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1197-1" title="1">A[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>),] <span class="co"># select 1st and 3rd row</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]    1    2    3    4
 ## [2,]    9   10   11   12</code></pre>
-<div class="sourceCode" id="cb1197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1197-1" title="1">A[,<span class="kw">colMeans</span>(A)<span class="op">&gt;</span><span class="dv">6</span>] <span class="co"># columns with means &gt; 6</span></a></code></pre></div>
+<div class="sourceCode" id="cb1199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1199-1" title="1">A[,<span class="kw">colMeans</span>(A)<span class="op">&gt;</span><span class="dv">6</span>] <span class="co"># columns with means &gt; 6</span></a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    3    4
 ## [2,]    7    8
 ## [3,]   11   12</code></pre>
-<div class="sourceCode" id="cb1199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1199-1" title="1">B[B[,<span class="st">&quot;x&quot;</span>]<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>B[,<span class="st">&quot;x&quot;</span>]<span class="op">&lt;=</span><span class="dv">9</span>,] <span class="co"># All rows where x is in (1, 9]</span></a></code></pre></div>
+<div class="sourceCode" id="cb1201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1201-1" title="1">B[B[,<span class="st">&quot;x&quot;</span>]<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>B[,<span class="st">&quot;x&quot;</span>]<span class="op">&lt;=</span><span class="dv">9</span>,] <span class="co"># All rows where x is in (1, 9]</span></a></code></pre></div>
 <pre><code>##   x  y  z  w
 ## b 5  6  7  8
 ## c 9 10 11 12</code></pre>
@@ -1169,10 +1176,10 @@ This always yields a (flat) vector in return.</p>
 with a 2-column matrix <code>I</code>, i.e., <code>A[I]</code>.
 This allows for an easy access to
 <code>A[I[1,1], I[1,2]]</code>, <code>A[I[2,1], I[2,2]]</code>, <code>A[I[3,1], I[3,2]]</code>, …</p>
-<div class="sourceCode" id="cb1201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1201-1" title="1">I &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb1201-2" title="2">           <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb1201-3" title="3">)</a>
-<a class="sourceLine" id="cb1201-4" title="4">A[I]</a></code></pre></div>
+<div class="sourceCode" id="cb1203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1203-1" title="1">I &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb1203-2" title="2">           <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1203-3" title="3">)</a>
+<a class="sourceLine" id="cb1203-4" title="4">A[I]</a></code></pre></div>
 <pre><code>## [1]  2 11  6  1  8</code></pre>
 <p>This is exactly
 <code>A[1, 2], A[3, 3], A[2, 2], A[1, 1], A[2, 4]</code>.</p>

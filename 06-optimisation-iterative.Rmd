@@ -126,7 +126,7 @@ yields $f(x^*)=0$.
 
 
 
-```{r f_global_minimum_not_unique,echo=FALSE,fig.cap="An example function that has multiple minima"}
+```{r f_global_minimum_not_unique,echo=FALSE,fig.cap="A function that has multiple minima"}
 x <- seq(-2, 5, length.out=101)
 y <- pmax(0, (x-1)^2-2)
 plot(x, y, type='l', xlab='x', ylab='f(x)', ylim=c(-5, 8))
@@ -238,6 +238,9 @@ legend("bottom", ncol=3, legend=c("smooth", "non-smooth", "noisy"),
 
 
 
+{ LATEX \clearpage }
+
+
 
 ### Example Objective over a 2D Domain
 
@@ -257,7 +260,7 @@ g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\
 <!-- min{(x1^2 + x2 - 5)^2 + (x1 + x2^2 - 3)^2 + x1^2}≈2.606443660864438412460734586
 at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) -->
 
-```{r,gdef}
+```{r gdef}
 g  <- function(x1, x2)
     log((x1^2+x2-5)^2+(x1+x2^2-3)^2+x1^2-1.60644366086443841)
 x1 <- seq(-5, 5, length.out=100)
@@ -272,10 +275,9 @@ y  <- outer(x1, x2, g)
 
 
 
-
 There are four local minima:
 
-```{r,echo=FALSE,cache=TRUE}
+```{r local_minima_g,echo=FALSE,cache=TRUE}
 g_vectorised <- function(x12) g(x12[1], x12[2])
 start_pts <- rbind(
     c( 2, -2),
@@ -294,9 +296,11 @@ knitr::kable(res)
 
 The global minimum is at $(x_1^*, x_2^*)$ as below:
 
-```{r}
+```{r local_minima_g2}
 g(-1.542255693195422641930153, 2.156405289793087261832605)
 ```
+
+
 
 Let's explore various ways of depicting $f$.
 A contour plot and a heat map
@@ -313,23 +317,10 @@ contour(x1, x2, y, add=TRUE)
 ```
 
 
-<!--
-A filled contour plot (a heat map) is depicted in
-Figure {@fig:filled_contour_g}.
-
-####```{r filled_contour_g,fig.cap="A heat map of $g(x_1,x_2)$"}
-#filled.contour(x1, x2, y)
-####```
--->
-
-
-
-
-
 
 
 Two perspective plots (views from different angles) are given
-in {@fig:perspective_g}.
+in Figure {@fig:perspective_g}.
 
 ```{r perspective_g,fig.cap="Perspective plots of $g(x_1,x_2)$",echo=-1}
 par(mar=c(0,0,0,0))
@@ -440,7 +431,7 @@ behavioural patterns.
 
 
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 optim(par, fn, method="BFGS")
 ```
 
@@ -462,7 +453,7 @@ on input, returns a single number)
 
 Let us minimise the $g$ function defined above (the one with the 2D domain):
 
-```{r,echo=-1,cache=TRUE}
+```{r echo=-1,cache=TRUE}
 set.seed(123)
 # g needs to be rewritten to accept a 2-ary vector
 g_vectorised <- function(x12) g(x12[1], x12[2])
@@ -494,7 +485,7 @@ Remark.
 : (\*) Technically, the algorithm needs to evaluate a few more points
 in order to make the decision on where to go next (BFGS approximates the Hessian matrix).
 
-```{r,echo=-1,warning=FALSE,gbfgsvisit,fig.keep='none',cache=TRUE}
+```{r echo=-1,warning=FALSE,gbfgsvisit,fig.keep='none',cache=TRUE}
 set.seed(123)
 g_vectorised_plot <- function(x12) {
     points(x12[1], x12[2], col=2, pch=3) # draw
@@ -509,7 +500,7 @@ res <- optim(x12_init, g_vectorised_plot, method="BFGS")
 
 
 
-```{r,echo=-1,warning=FALSE,echo=FALSE,cache=TRUE}
+```{r echo=-1,warning=FALSE,echo=FALSE,cache=TRUE}
 <<gbfgsvisit>>
 ```
 
@@ -529,7 +520,7 @@ Let's see where does the algorithm converge if we start it
 from many randomly chosen points
 uniformly distributed over the square $[-5,5]\times[-5,5]$:
 
-```{r,echo=-1,cache=TRUE}
+```{r echo=-1,cache=TRUE}
 set.seed(123)
 res_value <- replicate(1000, {
     # this will be iterated 100 times
@@ -546,7 +537,7 @@ We find the global minimum only in $\sim 25\%$ cases! :(
 
 
 
-```{r,cache=TRUE}
+```{r cache=TRUE}
 hist(res_value, col="white", breaks=100); box()
 ```
 
@@ -557,7 +548,7 @@ hist(res_value, col="white", breaks=100); box()
 Here is a depiction of all the random starting points and where
 do we converge from them:
 
-```{r,echo=FALSE,cache=TRUE}
+```{r echo=FALSE,cache=TRUE}
 set.seed(123)
 res <- replicate(1000, {
     # this will be iterated 100 times
@@ -589,7 +580,7 @@ procedure it is often advised to consider
 multiple random initial points
 and pick the best solution amongst the identified local optima.
 
-```{r,echo=-1,cache=TRUE}
+```{r echo=-1,cache=TRUE}
 set.seed(123)
 # N             - number of restarts
 # par_generator - a function generating initial guesses
@@ -609,7 +600,7 @@ optim_with_restarts <- function(par_generator, ..., N=10) {
 
 
 
-```{r,echo=-1,cache=TRUE}
+```{r echo=-1,cache=TRUE}
 set.seed(123)
 optim_with_restarts(function() runif(2, -5, 5),
     g_vectorised, method="BFGS", N=10)
@@ -883,7 +874,7 @@ optim_gd <- function(par, fn, gr, eta=0.01,
 
 Tests of the $g$ function:
 
-```{r,etadef1,cache=TRUE}
+```{r etadef1,cache=TRUE}
 eta <- 0.01
 optim_gd(c(-3,1), g_vectorised, grad_g_vectorised, eta=eta)
 ```
@@ -894,7 +885,7 @@ optim_gd(c(-3,1), g_vectorised, grad_g_vectorised, eta=eta)
 Zooming in the contour plot to see the actual path ($\eta=`r eta`$):
 
 
-```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef1',etastepplot}
+```{r warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef1',etastepplot}
 set.seed(123)
 g_vectorised_plot <- function(x12) {
     points(x12[1], x12[2], col=2, pch=3) # draw
@@ -908,7 +899,7 @@ str(res)
 
 
 
-```{r,echo=FALSE,etadef2,cache=TRUE}
+```{r echo=FALSE,etadef2,cache=TRUE}
 eta <- 0.05
 ```
 
@@ -916,7 +907,7 @@ Now with $\eta=`r eta`$:
 
 
 
-```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef2'}
+```{r warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef2'}
 <<etastepplot>>
 ```
 
@@ -924,7 +915,7 @@ Now with $\eta=`r eta`$:
 
 
 
-```{r,echo=FALSE,etadef3,cache=TRUE}
+```{r echo=FALSE,etadef3,cache=TRUE}
 eta <- 0.1
 ```
 
@@ -932,7 +923,7 @@ And now with $\eta=`r eta`$:
 
 
 
-```{r,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef3'}
+```{r warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef3'}
 <<etastepplot>>
 ```
 
@@ -980,7 +971,7 @@ studied the MNIST dataset.
 Let us go back to the task of fitting a multiclass logistic regression model.
 
 
-```{r,cache=TRUE,mnist_download}
+```{r cache=TRUE,mnist_download}
 library("keras")
 mnist <- dataset_mnist()
 
@@ -999,7 +990,7 @@ Y_test  <- mnist$test$y
 The labels need to be one-hot encoded:
 
 
-```{r,cache=TRUE,mnist_download2,dependson='mnist_download'}
+```{r cache=TRUE,mnist_download2,dependson='mnist_download'}
 one_hot_encode <- function(Y) {
     stopifnot(is.numeric(Y))
     c1 <- min(Y) # first class label
@@ -1038,7 +1029,7 @@ $\hat{\mathbf{Y}}$ will be a matrix of size
 $n\times 10$, where $\hat{y}_{i,k}$ represents the predicted probability
 that the $i$-th image depicts the $k$-th digit.
 
-```{r,cache=TRUE,mnist_download3,dependson='mnist_download2'}
+```{r cache=TRUE,mnist_download3,dependson='mnist_download2'}
 # convert to matrices of size n*784
 # and add a column of 1s
 X_train1 <- cbind(1.0, matrix(X_train, ncol=28*28))
@@ -1048,7 +1039,7 @@ X_test1  <- cbind(1.0, matrix(X_test, ncol=28*28))
 
 
 
-```{r,cache=TRUE,mnist_download4,dependson='mnist_download3'}
+```{r cache=TRUE,mnist_download4,dependson='mnist_download3'}
 softmax <- function(T) {
     T <- exp(T)
     T/rowSums(T)
@@ -1067,7 +1058,7 @@ Define the functions to compute cross-entropy (which we shall minimise)
 and accuracy (which we shall report to a user):
 
 
-```{r,cache=TRUE,mnist_download5,dependson='mnist_download4'}
+```{r cache=TRUE,mnist_download5,dependson='mnist_download4'}
 accuracy <- function(Y_true, Y_pred) {
     # both arguments are one-hot encoded
     Y_true_decoded <- apply(Y_true, 1, which.max)
@@ -1154,7 +1145,7 @@ can be expressed in the matrix form as:
 \frac{1}{n} \mathbf{\dot{X}}^T\, (\mathbf{\hat{Y}}-\mathbf{Y})
 \]
 
-```{r,cache=TRUE,mnist_download6,dependson='mnist_download5'}
+```{r cache=TRUE,mnist_download6,dependson='mnist_download5'}
 grad_cross_entropy <- function(X, Y_true, Y_pred) {
     t(X) %*% (Y_pred-Y_true)/nrow(Y_true)
 }
@@ -1173,7 +1164,7 @@ with the finite differences (yet, these will be slower). :)
 Let us implement the gradient descent method:
 
 
-```{r,cache=TRUE,mnist_gd1,dependson='mnist_download6'}
+```{r cache=TRUE,mnist_gd1,dependson='mnist_download6'}
 # random matrix of size 785x10 - initial guess
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)),
     nrow=ncol(X_train1))
@@ -1197,7 +1188,7 @@ Unfortunately, the method's convergence is really slow
 and the results after `r maxit` iterations are disappointing:
 
 
-```{r,cache=TRUE,mnist_gd2,dependson='mnist_gd1'}
+```{r cache=TRUE,mnist_gd2,dependson='mnist_gd1'}
 accuracy(Y_train2, nn_predict(B, X_train1))
 accuracy(Y_test2,  nn_predict(B, X_test1))
 ```
@@ -1260,7 +1251,7 @@ there are a few variations popular in the literature, we pick the most intuitive
 
 Stochastic gradient descent:
 
-```{r,cache=TRUE,mnist_sgda1,dependson='mnist_download6'}
+```{r cache=TRUE,mnist_sgda1,dependson='mnist_download6'}
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)),
     nrow=ncol(X_train1))
 eta <- 0.1
@@ -1282,7 +1273,7 @@ system.time({
 
 
 
-```{r,cache=TRUE,mnist_sgda2,dependson='mnist_sgda1'}
+```{r cache=TRUE,mnist_sgda2,dependson='mnist_sgda1'}
 accuracy(Y_train2, nn_predict(B, X_train1))
 accuracy(Y_test2,  nn_predict(B, X_test1))
 ```
@@ -1295,7 +1286,7 @@ Why don't we increase the number of iterations?
 
 
 
-```{r,cache=TRUE,mnist_sgda3,dependson='mnist_download6'}
+```{r cache=TRUE,mnist_sgda3,dependson='mnist_download6'}
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)),
     nrow=ncol(X_train1))
 eta <- 0.1
@@ -1317,7 +1308,7 @@ system.time({
 
 
 
-```{r,cache=TRUE,mnist_sgda4,dependson='mnist_sgda3'}
+```{r cache=TRUE,mnist_sgda4,dependson='mnist_sgda3'}
 accuracy(Y_train2, nn_predict(B, X_train1))
 accuracy(Y_test2,  nn_predict(B, X_test1))
 ```
@@ -1330,13 +1321,13 @@ behaves in each iteration for different batch sizes.
 
 
 
-```{r,cache=TRUE,mnist_sgd1,dependson='mnist_download6',echo=FALSE}
+```{r cache=TRUE,mnist_sgd1,dependson='mnist_download6',echo=FALSE}
 eta <- 0.1
 maxit <- 10000
 batch_size <- 32
 ```
 
-```{r,cache=TRUE,mnist_sgd,dependson='mnist_sgd1',echo=FALSE}
+```{r cache=TRUE,mnist_sgd,dependson='mnist_sgd1',echo=FALSE}
 set.seed(123)
 # random matrix of size 785x10 - initial guess
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)), nrow=ncol(X_train1))
@@ -1383,13 +1374,13 @@ print(t)
 
 
 
-```{r,cache=TRUE,mnist_sgd2,dependson='mnist_download6',echo=FALSE}
+```{r cache=TRUE,mnist_sgd2,dependson='mnist_download6',echo=FALSE}
 eta <- 0.1
 maxit <- 10000
 batch_size <- 128
 ```
 
-```{r,cache=TRUE,mnist_sgd2b,dependson='mnist_sgd2',echo=FALSE}
+```{r cache=TRUE,mnist_sgd2b,dependson='mnist_sgd2',echo=FALSE}
 <<mnist_sgd>>
 ```
 

@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-23 10:36 (eb03f52)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 12:28 (43b2ada)</a></li>
 
 </ul>
 
@@ -573,7 +573,7 @@ i.e., <span class="math inline">\(i\in C_j\)</span>”.</p>
 </dl>
 <p>Example applications of clustering:</p>
 <ul>
-<li><em>taxonomization</em>: e.g.,
+<li><em>taxonomisation</em>: e.g.,
 partition the consumers to more “uniform”
 groups to better understand who they are and what do they need,</li>
 <li><em>image processing</em>:
@@ -608,7 +608,7 @@ to one another than objects assigned to different clusters” <span class="citat
 <ul>
 <li>find clusters of specific shapes, or following specific multidimensional
 probability distributions,</li>
-<li>e.g., <span class="math inline">\(K\)</span>-means, expectation-maximization for Gaussian mixtures (EM),
+<li>e.g., <span class="math inline">\(K\)</span>-means, expectation-maximisation for Gaussian mixtures (EM),
 average linkage agglomerative clustering;</li>
 </ul></li>
 <li><strong>nonparametric</strong> (model-free):
@@ -649,7 +649,7 @@ and <code>Petal.Length</code> variables only)</p>
 (local) optimisation procedure, just like we did in the previous chapter.</p>
 </dd>
 </dl>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species), <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species))</a></code></pre></div>
 <div class="figure">
 <img src="07-clustering-figures/unnamed-chunk-6-1.svg" alt="Figure 5: plot of chunk unnamed-chunk-6" id="fig:unnamed-chunk-6" />
 <p class="caption">Figure 5: plot of chunk unnamed-chunk-6</p>
@@ -706,7 +706,7 @@ the given expression.</p>
 ## 1     4.328070    2.750877
 ## 2     5.672093    3.032558
 ## 3     1.462000    3.428000</code></pre>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">asp=</span><span class="dv">1</span>) <span class="co"># asp=1 gives the same scale on both axes</span></a>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">asp=</span><span class="dv">1</span>) <span class="co"># asp=1 gives the same scale on both axes</span></a>
 <a class="sourceLine" id="cb562-2" title="2"><span class="kw">points</span>(km<span class="op">$</span>centers, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
 <div class="figure">
 <img src="07-clustering-figures/unnamed-chunk-8-1.svg" alt="Figure 6: plot of chunk unnamed-chunk-8" id="fig:unnamed-chunk-8" />

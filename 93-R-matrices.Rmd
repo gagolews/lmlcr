@@ -458,6 +458,12 @@ apply(A, 1, range)
 apply(A, 2, range)
 ```
 
+Of course, a custom function can be provided as well.
+Here we compute the minimum, average and maximum of each row:
+
+```{r apply3}
+apply(A, 1, function(row) c(min(row), mean(row), max(row)))
+```
 
 ### Vectorised Special Functions
 

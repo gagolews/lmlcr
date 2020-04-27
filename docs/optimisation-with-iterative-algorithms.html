@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-23 10:36 (eb03f52)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 12:28 (43b2ada)</a></li>
 
 </ul>
 
@@ -577,8 +577,8 @@ gives an example objective function, <span class="math inline">\(f:\mathbb{D}\to
 that has multiple minima; every <span class="math inline">\({x}^*\in[1-\sqrt{2},1+\sqrt{2}]\)</span>
 yields <span class="math inline">\(f(x^*)=0\)</span>.</p>
 <div class="figure">
-<img src="06-optimisation-iterative-figures/f_global_minimum_not_unique-1.svg" alt="Figure 2: An example function that has multiple minima" id="fig:f_global_minimum_not_unique" />
-<p class="caption">Figure 2: An example function that has multiple minima</p>
+<img src="06-optimisation-iterative-figures/f_global_minimum_not_unique-1.svg" alt="Figure 2: A function that has multiple minima" id="fig:f_global_minimum_not_unique" />
+<p class="caption">Figure 2: A function that has multiple minima</p>
 </div>
 <dl>
 <dt>Remark.</dt>
@@ -698,16 +698,8 @@ are given in Figure <a href="optimisation-with-iterative-algorithms.html#fig:con
 <img src="06-optimisation-iterative-figures/contour_g-1.svg" alt="Figure 5: A contour plot and a heat map of g(x_1,x_2)" id="fig:contour_g" />
 <p class="caption">Figure 5: A contour plot and a heat map of <span class="math inline">\(g(x_1,x_2)\)</span></p>
 </div>
-<!--
-A filled contour plot (a heat map) is depicted in
-Figure {@fig:filled_contour_g}.
-
-####```{r filled_contour_g,fig.cap="A heat map of $g(x_1,x_2)$"}
-#filled.contour(x1, x2, y)
-####```
--->
 <p>Two perspective plots (views from different angles) are given
-in <a href="optimisation-with-iterative-algorithms.html#fig:perspective_g">6</a>.</p>
+in Figure <a href="optimisation-with-iterative-algorithms.html#fig:perspective_g">6</a>.</p>
 <div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
 <a class="sourceLine" id="cb496-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
 <a class="sourceLine" id="cb496-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
@@ -834,8 +826,8 @@ in order to make the decision on where to go next (BFGS approximates the Hessian
 <a class="sourceLine" id="cb503-5" title="5"><span class="kw">contour</span>(x1, x2, y, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
 <a class="sourceLine" id="cb503-6" title="6">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised_plot, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
 <div class="figure">
-<img src="06-optimisation-iterative-figures/unnamed-chunk-6-1.svg" alt="Figure 7: plot of chunk unnamed-chunk-6" id="fig:unnamed-chunk-6" />
-<p class="caption">Figure 7: plot of chunk unnamed-chunk-6</p>
+<img src="06-optimisation-iterative-figures/unnamed-chunk-4-1.svg" alt="Figure 7: plot of chunk unnamed-chunk-4" id="fig:unnamed-chunk-4" />
+<p class="caption">Figure 7: plot of chunk unnamed-chunk-4</p>
 </div>
 </div>
 <div id="convergence-to-local-optima" class="section level3">
@@ -858,14 +850,14 @@ uniformly distributed over the square <span class="math inline">\([-5,5]\times[-
 <p>We find the global minimum only in <span class="math inline">\(\sim 25\%\)</span> cases! :(</p>
 <div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1"><span class="kw">hist</span>(res_value, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">breaks=</span><span class="dv">100</span>); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
-<img src="06-optimisation-iterative-figures/unnamed-chunk-8-1.svg" alt="Figure 8: plot of chunk unnamed-chunk-8" id="fig:unnamed-chunk-8" />
-<p class="caption">Figure 8: plot of chunk unnamed-chunk-8</p>
+<img src="06-optimisation-iterative-figures/unnamed-chunk-6-1.svg" alt="Figure 8: plot of chunk unnamed-chunk-6" id="fig:unnamed-chunk-6" />
+<p class="caption">Figure 8: plot of chunk unnamed-chunk-6</p>
 </div>
 <p>Here is a depiction of all the random starting points and where
 do we converge from them:</p>
 <div class="figure">
-<img src="06-optimisation-iterative-figures/unnamed-chunk-9-1.svg" alt="Figure 9: plot of chunk unnamed-chunk-9" id="fig:unnamed-chunk-9" />
-<p class="caption">Figure 9: plot of chunk unnamed-chunk-9</p>
+<img src="06-optimisation-iterative-figures/unnamed-chunk-7-1.svg" alt="Figure 9: plot of chunk unnamed-chunk-7" id="fig:unnamed-chunk-7" />
+<p class="caption">Figure 9: plot of chunk unnamed-chunk-7</p>
 </div>
 </div>
 <div id="random-restarts" class="section level3">
@@ -1122,8 +1114,8 @@ is positive-definite.</p>
 ##  $ counts     : int 417
 ##  $ convergence: int 0</code></pre>
 <div class="figure">
-<img src="06-optimisation-iterative-figures/unnamed-chunk-17-1.svg" alt="Figure 11: plot of chunk unnamed-chunk-17" id="fig:unnamed-chunk-17" />
-<p class="caption">Figure 11: plot of chunk unnamed-chunk-17</p>
+<img src="06-optimisation-iterative-figures/unnamed-chunk-15-1.svg" alt="Figure 11: plot of chunk unnamed-chunk-15" id="fig:unnamed-chunk-15" />
+<p class="caption">Figure 11: plot of chunk unnamed-chunk-15</p>
 </div>
 <p>And now with <span class="math inline">\(\eta=0.1\)</span>:</p>
 <pre><code>## List of 4
@@ -1132,8 +1124,8 @@ is positive-definite.</p>
 ##  $ counts     : int 1000
 ##  $ convergence: int 1</code></pre>
 <div class="figure">
-<img src="06-optimisation-iterative-figures/unnamed-chunk-18-1.svg" alt="Figure 12: plot of chunk unnamed-chunk-18" id="fig:unnamed-chunk-18" />
-<p class="caption">Figure 12: plot of chunk unnamed-chunk-18</p>
+<img src="06-optimisation-iterative-figures/unnamed-chunk-16-1.svg" alt="Figure 12: plot of chunk unnamed-chunk-16" id="fig:unnamed-chunk-16" />
+<p class="caption">Figure 12: plot of chunk unnamed-chunk-16</p>
 </div>
 <p>If the learning rate <span class="math inline">\(\eta\)</span> is too small, the convergence might be too slow
 and we might get stuck in a plateau.</p>

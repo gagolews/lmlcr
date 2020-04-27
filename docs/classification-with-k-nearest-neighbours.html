@@ -484,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-23 10:36 (eb03f52)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 12:28 (43b2ada)</a></li>
 
 </ul>
 
@@ -781,7 +781,9 @@ standard deviation:</p>
 <p><span class="math display">\[z_{i,j} = \frac{x_{i,j}-\bar{x}_{\cdot,j}}{s_{x_{\cdot,j}}}\]</span></p>
 <p>This a new feature <span class="math inline">\(\mathbf{z}_{\cdot,j}\)</span> that always has mean 0 and standard deviation of 1.</p>
 <p>Moreover, it is <em>unit-less</em> (e.g., we divide a value in kgs by a value in kgs,
-the units are cancelled out).</p>
+the units are cancelled out).
+This, amongst others, prevents one of the features from dominating
+the other ones.</p>
 <p>Z-scores are easy to interpret, e.g., 0.5 denotes an observation
 that is 0.5 standard deviations above the mean.</p>
 <p>Let’s compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
@@ -856,6 +858,11 @@ that increases the accuracy of a <span class="math inline">\(K\)</span>-NN class
 <h2><span class="header-section-number">3.3</span> Model Assessment and Selection</h2>
 <div id="performance-metrics" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Performance Metrics</h3>
+<!--
+
+More metrics: https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics
+
+-->
 <p>Recall that <span class="math inline">\(y_i\)</span> denotes the true label associated with the <span class="math inline">\(i\)</span>-th observation.</p>
 <p>Let <span class="math inline">\(\hat{y}_i\)</span> denote the classifier’s output for a given <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span>.</p>
 <p>Ideally, we’d wish that <span class="math inline">\(\hat{y}_i=y_i\)</span>.</p>
@@ -1380,17 +1387,17 @@ kd-trees.</p>
 <a class="sourceLine" id="cb378-10" title="10">    <span class="kw">structure</span>(s<span class="op">$</span>min, <span class="dt">names=</span><span class="kw">as.character</span>(s<span class="op">$</span>expr))</a>
 <a class="sourceLine" id="cb378-11" title="11">}</a></code></pre></div>
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##      brute    kd_tree 
-## 0.67448015 0.01852829</code></pre>
+<pre><code>##     brute   kd_tree 
+## 0.2986688 0.0122630</code></pre>
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.92254888 0.09770709</code></pre>
+## 0.43780232 0.06408469</code></pre>
 <div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##    brute  kd_tree 
-## 1.402190 1.065711</code></pre>
+<pre><code>##     brute   kd_tree 
+## 0.6660608 0.6648089</code></pre>
 <div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##    brute  kd_tree 
-## 2.484224 9.155662</code></pre>
+## 1.295529 5.433437</code></pre>
 </div>
 <div id="different-metrics" class="section level3">
 <h3><span class="header-section-number">3.4.5</span> Different Metrics (*)</h3>
