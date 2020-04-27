@@ -292,7 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>6</b> Optimisation with Iterative Algorithms</a><ul>
 <li class="chapter" data-level="6.1" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#introduction-10"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#optimisation-problem"><i class="fa fa-check"></i><b>6.1.1</b> Optimisation Problem</a></li>
+<li class="chapter" data-level="6.1.1" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#optimisation-problems"><i class="fa fa-check"></i><b>6.1.1</b> Optimisation Problems</a></li>
 <li class="chapter" data-level="6.1.2" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#example-optimisation-problems-in-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Example Optimisation Problems in Machine Learning</a></li>
 <li class="chapter" data-level="6.1.3" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#types-of-minima-and-maxima"><i class="fa fa-check"></i><b>6.1.3</b> Types of Minima and Maxima</a></li>
 <li class="chapter" data-level="6.1.4" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#example-objective-over-a-2d-domain"><i class="fa fa-check"></i><b>6.1.4</b> Example Objective over a 2D Domain</a></li>
@@ -312,9 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#outro-5"><i class="fa fa-check"></i><b>6.4</b> Outro</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#remarks-5"><i class="fa fa-check"></i><b>6.4.1</b> Remarks</a></li>
-<li class="chapter" data-level="6.4.2" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#optimisers-in-keras"><i class="fa fa-check"></i><b>6.4.2</b> Optimisers in Keras</a></li>
-<li class="chapter" data-level="6.4.3" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#note-on-search-spaces"><i class="fa fa-check"></i><b>6.4.3</b> Note on Search Spaces</a></li>
-<li class="chapter" data-level="6.4.4" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#further-reading-5"><i class="fa fa-check"></i><b>6.4.4</b> Further Reading</a></li>
+<li class="chapter" data-level="6.4.2" data-path="optimisation-with-iterative-algorithms.html"><a href="optimisation-with-iterative-algorithms.html#further-reading-5"><i class="fa fa-check"></i><b>6.4.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a><ul>
@@ -484,7 +482,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 12:28 (43b2ada)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-27 14:51 (3378fde)</a></li>
 
 </ul>
 
@@ -553,12 +551,12 @@ advanced users.</p>
 we need to install a few packages which we’re going to use during the course
 of this course. Execute the following commands in the R console
 (bottom-left Rstudio pane):</p>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb676-1" title="1">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Cairo&quot;</span>, <span class="st">&quot;fastcluster&quot;</span>, <span class="st">&quot;FNN&quot;</span>, <span class="st">&quot;genie&quot;</span>, <span class="st">&quot;ISLR&quot;</span>,</a>
-<a class="sourceLine" id="cb676-2" title="2">    <span class="st">&quot;keras&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;microbenchmark&quot;</span>, <span class="st">&quot;pdist&quot;</span>,</a>
-<a class="sourceLine" id="cb676-3" title="3">    <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;recommenderlab&quot;</span>, <span class="st">&quot;rpart&quot;</span>,</a>
-<a class="sourceLine" id="cb676-4" title="4">    <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;scatterplot3d&quot;</span>, <span class="st">&quot;stringi&quot;</span>, <span class="st">&quot;tensorflow&quot;</span>,</a>
-<a class="sourceLine" id="cb676-5" title="5">    <span class="st">&quot;titanic&quot;</span>, <span class="st">&quot;vioplot&quot;</span>)</a>
-<a class="sourceLine" id="cb676-6" title="6"><span class="kw">install.packages</span>(pkgs)</a></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb675-1" title="1">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Cairo&quot;</span>, <span class="st">&quot;fastcluster&quot;</span>, <span class="st">&quot;FNN&quot;</span>, <span class="st">&quot;genie&quot;</span>, <span class="st">&quot;ISLR&quot;</span>,</a>
+<a class="sourceLine" id="cb675-2" title="2">    <span class="st">&quot;keras&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;microbenchmark&quot;</span>, <span class="st">&quot;pdist&quot;</span>,</a>
+<a class="sourceLine" id="cb675-3" title="3">    <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;recommenderlab&quot;</span>, <span class="st">&quot;rpart&quot;</span>,</a>
+<a class="sourceLine" id="cb675-4" title="4">    <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;scatterplot3d&quot;</span>, <span class="st">&quot;stringi&quot;</span>, <span class="st">&quot;tensorflow&quot;</span>,</a>
+<a class="sourceLine" id="cb675-5" title="5">    <span class="st">&quot;titanic&quot;</span>, <span class="st">&quot;vioplot&quot;</span>)</a>
+<a class="sourceLine" id="cb675-6" title="6"><span class="kw">install.packages</span>(pkgs)</a></code></pre></div>
 <p>What is more, in order to be able to play with neural networks,
 we will need some Python environment, for example
 the Anaconda Distribution Python 3.x, see
@@ -573,8 +571,8 @@ the Anaconda Distribution Python 3.x, see
 This is required for the R packages tensorflow and keras,
 see <a href="https://tensorflow.rstudio.com/installation/" class="uri">https://tensorflow.rstudio.com/installation/</a>.
 Once this is installed, execute the following R commands in the console:</p>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb677-1" title="1"><span class="kw">library</span>(<span class="st">&quot;tensorflow&quot;</span>)</a>
-<a class="sourceLine" id="cb677-2" title="2"><span class="kw">install_tensorflow</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb676-1" title="1"><span class="kw">library</span>(<span class="st">&quot;tensorflow&quot;</span>)</a>
+<a class="sourceLine" id="cb676-2" title="2"><span class="kw">install_tensorflow</span>()</a></code></pre></div>
 </div>
 <div id="first-r-script-in-rstudio" class="section level2">
 <h2><span class="header-section-number">A.4</span> First R Script in RStudio</h2>
@@ -596,18 +594,18 @@ and CTRL+V (Cmd+C and Cmd+V on MacOS) for copy and paste, respectively.</p>
 <p>A list of keyboard shortcuts is available at
 <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts" class="uri">https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts</a></p></li>
 <li><p>Input the following R code into the editor:</p>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb678-1" title="1"><span class="co"># My first R script</span></a>
-<a class="sourceLine" id="cb678-2" title="2"><span class="co"># This is a comment</span></a>
-<a class="sourceLine" id="cb678-3" title="3"></a>
-<a class="sourceLine" id="cb678-4" title="4"><span class="co"># Another comment</span></a>
-<a class="sourceLine" id="cb678-5" title="5"></a>
-<a class="sourceLine" id="cb678-6" title="6"><span class="co"># Everything from &#39;#&#39; to the end of the line</span></a>
-<a class="sourceLine" id="cb678-7" title="7"><span class="co">#     is ignored by the R interpreter</span></a>
-<a class="sourceLine" id="cb678-8" title="8"><span class="kw">print</span>(<span class="st">&quot;Hello world&quot;</span>) <span class="co"># prints a given character string</span></a>
-<a class="sourceLine" id="cb678-9" title="9"><span class="kw">print</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">2</span>) <span class="co"># evaluates the expression and prints the result</span></a>
-<a class="sourceLine" id="cb678-10" title="10">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">100</span>) <span class="co"># a new numeric vector</span></a>
-<a class="sourceLine" id="cb678-11" title="11">y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="co"># squares every element in x</span></a>
-<a class="sourceLine" id="cb678-12" title="12"><span class="kw">plot</span>(x, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>) <span class="co"># plots y as a function of x</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb677-1" title="1"><span class="co"># My first R script</span></a>
+<a class="sourceLine" id="cb677-2" title="2"><span class="co"># This is a comment</span></a>
+<a class="sourceLine" id="cb677-3" title="3"></a>
+<a class="sourceLine" id="cb677-4" title="4"><span class="co"># Another comment</span></a>
+<a class="sourceLine" id="cb677-5" title="5"></a>
+<a class="sourceLine" id="cb677-6" title="6"><span class="co"># Everything from &#39;#&#39; to the end of the line</span></a>
+<a class="sourceLine" id="cb677-7" title="7"><span class="co">#     is ignored by the R interpreter</span></a>
+<a class="sourceLine" id="cb677-8" title="8"><span class="kw">print</span>(<span class="st">&quot;Hello world&quot;</span>) <span class="co"># prints a given character string</span></a>
+<a class="sourceLine" id="cb677-9" title="9"><span class="kw">print</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">2</span>) <span class="co"># evaluates the expression and prints the result</span></a>
+<a class="sourceLine" id="cb677-10" title="10">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">100</span>) <span class="co"># a new numeric vector</span></a>
+<a class="sourceLine" id="cb677-11" title="11">y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="co"># squares every element in x</span></a>
+<a class="sourceLine" id="cb677-12" title="12"><span class="kw">plot</span>(x, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>) <span class="co"># plots y as a function of x</span></a></code></pre></div></li>
 <li><p>Execute the 5 above commands, line by line,
 by positioning the keyboard cursor accordingly and
 pressing Ctrl+Enter (Cmd+Return on MacOS).</p>
