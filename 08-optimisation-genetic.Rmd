@@ -597,6 +597,7 @@ selection <- function(cur_fitness) {
 ---
 
 
+
 An example crossover combines each cluster centre
 in such a way that we take a few coordinates of the "left" parent
 and the remaining ones from the "right" parent (see below for an illustration):

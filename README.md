@@ -15,13 +15,14 @@ or by [email](https://www.gagolewski.com). Thanks!**
 
 ## About the Author
 
-[Marek](https://www.gagolewski.com) is currently a Senior Lecturer in Applied AI at Deakin University
-in Melbourne, Australia. He's an author of several R and Python packages,
+[Marek](https://www.gagolewski.com) is currently
+a Senior Lecturer (==US Associate Professor) in Applied AI at Deakin University
+in Melbourne, Australia. He's developed several R and Python packages,
 including [stringi](http://www.gagolewski.com/software/stringi/),
 which is among the top 20 most often downloaded R extensions.
 He's an author of more than 70 publications on
-machine learning and optimisation algorithms, data aggregation and clustering,
-statistical modelling and scientific computing.
+machine learning and optimisation algorithms,
+data aggregation and clustering as well as statistical modelling.
 
 
 ## About this Repo

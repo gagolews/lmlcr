@@ -220,7 +220,8 @@ of nested data partitions.
 
 
 
-Let us start by applying the $K$-means clustering method to find $K=3$ groups
+Let's begin our clustering adventure
+by applying the $K$-means clustering method to find $K=3$ groups
 in the famous Fisher's `iris` data set (variables `Sepal.Width`
 and `Petal.Length` variables only):
 
@@ -280,13 +281,23 @@ were not used during the clustering procedure -- we're dealing with
 an unsupervised learning problem here. The result turned useful,
 it's a win.
 
-<!-- OK, this is not the best measure
+
+
+
+Remark.
+
+: (\*) There are several indices that assess the
+similarity of two partitions, for example the Adjusted Rand Index (ARI)
+or the Normalised Mutual Information Score (NMI),
+see, e.g., [@comparing_paritions].
+
+<!-- genieclust.compare_partitions ? -->
+
+
+
+<!-- OK, this is not the best measure:
 
 sum(apply(C, 1, max))/sum(C) # "accuracy"
-
-TODO: mention ARI and NMI
-
-cite Comparing partitions
 
 genieclust.compare_partitions ?
 
@@ -296,36 +307,34 @@ genieclust.compare_partitions ?
 
 
 
+
 ### Problem Statement
 
-
-
-
-The aim of $K$-means clustering is to find $K$ "good" cluster centres
+The aim of *$K$-means clustering* is to find $K$ "good" cluster centres
 $\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$.
 
-
 Then, a point $\mathbf{x}_{i,\cdot}$ will be assigned to the
-cluster represented by the closest centre.
+cluster represented by the closest centre. Here, by *closest*
+we mean the *squared* Euclidean distance.
 
-Closest == w.r.t. the squared Euclidean distance.
+More formally,
+assuming all the points are in a $p$-dimensional space, $\mathbb{R}^p$,
+we define the distance between the $i$-th point and the $k$-th
+centre as:
 
-Assuming all the points are in a $p$-dimensional space, $\mathbb{R}^p$,
 \[
 d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}) = \| \mathbf{x}_{i,\cdot} - \boldsymbol\mu_{k,\cdot} \|^2 =  \sum_{j=1}^p \left(x_{i,j}-\mu_{k,j}\right)^2
 \]
 
+Then the $i$-th point's cluster is determined by:
 
-
-
-
-The $i$-th point's cluster is determined by:
 \[
 \mathrm{C}(i) = \mathrm{arg}\min_{k=1,\dots,K}
 d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}),
 \]
-where $\mathrm{arg}\min$ == argument minimum == the index $k$ that minimises
-the given expression.
+
+where, as usual, $\mathrm{arg}\min$ (argument minimum) is the index
+$k$ that minimises the given expression.
 
 
 
@@ -333,9 +342,10 @@ the given expression.
 
 
 
-In the previous example, we have:
+In the previous example, the three identified cluster centres in $\mathbb{R}^2$
+are given by (see Figure {@fig:kmeans_problem1} for illustration):
 
-```{r}
+```{r kmeans_problem1,fig.cap="Cluster centres (blue dots) identified by the 3-means algorithm"}
 km$centers
 plot(X, col=km$cluster, asp=1) # asp=1 gives the same scale on both axes
 points(km$centers, cex=2, col=4, pch=16)
@@ -345,12 +355,13 @@ points(km$centers, cex=2, col=4, pch=16)
 
 
 
-Here is the partition of the whole $\mathbb{R}^2$ space
-into clusters based on the closeness to the three cluster centres:
+Figure {@fig:kmeans_problem2} depicts the partition
+of the whole $\mathbb{R}^2$ space
+into clusters based on the closeness to the three cluster centres.
 
-```{r echo=FALSE}
+```{r kmeans_problem2,echo=FALSE,fig.cap="The division of the whole space into three sets based on the proximity to cluster centres (a so-called Voronoi diagram)"}
 x <- seq(0, 8, length.out=250)
-y <- seq(1.5, 5.0, length.out=250)
+y <- seq(1.0, 5.1, length.out=250)
 z <- matrix(NA_real_, length(x), length(y))
 for (i in 1:length(x))
     for (j in 1:length(y))
@@ -361,54 +372,55 @@ points(X, col=km$cluster)
 points(km$centers, cex=2, col=4, pch=16)
 ```
 
-Remark.
-
-: (*) For the interested, see "Voronoi diagrams".
 
 
 
+To compute the distances between all the points and the cluster centres,
+we may call `pdist::pdist()`:
 
-To compute the pairwise distances, we may call `pdist::pdist()`:
-
-```{r}
+```{r kmeans_problem3}
 library("pdist")
-D <- as.matrix(pdist(X, km$centers))
-head(D) # D[i,j] - distance between x[i,] and µ[j,]
+D <- as.matrix(pdist(X, km$centers))^2
+head(D)
 ```
 
-...
+where `D[i,k]` gives the squared Euclidean distance between
+$\mathbf{x}_{i,\cdot}$ and $\boldsymbol\mu_{k,\cdot}$.
 
 
-
-
-Therefore, the cluster memberships ($\mathrm{arg}\min$s) can be determined by:
+The cluster memberships the ($\mathrm{arg}\min$s)
+can now be determined by:
 
 ```{r}
-(idx <- apply(D, 1, which.min))
+(idx <- apply(D, 1, which.min)) # for every row of D...
 all(km$cluster == idx) # sanity check
 ```
+
+
+
+
 
 
 ### Algorithms for the K-means Problem
 
 
-
-
-How to find "good" cluster centres?
-
-In the $K$-means clustering, we wish to find $\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$
+All good, but how do we find "good" cluster centres?
+Good, better, best... yet again we are in a need for a goodness-of-fit metric.
+In the $K$-means clustering, we determine
+$\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$
 that minimise the total within-cluster distances (distances from each point
 to each own cluster centre):
+
 \[
 \min_{\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot} \in \mathbb{R}^p}
 \sum_{i=1}^n
 d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{C(i),\cdot}),
 \]
+
 Note that the $\boldsymbol\mu$s are also "hidden" inside the point-to-cluster
 belongingness mapping, $\mathrm{C}$.
-
-
 Expanding the above yields:
+
 \[
 \min_{\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot} \in \mathbb{R}^p}
 \sum_{i=1}^n \left(
@@ -416,6 +428,7 @@ Expanding the above yields:
 \sum_{j=1}^p \left(x_{i,j}-\mu_{k,j}\right)^2
 \right).
 \]
+
 Unfortunately, the $\min$ operator in the objective function
 makes this optimisation problem not tractable
 with the methods discussed in the previous chapter.
@@ -424,68 +437,102 @@ with the methods discussed in the previous chapter.
 
 
 
-The above problem is *hard* to solve.
-
-
-Remark.
-
-: (*) More precisely, it is an NP-hard problem.
-
-
+The above problem is *hard* to solve (\* more precisely,
+it is an NP-hard problem).
 Therefore, in practice we use various heuristics to solve it.
-
-`kmeans()` in R implements the Hartigan-Wong, Lloyd, Forgy and MacQueen
-algorithms.
+The `kmeans()` function itself implements 4 of them:
+the Hartigan-Wong, Lloyd, Forgy and MacQueen algorithms.
 
 
 
 Remark.
 
-: (*) Technically, there is no such thing as "the K-means algorithm" --
+: (\*) Technically, there is no such thing as "*the* K-means algorithm" --
 all the aforementioned methods are particular heuristic
 approaches to solving the K-means
-clustering problem as specified by the aforementioned optimisation task.
-By setting `nstart = 10` above, we ask the (Hartigan-Wong) algorithm
+clustering problem formalised as the above optimisation task.
+By setting `nstart = 10` above, we ask the (Hartigan-Wong, which is
+the default one in `kmeans()`) algorithm
 to find 10 solution candidates obtained by considering different random
 initial clusterings and choose the best one (with respect to the sum
 of within-cluster distances) amongst them. This does not guarantee
-finding the optimal solution, especially in high-dimensional spaces,
+finding the optimal solution, especially for very unbalanced datasets,
 but increases the likelihood of such.
 
 
 
+Remark.
 
+:   The *squared* Euclidean distance was of course chosen to make computations
+    easier. It turns out that for any given subset of input points
+    $\mathbf{x}_{i_1,\cdot},\dots,\mathbf{x}_{i_m,\cdot}$,
+    the point $\boldsymbol\mu_{k,\cdot}$ that minimises the total  distances
+    to all of them, i.e.,
 
-Lloyd's algorithm (1957) is sometimes referred to as "the" K-means algorithm:
+    \[
+        \min_{\boldsymbol\mu_{k,\cdot}\in \mathbb{R}^p}
+        \sum_{\ell=1}^m \left(
+        \sum_{j=1}^p \left(x_{i_\ell,j}-\mu_{k,j}\right)^2
+        \right),
+    \]
+
+    is exactly these points' *centroid* -- which is given by
+    the componentwise arithmetic means of their coordinates.
+
+    For example:
+
+    ```{r kmeans_problem4}
+    colMeans(X[km$cluster == 1,]) # centroid of the points in the 1st cluster
+    km$centers[1,] # the centre of the 1st cluster
+    ```
+
+. . .
+
+Among the various heuristics to solve the K-means problem,
+Lloyd's algorithm (1957) is perhaps the simplest.
+This is probably the reason why it is sometimes referred
+to as "the" K-means algorithm:
 
 1. Start with random cluster centres $\boldsymbol\mu_{1,\cdot}, \dots, \boldsymbol\mu_{K,\cdot}$.
 
-2. For each point $\mathbf{x}_{i,\cdot}$, determine its closest centre $C(i)\in\{1,\dots,K\}$.
+2. For each point $\mathbf{x}_{i,\cdot}$, determine its closest centre $C(i)\in\{1,\dots,K\}$:
 
-3. For each cluster $k\in\{1,\dots,K\}$, compute the new cluster centre $\boldsymbol\mu_{k,\cdot}$ as the componentwise arithmetic mean
-of the coordinates of all the point indices $i$ such that $C(i)=k$.
+    \[
+    \mathrm{C}(i) = \mathrm{arg}\min_{k=1,\dots,K}
+    d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}).
+    \]
 
-4. If the cluster centres changed since the last iteration, go to step 2, otherwise stop and return the result.
+3. For each cluster $k\in\{1,\dots,K\}$, compute the new cluster centre $\boldsymbol\mu_{k,\cdot}$ as the centroid of
+all the point indices $i$ such that $C(i)=k$.
+
+4. If the cluster centres changed since the last iteration, go to step 2,
+otherwise stop and return the result.
 
 
+. . .
 
 
-(*) Example implementation:
+(\*) Here's an example implementation.
+As the initial cluster centres, let's pick some "noisy" versions
+of $K$ randomly chosen points in $\mathbf{X}$.
 
-```{r echo=-1}
-set.seed(123)
+```{r kmeanimpl1}
+set.seed(12345)
 K <- 3
 
-# Random initial cluster centres
+# Random initial cluster centres:
 M <- jitter(X[sample(1:nrow(X), K),])
 M
 ```
 
-```{r}
-# Let D[i,k] bet the distance between the i-th point
-# and the k-th centre:
-D <- as.matrix(pdist(X, M))
-# Let idx[i] be the centre closest to the i-th point
+
+In what follows, we will be maintaining a matrix
+such that `D[i,k]` is the distance between the $i$-th point
+and the $k$-th centre and a vector such that `idx[i]`
+denotes the index of the cluster centre closest to the `i`-th point.
+
+```{r kmeanimpl2}
+D <- as.matrix(pdist(X, M))^2
 idx <- apply(D, 1, which.min)
 ```
 
@@ -493,34 +540,93 @@ idx <- apply(D, 1, which.min)
 
 
 
-```{r}
+```{r kmeanimpl3}
 repeat {
-    # Previous cluster belongingness:
+    # Determine the new cluster centres:
+    M <- t(sapply(1:K, function(k) {
+        # the centroid of all points in the k-th cluster:
+        colMeans(X[idx==k,])
+    }))
+
+    # Store the previous cluster belongingness info:
     old_idx <- idx
-    # Split X into a list of K data frames based on old_idx info
-    X_split <- split(as.data.frame(X), old_idx)
-    # Compute componentwise arithmetic means of each data frame - new centres
-    M <- t(sapply(X_split, colMeans))
-    # Recompute cluster belongingness
-    D <- as.matrix(pdist(X, M))
+
+    # Recompute D and idx:
+    D <- as.matrix(pdist(X, M))^2
     idx <- apply(D, 1, which.min)
+
     # Check if converged already:
     if (all(idx == old_idx)) break
 }
 ```
 
 
+Let's compare the obtained cluster centres with the ones returned
+by `kmeans()`:
 
-
-```{r}
+```{r kmeanimpl4}
 M # our result
 km$center # result of kmeans()
 ```
 
+These two represent exactly the same 3-partitions
+(note that the actual labels (the order of centres) are not important).
+
+
+The value of the objective function (total within-cluster distances)
+at the identified candidate solution
+is equal to:
+
+```{r kmeansimpl5}
+sum(D[cbind(1:nrow(X),idx)]) # indexing with a 2-column matrix!
+km$tot.withinss # as reported by kmeans()
+```
+
+We would need it if we were to implement the `nstart` functionality,
+which is left as an:
+
+{ BEGIN exercise }
+(\*) Wrap the implementation of the Lloyd algorithm into a standalone R function,
+with a similar look-and-feel as the original `kmeans()`.
+{ END exercise }
 
 
 
 
+
+```{r kmeanimpl_plot,echo=FALSE,warning=FALSE,fig.cap="The arrows denote the cluster centres in each iteration of the Lloyd algorithm"}
+set.seed(12345)
+K <- 3
+M <- jitter(X[sample(1:nrow(X), K),])
+plot(X, asp=1, col="#00000044")
+D <- as.matrix(pdist(X, M))^2
+idx <- apply(D, 1, which.min)
+it <- 1
+repeat {
+    # Determine the new cluster centres:
+    old_M <- M
+    M <- t(sapply(1:K, function(k) {
+        # the centroid of all points in the k-th cluster:
+        colMeans(X[idx==k,])
+    }))
+    suppressWarnings(arrows(old_M[,1], old_M[,2], M[,1], M[,2], col=c(1,2,3), length=0.1, lwd=2))
+
+    # Store the previous cluster belongingness info:
+    old_idx <- idx
+
+    # Recompute D and idx:
+    D <- as.matrix(pdist(X, M))^2
+    idx <- apply(D, 1, which.min)
+
+    # Check if converged already:
+    if (all(idx == old_idx)) break
+    it <- it+1
+}
+```
+
+On a side note, our algorithm needed ```r {it}```
+iterations to identify the (locally optimal) cluster centres.
+Figure {@fig:kmeanimpl_plot} depicts its quest for the clustering grail.
 
 
 <!--
@@ -544,70 +650,98 @@ alternatively, DBSCAN or PCA or MDS or ...
 
 
 
-## Hierarchical Methods
-
+## Agglomerative Hierarchical Clustering
 
 ### Introduction
 
 
-
-
 In K-means, we need to specify the number of clusters, $K$, in advance.
+What if we don't have any idea how to choose this parameter (which is often
+the case)?
 
-What if we don't know it?
+Also, the problem with K-means is that there is no guarantee that a
+$K$-partition is any "similar" to the $K'$-one for $K\neq K'$,
+see Figure {@fig:kmeans_different_K}.
 
-There is no guarantee that a $(K+1)$-partition is "similar" to the $K$-one.
+
+```{r kmeans_different_K,fig.cap="3-means (colours) vs. 4-means (symbols) on example data; the \"circle\" cluster cannot decide if it likes the green or the black one more"}
+km1 <- kmeans(X, 3, nstart=10)
+km2 <- kmeans(X, 4, nstart=10)
+plot(X, col=km1$cluster, pch=km2$cluster, asp=1)
+```
+
+
 
 Hierarchical methods, on the other hand, output a whole hierarchy
-of mutually *nested* partitions, which increase the interpretability of the results.
-
-A $K$-partition for any $K$ can be extracted later.
-
-
+of mutually *nested* partitions, which increase the interpretability
+of the results.
+A $K$-partition for any $K$ can be extracted later at any time.
 
 
+In this book we will be interested in *agglomerative* hierarchical algorithms:
 
-Here we are interested in **agglomerative** algorithms.
+* at the lowest level of the hierarchy, each point belongs to its own
+cluster (there are $n$ singletons);
 
-At the lowest level of the hierarchy, each point belongs to its own
-cluster (there are $n$ singletons).
+* at the highest level of the hierarchy,
+there is one cluster that embraces all the points;
 
-At the highest level of the hierarchy, there is one cluster containing all the points.
-
-
-Moving from the $i$-th to the $(i+1)$-th level,
-we select a pair of clusters to be merged.
+* moving from the $i$-th to the $(i+1)$-th level,
+we select (somehow; see below) a pair of clusters to be merged.
 
 
 
 ### Example in R
 
 
+The most basic implementation of a few
+agglomerative hierarchical clustering algorithms
+is provided by the `hclust()` function, which works on a pairwise
+distance matrix.
 
 
 ```{r dist_hclust_complete}
-# Distances between all pairs of points:
+# Euclidean distances between all pairs of points:
 D <- dist(X)
-# Apply Complete Linkage (the default, see below):
+# Apply Complete Linkage (the default, details below):
 h <- hclust(D) # method="complete"
 print(h)
 ```
 
 
+Remark.
+
+: There are $n(n-1)/2$ unique pairwise distances between $n$ points.
+Don't try calling `dist()` on large data matrices.
+Already $n=100{,}000$ points consumes 40 GB of available memory
+(assuming that each distance is stored as an 8-byte double-precision floating
+point number); packages `fastcluster` and `genie`, among other,
+aim to solve this problem.
+
+<!--
+#n <- 100000
+#8*n*(n-1)/2/1e9
+-->
 
 
+The obtained hierarchy (*tree*) can be *cut* at an arbitrary level
+by applying the `cutree()` function.
 
 ```{r cutree}
 cutree(h, k=3) # extract the 3-partition
 ```
 
 
+The cuts of the hierarchy at different levels
+are depicted in Figure {@fig:complete_linkage_hier5_intro}.
+The obtained 3-partition also matches the true Iris species quite well.
+However, now it makes total sense to "zoom" our partitioning in or out
+and investigate how are the subgroups decomposed or aggregated when we change
+$K$.
 
 
 
-Different cuts of the hierarchy:
-
-```{r complete_linkage_hier5_intro,fig.height=6}
+```{r complete_linkage_hier5_intro,fig.height=6,fig.cap="Complete linkage -- 4 different cuts"}
 par(mfrow=c(2,2))
 plot(X, col=cutree(h, k=5), ann=FALSE)
 legend("top", legend="k=5", bg="white")
@@ -622,32 +756,20 @@ legend("top", legend="k=2", bg="white")
 
 
 
+### Linkage Functions
 
-A **dendrogram** depicts the distances (* as defined by the linkage function)
-between the clusters merged at every stage. This can provide us with the insight
-into the underlying data structure.
-
-```{r complete_linkage_hier_intro}
-plot(h, labels=FALSE, xlab=NA, main=NA); box()
-```
-
-
-### Agglomerative Hierarchical Clustering
-
-
-
-
-
-Initially,  $\mathcal{C}^{(0)}=\{\{1\},\dots,\{n\}\}$,
+Let's formalise the clustering process.
+Initially,  $\mathcal{C}^{(0)}=\{\{\mathbf{x}_{1,\cdot}\},\dots,\{\mathbf{x}_{n,\cdot}\}\}$,
 i.e., each point is a member of its own cluster.
 
-While a **hierarchical agglomerative clustering** algorithm is being computed,
+While an agglomerative  hierarchical clustering algorithm is being computed,
 there are $n-k$ clusters at the $k$-th step of the procedure,
 $\mathcal{C}^{(k)}=\{C_1^{(k)},\dots,C_{n-k}^{(k)}\}$.
 
-
-When proceeding from step $k$ to $k+1$, we determine $C_u^{(k)}$ and $C_v^{(k)}$, $u<v$,
-to be **merged** together so that we get:
+When proceeding from step $k$ to $k+1$,
+we determine the two groups $C_u^{(k)}$ and $C_v^{(k)}$, $u<v$,
+to be *merged* together so that the clustering at the higher level
+is of the form:
 \[
 \mathcal{C}^{(k+1)} = \left\{
 C_1^{(k)},\dots,C_{u-1}^{(k)},
@@ -658,67 +780,72 @@ C_{v+1}^{(k)},\dots,C_{n-k}^{(k)}
 \]
 
 
-Thus, $(\mathcal{C}^{(0)}, \mathcal{C}^{(1)}, \dots, \mathcal{C}^{(n-1)})$ is a sequence
-of **nested** partitions of $\{1,2,\dots,n\}$
-with $\mathcal{C}^{(n-1)}=\left\{ \{1,2,\dots,n\} \right\}$.
+Thus, $(\mathcal{C}^{(0)}, \mathcal{C}^{(1)}, \dots, \mathcal{C}^{(n-1)})$
+form a sequence of *nested* partitions of
+the input dataset
+with the last level being just one big cluster,
+$\mathcal{C}^{(n-1)}=\left\{ \{\mathbf{x}_{1,\cdot},\mathbf{x}_{2,\cdot},\dots,\mathbf{x}_{n,\cdot}\} \right\}$.
 
 
-### Linkage Functions
+. . .
 
-
-
-
-A pair of clusters $C_u^{(k)}$ and $C_v^{(k)}$ to be merged with each other
-is determined by:
+There is one component missing -- how to determine the pair
+of clusters $C_u^{(k)}$ and $C_v^{(k)}$ to be merged with each other
+at the $k$-th iteration?
+Of course this will be expressed as some optimisation problem (although this time,
+a simple one)!  The decision will be based on:
 \[
 \mathrm{arg}\min_{u < v} d^*(C_u^{(k)}, C_v^{(k)}),
 \]
-where $d^*(A,B)$ is the *distance* between two clusters $A$ and $B$.
+where $d^*(C_u^{(k)}, C_v^{(k)})$ is the *distance* between two clusters
+$C_u^{(k)}$ and $C_v^{(k)}$.
 
-Note that we usually only consider the distances between single points,
-not sets of points.
-
-$d^*$ is a suitable extension of a pointwise distance $d$ (usually the Euclidean metric)
+Note that we usually only consider the distances between *individual points*,
+not sets of points. Hence, $d^*$ must be a suitable extension
+of a pointwise distance $d$ (usually the Euclidean metric)
 to whole sets.
 
 We will assume that $d^*(\{\mathbf{x}_{i,\cdot}\},\{\mathbf{x}_{j,\cdot}\})=
 d(\mathbf{x}_{i,\cdot},\mathbf{x}_{j,\cdot})$, i.e., the distance between
 singleton clusters is the same as the distance between the points themselves.
-
-
-
-
-
-There are many popular choices of $d^*$ (which in the context of
-hierarchical clustering we call a **linkage function**):
-
+As far as more populous point groups are concerned, there are many popular
+choices of $d^*$ (which in the context of hierarchical clustering we call
+*linkage functions*):
 
 - single linkage:
-\[
-d_S^*(A,B) = \min_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b}),
-\]
+
+    \[
+    d_\text{S}^*(C_u^{(k)}, C_v^{(k)}) =
+    \min_{\mathbf{x}_{i,\cdot}\in C_u^{(k)}, \mathbf{x}_{j,\cdot}\in C_v^{(k)}} d(\mathbf{x}_{i,\cdot},\mathbf{x}_{j,\cdot}),
+    \]
+
 - complete linkage:
-\[
-d_C^*(A,B) = \max_{\mathbf{a}\in A, \mathbf{b}\in B} d(\mathbf{a},\mathbf{b}),
-\]
+
+    \[
+    d_\text{C}^*(C_u^{(k)}, C_v^{(k)}) =
+    \max_{\mathbf{x}_{i,\cdot}\in C_u^{(k)}, \mathbf{x}_{j,\cdot}\in C_v^{(k)}} d(\mathbf{x}_{i,\cdot},\mathbf{x}_{j,\cdot}),
+    \]
+
 - average linkage:
-\[
-d_A^*(A,B) = \frac{1}{|A| |B|} \sum_{\mathbf{a}\in A}\sum_{\mathbf{b}\in B} d(\mathbf{a},\mathbf{b}).
-\]
+
+    \[
+    d_\text{A}^*(C_u^{(k)}, C_v^{(k)}) =
+    \frac{1}{|C_u^{(k)}| |C_v^{(k)}|} \sum_{\mathbf{x}_{i,\cdot}\in C_u^{(k)}}\sum_{\mathbf{x}_{j,\cdot}\in C_v^{(k)}} d(\mathbf{x}_{i,\cdot},\mathbf{x}_{j,\cdot}).
+    \]
 
 
 An illustration of the way different linkages are computed
 is given in Figure {@fig:linkages}.
 
-```{r linkages,echo=FALSE,fig.cap="In single linkage, we find the closest pair of points; in complete linkage, we seek the furthest pair; in average linkage, we determine the average pairwise distance"}
-
+```{r linkages,echo=FALSE,fig.cap="In single linkage, we find the closest pair of points; in complete linkage, we seek the pair furthest away from each other; in average linkage, we determine the arithmetic mean of all pairwise distances"}
 set.seed(123)
-X <- jitter(t(as.matrix(iris[,2:3])))
+par(mar=rep(0.5,4))
+XXX <- jitter(t(as.matrix(iris[,2:3])))
 y <- as.numeric(iris[,5])
-X[,y==3] <- c(2, 1)*X[,y==3]+c(-0.5,-0.5)
+XXX[,y==3] <- c(2, 1)*XXX[,y==3]+c(-0.5,-0.5)
 y[y==3] <- 4
 
-d <- as.matrix(dist(t(X)))
+d <- as.matrix(dist(t(XXX)))
 d12 <- d[1:50, 51:100]
 d23 <- d[51:100, 101:150]
 d13 <- d[1:50, 101:150]
@@ -729,127 +856,112 @@ kol3 <- rgb(0,0.9,0.0,0.9)
 
 par(mfrow=c(1,3))
 # single
-plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
+plot(XXX[1,], XXX[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
 box()
 # stopifnot(min(d23) < min(d13) && min(d23) < min(d12))
-IDX_single <- which(min(d23) == d, arr.ind=TRUE)[1,]
-lines(X[1,IDX_single], X[2,IDX_single], col=kol3, lwd=3)
-IDX_single <- which(min(d13) == d, arr.ind=TRUE)[1,]
-lines(X[1,IDX_single], X[2,IDX_single], col=kol1, lwd=3)
-IDX_single <- which(min(d12) == d, arr.ind=TRUE)[1,]
-lines(X[1,IDX_single], X[2,IDX_single], col=kol2, lwd=3)
+IDXXX_single <- which(min(d23) == d, arr.ind=TRUE)[1,]
+lines(XXX[1,IDXXX_single], XXX[2,IDXXX_single], col=kol3, lwd=3)
+IDXXX_single <- which(min(d13) == d, arr.ind=TRUE)[1,]
+lines(XXX[1,IDXXX_single], XXX[2,IDXXX_single], col=kol1, lwd=3)
+IDXXX_single <- which(min(d12) == d, arr.ind=TRUE)[1,]
+lines(XXX[1,IDXXX_single], XXX[2,IDXXX_single], col=kol2, lwd=3)
 legend("bottomright", legend="single linkage", bg="white")
-points(X[1,], X[2,], col=y, pch=y)
+points(XXX[1,], XXX[2,], col=y, pch=y)
 
 # complete
-plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
+plot(XXX[1,], XXX[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
 box()
-IDX_single <- which(max(d23) == d, arr.ind=TRUE)[1,]
-lines(X[1,IDX_single], X[2,IDX_single], col=kol2, lwd=3)
-IDX_single <- which(max(d13) == d, arr.ind=TRUE)[1,]
-lines(X[1,IDX_single], X[2,IDX_single], col=kol1, lwd=3)
-IDX_single <- which(max(d12) == d, arr.ind=TRUE)[1,]
-lines(X[1,IDX_single], X[2,IDX_single], col=kol3, lwd=3)
+IDXXX_single <- which(max(d23) == d, arr.ind=TRUE)[1,]
+lines(XXX[1,IDXXX_single], XXX[2,IDXXX_single], col=kol2, lwd=3)
+IDXXX_single <- which(max(d13) == d, arr.ind=TRUE)[1,]
+lines(XXX[1,IDXXX_single], XXX[2,IDXXX_single], col=kol1, lwd=3)
+IDXXX_single <- which(max(d12) == d, arr.ind=TRUE)[1,]
+lines(XXX[1,IDXXX_single], XXX[2,IDXXX_single], col=kol3, lwd=3)
 legend("bottomright", legend="complete linkage", bg="white")
-points(X[1,], X[2,], col=y, pch=y)
+points(XXX[1,], XXX[2,], col=y, pch=y)
 
 # average
-plot(X[1,], X[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
+plot(XXX[1,], XXX[2,], col=y, pch='.', asp=1, axes=FALSE, xlab=NA, ylab=NA)
 box()
 #c(mean(d12), mean(d13), mean(d23))
 for (i in sample(1:50)) {
-    segments(X[1,0+i], X[2,0+i], X[1,51:100], X[2, 51:100], col=kol1)
-    segments(X[1,0+i], X[2,0+i], X[1,101:150], X[2, 101:150], col=kol2)
-    segments(X[1,50+i], X[2, 50+i], X[1,101:150], X[2, 101:150], col=kol3)
+    segments(XXX[1,0+i], XXX[2,0+i], XXX[1,51:100], XXX[2, 51:100], col=kol1)
+    segments(XXX[1,0+i], XXX[2,0+i], XXX[1,101:150], XXX[2, 101:150], col=kol2)
+    segments(XXX[1,50+i], XXX[2, 50+i], XXX[1,101:150], XXX[2, 101:150], col=kol3)
 }
 legend("bottomright", legend="average linkage", bg="white")
-points(X[1,], X[2,], col=y, pch=y)
+points(XXX[1,], XXX[2,], col=y, pch=y)
+```
+
+. . .
+
+Assuming $d_\text{S}^*$, $d_\text{C}^*$ or $d_\text{A}^*$
+in the aforementioned procedure leads to single, complete or average
+linkage-based agglomerative hierarchical clustering algorithms,
+respectively
+(referred to as single linkage etc. for brevity).
+
+
+
+```{r linkages_hier527658932}
+hs <- hclust(D, method="single")
+hc <- hclust(D, method="complete")
+ha <- hclust(D, method="average")
+```
+
+Figure {@fig:linkages_hier52} compares the 5-, 4- and 3-partitions
+obtained by applying the 3 above linkages. Note that it's in very nature of
+the single linkage algorithm that it's highly sensitive to outliers.
+
+```{r linkages_hier52,fig.height=6,fig.cap="3 cuts of 3 different hierarchies",echo=FALSE}
+#par(c(1,1,0.5,0.5))
+par(mfrow=c(3,3))
+for (k in 5:3) {
+    ccc <- cutree(hs, k=k)
+    plot(X, col=ccc, pch=ccc, ann=FALSE)
+    legend("top", legend=sprintf("k=%d, single", k), bg="white")
+    ccc <- cutree(hc, k=k)
+    plot(X, col=ccc, pch=ccc, ann=FALSE)
+    legend("top", legend=sprintf("k=%d, complete", k), bg="white")
+    ccc <- cutree(ha, k=k)
+    plot(X, col=ccc, pch=ccc, ann=FALSE)
+    legend("top", legend=sprintf("k=%d, average", k), bg="white")
+}
 ```
 
 
 
+### Cluster Dendrograms
 
 
+A *dendrogram*  (which we can plot by calling `plot(h)`, where `h` is
+the result returned by `hclust()`) depicts the distances
+(as defined by the linkage function) between the clusters merged at every stage
+of the agglomerative procedure.
+This can provide us with some insight into the underlying data structure
+as well as with hits about at which level the tree could be cut.
+
+Figure {@fig:dendrograms} depicts the three dendrograms
+that correspond to the clusterings  obtained by applying different linkages.
+Each tree has 150 leaves (at the bottom) that represent the 150 points
+in our example dataset. Each "edge" (joint) represents a group of points
+being merged. For instance, the very top joint in the middle subfigure
+is located at height of $\simeq 6$, which is exactly the
+maximal pairwise distance (complete linkage) between the points
+in the last two last clusters.
 
 
-
-Complete linkage (again):
-
-```{r complete_linkage_hier5,fig.height=6}
-X <- as.matrix(iris[,c(3,2)])
-D <- dist(X)
-
-h <- hclust(D, method="complete")
-par(mfrow=c(2, 2))
-plot(X, col=cutree(h, k=5), ann=FALSE)
-legend("top", legend="k=5", bg="white")
-plot(X, col=cutree(h, k=4), ann=FALSE)
-legend("top", legend="k=4", bg="white")
-plot(X, col=cutree(h, k=3), ann=FALSE)
-legend("top", legend="k=3", bg="white")
-plot(X, col=cutree(h, k=2), ann=FALSE)
-legend("top", legend="k=2", bg="white")
-```
-
-
-
-
-
-```{r complete_linkage_hier}
-plot(h, labels=FALSE, xlab=NA, main=NA); box()
-```
-
-
-
-
-Average linkage:
-
-```{r average_linkage_hier5,fig.height=6}
-h <- hclust(D, method="average")
-par(mfrow=c(2,2))
-plot(X, col=cutree(h, k=5), ann=FALSE)
-legend("top", legend="k=5", bg="white")
-plot(X, col=cutree(h, k=4), ann=FALSE)
-legend("top", legend="k=4", bg="white")
-plot(X, col=cutree(h, k=3), ann=FALSE)
-legend("top", legend="k=3", bg="white")
-plot(X, col=cutree(h, k=2), ann=FALSE)
-legend("top", legend="k=2", bg="white")
-```
-
-
-
-
-
-```{r average_linkage_hier}
-plot(h, labels=FALSE, xlab=NA, main=NA); box()
-```
-
-
-
-
-
-Single linkage (this is a typical behaviour!):
-
-```{r single_linkage_hier5,fig.height=6}
+```{r dendrograms,fig.height=6,fig.cap="Cluster dendrograms for the single, complete and average linkages",echo=FALSE}
+par(mfrow=c(3,1))
 h <- hclust(D, method="single")
-par(mfrow=c(2, 2))
-plot(X, col=cutree(h, k=5), ann=FALSE)
-legend("top", legend="k=5", bg="white")
-plot(X, col=cutree(h, k=4), ann=FALSE)
-legend("top", legend="k=4", bg="white")
-plot(X, col=cutree(h, k=3), ann=FALSE)
-legend("top", legend="k=3", bg="white")
-plot(X, col=cutree(h, k=2), ann=FALSE)
-legend("top", legend="k=2", bg="white")
-```
-
-
-
-
-
-```{r single_linkage_hier}
-plot(h, labels=FALSE, xlab=NA, main=NA); box()
+plot(h, labels=FALSE, ann=FALSE); box()
+legend("topright", legend="single", bg="white")
+h <- hclust(D, method="complete")
+plot(h, labels=FALSE, ann=FALSE); box()
+legend("topright", legend="complete", bg="white")
+h <- hclust(D, method="average")
+plot(h, labels=FALSE, ann=FALSE); box()
+legend("topright", legend="average", bg="white")
 ```
 
 
@@ -911,72 +1023,85 @@ Well, not precisely. Most frequently, you, my dear reader, will work
 for some party that's genuinely
 interested in your explaining why did you spent the last month coming up
 with nothing useful at all. Thus, the main body of work related to proving
-the use-ful*l*/less-ness will be on us.
+the use-ful*l*/less-ness will be on you.
 
 
+Clustering methods can aid us in supervised tasks
+-- instead of fitting a single "large model", it might be
+useful to fit separate models to each cluster.
 
-The aim of K-means is to find
+
+. . .
+
+To sum up, the aim of K-means is to find
 $K$ clusters based on the notion of the points' closeness
 to the cluster centres. Remember that $K$ must be set in advance.
-
-By definition (\* via its relation to Voronoi diagrams), all clusters will be of convex shapes.
+By definition (\* via its relation to Voronoi diagrams),
+all clusters will be of convex shapes.
 
 However, we may try applying $K'$-means for $K' \gg  K$
-to obtained a "fine grained" data compression and then
+to obtain a "fine grained" compressed representation of data and then
 combine the (sub)clusters into more meaningful groups
-using other methods.
+using other methods (such as the hierarchical ones).
 
-Iterative K-means algorithms are very fast even for large data sets,
-but they may fail to find a desirable solution, see the next chapter
-for discussion.
-
-
-
+Iterative K-means algorithms are very fast (e.g., there is a mini-batch
+version of the algorithm) even for large data sets,
+but they may fail to find a desirable solution, especially if clusters
+are unbalanced.
 
 
-On the other hand, hierarchical methods output
+
+. . .
+
+Hierarchical methods, on the other hand, output
 a whole family of mutually nested partitions, which may provide us
-with insight into the underlying data structure.
-
+with insight into the underlying structure of data data.
 Unfortunately, there is no easy way to assign new points
-to existing clusters.
+to existing clusters; yet, you can always build a classifier
+(e.g., a decision tree or a neural network) that learns
+the discovered labels.
 
-Linkage scheme must be chosen with care.
-
-These are generally slow -- $O(n^2)$ to $O(n^3)$ complexity.
+A linkage scheme must be chosen with care, for instance, single linkage
+can be sensitive to outliers. However, it is generally the fastest.
+The methods implemented in `hclust()` are generally slow; they  have
+time complexity  between $O(n^2)$ and $O(n^3)$.
 
 
 Remark.
 
 : Note that the `fastcluster` package provides a more efficient
+and memory-saving
 implementation of some methods available via a call to `hclust()`.
-See also the `genie` package for a robust algorithm
-based on the minimum spanning tree, which can be computed quickly.
+See also the `genie` package for a super-robust version of the single linkage
+algorithm based on the datasets's Euclidean minimum spanning tree,
+which can be computed quite quickly.
 
-```{r echo=FALSE,message=FALSE}
+```{r eval=FALSE,echo=FALSE}
 library("fastcluster")
+library("genie")
 ```
 
 
 
 
-Moreover, some unsupervised methods do not easily generalise
-to unobserved data. However, you can then build a classifier (e.g., trees, neural networks) that learns the discovered labels.
-
-Also many clustering methods are based on the notion of pairwise
-distances but these tend to behave weirdly in high-dimensional
-spaces ("the curse of dimensionality").
-
-However, clustering methods can aid with supervised tasks
--- instead of fitting a single "large model", it might be
-useful to fit separate models to each cluster.
+Finally, note that all the discussed clustering methods are based on the
+notion of pairwise distances. These of course tend
+to behave weirdly in high-dimensional
+spaces ("the curse of dimensionality"). Moreover, some hardcore
+feature engineering might be needed to obtain meaningful results.
 
 
 
+### Further Reading
 
-### Other Noteworthy Clustering Algorithms
 
-Other noteworthy clustering approaches:
+Recommended further reading: [@islr: Section 10.3]
+
+Other: [@esl: Section 14.3]
+
+
+
+Additionally, check out other noteworthy clustering approaches:
 
 - Genie (see R package `genie`) [@genie; @genieowa]
 - ITM [@itm]
@@ -987,11 +1112,3 @@ Other noteworthy clustering approaches:
 - BIRCH [@birch]
 
 
-
-
-### Further Reading
-
-
-Recommended further reading: [@islr: Section 10.3]
-
-Other: [@esl: Section 14.3]

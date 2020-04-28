@@ -901,19 +901,11 @@ we can perform a random **train-validation-test split** of the original dataset:
 - *validation sample* (e.g., 20%) -- used to tune the hyperparameters of the classifier
 - *test sample* (e.g., 20%) -- used to assess the goodness of fit
 
-
-
-
-Remark.
-
-: (\*) If our dataset is too small,
-we can use various *crossvalidation* techniques
-instead of a train-validate-test split.
-
-
-<!--By the way, this is how most data mining competitions are assessed --
-you will never have access to the final test sample used to determine the winner.
-The best you can do is to "guess".-->
+<!--
+By the way, this is how most data mining competitions are assessed --
+you will never have access to the final test sample used
+to determine the winner. The best you can do is to "guess".
+-->
 
 
 
@@ -941,6 +933,18 @@ stopifnot(nrow(X2_train)+nrow(X2_valid)+nrow(X2_test)
 Find the best $K$ on the validation set and compute the error metrics
 on the test set.
 { END exercise }
+
+
+
+
+Remark.
+
+: (\*) If our dataset is too small,
+we can use various *cross-validation* techniques
+instead of a train-validate-test split.
+<!-- TODO: see exercise.... -->
+
+
 
 
 
