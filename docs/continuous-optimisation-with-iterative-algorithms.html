@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Continuous Optimisation with Iterative Algorithms | Lightweight Machine Learning Classics with R</title>
+  <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Continuous Optimisation with Iterative Algorithms | Lightweight Machine Learning Classics with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://lmlcr.gagolewski.com" />
+  
+  <meta property="og:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
+  <meta name="github-repo" content="gagolews/lmlcr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Continuous Optimisation with Iterative Algorithms | Lightweight Machine Learning Classics with R" />
+  
+  <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
+  
+
+<meta name="author" content="Marek Gagolewski" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="shallow-and-deep-neural-networks.html"/>
+<link rel="next" href="clustering.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.exercise {
+    font-style: italic;
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+details.solution {
+    border-left: 2px solid #ff8888;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+</style>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li style='font-style: italic' ><a href="./">LMLCR</a></li>
+<li style='font-size: smaller' ><a href="https://www.gagolewski.com">Marek Gagolewski</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>{</a></li>
+<li class="chapter" data-level="1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#machine-learning"><i class="fa fa-check"></i><b>1.1</b> Machine Learning</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#what-is-machine-learning"><i class="fa fa-check"></i><b>1.1.1</b> What is Machine Learning?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#main-types-of-machine-learning-problems"><i class="fa fa-check"></i><b>1.1.2</b> Main Types of Machine Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#supervised-learning"><i class="fa fa-check"></i><b>1.2</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#formalism"><i class="fa fa-check"></i><b>1.2.1</b> Formalism</a></li>
+<li class="chapter" data-level="1.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#desired-outputs"><i class="fa fa-check"></i><b>1.2.2</b> Desired Outputs</a></li>
+<li class="chapter" data-level="1.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#types-of-supervised-learning-problems"><i class="fa fa-check"></i><b>1.2.3</b> Types of Supervised Learning Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-regression"><i class="fa fa-check"></i><b>1.3</b> Simple Regression</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#introduction"><i class="fa fa-check"></i><b>1.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#search-space-and-objective"><i class="fa fa-check"></i><b>1.3.2</b> Search Space and Objective</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#introduction-1"><i class="fa fa-check"></i><b>1.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.4.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#solution-in-r"><i class="fa fa-check"></i><b>1.4.2</b> Solution in R</a></li>
+<li class="chapter" data-level="1.4.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analytic-solution"><i class="fa fa-check"></i><b>1.4.3</b> Analytic Solution</a></li>
+<li class="chapter" data-level="1.4.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.4</b> Derivation of the Solution (**)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-in-r"><i class="fa fa-check"></i><b>1.5</b> Exercises in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#the-anscombe-quartet"><i class="fa fa-check"></i><b>1.5.1</b> The Anscombe Quartet</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#outro"><i class="fa fa-check"></i><b>1.6</b> Outro</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#remarks"><i class="fa fa-check"></i><b>1.6.1</b> Remarks</a></li>
+<li class="chapter" data-level="1.6.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#further-reading"><i class="fa fa-check"></i><b>1.6.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>2</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#introduction-2"><i class="fa fa-check"></i><b>2.1</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="multiple-regression.html"><a href="multiple-regression.html#formalism-1"><i class="fa fa-check"></i><b>2.1.1</b> Formalism</a></li>
+<li class="chapter" data-level="2.1.2" data-path="multiple-regression.html"><a href="multiple-regression.html#simple-linear-regression---recap"><i class="fa fa-check"></i><b>2.1.2</b> Simple Linear Regression - Recap</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>2.2</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#problem-formulation"><i class="fa fa-check"></i><b>2.2.1</b> Problem Formulation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-linear-model-in-r"><i class="fa fa-check"></i><b>2.2.2</b> Fitting a Linear Model in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="multiple-regression.html"><a href="multiple-regression.html#finding-the-best-model"><i class="fa fa-check"></i><b>2.3</b> Finding the Best Model</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="2.3.2" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
+<li class="chapter" data-level="2.3.3" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
+<li class="chapter" data-level="2.3.4" data-path="multiple-regression.html"><a href="multiple-regression.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="multiple-regression.html"><a href="multiple-regression.html#exercises-in-r-1"><i class="fa fa-check"></i><b>2.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#anscombes-quartet-revisited"><i class="fa fa-check"></i><b>2.4.1</b> Anscombe’s Quartet Revisited</a></li>
+<li class="chapter" data-level="2.4.2" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-simple-models-involving-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.2</b> Countries of the World – Simple models involving the GDP per capita</a></li>
+<li class="chapter" data-level="2.4.3" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-most-correlated-variables"><i class="fa fa-check"></i><b>2.4.3</b> Countries of the World – Most correlated variables (*)</a></li>
+<li class="chapter" data-level="2.4.4" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-a-non-linear-model-based-on-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.4</b> Countries of the World – A non-linear model based on the GDP per capita</a></li>
+<li class="chapter" data-level="2.4.5" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-a-multiple-regression-model-for-the-per-capita-gdp"><i class="fa fa-check"></i><b>2.4.5</b> Countries of the World – A multiple regression model for the per capita GDP</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="multiple-regression.html"><a href="multiple-regression.html#outro-1"><i class="fa fa-check"></i><b>2.5</b> Outro</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#remarks-1"><i class="fa fa-check"></i><b>2.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="2.5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#other-methods-for-regression"><i class="fa fa-check"></i><b>2.5.2</b> Other Methods for Regression</a></li>
+<li class="chapter" data-level="2.5.3" data-path="multiple-regression.html"><a href="multiple-regression.html#derivation-of-the-solution-1"><i class="fa fa-check"></i><b>2.5.3</b> Derivation of the Solution (**)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="multiple-regression.html"><a href="multiple-regression.html#solution-in-matrix-form"><i class="fa fa-check"></i><b>2.5.4</b> Solution in Matrix Form (***)</a></li>
+<li class="chapter" data-level="2.5.5" data-path="multiple-regression.html"><a href="multiple-regression.html#pearsons-r-in-matrix-form"><i class="fa fa-check"></i><b>2.5.5</b> Pearson’s r in Matrix Form (**)</a></li>
+<li class="chapter" data-level="2.5.6" data-path="multiple-regression.html"><a href="multiple-regression.html#further-reading-1"><i class="fa fa-check"></i><b>2.5.6</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a><ul>
+<li class="chapter" data-level="3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#classification-task"><i class="fa fa-check"></i><b>3.1.1</b> Classification Task</a></li>
+<li class="chapter" data-level="3.1.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.3</b> Training and Test Sets</a></li>
+<li class="chapter" data-level="3.1.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.4</b> Discussed Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#k-nearest-neighbour-classifier"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-4"><i class="fa fa-check"></i><b>3.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#example-in-r"><i class="fa fa-check"></i><b>3.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="3.2.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#feature-engineering"><i class="fa fa-check"></i><b>3.2.3</b> Feature Engineering</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#model-assessment-and-selection"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#performance-metrics"><i class="fa fa-check"></i><b>3.3.1</b> Performance Metrics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>3.3.2</b> How to Choose K for K-NN Classification?</a></li>
+<li class="chapter" data-level="3.3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>3.3.3</b> Training, Validation and Test sets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#implementing-a-k-nn-classifier"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#factor-data-type"><i class="fa fa-check"></i><b>3.4.1</b> Factor Data Type</a></li>
+<li class="chapter" data-level="3.4.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#main-routine"><i class="fa fa-check"></i><b>3.4.2</b> Main Routine (*)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#mode"><i class="fa fa-check"></i><b>3.4.3</b> Mode</a></li>
+<li class="chapter" data-level="3.4.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#nn-search-routines"><i class="fa fa-check"></i><b>3.4.4</b> NN Search Routines (*)</a></li>
+<li class="chapter" data-level="3.4.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#different-metrics"><i class="fa fa-check"></i><b>3.4.5</b> Different Metrics (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#outro-2"><i class="fa fa-check"></i><b>3.5</b> Outro</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#remarks-2"><i class="fa fa-check"></i><b>3.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="3.5.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.5.2</b> Side Note: K-NN Regression</a></li>
+<li class="chapter" data-level="3.5.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#further-reading-2"><i class="fa fa-check"></i><b>3.5.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-5"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#classification-task-1"><i class="fa fa-check"></i><b>4.1.1</b> Classification Task</a></li>
+<li class="chapter" data-level="4.1.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#data-1"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#decision-trees"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-6"><i class="fa fa-check"></i><b>4.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-1"><i class="fa fa-check"></i><b>4.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="4.2.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.2.3</b> A Note on Decision Tree Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#binary-logistic-regression"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
+<li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#remarks-3"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#further-reading-3"><i class="fa fa-check"></i><b>4.4.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a><ul>
+<li class="chapter" data-level="5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-7"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#binary-logistic-regression-recap"><i class="fa fa-check"></i><b>5.1.1</b> Binary Logistic Regression: Recap</a></li>
+<li class="chapter" data-level="5.1.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#data-2"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.2</b> Multinomial Logistic Regression</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#a-note-on-data-representation"><i class="fa fa-check"></i><b>5.2.1</b> A Note on Data Representation</a></li>
+<li class="chapter" data-level="5.2.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#extending-logistic-regression"><i class="fa fa-check"></i><b>5.2.2</b> Extending Logistic Regression</a></li>
+<li class="chapter" data-level="5.2.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#softmax-function"><i class="fa fa-check"></i><b>5.2.3</b> Softmax Function</a></li>
+<li class="chapter" data-level="5.2.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#one-hot-encoding-and-decoding"><i class="fa fa-check"></i><b>5.2.4</b> One-Hot Encoding and Decoding</a></li>
+<li class="chapter" data-level="5.2.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#cross-entropy-revisited"><i class="fa fa-check"></i><b>5.2.5</b> Cross-entropy Revisited</a></li>
+<li class="chapter" data-level="5.2.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#problem-formulation-in-matrix-form"><i class="fa fa-check"></i><b>5.2.6</b> Problem Formulation in Matrix Form (**)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neural-networks"><i class="fa fa-check"></i><b>5.3</b> Artificial Neural Networks</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neuron"><i class="fa fa-check"></i><b>5.3.1</b> Artificial Neuron</a></li>
+<li class="chapter" data-level="5.3.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#logistic-regression-as-a-neural-network"><i class="fa fa-check"></i><b>5.3.2</b> Logistic Regression as a Neural Network</a></li>
+<li class="chapter" data-level="5.3.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r-3"><i class="fa fa-check"></i><b>5.3.3</b> Example in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#deep-neural-networks"><i class="fa fa-check"></i><b>5.4</b> Deep Neural Networks</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-8"><i class="fa fa-check"></i><b>5.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.4.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#activation-functions"><i class="fa fa-check"></i><b>5.4.2</b> Activation Functions</a></li>
+<li class="chapter" data-level="5.4.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r---2-layers"><i class="fa fa-check"></i><b>5.4.3</b> Example in R - 2 Layers</a></li>
+<li class="chapter" data-level="5.4.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r---6-layers"><i class="fa fa-check"></i><b>5.4.4</b> Example in R - 6 Layers</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#preprocessing-of-data"><i class="fa fa-check"></i><b>5.5</b> Preprocessing of Data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-9"><i class="fa fa-check"></i><b>5.5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#image-deskewing"><i class="fa fa-check"></i><b>5.5.2</b> Image Deskewing</a></li>
+<li class="chapter" data-level="5.5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#summary-of-all-the-models-considered"><i class="fa fa-check"></i><b>5.5.3</b> Summary of All the Models Considered</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#outro-4"><i class="fa fa-check"></i><b>5.6</b> Outro</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#remarks-4"><i class="fa fa-check"></i><b>5.6.1</b> Remarks</a></li>
+<li class="chapter" data-level="5.6.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#beyond-mnist"><i class="fa fa-check"></i><b>5.6.2</b> Beyond MNIST</a></li>
+<li class="chapter" data-level="5.6.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#further-reading-4"><i class="fa fa-check"></i><b>5.6.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>6</b> Continuous Optimisation with Iterative Algorithms</a><ul>
+<li class="chapter" data-level="6.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-10"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#optimisation-problems"><i class="fa fa-check"></i><b>6.1.1</b> Optimisation Problems</a></li>
+<li class="chapter" data-level="6.1.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-optimisation-problems-in-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Example Optimisation Problems in Machine Learning</a></li>
+<li class="chapter" data-level="6.1.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#types-of-minima-and-maxima"><i class="fa fa-check"></i><b>6.1.3</b> Types of Minima and Maxima</a></li>
+<li class="chapter" data-level="6.1.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-objective-over-a-2d-domain"><i class="fa fa-check"></i><b>6.1.4</b> Example Objective over a 2D Domain</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#iterative-methods"><i class="fa fa-check"></i><b>6.2</b> Iterative Methods</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-11"><i class="fa fa-check"></i><b>6.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-in-r-4"><i class="fa fa-check"></i><b>6.2.2</b> Example in R</a></li>
+<li class="chapter" data-level="6.2.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#convergence-to-local-optima"><i class="fa fa-check"></i><b>6.2.3</b> Convergence to Local Optima</a></li>
+<li class="chapter" data-level="6.2.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#random-restarts"><i class="fa fa-check"></i><b>6.2.4</b> Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent"><i class="fa fa-check"></i><b>6.3</b> Gradient Descent</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#function-gradient"><i class="fa fa-check"></i><b>6.3.1</b> Function Gradient (*)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#three-facts-on-the-gradient"><i class="fa fa-check"></i><b>6.3.2</b> Three Facts on the Gradient</a></li>
+<li class="chapter" data-level="6.3.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent-algorithm-gd"><i class="fa fa-check"></i><b>6.3.3</b> Gradient Descent Algorithm (GD)</a></li>
+<li class="chapter" data-level="6.3.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-mnist"><i class="fa fa-check"></i><b>6.3.4</b> Example: MNIST (*)</a></li>
+<li class="chapter" data-level="6.3.5" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#stochastic-gradient-descent-sgd"><i class="fa fa-check"></i><b>6.3.5</b> Stochastic Gradient Descent (SGD) (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#outro-5"><i class="fa fa-check"></i><b>6.4</b> Outro</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#remarks-5"><i class="fa fa-check"></i><b>6.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="6.4.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#further-reading-5"><i class="fa fa-check"></i><b>6.4.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a><ul>
+<li class="chapter" data-level="7.1" data-path="clustering.html"><a href="clustering.html#unsupervised-learning"><i class="fa fa-check"></i><b>7.1</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="clustering.html"><a href="clustering.html#introduction-12"><i class="fa fa-check"></i><b>7.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.1.2" data-path="clustering.html"><a href="clustering.html#main-types-of-unsupervised-learning-problems"><i class="fa fa-check"></i><b>7.1.2</b> Main Types of Unsupervised Learning Problems</a></li>
+<li class="chapter" data-level="7.1.3" data-path="clustering.html"><a href="clustering.html#definitions"><i class="fa fa-check"></i><b>7.1.3</b> Definitions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>7.2</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="clustering.html"><a href="clustering.html#example-in-r-5"><i class="fa fa-check"></i><b>7.2.1</b> Example in R</a></li>
+<li class="chapter" data-level="7.2.2" data-path="clustering.html"><a href="clustering.html#problem-statement"><i class="fa fa-check"></i><b>7.2.2</b> Problem Statement</a></li>
+<li class="chapter" data-level="7.2.3" data-path="clustering.html"><a href="clustering.html#algorithms-for-the-k-means-problem"><i class="fa fa-check"></i><b>7.2.3</b> Algorithms for the K-means Problem</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="clustering.html"><a href="clustering.html#agglomerative-hierarchical-clustering"><i class="fa fa-check"></i><b>7.3</b> Agglomerative Hierarchical Clustering</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="clustering.html"><a href="clustering.html#introduction-13"><i class="fa fa-check"></i><b>7.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.3.2" data-path="clustering.html"><a href="clustering.html#example-in-r-6"><i class="fa fa-check"></i><b>7.3.2</b> Example in R</a></li>
+<li class="chapter" data-level="7.3.3" data-path="clustering.html"><a href="clustering.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.3</b> Linkage Functions</a></li>
+<li class="chapter" data-level="7.3.4" data-path="clustering.html"><a href="clustering.html#cluster-dendrograms"><i class="fa fa-check"></i><b>7.3.4</b> Cluster Dendrograms</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.4</b> Outro</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.4.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
+<li class="chapter" data-level="8.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-14"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
+<li class="chapter" data-level="8.1.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
+<li class="chapter" data-level="8.1.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#a-note-on-convex-optimisation"><i class="fa fa-check"></i><b>8.2</b> A Note on Convex Optimisation (*)</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#convex-combinations"><i class="fa fa-check"></i><b>8.2.2</b> Convex Combinations (*)</a></li>
+<li class="chapter" data-level="8.2.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#convex-functions"><i class="fa fa-check"></i><b>8.2.3</b> Convex Functions (*)</a></li>
+<li class="chapter" data-level="8.2.4" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#examples"><i class="fa fa-check"></i><b>8.2.4</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#genetic-algorithms"><i class="fa fa-check"></i><b>8.3</b> Genetic Algorithms</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-16"><i class="fa fa-check"></i><b>8.3.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.3.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#overview-of-the-method"><i class="fa fa-check"></i><b>8.3.2</b> Overview of the Method</a></li>
+<li class="chapter" data-level="8.3.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#example-implementation---ga-for-k-means"><i class="fa fa-check"></i><b>8.3.3</b> Example Implementation - GA for K-means</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#outro-7"><i class="fa fa-check"></i><b>8.4</b> Outro</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#remarks-7"><i class="fa fa-check"></i><b>8.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="8.4.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#further-reading-7"><i class="fa fa-check"></i><b>8.4.2</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="recommender-systems.html"><a href="recommender-systems.html"><i class="fa fa-check"></i><b>9</b> Recommender Systems</a><ul>
+<li class="chapter" data-level="9.1" data-path="recommender-systems.html"><a href="recommender-systems.html#introduction-17"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="recommender-systems.html"><a href="recommender-systems.html#what-is-a-recommender-system"><i class="fa fa-check"></i><b>9.1.1</b> What is a Recommender System?</a></li>
+<li class="chapter" data-level="9.1.2" data-path="recommender-systems.html"><a href="recommender-systems.html#the-netflix-prize"><i class="fa fa-check"></i><b>9.1.2</b> The Netflix Prize</a></li>
+<li class="chapter" data-level="9.1.3" data-path="recommender-systems.html"><a href="recommender-systems.html#main-approaches"><i class="fa fa-check"></i><b>9.1.3</b> Main Approaches</a></li>
+<li class="chapter" data-level="9.1.4" data-path="recommender-systems.html"><a href="recommender-systems.html#formalism-2"><i class="fa fa-check"></i><b>9.1.4</b> Formalism</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="recommender-systems.html"><a href="recommender-systems.html#collaborative-filtering"><i class="fa fa-check"></i><b>9.2</b> Collaborative Filtering</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="recommender-systems.html"><a href="recommender-systems.html#example"><i class="fa fa-check"></i><b>9.2.1</b> Example</a></li>
+<li class="chapter" data-level="9.2.2" data-path="recommender-systems.html"><a href="recommender-systems.html#similarity-measures"><i class="fa fa-check"></i><b>9.2.2</b> Similarity Measures</a></li>
+<li class="chapter" data-level="9.2.3" data-path="recommender-systems.html"><a href="recommender-systems.html#user-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.3</b> User-Based Collaborative Filtering</a></li>
+<li class="chapter" data-level="9.2.4" data-path="recommender-systems.html"><a href="recommender-systems.html#item-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.4</b> Item-Based Collaborative Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="recommender-systems.html"><a href="recommender-systems.html#movielens-dataset"><i class="fa fa-check"></i><b>9.3</b> MovieLens Dataset (*)</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="recommender-systems.html"><a href="recommender-systems.html#dataset"><i class="fa fa-check"></i><b>9.3.1</b> Dataset</a></li>
+<li class="chapter" data-level="9.3.2" data-path="recommender-systems.html"><a href="recommender-systems.html#data-cleansing"><i class="fa fa-check"></i><b>9.3.2</b> Data Cleansing</a></li>
+<li class="chapter" data-level="9.3.3" data-path="recommender-systems.html"><a href="recommender-systems.html#item-item-similarities"><i class="fa fa-check"></i><b>9.3.3</b> Item-Item Similarities</a></li>
+<li class="chapter" data-level="9.3.4" data-path="recommender-systems.html"><a href="recommender-systems.html#example-recommendations"><i class="fa fa-check"></i><b>9.3.4</b> Example Recommendations</a></li>
+<li class="chapter" data-level="9.3.5" data-path="recommender-systems.html"><a href="recommender-systems.html#clustering-1"><i class="fa fa-check"></i><b>9.3.5</b> Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="recommender-systems.html"><a href="recommender-systems.html#outro-8"><i class="fa fa-check"></i><b>9.4</b> Outro</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="recommender-systems.html"><a href="recommender-systems.html#remarks-8"><i class="fa fa-check"></i><b>9.4.1</b> Remarks</a></li>
+<li class="chapter" data-level="9.4.2" data-path="recommender-systems.html"><a href="recommender-systems.html#issues"><i class="fa fa-check"></i><b>9.4.2</b> Issues</a></li>
+<li class="chapter" data-level="9.4.3" data-path="recommender-systems.html"><a href="recommender-systems.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.3</b> Further Reading</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="section-3.html"><a href="section-3.html"><i class="fa fa-check"></i>}</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
+<li class="chapter" data-level="A.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
+<li class="chapter" data-level="A.2" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-an-ide"><i class="fa fa-check"></i><b>A.2</b> Installing an IDE</a></li>
+<li class="chapter" data-level="A.3" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-recommended-packages"><i class="fa fa-check"></i><b>A.3</b> Installing Recommended Packages</a></li>
+<li class="chapter" data-level="A.4" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#first-r-script-in-rstudio"><i class="fa fa-check"></i><b>A.4</b> First R Script in RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>B</b> Vector Algebra in R</a><ul>
+<li class="chapter" data-level="B.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#motivation-1"><i class="fa fa-check"></i><b>B.1</b> Motivation</a></li>
+<li class="chapter" data-level="B.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#numeric-vectors"><i class="fa fa-check"></i><b>B.2</b> Numeric Vectors</a><ul>
+<li class="chapter" data-level="B.2.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-numeric-vectors"><i class="fa fa-check"></i><b>B.2.1</b> Creating Numeric Vectors</a></li>
+<li class="chapter" data-level="B.2.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-scalar-operations"><i class="fa fa-check"></i><b>B.2.2</b> Vector-Scalar Operations</a></li>
+<li class="chapter" data-level="B.2.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-vector-operations"><i class="fa fa-check"></i><b>B.2.3</b> Vector-Vector Operations</a></li>
+<li class="chapter" data-level="B.2.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions"><i class="fa fa-check"></i><b>B.2.4</b> Aggregation Functions</a></li>
+<li class="chapter" data-level="B.2.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#special-functions"><i class="fa fa-check"></i><b>B.2.5</b> Special Functions</a></li>
+<li class="chapter" data-level="B.2.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#norms-and-distances"><i class="fa fa-check"></i><b>B.2.6</b> Norms and Distances</a></li>
+<li class="chapter" data-level="B.2.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#dot-product"><i class="fa fa-check"></i><b>B.2.7</b> Dot Product (*)</a></li>
+<li class="chapter" data-level="B.2.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#missing-and-other-special-values"><i class="fa fa-check"></i><b>B.2.8</b> Missing and Other Special Values</a></li>
+</ul></li>
+<li class="chapter" data-level="B.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-vectors"><i class="fa fa-check"></i><b>B.3</b> Logical Vectors</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-logical-vectors"><i class="fa fa-check"></i><b>B.3.1</b> Creating Logical Vectors</a></li>
+<li class="chapter" data-level="B.3.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-operations"><i class="fa fa-check"></i><b>B.3.2</b> Logical Operations</a></li>
+<li class="chapter" data-level="B.3.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#comparison-operations"><i class="fa fa-check"></i><b>B.3.3</b> Comparison Operations</a></li>
+<li class="chapter" data-level="B.3.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions-1"><i class="fa fa-check"></i><b>B.3.4</b> Aggregation Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#character-vectors"><i class="fa fa-check"></i><b>B.4</b> Character Vectors</a><ul>
+<li class="chapter" data-level="B.4.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-character-vectors"><i class="fa fa-check"></i><b>B.4.1</b> Creating Character Vectors</a></li>
+<li class="chapter" data-level="B.4.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#concatenating-character-vectors"><i class="fa fa-check"></i><b>B.4.2</b> Concatenating Character Vectors</a></li>
+<li class="chapter" data-level="B.4.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#collapsing-character-vectors"><i class="fa fa-check"></i><b>B.4.3</b> Collapsing Character Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="B.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-subsetting"><i class="fa fa-check"></i><b>B.5</b> Vector Subsetting</a><ul>
+<li class="chapter" data-level="B.5.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-positive-indices"><i class="fa fa-check"></i><b>B.5.1</b> Subsetting with Positive Indices</a></li>
+<li class="chapter" data-level="B.5.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-negative-indices"><i class="fa fa-check"></i><b>B.5.2</b> Subsetting with Negative Indices</a></li>
+<li class="chapter" data-level="B.5.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-logical-vectors"><i class="fa fa-check"></i><b>B.5.3</b> Subsetting with Logical Vectors</a></li>
+<li class="chapter" data-level="B.5.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#replacing-elements"><i class="fa fa-check"></i><b>B.5.4</b> Replacing Elements</a></li>
+<li class="chapter" data-level="B.5.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#other-functions"><i class="fa fa-check"></i><b>B.5.5</b> Other Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-vectors"><i class="fa fa-check"></i><b>B.6</b> Named Vectors</a><ul>
+<li class="chapter" data-level="B.6.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-named-vectors"><i class="fa fa-check"></i><b>B.6.1</b> Creating Named Vectors</a></li>
+<li class="chapter" data-level="B.6.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-named-vectors-with-character-string-indices"><i class="fa fa-check"></i><b>B.6.2</b> Subsetting Named Vectors with Character String Indices</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#factors"><i class="fa fa-check"></i><b>B.7</b> Factors</a><ul>
+<li class="chapter" data-level="B.7.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-factors"><i class="fa fa-check"></i><b>B.7.1</b> Creating Factors</a></li>
+<li class="chapter" data-level="B.7.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#levels"><i class="fa fa-check"></i><b>B.7.2</b> Levels</a></li>
+<li class="chapter" data-level="B.7.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#internal-representation"><i class="fa fa-check"></i><b>B.7.3</b> Internal Representation (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="B.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#lists"><i class="fa fa-check"></i><b>B.8</b> Lists</a><ul>
+<li class="chapter" data-level="B.8.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-lists"><i class="fa fa-check"></i><b>B.8.1</b> Creating Lists</a></li>
+<li class="chapter" data-level="B.8.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-lists"><i class="fa fa-check"></i><b>B.8.2</b> Named Lists</a></li>
+<li class="chapter" data-level="B.8.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-and-extracting-from-lists"><i class="fa fa-check"></i><b>B.8.3</b> Subsetting and Extracting From Lists</a></li>
+<li class="chapter" data-level="B.8.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#common-operations"><i class="fa fa-check"></i><b>B.8.4</b> Common Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="B.9" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#further-reading-9"><i class="fa fa-check"></i><b>B.9</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>C</b> Matrix Algebra in R</a><ul>
+<li class="chapter" data-level="C.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#creating-matrices"><i class="fa fa-check"></i><b>C.1</b> Creating Matrices</a><ul>
+<li class="chapter" data-level="C.1.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix"><i class="fa fa-check"></i><b>C.1.1</b> <code>matrix()</code></a></li>
+<li class="chapter" data-level="C.1.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#stacking-vectors"><i class="fa fa-check"></i><b>C.1.2</b> Stacking Vectors</a></li>
+<li class="chapter" data-level="C.1.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#beyond-numeric-matrices"><i class="fa fa-check"></i><b>C.1.3</b> Beyond Numeric Matrices</a></li>
+<li class="chapter" data-level="C.1.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#naming-rows-and-columns"><i class="fa fa-check"></i><b>C.1.4</b> Naming Rows and Columns</a></li>
+<li class="chapter" data-level="C.1.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#other-methods"><i class="fa fa-check"></i><b>C.1.5</b> Other Methods</a></li>
+<li class="chapter" data-level="C.1.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#internal-representation-1"><i class="fa fa-check"></i><b>C.1.6</b> Internal Representation (*)</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#common-operations-1"><i class="fa fa-check"></i><b>C.2</b> Common Operations</a><ul>
+<li class="chapter" data-level="C.2.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-transpose"><i class="fa fa-check"></i><b>C.2.1</b> Matrix Transpose</a></li>
+<li class="chapter" data-level="C.2.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>C.2.2</b> Matrix-Scalar Operations</a></li>
+<li class="chapter" data-level="C.2.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>C.2.3</b> Matrix-Matrix Operations</a></li>
+<li class="chapter" data-level="C.2.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-multiplication"><i class="fa fa-check"></i><b>C.2.4</b> Matrix Multiplication (*)</a></li>
+<li class="chapter" data-level="C.2.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#aggregation-of-rows-and-columns"><i class="fa fa-check"></i><b>C.2.5</b> Aggregation of Rows and Columns</a></li>
+<li class="chapter" data-level="C.2.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#vectorised-special-functions"><i class="fa fa-check"></i><b>C.2.6</b> Vectorised Special Functions</a></li>
+<li class="chapter" data-level="C.2.7" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-vector-operations"><i class="fa fa-check"></i><b>C.2.7</b> Matrix-Vector Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-subsetting"><i class="fa fa-check"></i><b>C.3</b> Matrix Subsetting</a><ul>
+<li class="chapter" data-level="C.3.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-individual-elements"><i class="fa fa-check"></i><b>C.3.1</b> Selecting Individual Elements</a></li>
+<li class="chapter" data-level="C.3.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-rows-and-columns"><i class="fa fa-check"></i><b>C.3.2</b> Selecting Rows and Columns</a></li>
+<li class="chapter" data-level="C.3.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-submatrices"><i class="fa fa-check"></i><b>C.3.3</b> Selecting Submatrices</a></li>
+<li class="chapter" data-level="C.3.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-logical-vectors-and-matrices"><i class="fa fa-check"></i><b>C.3.4</b> Selecting Based on Logical Vectors and Matrices</a></li>
+<li class="chapter" data-level="C.3.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-two-column-matrices"><i class="fa fa-check"></i><b>C.3.5</b> Selecting Based on Two-Column Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="C.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#further-reading-10"><i class="fa fa-check"></i><b>C.4</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>D</b> Data Frame Wrangling in R</a><ul>
+<li class="chapter" data-level="D.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#creating-data-frames"><i class="fa fa-check"></i><b>D.1</b> Creating Data Frames</a></li>
+<li class="chapter" data-level="D.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#importing-data-frames"><i class="fa fa-check"></i><b>D.2</b> Importing Data Frames</a></li>
+<li class="chapter" data-level="D.3" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#data-frame-subsetting"><i class="fa fa-check"></i><b>D.3</b> Data Frame Subsetting</a><ul>
+<li class="chapter" data-level="D.3.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-a-list"><i class="fa fa-check"></i><b>D.3.1</b> Each Data Frame is a List</a></li>
+<li class="chapter" data-level="D.3.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-matrix-like"><i class="fa fa-check"></i><b>D.3.2</b> Each Data Frame is Matrix-like</a></li>
+</ul></li>
+<li class="chapter" data-level="D.4" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#common-operations-2"><i class="fa fa-check"></i><b>D.4</b> Common Operations</a></li>
+<li class="chapter" data-level="D.5" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#metaprogramming-and-formulas"><i class="fa fa-check"></i><b>D.5</b> Metaprogramming and Formulas (*)</a></li>
+<li class="chapter" data-level="D.6" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#further-reading-11"><i class="fa fa-check"></i><b>D.6</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-28 21:58 (378d7a3)</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lightweight Machine Learning Classics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="continuous-optimisation-with-iterative-algorithms" class="section level1">
+<h1><span class="header-section-number">6</span> Continuous Optimisation with Iterative Algorithms</h1>
+<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+<!--
+
+TODO ??? No free lunch
+
+https://en.wikipedia.org/wiki/Test_functions_for_optimization
+
+
+
+TODO ???
+
+logistic regression
+
+lasso regression
+
+ridge regression
+
+Iteratively reweighted least squares (IRLS) are used for binary logistic regression
+fitting (`glm()`) function in R
+
+For multiclass logistic regression, we usually use the
+gradient descent or higher-order methods like the ones available in `optim()`.
+-->
+<div id="introduction-10" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<div id="optimisation-problems" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Optimisation Problems</h3>
+<p><strong>Mathematical optimisation</strong> (a.k.a. mathematical programming)
+deals with the study of algorithms to solve problems related
+to selecting the <em>best</em> element amongst the set of available alternatives.</p>
+<p>Most frequently “best” is expressed in terms
+of an <em>error</em> or <em>goodness of fit</em> measure:
+<span class="math display">\[
+f:D\to\mathbb{R}
+\]</span>
+called an <strong>objective function</strong>.</p>
+<p><span class="math inline">\(D\)</span> is the <strong>search space</strong> (problem domain, feasible set) –
+if defines the set of possible candidate solutions.</p>
+<p>An <strong>optimisation task</strong> deals with finding an element <span class="math inline">\({x}\in D\)</span>
+that minimises or maximises <span class="math inline">\(f\)</span>:</p>
+<p><span class="math display">\[
+\min_{{x}\in D} f({x}) \quad\text{or}\quad\max_{{x}\in D} f({x}),
+\]</span></p>
+<p>In this chapter, we will deal with <strong>unconstrained continuous optimisation</strong>,
+i.e., we will assume the search space is <span class="math inline">\(D=\mathbb{R}^p\)</span> for some <span class="math inline">\(p\)</span>.</p>
+</div>
+<div id="example-optimisation-problems-in-machine-learning" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Example Optimisation Problems in Machine Learning</h3>
+<p>In <strong>multiple linear regression</strong> we were minimising
+the sum of squared residuals
+<span class="math display">\[
+\min_{\beta_0, \beta_1,\dots, \beta_p\in\mathbb{R}}
+\sum_{i=1}^n \left( \beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p} - y_i \right)^2.
+\]</span></p>
+<p>In <strong>binary logistic regression</strong> we were minimising the cross-entropy:
+<span class="math display">\[
+\min_{(\beta_0, \beta_1,\dots, \beta_p)\in\mathbb{R}^{(p+1)}}
+-\frac{1}{n} \sum_{i=1}^n
+\left(\begin{array}{cc}
+     y_i \log \left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}}}                                                        \right)+\\
++ (1-y_i)\log \left(\frac{e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}}}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}\right)
+\end{array}\right).
+\]</span></p>
+</div>
+<div id="types-of-minima-and-maxima" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Types of Minima and Maxima</h3>
+<p>Note that minimising <span class="math inline">\(f\)</span> is the same as maximising <span class="math inline">\(\bar{f}=-f\)</span>.</p>
+<p>In other words, <span class="math inline">\(\min_{{x}\in D} f({x})\)</span>
+and <span class="math inline">\(\max_{{x}\in D} -f({x})\)</span> represent the same optimisation problems
+(and hence have identical solutions).</p>
+<div style="margin-top: 1em">
+
+</div>
+<p>A <strong>minimum</strong> of <span class="math inline">\(f\)</span> is a point <span class="math inline">\({x}^*\)</span> such that
+<span class="math inline">\(f({x}^*)\le f({x})\)</span> for all <span class="math inline">\({x}\in D\)</span>.</p>
+<p>A <strong>maximum</strong> of <span class="math inline">\(f\)</span> is a point <span class="math inline">\({x}^*\)</span> such that
+<span class="math inline">\(f({x}^*)\ge f({x})\)</span> for all <span class="math inline">\({x}\in D\)</span>.</p>
+<p>Assuming that <span class="math inline">\(D=\mathbb{R}\)</span>, Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:f_global_minimum">1</a>
+shows an example objective function, <span class="math inline">\(f:\mathbb{D}\to\mathbb{R}\)</span>,
+that has a minimum at <span class="math inline">\({x}^*=1\)</span>
+with <span class="math inline">\(f(x^*)=-2\)</span>.</p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/f_global_minimum-1.svg" alt="Figure 1: A function with the global minimum at {x}^*=1" id="fig:f_global_minimum" />
+<p class="caption">Figure 1: A function with the global minimum at <span class="math inline">\({x}^*=1\)</span></p>
+</div>
+<p><span class="math inline">\(\min_{x\in \mathbb{R}} f(x)=-2\)</span> (value of <span class="math inline">\(f\)</span> at the minimum)</p>
+<p><span class="math inline">\(\mathrm{arg}\min_{x\in \mathbb{R}} f(x)=1\)</span> (location of the minimum)</p>
+<p>By definition, a minimum/maximum <strong>might not necessarily be unique</strong>.
+This depends on a problem.</p>
+<p>Assuming that <span class="math inline">\(D=\mathbb{R}\)</span>, Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:f_global_minimum_not_unique">2</a>
+gives an example objective function, <span class="math inline">\(f:\mathbb{D}\to\mathbb{R}\)</span>,
+that has multiple minima; every <span class="math inline">\({x}^*\in[1-\sqrt{2},1+\sqrt{2}]\)</span>
+yields <span class="math inline">\(f(x^*)=0\)</span>.</p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/f_global_minimum_not_unique-1.svg" alt="Figure 2: A function that has multiple minima" id="fig:f_global_minimum_not_unique" />
+<p class="caption">Figure 2: A function that has multiple minima</p>
+</div>
+<dl>
+<dt>Remark.</dt>
+<dd><p>If this was the case of some machine learning problem, it’d mean
+that we could have many equally well-performing models,
+and hence many equivalent explanations of the same phenomenon.</p>
+</dd>
+</dl>
+<p>Moreover, it may happen that a function has <strong>multiple local minima</strong>,
+compare Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:f_global_local_minima">3</a>.</p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/f_global_local_minima-1.svg" alt="Figure 3: A function with two local minima" id="fig:f_global_local_minima" />
+<p class="caption">Figure 3: A function with two local minima</p>
+</div>
+<p>We say that <span class="math inline">\(f\)</span> has a <strong>local minimum</strong>
+at <span class="math inline">\(\mathbf{x}^+\in D\)</span>,
+if for some neighbourhood <span class="math inline">\(B(\mathbf{x}^+)\)</span> of <span class="math inline">\(\mathbf{x}^+\)</span>
+it holds <span class="math inline">\(f(\mathbf{x}^+) \le f(\mathbf{x})\)</span> for each
+<span class="math inline">\(\mathbf{x}\in B(\mathbf{x}^+)\)</span>.</p>
+<dl>
+<dt>Definition.</dt>
+<dd><p>If <span class="math inline">\(D=\mathbb{R}\)</span>, by neighbourhood <span class="math inline">\(B(x)\)</span> of <span class="math inline">\(x\)</span>
+we mean an open interval centred at <span class="math inline">\(x\)</span> of width <span class="math inline">\(2r\)</span>
+for some small <span class="math inline">\(r&gt;0\)</span>, i.e., <span class="math inline">\((x-r, x+r)\)</span></p>
+</dd>
+<dt>Definition.</dt>
+<dd><p>(*) If <span class="math inline">\(D=\mathbb{R}^p\)</span> (for any <span class="math inline">\(p\ge 1\)</span>), by neighbourhood <span class="math inline">\(B(\mathbf{x})\)</span> of <span class="math inline">\(\mathbf{x}\)</span>
+we mean an <em>open ball</em> centred at <span class="math inline">\(\mathbf{x}^+\)</span> of some small radius <span class="math inline">\(r&gt;0\)</span>,
+i.e., <span class="math inline">\(\{\mathbf{y}: \|\mathbf{x}-\mathbf{y}\|&lt;r\}\)</span>
+(read: the set of all the points with Euclidean distances
+to <span class="math inline">\(\mathbf{x}\)</span> less than <span class="math inline">\(r\)</span>).</p>
+</dd>
+</dl>
+<p>To avoid ambiguity, the “true” minimum (a point <span class="math inline">\({x}^*\)</span> such that
+<span class="math inline">\(f({x}^*)\le f({x})\)</span> for all <span class="math inline">\({x}\in D\)</span>) is sometimes also referred to as
+a <strong>global</strong> minimum.</p>
+<dl>
+<dt>Remark.</dt>
+<dd><p>Of course, the global minimum is also a function’s local minimum.</p>
+</dd>
+</dl>
+<p>The existence of local minima is problematic
+as most of the optimisation methods might get stuck there
+and fail to return the global one.</p>
+<p>Moreover, we cannot often be sure if the result returned by an algorithm
+is indeed a global minimum. Maybe there exists a better solution
+that hasn’t been considered yet? Or maybe the function
+is very noisy (see Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:smooth_vs_nonsmooth">4</a>)?</p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/smooth_vs_nonsmooth-1.svg" alt="Figure 4: Smooth vs. non-smooth vs. noisy objective functions" id="fig:smooth_vs_nonsmooth" />
+<p class="caption">Figure 4: Smooth vs. non-smooth vs. noisy objective functions</p>
+</div>
+</div>
+<div id="example-objective-over-a-2d-domain" class="section level3">
+<h3><span class="header-section-number">6.1.4</span> Example Objective over a 2D Domain</h3>
+<p>Of course, our objective function does not necessarily have to be defined
+over a one-dimensional domain.</p>
+<p>For example, consider the following function:
+<span class="math display">\[
+g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\right)
+\]</span></p>
+<!-- min{(x1^2 + x2 - 5)^2 + (x1 + x2^2 - 3)^2 + x1^2}≈2.606443660864438412460734586
+at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) -->
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" title="1">g  &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2)</a>
+<a class="sourceLine" id="cb492-2" title="2">    <span class="kw">log</span>((x1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x2<span class="dv">-5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x1<span class="op">+</span>x2<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x1<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span>)</a>
+<a class="sourceLine" id="cb492-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb492-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb492-5" title="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
+<a class="sourceLine" id="cb492-6" title="6"><span class="co"># and applies a given function on each point</span></a>
+<a class="sourceLine" id="cb492-7" title="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
+<p>There are four local minima:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x1</th>
+<th align="right">x2</th>
+<th align="right">f(x1,x2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.278005</td>
+<td align="right">-0.6134279</td>
+<td align="right">1.3564152</td>
+</tr>
+<tr class="even">
+<td align="right">-2.612316</td>
+<td align="right">-2.3454621</td>
+<td align="right">1.7050788</td>
+</tr>
+<tr class="odd">
+<td align="right">1.798788</td>
+<td align="right">1.1987929</td>
+<td align="right">0.6954984</td>
+</tr>
+<tr class="even">
+<td align="right">-1.542256</td>
+<td align="right">2.1564053</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>The global minimum is at <span class="math inline">\((x_1^*, x_2^*)\)</span> as below:</p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Let’s explore various ways of depicting <span class="math inline">\(f\)</span>.
+A contour plot and a heat map
+are given in Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:contour_g">5</a>.</p>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
+<a class="sourceLine" id="cb495-2" title="2"><span class="co"># lefthand plot:</span></a>
+<a class="sourceLine" id="cb495-3" title="3"><span class="kw">contour</span>(x1, x2, y, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb495-4" title="4"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb495-5" title="5"><span class="co"># righthand plot:</span></a>
+<a class="sourceLine" id="cb495-6" title="6"><span class="kw">image</span>(x1, x2, y)</a>
+<a class="sourceLine" id="cb495-7" title="7"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/contour_g-1.svg" alt="Figure 5: A contour plot and a heat map of g(x_1,x_2)" id="fig:contour_g" />
+<p class="caption">Figure 5: A contour plot and a heat map of <span class="math inline">\(g(x_1,x_2)\)</span></p>
+</div>
+<p>Two perspective plots (views from different angles) are given
+in Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:perspective_g">6</a>.</p>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
+<a class="sourceLine" id="cb496-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb496-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/perspective_g-1.svg" alt="Figure 6: Perspective plots of g(x_1,x_2)" id="fig:perspective_g" />
+<p class="caption">Figure 6: Perspective plots of <span class="math inline">\(g(x_1,x_2)\)</span></p>
+</div>
+<dl>
+<dt>Remark.</dt>
+<dd><p>As usual, depicting functions that are defined over
+high-dimensional (3D and higher) domains
+is… difficult.
+Usually 1D or 2D projections can give us some neat intuitions though.</p>
+</dd>
+</dl>
+<!--
+Golden section search
+
+-- generalises poorly  to high dimensions
+-->
+</div>
+</div>
+<div id="iterative-methods" class="section level2">
+<h2><span class="header-section-number">6.2</span> Iterative Methods</h2>
+<div id="introduction-11" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Introduction</h3>
+<p>Many optimisation algorithms are built around the following scheme:</p>
+<p><em>starting from a random point, perform a walk,
+in each step deciding where to go based on the idea
+of where the location of the minimum seems to be.</em></p>
+<dl>
+<dt>Example.</dt>
+<dd><p>Imagine we’re to cycle from Deakin University’s Burwood
+Campus to the CBD not knowing the route and with GPS disabled –
+we’ll have to ask many people along the way, but we’ll eventually
+(because most people are good) get to some CBD
+(say, in Perth).</p>
+</dd>
+</dl>
+<p>More formally, we are interested in iterative
+algorithms that operate in a greedy-like fashion:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\mathbf{x}^{(0)}\)</span> – initial guess (e.g., generated at random)</p></li>
+<li>for <span class="math inline">\(i=1,...,M\)</span>:
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(\mathbf{x}^{(i)} = \mathbf{x}^{(i-1)}+\text{[guessed direction]}\)</span></li>
+<li>if <span class="math inline">\(|f(\mathbf{x}^{(i)})-f(\mathbf{x}^{(i-1)})| &lt; \varepsilon\)</span> break</li>
+</ol></li>
+<li><p>return <span class="math inline">\(\mathbf{x}^{(i)}\)</span> as result</p></li>
+</ol>
+<div style="margin-top: 1em">
+
+</div>
+<p>Note that there are two stopping criteria, based on:</p>
+<ul>
+<li><span class="math inline">\(M\)</span> = maximum number of iterations</li>
+<li><span class="math inline">\(\varepsilon\)</span> = tolerance, e.g, <span class="math inline">\(10^{-8}\)</span></li>
+</ul>
+</div>
+<div id="example-in-r-4" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Example in R</h3>
+<p>R has a built-in function, <code>optim()</code>, that provides an implementation
+of (amongst others) <strong>the BFGS method</strong>
+(proposed by Broyden, Fletcher, Goldfarb and Shanno in 1970).</p>
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) BFGS uses the assumption that the objective function
+is smooth – the [guessed direction] is determined by computing
+the (partial) derivatives (or their finite-difference approximations).
+However, they might work well even if this is not the case.
+We’ll be able to derive similar algorithms (called quasi-Newton ones) ourselves
+once we learn about Taylor series approximation
+by reading a book/taking a course on calculus.</p>
+</dd>
+</dl>
+<p>Here, we shall use the BFGS as a <em>black-box</em> continuous optimisation method,
+i.e., without going into how it has been defined (in terms of our assumed math
+skills, it might be too early for this).
+Despite that, will still be able to point out a few interesting
+patterns.</p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" title="1"><span class="kw">optim</span>(par, fn, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
+<p>where:</p>
+<ul>
+<li><code>par</code> – an initial guess (a numeric vector of length <span class="math inline">\(p\)</span>)</li>
+<li><code>fn</code> – an objective function to minimise (takes a vector of length <span class="math inline">\(p\)</span>
+on input, returns a single number)</li>
+</ul>
+<!-- this will be slow for high-dimensional search spaces $D$ -->
+<p>Let us minimise the <span class="math inline">\(g\)</span> function defined above (the one with the 2D domain):</p>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" title="1"><span class="co"># g needs to be rewritten to accept a 2-ary vector</span></a>
+<a class="sourceLine" id="cb498-2" title="2">g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x12) <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb498-3" title="3"><span class="co"># random starting point with coordinates in [-5, 5]</span></a>
+<a class="sourceLine" id="cb498-4" title="4">(x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>))</a></code></pre></div>
+<pre><code>## [1] -2.124225  2.883051</code></pre>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb500-1" title="1">(res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>))</a></code></pre></div>
+<pre><code>## $par
+## [1] -1.542255  2.156405
+## 
+## $value
+## [1] 1.413092e-12
+## 
+## $counts
+## function gradient 
+##      101       21 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL</code></pre>
+<p>Note that:</p>
+<ul>
+<li><code>par</code> gives the location of the local minimum found,</li>
+<li><code>value</code> gives the value of <span class="math inline">\(g\)</span> at <code>par</code>,</li>
+<li><code>convergence</code> of 0 is a successful one (we were able
+to satisfy the
+<span class="math inline">\(|f(\mathbf{x}^{(i)})-f(\mathbf{x}^{(i-1)})| &lt; \varepsilon\)</span> condition).</li>
+</ul>
+<p>We can even depict the points that the algorithm is “visiting”,
+see Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:gbfgsvisit">7</a>.</p>
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Technically, the algorithm needs to evaluate a few more points
+in order to make the decision on where to go next (BFGS approximates the Hessian matrix).</p>
+</dd>
+</dl>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" title="1">g_vectorised_plot &lt;-<span class="st"> </span><span class="cf">function</span>(x12) {</a>
+<a class="sourceLine" id="cb502-2" title="2">    <span class="kw">points</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>], <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>) <span class="co"># draw</span></a>
+<a class="sourceLine" id="cb502-3" title="3">    <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>]) <span class="co"># return value</span></a>
+<a class="sourceLine" id="cb502-4" title="4">}</a>
+<a class="sourceLine" id="cb502-5" title="5"><span class="kw">contour</span>(x1, x2, y, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb502-6" title="6">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised_plot, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/gbfgsvisit-1.svg" alt="Figure 7: Each plotting symbol marks a point where the objective function was evaluated by the BFGS method" id="fig:gbfgsvisit" />
+<p class="caption">Figure 7: Each plotting symbol marks a point where the objective function was evaluated by the BFGS method</p>
+</div>
+</div>
+<div id="convergence-to-local-optima" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> Convergence to Local Optima</h3>
+<p>We were lucky, because the local minimum that the algorithm has found
+coincides with the global minimum.</p>
+<p>Let’s see where does the BFGS algorithm converge if seek the minimum
+of the above <span class="math inline">\(g\)</span> starting
+from many randomly chosen points
+uniformly distributed over the square <span class="math inline">\([-5,5]\times[-5,5]\)</span>:</p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb503-1" title="1">res_value &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb503-2" title="2">    <span class="co"># this will be iterated 100 times</span></a>
+<a class="sourceLine" id="cb503-3" title="3">    x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb503-4" title="4">    res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a>
+<a class="sourceLine" id="cb503-5" title="5">    res<span class="op">$</span>value <span class="co"># return value from each iteration</span></a>
+<a class="sourceLine" id="cb503-6" title="6">})</a>
+<a class="sourceLine" id="cb503-7" title="7"><span class="kw">table</span>(<span class="kw">round</span>(res_value,<span class="dv">3</span>))</a></code></pre></div>
+<pre><code>## 
+##     0 0.695 1.356 1.705 
+##   273   352   156   219</code></pre>
+<p>Unfortunately, we find the global minimum only in <span class="math inline">\(\sim 25\%\)</span> cases,
+compare Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:bfgs_multi_hist">8</a>.</p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb505-1" title="1"><span class="kw">hist</span>(res_value, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">breaks=</span><span class="dv">100</span>, <span class="dt">main=</span><span class="ot">NA</span>); <span class="kw">box</span>()</a></code></pre></div>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/bfgs_multi_hist-1.svg" alt="Figure 8: A histogram of the objective function’s value at the local minimum found when using a random initial guess" id="fig:bfgs_multi_hist" />
+<p class="caption">Figure 8: A histogram of the objective function’s value at the local minimum found when using a random initial guess</p>
+</div>
+<p>Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:bfgs_multi_where">9</a> depicts all the random starting points and where
+do we converge from them.</p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/bfgs_multi_where-1.svg" alt="Figure 9: Each line segment connect a starting point to the point of BFGS’s convergence" id="fig:bfgs_multi_where" />
+<p class="caption">Figure 9: Each line segment connect a starting point to the point of BFGS’s convergence</p>
+</div>
+</div>
+<div id="random-restarts" class="section level3">
+<h3><span class="header-section-number">6.2.4</span> Random Restarts</h3>
+<p>A kind of “remedy” for the above limitation
+could be provided by <em>repeated local search</em>:
+in order to robustify an optimisation
+procedure it is often advised to consider
+multiple random initial points
+and pick the best solution amongst the identified local optima.</p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1"><span class="co"># N             - number of restarts</span></a>
+<a class="sourceLine" id="cb506-2" title="2"><span class="co"># par_generator - a function generating initial guesses</span></a>
+<a class="sourceLine" id="cb506-3" title="3"><span class="co"># ...           - further arguments to optim()</span></a>
+<a class="sourceLine" id="cb506-4" title="4">optim_with_restarts &lt;-<span class="st"> </span><span class="cf">function</span>(par_generator, ..., <span class="dt">N=</span><span class="dv">10</span>) {</a>
+<a class="sourceLine" id="cb506-5" title="5">    res_best &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">value=</span><span class="ot">Inf</span>) <span class="co"># cannot be worse than this</span></a>
+<a class="sourceLine" id="cb506-6" title="6">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
+<a class="sourceLine" id="cb506-7" title="7">        res &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">par_generator</span>(), ...)</a>
+<a class="sourceLine" id="cb506-8" title="8">        <span class="cf">if</span> (res<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>res_best<span class="op">$</span>value)</a>
+<a class="sourceLine" id="cb506-9" title="9">            res_best &lt;-<span class="st"> </span>res <span class="co"># a better candidate found</span></a>
+<a class="sourceLine" id="cb506-10" title="10">    }</a>
+<a class="sourceLine" id="cb506-11" title="11">    res_best</a>
+<a class="sourceLine" id="cb506-12" title="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" title="1"><span class="kw">optim_with_restarts</span>(<span class="cf">function</span>() <span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb507-2" title="2">    g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">N=</span><span class="dv">10</span>)</a></code></pre></div>
+<pre><code>## $par
+## [1] -1.542256  2.156405
+## 
+## $value
+## [1] 3.970158e-13
+## 
+## $counts
+## function gradient 
+##       48       17 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL</code></pre>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Food for thought:
+Can we guarantee that the global minimum will be found within <span class="math inline">\(N\)</span> tries?</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>Absolutely not.</p>
+</details>
+</div>
+</div>
+<div id="gradient-descent" class="section level2">
+<h2><span class="header-section-number">6.3</span> Gradient Descent</h2>
+<div id="function-gradient" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Function Gradient (*)</h3>
+<p>How to choose the [guessed direction] in our iterative optimisation algorithm?</p>
+<p>If we are minimising a smooth function, the simplest possible choice
+is to use the information included in the objective’s <strong>gradient</strong>,
+which provides us with the information about the direction where the
+function decreases the fastest.</p>
+<div style="margin-top: 1em">
+
+</div>
+<dl>
+<dt>Definition.</dt>
+<dd><p>(*) Gradient of <span class="math inline">\(f:\mathbb{R}^p\to\mathbb{R}\)</span>,
+denoted <span class="math inline">\(\nabla f:\mathbb{R}^p\to\mathbb{R}^p\)</span>,
+is the vector of all its partial derivatives,
+(<span class="math inline">\(\nabla\)</span> – nabla symbol = differential operator)
+<span class="math display">\[
+\nabla f(\mathbf{x}) = \left[
+\begin{array}{c}
+\displaystyle\frac{\partial f}{\partial x_1}(\mathbf{x})\\
+\vdots\\
+\displaystyle\frac{\partial f}{\partial x_p}(\mathbf{x})
+\end{array}
+\right]
+\]</span>
+If we have a function <span class="math inline">\(f(x_1,...,x_p)\)</span>,
+the partial derivative w.r.t. the <span class="math inline">\(i\)</span>-th variable,
+denoted
+<span class="math inline">\(\frac{\partial f}{\partial x_i}\)</span>
+is like an ordinary derivative w.r.t. <span class="math inline">\(x_i\)</span>
+where <span class="math inline">\(x_1,...,x_{i-1},x_{i+1},...,x_p\)</span> are assumed constant.</p>
+</dd>
+<dt>Remark.</dt>
+<dd><p>Function differentiation is an important concept – see how it’s referred to
+in, e.g., the <code>keras</code> package manual at <a href="https://keras.rstudio.com/reference/fit.html" class="uri">https://keras.rstudio.com/reference/fit.html</a>.</p>
+</dd>
+</dl>
+<p>Recall our <span class="math inline">\(g\)</span> function defined above:
+<span class="math display">\[
+g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\right)
+\]</span></p>
+<p>It can be shown (*) that:
+<span class="math display">\[
+\begin{array}{ll}
+\frac{\partial g}{\partial x_1}(x_1,x_2)=&amp;
+\displaystyle\frac{
+4x_1(x_1^{2}+x_2-5)+2(x_1+x_2^{2}-3)+2x_1
+}{(x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots}
+\\
+\frac{\partial g}{\partial x_2}(x_1,x_2)=&amp;
+\displaystyle\frac{
+2(x_1^{2}+x_2-5)+4x_2(x_1+x_2^{2}-3)
+}{(x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots}
+\end{array}
+\]</span></p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" title="1">grad_g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb509-2" title="2">    <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb509-3" title="3">        <span class="dv">4</span><span class="op">*</span>x[<span class="dv">1</span>]<span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>x[<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb509-4" title="4">        <span class="dv">2</span><span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">+</span><span class="dv">4</span><span class="op">*</span>x[<span class="dv">2</span>]<span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)</a>
+<a class="sourceLine" id="cb509-5" title="5">    )<span class="op">/</span>(</a>
+<a class="sourceLine" id="cb509-6" title="6">        (x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span></a>
+<a class="sourceLine" id="cb509-7" title="7">    )</a>
+<a class="sourceLine" id="cb509-8" title="8">}</a></code></pre></div>
+</div>
+<div id="three-facts-on-the-gradient" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Three Facts on the Gradient</h3>
+<p>For now, we should emphasise three important facts:</p>
+<div style="margin-top: 1em">
+
+</div>
+<dl>
+<dt>Fact 1.</dt>
+<dd><p>If we are incapable of deriving the gradient analytically,
+we can rely on its finite differences approximation.
+Each partial derivative can be estimated by means of:
+<span class="math display">\[
+\frac{\partial f}{\partial x_i}(x_1,\dots,x_p) \simeq
+\frac{
+f(x_1,...,x_i+\delta,...,x_p)-f(x_1,...,x_i,...,x_p)
+}{
+\delta
+}
+\]</span>
+for some small <span class="math inline">\(\delta&gt;0\)</span>, say, <span class="math inline">\(\delta=10^{-6}\)</span>.</p>
+</dd>
+<dt>Remark.</dt>
+<dd><p>(*) Actually, a function’s partial derivative, by definition,
+is the limit of the above as <span class="math inline">\(\delta\to 0\)</span>.</p>
+</dd>
+</dl>
+<p>Example implementation:</p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb510-1" title="1"><span class="co"># gradient of f at x=c(x[1],...,x[p])</span></a>
+<a class="sourceLine" id="cb510-2" title="2">grad_approx &lt;-<span class="st"> </span><span class="cf">function</span>(f, x, <span class="dt">delta=</span><span class="fl">1e-6</span>) {</a>
+<a class="sourceLine" id="cb510-3" title="3">    p &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb510-4" title="4">    gf &lt;-<span class="st"> </span><span class="kw">numeric</span>(p) <span class="co"># vector of length p</span></a>
+<a class="sourceLine" id="cb510-5" title="5">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p) {</a>
+<a class="sourceLine" id="cb510-6" title="6">        xi &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb510-7" title="7">        xi[i] &lt;-<span class="st"> </span>xi[i]<span class="op">+</span>delta</a>
+<a class="sourceLine" id="cb510-8" title="8">        gf[i] &lt;-<span class="st"> </span><span class="kw">f</span>(xi)</a>
+<a class="sourceLine" id="cb510-9" title="9">    }</a>
+<a class="sourceLine" id="cb510-10" title="10">    (gf<span class="op">-</span><span class="kw">f</span>(x))<span class="op">/</span>delta</a>
+<a class="sourceLine" id="cb510-11" title="11">}</a></code></pre></div>
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Interestingly, some modern vector/matrix algebra frameworks
+like TensorFlow (upon which <code>keras</code> is built) or PyTorch, feature
+methods to “derive” the gradient algorithmically
+(autodiff; automatic differentiation).</p>
+</dd>
+</dl>
+<p>Sanity check:</p>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" title="1"><span class="kw">grad_approx</span>(g_vectorised, <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
+<pre><code>## [1] -3.186485 -1.365634</code></pre>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb513-1" title="1"><span class="kw">grad_g_vectorised</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
+<pre><code>## [1] -3.186485 -1.365636</code></pre>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb515-1" title="1"><span class="kw">grad_approx</span>(g_vectorised, <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.542255693</span>, <span class="fl">2.15640528979</span>))</a></code></pre></div>
+<pre><code>## [1] 1.058842e-05 1.981748e-05</code></pre>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb517-1" title="1"><span class="kw">grad_g_vectorised</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.542255693</span>, <span class="fl">2.15640528979</span>))</a></code></pre></div>
+<pre><code>## [1] 4.129167e-09 3.577146e-10</code></pre>
+<p>BTW, there is also the <code>grad()</code> function in package <code>numDeriv</code>
+that might be a little more accurate (uses a different approximation
+formula).</p>
+<dl>
+<dt>Fact 2a.</dt>
+<dd><p>The gradient of <span class="math inline">\(f\)</span> at <span class="math inline">\(\mathbf{x}\)</span>, <span class="math inline">\(\nabla f(\mathbf{x})\)</span>,
+is a vector that points in the direction of the steepest slope.</p>
+</dd>
+<dt>Fact 2b.</dt>
+<dd><p>Minus gradient, <span class="math inline">\(-\nabla f(\mathbf{x})\)</span>, is the direction where the function decreases the fastest.</p>
+</dd>
+<dt>Remark.</dt>
+<dd><p>(*) This can be shown by considering a function’s first-order Taylor series approximation. <!-- TODO: write how? --></p>
+</dd>
+</dl>
+<p>Therefore, in our iterative algorithm,
+we may try taking the direction of the minus gradient!</p>
+<p>How far in that direction? Well, a bit.
+We will refer to the desired step size as the <strong>learning rate</strong>, <span class="math inline">\(\eta\)</span>.</p>
+<div style="margin-top: 1em">
+
+</div>
+<p>This will be called the <strong>gradient descent</strong> method (GD;
+Cauchy, 1847).</p>
+<dl>
+<dt>Fact 3.</dt>
+<dd><p>If a function <span class="math inline">\(f\)</span> has a local minimum at <span class="math inline">\(\mathbf{x}^*\)</span>,
+then its gradient vanishes there, i.e.,
+<span class="math inline">\(\nabla {f}(\mathbf{x}^*)=[0,\dots,0]\)</span>.</p>
+</dd>
+</dl>
+<div style="margin-top: 1em">
+
+</div>
+<p>Note that the above condition is a necessary, not sufficient
+one. For example, the gradient also vanishes at a maximum or
+at a saddle point. In fact, we have what follows.</p>
+<dl>
+<dt>Theorem.</dt>
+<dd><p>(***) More generally, a twice-differentiable function
+has a local minimum at <span class="math inline">\(\mathbf{x}^*\)</span> if and only if
+its gradient vanishes there and <span class="math inline">\(\nabla^2 {f}(\mathbf{x}^*)\)</span>
+(Hessian matrix = matrix of all second-order derivatives)
+is positive-definite.</p>
+</dd>
+</dl>
+</div>
+<div id="gradient-descent-algorithm-gd" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Gradient Descent Algorithm (GD)</h3>
+<p>Taking the above into account, we arrive at the gradient descent algorithm:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\mathbf{x}^{(0)}\)</span> – initial guess (e.g., generated at random)</p></li>
+<li>for <span class="math inline">\(i=1,...,M\)</span>:
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(\mathbf{x}^{(i)} = \mathbf{x}^{(i-1)}-\eta \nabla f(\mathbf{x}^{(i-1)})\)</span></li>
+<li>if <span class="math inline">\(|f(\mathbf{x}^{(i)})-f(\mathbf{x}^{(i-1)})| &lt; \varepsilon\)</span> break</li>
+</ol></li>
+<li><p>return <span class="math inline">\(\mathbf{x}^{(i)}\)</span> as result</p></li>
+</ol>
+<p>where <span class="math inline">\(\eta&gt;0\)</span> is a step size frequently
+referred to as the <em>learning rate</em>, because that’s much more cool.
+We usually set <span class="math inline">\(\eta\)</span> of small order of magnitude, say <span class="math inline">\(0.01\)</span> or <span class="math inline">\(0.1\)</span>.</p>
+<p>An implementation of the gradient descent algorithm is straightforward.
+In essence, it’s the <code>par &lt;- par - eta*grad_g_vectorised(par)</code> expression
+run in a loop, until convergence.</p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" title="1"><span class="co"># par   - initial guess</span></a>
+<a class="sourceLine" id="cb519-2" title="2"><span class="co"># fn    - a function to be minimised</span></a>
+<a class="sourceLine" id="cb519-3" title="3"><span class="co"># gr    - a function to return the gradient of fn</span></a>
+<a class="sourceLine" id="cb519-4" title="4"><span class="co"># eta   - learning rate</span></a>
+<a class="sourceLine" id="cb519-5" title="5"><span class="co"># maxit - maximum number of iterations</span></a>
+<a class="sourceLine" id="cb519-6" title="6"><span class="co"># tol   - convergence tolerance</span></a>
+<a class="sourceLine" id="cb519-7" title="7">optim_gd &lt;-<span class="st"> </span><span class="cf">function</span>(par, fn, gr, <span class="dt">eta=</span><span class="fl">0.01</span>,</a>
+<a class="sourceLine" id="cb519-8" title="8">                        <span class="dt">maxit=</span><span class="dv">1000</span>, <span class="dt">tol=</span><span class="fl">1e-8</span>) {</a>
+<a class="sourceLine" id="cb519-9" title="9">    f_last &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
+<a class="sourceLine" id="cb519-10" title="10">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb519-11" title="11">        par &lt;-<span class="st"> </span>par <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_g_vectorised</span>(par) <span class="co"># update step</span></a>
+<a class="sourceLine" id="cb519-12" title="12">        f_cur &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
+<a class="sourceLine" id="cb519-13" title="13">        <span class="cf">if</span> (<span class="kw">abs</span>(f_cur<span class="op">-</span>f_last) <span class="op">&lt;</span><span class="st"> </span>tol) <span class="cf">break</span></a>
+<a class="sourceLine" id="cb519-14" title="14">        f_last &lt;-<span class="st"> </span>f_cur</a>
+<a class="sourceLine" id="cb519-15" title="15">    }</a>
+<a class="sourceLine" id="cb519-16" title="16">    <span class="kw">list</span>( <span class="co"># see ?optim, section `Value`</span></a>
+<a class="sourceLine" id="cb519-17" title="17">        <span class="dt">par=</span>par,</a>
+<a class="sourceLine" id="cb519-18" title="18">        <span class="dt">value=</span><span class="kw">g_vectorised</span>(par),</a>
+<a class="sourceLine" id="cb519-19" title="19">        <span class="dt">counts=</span>i,</a>
+<a class="sourceLine" id="cb519-20" title="20">        <span class="dt">convergence=</span><span class="kw">as.integer</span>(i<span class="op">==</span>maxit)</a>
+<a class="sourceLine" id="cb519-21" title="21">    )</a>
+<a class="sourceLine" id="cb519-22" title="22">}</a></code></pre></div>
+<p>Tests of the <span class="math inline">\(g\)</span> function.
+First, let’s try <span class="math inline">\(\eta=0.01\)</span>.
+Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:etastepplot">10</a> zooms in the contour plot so that we can see
+the actual path the algorithm has taken.</p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb520-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
+<a class="sourceLine" id="cb520-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
+<pre><code>## List of 4
+##  $ par        : num [1:2] -1.54 2.16
+##  $ value      : num 1.33e-08
+##  $ counts     : int 135
+##  $ convergence: int 0</code></pre>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/etastepplot-1.svg" alt="Figure 10: Path taken by the gradient descent algorithm with \eta=0.01" id="fig:etastepplot" />
+<p class="caption">Figure 10: Path taken by the gradient descent algorithm with <span class="math inline">\(\eta=0.01\)</span></p>
+</div>
+<p>Now let’s try <span class="math inline">\(\eta=0.05\)</span>.</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb522-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
+<a class="sourceLine" id="cb522-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
+<pre><code>## List of 4
+##  $ par        : num [1:2] -1.54 2.15
+##  $ value      : num 0.000203
+##  $ counts     : int 417
+##  $ convergence: int 0</code></pre>
+<p>With an increased step size, the algorithm needed
+many more iterations (3 times as many),
+see Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:etadef2f">11</a> for the path taken.</p>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/etadef2f-1.svg" alt="Figure 11: Path taken by the gradient descent algorithm with \eta=0.05" id="fig:etadef2f" />
+<p class="caption">Figure 11: Path taken by the gradient descent algorithm with <span class="math inline">\(\eta=0.05\)</span></p>
+</div>
+<p>And now for something completely different: <span class="math inline">\(\eta=0.1\)</span>, see Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:etadef3f">12</a>.</p>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb524-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
+<a class="sourceLine" id="cb524-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
+<pre><code>## List of 4
+##  $ par        : num [1:2] -1.52 2.33
+##  $ value      : num 0.507
+##  $ counts     : int 1000
+##  $ convergence: int 1</code></pre>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/etadef3f-1.svg" alt="Figure 12: Path taken by the gradient descent algorithm with \eta=0.1" id="fig:etadef3f" />
+<p class="caption">Figure 12: Path taken by the gradient descent algorithm with <span class="math inline">\(\eta=0.1\)</span></p>
+</div>
+<p>The algorithm failed to converge.</p>
+<div style="margin-top: 1em">
+
+</div>
+<p>If the learning rate <span class="math inline">\(\eta\)</span> is too small, the convergence might be too slow
+or we might get stuck at a plateau.
+On the other hand, if <span class="math inline">\(\eta\)</span> is too large, we might be overshooting
+and end up bouncing around the minimum.</p>
+<p>This is why many optimisation libraries (including <code>keras</code>/TensorFlow)
+implement some
+of the following ideas:</p>
+<ul>
+<li><p><em>learning rate decay</em> – start with large <span class="math inline">\(\eta\)</span>,
+decreasing it in every iteration, say, by some percent;</p></li>
+<li><p><em>line search</em> – determine optimal <span class="math inline">\(\eta\)</span> in every step
+by solving a 1-dimensional optimisation problem w.r.t.
+<span class="math inline">\(\eta\in[0,\eta_{\max}]\)</span>;</p></li>
+<li><p><em>momentum</em> – the update step is based on a combination of the gradient direction
+and the previous change of the parameters, <span class="math inline">\(\Delta\mathbf{x}\)</span>;
+can be used to accelerate search in the relevant direction
+and minimise oscillations.</p></li>
+</ul>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Try implementing at least the first of the above
+heuristics yourself. You can set <code>eta &lt;- eta*0.9</code> in every iteration
+of the gradient descent procedure.</p>
+</div>
+</div>
+<div id="example-mnist" class="section level3">
+<h3><span class="header-section-number">6.3.4</span> Example: MNIST (*)</h3>
+<p>In the previous chapter we’ve
+studied the MNIST dataset.
+Let us go back to the task of fitting a multiclass logistic regression model.</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb526-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
+<a class="sourceLine" id="cb526-2" title="2">mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</a>
+<a class="sourceLine" id="cb526-3" title="3"></a>
+<a class="sourceLine" id="cb526-4" title="4"><span class="co"># get train/test images in greyscale</span></a>
+<a class="sourceLine" id="cb526-5" title="5">X_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x<span class="op">/</span><span class="dv">255</span> <span class="co"># to [0,1]</span></a>
+<a class="sourceLine" id="cb526-6" title="6">X_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x<span class="op">/</span><span class="dv">255</span>  <span class="co"># to [0,1]</span></a>
+<a class="sourceLine" id="cb526-7" title="7"></a>
+<a class="sourceLine" id="cb526-8" title="8"><span class="co"># get the corresponding labels in {0,1,...,9}:</span></a>
+<a class="sourceLine" id="cb526-9" title="9">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
+<a class="sourceLine" id="cb526-10" title="10">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
+<p>The labels need to be one-hot encoded:</p>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" title="1">one_hot_encode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
+<a class="sourceLine" id="cb527-2" title="2">    <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(Y))</a>
+<a class="sourceLine" id="cb527-3" title="3">    c1 &lt;-<span class="st"> </span><span class="kw">min</span>(Y) <span class="co"># first class label</span></a>
+<a class="sourceLine" id="cb527-4" title="4">    cK &lt;-<span class="st"> </span><span class="kw">max</span>(Y) <span class="co"># last class label</span></a>
+<a class="sourceLine" id="cb527-5" title="5">    K &lt;-<span class="st"> </span>cK<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span> <span class="co"># number of classes</span></a>
+<a class="sourceLine" id="cb527-6" title="6">    Y2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y), <span class="dt">ncol=</span>K)</a>
+<a class="sourceLine" id="cb527-7" title="7">    Y2[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y), Y<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb527-8" title="8">    Y2</a>
+<a class="sourceLine" id="cb527-9" title="9">}</a>
+<a class="sourceLine" id="cb527-10" title="10"></a>
+<a class="sourceLine" id="cb527-11" title="11">Y_train2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_train)</a>
+<a class="sourceLine" id="cb527-12" title="12">Y_test2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_test)</a></code></pre></div>
+<p>Our task is to find the parameters <span class="math inline">\(\mathbf{B}\)</span>
+that minimise cross entropy <span class="math inline">\(E(\mathbf{B})\)</span> over the training set:</p>
+<p><span class="math display">\[
+\min_{\mathbf{B}\in\mathbb{R}^{785\times 10}}
+-\frac{1}{n^\text{train}} \sum_{i=1}^{n^\text{train}}
+\log \Pr(Y=y_i^\text{train}|\mathbf{x}_{i,\cdot}^\text{train},\mathbf{B}).
+\]</span></p>
+<p>In the previous chapter, we’ve relied on the methods implemented
+in the <code>keras</code> package. Let’s do that all by ourselves now.</p>
+<p>In order to come up with a working version of the gradient
+descent procedure for classifying of MNIST digits,
+we will need to derive and implement <code>grad_cross_entropy()</code>.
+We do that below using matrix notation.</p>
+<dl>
+<dt>Remark.</dt>
+<dd><p>In the first reading, you can jump to the <em>Safe landing zone</em>
+below with no much loss in what we’re trying to convey here
+(you will then treat <code>grad_cross_entropy()</code> as a black-box function).
+Nevertheless, keep in mind that this is the kind of maths you
+will need to master anyway sooner than later – this is inevitable.
+Perhaps you should go back to, e.g., the appendix on Matrix Computations
+with R or the chapter on Linear Regression? Learning maths is not a linear,
+step-by-step process. Everyone is different and will have a different
+path to success. The material needs to be frequently revisited,
+it will “click”
+someday, don’t you worry; good stuff isn’t built in a day or seven.</p>
+</dd>
+</dl>
+<p>Recall that the output of the logistic regression model
+(1-layer neural network with softmax) can be written
+in the matrix form as:
+<span class="math display">\[
+\hat{\mathbf{Y}}=\mathrm{softmax}\left(
+\mathbf{\dot{X}}\,\mathbf{B}
+\right),
+\]</span>
+where
+<span class="math inline">\(\mathbf{\dot{X}}\in\mathbb{R}^{n\times 785}\)</span> is a matrix
+representing <span class="math inline">\(n\)</span> images of size <span class="math inline">\(28\times 28\)</span>, augmented with a column of <span class="math inline">\(1\)</span>s,
+and
+<span class="math inline">\(\mathbf{B}\in\mathbb{R}^{785\times 10}\)</span> is the coefficients matrix
+and <span class="math inline">\(\mathrm{softmax}\)</span> is applied on each matrix row separately.</p>
+<p>Of course, by the definition of matrix multiplication,
+<span class="math inline">\(\hat{\mathbf{Y}}\)</span> will be a matrix of size
+<span class="math inline">\(n\times 10\)</span>, where <span class="math inline">\(\hat{y}_{i,k}\)</span> represents the predicted probability
+that the <span class="math inline">\(i\)</span>-th image depicts the <span class="math inline">\(k\)</span>-th digit.</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" title="1"><span class="co"># convert to matrices of size n*784</span></a>
+<a class="sourceLine" id="cb528-2" title="2"><span class="co"># and add a column of 1s</span></a>
+<a class="sourceLine" id="cb528-3" title="3">X_train1 &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a>
+<a class="sourceLine" id="cb528-4" title="4">X_test1  &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a></code></pre></div>
+<p>The <code>nn_predict()</code> function implements the above formula
+for <span class="math inline">\(\hat{\mathbf{Y}}\)</span>:</p>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" title="1">softmax &lt;-<span class="st"> </span><span class="cf">function</span>(T) {</a>
+<a class="sourceLine" id="cb529-2" title="2">    T &lt;-<span class="st"> </span><span class="kw">exp</span>(T)</a>
+<a class="sourceLine" id="cb529-3" title="3">    T<span class="op">/</span><span class="kw">rowSums</span>(T)</a>
+<a class="sourceLine" id="cb529-4" title="4">}</a>
+<a class="sourceLine" id="cb529-5" title="5"></a>
+<a class="sourceLine" id="cb529-6" title="6">nn_predict &lt;-<span class="st"> </span><span class="cf">function</span>(B, X) {</a>
+<a class="sourceLine" id="cb529-7" title="7">    <span class="kw">softmax</span>(X <span class="op">%*%</span><span class="st"> </span>B)</a>
+<a class="sourceLine" id="cb529-8" title="8">}</a></code></pre></div>
+<p>Let’s define the functions to compute the cross-entropy
+(which we shall minimise)
+and accuracy (which we shall report to a user):</p>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" title="1">cross_entropy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
+<a class="sourceLine" id="cb530-2" title="2">    <span class="op">-</span><span class="kw">sum</span>(Y_true<span class="op">*</span><span class="kw">log</span>(Y_pred))<span class="op">/</span><span class="kw">nrow</span>(Y_true)</a>
+<a class="sourceLine" id="cb530-3" title="3">}</a>
+<a class="sourceLine" id="cb530-4" title="4"></a>
+<a class="sourceLine" id="cb530-5" title="5">accuracy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
+<a class="sourceLine" id="cb530-6" title="6">    <span class="co"># both arguments are one-hot encoded</span></a>
+<a class="sourceLine" id="cb530-7" title="7">    Y_true_decoded &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_true, <span class="dv">1</span>, which.max)</a>
+<a class="sourceLine" id="cb530-8" title="8">    Y_pred_decoded &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred, <span class="dv">1</span>, which.max)</a>
+<a class="sourceLine" id="cb530-9" title="9">    <span class="co"># proportion of equal corresponding pairs:</span></a>
+<a class="sourceLine" id="cb530-10" title="10">    <span class="kw">mean</span>(Y_true_decoded <span class="op">==</span><span class="st"> </span>Y_pred_decoded)</a>
+<a class="sourceLine" id="cb530-11" title="11">}</a></code></pre></div>
+<p>It may be shown (**) that the gradient of cross-entropy
+(with respect to the parameter matrix <span class="math inline">\(\mathbf{B}\)</span>)
+can be expressed in the matrix form as:</p>
+<p><span class="math display">\[
+\frac{1}{n} \mathbf{\dot{X}}^T\, (\mathbf{\hat{Y}}-\mathbf{Y})
+\]</span></p>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" title="1">grad_cross_entropy &lt;-<span class="st"> </span><span class="cf">function</span>(X, Y_true, Y_pred) {</a>
+<a class="sourceLine" id="cb531-2" title="2">    <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>(Y_pred<span class="op">-</span>Y_true)<span class="op">/</span><span class="kw">nrow</span>(Y_true)</a>
+<a class="sourceLine" id="cb531-3" title="3">}</a></code></pre></div>
+<p>Of course, we could always substitute the gradient
+with the finite difference approximation. Yet, this would be much slower).</p>
+<p>The more mathematically inclined reader will sure notice that
+by expanding the formulas given
+in the previous chapter, we can write cross-entropy
+in the non-matrix form
+(<span class="math inline">\(n\)</span> – number of samples, <span class="math inline">\(K\)</span> – number of classes,
+<span class="math inline">\(p+1\)</span> – number of model parameters;
+in our case <span class="math inline">\(K=10\)</span> and <span class="math inline">\(p=784\)</span>) as:</p>
+<p><span class="math display">\[
+\begin{array}{rcl}
+E(\mathbf{B}) &amp;=&amp; -\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \displaystyle\sum_{k=1}^K y_{i,k}
+\log\left(
+\frac{
+\exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
+\right)
+}{
+\displaystyle\sum_{c=1}^K \exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,c}
+\right)
+}
+\right)\\
+&amp;=&amp;
+\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n
+\left(
+\log \left(\displaystyle\sum_{k=1}^K \exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
+\right)\right)
+- \displaystyle\sum_{k=1}^K y_{i,k} \displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
+\right).
+\end{array}
+\]</span></p>
+<p>Partial derivatives of cross-entropy w.r.t. <span class="math inline">\(\beta_{a,b}\)</span> in non-matrix form
+can be derived (**) so as to get:</p>
+<p><span class="math display">\[
+\begin{array}{rcl}
+\displaystyle\frac{\partial E}{\partial \beta_{a,b}}(\mathbf{B}) &amp;=&amp;
+\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \dot{x}_{i,a}
+\left(
+\frac{
+\exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,b}
+\right)
+}{
+\displaystyle\sum_{k=1}^K \exp\left(
+\displaystyle\sum_{j=0}^p \dot{x}_{i,j} \beta_{j,k}
+\right)
+}
+- y_{i,b}
+\right)\\
+&amp;=&amp;
+\displaystyle\frac{1}{n} \displaystyle\sum_{i=1}^n \dot{x}_{i,a}
+\left(
+\hat{y}_{i,b} - y_{i,b}
+\right).
+\end{array}
+\]</span></p>
+<dl>
+<dt>Safe landing zone.</dt>
+<dd><p>In case you’re lost with the above, continue from here.
+However, in the near future, harden up and revisit the skipped material
+to get the most out of our discussion.</p>
+</dd>
+</dl>
+<p>We now have all the building blocks to
+implement the gradient descent method.
+The algorithm below follows exactly the same scheme as the one in the
+<span class="math inline">\(g\)</span> function example. This time, however, we play with a parameter matrix
+<span class="math inline">\(\mathbf{B}\)</span> (not a parameter vector <span class="math inline">\([x_1, x_2]\)</span>) and we compute
+the gradient of cross-entropy (by means of <code>grad_cross_entropy()</code>),
+not the gradient of <span class="math inline">\(g\)</span>.</p>
+<p>Note that a call to <code>system.time(expr)</code> measures the time (in seconds)
+spent evaluating an expression <code>expr</code>.</p>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" title="1"><span class="co"># random matrix of size 785x10 - initial guess</span></a>
+<a class="sourceLine" id="cb532-2" title="2">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
+<a class="sourceLine" id="cb532-3" title="3">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
+<a class="sourceLine" id="cb532-4" title="4">eta &lt;-<span class="st"> </span><span class="fl">0.1</span>   <span class="co"># learning rate</span></a>
+<a class="sourceLine" id="cb532-5" title="5">maxit &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># number of GD iterations</span></a>
+<a class="sourceLine" id="cb532-6" title="6"><span class="kw">system.time</span>({ <span class="co"># measure time spent</span></a>
+<a class="sourceLine" id="cb532-7" title="7">    <span class="co"># for simplicity, we stop only when we reach maxit</span></a>
+<a class="sourceLine" id="cb532-8" title="8">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb532-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
+<a class="sourceLine" id="cb532-10" title="10">            X_train1, Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a>
+<a class="sourceLine" id="cb532-11" title="11">    }</a>
+<a class="sourceLine" id="cb532-12" title="12">}) <span class="co"># `user` - processing time in seconds:</span></a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##  48.798   7.757  32.784</code></pre>
+<p>Unfortunately, the method’s convergence is really slow
+(we are optimising over <span class="math inline">\(7850\)</span> parameters…)
+and the results after 100 iterations are disappointing:</p>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb534-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
+<pre><code>## [1] 0.4646167</code></pre>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb536-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
+<pre><code>## [1] 0.4735</code></pre>
+<p>Recall that in the previous chapter
+we obtained much better classification accuracy by using the <code>keras</code> package.
+What are we doing wrong then? Maybe <code>keras</code> implements some Super-Fancy
+Hyper Optimisation Framework (TM) (R) that we could get access to for
+only $19.99 per month?</p>
+</div>
+<div id="stochastic-gradient-descent-sgd" class="section level3">
+<h3><span class="header-section-number">6.3.5</span> Stochastic Gradient Descent (SGD) (*)</h3>
+<p>In turns out that there’s a very simple cure for the slow convergence of our
+method.</p>
+<p>It might be shocking for some, but sometimes the true global minimum
+of cross-entropy for the whole training set
+is not exactly what we <em>really</em> want.
+In our predictive modelling task, we are minimising train error,
+but what we actually desire is to minimise the test error
+(which we cannot refer to while training = no cheating!).</p>
+<p>It is therefore rational to assume that both the train and the test set
+consist of random digits independently sampled from the set of “all the possible
+digits out there in the world”.</p>
+<p>Looking at the original objective (cross-entropy):</p>
+<p><span class="math display">\[
+E(\mathbf{B}) =
+-\frac{1}{n^\text{train}} \sum_{i=1}^{n^\text{train}}
+\log \Pr(Y=y_i^\text{train}|\mathbf{x}_{i,\cdot}^\text{train},\mathbf{B}).
+\]</span></p>
+<p>How about we try fitting to different random samples of the train set
+in each iteration of the gradient descent method
+instead of fitting to the whole train set?</p>
+<p><span class="math display">\[
+E(\mathbf{B}) \simeq
+-\frac{1}{b} \sum_{i=1}^b
+\log \Pr(Y=y_{\text{random\_index}_i}^\text{train}|\mathbf{x}_{\text{random\_index}_i,\cdot}^\text{train},\mathbf{B}),
+\]</span></p>
+<p>where <span class="math inline">\(b\)</span> is some fixed batch size.</p>
+<p>Such a scheme is often called <strong>stochastic gradient descent</strong>.</p>
+<dl>
+<dt>Remark.</dt>
+<dd><p>Technically, this is sometimes referred to as <strong>mini-batch</strong> gradient descent;
+there are a few variations popular in the literature, we pick the most intuitive now.</p>
+</dd>
+</dl>
+<p>Stochastic gradient descent can be implemented very easily:</p>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
+<a class="sourceLine" id="cb538-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
+<a class="sourceLine" id="cb538-3" title="3">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb538-4" title="4">maxit &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb538-5" title="5">batch_size &lt;-<span class="st"> </span><span class="dv">32</span></a>
+<a class="sourceLine" id="cb538-6" title="6"><span class="kw">system.time</span>({</a>
+<a class="sourceLine" id="cb538-7" title="7">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb538-8" title="8">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(X_train1), <span class="dt">size=</span>batch_size)</a>
+<a class="sourceLine" id="cb538-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
+<a class="sourceLine" id="cb538-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
+<a class="sourceLine" id="cb538-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
+<a class="sourceLine" id="cb538-12" title="12">        )</a>
+<a class="sourceLine" id="cb538-13" title="13">    }</a>
+<a class="sourceLine" id="cb538-14" title="14">})</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.344   0.007   0.093</code></pre>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
+<pre><code>## [1] 0.4619833</code></pre>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
+<pre><code>## [1] 0.4693</code></pre>
+<p>The errors are much worse but at least we got the (useless)
+solution very quickly. That’s the “fail fast” rule in practice.</p>
+<p>However, why don’t we increase the number of iterations and see what
+happens? We’ve allowed the classic gradient descent to scrabble around
+the MNIST dataset for almost 2 minutes.</p>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
+<a class="sourceLine" id="cb544-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
+<a class="sourceLine" id="cb544-3" title="3">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb544-4" title="4">maxit &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb544-5" title="5">batch_size &lt;-<span class="st"> </span><span class="dv">32</span></a>
+<a class="sourceLine" id="cb544-6" title="6"><span class="kw">system.time</span>({</a>
+<a class="sourceLine" id="cb544-7" title="7">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb544-8" title="8">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(X_train1), <span class="dt">size=</span>batch_size)</a>
+<a class="sourceLine" id="cb544-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
+<a class="sourceLine" id="cb544-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
+<a class="sourceLine" id="cb544-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
+<a class="sourceLine" id="cb544-12" title="12">        )</a>
+<a class="sourceLine" id="cb544-13" title="13">    }</a>
+<a class="sourceLine" id="cb544-14" title="14">})</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##  30.604   0.347   7.743</code></pre>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
+<pre><code>## [1] 0.8922167</code></pre>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
+<pre><code>## [1] 0.8935</code></pre>
+<p>Bingo! Let’s take a closer look at how the train/test error
+behaves in each iteration for different batch sizes.
+Figures <a href="continuous-optimisation-with-iterative-algorithms.html#fig:mnist_sgd">13</a> and <a href="continuous-optimisation-with-iterative-algorithms.html#fig:mnist_sgd2b">14</a> depict
+the cases of <code>batch_size</code> of 32 and 128, respectively.</p>
+<p>The time needed to go through 10000 iterations with batch size of 32 is:</p>
+<pre><code>##    user  system elapsed 
+##  75.064   0.032  32.161</code></pre>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/mnist_sgd-1.svg" alt="Figure 13: Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 32" id="fig:mnist_sgd" />
+<p class="caption">Figure 13: Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 32</p>
+</div>
+<p>What’s more, batch size of 128 takes:</p>
+<pre><code>##    user  system elapsed 
+## 157.655   0.021  52.851</code></pre>
+<div class="figure">
+<img src="06-optimisation-iterative-figures/mnist_sgd2b-1.svg" alt="Figure 14: Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 128" id="fig:mnist_sgd2b" />
+<p class="caption">Figure 14: Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 128</p>
+</div>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Draw conclusions.</p>
+</div>
+</div>
+</div>
+<div id="outro-5" class="section level2">
+<h2><span class="header-section-number">6.4</span> Outro</h2>
+<div id="remarks-5" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Remarks</h3>
+<p>Solving continuous problems with many variables (e.g., deep neural networks)
+is time consuming – the more variables to optimise over (e.g.,
+model parameters, think the number of interconnections between all the neurons), the slower
+the optimisation process.</p>
+<p>Moreover, it might be the case that the sole objective function takes long
+to compute (think of image classification with large training samples).</p>
+<!--
+small number of variables, a function's value is computed quickly
+-- iterative methods like BFGS tend to work well
+
+large number of variables, computing the objective is costly
+(think deep neural network learning from 100k+ examples)
+-- use stochastic gradient descent or its variations
+-->
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) Although theoretically possible, good luck
+fitting a logistic regression model to MNIST with <code>optim()</code>’s BFGS – there are 7850 variables!</p>
+</dd>
+</dl>
+<p>Training <em>deep</em> neural networks with SGD is even slower (more parameters),
+but there is a trick to propagate weight updates layer by layer,
+called <em>backpropagation</em> (actually used in every neural network library),
+see, e.g., <span class="citation">(Sarle &amp; others <a href="references.html#ref-aifaq">2002</a>)</span> and <span class="citation">(Goodfellow et al. <a href="references.html#ref-deeplearn">2016</a>)</span>.
+Moreover, <code>keras</code> and similar libraries implement automatic differentiation
+procedures that make its user’s life much easier (swiping some of the tedious
+math under the comfy carpet).</p>
+<div style="margin-top: 1em">
+
+</div>
+<p><code>keras</code> implements various optimisers that
+we can refer to in the <code>compile()</code> function,
+see
+<a href="https://keras.rstudio.com/reference/compile.html" class="uri">https://keras.rstudio.com/reference/compile.html</a>
+and
+<a href="https://keras.io/optimizers/" class="uri">https://keras.io/optimizers/</a>:</p>
+<ul>
+<li><p><code>SGD</code> – stochastic gradient descent supporting momentum and learning rate decay,</p></li>
+<li><p><code>RMSprop</code> – divides the gradient by a running average of its recent magnitude,</p></li>
+<li><p><code>Adam</code> – adaptive momentum</p></li>
+</ul>
+<p>and so on. These are all non-complicated variations of the pure stochastic GD.
+Some of them are just tricks that work well in some examples
+and destroy the convergence
+on other ones.
+You can get into their details in a dedicated book/course aimed at covering
+neural networks (see, e.g., <span class="citation">(Sarle &amp; others <a href="references.html#ref-aifaq">2002</a>)</span>, <span class="citation">(Goodfellow et al. <a href="references.html#ref-deeplearn">2016</a>)</span>),
+but we have already developed some
+good intuitions here.</p>
+<div style="margin-top: 1em">
+
+</div>
+<p>Keep in mind that with methods such as GD or SGD, there is no guarantee we reach a minimum,
+but an approximate solution is better than no solution at all.
+Also sometimes (especially in ML applications)
+we don’t really need the actual minimum (with respect to the train set).
+Those “mathematically pure” will find that a bit… unaesthetic,
+but here we are. Better <em>a</em> solution than no solution at all, remember?
+But… is it really always the case though?</p>
+<!--
+### Note on Search Spaces
+
+
+
+Finally, note that most often the choice of the search space $D$ in an continuous optimisation
+problem can be:
+
+
+- $D=\mathbb{R}^p$ -- continuous unconstrained (typical in ML)
+
+- $D=[a_1,b_1]\times\dots\times[a_n,b_n]$ -- continuous with box constraints
+
+    > see `method="L-BFGS-B"` in `optim()`
+
+- constrained with $k$ linear inequality constraints
+
+    $a_{1,1} x_1 + \dots + a_{1,p} x_p \le b_1$, ...,
+    $a_{k,1} x_1 + \dots + a_{k,p} x_p \le b_k$
+
+    > (\*) supported in linear and quadratic programming
+    solvers, where the objective function is from a very specific class
+
+-->
+</div>
+<div id="further-reading-5" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Further Reading</h3>
+<p>Recommended further reading: <span class="citation">(Nocedal &amp; Wright <a href="references.html#ref-nocedal_wright">2006</a>)</span> and <span class="citation">(Fletcher <a href="references.html#ref-fletcher">2008</a>)</span>.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="shallow-and-deep-neural-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="clustering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": "lmlcr.pdf",
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
