@@ -9,7 +9,19 @@
 ### Introduction
 
 
+<!--
+TODO: If this is the first chapter where you use `iris`, tell about it
 
+Definitely some cooler datasets are needed for the Exercises sec.
+
+
+Exercise: dimensionality reduction with auto-encoders?
+
+Exercise: apply genieclust
+
+Exercise: implement MDS with optim?
+
+-->
 
 
 In **unsupervised learning** (learning without a teacher),
@@ -89,7 +101,7 @@ points(iris[idx,3], iris[idx,2], cex=3, pch=4, col=2)
 . . .
 
 Finally, the aim of **clustering** is to automatically discover some *naturally occurring*
-subgroups in the data set.
+subgroups in the data set, compare Figure {@fig:clustering_illustration}.
 For example, these may be customers having different shopping patterns
 (such as "young parents", "students", "boomers").
 
