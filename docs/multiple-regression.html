@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 17:38 (86399b4)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 18:02 (2b85820)</a></li>
 
 </ul>
 
@@ -1160,13 +1160,25 @@ some form of variable selection, e.g., lasso regression.
 But these minimise a different objective.</p>
 </dd>
 </dl>
-<p>Forward selection example:</p>
+<p>First, a forward selection example.
+We need a data sample to work with:</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
 <a class="sourceLine" id="cb166-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
-<a class="sourceLine" id="cb166-3" title="3">      <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
-<a class="sourceLine" id="cb166-4" title="4"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C), <span class="co"># empty model</span></a>
-<a class="sourceLine" id="cb166-5" title="5">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C)), <span class="co"># full model</span></a>
-<a class="sourceLine" id="cb166-6" title="6">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb166-3" title="3">      <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a></code></pre></div>
+<p>Then, a formula that represents a model with no variables
+(model from which we’ll start our search):</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1">(model_empty &lt;-<span class="st"> </span>Rating<span class="op">~</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## Rating ~ 1</code></pre>
+<p>Last, we need a model that includes all the variables.
+We’re too lazy to list all of them manually, therefore,
+we can use the <code>model.frame()</code> function to generate
+a corresponding formula:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">(model_full &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">model.frame</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C))) <span class="co"># all variables</span></a></code></pre></div>
+<pre><code>## Rating ~ Income + Age + Education + Balance</code></pre>
+<p>Now we are ready.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(model_empty, <span class="dt">data=</span>C), <span class="co"># starting model</span></a>
+<a class="sourceLine" id="cb171-2" title="2">    <span class="dt">scope=</span>model_full,         <span class="co"># gives variables to consider</span></a>
+<a class="sourceLine" id="cb171-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>)</a></code></pre></div>
 <pre><code>## Start:  AIC=3055.75
 ## Rating ~ 1
 ## 
@@ -1212,11 +1224,18 @@ But these minimise a different objective.</p>
 ##    173.8300       2.1668       0.1839       0.2234  
 ##   Education  
 ##     -0.9601</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C))</a></code></pre></div>
+<pre><code>## Rating ~ Income + Age + Education + Balance</code></pre>
 <p>The full model has been selected.</p>
-<p>Backward elimination example:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C), <span class="co"># full model</span></a>
-<a class="sourceLine" id="cb169-2" title="2">     <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C)), <span class="co"># empty model</span></a>
-<a class="sourceLine" id="cb169-3" title="3">     <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
+<!-- TODO: detailed explanation what's happening here -->
+<div style="margin-top: 1em">
+
+</div>
+<p>And now for something completely different –
+a backward elimination example:</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(model_full, <span class="dt">data=</span>C), <span class="co"># from</span></a>
+<a class="sourceLine" id="cb176-2" title="2">     <span class="dt">scope=</span>model_empty,      <span class="co"># to</span></a>
+<a class="sourceLine" id="cb176-3" title="3">     <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
 <pre><code>## Start:  AIC=2190.1
 ## Rating ~ Income + Age + Education + Balance
 ## 
@@ -1235,14 +1254,18 @@ But these minimise a different objective.</p>
 ##    173.8300       2.1668       0.2234      -0.9601  
 ##     Balance  
 ##      0.1839</code></pre>
-<p>The full model is considered the best.</p>
+<p>The full model is considered the best again.</p>
+<!-- TODO: detailed explanation what's happening here -->
+<div style="margin-top: 1em">
+
+</div>
 <p>Forward selection example – full dataset:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1">C &lt;-<span class="st"> </span>Credit[,  <span class="co"># do not restrict to Credit$Balance&gt;0</span></a>
-<a class="sourceLine" id="cb172-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
-<a class="sourceLine" id="cb172-3" title="3">      <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
-<a class="sourceLine" id="cb172-4" title="4"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C), <span class="co"># empty model</span></a>
-<a class="sourceLine" id="cb172-5" title="5">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C)), <span class="co"># full model</span></a>
-<a class="sourceLine" id="cb172-6" title="6">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1">C &lt;-<span class="st"> </span>Credit[,  <span class="co"># do not restrict to Credit$Balance&gt;0</span></a>
+<a class="sourceLine" id="cb179-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
+<a class="sourceLine" id="cb179-3" title="3">      <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
+<a class="sourceLine" id="cb179-4" title="4"><span class="kw">step</span>(<span class="kw">lm</span>(model_empty, <span class="dt">data=</span>C),</a>
+<a class="sourceLine" id="cb179-5" title="5">    <span class="dt">scope=</span>model_full,</a>
+<a class="sourceLine" id="cb179-6" title="6">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>)</a></code></pre></div>
 <pre><code>## Start:  AIC=4034.31
 ## Rating ~ 1
 ## 
@@ -1276,11 +1299,15 @@ But these minimise a different objective.</p>
 ## Coefficients:
 ## (Intercept)      Balance       Income  
 ##    145.3506       0.2129       2.1863</code></pre>
-<p>This procedure suggests including only the <code>Balance</code> and <code>Income</code> variables.</p>
+<p>This procedure suggests including only the <code>Balance</code> and <code>Income</code>
+variables.</p>
+<div style="margin-top: 1em">
+
+</div>
 <p>Backward elimination example – full dataset:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(Rating<span class="op">~</span>., <span class="dt">data=</span>C), <span class="co"># full model</span></a>
-<a class="sourceLine" id="cb175-2" title="2">     <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(Rating<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>C)), <span class="co"># empty model</span></a>
-<a class="sourceLine" id="cb175-3" title="3">     <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">step</span>(<span class="kw">lm</span>(model_full, <span class="dt">data=</span>C), <span class="co"># full model</span></a>
+<a class="sourceLine" id="cb182-2" title="2">     <span class="dt">scope=</span>model_empty, <span class="co"># empty model</span></a>
+<a class="sourceLine" id="cb182-3" title="3">     <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
 <pre><code>## Start:  AIC=2910.89
 ## Rating ~ Income + Age + Education + Balance
 ## 
@@ -1315,7 +1342,7 @@ But these minimise a different objective.</p>
 ## (Intercept)       Income      Balance  
 ##    145.3506       2.1863       0.2129</code></pre>
 <p>This procedure gives the same results as forward selection
-(however, for other data sets that is not necessarily the case).</p>
+(however, for other data sets this might not necessarily be the case).</p>
 </div>
 <div id="variable-transformation" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Variable Transformation</h3>
@@ -1352,17 +1379,17 @@ Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + \dots + \beta_d X^d.
 \]</span></p>
 <p>Such models can be fitted with the <code>lm()</code> function based on the formula
 of the form <code>Y~poly(X, d, raw=TRUE)</code> or <code>Y~X+I(X^2)+I(X^3)+...</code></p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">f1_<span class="dv">1</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1)</a>
-<a class="sourceLine" id="cb178-2" title="2">f1_<span class="dv">3</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">3</span>)) <span class="co"># also: Y~poly(X1, 3, raw=TRUE)</span></a>
-<a class="sourceLine" id="cb178-3" title="3">f1_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X1, <span class="dv">10</span>, <span class="dt">raw=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1">f1_<span class="dv">1</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1)</a>
+<a class="sourceLine" id="cb185-2" title="2">f1_<span class="dv">3</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">3</span>)) <span class="co"># also: Y~poly(X1, 3, raw=TRUE)</span></a>
+<a class="sourceLine" id="cb185-3" title="3">f1_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X1, <span class="dv">10</span>, <span class="dt">raw=</span><span class="ot">TRUE</span>))</a></code></pre></div>
 <p>Above we have fitted the polynomials of degrees 1, 3 and 10.
 Note that a polynomial of degree 1 is just a line.</p>
 <p>Let us depict the three models:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">plot</span>(X1, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1100</span>))</a>
-<a class="sourceLine" id="cb179-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(X1), <span class="kw">max</span>(X1), <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb179-3" title="3"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">1</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb179-4" title="4"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">3</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb179-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">10</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="kw">plot</span>(X1, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1100</span>))</a>
+<a class="sourceLine" id="cb186-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(X1), <span class="kw">max</span>(X1), <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb186-3" title="3"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">1</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb186-4" title="4"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">3</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb186-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">10</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/poly2-1.svg" alt="Figure 12: Polynomials of different degrees fitted to the Credit dataset" id="fig:poly2" />
 <p class="caption">Figure 12: Polynomials of different degrees fitted to the Credit dataset</p>
@@ -1380,36 +1407,36 @@ decrease as <code>Balance</code> increases.</p>
 but fails to produce good results for the points that are yet to come.</p>
 <p>We say that it <strong>generalises</strong> poorly to unseen data.</p>
 <p>Assume our true model is of the form:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">true_model &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="dv">3</span><span class="op">*</span>x<span class="op">^</span><span class="dv">3</span><span class="op">+</span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">true_model &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="dv">3</span><span class="op">*</span>x<span class="op">^</span><span class="dv">3</span><span class="op">+</span><span class="dv">5</span></a></code></pre></div>
 <p>Let’s generate the following random sample from this model (with <span class="math inline">\(Y\)</span> subject
 to error), see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE1">13</a>:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>) <span class="co"># to assure reproducibility</span></a>
-<a class="sourceLine" id="cb181-2" title="2">n &lt;-<span class="st"> </span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb181-3" title="3">X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb181-4" title="4">Y &lt;-<span class="st"> </span><span class="kw">true_model</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(n, <span class="dt">sd=</span><span class="fl">0.2</span>) <span class="co"># add normally-distributed noise</span></a></code></pre></div>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">plot</span>(X, Y)</a>
-<a class="sourceLine" id="cb182-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb182-3" title="3"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>) <span class="co"># to assure reproducibility</span></a>
+<a class="sourceLine" id="cb188-2" title="2">n &lt;-<span class="st"> </span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb188-3" title="3">X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb188-4" title="4">Y &lt;-<span class="st"> </span><span class="kw">true_model</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(n, <span class="dt">sd=</span><span class="fl">0.2</span>) <span class="co"># add normally-distributed noise</span></a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1"><span class="kw">plot</span>(X, Y)</a>
+<a class="sourceLine" id="cb189-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb189-3" title="3"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/figBIASVARIANCE1-1.svg" alt="Figure 13: Synthetic data generated by means of the formula Y=3x^3+5 (+ noise)" id="fig:figBIASVARIANCE1" />
 <p class="caption">Figure 13: Synthetic data generated by means of the formula <span class="math inline">\(Y=3x^3+5\)</span> (<span class="math inline">\(+\)</span> noise)</p>
 </div>
 <p>Let’s fit polynomials of different degrees, see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE2">14</a>.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="kw">plot</span>(X, Y)</a>
-<a class="sourceLine" id="cb183-2" title="2"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb183-3" title="3"></a>
-<a class="sourceLine" id="cb183-4" title="4">dmax &lt;-<span class="st"> </span><span class="dv">11</span> <span class="co"># maximal polynomial degree</span></a>
-<a class="sourceLine" id="cb183-5" title="5">MSE_train &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
-<a class="sourceLine" id="cb183-6" title="6">MSE_test  &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
-<a class="sourceLine" id="cb183-7" title="7"><span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>dmax) { <span class="co"># for every polynomial degree</span></a>
-<a class="sourceLine" id="cb183-8" title="8">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X, d, <span class="dt">raw=</span><span class="ot">TRUE</span>)) <span class="co"># fit a d-degree polynomial</span></a>
-<a class="sourceLine" id="cb183-9" title="9">    y &lt;-<span class="st"> </span><span class="kw">predict</span>(f, <span class="kw">data.frame</span>(<span class="dt">X=</span>x))</a>
-<a class="sourceLine" id="cb183-10" title="10">    <span class="kw">lines</span>(x, y, <span class="dt">col=</span>d)</a>
-<a class="sourceLine" id="cb183-11" title="11">    <span class="co"># MSE on given random X,Y:</span></a>
-<a class="sourceLine" id="cb183-12" title="12">    MSE_train[d] &lt;-<span class="st"> </span><span class="kw">mean</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb183-13" title="13">    <span class="co"># MSE on many more points:</span></a>
-<a class="sourceLine" id="cb183-14" title="14">    MSE_test[d]  &lt;-<span class="st"> </span><span class="kw">mean</span>((y<span class="op">-</span><span class="kw">true_model</span>(x))<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb183-15" title="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1"><span class="kw">plot</span>(X, Y)</a>
+<a class="sourceLine" id="cb190-2" title="2"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb190-3" title="3"></a>
+<a class="sourceLine" id="cb190-4" title="4">dmax &lt;-<span class="st"> </span><span class="dv">11</span> <span class="co"># maximal polynomial degree</span></a>
+<a class="sourceLine" id="cb190-5" title="5">MSE_train &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
+<a class="sourceLine" id="cb190-6" title="6">MSE_test  &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
+<a class="sourceLine" id="cb190-7" title="7"><span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>dmax) { <span class="co"># for every polynomial degree</span></a>
+<a class="sourceLine" id="cb190-8" title="8">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X, d, <span class="dt">raw=</span><span class="ot">TRUE</span>)) <span class="co"># fit a d-degree polynomial</span></a>
+<a class="sourceLine" id="cb190-9" title="9">    y &lt;-<span class="st"> </span><span class="kw">predict</span>(f, <span class="kw">data.frame</span>(<span class="dt">X=</span>x))</a>
+<a class="sourceLine" id="cb190-10" title="10">    <span class="kw">lines</span>(x, y, <span class="dt">col=</span>d)</a>
+<a class="sourceLine" id="cb190-11" title="11">    <span class="co"># MSE on given random X,Y:</span></a>
+<a class="sourceLine" id="cb190-12" title="12">    MSE_train[d] &lt;-<span class="st"> </span><span class="kw">mean</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb190-13" title="13">    <span class="co"># MSE on many more points:</span></a>
+<a class="sourceLine" id="cb190-14" title="14">    MSE_test[d]  &lt;-<span class="st"> </span><span class="kw">mean</span>((y<span class="op">-</span><span class="kw">true_model</span>(x))<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb190-15" title="15">}</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/figBIASVARIANCE2-1.svg" alt="Figure 14: Polynomials fitted to our synthetic dataset" id="fig:figBIASVARIANCE2" />
 <p class="caption">Figure 14: Polynomials fitted to our synthetic dataset</p>
@@ -1423,12 +1450,12 @@ boundaries is known as the Runge phenomenon.</p>
 </dl>
 <p>Compare the mean squared error (MSE) for the observed vs. future data points,
 see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE3">15</a>.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1"><span class="kw">matplot</span>(<span class="dv">1</span><span class="op">:</span>dmax, <span class="kw">cbind</span>(MSE_train, MSE_test), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>,</a>
-<a class="sourceLine" id="cb184-2" title="2">    <span class="dt">ylim=</span><span class="kw">c</span>(<span class="fl">1e-3</span>, <span class="fl">2e3</span>), <span class="dt">log=</span><span class="st">&quot;y&quot;</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb184-3" title="3">    <span class="dt">xlab=</span><span class="st">&quot;Model complexity (polynomial degree)&quot;</span>,</a>
-<a class="sourceLine" id="cb184-4" title="4">    <span class="dt">ylab=</span><span class="st">&quot;MSE&quot;</span>)</a>
-<a class="sourceLine" id="cb184-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;MSE on original data&quot;</span>, <span class="st">&quot;MSE on the whole range&quot;</span>),</a>
-<a class="sourceLine" id="cb184-6" title="6">    <span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">matplot</span>(<span class="dv">1</span><span class="op">:</span>dmax, <span class="kw">cbind</span>(MSE_train, MSE_test), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>,</a>
+<a class="sourceLine" id="cb191-2" title="2">    <span class="dt">ylim=</span><span class="kw">c</span>(<span class="fl">1e-3</span>, <span class="fl">2e3</span>), <span class="dt">log=</span><span class="st">&quot;y&quot;</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb191-3" title="3">    <span class="dt">xlab=</span><span class="st">&quot;Model complexity (polynomial degree)&quot;</span>,</a>
+<a class="sourceLine" id="cb191-4" title="4">    <span class="dt">ylab=</span><span class="st">&quot;MSE&quot;</span>)</a>
+<a class="sourceLine" id="cb191-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;MSE on original data&quot;</span>, <span class="st">&quot;MSE on the whole range&quot;</span>),</a>
+<a class="sourceLine" id="cb191-6" title="6">    <span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/figBIASVARIANCE3-1.svg" alt="Figure 15: MSE on the dataset used to construct the model vs. MSE on a whole range of points as function of the polynomial degree" id="fig:figBIASVARIANCE3" />
 <p class="caption">Figure 15: MSE on the dataset used to construct the model vs. MSE on a whole range of points as function of the polynomial degree</p>
@@ -1473,7 +1500,7 @@ example of unsuccessful modelling
 <div id="anscombes-quartet-revisited" class="section level3">
 <h3><span class="header-section-number">2.4.1</span> Anscombe’s Quartet Revisited</h3>
 <p>Consider the <code>anscombe</code> database once again:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="kw">print</span>(anscombe) <span class="co"># `anscombe` is a built-in object</span></a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1"><span class="kw">print</span>(anscombe) <span class="co"># `anscombe` is a built-in object</span></a></code></pre></div>
 <pre><code>##    x1 x2 x3 x4    y1   y2    y3    y4
 ## 1  10 10 10  8  8.04 9.14  7.46  6.58
 ## 2   8  8  8  8  6.95 8.14  6.77  5.76
@@ -1496,10 +1523,10 @@ split the above data into four data frames
 <p>We’ve done that already, see Figure <a href="multiple-regression.html#fig:anscombe3">16</a>.
 What a wonderful exercise, thank you – effective
 learning is often done by repeating stuff.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">ans1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x1, <span class="dt">y=</span>anscombe<span class="op">$</span>y1)</a>
-<a class="sourceLine" id="cb187-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans1)</a>
-<a class="sourceLine" id="cb187-3" title="3"><span class="kw">plot</span>(ans1<span class="op">$</span>x, ans1<span class="op">$</span>y)</a>
-<a class="sourceLine" id="cb187-4" title="4"><span class="kw">abline</span>(f1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1">ans1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x1, <span class="dt">y=</span>anscombe<span class="op">$</span>y1)</a>
+<a class="sourceLine" id="cb194-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans1)</a>
+<a class="sourceLine" id="cb194-3" title="3"><span class="kw">plot</span>(ans1<span class="op">$</span>x, ans1<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb194-4" title="4"><span class="kw">abline</span>(f1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/anscombe3-1.svg" alt="Figure 16: Fitted regression line for ans1" id="fig:anscombe3" />
 <p class="caption">Figure 16: Fitted regression line for <code>ans1</code></p>
@@ -1510,12 +1537,12 @@ learning is often done by repeating stuff.</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>How to fit a polynomial model is explained above.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">ans2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x2, <span class="dt">y=</span>anscombe<span class="op">$</span>y2)</a>
-<a class="sourceLine" id="cb188-2" title="2">f2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>ans2)</a>
-<a class="sourceLine" id="cb188-3" title="3"><span class="kw">plot</span>(ans2<span class="op">$</span>x, ans2<span class="op">$</span>y)</a>
-<a class="sourceLine" id="cb188-4" title="4">x_plot &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">4</span>, <span class="dv">14</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb188-5" title="5">y_plot &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(<span class="dt">x=</span>x_plot))</a>
-<a class="sourceLine" id="cb188-6" title="6"><span class="kw">lines</span>(x_plot, y_plot, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1">ans2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x2, <span class="dt">y=</span>anscombe<span class="op">$</span>y2)</a>
+<a class="sourceLine" id="cb195-2" title="2">f2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>ans2)</a>
+<a class="sourceLine" id="cb195-3" title="3"><span class="kw">plot</span>(ans2<span class="op">$</span>x, ans2<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb195-4" title="4">x_plot &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">4</span>, <span class="dv">14</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb195-5" title="5">y_plot &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(<span class="dt">x=</span>x_plot))</a>
+<a class="sourceLine" id="cb195-6" title="6"><span class="kw">lines</span>(x_plot, y_plot, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/anscombe4-1.svg" alt="Figure 17: Fitted quadratic model for ans2" id="fig:anscombe4" />
 <p class="caption">Figure 17: Fitted quadratic model for <code>ans2</code></p>
@@ -1531,8 +1558,8 @@ and fit a regression line.</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>Let’s plot the data set first, see Figure <a href="multiple-regression.html#fig:anscombe5">18</a>.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">ans3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x3, <span class="dt">y=</span>anscombe<span class="op">$</span>y3)</a>
-<a class="sourceLine" id="cb189-2" title="2"><span class="kw">plot</span>(ans3<span class="op">$</span>x, ans3<span class="op">$</span>y)</a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1">ans3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>anscombe<span class="op">$</span>x3, <span class="dt">y=</span>anscombe<span class="op">$</span>y3)</a>
+<a class="sourceLine" id="cb196-2" title="2"><span class="kw">plot</span>(ans3<span class="op">$</span>x, ans3<span class="op">$</span>y)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/anscombe5-1.svg" alt="Figure 18: Scatter plot for ans3" id="fig:anscombe5" />
 <p class="caption">Figure 18: Scatter plot for <code>ans3</code></p>
@@ -1540,12 +1567,12 @@ and fit a regression line.</p>
 <p>Indeed, the observation at <span class="math inline">\(x\simeq 13\)</span> is an obvious outlier.
 Perhaps the easiest way
 to remove it is to call:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">ans3b &lt;-<span class="st"> </span>ans3[ans3<span class="op">$</span>y<span class="op">&lt;=</span><span class="dv">12</span>,] <span class="co"># the outlier is definitely at y&gt;12</span></a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1">ans3b &lt;-<span class="st"> </span>ans3[ans3<span class="op">$</span>y<span class="op">&lt;=</span><span class="dv">12</span>,] <span class="co"># the outlier is definitely at y&gt;12</span></a></code></pre></div>
 <p>We could also use the condition <code>y &lt; max(y)</code>, amongst others.</p>
 <p>Now let’s fit the linear model:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">f3b &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans3b)</a>
-<a class="sourceLine" id="cb191-2" title="2"><span class="kw">plot</span>(ans3b<span class="op">$</span>x, ans3b<span class="op">$</span>y)</a>
-<a class="sourceLine" id="cb191-3" title="3"><span class="kw">abline</span>(f3b, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1">f3b &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x, <span class="dt">data=</span>ans3b)</a>
+<a class="sourceLine" id="cb198-2" title="2"><span class="kw">plot</span>(ans3b<span class="op">$</span>x, ans3b<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb198-3" title="3"><span class="kw">abline</span>(f3b, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/anscombe7-1.svg" alt="Figure 19: Scatter plot for ans3 with the outlier removed and the fitted linear model" id="fig:anscombe7" />
 <p class="caption">Figure 19: Scatter plot for <code>ans3</code> with the outlier removed and the fitted linear model</p>
@@ -1562,12 +1589,12 @@ It consists of country names, their population,
 area, GDP, mortality rates etc. We have scraped it from the CIA website
 at <a href="https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html" class="uri">https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html</a>
 and compiled into a single file on 3 April 2020.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb192-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb199-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Here is a preview of a few features for 3 selected countries (see <code>help("%in%")</code>):</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">factbook[factbook<span class="op">$</span>country <span class="op">%in%</span></a>
-<a class="sourceLine" id="cb193-2" title="2"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;Australia&quot;</span>, <span class="st">&quot;New Zealand&quot;</span>, <span class="st">&quot;United States&quot;</span>),</a>
-<a class="sourceLine" id="cb193-3" title="3">    <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;area&quot;</span>, <span class="st">&quot;population&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1">factbook[factbook<span class="op">$</span>country <span class="op">%in%</span></a>
+<a class="sourceLine" id="cb200-2" title="2"><span class="st">    </span><span class="kw">c</span>(<span class="st">&quot;Australia&quot;</span>, <span class="st">&quot;New Zealand&quot;</span>, <span class="st">&quot;United States&quot;</span>),</a>
+<a class="sourceLine" id="cb200-3" title="3">    <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;area&quot;</span>, <span class="st">&quot;population&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>)]</a></code></pre></div>
 <pre><code>##           country    area population gdp_per_capita_ppp
 ## 15      Australia 7741220   25466459              50400
 ## 169   New Zealand  268838    4925477              39000
@@ -1633,8 +1660,8 @@ the two names we wish to remove), `NA` is generated.
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>To recall, to generate a list of indexes that produce an ordered
 version of a numeric vector, we need to call the <code>order()</code> function.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1">which_top &lt;-<span class="st"> </span><span class="kw">tail</span>(<span class="kw">order</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.last=</span><span class="ot">FALSE</span>), <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb195-2" title="2">factbook[which_top, <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1">which_top &lt;-<span class="st"> </span><span class="kw">tail</span>(<span class="kw">order</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.last=</span><span class="ot">FALSE</span>), <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb202-2" title="2">factbook[which_top, <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>)]</a></code></pre></div>
 <pre><code>##           country gdp_per_capita_ppp
 ## 113       Ireland              73200
 ## 35         Brunei              78900
@@ -1662,18 +1689,18 @@ A quick glimpse at the manual page
 (<code>?cor</code>) reveals that computing the correlation between a column
 and all the other ones (of course, except <code>country</code>, which
 is non-numeric) can be performed as follows.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1">r &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook<span class="op">$</span>gdp_per_capita_ppp,</a>
-<a class="sourceLine" id="cb197-2" title="2">    factbook[,<span class="op">!</span>(<span class="kw">names</span>(factbook) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>))],</a>
-<a class="sourceLine" id="cb197-3" title="3">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)[<span class="dv">1</span>,]</a>
-<a class="sourceLine" id="cb197-4" title="4">or &lt;-<span class="st"> </span><span class="kw">order</span>(r) <span class="co"># ordering permutation (indexes)</span></a>
-<a class="sourceLine" id="cb197-5" title="5">r[<span class="kw">head</span>(or, <span class="dv">5</span>)] <span class="co"># first 5 ordered indexes</span></a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1">r &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook<span class="op">$</span>gdp_per_capita_ppp,</a>
+<a class="sourceLine" id="cb204-2" title="2">    factbook[,<span class="op">!</span>(<span class="kw">names</span>(factbook) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;gdp_per_capita_ppp&quot;</span>))],</a>
+<a class="sourceLine" id="cb204-3" title="3">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)[<span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb204-4" title="4">or &lt;-<span class="st"> </span><span class="kw">order</span>(r) <span class="co"># ordering permutation (indexes)</span></a>
+<a class="sourceLine" id="cb204-5" title="5">r[<span class="kw">head</span>(or, <span class="dv">5</span>)] <span class="co"># first 5 ordered indexes</span></a></code></pre></div>
 <pre><code>##   infant_mortality_rate maternal_mortality_rate 
 ##              -0.7465825              -0.6700486 
 ##              birth_rate              death_rate 
 ##              -0.6082201              -0.5721644 
 ##    total_fertility_rate 
 ##              -0.5672550</code></pre>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1">r[<span class="kw">tail</span>(or, <span class="dv">5</span>)] <span class="co"># last 5 ordered indexes</span></a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1">r[<span class="kw">tail</span>(or, <span class="dv">5</span>)] <span class="co"># last 5 ordered indexes</span></a></code></pre></div>
 <pre><code>##        natural_gas_production         gross_national_saving 
 ##                     0.5689764                     0.6113255 
 ##                    median_age obesity_adult_prevalence_rate 
@@ -1697,7 +1724,7 @@ mean absolute errors (MAE) and the coefficients of determination (<span class="m
 value of the correlation coefficient now – recall that it
 is the correlation of 0 that means no linear dependence; 1 and -1
 show a strong association between a pair of variables) are:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1">(most_correlated &lt;-<span class="st"> </span><span class="kw">names</span>(r)[<span class="kw">tail</span>(<span class="kw">order</span>(<span class="kw">abs</span>(r)), <span class="dv">4</span>)])</a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1">(most_correlated &lt;-<span class="st"> </span><span class="kw">names</span>(r)[<span class="kw">tail</span>(<span class="kw">order</span>(<span class="kw">abs</span>(r)), <span class="dv">4</span>)])</a></code></pre></div>
 <pre><code>## [1] &quot;obesity_adult_prevalence_rate&quot;
 ## [2] &quot;maternal_mortality_rate&quot;      
 ## [3] &quot;infant_mortality_rate&quot;        
@@ -1710,19 +1737,19 @@ programming is often a virtue, not a flaw in one’s character.</p>
 <p>Instead, we will run a <code>for</code> loop that extracts the pairs of
 interesting columns and constructs a formula based on two vectors
 (<code>lm(Y~X)</code>), see Figure <a href="multiple-regression.html#fig:factbookA6">20</a>.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4 plots on a 2x2 grid</span></a>
-<a class="sourceLine" id="cb203-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
-<a class="sourceLine" id="cb203-3" title="3">    <span class="kw">print</span>(most_correlated[i])</a>
-<a class="sourceLine" id="cb203-4" title="4">    X &lt;-<span class="st"> </span>factbook[,<span class="st">&quot;gdp_per_capita_ppp&quot;</span>]</a>
-<a class="sourceLine" id="cb203-5" title="5">    Y &lt;-<span class="st"> </span>factbook[,most_correlated[i]]</a>
-<a class="sourceLine" id="cb203-6" title="6">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb203-7" title="7">    <span class="kw">print</span>(<span class="kw">cbind</span>(<span class="dt">RMSE=</span><span class="kw">sqrt</span>(<span class="kw">mean</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)),</a>
-<a class="sourceLine" id="cb203-8" title="8">                <span class="dt">MAE=</span><span class="kw">mean</span>(<span class="kw">abs</span>(f<span class="op">$</span>residuals)),</a>
-<a class="sourceLine" id="cb203-9" title="9">                <span class="dt">R2=</span><span class="kw">summary</span>(f)<span class="op">$</span>r.squared))</a>
-<a class="sourceLine" id="cb203-10" title="10">    <span class="kw">plot</span>(X, Y, <span class="dt">xlab=</span><span class="st">&quot;gdp_per_capita_ppp&quot;</span>,</a>
-<a class="sourceLine" id="cb203-11" title="11">               <span class="dt">ylab=</span>most_correlated[i])</a>
-<a class="sourceLine" id="cb203-12" title="12">    <span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb203-13" title="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4 plots on a 2x2 grid</span></a>
+<a class="sourceLine" id="cb210-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
+<a class="sourceLine" id="cb210-3" title="3">    <span class="kw">print</span>(most_correlated[i])</a>
+<a class="sourceLine" id="cb210-4" title="4">    X &lt;-<span class="st"> </span>factbook[,<span class="st">&quot;gdp_per_capita_ppp&quot;</span>]</a>
+<a class="sourceLine" id="cb210-5" title="5">    Y &lt;-<span class="st"> </span>factbook[,most_correlated[i]]</a>
+<a class="sourceLine" id="cb210-6" title="6">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X)</a>
+<a class="sourceLine" id="cb210-7" title="7">    <span class="kw">print</span>(<span class="kw">cbind</span>(<span class="dt">RMSE=</span><span class="kw">sqrt</span>(<span class="kw">mean</span>(f<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb210-8" title="8">                <span class="dt">MAE=</span><span class="kw">mean</span>(<span class="kw">abs</span>(f<span class="op">$</span>residuals)),</a>
+<a class="sourceLine" id="cb210-9" title="9">                <span class="dt">R2=</span><span class="kw">summary</span>(f)<span class="op">$</span>r.squared))</a>
+<a class="sourceLine" id="cb210-10" title="10">    <span class="kw">plot</span>(X, Y, <span class="dt">xlab=</span><span class="st">&quot;gdp_per_capita_ppp&quot;</span>,</a>
+<a class="sourceLine" id="cb210-11" title="11">               <span class="dt">ylab=</span>most_correlated[i])</a>
+<a class="sourceLine" id="cb210-12" title="12">    <span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb210-13" title="13">}</a></code></pre></div>
 <pre><code>## [1] &quot;obesity_adult_prevalence_rate&quot;
 ##          RMSE      MAE         R2
 ## [1,] 11.04095 8.158911 0.06219638</code></pre>
@@ -1752,12 +1779,12 @@ be deemed trustworthy. Note that 3 of the plots are evidently L-shaped.</em></p>
 (in the case of the linear models fitted by minimising
 the SSR) is the square of the correlation
 between the true <span class="math inline">\(Y\)</span>s and the predicted <span class="math inline">\(Y\)</span>s:</em></p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1">X &lt;-<span class="st"> </span>factbook[,<span class="st">&quot;gdp_per_capita_ppp&quot;</span>]</a>
-<a class="sourceLine" id="cb208-2" title="2">Y &lt;-<span class="st"> </span>factbook[,most_correlated[i]]</a>
-<a class="sourceLine" id="cb208-3" title="3">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X, <span class="dt">y=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb208-4" title="4"><span class="kw">print</span>(<span class="kw">summary</span>(f)<span class="op">$</span>r.squared)</a></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" title="1">X &lt;-<span class="st"> </span>factbook[,<span class="st">&quot;gdp_per_capita_ppp&quot;</span>]</a>
+<a class="sourceLine" id="cb215-2" title="2">Y &lt;-<span class="st"> </span>factbook[,most_correlated[i]]</a>
+<a class="sourceLine" id="cb215-3" title="3">f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X, <span class="dt">y=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb215-4" title="4"><span class="kw">print</span>(<span class="kw">summary</span>(f)<span class="op">$</span>r.squared)</a></code></pre></div>
 <pre><code>## [1] 0.4309554</code></pre>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1"><span class="kw">print</span>(<span class="kw">cor</span>(f<span class="op">$</span>fitted.values, f<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" title="1"><span class="kw">print</span>(<span class="kw">cor</span>(f<span class="op">$</span>fitted.values, f<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.4309554</code></pre>
 <p><em>Side note: Do note that RMSE and MAE are interpretable: for instance,
 average error of life expectancy prediction based on the GDP is
@@ -1769,8 +1796,8 @@ of measure at
 <div id="countries-of-the-world-most-correlated-variables" class="section level3">
 <h3><span class="header-section-number">2.4.3</span> Countries of the World – Most correlated variables (*)</h3>
 <p>Let’s get back to the World Factbook 2020 dataset (<code>world_factbook_2020.csv</code>).</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb212-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb219-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Create a data frame <code>C</code> with three columns named <code>col1</code>, <code>col2</code>
 and <code>r</code> and <span class="math inline">\(p(p-1)/2\)</span> rows,
@@ -1784,9 +1811,9 @@ of correlation coefficients between them.</p>
 4 numeric features in our dataset, so that we can keep
 track of how the R expressions we evaluate actually work.</p>
 <p>Let us compute the Pearson coefficients between chosen pairs of variables.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" title="1">R &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook[,<span class="kw">c</span>(<span class="st">&quot;area&quot;</span>, <span class="st">&quot;median_age&quot;</span>, <span class="st">&quot;birth_rate&quot;</span>, <span class="st">&quot;exports&quot;</span>)],</a>
-<a class="sourceLine" id="cb213-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>) <span class="co"># 4 selected columns</span></a>
-<a class="sourceLine" id="cb213-3" title="3"><span class="kw">print</span>(R)</a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1">R &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook[,<span class="kw">c</span>(<span class="st">&quot;area&quot;</span>, <span class="st">&quot;median_age&quot;</span>, <span class="st">&quot;birth_rate&quot;</span>, <span class="st">&quot;exports&quot;</span>)],</a>
+<a class="sourceLine" id="cb220-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>) <span class="co"># 4 selected columns</span></a>
+<a class="sourceLine" id="cb220-3" title="3"><span class="kw">print</span>(R)</a></code></pre></div>
 <pre><code>##                   area  median_age birth_rate    exports
 ## area        1.00000000  0.04452395 -0.0319946  0.4925857
 ## median_age  0.04452395  1.00000000 -0.9215918  0.2997270
@@ -1799,7 +1826,7 @@ because it is the correlation between the same pair of variables.
 Hence, from now on we may be interested in the elements
 below the diagonal. We can get access to them by using <code>lower.tri()</code>
 (“lower triangle”).</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" title="1">R[<span class="kw">lower.tri</span>(R)]</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1">R[<span class="kw">lower.tri</span>(R)]</a></code></pre></div>
 <pre><code>## [1]  0.04452395 -0.03199460  0.49258568 -0.92159182  0.29972695
 ## [6] -0.24295529</code></pre>
 <p>This is already the 3rd column of the data frame we are asked to generate,
@@ -1825,12 +1852,12 @@ One idea is to take the “lower triangles” of the following matrices:</p>
 ## [3,] &quot;area&quot; &quot;median_age&quot; &quot;birth_rate&quot; &quot;exports&quot;
 ## [4,] &quot;area&quot; &quot;median_age&quot; &quot;birth_rate&quot; &quot;exports&quot;</code></pre>
 <p>Here is a complete solution for all the features is <code>factbook</code>:</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1">R &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>) <span class="co"># skip the `country` column</span></a>
-<a class="sourceLine" id="cb220-2" title="2">rrr &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]], <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R))</a>
-<a class="sourceLine" id="cb220-3" title="3">ccc &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]], <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R))</a>
-<a class="sourceLine" id="cb220-4" title="4">C &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">col1=</span>rrr[<span class="kw">lower.tri</span>(rrr)],</a>
-<a class="sourceLine" id="cb220-5" title="5">                <span class="dt">col2=</span>ccc[<span class="kw">lower.tri</span>(ccc)],</a>
-<a class="sourceLine" id="cb220-6" title="6">                <span class="dt">r=</span>R[<span class="kw">lower.tri</span>(R)])</a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1">R &lt;-<span class="st"> </span><span class="kw">cor</span>(factbook[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>) <span class="co"># skip the `country` column</span></a>
+<a class="sourceLine" id="cb227-2" title="2">rrr &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]], <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R))</a>
+<a class="sourceLine" id="cb227-3" title="3">ccc &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]], <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R))</a>
+<a class="sourceLine" id="cb227-4" title="4">C &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">col1=</span>rrr[<span class="kw">lower.tri</span>(rrr)],</a>
+<a class="sourceLine" id="cb227-5" title="5">                <span class="dt">col2=</span>ccc[<span class="kw">lower.tri</span>(ccc)],</a>
+<a class="sourceLine" id="cb227-6" title="6">                <span class="dt">r=</span>R[<span class="kw">lower.tri</span>(R)])</a></code></pre></div>
 <p><em>Comment: In “classical” programming languages we would perhaps
 have used of a double (nested) <code>for</code> loop here (a less readable solution).</em></p>
 </details>
@@ -1840,8 +1867,8 @@ have used of a double (nested) <code>for</code> loop here (a less readable solut
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>This can be done by ordering the rows of <code>C</code> in decreasing
 order of absolute values of <code>C$r</code>, and then choosing the first 5 rows.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1">C_top &lt;-<span class="st"> </span><span class="kw">head</span>(C[<span class="kw">order</span>(<span class="kw">abs</span>(C<span class="op">$</span>r), <span class="dt">decreasing=</span><span class="ot">TRUE</span>),], <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb221-2" title="2">knitr<span class="op">::</span><span class="kw">kable</span>(C_top)</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1">C_top &lt;-<span class="st"> </span><span class="kw">head</span>(C[<span class="kw">order</span>(<span class="kw">abs</span>(C<span class="op">$</span>r), <span class="dt">decreasing=</span><span class="ot">TRUE</span>),], <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb228-2" title="2">knitr<span class="op">::</span><span class="kw">kable</span>(C_top)</a></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="6%" />
@@ -1906,9 +1933,9 @@ concatenating (joining) appropriate strings
 (note that in order to input a double quotes character,
 we need to proceed in with a backslash), and then
 calling the <code>formula()</code> function.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1">form &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">paste</span>(C_top[<span class="dv">1</span>,<span class="dv">2</span>], <span class="st">&quot;~&quot;</span>, C_top[<span class="dv">1</span>,<span class="dv">1</span>]))</a>
-<a class="sourceLine" id="cb222-2" title="2">f &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb222-3" title="3"><span class="kw">print</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1">form &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">paste</span>(C_top[<span class="dv">1</span>,<span class="dv">2</span>], <span class="st">&quot;~&quot;</span>, C_top[<span class="dv">1</span>,<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb229-2" title="2">f &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb229-3" title="3"><span class="kw">print</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = form, data = factbook)
@@ -1918,9 +1945,9 @@ calling the <code>formula()</code> function.</p>
 ##                                 795225381  
 ## electricity_installed_generating_capacity  
 ##                                      3625</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]],</a>
-<a class="sourceLine" id="cb224-2" title="2">    <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb224-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]],</a>
+<a class="sourceLine" id="cb231-2" title="2">    <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb231-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookB9-1.svg" alt="Figure 21: Most correlated pair of variables and the invisible regression line" id="fig:factbookB9" />
 <p class="caption">Figure 21: Most correlated pair of variables and the invisible regression line</p>
@@ -1944,30 +1971,30 @@ to globally set the <code>stringsAsFactors=FALSE</code> option.
 But we didn’t do so.
 The problem is where we create the <code>C</code> matrix using the <code>data.frame()</code>
 function – <code>C$col1</code> and <code>C$col2</code> are objects of type:</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1"><span class="kw">class</span>(C<span class="op">$</span>col1)</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1"><span class="kw">class</span>(C<span class="op">$</span>col1)</a></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1"><span class="kw">class</span>(C<span class="op">$</span>col2)</a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1"><span class="kw">class</span>(C<span class="op">$</span>col2)</a></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
 <p>Is this is a problem? Well it is, because
 indexing an object <code>x</code> with a factor <code>f</code>,
 <code>x[f]</code> means <code>x[as.numeric(f)]</code> and not <code>x[as.character(f)]</code>.</p>
 <p>Therefore, <code>factbook[,C_top[1,1]]</code> refers to:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1"><span class="kw">names</span>(factbook)[C_top[<span class="dv">1</span>,<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="kw">names</span>(factbook)[C_top[<span class="dv">1</span>,<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>## [1] &quot;gdp_per_capita_ppp&quot;</code></pre>
 <p>and not:</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1"><span class="kw">as.character</span>(C_top[<span class="dv">1</span>,<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1"><span class="kw">as.character</span>(C_top[<span class="dv">1</span>,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## [1] &quot;electricity_installed_generating_capacity&quot;</code></pre>
 <p>Here is a corrected version, see <a href="multiple-regression.html#fig:factbookB13">22</a>.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1">C &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb233-2" title="2">    <span class="dt">col1=</span>rrr[<span class="kw">lower.tri</span>(rrr)],</a>
-<a class="sourceLine" id="cb233-3" title="3">    <span class="dt">col2=</span>ccc[<span class="kw">lower.tri</span>(ccc)],</a>
-<a class="sourceLine" id="cb233-4" title="4">    <span class="dt">r=</span>R[<span class="kw">lower.tri</span>(R)],</a>
-<a class="sourceLine" id="cb233-5" title="5">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span> <span class="co">######## !!!!!!!!!!!!!!!!!!!!!!!!</span></a>
-<a class="sourceLine" id="cb233-6" title="6">)</a>
-<a class="sourceLine" id="cb233-7" title="7">C_top &lt;-<span class="st"> </span><span class="kw">head</span>(C[<span class="kw">order</span>(<span class="kw">abs</span>(C<span class="op">$</span>r), <span class="dt">decreasing=</span><span class="ot">TRUE</span>),], <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb233-8" title="8">form &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">paste</span>(C_top[<span class="dv">1</span>,<span class="dv">2</span>], <span class="st">&quot;~&quot;</span>, C_top[<span class="dv">1</span>,<span class="dv">1</span>]))</a>
-<a class="sourceLine" id="cb233-9" title="9">f &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb233-10" title="10"><span class="kw">print</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1">C &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb240-2" title="2">    <span class="dt">col1=</span>rrr[<span class="kw">lower.tri</span>(rrr)],</a>
+<a class="sourceLine" id="cb240-3" title="3">    <span class="dt">col2=</span>ccc[<span class="kw">lower.tri</span>(ccc)],</a>
+<a class="sourceLine" id="cb240-4" title="4">    <span class="dt">r=</span>R[<span class="kw">lower.tri</span>(R)],</a>
+<a class="sourceLine" id="cb240-5" title="5">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span> <span class="co">######## !!!!!!!!!!!!!!!!!!!!!!!!</span></a>
+<a class="sourceLine" id="cb240-6" title="6">)</a>
+<a class="sourceLine" id="cb240-7" title="7">C_top &lt;-<span class="st"> </span><span class="kw">head</span>(C[<span class="kw">order</span>(<span class="kw">abs</span>(C<span class="op">$</span>r), <span class="dt">decreasing=</span><span class="ot">TRUE</span>),], <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb240-8" title="8">form &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">paste</span>(C_top[<span class="dv">1</span>,<span class="dv">2</span>], <span class="st">&quot;~&quot;</span>, C_top[<span class="dv">1</span>,<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb240-9" title="9">f &lt;-<span class="st"> </span><span class="kw">lm</span>(form, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb240-10" title="10"><span class="kw">print</span>(f)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = form, data = factbook)
@@ -1977,9 +2004,9 @@ indexing an object <code>x</code> with a factor <code>f</code>,
 ##                                 795225381  
 ## electricity_installed_generating_capacity  
 ##                                      3625</code></pre>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]],</a>
-<a class="sourceLine" id="cb235-2" title="2">    <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb235-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">plot</span>(factbook[,C_top[<span class="dv">1</span>,<span class="dv">1</span>]], factbook[,C_top[<span class="dv">1</span>,<span class="dv">2</span>]],</a>
+<a class="sourceLine" id="cb242-2" title="2">    <span class="dt">xlab=</span>C_top[<span class="dv">1</span>,<span class="dv">1</span>], <span class="dt">ylab=</span>C_top[<span class="dv">1</span>,<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb242-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookB13-1.svg" alt="Figure 22: A bugfixed version of Figure 21" id="fig:factbookB13" />
 <p class="caption">Figure 22: A bugfixed version of Figure <a href="multiple-regression.html#fig:factbookB9">21</a></p>
@@ -1993,17 +2020,17 @@ next time! (Which I of course won’t). End of story.</p>
 <div id="countries-of-the-world-a-non-linear-model-based-on-the-gdp-per-capita" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> Countries of the World – A non-linear model based on the GDP per capita</h3>
 <p>Let’s revisit the World Factbook 2020 dataset (<code>world_factbook_2020.csv</code>).</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb236-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb243-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Draw a histogram of the empirical distribution
 of the GDP per capita. Moreover, draw a histogram of the logarithm
 of the GDP/person.</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb237-2" title="2"><span class="kw">hist</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb237-3" title="3"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb244-2" title="2"><span class="kw">hist</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb244-3" title="3"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookC2-1.svg" alt="Figure 23: Histograms of the empirical distribution of the GDP per capita with linear (left) and log (right) scale on the X axis" id="fig:factbookC2" />
 <p class="caption">Figure 23: Histograms of the empirical distribution of the GDP per capita with linear (left) and log (right) scale on the X axis</p>
@@ -2030,12 +2057,12 @@ more user-friendly (on the other hand, we could’ve asked them
 to harden up…)
 by nicely re-labelling the X axis,
 see Figure <a href="multiple-regression.html#fig:factbookC3">24</a>.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">axes=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb238-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;GDP per capita (thousands USD)&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a>
-<a class="sourceLine" id="cb238-3" title="3"><span class="kw">box</span>()</a>
-<a class="sourceLine" id="cb238-4" title="4"><span class="kw">axis</span>(<span class="dv">2</span>) <span class="co"># Y axis</span></a>
-<a class="sourceLine" id="cb238-5" title="5">at &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">20000</span>, <span class="dv">50000</span>, <span class="dv">100000</span>, <span class="dv">200000</span>)</a>
-<a class="sourceLine" id="cb238-6" title="6"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">log</span>(at), <span class="dt">labels=</span>at<span class="op">/</span><span class="dv">1000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="kw">hist</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), <span class="dt">axes=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb245-2" title="2">    <span class="dt">xlab=</span><span class="st">&quot;GDP per capita (thousands USD)&quot;</span>, <span class="dt">main=</span><span class="ot">NA</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb245-3" title="3"><span class="kw">box</span>()</a>
+<a class="sourceLine" id="cb245-4" title="4"><span class="kw">axis</span>(<span class="dv">2</span>) <span class="co"># Y axis</span></a>
+<a class="sourceLine" id="cb245-5" title="5">at &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>, <span class="dv">20000</span>, <span class="dv">50000</span>, <span class="dv">100000</span>, <span class="dv">200000</span>)</a>
+<a class="sourceLine" id="cb245-6" title="6"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">log</span>(at), <span class="dt">labels=</span>at<span class="op">/</span><span class="dv">1000</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookC3-1.svg" alt="Figure 24: Histogram of the empirical distribution of the GDP per capita now with human-readable X axis labels (not the logarithmic scale)" id="fig:factbookC3" />
 <p class="caption">Figure 24: Histogram of the empirical distribution of the GDP per capita now with human-readable X axis labels (not the logarithmic scale)</p>
@@ -2052,10 +2079,10 @@ as a function of <code>gdp_per_capita_ppp</code>.</p>
 <p>Easy. We have already done than in one of the previous exercises.
 Yet, to learn something new, let’s note that the <code>plot()</code> function
 accepts formulas as well.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb239-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb239-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;purple&quot;</span>)</a>
-<a class="sourceLine" id="cb239-4" title="4"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb246-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span>gdp_per_capita_ppp, <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb246-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;purple&quot;</span>)</a>
+<a class="sourceLine" id="cb246-4" title="4"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
 <pre><code>## [1] 0.4309554</code></pre>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookC4-1.svg" alt="Figure 25: Linear model fitted for life expectancy vs. GDP/person" id="fig:factbookC4" />
@@ -2075,17 +2102,17 @@ Compute the correlation coefficient between
 and generate fancy X axis labels ourselves. However,
 the <code>plot()</code> function has the <code>log</code> argument (see <code>?plot.default</code>)
 which provides us with all we need, see Figure <a href="multiple-regression.html#fig:factbookC5">26</a>.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp,</a>
-<a class="sourceLine" id="cb241-2" title="2">    factbook<span class="op">$</span>life_expectancy_at_birth,</a>
-<a class="sourceLine" id="cb241-3" title="3">    <span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp,</a>
+<a class="sourceLine" id="cb248-2" title="2">    factbook<span class="op">$</span>life_expectancy_at_birth,</a>
+<a class="sourceLine" id="cb248-3" title="3">    <span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookC5-1.svg" alt="Figure 26: Scatter plot of life expectancy vs. GDP/person with log scale on the X axis" id="fig:factbookC5" />
 <p class="caption">Figure 26: Scatter plot of life expectancy vs. GDP/person with log scale on the X axis</p>
 </div>
 <p>Here is the <em>linear</em> correlation coefficient between the logarithm
 of the GDP/person and the life expectancy.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">cor</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), factbook<span class="op">$</span>life_expectancy_at_birth,</a>
-<a class="sourceLine" id="cb242-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1"><span class="kw">cor</span>(<span class="kw">log</span>(factbook<span class="op">$</span>gdp_per_capita_ppp), factbook<span class="op">$</span>life_expectancy_at_birth,</a>
+<a class="sourceLine" id="cb249-2" title="2">    <span class="dt">use=</span><span class="st">&quot;complete.obs&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 0.8066505</code></pre>
 <p>The correlation is quite high, hence the following task.</p>
 </details>
@@ -2097,13 +2124,13 @@ by means of <code>log(gdp_per_capita_ppp)</code>.</p>
 <p>We would like to fit a model of the form <span class="math inline">\(Y=a\log X+b\)</span>.
 The formula <code>life_expectancy_at_birth~log(gdp_per_capita_ppp)</code>
 should do the trick here.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb244-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
-<a class="sourceLine" id="cb244-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb244-4" title="4">f<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">f &lt;-<span class="st"> </span><span class="kw">lm</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb251-2" title="2"><span class="kw">plot</span>(life_expectancy_at_birth<span class="op">~</span><span class="kw">log</span>(gdp_per_capita_ppp), <span class="dt">data=</span>factbook)</a>
+<a class="sourceLine" id="cb251-3" title="3"><span class="kw">abline</span>(f, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb251-4" title="4">f<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>##             (Intercept) log(gdp_per_capita_ppp) 
 ##               28.306385                4.817806</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="kw">summary</span>(f)<span class="op">$</span>r.squared</a></code></pre></div>
 <pre><code>## [1] 0.650685</code></pre>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookC7-1.svg" alt="Figure 27: Linear model fitted for life expectancy vs. the logarithm of GDP/person" id="fig:factbookC7" />
@@ -2121,14 +2148,14 @@ with a standard, non-logarithmic X axis.</p>
 To depict it on a plot with linear (non-logarithmic) axes,
 we can compute this formula on multiple points by hand,
 see Figure <a href="multiple-regression.html#fig:factbookC8">28</a>.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth)</a>
-<a class="sourceLine" id="cb248-2" title="2"></a>
-<a class="sourceLine" id="cb248-3" title="3"><span class="co"># many points on the X axis:</span></a>
-<a class="sourceLine" id="cb248-4" title="4">xxx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb248-5" title="5">            <span class="kw">max</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb248-6" title="6">            <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb248-7" title="7">yyy &lt;-<span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span><span class="kw">log</span>(xxx)</a>
-<a class="sourceLine" id="cb248-8" title="8"><span class="kw">lines</span>(xxx, yyy, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1"><span class="kw">plot</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, factbook<span class="op">$</span>life_expectancy_at_birth)</a>
+<a class="sourceLine" id="cb255-2" title="2"></a>
+<a class="sourceLine" id="cb255-3" title="3"><span class="co"># many points on the X axis:</span></a>
+<a class="sourceLine" id="cb255-4" title="4">xxx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb255-5" title="5">            <span class="kw">max</span>(factbook<span class="op">$</span>gdp_per_capita_ppp, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb255-6" title="6">            <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb255-7" title="7">yyy &lt;-<span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>f<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span><span class="kw">log</span>(xxx)</a>
+<a class="sourceLine" id="cb255-8" title="8"><span class="kw">lines</span>(xxx, yyy, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/factbookC8-1.svg" alt="Figure 28: Logarithmic model fitted for life expectancy vs. GDP/person" id="fig:factbookC8" />
 <p class="caption">Figure 28: Logarithmic model fitted for life expectancy vs. GDP/person</p>
@@ -2147,25 +2174,25 @@ Do the cool staff, do something for the others. Life’s not about money.</em></
 <p>Let’s play with World Factbook 2020
 (<code>world_factbook_2020.csv</code>) once again.
 World is an interesting place, so we’re far from being bored with this dataset.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb249-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb256-2" title="2">    <span class="dt">comment=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Let’s restrict ourselves to the following columns, mostly
 related to imports and exports:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1">factbookn &lt;-<span class="st"> </span>factbook[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>,</a>
-<a class="sourceLine" id="cb250-2" title="2">    <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>, <span class="st">&quot;electricity_exports&quot;</span>,</a>
-<a class="sourceLine" id="cb250-3" title="3">    <span class="st">&quot;electricity_imports&quot;</span>, <span class="st">&quot;military_expenditures&quot;</span>,</a>
-<a class="sourceLine" id="cb250-4" title="4">    <span class="st">&quot;crude_oil_exports&quot;</span>, <span class="st">&quot;crude_oil_imports&quot;</span>,</a>
-<a class="sourceLine" id="cb250-5" title="5">    <span class="st">&quot;natural_gas_exports&quot;</span>, <span class="st">&quot;natural_gas_imports&quot;</span>,</a>
-<a class="sourceLine" id="cb250-6" title="6">    <span class="st">&quot;reserves_of_foreign_exchange_and_gold&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" title="1">factbookn &lt;-<span class="st"> </span>factbook[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>,</a>
+<a class="sourceLine" id="cb257-2" title="2">    <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>, <span class="st">&quot;electricity_exports&quot;</span>,</a>
+<a class="sourceLine" id="cb257-3" title="3">    <span class="st">&quot;electricity_imports&quot;</span>, <span class="st">&quot;military_expenditures&quot;</span>,</a>
+<a class="sourceLine" id="cb257-4" title="4">    <span class="st">&quot;crude_oil_exports&quot;</span>, <span class="st">&quot;crude_oil_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb257-5" title="5">    <span class="st">&quot;natural_gas_exports&quot;</span>, <span class="st">&quot;natural_gas_imports&quot;</span>,</a>
+<a class="sourceLine" id="cb257-6" title="6">    <span class="st">&quot;reserves_of_foreign_exchange_and_gold&quot;</span>)]</a></code></pre></div>
 <p>Let’s compute the per capita versions of the above, by dividing
 all values by each country’s population:</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(factbookn))</a>
-<a class="sourceLine" id="cb251-2" title="2">    factbookn[[i]] &lt;-<span class="st"> </span>factbookn[[i]]<span class="op">/</span>factbook<span class="op">$</span>population</a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(factbookn))</a>
+<a class="sourceLine" id="cb258-2" title="2">    factbookn[[i]] &lt;-<span class="st"> </span>factbookn[[i]]<span class="op">/</span>factbook<span class="op">$</span>population</a></code></pre></div>
 <p>We are going to build a few multiple regression models using the
 <code>step()</code> function, which is not too fond of missing values, therefore
 they should be removed first:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1">factbookn &lt;-<span class="st"> </span><span class="kw">na.omit</span>(factbookn)</a>
-<a class="sourceLine" id="cb252-2" title="2"><span class="kw">c</span>(<span class="kw">nrow</span>(factbook), <span class="kw">nrow</span>(factbookn)) <span class="co"># how many countries were omitted?</span></a></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1">factbookn &lt;-<span class="st"> </span><span class="kw">na.omit</span>(factbookn)</a>
+<a class="sourceLine" id="cb259-2" title="2"><span class="kw">c</span>(<span class="kw">nrow</span>(factbook), <span class="kw">nrow</span>(factbookn)) <span class="co"># how many countries were omitted?</span></a></code></pre></div>
 <pre><code>## [1] 261 157</code></pre>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Build a model for <code>gdp_purchasing_power_parity</code> as a function
@@ -2174,8 +2201,8 @@ of <code>imports</code> and <code>exports</code> (all per capita).</p>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
 <p>Let’s first take a look at how the aforementioned variables
 are related to each other, see Figure <a href="multiple-regression.html#fig:factbookD5">29</a>.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1"><span class="kw">pairs</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a>
-<a class="sourceLine" id="cb254-2" title="2"><span class="kw">cor</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="kw">pairs</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a>
+<a class="sourceLine" id="cb261-2" title="2"><span class="kw">cor</span>(factbookn[<span class="kw">c</span>(<span class="st">&quot;gdp_purchasing_power_parity&quot;</span>, <span class="st">&quot;imports&quot;</span>, <span class="st">&quot;exports&quot;</span>)])</a></code></pre></div>
 <pre><code>##                             gdp_purchasing_power_parity
 ## gdp_purchasing_power_parity                   1.0000000
 ## imports                                       0.8289144
@@ -2191,12 +2218,12 @@ are related to each other, see Figure <a href="multiple-regression.html#fig:fact
 <p>They are nicely correlated. Moreover, they are on a similar scale
 (“tens of thousands of USD per capita”).</p>
 <p>Fitting the requested model yields:</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="kw">options</span>(<span class="dt">scipen=</span><span class="dv">10</span>) <span class="co"># prefer &quot;decimal&quot; over &quot;scientific&quot; notation</span></a>
-<a class="sourceLine" id="cb256-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>imports<span class="op">+</span>exports, <span class="dt">data=</span>factbookn)</a>
-<a class="sourceLine" id="cb256-3" title="3">f1<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1"><span class="kw">options</span>(<span class="dt">scipen=</span><span class="dv">10</span>) <span class="co"># prefer &quot;decimal&quot; over &quot;scientific&quot; notation</span></a>
+<a class="sourceLine" id="cb263-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>imports<span class="op">+</span>exports, <span class="dt">data=</span>factbookn)</a>
+<a class="sourceLine" id="cb263-3" title="3">f1<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>##  (Intercept)      imports      exports 
 ## 9852.5381318    1.4419398    0.7806693</code></pre>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1"><span class="kw">summary</span>(f1)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="kw">summary</span>(f1)<span class="op">$</span>adj.r.squared</a></code></pre></div>
 <pre><code>## [1] 0.6959805</code></pre>
 </details>
 <div class="exercise"><strong>Exercise.</strong>
@@ -2204,10 +2231,17 @@ are related to each other, see Figure <a href="multiple-regression.html#fig:fact
 a model for <code>gdp_purchasing_power_parity</code> per capita.</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1">f2 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn), <span class="co"># empty model</span></a>
-<a class="sourceLine" id="cb260-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn)), <span class="co"># full model</span></a>
-<a class="sourceLine" id="cb260-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb260-4" title="4">f2</a></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1">(model_empty &lt;-<span class="st"> </span>gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## gdp_purchasing_power_parity ~ 1</code></pre>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1">(model_full &lt;-<span class="st"> </span><span class="kw">formula</span>(<span class="kw">model.frame</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn)))</a></code></pre></div>
+<pre><code>## gdp_purchasing_power_parity ~ imports + exports + electricity_exports + 
+##     electricity_imports + military_expenditures + crude_oil_exports + 
+##     crude_oil_imports + natural_gas_exports + natural_gas_imports + 
+##     reserves_of_foreign_exchange_and_gold</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1">f2 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(model_empty, <span class="dt">data=</span>factbookn),</a>
+<a class="sourceLine" id="cb271-2" title="2">    <span class="dt">scope=</span>model_full,</a>
+<a class="sourceLine" id="cb271-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb271-4" title="4">f2</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = gdp_purchasing_power_parity ~ imports + crude_oil_exports + 
@@ -2219,7 +2253,7 @@ a model for <code>gdp_purchasing_power_parity</code> per capita.</p>
 ##            7603.236                1.775           128472.216  
 ##   crude_oil_imports  electricity_imports  natural_gas_imports  
 ##          100781.638                1.621                3.131</code></pre>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1"><span class="kw">summary</span>(f2)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1"><span class="kw">summary</span>(f2)<span class="op">$</span>adj.r.squared</a></code></pre></div>
 <pre><code>## [1] 0.7865036</code></pre>
 <p><em>Comment: Interestingly, it’s mostly the import-related variables
 that contribute to the GDP per capita. However, the model
@@ -2236,10 +2270,10 @@ to the <code>f1</code> model.</em></p>
 for <code>gdp_purchasing_power_parity</code> per capita.</p>
 </div>
 <details class="solution"><summary style="color: blue">Click here for a solution.</summary>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1">f3 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span>., <span class="dt">data=</span>factbookn),</a>
-<a class="sourceLine" id="cb264-2" title="2">    <span class="dt">scope=</span><span class="kw">formula</span>(<span class="kw">lm</span>(gdp_purchasing_power_parity<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>factbookn)),</a>
-<a class="sourceLine" id="cb264-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb264-4" title="4">f3</a></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1">f3 &lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">lm</span>(model_full, <span class="dt">data=</span>factbookn),</a>
+<a class="sourceLine" id="cb275-2" title="2">    <span class="dt">scope=</span>model_empty,</a>
+<a class="sourceLine" id="cb275-3" title="3">    <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb275-4" title="4">f3</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = gdp_purchasing_power_parity ~ imports + electricity_imports + 
@@ -2251,9 +2285,10 @@ for <code>gdp_purchasing_power_parity</code> per capita.</p>
 ##            7603.236                1.775                1.621  
 ##   crude_oil_exports    crude_oil_imports  natural_gas_imports  
 ##          128472.216           100781.638                3.131</code></pre>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1"><span class="kw">summary</span>(f3)<span class="op">$</span>adj.r.squared</a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1"><span class="kw">summary</span>(f3)<span class="op">$</span>adj.r.squared</a></code></pre></div>
 <pre><code>## [1] 0.7865036</code></pre>
-<p><em>Comment: This is the same model as the one found by forward selection, i.e., <code>f2</code>.</em></p>
+<p><em>Comment: This is the same model as the one
+found by forward selection, i.e., <code>f2</code>.</em></p>
 </details>
 <!--
 
@@ -2509,17 +2544,17 @@ of matrices for efficiency and numerical accuracy reasons.</p>
 </dd>
 </dl>
 <p>Numeric example – solution via <code>lm()</code>:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1">X1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb268-2" title="2">X2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Income[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb268-3" title="3">Y  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
-<a class="sourceLine" id="cb268-4" title="4"><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span>X2)<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1">X1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Balance[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb279-2" title="2">X2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Income[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb279-3" title="3">Y  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(Credit<span class="op">$</span>Rating[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>])</a>
+<a class="sourceLine" id="cb279-4" title="4"><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span>X2)<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>## (Intercept)          X1          X2 
 ## 172.5586670   0.1828011   2.1976461</code></pre>
 <p>Recalling that <span class="math inline">\(\mathbf{A}^T \mathbf{B}\)</span> can be computed
 by calling <code>t(A) %*% B</code> or – even faster – by calling <code>crossprod(A, B)</code>,
 we can also use <code>solve()</code> to obtain the same result:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1">X_dot &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, X1, X2)</a>
-<a class="sourceLine" id="cb270-2" title="2"><span class="kw">solve</span>( <span class="kw">crossprod</span>(X_dot, X_dot), <span class="kw">crossprod</span>(X_dot, Y) )</a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1">X_dot &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, X1, X2)</a>
+<a class="sourceLine" id="cb281-2" title="2"><span class="kw">solve</span>( <span class="kw">crossprod</span>(X_dot, X_dot), <span class="kw">crossprod</span>(X_dot, Y) )</a></code></pre></div>
 <pre><code>##           [,1]
 ##    172.5586670
 ## X1   0.1828011
@@ -2560,13 +2595,13 @@ i.e., the normalised dot product of the centred versions of the two vectors.</p>
 <p>(**) Recalling from the previous chapter that <span class="math inline">\(\mathbf{A}^T \mathbf{A}\)</span>
 gives the dot product between all the pairs of columns in a matrix <span class="math inline">\(\mathbf{A}\)</span>,
 we can implement an equivalent version of <code>cor(C)</code> as follows:</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb272-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Limit&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
-<a class="sourceLine" id="cb272-3" title="3">    <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
-<a class="sourceLine" id="cb272-4" title="4">C_centred &lt;-<span class="st"> </span><span class="kw">apply</span>(C, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a>
-<a class="sourceLine" id="cb272-5" title="5">C_normalised &lt;-<span class="st"> </span><span class="kw">apply</span>(C_centred, <span class="dv">2</span>, <span class="cf">function</span>(c)</a>
-<a class="sourceLine" id="cb272-6" title="6">    c<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(c<span class="op">^</span><span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb272-7" title="7"><span class="kw">round</span>(<span class="kw">t</span>(C_normalised) <span class="op">%*%</span><span class="st"> </span>C_normalised, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1">C &lt;-<span class="st"> </span>Credit[Credit<span class="op">$</span>Balance<span class="op">&gt;</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb283-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Rating&quot;</span>, <span class="st">&quot;Limit&quot;</span>, <span class="st">&quot;Income&quot;</span>, <span class="st">&quot;Age&quot;</span>,</a>
+<a class="sourceLine" id="cb283-3" title="3">    <span class="st">&quot;Education&quot;</span>, <span class="st">&quot;Balance&quot;</span>)]</a>
+<a class="sourceLine" id="cb283-4" title="4">C_centred &lt;-<span class="st"> </span><span class="kw">apply</span>(C, <span class="dv">2</span>, <span class="cf">function</span>(c) c<span class="op">-</span><span class="kw">mean</span>(c))</a>
+<a class="sourceLine" id="cb283-5" title="5">C_normalised &lt;-<span class="st"> </span><span class="kw">apply</span>(C_centred, <span class="dv">2</span>, <span class="cf">function</span>(c)</a>
+<a class="sourceLine" id="cb283-6" title="6">    c<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(c<span class="op">^</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb283-7" title="7"><span class="kw">round</span>(<span class="kw">t</span>(C_normalised) <span class="op">%*%</span><span class="st"> </span>C_normalised, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>##           Rating  Limit Income   Age Education Balance
 ## Rating     1.000  0.996  0.831 0.167    -0.040   0.798
 ## Limit      0.996  1.000  0.834 0.164    -0.032   0.796

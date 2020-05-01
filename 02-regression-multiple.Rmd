@@ -855,31 +855,63 @@ some form of variable selection, e.g., lasso regression.
 But these minimise a different objective.
 
 
-Forward selection example:
+First, a forward selection example.
+We need a data sample to work with:
 
-```{r step1}
+```{r step1a}
 C <- Credit[Credit$Balance>0,
     c("Rating", "Income", "Age",
       "Education", "Balance")]
-step(lm(Rating~1, data=C), # empty model
-    scope=formula(lm(Rating~., data=C)), # full model
+```
+
+Then, a formula that represents a model with no variables
+(model from which we'll start our search):
+
+```{r step1b}
+(model_empty <- Rating~1)
+```
+
+Last, we need a model that includes all the variables.
+We're too lazy to list all of them manually, therefore,
+we can use the `model.frame()` function to generate
+a corresponding formula:
+
+```{r step1c}
+(model_full <- formula(model.frame(Rating~., data=C))) # all variables
+```
+
+Now we are ready.
+
+```{r step1d}
+step(lm(model_empty, data=C), # starting model
+    scope=model_full,         # gives variables to consider
     direction="forward")
+formula(lm(Rating~., data=C))
 ```
 
 The full model has been selected.
 
+<!-- TODO: detailed explanation what's happening here -->
 
-Backward elimination example:
+
+
+. . .
+
+And now for something completely different --
+a backward elimination example:
 
 ```{r step2}
-step(lm(Rating~., data=C), # full model
-     scope=formula(lm(Rating~1, data=C)), # empty model
+step(lm(model_full, data=C), # from
+     scope=model_empty,      # to
      direction="backward")
 ```
 
 
-The full model is considered the best.
+The full model is considered the best again.
 
+<!-- TODO: detailed explanation what's happening here -->
+
+. . .
 
 Forward selection example -- full dataset:
 
@@ -887,25 +919,29 @@ Forward selection example -- full dataset:
 C <- Credit[,  # do not restrict to Credit$Balance>0
     c("Rating", "Income", "Age",
       "Education", "Balance")]
-step(lm(Rating~1, data=C), # empty model
-    scope=formula(lm(Rating~., data=C)), # full model
+step(lm(model_empty, data=C),
+    scope=model_full,
     direction="forward")
 ```
 
-This procedure suggests including only the `Balance` and `Income` variables.
+This procedure suggests including only the `Balance` and `Income`
+variables.
+
+
+. . .
 
 Backward elimination example -- full dataset:
 
 
 ```{r step4}
-step(lm(Rating~., data=C), # full model
-     scope=formula(lm(Rating~1, data=C)), # empty model
+step(lm(model_full, data=C), # full model
+     scope=model_empty, # empty model
      direction="backward")
 ```
 
 
 This procedure gives the same results as forward selection
-(however, for other data sets that is not necessarily the case).
+(however, for other data sets this might not necessarily be the case).
 
 
 
@@ -1981,8 +2017,10 @@ a model for `gdp_purchasing_power_parity` per capita.
 { BEGIN solution }
 
 ```{r factbookD7}
-f2 <- step(lm(gdp_purchasing_power_parity~1, data=factbookn), # empty model
-    scope=formula(lm(gdp_purchasing_power_parity~., data=factbookn)), # full model
+(model_empty <- gdp_purchasing_power_parity~1)
+(model_full <- formula(model.frame(gdp_purchasing_power_parity~., data=factbookn)))
+f2 <- step(lm(model_empty, data=factbookn),
+    scope=model_full,
     direction="forward", trace=0)
 f2
 summary(f2)$adj.r.squared
@@ -2009,14 +2047,15 @@ for `gdp_purchasing_power_parity` per capita.
 { BEGIN solution }
 
 ```{r factbookD8}
-f3 <- step(lm(gdp_purchasing_power_parity~., data=factbookn),
-    scope=formula(lm(gdp_purchasing_power_parity~1, data=factbookn)),
+f3 <- step(lm(model_full, data=factbookn),
+    scope=model_empty,
     direction="backward", trace=0)
 f3
 summary(f3)$adj.r.squared
 ```
 
-*Comment: This is the same model as the one found by forward selection, i.e., `f2`.*
+*Comment: This is the same model as the one
+found by forward selection, i.e., `f2`.*
 
 { END solution }
 

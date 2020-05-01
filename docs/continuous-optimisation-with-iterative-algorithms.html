@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 17:38 (86399b4)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 18:02 (2b85820)</a></li>
 
 </ul>
 
@@ -661,13 +661,13 @@ g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\
 \]</span></p>
 <!-- min{(x1^2 + x2 - 5)^2 + (x1 + x2^2 - 3)^2 + x1^2}≈2.606443660864438412460734586
 at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) -->
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" title="1">g  &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2)</a>
-<a class="sourceLine" id="cb492-2" title="2">    <span class="kw">log</span>((x1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x2<span class="dv">-5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x1<span class="op">+</span>x2<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x1<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span>)</a>
-<a class="sourceLine" id="cb492-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb492-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb492-5" title="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
-<a class="sourceLine" id="cb492-6" title="6"><span class="co"># and applies a given function on each point</span></a>
-<a class="sourceLine" id="cb492-7" title="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb503-1" title="1">g  &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2)</a>
+<a class="sourceLine" id="cb503-2" title="2">    <span class="kw">log</span>((x1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x2<span class="dv">-5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x1<span class="op">+</span>x2<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x1<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span>)</a>
+<a class="sourceLine" id="cb503-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb503-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb503-5" title="5"><span class="co"># outer() expands two vectors to form a 2D grid</span></a>
+<a class="sourceLine" id="cb503-6" title="6"><span class="co"># and applies a given function on each point</span></a>
+<a class="sourceLine" id="cb503-7" title="7">y  &lt;-<span class="st"> </span><span class="kw">outer</span>(x1, x2, g)</a></code></pre></div>
 <p>There are four local minima:</p>
 <table>
 <thead>
@@ -701,27 +701,27 @@ at (x1, x2)≈(-1.542255693195422641930153154, 2.156405289793087261832605120) --
 </tbody>
 </table>
 <p>The global minimum is at <span class="math inline">\((x_1^*, x_2^*)\)</span> as below:</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb504-1" title="1"><span class="kw">g</span>(<span class="op">-</span><span class="fl">1.542255693195422641930153</span>, <span class="fl">2.156405289793087261832605</span>)</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Let’s explore various ways of depicting <span class="math inline">\(f\)</span>.
 A contour plot and a heat map
 are given in Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:contour_g">5</a>.</p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
-<a class="sourceLine" id="cb495-2" title="2"><span class="co"># lefthand plot:</span></a>
-<a class="sourceLine" id="cb495-3" title="3"><span class="kw">contour</span>(x1, x2, y, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
-<a class="sourceLine" id="cb495-4" title="4"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb495-5" title="5"><span class="co"># righthand plot:</span></a>
-<a class="sourceLine" id="cb495-6" title="6"><span class="kw">image</span>(x1, x2, y)</a>
-<a class="sourceLine" id="cb495-7" title="7"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
+<a class="sourceLine" id="cb506-2" title="2"><span class="co"># lefthand plot:</span></a>
+<a class="sourceLine" id="cb506-3" title="3"><span class="kw">contour</span>(x1, x2, y, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb506-4" title="4"><span class="kw">points</span>(<span class="op">-</span><span class="fl">1.54226</span>, <span class="fl">2.15641</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb506-5" title="5"><span class="co"># righthand plot:</span></a>
+<a class="sourceLine" id="cb506-6" title="6"><span class="kw">image</span>(x1, x2, y)</a>
+<a class="sourceLine" id="cb506-7" title="7"><span class="kw">contour</span>(x1, x2, y, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <div class="figure">
 <img src="06-optimisation-iterative-figures/contour_g-1.svg" alt="Figure 5: A contour plot and a heat map of g(x_1,x_2)" id="fig:contour_g" />
 <p class="caption">Figure 5: A contour plot and a heat map of <span class="math inline">\(g(x_1,x_2)\)</span></p>
 </div>
 <p>Two perspective plots (views from different angles) are given
 in Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:perspective_g">6</a>.</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
-<a class="sourceLine" id="cb496-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb496-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># 2 in 1</span></a>
+<a class="sourceLine" id="cb507-2" title="2"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="op">-</span><span class="dv">5</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb507-3" title="3"><span class="kw">persp</span>(x1, x2, y, <span class="dt">phi=</span><span class="dv">30</span>, <span class="dt">theta=</span><span class="dv">75</span>, <span class="dt">shade=</span><span class="dv">2</span>, <span class="dt">border=</span><span class="ot">NA</span>)</a></code></pre></div>
 <div class="figure">
 <img src="06-optimisation-iterative-figures/perspective_g-1.svg" alt="Figure 6: Perspective plots of g(x_1,x_2)" id="fig:perspective_g" />
 <p class="caption">Figure 6: Perspective plots of <span class="math inline">\(g(x_1,x_2)\)</span></p>
@@ -799,7 +799,7 @@ i.e., without going into how it has been defined (in terms of our assumed math
 skills, it might be too early for this).
 Despite that, will still be able to point out a few interesting
 patterns.</p>
-<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" title="1"><span class="kw">optim</span>(par, fn, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb508-1" title="1"><span class="kw">optim</span>(par, fn, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
 <p>where:</p>
 <ul>
 <li><code>par</code> – an initial guess (a numeric vector of length <span class="math inline">\(p\)</span>)</li>
@@ -808,12 +808,12 @@ on input, returns a single number)</li>
 </ul>
 <!-- this will be slow for high-dimensional search spaces $D$ -->
 <p>Let us minimise the <span class="math inline">\(g\)</span> function defined above (the one with the 2D domain):</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" title="1"><span class="co"># g needs to be rewritten to accept a 2-ary vector</span></a>
-<a class="sourceLine" id="cb498-2" title="2">g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x12) <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb498-3" title="3"><span class="co"># random starting point with coordinates in [-5, 5]</span></a>
-<a class="sourceLine" id="cb498-4" title="4">(x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" title="1"><span class="co"># g needs to be rewritten to accept a 2-ary vector</span></a>
+<a class="sourceLine" id="cb509-2" title="2">g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x12) <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb509-3" title="3"><span class="co"># random starting point with coordinates in [-5, 5]</span></a>
+<a class="sourceLine" id="cb509-4" title="4">(x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>))</a></code></pre></div>
 <pre><code>## [1] -2.124225  2.883051</code></pre>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb500-1" title="1">(res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" title="1">(res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>))</a></code></pre></div>
 <pre><code>## $par
 ## [1] -1.542255  2.156405
 ## 
@@ -845,12 +845,12 @@ see Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:g
 in order to make the decision on where to go next (BFGS approximates the Hessian matrix).</p>
 </dd>
 </dl>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" title="1">g_vectorised_plot &lt;-<span class="st"> </span><span class="cf">function</span>(x12) {</a>
-<a class="sourceLine" id="cb502-2" title="2">    <span class="kw">points</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>], <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>) <span class="co"># draw</span></a>
-<a class="sourceLine" id="cb502-3" title="3">    <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>]) <span class="co"># return value</span></a>
-<a class="sourceLine" id="cb502-4" title="4">}</a>
-<a class="sourceLine" id="cb502-5" title="5"><span class="kw">contour</span>(x1, x2, y, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
-<a class="sourceLine" id="cb502-6" title="6">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised_plot, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb513-1" title="1">g_vectorised_plot &lt;-<span class="st"> </span><span class="cf">function</span>(x12) {</a>
+<a class="sourceLine" id="cb513-2" title="2">    <span class="kw">points</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>], <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">3</span>) <span class="co"># draw</span></a>
+<a class="sourceLine" id="cb513-3" title="3">    <span class="kw">g</span>(x12[<span class="dv">1</span>], x12[<span class="dv">2</span>]) <span class="co"># return value</span></a>
+<a class="sourceLine" id="cb513-4" title="4">}</a>
+<a class="sourceLine" id="cb513-5" title="5"><span class="kw">contour</span>(x1, x2, y, <span class="dt">nlevels=</span><span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb513-6" title="6">res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised_plot, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="06-optimisation-iterative-figures/gbfgsvisit-1.svg" alt="Figure 7: Each plotting symbol marks a point where the objective function was evaluated by the BFGS method" id="fig:gbfgsvisit" />
 <p class="caption">Figure 7: Each plotting symbol marks a point where the objective function was evaluated by the BFGS method</p>
@@ -864,19 +864,19 @@ coincides with the global minimum.</p>
 of the above <span class="math inline">\(g\)</span> starting
 from many randomly chosen points
 uniformly distributed over the square <span class="math inline">\([-5,5]\times[-5,5]\)</span>:</p>
-<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb503-1" title="1">res_value &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb503-2" title="2">    <span class="co"># this will be iterated 100 times</span></a>
-<a class="sourceLine" id="cb503-3" title="3">    x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb503-4" title="4">    res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a>
-<a class="sourceLine" id="cb503-5" title="5">    res<span class="op">$</span>value <span class="co"># return value from each iteration</span></a>
-<a class="sourceLine" id="cb503-6" title="6">})</a>
-<a class="sourceLine" id="cb503-7" title="7"><span class="kw">table</span>(<span class="kw">round</span>(res_value,<span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb514-1" title="1">res_value &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb514-2" title="2">    <span class="co"># this will be iterated 100 times</span></a>
+<a class="sourceLine" id="cb514-3" title="3">    x12_init &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb514-4" title="4">    res &lt;-<span class="st"> </span><span class="kw">optim</span>(x12_init, g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>)</a>
+<a class="sourceLine" id="cb514-5" title="5">    res<span class="op">$</span>value <span class="co"># return value from each iteration</span></a>
+<a class="sourceLine" id="cb514-6" title="6">})</a>
+<a class="sourceLine" id="cb514-7" title="7"><span class="kw">table</span>(<span class="kw">round</span>(res_value,<span class="dv">3</span>))</a></code></pre></div>
 <pre><code>## 
 ##     0 0.695 1.356 1.705 
 ##   273   352   156   219</code></pre>
 <p>Unfortunately, we find the global minimum only in <span class="math inline">\(\sim 25\%\)</span> cases,
 compare Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:bfgs_multi_hist">8</a>.</p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb505-1" title="1"><span class="kw">hist</span>(res_value, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">breaks=</span><span class="dv">100</span>, <span class="dt">main=</span><span class="ot">NA</span>); <span class="kw">box</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb516-1" title="1"><span class="kw">hist</span>(res_value, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">breaks=</span><span class="dv">100</span>, <span class="dt">main=</span><span class="ot">NA</span>); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
 <img src="06-optimisation-iterative-figures/bfgs_multi_hist-1.svg" alt="Figure 8: A histogram of the objective function’s value at the local minimum found when using a random initial guess" id="fig:bfgs_multi_hist" />
 <p class="caption">Figure 8: A histogram of the objective function’s value at the local minimum found when using a random initial guess</p>
@@ -896,20 +896,20 @@ in order to robustify an optimisation
 procedure it is often advised to consider
 multiple random initial points
 and pick the best solution amongst the identified local optima.</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1"><span class="co"># N             - number of restarts</span></a>
-<a class="sourceLine" id="cb506-2" title="2"><span class="co"># par_generator - a function generating initial guesses</span></a>
-<a class="sourceLine" id="cb506-3" title="3"><span class="co"># ...           - further arguments to optim()</span></a>
-<a class="sourceLine" id="cb506-4" title="4">optim_with_restarts &lt;-<span class="st"> </span><span class="cf">function</span>(par_generator, ..., <span class="dt">N=</span><span class="dv">10</span>) {</a>
-<a class="sourceLine" id="cb506-5" title="5">    res_best &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">value=</span><span class="ot">Inf</span>) <span class="co"># cannot be worse than this</span></a>
-<a class="sourceLine" id="cb506-6" title="6">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
-<a class="sourceLine" id="cb506-7" title="7">        res &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">par_generator</span>(), ...)</a>
-<a class="sourceLine" id="cb506-8" title="8">        <span class="cf">if</span> (res<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>res_best<span class="op">$</span>value)</a>
-<a class="sourceLine" id="cb506-9" title="9">            res_best &lt;-<span class="st"> </span>res <span class="co"># a better candidate found</span></a>
-<a class="sourceLine" id="cb506-10" title="10">    }</a>
-<a class="sourceLine" id="cb506-11" title="11">    res_best</a>
-<a class="sourceLine" id="cb506-12" title="12">}</a></code></pre></div>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" title="1"><span class="kw">optim_with_restarts</span>(<span class="cf">function</span>() <span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb507-2" title="2">    g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">N=</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb517-1" title="1"><span class="co"># N             - number of restarts</span></a>
+<a class="sourceLine" id="cb517-2" title="2"><span class="co"># par_generator - a function generating initial guesses</span></a>
+<a class="sourceLine" id="cb517-3" title="3"><span class="co"># ...           - further arguments to optim()</span></a>
+<a class="sourceLine" id="cb517-4" title="4">optim_with_restarts &lt;-<span class="st"> </span><span class="cf">function</span>(par_generator, ..., <span class="dt">N=</span><span class="dv">10</span>) {</a>
+<a class="sourceLine" id="cb517-5" title="5">    res_best &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">value=</span><span class="ot">Inf</span>) <span class="co"># cannot be worse than this</span></a>
+<a class="sourceLine" id="cb517-6" title="6">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
+<a class="sourceLine" id="cb517-7" title="7">        res &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">par_generator</span>(), ...)</a>
+<a class="sourceLine" id="cb517-8" title="8">        <span class="cf">if</span> (res<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>res_best<span class="op">$</span>value)</a>
+<a class="sourceLine" id="cb517-9" title="9">            res_best &lt;-<span class="st"> </span>res <span class="co"># a better candidate found</span></a>
+<a class="sourceLine" id="cb517-10" title="10">    }</a>
+<a class="sourceLine" id="cb517-11" title="11">    res_best</a>
+<a class="sourceLine" id="cb517-12" title="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb518-1" title="1"><span class="kw">optim_with_restarts</span>(<span class="cf">function</span>() <span class="kw">runif</span>(<span class="dv">2</span>, <span class="dv">-5</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb518-2" title="2">    g_vectorised, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">N=</span><span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## $par
 ## [1] -1.542256  2.156405
 ## 
@@ -991,14 +991,14 @@ g(x_1,x_2)=\log\left((x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots\
 }{(x_1^{2}+x_2-5)^{2}+(x_1+x_2^{2}-3)^{2}+x_1^2-1.60644\dots}
 \end{array}
 \]</span></p>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" title="1">grad_g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb509-2" title="2">    <span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb509-3" title="3">        <span class="dv">4</span><span class="op">*</span>x[<span class="dv">1</span>]<span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>x[<span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb509-4" title="4">        <span class="dv">2</span><span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">+</span><span class="dv">4</span><span class="op">*</span>x[<span class="dv">2</span>]<span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)</a>
-<a class="sourceLine" id="cb509-5" title="5">    )<span class="op">/</span>(</a>
-<a class="sourceLine" id="cb509-6" title="6">        (x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span></a>
-<a class="sourceLine" id="cb509-7" title="7">    )</a>
-<a class="sourceLine" id="cb509-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" title="1">grad_g_vectorised &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb520-2" title="2">    <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb520-3" title="3">        <span class="dv">4</span><span class="op">*</span>x[<span class="dv">1</span>]<span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>x[<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb520-4" title="4">        <span class="dv">2</span><span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">+</span><span class="dv">4</span><span class="op">*</span>x[<span class="dv">2</span>]<span class="op">*</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)</a>
+<a class="sourceLine" id="cb520-5" title="5">    )<span class="op">/</span>(</a>
+<a class="sourceLine" id="cb520-6" title="6">        (x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">2</span>]<span class="op">-</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(x[<span class="dv">1</span>]<span class="op">+</span>x[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2-3</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>x[<span class="dv">1</span>]<span class="op">^</span><span class="dv">2</span><span class="fl">-1.60644366086443841</span></a>
+<a class="sourceLine" id="cb520-7" title="7">    )</a>
+<a class="sourceLine" id="cb520-8" title="8">}</a></code></pre></div>
 </div>
 <div id="three-facts-on-the-gradient" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> Three Facts on the Gradient</h3>
@@ -1027,17 +1027,17 @@ is the limit of the above as <span class="math inline">\(\delta\to 0\)</span>.</
 </dd>
 </dl>
 <p>Example implementation:</p>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb510-1" title="1"><span class="co"># gradient of f at x=c(x[1],...,x[p])</span></a>
-<a class="sourceLine" id="cb510-2" title="2">grad_approx &lt;-<span class="st"> </span><span class="cf">function</span>(f, x, <span class="dt">delta=</span><span class="fl">1e-6</span>) {</a>
-<a class="sourceLine" id="cb510-3" title="3">    p &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb510-4" title="4">    gf &lt;-<span class="st"> </span><span class="kw">numeric</span>(p) <span class="co"># vector of length p</span></a>
-<a class="sourceLine" id="cb510-5" title="5">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p) {</a>
-<a class="sourceLine" id="cb510-6" title="6">        xi &lt;-<span class="st"> </span>x</a>
-<a class="sourceLine" id="cb510-7" title="7">        xi[i] &lt;-<span class="st"> </span>xi[i]<span class="op">+</span>delta</a>
-<a class="sourceLine" id="cb510-8" title="8">        gf[i] &lt;-<span class="st"> </span><span class="kw">f</span>(xi)</a>
-<a class="sourceLine" id="cb510-9" title="9">    }</a>
-<a class="sourceLine" id="cb510-10" title="10">    (gf<span class="op">-</span><span class="kw">f</span>(x))<span class="op">/</span>delta</a>
-<a class="sourceLine" id="cb510-11" title="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb521-1" title="1"><span class="co"># gradient of f at x=c(x[1],...,x[p])</span></a>
+<a class="sourceLine" id="cb521-2" title="2">grad_approx &lt;-<span class="st"> </span><span class="cf">function</span>(f, x, <span class="dt">delta=</span><span class="fl">1e-6</span>) {</a>
+<a class="sourceLine" id="cb521-3" title="3">    p &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb521-4" title="4">    gf &lt;-<span class="st"> </span><span class="kw">numeric</span>(p) <span class="co"># vector of length p</span></a>
+<a class="sourceLine" id="cb521-5" title="5">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p) {</a>
+<a class="sourceLine" id="cb521-6" title="6">        xi &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb521-7" title="7">        xi[i] &lt;-<span class="st"> </span>xi[i]<span class="op">+</span>delta</a>
+<a class="sourceLine" id="cb521-8" title="8">        gf[i] &lt;-<span class="st"> </span><span class="kw">f</span>(xi)</a>
+<a class="sourceLine" id="cb521-9" title="9">    }</a>
+<a class="sourceLine" id="cb521-10" title="10">    (gf<span class="op">-</span><span class="kw">f</span>(x))<span class="op">/</span>delta</a>
+<a class="sourceLine" id="cb521-11" title="11">}</a></code></pre></div>
 <dl>
 <dt>Remark.</dt>
 <dd><p>(*) Interestingly, some modern vector/matrix algebra frameworks
@@ -1047,13 +1047,13 @@ methods to “derive” the gradient algorithmically
 </dd>
 </dl>
 <p>Sanity check:</p>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" title="1"><span class="kw">grad_approx</span>(g_vectorised, <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" title="1"><span class="kw">grad_approx</span>(g_vectorised, <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] -3.186485 -1.365634</code></pre>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb513-1" title="1"><span class="kw">grad_g_vectorised</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" title="1"><span class="kw">grad_g_vectorised</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] -3.186485 -1.365636</code></pre>
-<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb515-1" title="1"><span class="kw">grad_approx</span>(g_vectorised, <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.542255693</span>, <span class="fl">2.15640528979</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb526-1" title="1"><span class="kw">grad_approx</span>(g_vectorised, <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.542255693</span>, <span class="fl">2.15640528979</span>))</a></code></pre></div>
 <pre><code>## [1] 1.058842e-05 1.981748e-05</code></pre>
-<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb517-1" title="1"><span class="kw">grad_g_vectorised</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.542255693</span>, <span class="fl">2.15640528979</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" title="1"><span class="kw">grad_g_vectorised</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.542255693</span>, <span class="fl">2.15640528979</span>))</a></code></pre></div>
 <pre><code>## [1] 4.129167e-09 3.577146e-10</code></pre>
 <p>BTW, there is also the <code>grad()</code> function in package <code>numDeriv</code>
 that might be a little more accurate (uses a different approximation
@@ -1120,35 +1120,35 @@ We usually set <span class="math inline">\(\eta\)</span> of small order of magni
 <p>An implementation of the gradient descent algorithm is straightforward.
 In essence, it’s the <code>par &lt;- par - eta*grad_g_vectorised(par)</code> expression
 run in a loop, until convergence.</p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" title="1"><span class="co"># par   - initial guess</span></a>
-<a class="sourceLine" id="cb519-2" title="2"><span class="co"># fn    - a function to be minimised</span></a>
-<a class="sourceLine" id="cb519-3" title="3"><span class="co"># gr    - a function to return the gradient of fn</span></a>
-<a class="sourceLine" id="cb519-4" title="4"><span class="co"># eta   - learning rate</span></a>
-<a class="sourceLine" id="cb519-5" title="5"><span class="co"># maxit - maximum number of iterations</span></a>
-<a class="sourceLine" id="cb519-6" title="6"><span class="co"># tol   - convergence tolerance</span></a>
-<a class="sourceLine" id="cb519-7" title="7">optim_gd &lt;-<span class="st"> </span><span class="cf">function</span>(par, fn, gr, <span class="dt">eta=</span><span class="fl">0.01</span>,</a>
-<a class="sourceLine" id="cb519-8" title="8">                        <span class="dt">maxit=</span><span class="dv">1000</span>, <span class="dt">tol=</span><span class="fl">1e-8</span>) {</a>
-<a class="sourceLine" id="cb519-9" title="9">    f_last &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
-<a class="sourceLine" id="cb519-10" title="10">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
-<a class="sourceLine" id="cb519-11" title="11">        par &lt;-<span class="st"> </span>par <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_g_vectorised</span>(par) <span class="co"># update step</span></a>
-<a class="sourceLine" id="cb519-12" title="12">        f_cur &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
-<a class="sourceLine" id="cb519-13" title="13">        <span class="cf">if</span> (<span class="kw">abs</span>(f_cur<span class="op">-</span>f_last) <span class="op">&lt;</span><span class="st"> </span>tol) <span class="cf">break</span></a>
-<a class="sourceLine" id="cb519-14" title="14">        f_last &lt;-<span class="st"> </span>f_cur</a>
-<a class="sourceLine" id="cb519-15" title="15">    }</a>
-<a class="sourceLine" id="cb519-16" title="16">    <span class="kw">list</span>( <span class="co"># see ?optim, section `Value`</span></a>
-<a class="sourceLine" id="cb519-17" title="17">        <span class="dt">par=</span>par,</a>
-<a class="sourceLine" id="cb519-18" title="18">        <span class="dt">value=</span><span class="kw">g_vectorised</span>(par),</a>
-<a class="sourceLine" id="cb519-19" title="19">        <span class="dt">counts=</span>i,</a>
-<a class="sourceLine" id="cb519-20" title="20">        <span class="dt">convergence=</span><span class="kw">as.integer</span>(i<span class="op">==</span>maxit)</a>
-<a class="sourceLine" id="cb519-21" title="21">    )</a>
-<a class="sourceLine" id="cb519-22" title="22">}</a></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" title="1"><span class="co"># par   - initial guess</span></a>
+<a class="sourceLine" id="cb530-2" title="2"><span class="co"># fn    - a function to be minimised</span></a>
+<a class="sourceLine" id="cb530-3" title="3"><span class="co"># gr    - a function to return the gradient of fn</span></a>
+<a class="sourceLine" id="cb530-4" title="4"><span class="co"># eta   - learning rate</span></a>
+<a class="sourceLine" id="cb530-5" title="5"><span class="co"># maxit - maximum number of iterations</span></a>
+<a class="sourceLine" id="cb530-6" title="6"><span class="co"># tol   - convergence tolerance</span></a>
+<a class="sourceLine" id="cb530-7" title="7">optim_gd &lt;-<span class="st"> </span><span class="cf">function</span>(par, fn, gr, <span class="dt">eta=</span><span class="fl">0.01</span>,</a>
+<a class="sourceLine" id="cb530-8" title="8">                        <span class="dt">maxit=</span><span class="dv">1000</span>, <span class="dt">tol=</span><span class="fl">1e-8</span>) {</a>
+<a class="sourceLine" id="cb530-9" title="9">    f_last &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
+<a class="sourceLine" id="cb530-10" title="10">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb530-11" title="11">        par &lt;-<span class="st"> </span>par <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_g_vectorised</span>(par) <span class="co"># update step</span></a>
+<a class="sourceLine" id="cb530-12" title="12">        f_cur &lt;-<span class="st"> </span><span class="kw">fn</span>(par)</a>
+<a class="sourceLine" id="cb530-13" title="13">        <span class="cf">if</span> (<span class="kw">abs</span>(f_cur<span class="op">-</span>f_last) <span class="op">&lt;</span><span class="st"> </span>tol) <span class="cf">break</span></a>
+<a class="sourceLine" id="cb530-14" title="14">        f_last &lt;-<span class="st"> </span>f_cur</a>
+<a class="sourceLine" id="cb530-15" title="15">    }</a>
+<a class="sourceLine" id="cb530-16" title="16">    <span class="kw">list</span>( <span class="co"># see ?optim, section `Value`</span></a>
+<a class="sourceLine" id="cb530-17" title="17">        <span class="dt">par=</span>par,</a>
+<a class="sourceLine" id="cb530-18" title="18">        <span class="dt">value=</span><span class="kw">g_vectorised</span>(par),</a>
+<a class="sourceLine" id="cb530-19" title="19">        <span class="dt">counts=</span>i,</a>
+<a class="sourceLine" id="cb530-20" title="20">        <span class="dt">convergence=</span><span class="kw">as.integer</span>(i<span class="op">==</span>maxit)</a>
+<a class="sourceLine" id="cb530-21" title="21">    )</a>
+<a class="sourceLine" id="cb530-22" title="22">}</a></code></pre></div>
 <p>Tests of the <span class="math inline">\(g\)</span> function.
 First, let’s try <span class="math inline">\(\eta=0.01\)</span>.
 Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:etastepplot">10</a> zooms in the contour plot so that we can see
 the actual path the algorithm has taken.</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb520-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
-<a class="sourceLine" id="cb520-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb531-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
+<a class="sourceLine" id="cb531-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ par        : num [1:2] -1.54 2.16
 ##  $ value      : num 1.33e-08
@@ -1159,9 +1159,9 @@ the actual path the algorithm has taken.</p>
 <p class="caption">Figure 10: Path taken by the gradient descent algorithm with <span class="math inline">\(\eta=0.01\)</span></p>
 </div>
 <p>Now let’s try <span class="math inline">\(\eta=0.05\)</span>.</p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb522-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
-<a class="sourceLine" id="cb522-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb533-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
+<a class="sourceLine" id="cb533-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ par        : num [1:2] -1.54 2.15
 ##  $ value      : num 0.000203
@@ -1175,9 +1175,9 @@ see Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:e
 <p class="caption">Figure 11: Path taken by the gradient descent algorithm with <span class="math inline">\(\eta=0.05\)</span></p>
 </div>
 <p>And now for something completely different: <span class="math inline">\(\eta=0.1\)</span>, see Figure <a href="continuous-optimisation-with-iterative-algorithms.html#fig:etadef3f">12</a>.</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb524-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
-<a class="sourceLine" id="cb524-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" title="1">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb535-2" title="2">res &lt;-<span class="st"> </span><span class="kw">optim_gd</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">1</span>), g_vectorised, grad_g_vectorised, <span class="dt">eta=</span>eta)</a>
+<a class="sourceLine" id="cb535-3" title="3"><span class="kw">str</span>(res)</a></code></pre></div>
 <pre><code>## List of 4
 ##  $ par        : num [1:2] -1.52 2.33
 ##  $ value      : num 0.507
@@ -1220,29 +1220,29 @@ of the gradient descent procedure.</p>
 <p>In the previous chapter we’ve
 studied the MNIST dataset.
 Let us go back to the task of fitting a multiclass logistic regression model.</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb526-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
-<a class="sourceLine" id="cb526-2" title="2">mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</a>
-<a class="sourceLine" id="cb526-3" title="3"></a>
-<a class="sourceLine" id="cb526-4" title="4"><span class="co"># get train/test images in greyscale</span></a>
-<a class="sourceLine" id="cb526-5" title="5">X_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x<span class="op">/</span><span class="dv">255</span> <span class="co"># to [0,1]</span></a>
-<a class="sourceLine" id="cb526-6" title="6">X_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x<span class="op">/</span><span class="dv">255</span>  <span class="co"># to [0,1]</span></a>
-<a class="sourceLine" id="cb526-7" title="7"></a>
-<a class="sourceLine" id="cb526-8" title="8"><span class="co"># get the corresponding labels in {0,1,...,9}:</span></a>
-<a class="sourceLine" id="cb526-9" title="9">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
-<a class="sourceLine" id="cb526-10" title="10">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb537-1" title="1"><span class="kw">library</span>(<span class="st">&quot;keras&quot;</span>)</a>
+<a class="sourceLine" id="cb537-2" title="2">mnist &lt;-<span class="st"> </span><span class="kw">dataset_mnist</span>()</a>
+<a class="sourceLine" id="cb537-3" title="3"></a>
+<a class="sourceLine" id="cb537-4" title="4"><span class="co"># get train/test images in greyscale</span></a>
+<a class="sourceLine" id="cb537-5" title="5">X_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>x<span class="op">/</span><span class="dv">255</span> <span class="co"># to [0,1]</span></a>
+<a class="sourceLine" id="cb537-6" title="6">X_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>x<span class="op">/</span><span class="dv">255</span>  <span class="co"># to [0,1]</span></a>
+<a class="sourceLine" id="cb537-7" title="7"></a>
+<a class="sourceLine" id="cb537-8" title="8"><span class="co"># get the corresponding labels in {0,1,...,9}:</span></a>
+<a class="sourceLine" id="cb537-9" title="9">Y_train &lt;-<span class="st"> </span>mnist<span class="op">$</span>train<span class="op">$</span>y</a>
+<a class="sourceLine" id="cb537-10" title="10">Y_test  &lt;-<span class="st"> </span>mnist<span class="op">$</span>test<span class="op">$</span>y</a></code></pre></div>
 <p>The labels need to be one-hot encoded:</p>
-<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" title="1">one_hot_encode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
-<a class="sourceLine" id="cb527-2" title="2">    <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(Y))</a>
-<a class="sourceLine" id="cb527-3" title="3">    c1 &lt;-<span class="st"> </span><span class="kw">min</span>(Y) <span class="co"># first class label</span></a>
-<a class="sourceLine" id="cb527-4" title="4">    cK &lt;-<span class="st"> </span><span class="kw">max</span>(Y) <span class="co"># last class label</span></a>
-<a class="sourceLine" id="cb527-5" title="5">    K &lt;-<span class="st"> </span>cK<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span> <span class="co"># number of classes</span></a>
-<a class="sourceLine" id="cb527-6" title="6">    Y2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y), <span class="dt">ncol=</span>K)</a>
-<a class="sourceLine" id="cb527-7" title="7">    Y2[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y), Y<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb527-8" title="8">    Y2</a>
-<a class="sourceLine" id="cb527-9" title="9">}</a>
-<a class="sourceLine" id="cb527-10" title="10"></a>
-<a class="sourceLine" id="cb527-11" title="11">Y_train2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_train)</a>
-<a class="sourceLine" id="cb527-12" title="12">Y_test2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" title="1">one_hot_encode &lt;-<span class="st"> </span><span class="cf">function</span>(Y) {</a>
+<a class="sourceLine" id="cb538-2" title="2">    <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(Y))</a>
+<a class="sourceLine" id="cb538-3" title="3">    c1 &lt;-<span class="st"> </span><span class="kw">min</span>(Y) <span class="co"># first class label</span></a>
+<a class="sourceLine" id="cb538-4" title="4">    cK &lt;-<span class="st"> </span><span class="kw">max</span>(Y) <span class="co"># last class label</span></a>
+<a class="sourceLine" id="cb538-5" title="5">    K &lt;-<span class="st"> </span>cK<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span> <span class="co"># number of classes</span></a>
+<a class="sourceLine" id="cb538-6" title="6">    Y2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">length</span>(Y), <span class="dt">ncol=</span>K)</a>
+<a class="sourceLine" id="cb538-7" title="7">    Y2[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y), Y<span class="op">-</span>c1<span class="op">+</span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb538-8" title="8">    Y2</a>
+<a class="sourceLine" id="cb538-9" title="9">}</a>
+<a class="sourceLine" id="cb538-10" title="10"></a>
+<a class="sourceLine" id="cb538-11" title="11">Y_train2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_train)</a>
+<a class="sourceLine" id="cb538-12" title="12">Y_test2 &lt;-<span class="st"> </span><span class="kw">one_hot_encode</span>(Y_test)</a></code></pre></div>
 <p>Our task is to find the parameters <span class="math inline">\(\mathbf{B}\)</span>
 that minimise cross entropy <span class="math inline">\(E(\mathbf{B})\)</span> over the training set:</p>
 <p><span class="math display">\[
@@ -1289,43 +1289,43 @@ and <span class="math inline">\(\mathrm{softmax}\)</span> is applied on each mat
 <span class="math inline">\(\hat{\mathbf{Y}}\)</span> will be a matrix of size
 <span class="math inline">\(n\times 10\)</span>, where <span class="math inline">\(\hat{y}_{i,k}\)</span> represents the predicted probability
 that the <span class="math inline">\(i\)</span>-th image depicts the <span class="math inline">\(k\)</span>-th digit.</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" title="1"><span class="co"># convert to matrices of size n*784</span></a>
-<a class="sourceLine" id="cb528-2" title="2"><span class="co"># and add a column of 1s</span></a>
-<a class="sourceLine" id="cb528-3" title="3">X_train1 &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a>
-<a class="sourceLine" id="cb528-4" title="4">X_test1  &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" title="1"><span class="co"># convert to matrices of size n*784</span></a>
+<a class="sourceLine" id="cb539-2" title="2"><span class="co"># and add a column of 1s</span></a>
+<a class="sourceLine" id="cb539-3" title="3">X_train1 &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_train, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a>
+<a class="sourceLine" id="cb539-4" title="4">X_test1  &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="fl">1.0</span>, <span class="kw">matrix</span>(X_test, <span class="dt">ncol=</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>))</a></code></pre></div>
 <p>The <code>nn_predict()</code> function implements the above formula
 for <span class="math inline">\(\hat{\mathbf{Y}}\)</span>:</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" title="1">softmax &lt;-<span class="st"> </span><span class="cf">function</span>(T) {</a>
-<a class="sourceLine" id="cb529-2" title="2">    T &lt;-<span class="st"> </span><span class="kw">exp</span>(T)</a>
-<a class="sourceLine" id="cb529-3" title="3">    T<span class="op">/</span><span class="kw">rowSums</span>(T)</a>
-<a class="sourceLine" id="cb529-4" title="4">}</a>
-<a class="sourceLine" id="cb529-5" title="5"></a>
-<a class="sourceLine" id="cb529-6" title="6">nn_predict &lt;-<span class="st"> </span><span class="cf">function</span>(B, X) {</a>
-<a class="sourceLine" id="cb529-7" title="7">    <span class="kw">softmax</span>(X <span class="op">%*%</span><span class="st"> </span>B)</a>
-<a class="sourceLine" id="cb529-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" title="1">softmax &lt;-<span class="st"> </span><span class="cf">function</span>(T) {</a>
+<a class="sourceLine" id="cb540-2" title="2">    T &lt;-<span class="st"> </span><span class="kw">exp</span>(T)</a>
+<a class="sourceLine" id="cb540-3" title="3">    T<span class="op">/</span><span class="kw">rowSums</span>(T)</a>
+<a class="sourceLine" id="cb540-4" title="4">}</a>
+<a class="sourceLine" id="cb540-5" title="5"></a>
+<a class="sourceLine" id="cb540-6" title="6">nn_predict &lt;-<span class="st"> </span><span class="cf">function</span>(B, X) {</a>
+<a class="sourceLine" id="cb540-7" title="7">    <span class="kw">softmax</span>(X <span class="op">%*%</span><span class="st"> </span>B)</a>
+<a class="sourceLine" id="cb540-8" title="8">}</a></code></pre></div>
 <p>Let’s define the functions to compute the cross-entropy
 (which we shall minimise)
 and accuracy (which we shall report to a user):</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" title="1">cross_entropy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
-<a class="sourceLine" id="cb530-2" title="2">    <span class="op">-</span><span class="kw">sum</span>(Y_true<span class="op">*</span><span class="kw">log</span>(Y_pred))<span class="op">/</span><span class="kw">nrow</span>(Y_true)</a>
-<a class="sourceLine" id="cb530-3" title="3">}</a>
-<a class="sourceLine" id="cb530-4" title="4"></a>
-<a class="sourceLine" id="cb530-5" title="5">accuracy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
-<a class="sourceLine" id="cb530-6" title="6">    <span class="co"># both arguments are one-hot encoded</span></a>
-<a class="sourceLine" id="cb530-7" title="7">    Y_true_decoded &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_true, <span class="dv">1</span>, which.max)</a>
-<a class="sourceLine" id="cb530-8" title="8">    Y_pred_decoded &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred, <span class="dv">1</span>, which.max)</a>
-<a class="sourceLine" id="cb530-9" title="9">    <span class="co"># proportion of equal corresponding pairs:</span></a>
-<a class="sourceLine" id="cb530-10" title="10">    <span class="kw">mean</span>(Y_true_decoded <span class="op">==</span><span class="st"> </span>Y_pred_decoded)</a>
-<a class="sourceLine" id="cb530-11" title="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" title="1">cross_entropy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
+<a class="sourceLine" id="cb541-2" title="2">    <span class="op">-</span><span class="kw">sum</span>(Y_true<span class="op">*</span><span class="kw">log</span>(Y_pred))<span class="op">/</span><span class="kw">nrow</span>(Y_true)</a>
+<a class="sourceLine" id="cb541-3" title="3">}</a>
+<a class="sourceLine" id="cb541-4" title="4"></a>
+<a class="sourceLine" id="cb541-5" title="5">accuracy &lt;-<span class="st"> </span><span class="cf">function</span>(Y_true, Y_pred) {</a>
+<a class="sourceLine" id="cb541-6" title="6">    <span class="co"># both arguments are one-hot encoded</span></a>
+<a class="sourceLine" id="cb541-7" title="7">    Y_true_decoded &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_true, <span class="dv">1</span>, which.max)</a>
+<a class="sourceLine" id="cb541-8" title="8">    Y_pred_decoded &lt;-<span class="st"> </span><span class="kw">apply</span>(Y_pred, <span class="dv">1</span>, which.max)</a>
+<a class="sourceLine" id="cb541-9" title="9">    <span class="co"># proportion of equal corresponding pairs:</span></a>
+<a class="sourceLine" id="cb541-10" title="10">    <span class="kw">mean</span>(Y_true_decoded <span class="op">==</span><span class="st"> </span>Y_pred_decoded)</a>
+<a class="sourceLine" id="cb541-11" title="11">}</a></code></pre></div>
 <p>It may be shown (**) that the gradient of cross-entropy
 (with respect to the parameter matrix <span class="math inline">\(\mathbf{B}\)</span>)
 can be expressed in the matrix form as:</p>
 <p><span class="math display">\[
 \frac{1}{n} \mathbf{\dot{X}}^T\, (\mathbf{\hat{Y}}-\mathbf{Y})
 \]</span></p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" title="1">grad_cross_entropy &lt;-<span class="st"> </span><span class="cf">function</span>(X, Y_true, Y_pred) {</a>
-<a class="sourceLine" id="cb531-2" title="2">    <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>(Y_pred<span class="op">-</span>Y_true)<span class="op">/</span><span class="kw">nrow</span>(Y_true)</a>
-<a class="sourceLine" id="cb531-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" title="1">grad_cross_entropy &lt;-<span class="st"> </span><span class="cf">function</span>(X, Y_true, Y_pred) {</a>
+<a class="sourceLine" id="cb542-2" title="2">    <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>(Y_pred<span class="op">-</span>Y_true)<span class="op">/</span><span class="kw">nrow</span>(Y_true)</a>
+<a class="sourceLine" id="cb542-3" title="3">}</a></code></pre></div>
 <p>Of course, we could always substitute the gradient
 with the finite difference approximation. Yet, this would be much slower).</p>
 <p>The more mathematically inclined reader will sure notice that
@@ -1400,26 +1400,26 @@ the gradient of cross-entropy (by means of <code>grad_cross_entropy()</code>),
 not the gradient of <span class="math inline">\(g\)</span>.</p>
 <p>Note that a call to <code>system.time(expr)</code> measures the time (in seconds)
 spent evaluating an expression <code>expr</code>.</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" title="1"><span class="co"># random matrix of size 785x10 - initial guess</span></a>
-<a class="sourceLine" id="cb532-2" title="2">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
-<a class="sourceLine" id="cb532-3" title="3">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
-<a class="sourceLine" id="cb532-4" title="4">eta &lt;-<span class="st"> </span><span class="fl">0.1</span>   <span class="co"># learning rate</span></a>
-<a class="sourceLine" id="cb532-5" title="5">maxit &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># number of GD iterations</span></a>
-<a class="sourceLine" id="cb532-6" title="6"><span class="kw">system.time</span>({ <span class="co"># measure time spent</span></a>
-<a class="sourceLine" id="cb532-7" title="7">    <span class="co"># for simplicity, we stop only when we reach maxit</span></a>
-<a class="sourceLine" id="cb532-8" title="8">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
-<a class="sourceLine" id="cb532-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
-<a class="sourceLine" id="cb532-10" title="10">            X_train1, Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a>
-<a class="sourceLine" id="cb532-11" title="11">    }</a>
-<a class="sourceLine" id="cb532-12" title="12">}) <span class="co"># `user` - processing time in seconds:</span></a></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" title="1"><span class="co"># random matrix of size 785x10 - initial guess</span></a>
+<a class="sourceLine" id="cb543-2" title="2">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
+<a class="sourceLine" id="cb543-3" title="3">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
+<a class="sourceLine" id="cb543-4" title="4">eta &lt;-<span class="st"> </span><span class="fl">0.1</span>   <span class="co"># learning rate</span></a>
+<a class="sourceLine" id="cb543-5" title="5">maxit &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># number of GD iterations</span></a>
+<a class="sourceLine" id="cb543-6" title="6"><span class="kw">system.time</span>({ <span class="co"># measure time spent</span></a>
+<a class="sourceLine" id="cb543-7" title="7">    <span class="co"># for simplicity, we stop only when we reach maxit</span></a>
+<a class="sourceLine" id="cb543-8" title="8">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb543-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
+<a class="sourceLine" id="cb543-10" title="10">            X_train1, Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a>
+<a class="sourceLine" id="cb543-11" title="11">    }</a>
+<a class="sourceLine" id="cb543-12" title="12">}) <span class="co"># `user` - processing time in seconds:</span></a></code></pre></div>
 <pre><code>##    user  system elapsed 
 ##  48.798   7.757  32.784</code></pre>
 <p>Unfortunately, the method’s convergence is really slow
 (we are optimising over <span class="math inline">\(7850\)</span> parameters…)
 and the results after 100 iterations are disappointing:</p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb534-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
 <pre><code>## [1] 0.4646167</code></pre>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb536-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
 <pre><code>## [1] 0.4735</code></pre>
 <p>Recall that in the previous chapter
 we obtained much better classification accuracy by using the <code>keras</code> package.
@@ -1463,50 +1463,50 @@ there are a few variations popular in the literature, we pick the most intuitive
 </dd>
 </dl>
 <p>Stochastic gradient descent can be implemented very easily:</p>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
-<a class="sourceLine" id="cb538-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
-<a class="sourceLine" id="cb538-3" title="3">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb538-4" title="4">maxit &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb538-5" title="5">batch_size &lt;-<span class="st"> </span><span class="dv">32</span></a>
-<a class="sourceLine" id="cb538-6" title="6"><span class="kw">system.time</span>({</a>
-<a class="sourceLine" id="cb538-7" title="7">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
-<a class="sourceLine" id="cb538-8" title="8">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(X_train1), <span class="dt">size=</span>batch_size)</a>
-<a class="sourceLine" id="cb538-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
-<a class="sourceLine" id="cb538-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
-<a class="sourceLine" id="cb538-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
-<a class="sourceLine" id="cb538-12" title="12">        )</a>
-<a class="sourceLine" id="cb538-13" title="13">    }</a>
-<a class="sourceLine" id="cb538-14" title="14">})</a></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
+<a class="sourceLine" id="cb549-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
+<a class="sourceLine" id="cb549-3" title="3">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb549-4" title="4">maxit &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb549-5" title="5">batch_size &lt;-<span class="st"> </span><span class="dv">32</span></a>
+<a class="sourceLine" id="cb549-6" title="6"><span class="kw">system.time</span>({</a>
+<a class="sourceLine" id="cb549-7" title="7">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb549-8" title="8">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(X_train1), <span class="dt">size=</span>batch_size)</a>
+<a class="sourceLine" id="cb549-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
+<a class="sourceLine" id="cb549-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
+<a class="sourceLine" id="cb549-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
+<a class="sourceLine" id="cb549-12" title="12">        )</a>
+<a class="sourceLine" id="cb549-13" title="13">    }</a>
+<a class="sourceLine" id="cb549-14" title="14">})</a></code></pre></div>
 <pre><code>##    user  system elapsed 
 ##   0.344   0.007   0.093</code></pre>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
 <pre><code>## [1] 0.4619833</code></pre>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
 <pre><code>## [1] 0.4693</code></pre>
 <p>The errors are much worse but at least we got the (useless)
 solution very quickly. That’s the “fail fast” rule in practice.</p>
 <p>However, why don’t we increase the number of iterations and see what
 happens? We’ve allowed the classic gradient descent to scrabble around
 the MNIST dataset for almost 2 minutes.</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
-<a class="sourceLine" id="cb544-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
-<a class="sourceLine" id="cb544-3" title="3">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb544-4" title="4">maxit &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb544-5" title="5">batch_size &lt;-<span class="st"> </span><span class="dv">32</span></a>
-<a class="sourceLine" id="cb544-6" title="6"><span class="kw">system.time</span>({</a>
-<a class="sourceLine" id="cb544-7" title="7">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
-<a class="sourceLine" id="cb544-8" title="8">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(X_train1), <span class="dt">size=</span>batch_size)</a>
-<a class="sourceLine" id="cb544-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
-<a class="sourceLine" id="cb544-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
-<a class="sourceLine" id="cb544-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
-<a class="sourceLine" id="cb544-12" title="12">        )</a>
-<a class="sourceLine" id="cb544-13" title="13">    }</a>
-<a class="sourceLine" id="cb544-14" title="14">})</a></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">ncol</span>(X_train1)<span class="op">*</span><span class="kw">ncol</span>(Y_train2)),</a>
+<a class="sourceLine" id="cb555-2" title="2">    <span class="dt">nrow=</span><span class="kw">ncol</span>(X_train1))</a>
+<a class="sourceLine" id="cb555-3" title="3">eta &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb555-4" title="4">maxit &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb555-5" title="5">batch_size &lt;-<span class="st"> </span><span class="dv">32</span></a>
+<a class="sourceLine" id="cb555-6" title="6"><span class="kw">system.time</span>({</a>
+<a class="sourceLine" id="cb555-7" title="7">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>maxit) {</a>
+<a class="sourceLine" id="cb555-8" title="8">        wh &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(X_train1), <span class="dt">size=</span>batch_size)</a>
+<a class="sourceLine" id="cb555-9" title="9">        B &lt;-<span class="st"> </span>B <span class="op">-</span><span class="st"> </span>eta<span class="op">*</span><span class="kw">grad_cross_entropy</span>(</a>
+<a class="sourceLine" id="cb555-10" title="10">            X_train1[wh,], Y_train2[wh,],</a>
+<a class="sourceLine" id="cb555-11" title="11">            <span class="kw">nn_predict</span>(B, X_train1[wh,])</a>
+<a class="sourceLine" id="cb555-12" title="12">        )</a>
+<a class="sourceLine" id="cb555-13" title="13">    }</a>
+<a class="sourceLine" id="cb555-14" title="14">})</a></code></pre></div>
 <pre><code>##    user  system elapsed 
 ##  30.604   0.347   7.743</code></pre>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" title="1"><span class="kw">accuracy</span>(Y_train2, <span class="kw">nn_predict</span>(B, X_train1))</a></code></pre></div>
 <pre><code>## [1] 0.8922167</code></pre>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" title="1"><span class="kw">accuracy</span>(Y_test2,  <span class="kw">nn_predict</span>(B, X_test1))</a></code></pre></div>
 <pre><code>## [1] 0.8935</code></pre>
 <p>Bingo! Let’s take a closer look at how the train/test error
 behaves in each iteration for different batch sizes.

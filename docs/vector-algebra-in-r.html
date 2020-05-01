@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 17:38 (86399b4)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 18:02 (2b85820)</a></li>
 
 </ul>
 
@@ -535,14 +535,14 @@ C++ with Eigen/Armadillo; C, C++ or Fortran with LAPACK).</p>
 <p>By using matrix notation, we generate more concise and readable code.</p>
 <p>For instance, given two vectors <span class="math inline">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>
 and <span class="math inline">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span> like:</p>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">3.5</span>, <span class="fl">2.3</span>,<span class="op">-</span><span class="fl">6.5</span>)</a>
-<a class="sourceLine" id="cb680-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">2.9</span>, <span class="fl">8.2</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="fl">3.5</span>, <span class="fl">2.3</span>,<span class="op">-</span><span class="fl">6.5</span>)</a>
+<a class="sourceLine" id="cb691-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">2.9</span>, <span class="fl">8.2</span>,<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.8</span>)</a></code></pre></div>
 <p>Instead of writing:</p>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb681-1" title="1">s &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb681-2" title="2">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb681-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)</a>
-<a class="sourceLine" id="cb681-4" title="4">    s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb681-5" title="5"><span class="kw">sqrt</span>(s)</a></code></pre></div>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb692-1" title="1">s &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb692-2" title="2">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb692-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)</a>
+<a class="sourceLine" id="cb692-4" title="4">    s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb692-5" title="5"><span class="kw">sqrt</span>(s)</a></code></pre></div>
 <pre><code>## [1] 9.11592</code></pre>
 <p>to mean:</p>
 <p><span class="math display">\[
@@ -556,7 +556,7 @@ and <span class="math inline">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span> like:</p
 (the square root of the sum of squared differences between
 the corresponding elements in <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span>),
 we shall soon become used to writing:</p>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb683-1" title="1"><span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb694-1" title="1"><span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 9.11592</code></pre>
 <p>or:</p>
 <p><span class="math display">\[
@@ -572,24 +572,24 @@ There are just a few of them, but it’ll take some time until we become comfort
 with their use.</p>
 <p>What’s more, we should note that vectorised code might be
 much faster than the <code>for</code> loop-based one (a.k.a. “iterative” style):</p>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb685-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
-<a class="sourceLine" id="cb685-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb685-3" title="3">x &lt;-<span class="st"> </span><span class="kw">runif</span>(n) <span class="co"># n random numbers in [0,1]</span></a>
-<a class="sourceLine" id="cb685-4" title="4">y &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</a>
-<a class="sourceLine" id="cb685-5" title="5"><span class="kw">print</span>(<span class="kw">microbenchmark</span>(</a>
-<a class="sourceLine" id="cb685-6" title="6">    <span class="dt">t1=</span>{</a>
-<a class="sourceLine" id="cb685-7" title="7">        <span class="co"># &quot;iterative&quot; style</span></a>
-<a class="sourceLine" id="cb685-8" title="8">        s &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb685-9" title="9">        n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb685-10" title="10">        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)</a>
-<a class="sourceLine" id="cb685-11" title="11">            s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb685-12" title="12">        <span class="kw">sqrt</span>(s)</a>
-<a class="sourceLine" id="cb685-13" title="13">    },</a>
-<a class="sourceLine" id="cb685-14" title="14">    <span class="dt">t2=</span>{</a>
-<a class="sourceLine" id="cb685-15" title="15">        <span class="co"># &quot;vectorised&quot; style</span></a>
-<a class="sourceLine" id="cb685-16" title="16">        <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb685-17" title="17"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb685-18" title="18"><span class="er">)</span>, signif=<span class="dv">3</span>, unit=<span class="st">&#39;relative&#39;</span><span class="er">)</span></a></code></pre></div>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb696-1" title="1"><span class="kw">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</a>
+<a class="sourceLine" id="cb696-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb696-3" title="3">x &lt;-<span class="st"> </span><span class="kw">runif</span>(n) <span class="co"># n random numbers in [0,1]</span></a>
+<a class="sourceLine" id="cb696-4" title="4">y &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</a>
+<a class="sourceLine" id="cb696-5" title="5"><span class="kw">print</span>(<span class="kw">microbenchmark</span>(</a>
+<a class="sourceLine" id="cb696-6" title="6">    <span class="dt">t1=</span>{</a>
+<a class="sourceLine" id="cb696-7" title="7">        <span class="co"># &quot;iterative&quot; style</span></a>
+<a class="sourceLine" id="cb696-8" title="8">        s &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb696-9" title="9">        n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb696-10" title="10">        <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)</a>
+<a class="sourceLine" id="cb696-11" title="11">            s &lt;-<span class="st"> </span>s <span class="op">+</span><span class="st"> </span>(x[i]<span class="op">-</span>y[i])<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb696-12" title="12">        <span class="kw">sqrt</span>(s)</a>
+<a class="sourceLine" id="cb696-13" title="13">    },</a>
+<a class="sourceLine" id="cb696-14" title="14">    <span class="dt">t2=</span>{</a>
+<a class="sourceLine" id="cb696-15" title="15">        <span class="co"># &quot;vectorised&quot; style</span></a>
+<a class="sourceLine" id="cb696-16" title="16">        <span class="kw">sqrt</span>(<span class="kw">sum</span>((x<span class="op">-</span>y)<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb696-17" title="17"><span class="op">&lt;</span>div style=<span class="st">&quot;margin-top: 1em&quot;</span><span class="op">&gt;</span><span class="er">&lt;/</span>div<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb696-18" title="18"><span class="er">)</span>, signif=<span class="dv">3</span>, unit=<span class="st">&#39;relative&#39;</span><span class="er">)</span></a></code></pre></div>
 <pre><code>## Unit: relative
 ##  expr min  lq mean median   uq  max neval
 ##    t1 127 123  102    117 93.9 91.7   100
@@ -603,23 +603,23 @@ much faster than the <code>for</code> loop-based one (a.k.a. “iterative” sty
 <div id="c" class="section level4">
 <h4><span class="header-section-number">B.2.1.1</span> <code>c()</code></h4>
 <p>The <code>c()</code> function <em>c</em>ombines a given list of values to form a sequence:</p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb687-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb698-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb689-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">6</span>, <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">8</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb700-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">6</span>, <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">8</span>)))</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6 7 8</code></pre>
 <p>Note that when we use the assignment operator, <code>&lt;-</code> or <code>=</code> (both are
 equivalent), printing of the output is suppressed:</p>
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co"># doesn&#39;t print anything</span></a>
-<a class="sourceLine" id="cb691-2" title="2"><span class="kw">print</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co"># doesn&#39;t print anything</span></a>
+<a class="sourceLine" id="cb702-2" title="2"><span class="kw">print</span>(x)</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>However, we can enforce it by parenthesising the whole expression:</p>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb704-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>In order to determine that <code>x</code> is indeed a numeric vector,
 we call:</p>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb695-1" title="1"><span class="kw">mode</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" title="1"><span class="kw">mode</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb697-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <dl>
 <dt>Remark.</dt>
@@ -630,7 +630,7 @@ a numeric matrix will yield <code>mode()</code> of <code>numeric</code> and
 </dd>
 </dl>
 <p>What is more, we can get the number of elements in <code>x</code> by calling:</p>
-<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb699-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="seq" class="section level4">
@@ -638,26 +638,26 @@ a numeric matrix will yield <code>mode()</code> of <code>numeric</code> and
 <p>To create an arithmetic progression,
 i.e., a sequence of equally-spaced numbers,
 we can call the <code>seq()</code> function</p>
-<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb701-1" title="1"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb712-1" title="1"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 1 3 5 7 9</code></pre>
 <p>If we access the function’s documentation (by executing <code>?seq</code> in the console),
 we’ll note that the function takes a couple of parameters:
 <code>from</code>, <code>to</code>, <code>by</code>, <code>length.out</code> etc.</p>
 <p>The above call is equivalent to:</p>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" title="1"><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">1</span>, <span class="dt">to=</span><span class="dv">9</span>, <span class="dt">by=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb714-1" title="1"><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">1</span>, <span class="dt">to=</span><span class="dv">9</span>, <span class="dt">by=</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 1 3 5 7 9</code></pre>
 <p>The <code>by</code> argument can be replaced with <code>length.out</code>, which gives the desired
 size:</p>
-<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb705-1" title="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" title="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## [1] 0.00 0.25 0.50 0.75 1.00</code></pre>
 <p>Note that R supports partial matching of argument names:</p>
-<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb707-1" title="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">len=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb718-1" title="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">len=</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## [1] 0.00 0.25 0.50 0.75 1.00</code></pre>
 <p>Quite often we need progressions with step equal to 1 or -1.
 Such vectors can be generated by applying the <code>:</code> operator.</p>
-<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb709-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>     <span class="co"># from:to (inclusive)</span></a></code></pre></div>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb720-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>     <span class="co"># from:to (inclusive)</span></a></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb711-1" title="1"><span class="dv">-1</span><span class="op">:-</span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb722-1" title="1"><span class="dv">-1</span><span class="op">:-</span><span class="dv">10</span></a></code></pre></div>
 <pre><code>##  [1]  -1  -2  -3  -4  -5  -6  -7  -8  -9 -10</code></pre>
 </div>
 <div id="rep" class="section level4">
@@ -665,13 +665,13 @@ Such vectors can be generated by applying the <code>:</code> operator.</p>
 <p>Moreover, <code>rep()</code> replicates a given vector.
 Check out the function’s documentation (see <code>?rep</code>) for
 the meaning of the arguments provided below.</p>
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb713-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb724-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## [1] 1 1 1 1 1</code></pre>
-<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb715-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb726-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb717-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb728-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>))</a></code></pre></div>
 <pre><code>## [1] 1 1 2 2 2 2 3 3 3</code></pre>
-<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb719-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each=</span><span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb730-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each=</span><span class="dv">4</span>)</a></code></pre></div>
 <pre><code>##  [1] 1 1 1 1 2 2 2 2 3 3 3 3</code></pre>
 </div>
 <div id="pseudo-random-vectors" class="section level4">
@@ -679,35 +679,35 @@ the meaning of the arguments provided below.</p>
 <p>We can also generate vectors of pseudo-random values.
 For instance, the following generates 5 deviates from the uniform distribution
 (every number has the same probability) on the unit (i.e., <span class="math inline">\([0,1]\)</span>) interval:</p>
-<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb721-1" title="1"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" title="1"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.5649012 0.5588051 0.4414829 0.2076393 0.6696355</code></pre>
 <p>We call such numbers pseudo-random, because they are generated arithmetically.
 In fact, by setting the random number generator’s state (also called the <em>seed</em>),
 we can obtain <em>reproducible</em> results.</p>
-<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb723-2" title="2"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># a,b,c,d,e</span></a></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb734-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb734-2" title="2"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># a,b,c,d,e</span></a></code></pre></div>
 <pre><code>## [1] 0.2875775 0.7883051 0.4089769 0.8830174 0.9404673</code></pre>
-<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb725-1" title="1"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># f,g,h,i,j</span></a></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># f,g,h,i,j</span></a></code></pre></div>
 <pre><code>## [1] 0.0455565 0.5281055 0.8924190 0.5514350 0.4566147</code></pre>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb727-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb727-2" title="2"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># a,b,c,d,e again!</span></a></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb738-2" title="2"><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># a,b,c,d,e again!</span></a></code></pre></div>
 <pre><code>## [1] 0.2875775 0.7883051 0.4089769 0.8830174 0.9404673</code></pre>
 <p>Note the difference between the uniform distribution on <span class="math inline">\([0,1]\)</span>
 and the normal distribution with expected value of <span class="math inline">\(0\)</span> and standard deviation
 of <span class="math inline">\(1\)</span> (also called the standard normal distribution),
 see Figure <a href="vector-algebra-in-r.html#fig:runif_vs_rnorm">1</a>.</p>
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb729-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># align plots in one row and two columns</span></a>
-<a class="sourceLine" id="cb729-2" title="2"><span class="kw">hist</span>(<span class="kw">runif</span>(<span class="dv">10000</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2500</span>)); <span class="kw">box</span>()</a>
-<a class="sourceLine" id="cb729-3" title="3"><span class="kw">hist</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2500</span>)); <span class="kw">box</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># align plots in one row and two columns</span></a>
+<a class="sourceLine" id="cb740-2" title="2"><span class="kw">hist</span>(<span class="kw">runif</span>(<span class="dv">10000</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2500</span>)); <span class="kw">box</span>()</a>
+<a class="sourceLine" id="cb740-3" title="3"><span class="kw">hist</span>(<span class="kw">rnorm</span>(<span class="dv">10000</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2500</span>)); <span class="kw">box</span>()</a></code></pre></div>
 <div class="figure">
 <img src="92-R-vectors-figures/runif_vs_rnorm-1.svg" alt="Figure 1: Uniformly vs. normally distributed random variables" id="fig:runif_vs_rnorm" />
 <p class="caption">Figure 1: Uniformly vs. normally distributed random variables</p>
 </div>
 <p>Another useful function samples a number of values from a given vector,
 either with or without replacement:</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb730-1" title="1"><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">8</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="co"># with replacement</span></a></code></pre></div>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb741-1" title="1"><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">8</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="co"># with replacement</span></a></code></pre></div>
 <pre><code>## [1]  3  3 10  2  6  5  4  6</code></pre>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" title="1"><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">8</span>, <span class="dt">replace=</span><span class="ot">FALSE</span>) <span class="co"># without replacement</span></a></code></pre></div>
+<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb743-1" title="1"><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">8</span>, <span class="dt">replace=</span><span class="ot">FALSE</span>) <span class="co"># without replacement</span></a></code></pre></div>
 <pre><code>## [1]  9  5  3  8  1  4  6 10</code></pre>
 <p>Note that if <code>n</code> is a single number,
 <code>sample(n, ...)</code> is equivalent to <code>sample(1:n, ...)</code>.
@@ -731,19 +731,19 @@ This is not the case in R, where <code>length(7)</code> returns 1.</p>
 such as <span class="math inline">\(s\boldsymbol{x}\)</span> (multiplication of a vector <span class="math inline">\(\boldsymbol{x}=(x_1,\dots, x_n)\)</span>
 by a scalar <span class="math inline">\(s\)</span>) result in a vector <span class="math inline">\(\boldsymbol{y}\)</span> such that <span class="math inline">\(y_i=s x_i\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>.</p>
 <p>The same rule holds for, e.g., <span class="math inline">\(s+\boldsymbol{x}\)</span>, <span class="math inline">\(\boldsymbol{x}-s\)</span>, <span class="math inline">\(\boldsymbol{x}/s\)</span>.</p>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb734-1" title="1"><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" title="1"><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1]  0.5  5.0 50.0</code></pre>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" title="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></a></code></pre></div>
 <pre><code>## [1] 11 12 13 14 15</code></pre>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">by=</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" title="1"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">by=</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">10</span></a></code></pre></div>
 <pre><code>## [1] 0.0 0.2 0.4 0.6 0.8 1.0</code></pre>
 <p>By <span class="math inline">\(-\boldsymbol{x}\)</span> we will mean <span class="math inline">\((-1)\boldsymbol{x}\)</span>:</p>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" title="1"><span class="op">-</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" title="1"><span class="op">-</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## [1]  0.00 -0.25 -0.50 -0.75 -1.00</code></pre>
 <p>Note that in R the same rule applies for exponentiation:</p>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" title="1">(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span> <span class="co"># synonym: (1:5)**2</span></a></code></pre></div>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" title="1">(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)<span class="op">^</span><span class="dv">2</span> <span class="co"># synonym: (1:5)**2</span></a></code></pre></div>
 <pre><code>## [1]  0  1  4  9 16 25</code></pre>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" title="1"><span class="dv">2</span><span class="op">^</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" title="1"><span class="dv">2</span><span class="op">^</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## [1]  1  2  4  8 16 32</code></pre>
 <p>However, in mathematics, we are <strong>not</strong> used to writing
 <span class="math inline">\(2^{\boldsymbol{x}}\)</span> or <span class="math inline">\(\boldsymbol{x}^2\)</span>.</p>
@@ -754,19 +754,19 @@ by a scalar <span class="math inline">\(s\)</span>) result in a vector <span cla
 <p>Arithmetic operations <span class="math inline">\(\boldsymbol{x}+\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{x}-\boldsymbol{y}\)</span> are performed <em>elementwise</em>,
 i.e., they result in a vector <span class="math inline">\(\boldsymbol{z}\)</span> such that
 <span class="math inline">\(z_i=x_i+y_i\)</span> and <span class="math inline">\(z_i=x_i-y_i\)</span>, respectively, <span class="math inline">\(i=1,\dots,n\)</span>.</p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">2</span>,   <span class="dv">3</span>,    <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb746-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb746-3" title="3">x<span class="op">+</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">2</span>,   <span class="dv">3</span>,    <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb757-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb757-3" title="3">x<span class="op">+</span>y</a></code></pre></div>
 <pre><code>## [1]    2   12  103 1004</code></pre>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb748-1" title="1">x<span class="op">-</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb759-1" title="1">x<span class="op">-</span>y</a></code></pre></div>
 <pre><code>## [1]    0   -8  -97 -996</code></pre>
 <p>Although in mathematics we are <strong>not</strong> used to using any special notation
 for elementwise multiplication, division and exponentiation, this is available in R.</p>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" title="1">x<span class="op">*</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" title="1">x<span class="op">*</span>y</a></code></pre></div>
 <pre><code>## [1]    1   20  300 4000</code></pre>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb752-1" title="1">x<span class="op">/</span>y</a></code></pre></div>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb763-1" title="1">x<span class="op">/</span>y</a></code></pre></div>
 <pre><code>## [1] 1.000 0.200 0.030 0.004</code></pre>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" title="1">y<span class="op">^</span>x</a></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb765-1" title="1">y<span class="op">^</span>x</a></code></pre></div>
 <pre><code>## [1] 1e+00 1e+02 1e+06 1e+12</code></pre>
 <dl>
 <dt>Remark.</dt>
@@ -779,16 +779,16 @@ love this notation, because they are used to dealing with very small (think size
 operations on vectors of <em>different</em> lengths – the shorter
 vector is recycled as many times as needed to match the length of the longer
 vector, just as if we were performing:</p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb756-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">length.out=</span><span class="dv">12</span>) <span class="co"># recycle 1,2,3 to get 12 values</span></a></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" title="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">length.out=</span><span class="dv">12</span>) <span class="co"># recycle 1,2,3 to get 12 values</span></a></code></pre></div>
 <pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
 <p>Therefore:</p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb758-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1]  1 20  3 40  5 60</code></pre>
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1]   1  20 300   4  50 600</code></pre>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb764-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</a></code></pre></div>
 <pre><code>## Warning in 1:6 * c(1, 10, 100, 1000): longer object length is
 ## not a multiple of shorter object length</code></pre>
 <pre><code>## [1]    1   20  300 4000    5   60</code></pre>
@@ -822,14 +822,14 @@ i.e.,
 <span class="math inline">\(x_1+x_2+\dots+x_n\)</span>.</p>
 </dd>
 </dl>
-<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" title="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb767-2" title="2"><span class="kw">mean</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" title="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb778-2" title="2"><span class="kw">mean</span>(x)</a></code></pre></div>
 <pre><code>## [1] 0.4972778</code></pre>
-<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1"><span class="kw">median</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb780-1" title="1"><span class="kw">median</span>(x)</a></code></pre></div>
 <pre><code>## [1] 0.4899503</code></pre>
-<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1"><span class="kw">min</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1"><span class="kw">min</span>(x)</a></code></pre></div>
 <pre><code>## [1] 0.0004653491</code></pre>
-<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1"><span class="kw">max</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1"><span class="kw">max</span>(x)</a></code></pre></div>
 <pre><code>## [1] 0.9994045</code></pre>
 </div>
 <div id="special-functions" class="section level3">
@@ -840,14 +840,14 @@ All of them are vectorised – when applied on a vector of length <span class="m
 they yield a vector of length <span class="math inline">\(n\)</span> in result.</p>
 <p>For example, here is how we can compute the square roots of all the
 integers between 1 and 9:</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1"><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" title="1"><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)</a></code></pre></div>
 <pre><code>## [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490
 ## [7] 2.645751 2.828427 3.000000</code></pre>
 <p>Vectorisation is super-convenient when it comes to, for instance,
 plotting (see Figure <a href="vector-algebra-in-r.html#fig:sincos">2</a>).</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">6</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">51</span>)</a>
-<a class="sourceLine" id="cb777-2" title="2"><span class="kw">plot</span>(x, <span class="kw">sin</span>(x), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a>
-<a class="sourceLine" id="cb777-3" title="3"><span class="kw">lines</span>(x, <span class="kw">cos</span>(x), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># add a curve to the current plot</span></a></code></pre></div>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb788-1" title="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">6</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">51</span>)</a>
+<a class="sourceLine" id="cb788-2" title="2"><span class="kw">plot</span>(x, <span class="kw">sin</span>(x), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a>
+<a class="sourceLine" id="cb788-3" title="3"><span class="kw">lines</span>(x, <span class="kw">cos</span>(x), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># add a curve to the current plot</span></a></code></pre></div>
 <div class="figure">
 <img src="92-R-vectors-figures/sincos-1.svg" alt="Figure 2: An example plot of the sine and cosine functions" id="fig:sincos" />
 <p class="caption">Figure 2: An example plot of the sine and cosine functions</p>
@@ -878,12 +878,12 @@ this is nothing else than the <em>length</em> of the vector <span class="math in
 </ul>
 <p>The above norms can be easily implemented by means of the building blocks
 introduced above. This is super easy:</p>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" title="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb778-2" title="2"><span class="kw">sqrt</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>)) <span class="co"># or norm(z, &quot;2&quot;); Euclidean</span></a></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb789-2" title="2"><span class="kw">sqrt</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">2</span>)) <span class="co"># or norm(z, &quot;2&quot;); Euclidean</span></a></code></pre></div>
 <pre><code>## [1] 2.236068</code></pre>
-<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb780-1" title="1"><span class="kw">sum</span>(<span class="kw">abs</span>(z))    <span class="co"># Manhattan</span></a></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1"><span class="kw">sum</span>(<span class="kw">abs</span>(z))    <span class="co"># Manhattan</span></a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1"><span class="kw">max</span>(<span class="kw">abs</span>(z))    <span class="co"># Chebyshev</span></a></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" title="1"><span class="kw">max</span>(<span class="kw">abs</span>(z))    <span class="co"># Chebyshev</span></a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Also note that all the norms easily generate the corresponding
 <em>distances</em> (metrics) between two given points. In particular:</p>
@@ -893,9 +893,9 @@ introduced above. This is super easy:</p>
 }
 \]</span></p>
 <p>gives the <em>Euclidean distance</em> (metric) between the two vectors.</p>
-<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb784-2" title="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb784-3" title="3"><span class="kw">sqrt</span>(<span class="kw">sum</span>((u<span class="op">-</span>v)<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" title="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb795-2" title="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb795-3" title="3"><span class="kw">sqrt</span>(<span class="kw">sum</span>((u<span class="op">-</span>v)<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>This is the “normal” distance that you learned at school.</p>
 </div>
@@ -909,9 +909,9 @@ we define their <em>dot product</em> (a.k.a. <em>scalar</em> or <em>inner produc
 \]</span></p>
 <p>Let’s stress that this is not the same as the
 elementwise vector multiplication in R – the result is a single number.</p>
-<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" title="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb786-2" title="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb786-3" title="3"><span class="kw">sum</span>(u<span class="op">*</span>v)</a></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb797-2" title="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb797-3" title="3"><span class="kw">sum</span>(u<span class="op">*</span>v)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <dl>
 <dt>Remark.</dt>
@@ -938,13 +938,13 @@ can be depicted as in Figure <a href="vector-algebra-in-r.html#fig:vectorplot">3
 <p class="caption">Figure 3: Example vectors in 2D</p>
 </div>
 <p>We can compute the angle between them by calling:</p>
-<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb788-1" title="1">(len_u &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>(u<span class="op">^</span><span class="dv">2</span>))) <span class="co"># length == Euclidean norm</span></a></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1">(len_u &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>(u<span class="op">^</span><span class="dv">2</span>))) <span class="co"># length == Euclidean norm</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb790-1" title="1">(len_v &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>(v<span class="op">^</span><span class="dv">2</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1">(len_v &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>(v<span class="op">^</span><span class="dv">2</span>)))</a></code></pre></div>
 <pre><code>## [1] 1.414214</code></pre>
-<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb792-1" title="1">(cos_angle_uv &lt;-<span class="st"> </span>(<span class="kw">sum</span>(u<span class="op">*</span>v)<span class="op">/</span>(len_u<span class="op">*</span>len_v))) <span class="co"># cosine of the angle</span></a></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1">(cos_angle_uv &lt;-<span class="st"> </span>(<span class="kw">sum</span>(u<span class="op">*</span>v)<span class="op">/</span>(len_u<span class="op">*</span>len_v))) <span class="co"># cosine of the angle</span></a></code></pre></div>
 <pre><code>## [1] 0.7071068</code></pre>
-<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb794-1" title="1"><span class="kw">acos</span>(cos_angle_uv)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>pi <span class="co"># angle in degs</span></a></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1"><span class="kw">acos</span>(cos_angle_uv)<span class="op">*</span><span class="dv">180</span><span class="op">/</span>pi <span class="co"># angle in degs</span></a></code></pre></div>
 <pre><code>## [1] 45</code></pre>
 </div>
 <div id="missing-and-other-special-values" class="section level3">
@@ -953,20 +953,20 @@ can be depicted as in Figure <a href="vector-algebra-in-r.html#fig:vectorplot">3
 It is very useful in data analysis, as we sometimes don’t have an information
 on an object’s feature. For instance, we might not know a patient’s age
 if he was admitted to the hospital unconscious.</p>
-<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb796-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>)</a></code></pre></div>
 <p>Operations on missing values generally result in missing values –
 that makes a lot sense.</p>
-<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1">x <span class="op">+</span><span class="st"> </span><span class="dv">11</span><span class="op">:</span><span class="dv">15</span></a></code></pre></div>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb808-1" title="1">x <span class="op">+</span><span class="st"> </span><span class="dv">11</span><span class="op">:</span><span class="dv">15</span></a></code></pre></div>
 <pre><code>## [1] 12 14 NA 18 20</code></pre>
-<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1"><span class="kw">mean</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" title="1"><span class="kw">mean</span>(x)</a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>If we wish to compute a vector’s aggregate after all,
 we can get rid of the missing values by calling <code>na.omit()</code>:</p>
-<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1"><span class="kw">mean</span>(<span class="kw">na.omit</span>(x)) <span class="co"># mean of non-missing values</span></a></code></pre></div>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb812-1" title="1"><span class="kw">mean</span>(<span class="kw">na.omit</span>(x)) <span class="co"># mean of non-missing values</span></a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>We can also make use of the <code>na.rm</code> parameter of the <code>mean()</code> function
 (however, not every aggregation function has it – always refer to documentation).</p>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1"><span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb814-1" title="1"><span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <dl>
 <dt>Remark.</dt>
@@ -979,19 +979,19 @@ Read more in the <em>Details</em> section of <code>?make.names</code>.</p>
 </dd>
 </dl>
 <p>Moreover, some arithmetic operations can result in infinities (<span class="math inline">\(\pm \infty\)</span>):</p>
-<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1"><span class="kw">log</span>(<span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb816-1" title="1"><span class="kw">log</span>(<span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## [1] -Inf</code></pre>
-<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1"><span class="dv">10</span><span class="op">^</span><span class="dv">1000</span> <span class="co"># too large</span></a></code></pre></div>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb818-1" title="1"><span class="dv">10</span><span class="op">^</span><span class="dv">1000</span> <span class="co"># too large</span></a></code></pre></div>
 <pre><code>## [1] Inf</code></pre>
 <p>Also, sometimes we’ll get a <em>not-a-number</em>, <code>NaN</code>. This is not a missing value,
 but a “invalid” result.</p>
-<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" title="1"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb820-1" title="1"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## Warning in sqrt(-1): NaNs produced</code></pre>
 <pre><code>## [1] NaN</code></pre>
-<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb812-1" title="1"><span class="kw">log</span>(<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" title="1"><span class="kw">log</span>(<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## Warning in log(-1): NaNs produced</code></pre>
 <pre><code>## [1] NaN</code></pre>
-<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb815-1" title="1"><span class="ot">Inf</span><span class="op">-</span><span class="ot">Inf</span></a></code></pre></div>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb826-1" title="1"><span class="ot">Inf</span><span class="op">-</span><span class="ot">Inf</span></a></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
 </div>
 </div>
@@ -1001,15 +1001,15 @@ but a “invalid” result.</p>
 <h3><span class="header-section-number">B.3.1</span> Creating Logical Vectors</h3>
 <p>In R there are 3 (!) logical values:
 <code>TRUE</code>, <code>FALSE</code> and geez, I don’t know, <code>NA</code> maybe?</p>
-<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" title="1"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">NA</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb828-1" title="1"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">NA</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE    NA FALSE FALSE  TRUE</code></pre>
-<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb819-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>), <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb830-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>), <span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE    NA  TRUE FALSE    NA</code></pre>
-<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb821-1" title="1"><span class="kw">mode</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb832-1" title="1"><span class="kw">mode</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb834-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb825-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb836-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 <dl>
 <dt>Remark.</dt>
@@ -1027,24 +1027,24 @@ are performed in the same manner as arithmetic ones, i.e.:</p>
 <li>recycling rule is applied if necessary.</li>
 </ul>
 <p>For example,</p>
-<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb827-1" title="1"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb838-1" title="1"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">TRUE</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb829-1" title="1"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb840-1" title="1"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb831-1" title="1"><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>) <span class="op">|</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb842-1" title="1"><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>) <span class="op">|</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE  TRUE</code></pre>
 <p>The <code>!</code> operator stands for logical elementwise negation:</p>
-<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb833-1" title="1"><span class="op">!</span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb844-1" title="1"><span class="op">!</span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE</code></pre>
 <p>Generally, operations on <code>NA</code>s yield <code>NA</code> unless other solution
 makes sense.</p>
-<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb835-1" title="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb835-2" title="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb835-3" title="3">u <span class="op">&amp;</span><span class="st"> </span>v <span class="co"># elementwise AND (conjunction)</span></a></code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb846-1" title="1">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb846-2" title="2">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb846-3" title="3">u <span class="op">&amp;</span><span class="st"> </span>v <span class="co"># elementwise AND (conjunction)</span></a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE    NA FALSE FALSE FALSE    NA FALSE    NA</code></pre>
-<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb837-1" title="1">u <span class="op">|</span><span class="st"> </span>v <span class="co"># elementwise OR  (disjunction)</span></a></code></pre></div>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb848-1" title="1">u <span class="op">|</span><span class="st"> </span>v <span class="co"># elementwise OR  (disjunction)</span></a></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE  TRUE  TRUE FALSE    NA  TRUE    NA    NA</code></pre>
-<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb839-1" title="1"><span class="op">!</span>u    <span class="co"># elementwise NOT (negation)</span></a></code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb850-1" title="1"><span class="op">!</span>u    <span class="co"># elementwise NOT (negation)</span></a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE    NA</code></pre>
 </div>
 <div id="comparison-operations" class="section level3">
@@ -1054,38 +1054,38 @@ and get a logical vector in result.
 Operators such as <code>&lt;</code> (less than), <code>&lt;=</code> (less than or equal),
 <code>==</code> (equal), <code>!=</code> (not equal), <code>&gt;</code> (greater than) and <code>&gt;=</code> (greater than or equal)
 are again elementwise and use the recycling rule if necessary.</p>
-<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb841-1" title="1"><span class="dv">3</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="co"># c(3, 3, 3, 3, 3) &lt; c(1, 2, 3, 4, 5)</span></a></code></pre></div>
+<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb852-1" title="1"><span class="dv">3</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="co"># c(3, 3, 3, 3, 3) &lt; c(1, 2, 3, 4, 5)</span></a></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb843-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># c(1,2,1,2) == c(1,2,3,4)</span></a></code></pre></div>
+<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb854-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># c(1,2,1,2) == c(1,2,3,4)</span></a></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb845-1" title="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb845-2" title="2">(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>(z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb856-1" title="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">-1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb856-2" title="2">(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>(z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE  TRUE  TRUE</code></pre>
 </div>
 <div id="aggregation-functions-1" class="section level3">
 <h3><span class="header-section-number">B.3.4</span> Aggregation Functions</h3>
 <p>Also note the following operations on <em>logical</em> vectors:</p>
-<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb847-1" title="1">z &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb847-2" title="2"><span class="kw">all</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># are all values TRUE?</span></a></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb858-1" title="1">z &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb858-2" title="2"><span class="kw">all</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># are all values TRUE?</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb849-1" title="1"><span class="kw">any</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># is there any value TRUE?</span></a></code></pre></div>
+<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb860-1" title="1"><span class="kw">any</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># is there any value TRUE?</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Moreover:</p>
-<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb851-1" title="1"><span class="kw">sum</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># how many TRUE values are there?</span></a></code></pre></div>
+<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb862-1" title="1"><span class="kw">sum</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># how many TRUE values are there?</span></a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb853-1" title="1"><span class="kw">mean</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># what is the proportion of TRUE values?</span></a></code></pre></div>
+<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb864-1" title="1"><span class="kw">mean</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># what is the proportion of TRUE values?</span></a></code></pre></div>
 <pre><code>## [1] 0.6</code></pre>
 <p>The behaviour of <code>sum()</code> and <code>mean()</code> is dictated by the fact
 that, when interpreted in numeric terms, <code>TRUE</code> is interpreted as
 numeric <code>1</code> and <code>FALSE</code> as <code>0</code>.</p>
-<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb855-1" title="1"><span class="kw">as.numeric</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb866-1" title="1"><span class="kw">as.numeric</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 0 1</code></pre>
 <p>Therefore in the example above we have:</p>
-<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb857-1" title="1">z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb868-1" title="1">z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb859-1" title="1"><span class="kw">as.numeric</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb870-1" title="1"><span class="kw">as.numeric</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 1 1 1 1 1 1</code></pre>
-<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb861-1" title="1"><span class="kw">sum</span>(<span class="kw">as.numeric</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>)) <span class="co"># the same as sum(z &gt;= 5)</span></a></code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb872-1" title="1"><span class="kw">sum</span>(<span class="kw">as.numeric</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>)) <span class="co"># the same as sum(z &gt;= 5)</span></a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 <p>Yes, there are 6 values equal to TRUE (or 6 ones after conversion), the sum
 of zeros and ones gives the number of ones.</p>
@@ -1097,39 +1097,39 @@ of zeros and ones gives the number of ones.</p>
 <h3><span class="header-section-number">B.4.1</span> Creating Character Vectors</h3>
 <p>Individual character strings can be created using double quotes or apostrophes.
 These are the elements of character vectors</p>
-<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb863-1" title="1">(x &lt;-<span class="st"> &quot;a string&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb874-1" title="1">(x &lt;-<span class="st"> &quot;a string&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;a string&quot;</code></pre>
-<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb865-1" title="1"><span class="kw">mode</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb876-1" title="1"><span class="kw">mode</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb867-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb878-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb869-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb880-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb871-1" title="1"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;aaa&quot;</span>, <span class="st">&#39;bb&#39;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb882-1" title="1"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;aaa&quot;</span>, <span class="st">&#39;bb&#39;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;aaa&quot; &quot;bb&quot;  &quot;c&quot;   &quot;aaa&quot; &quot;bb&quot;  &quot;c&quot;</code></pre>
 </div>
 <div id="concatenating-character-vectors" class="section level3">
 <h3><span class="header-section-number">B.4.2</span> Concatenating Character Vectors</h3>
 <p>To join (concatenate) the corresponding elements of two or more character vectors,
 we call the <code>paste()</code> function:</p>
-<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb873-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb884-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;a 1&quot; &quot;b 2&quot; &quot;c 3&quot;</code></pre>
-<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb875-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb886-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;a1&quot; &quot;b2&quot; &quot;c3&quot;</code></pre>
 <p>Also note:</p>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb877-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="co"># the same as as.character(1:3)</span></a></code></pre></div>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb888-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="co"># the same as as.character(1:3)</span></a></code></pre></div>
 <pre><code>## [1] &quot;a 1&quot; &quot;b 2&quot; &quot;c 3&quot;</code></pre>
-<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb879-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="co"># recycling</span></a></code></pre></div>
+<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb890-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="co"># recycling</span></a></code></pre></div>
 <pre><code>## [1] &quot;a 1&quot; &quot;b 2&quot; &quot;c 3&quot; &quot;a 4&quot; &quot;b 5&quot; &quot;c 6&quot;</code></pre>
-<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb881-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;!&quot;</span>, <span class="st">&quot;?&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb892-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;!&quot;</span>, <span class="st">&quot;?&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;a 1 !&quot; &quot;b 2 ?&quot; &quot;c 3 !&quot; &quot;a 4 ?&quot; &quot;b 5 !&quot; &quot;c 6 ?&quot;</code></pre>
 </div>
 <div id="collapsing-character-vectors" class="section level3">
 <h3><span class="header-section-number">B.4.3</span> Collapsing Character Vectors</h3>
 <p>We can also collapse a sequence of strings to a single string:</p>
-<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb883-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>), <span class="dt">collapse=</span><span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb894-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>), <span class="dt">collapse=</span><span class="st">&quot;&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;abcd&quot;</code></pre>
-<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb885-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>), <span class="dt">collapse=</span><span class="st">&quot;,&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb896-1" title="1"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>), <span class="dt">collapse=</span><span class="st">&quot;,&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;a,b,c,d&quot;</code></pre>
 <!-- For more string processing functions, see, e.g., the R package stringi. -->
 </div>
@@ -1139,45 +1139,45 @@ we call the <code>paste()</code> function:</p>
 <div id="subsetting-with-positive-indices" class="section level3">
 <h3><span class="header-section-number">B.5.1</span> Subsetting with Positive Indices</h3>
 <p>In order to extract subsets (parts) of vectors, we use the square brackets:</p>
-<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb887-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">10</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb898-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">10</span>))</a></code></pre></div>
 <pre><code>##  [1]  10  20  30  40  50  60  70  80  90 100</code></pre>
-<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb889-1" title="1">x[<span class="dv">1</span>]         <span class="co"># the first element</span></a></code></pre></div>
+<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb900-1" title="1">x[<span class="dv">1</span>]         <span class="co"># the first element</span></a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb891-1" title="1">x[<span class="kw">length</span>(x)] <span class="co"># the last element</span></a></code></pre></div>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb902-1" title="1">x[<span class="kw">length</span>(x)] <span class="co"># the last element</span></a></code></pre></div>
 <pre><code>## [1] 100</code></pre>
 <p>More than one element at a time can also be extracted:</p>
-<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb893-1" title="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># the first three</span></a></code></pre></div>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb904-1" title="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># the first three</span></a></code></pre></div>
 <pre><code>## [1] 10 20 30</code></pre>
-<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb895-1" title="1">x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">length</span>(x))] <span class="co"># the first and the last</span></a></code></pre></div>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb906-1" title="1">x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">length</span>(x))] <span class="co"># the first and the last</span></a></code></pre></div>
 <pre><code>## [1]  10 100</code></pre>
 <p>For example, the <code>order()</code> function returns the indices of the
 smallest, 2nd smallest, 3rd smallest, …, the largest element in a given vector.
 We will use this function when implementing our first classifier.</p>
-<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb897-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>)</a>
-<a class="sourceLine" id="cb897-2" title="2">(o &lt;-<span class="st"> </span><span class="kw">order</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb908-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>)</a>
+<a class="sourceLine" id="cb908-2" title="2">(o &lt;-<span class="st"> </span><span class="kw">order</span>(y))</a></code></pre></div>
 <pre><code>## [1] 3 4 2 5 1</code></pre>
 <p>Hence, we see that the smallest element in <code>y</code> is at index 3
 and the largest at index 1:</p>
-<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb899-1" title="1">y[o[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb910-1" title="1">y[o[<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb901-1" title="1">y[o[<span class="kw">length</span>(y)]]</a></code></pre></div>
+<div class="sourceCode" id="cb912"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb912-1" title="1">y[o[<span class="kw">length</span>(y)]]</a></code></pre></div>
 <pre><code>## [1] 50</code></pre>
 <p>Therefore, to get a sorted version of <code>y</code>, we call:</p>
-<div class="sourceCode" id="cb903"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb903-1" title="1">y[o] <span class="co"># see also sort(y)</span></a></code></pre></div>
+<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb914-1" title="1">y[o] <span class="co"># see also sort(y)</span></a></code></pre></div>
 <pre><code>## [1] 10 20 30 40 50</code></pre>
 <p>We can also obtain the 3 largest elements by calling:</p>
-<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb905-1" title="1">y[<span class="kw">order</span>(y, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb916-1" title="1">y[<span class="kw">order</span>(y, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]]</a></code></pre></div>
 <pre><code>## [1] 50 40 30</code></pre>
 </div>
 <div id="subsetting-with-negative-indices" class="section level3">
 <h3><span class="header-section-number">B.5.2</span> Subsetting with Negative Indices</h3>
 <p>Subsetting with a vector of negative indices, <em>excludes</em> the elements
 at given positions:</p>
-<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb907-1" title="1">x[<span class="op">-</span><span class="dv">1</span>] <span class="co"># all but the first</span></a></code></pre></div>
+<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb918-1" title="1">x[<span class="op">-</span><span class="dv">1</span>] <span class="co"># all but the first</span></a></code></pre></div>
 <pre><code>## [1]  20  30  40  50  60  70  80  90 100</code></pre>
-<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb909-1" title="1">x[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb920-1" title="1">x[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</a></code></pre></div>
 <pre><code>## [1]  40  50  60  70  80  90 100</code></pre>
-<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb911-1" title="1">x[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb922-1" title="1">x[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>)]</a></code></pre></div>
 <pre><code>## [1]  40  60  70  90 100</code></pre>
 </div>
 <div id="subsetting-with-logical-vectors" class="section level3">
@@ -1186,19 +1186,19 @@ at given positions:</p>
 of length <span class="math inline">\(n\)</span> with a logical vector <span class="math inline">\(\boldsymbol{l}\)</span> also of length <span class="math inline">\(n\)</span>.
 The <span class="math inline">\(i\)</span>-th element, <span class="math inline">\(x_i\)</span>, will be extracted if and only if the corresponding
 <span class="math inline">\(l_i\)</span> is true.</p>
-<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb913-1" title="1">x[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb924-1" title="1">x[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</a></code></pre></div>
 <pre><code>## [1]  10  50  70  80 100</code></pre>
 <p>This gets along nicely with comparison operators that yield logical vectors
 on output.</p>
-<div class="sourceCode" id="cb915"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb915-1" title="1">x<span class="op">&gt;</span><span class="dv">50</span></a></code></pre></div>
+<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb926-1" title="1">x<span class="op">&gt;</span><span class="dv">50</span></a></code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb917-1" title="1">x[x<span class="op">&gt;</span><span class="dv">50</span>] <span class="co"># select elements in x that are greater than 50</span></a></code></pre></div>
+<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb928-1" title="1">x[x<span class="op">&gt;</span><span class="dv">50</span>] <span class="co"># select elements in x that are greater than 50</span></a></code></pre></div>
 <pre><code>## [1]  60  70  80  90 100</code></pre>
-<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb919-1" title="1">x[x<span class="op">&lt;</span><span class="dv">30</span> <span class="op">|</span><span class="st"> </span>x<span class="op">&gt;</span><span class="dv">70</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb930-1" title="1">x[x<span class="op">&lt;</span><span class="dv">30</span> <span class="op">|</span><span class="st"> </span>x<span class="op">&gt;</span><span class="dv">70</span>]</a></code></pre></div>
 <pre><code>## [1]  10  20  80  90 100</code></pre>
-<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb921-1" title="1">x[x<span class="op">&lt;</span><span class="kw">max</span>(x)] <span class="co"># getting rid of the greatest element</span></a></code></pre></div>
+<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb932-1" title="1">x[x<span class="op">&lt;</span><span class="kw">max</span>(x)] <span class="co"># getting rid of the greatest element</span></a></code></pre></div>
 <pre><code>## [1] 10 20 30 40 50 60 70 80 90</code></pre>
-<div class="sourceCode" id="cb923"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb923-1" title="1">x[x <span class="op">&gt;</span><span class="st"> </span><span class="kw">min</span>(x) <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="kw">max</span>(x)] <span class="co"># return all but the smallest and greatest one</span></a></code></pre></div>
+<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb934-1" title="1">x[x <span class="op">&gt;</span><span class="st"> </span><span class="kw">min</span>(x) <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="kw">max</span>(x)] <span class="co"># return all but the smallest and greatest one</span></a></code></pre></div>
 <pre><code>## [1] 20 30 40 50 60 70 80 90</code></pre>
 <p>Of course, e.g., <code>x[x&lt;max(x)]</code> returns a new, independent object.
 In order to remove the greatest element in <code>x</code> permanently, we can write
@@ -1209,47 +1209,47 @@ In order to remove the greatest element in <code>x</code> permanently, we can wr
 <p>Note that the three above vector indexing schemes (positive,
 negative, logical indices) allow for replacing specific elements with new
 values.</p>
-<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb925-1" title="1">x[<span class="op">-</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb925-2" title="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb936-1" title="1">x[<span class="op">-</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb936-2" title="2">x</a></code></pre></div>
 <pre><code>##  [1]    10 10000 10000 10000 10000 10000 10000 10000 10000 10000</code></pre>
-<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb927-1" title="1">x[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb927-2" title="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb938-1" title="1">x[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb938-2" title="2">x</a></code></pre></div>
 <pre><code>##  [1]    10 10000 10000 10000 10000 10000 10000     1     2     3</code></pre>
 </div>
 <div id="other-functions" class="section level3">
 <h3><span class="header-section-number">B.5.5</span> Other Functions</h3>
 <p><code>head()</code> and <code>tail()</code> return, respectively, a few (6 by default) first and last elements
 of a vector.</p>
-<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb929-1" title="1"><span class="kw">head</span>(x) <span class="co"># head(x, 6)</span></a></code></pre></div>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb940-1" title="1"><span class="kw">head</span>(x) <span class="co"># head(x, 6)</span></a></code></pre></div>
 <pre><code>## [1]    10 10000 10000 10000 10000 10000</code></pre>
-<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb931-1" title="1"><span class="kw">tail</span>(x, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb942-1" title="1"><span class="kw">tail</span>(x, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>Sometimes the <code>which()</code> function can come in handy.
 For a given logical vector, it returns all the indices
 where <code>TRUE</code> elements are stored.</p>
-<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb933-1" title="1"><span class="kw">which</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb944-1" title="1"><span class="kw">which</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 1 3 4 7</code></pre>
-<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb935-1" title="1"><span class="kw">print</span>(y) <span class="co"># recall</span></a></code></pre></div>
+<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb946-1" title="1"><span class="kw">print</span>(y) <span class="co"># recall</span></a></code></pre></div>
 <pre><code>## [1] 50 30 10 20 40</code></pre>
-<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb937-1" title="1"><span class="kw">which</span>(y<span class="op">&gt;</span><span class="dv">30</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb948-1" title="1"><span class="kw">which</span>(y<span class="op">&gt;</span><span class="dv">30</span>)</a></code></pre></div>
 <pre><code>## [1] 1 5</code></pre>
 <p>Note that <code>y[y&gt;70]</code> gives the same result
 as <code>y[which(y&gt;70)]</code> but is faster (because it involves less operations).</p>
 <p><code>which.min()</code> and <code>which.max()</code> return the index of the smallest
 and the largest element, respectively:</p>
-<div class="sourceCode" id="cb939"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb939-1" title="1"><span class="kw">which.min</span>(y) <span class="co"># where is the minimum?</span></a></code></pre></div>
+<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb950-1" title="1"><span class="kw">which.min</span>(y) <span class="co"># where is the minimum?</span></a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb941-1" title="1"><span class="kw">which.max</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb952-1" title="1"><span class="kw">which.max</span>(y)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb943"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb943-1" title="1">y[<span class="kw">which.min</span>(y)] <span class="co"># min(y)</span></a></code></pre></div>
+<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb954-1" title="1">y[<span class="kw">which.min</span>(y)] <span class="co"># min(y)</span></a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p><code>is.na()</code> indicates which elements are missing values (<code>NA</code>s):</p>
-<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb945-1" title="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="ot">NA</span>, <span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb945-2" title="2"><span class="kw">is.na</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb956-1" title="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="ot">NA</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb956-2" title="2"><span class="kw">is.na</span>(z)</a></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
 <p>Therefore, to remove them from <code>z</code> permanently,
 we can write (compare <code>na.omit()</code>, see also <code>is.finite()</code>):</p>
-<div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb947-1" title="1">(z &lt;-<span class="st"> </span>z[<span class="op">!</span><span class="kw">is.na</span>(z)])</a></code></pre></div>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb958-1" title="1">(z &lt;-<span class="st"> </span>z[<span class="op">!</span><span class="kw">is.na</span>(z)])</a></code></pre></div>
 <pre><code>## [1] 1 2 4 6</code></pre>
 </div>
 </div>
@@ -1258,20 +1258,20 @@ we can write (compare <code>na.omit()</code>, see also <code>is.finite()</code>)
 <div id="creating-named-vectors" class="section level3">
 <h3><span class="header-section-number">B.6.1</span> Creating Named Vectors</h3>
 <p>Vectors in R can be <em>named</em> – each element can be assigned a string label.</p>
-<div class="sourceCode" id="cb949"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb949-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">99</span>, <span class="dv">30</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb949-2" title="2"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)</a>
-<a class="sourceLine" id="cb949-3" title="3">x <span class="co"># a named vector</span></a></code></pre></div>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb960-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">99</span>, <span class="dv">30</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb960-2" title="2"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)</a>
+<a class="sourceLine" id="cb960-3" title="3">x <span class="co"># a named vector</span></a></code></pre></div>
 <pre><code>##  a  b  c  d  e 
 ## 20 40 99 30 10</code></pre>
 <p>Other ways to create named vectors include:</p>
-<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb951-1" title="1"><span class="kw">c</span>(<span class="dt">a=</span><span class="dv">1</span>, <span class="dt">b=</span><span class="dv">2</span>, <span class="dt">c=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb962-1" title="1"><span class="kw">c</span>(<span class="dt">a=</span><span class="dv">1</span>, <span class="dt">b=</span><span class="dv">2</span>, <span class="dt">c=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## a b c 
 ## 1 2 3</code></pre>
-<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb953-1" title="1"><span class="kw">structure</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">names=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb964-1" title="1"><span class="kw">structure</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">names=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</a></code></pre></div>
 <pre><code>## a b c 
 ## 1 2 3</code></pre>
 <p>For instance, the <code>summary()</code> function returns a named vector:</p>
-<div class="sourceCode" id="cb955"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb955-1" title="1"><span class="kw">summary</span>(x) <span class="co"># NAMED vector, we don&#39;t want this here yet</span></a></code></pre></div>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb966-1" title="1"><span class="kw">summary</span>(x) <span class="co"># NAMED vector, we don&#39;t want this here yet</span></a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    10.0    20.0    30.0    39.8    40.0    99.0</code></pre>
 <p>This gives the minimum, 1st quartile (25%-quantile),
@@ -1279,25 +1279,25 @@ Median (50%-quantile), aritmetic mean,
 3rd quartile (75%-quantile) and maximum.</p>
 <p>Note that <code>x</code> is still a numeric vector, we can perform various operations
 on it as usual:</p>
-<div class="sourceCode" id="cb957"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb957-1" title="1"><span class="kw">sum</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb968-1" title="1"><span class="kw">sum</span>(x)</a></code></pre></div>
 <pre><code>## [1] 199</code></pre>
-<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb959-1" title="1">x[x<span class="op">&gt;</span><span class="dv">3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb970-1" title="1">x[x<span class="op">&gt;</span><span class="dv">3</span>]</a></code></pre></div>
 <pre><code>##  a  b  c  d  e 
 ## 20 40 99 30 10</code></pre>
 <p>Names can be dropped by calling:</p>
-<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb961-1" title="1"><span class="kw">unname</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb972-1" title="1"><span class="kw">unname</span>(x)</a></code></pre></div>
 <pre><code>## [1] 20 40 99 30 10</code></pre>
-<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb963-1" title="1"><span class="kw">as.numeric</span>(x) <span class="co"># we need to know the type of x though</span></a></code></pre></div>
+<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb974-1" title="1"><span class="kw">as.numeric</span>(x) <span class="co"># we need to know the type of x though</span></a></code></pre></div>
 <pre><code>## [1] 20 40 99 30 10</code></pre>
 </div>
 <div id="subsetting-named-vectors-with-character-string-indices" class="section level3">
 <h3><span class="header-section-number">B.6.2</span> Subsetting Named Vectors with Character String Indices</h3>
 <p>It turns out that extracting elements from a named vector can <em>also</em> be
 performed by means of a vector of character string indices:</p>
-<div class="sourceCode" id="cb965"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb965-1" title="1">x[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;b&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb976-1" title="1">x[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;b&quot;</span>)]</a></code></pre></div>
 <pre><code>##  a  d  b 
 ## 20 30 40</code></pre>
-<div class="sourceCode" id="cb967"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb967-1" title="1"><span class="kw">summary</span>(x)[<span class="kw">c</span>(<span class="st">&quot;Median&quot;</span>, <span class="st">&quot;Mean&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb978-1" title="1"><span class="kw">summary</span>(x)[<span class="kw">c</span>(<span class="st">&quot;Median&quot;</span>, <span class="st">&quot;Mean&quot;</span>)]</a></code></pre></div>
 <pre><code>## Median   Mean 
 ##   30.0   39.8</code></pre>
 <!--
@@ -1317,11 +1317,11 @@ of distinct (unique) values is relatively small.</p>
 <div id="creating-factors" class="section level3">
 <h3><span class="header-section-number">B.7.1</span> Creating Factors</h3>
 <p>For example, the following character vector:</p>
-<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb969-1" title="1">(col &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dv">10</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb980-1" title="1">(col &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dv">10</span>))</a></code></pre></div>
 <pre><code>##  [1] &quot;green&quot; &quot;green&quot; &quot;green&quot; &quot;red&quot;   &quot;green&quot; &quot;red&quot;   &quot;red&quot;  
 ##  [8] &quot;red&quot;   &quot;green&quot; &quot;blue&quot;</code></pre>
 <p>can be converted to a factor by calling:</p>
-<div class="sourceCode" id="cb971"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb971-1" title="1">(fcol &lt;-<span class="st"> </span><span class="kw">factor</span>(col))</a></code></pre></div>
+<div class="sourceCode" id="cb982"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb982-1" title="1">(fcol &lt;-<span class="st"> </span><span class="kw">factor</span>(col))</a></code></pre></div>
 <pre><code>##  [1] green green green red   green red   red   red   green blue 
 ## Levels: blue green red</code></pre>
 <p>Note how different is the way factors are printed out on the console.</p>
@@ -1329,17 +1329,17 @@ of distinct (unique) values is relatively small.</p>
 <div id="levels" class="section level3">
 <h3><span class="header-section-number">B.7.2</span> Levels</h3>
 <p>We can easily obtain the list unique labels:</p>
-<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb973-1" title="1"><span class="kw">levels</span>(fcol)</a></code></pre></div>
+<div class="sourceCode" id="cb984"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb984-1" title="1"><span class="kw">levels</span>(fcol)</a></code></pre></div>
 <pre><code>## [1] &quot;blue&quot;  &quot;green&quot; &quot;red&quot;</code></pre>
 <p>Those can be re-encoded by calling:</p>
-<div class="sourceCode" id="cb975"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb975-1" title="1"><span class="kw">levels</span>(fcol) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;r&quot;</span>)</a>
-<a class="sourceLine" id="cb975-2" title="2">fcol</a></code></pre></div>
+<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb986-1" title="1"><span class="kw">levels</span>(fcol) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;r&quot;</span>)</a>
+<a class="sourceLine" id="cb986-2" title="2">fcol</a></code></pre></div>
 <pre><code>##  [1] g g g r g r r r g b
 ## Levels: b g r</code></pre>
 <p>To create a contingency table (in the form of a named numeric vector,
 giving how many values are at each factor level),
 we call:</p>
-<div class="sourceCode" id="cb977"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb977-1" title="1"><span class="kw">table</span>(fcol)</a></code></pre></div>
+<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb988-1" title="1"><span class="kw">table</span>(fcol)</a></code></pre></div>
 <pre><code>## fcol
 ## b g r 
 ## 1 5 4</code></pre>
@@ -1348,11 +1348,11 @@ we call:</p>
 <h3><span class="header-section-number">B.7.3</span> Internal Representation (*)</h3>
 <p>Factors have a look-and-feel of character vectors,
 however, internally they are represented as integer sequences.</p>
-<div class="sourceCode" id="cb979"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb979-1" title="1"><span class="kw">class</span>(fcol)</a></code></pre></div>
+<div class="sourceCode" id="cb990"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb990-1" title="1"><span class="kw">class</span>(fcol)</a></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
-<div class="sourceCode" id="cb981"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb981-1" title="1"><span class="kw">mode</span>(fcol)</a></code></pre></div>
+<div class="sourceCode" id="cb992"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb992-1" title="1"><span class="kw">mode</span>(fcol)</a></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb983"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb983-1" title="1"><span class="kw">as.numeric</span>(fcol)</a></code></pre></div>
+<div class="sourceCode" id="cb994"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb994-1" title="1"><span class="kw">as.numeric</span>(fcol)</a></code></pre></div>
 <pre><code>##  [1] 2 2 2 3 2 3 3 3 2 1</code></pre>
 <p>These are always integers from <code>1</code> to <code>M</code> inclusive,
 where <code>M</code> is the number of levels.
@@ -1361,23 +1361,23 @@ in the example above, the meaning of the codes <code>1</code>, <code>2</code>, <
 respectively, <code>b, g, r</code>.</p>
 <p>If we wished to generate a factor with a specific order of labels,
 we could call:</p>
-<div class="sourceCode" id="cb985"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb985-1" title="1"><span class="kw">factor</span>(col, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb996"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb996-1" title="1"><span class="kw">factor</span>(col, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</a></code></pre></div>
 <pre><code>##  [1] green green green red   green red   red   red   green blue 
 ## Levels: red green blue</code></pre>
 <p>We can also assign different labels upon creation of a factor:</p>
-<div class="sourceCode" id="cb987"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb987-1" title="1"><span class="kw">factor</span>(col, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;r&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;b&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb998-1" title="1"><span class="kw">factor</span>(col, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;r&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;b&quot;</span>))</a></code></pre></div>
 <pre><code>##  [1] g g g r g r r r g b
 ## Levels: r g b</code></pre>
 <p>Knowing how factors are represented is important when we deal
 with factors that are built around data that <em>look like</em> numeric.
 This is because their conversion to numeric
 gives the internal codes, not the actual values:</p>
-<div class="sourceCode" id="cb989"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb989-1" title="1">(f &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb1000"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1000-1" title="1">(f &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>)))</a></code></pre></div>
 <pre><code>## [1] 1 3 0 1 4 0 0 1 4
 ## Levels: 0 1 3 4</code></pre>
-<div class="sourceCode" id="cb991"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb991-1" title="1"><span class="kw">as.numeric</span>(f) <span class="co"># not necessarily what we want here</span></a></code></pre></div>
+<div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1002-1" title="1"><span class="kw">as.numeric</span>(f) <span class="co"># not necessarily what we want here</span></a></code></pre></div>
 <pre><code>## [1] 2 3 1 2 4 1 1 2 4</code></pre>
-<div class="sourceCode" id="cb993"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb993-1" title="1"><span class="kw">as.numeric</span>(<span class="kw">as.character</span>(f)) <span class="co"># much better</span></a></code></pre></div>
+<div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1004-1" title="1"><span class="kw">as.numeric</span>(<span class="kw">as.character</span>(f)) <span class="co"># much better</span></a></code></pre></div>
 <pre><code>## [1] 1 3 0 1 4 0 0 1 4</code></pre>
 <p>Moreover, that idea is labour-saving in contexts such as plotting
 of data that are grouped into different classes.
@@ -1386,21 +1386,21 @@ for the Sepal.Length and Petal.Width variables in the <code>iris</code> dataset 
 is an object of type <code>data.frame</code>, see below).
 Flowers are of different Species, and we wish to indicate which point belongs
 to which class:</p>
-<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb995-1" title="1">which_preview &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">51</span>, <span class="dv">69</span>, <span class="dv">101</span>) <span class="co"># indexes we show below</span></a>
-<a class="sourceLine" id="cb995-2" title="2">iris<span class="op">$</span>Sepal.Length[which_preview]</a></code></pre></div>
+<div class="sourceCode" id="cb1006"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1006-1" title="1">which_preview &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">51</span>, <span class="dv">69</span>, <span class="dv">101</span>) <span class="co"># indexes we show below</span></a>
+<a class="sourceLine" id="cb1006-2" title="2">iris<span class="op">$</span>Sepal.Length[which_preview]</a></code></pre></div>
 <pre><code>## [1] 5.1 5.4 7.0 6.2 6.3</code></pre>
-<div class="sourceCode" id="cb997"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb997-1" title="1">iris<span class="op">$</span>Petal.Width[which_preview]</a></code></pre></div>
+<div class="sourceCode" id="cb1008"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1008-1" title="1">iris<span class="op">$</span>Petal.Width[which_preview]</a></code></pre></div>
 <pre><code>## [1] 0.2 0.2 1.4 1.5 2.5</code></pre>
-<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb999-1" title="1">iris<span class="op">$</span>Species[which_preview]</a></code></pre></div>
+<div class="sourceCode" id="cb1010"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1010-1" title="1">iris<span class="op">$</span>Species[which_preview]</a></code></pre></div>
 <pre><code>## [1] setosa     setosa     versicolor versicolor virginica 
 ## Levels: setosa versicolor virginica</code></pre>
-<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1001-1" title="1"><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)[which_preview]</a></code></pre></div>
+<div class="sourceCode" id="cb1012"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1012-1" title="1"><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)[which_preview]</a></code></pre></div>
 <pre><code>## [1] 1 1 2 2 3</code></pre>
-<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1003-1" title="1"><span class="kw">plot</span>(iris<span class="op">$</span>Sepal.Length, <span class="co"># x (it&#39;s a vector)</span></a>
-<a class="sourceLine" id="cb1003-2" title="2">     iris<span class="op">$</span>Petal.Width,  <span class="co"># y (it&#39;s a vector)</span></a>
-<a class="sourceLine" id="cb1003-3" title="3">     <span class="dt">col=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species), <span class="co"># colours</span></a>
-<a class="sourceLine" id="cb1003-4" title="4">     <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)</a>
-<a class="sourceLine" id="cb1003-5" title="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb1014"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1014-1" title="1"><span class="kw">plot</span>(iris<span class="op">$</span>Sepal.Length, <span class="co"># x (it&#39;s a vector)</span></a>
+<a class="sourceLine" id="cb1014-2" title="2">     iris<span class="op">$</span>Petal.Width,  <span class="co"># y (it&#39;s a vector)</span></a>
+<a class="sourceLine" id="cb1014-3" title="3">     <span class="dt">col=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species), <span class="co"># colours</span></a>
+<a class="sourceLine" id="cb1014-4" title="4">     <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)</a>
+<a class="sourceLine" id="cb1014-5" title="5">)</a></code></pre></div>
 <div class="figure">
 <img src="92-R-vectors-figures/irisplot_factors-1.svg" alt="Figure 4: as.numeric() on factors can be used to create different plotting styles" id="fig:irisplot_factors" />
 <p class="caption">Figure 4: <code>as.numeric()</code> on factors can be used to create different plotting styles</p>
@@ -1408,12 +1408,12 @@ to which class:</p>
 <p>The above (see Figure <a href="vector-algebra-in-r.html#fig:irisplot_factors">4</a>)
 was possible because the Species column is a factor object
 with:</p>
-<div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1004-1" title="1"><span class="kw">levels</span>(iris<span class="op">$</span>Species)</a></code></pre></div>
+<div class="sourceCode" id="cb1015"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1015-1" title="1"><span class="kw">levels</span>(iris<span class="op">$</span>Species)</a></code></pre></div>
 <pre><code>## [1] &quot;setosa&quot;     &quot;versicolor&quot; &quot;virginica&quot;</code></pre>
 <p>and the meaning of <code>pch</code> of 1, 2, 3, … is “circle”, “triangle”, “plus”, …,
 respectively. What’s more, there’s a default palette that maps
 consecutive integers to different colours:</p>
-<div class="sourceCode" id="cb1006"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1006-1" title="1"><span class="kw">palette</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1017-1" title="1"><span class="kw">palette</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;black&quot;   &quot;red&quot;     &quot;green3&quot;  &quot;blue&quot;    &quot;cyan&quot;    &quot;magenta&quot;
 ## [7] &quot;yellow&quot;  &quot;gray&quot;</code></pre>
 <p>Hence, black circles mark irises from the 1st class, i.e., “setosa”.</p>
@@ -1424,9 +1424,9 @@ consecutive integers to different colours:</p>
 <p>Numeric, logical and character vectors are <em>atomic</em> objects – each
 component is of the same type. Let’s take a look at what happens when
 we create an atomic vector out of objects of different types:</p>
-<div class="sourceCode" id="cb1008"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1008-1" title="1"><span class="kw">c</span>(<span class="st">&quot;nine&quot;</span>, <span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1019-1" title="1"><span class="kw">c</span>(<span class="st">&quot;nine&quot;</span>, <span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;nine&quot;  &quot;FALSE&quot; &quot;7&quot;     &quot;TRUE&quot;</code></pre>
-<div class="sourceCode" id="cb1010"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1010-1" title="1"><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>, <span class="dv">7</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1021-1" title="1"><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="dv">7</span>, <span class="ot">TRUE</span>, <span class="dv">7</span>)</a></code></pre></div>
 <pre><code>## [1] 0 7 1 7</code></pre>
 <p>In each case, we get an object of the most “general” type which is able to
 represent our data.</p>
@@ -1436,7 +1436,7 @@ also other lists.</p>
 <div id="creating-lists" class="section level3">
 <h3><span class="header-section-number">B.8.1</span> Creating Lists</h3>
 <p>Most commonly, we create a generalised vector by calling the <code>list()</code> function.</p>
-<div class="sourceCode" id="cb1012"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1012-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters, <span class="kw">runif</span>(<span class="dv">3</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1023-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, letters, <span class="kw">runif</span>(<span class="dv">3</span>)))</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1 2 3 4 5
 ## 
@@ -1446,20 +1446,20 @@ also other lists.</p>
 ## 
 ## [[3]]
 ## [1] 0.9568333 0.4533342 0.6775706</code></pre>
-<div class="sourceCode" id="cb1014"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1014-1" title="1"><span class="kw">mode</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1025-1" title="1"><span class="kw">mode</span>(l)</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<div class="sourceCode" id="cb1016"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1016-1" title="1"><span class="kw">class</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb1027"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1027-1" title="1"><span class="kw">class</span>(l)</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1018-1" title="1"><span class="kw">length</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1029-1" title="1"><span class="kw">length</span>(l)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>There’s a more compact way to print a list on the console:</p>
-<div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1020-1" title="1"><span class="kw">str</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1031-1" title="1"><span class="kw">str</span>(l)</a></code></pre></div>
 <pre><code>## List of 3
 ##  $ : int [1:5] 1 2 3 4 5
 ##  $ : chr [1:26] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
 ##  $ : num [1:3] 0.957 0.453 0.678</code></pre>
 <p>We can also convert an atomic vector to a list by calling:</p>
-<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1022-1" title="1"><span class="kw">as.list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1033"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1033-1" title="1"><span class="kw">as.list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -1472,8 +1472,8 @@ also other lists.</p>
 <div id="named-lists" class="section level3">
 <h3><span class="header-section-number">B.8.2</span> Named Lists</h3>
 <p>List, like other vectors, may be assigned a <code>names</code> attribute.</p>
-<div class="sourceCode" id="cb1024"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1024-1" title="1"><span class="kw">names</span>(l) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</a>
-<a class="sourceLine" id="cb1024-2" title="2">l</a></code></pre></div>
+<div class="sourceCode" id="cb1035"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1035-1" title="1"><span class="kw">names</span>(l) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</a>
+<a class="sourceLine" id="cb1035-2" title="2">l</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 2 3 4 5
 ## 
@@ -1488,30 +1488,30 @@ also other lists.</p>
 <h3><span class="header-section-number">B.8.3</span> Subsetting and Extracting From Lists</h3>
 <p>Applying a square brackets operator creates a sub-list, which is
 of type list as well.</p>
-<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1026-1" title="1">l[<span class="op">-</span><span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1037-1" title="1">l[<span class="op">-</span><span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## $b
 ##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot;
 ## [16] &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;
 ## 
 ## $c
 ## [1] 0.9568333 0.4533342 0.6775706</code></pre>
-<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1028-1" title="1">l[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1039-1" title="1">l[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>)]</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 2 3 4 5
 ## 
 ## $c
 ## [1] 0.9568333 0.4533342 0.6775706</code></pre>
-<div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1030-1" title="1">l[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1041"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1041-1" title="1">l[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 2 3 4 5</code></pre>
 <p>Note in the 3rd case we deal with a list of length one, not a numeric vector.</p>
 <p>To <em>extract</em> (dig into) a particular (single) element, we use double square brackets:</p>
-<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1032-1" title="1">l[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1043-1" title="1">l[[<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
-<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1034-1" title="1">l[[<span class="st">&quot;c&quot;</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb1045"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1045-1" title="1">l[[<span class="st">&quot;c&quot;</span>]]</a></code></pre></div>
 <pre><code>## [1] 0.9568333 0.4533342 0.6775706</code></pre>
 <p>The latter can equivalently be written as:</p>
-<div class="sourceCode" id="cb1036"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1036-1" title="1">l<span class="op">$</span>c</a></code></pre></div>
+<div class="sourceCode" id="cb1047"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1047-1" title="1">l<span class="op">$</span>c</a></code></pre></div>
 <pre><code>## [1] 0.9568333 0.4533342 0.6775706</code></pre>
 </div>
 <div id="common-operations" class="section level3">
@@ -1522,7 +1522,7 @@ In particular, it neither makes sense to add, multiply, … two lists together
 nor to aggregate them.</p>
 <p>However, if we wish to run some operation on each element, we can call
 list-apply:</p>
-<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1038-1" title="1">(k &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x=</span><span class="kw">runif</span>(<span class="dv">5</span>), <span class="dt">y=</span><span class="kw">runif</span>(<span class="dv">6</span>), <span class="dt">z=</span><span class="kw">runif</span>(<span class="dv">3</span>))) <span class="co"># a named list</span></a></code></pre></div>
+<div class="sourceCode" id="cb1049"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1049-1" title="1">(k &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x=</span><span class="kw">runif</span>(<span class="dv">5</span>), <span class="dt">y=</span><span class="kw">runif</span>(<span class="dv">6</span>), <span class="dt">z=</span><span class="kw">runif</span>(<span class="dv">3</span>))) <span class="co"># a named list</span></a></code></pre></div>
 <pre><code>## $x
 ## [1] 0.57263340 0.10292468 0.89982497 0.24608773 0.04205953
 ## 
@@ -1531,7 +1531,7 @@ list-apply:</p>
 ## 
 ## $z
 ## [1] 0.6557058 0.7085305 0.5440660</code></pre>
-<div class="sourceCode" id="cb1040"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1040-1" title="1"><span class="kw">lapply</span>(k, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb1051"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1051-1" title="1"><span class="kw">lapply</span>(k, mean)</a></code></pre></div>
 <pre><code>## $x
 ## [1] 0.3727061
 ## 
@@ -1543,7 +1543,7 @@ list-apply:</p>
 <p>The above computes the mean of each of the three numeric vectors
 stored inside list <code>k</code>.
 Moreover:</p>
-<div class="sourceCode" id="cb1042"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1042-1" title="1"><span class="kw">lapply</span>(k, range)</a></code></pre></div>
+<div class="sourceCode" id="cb1053"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1053-1" title="1"><span class="kw">lapply</span>(k, range)</a></code></pre></div>
 <pre><code>## $x
 ## [1] 0.04205953 0.89982497
 ## 
@@ -1555,15 +1555,15 @@ Moreover:</p>
 <p>The built-in function <code>range(x)</code> returns <code>c(min(x), max(x))</code>.</p>
 <p><code>unlist()</code> tries (it might not always be possible)
 to unwind a list to a simpler, atomic form:</p>
-<div class="sourceCode" id="cb1044"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1044-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(k, mean))</a></code></pre></div>
+<div class="sourceCode" id="cb1055"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1055-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(k, mean))</a></code></pre></div>
 <pre><code>##         x         y         z 
 ## 0.3727061 0.7499239 0.6361008</code></pre>
 <p>Moreover, <code>split(x, f)</code> classifies elements in a vector <code>x</code>
 into subgroups defined by a factor (or an object coercible to)
 of the same length.</p>
-<div class="sourceCode" id="cb1046"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1046-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(  <span class="dv">1</span>,   <span class="dv">2</span>,   <span class="dv">3</span>,   <span class="dv">4</span>,   <span class="dv">5</span>,   <span class="dv">6</span>,   <span class="dv">7</span>,   <span class="dv">8</span>,   <span class="dv">9</span>,  <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb1046-2" title="2">f &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)</a>
-<a class="sourceLine" id="cb1046-3" title="3"><span class="kw">split</span>(x, f)</a></code></pre></div>
+<div class="sourceCode" id="cb1057"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1057-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(  <span class="dv">1</span>,   <span class="dv">2</span>,   <span class="dv">3</span>,   <span class="dv">4</span>,   <span class="dv">5</span>,   <span class="dv">6</span>,   <span class="dv">7</span>,   <span class="dv">8</span>,   <span class="dv">9</span>,  <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1057-2" title="2">f &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)</a>
+<a class="sourceLine" id="cb1057-3" title="3"><span class="kw">split</span>(x, f)</a></code></pre></div>
 <pre><code>## $a
 ## [1] 1 3 4 8 9
 ## 
@@ -1575,7 +1575,7 @@ of the same length.</p>
 <p>This is very useful when combined with <code>lapply()</code> and <code>unlist()</code>.
 For instance, here are the mean sepal lengths
 for each of the three flower species in the famous <code>iris</code> dataset.</p>
-<div class="sourceCode" id="cb1048"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1048-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species), mean))</a></code></pre></div>
+<div class="sourceCode" id="cb1059"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1059-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species), mean))</a></code></pre></div>
 <pre><code>##     setosa versicolor  virginica 
 ##      5.006      5.936      6.588</code></pre>
 <p>By the way, if we take a look at the documentation of <code>?lapply</code>,
@@ -1586,10 +1586,10 @@ such that <code>Y[[i]] &lt;- FUN(X[[i]], ...)</code> for each <code>i</code>.
 For example, <code>mean()</code> has an additional argument <code>na.rm</code> that
 aims to remove missing values from the input vector.
 Compare the following:</p>
-<div class="sourceCode" id="cb1050"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1050-1" title="1">t &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb1050-2" title="2"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean))</a></code></pre></div>
+<div class="sourceCode" id="cb1061"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1061-1" title="1">t &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb1061-2" title="2"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean))</a></code></pre></div>
 <pre><code>## [1] 5.5  NA</code></pre>
-<div class="sourceCode" id="cb1052"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1052-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb1063"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1063-1" title="1"><span class="kw">unlist</span>(<span class="kw">lapply</span>(t, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 5.5 3.0</code></pre>
 <!--
 
