@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-04-29 22:16 (8759382)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 17:38 (86399b4)</a></li>
 
 </ul>
 
@@ -1351,43 +1351,45 @@ of the form:
 Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + \dots + \beta_d X^d.
 \]</span></p>
 <p>Such models can be fitted with the <code>lm()</code> function based on the formula
-of the form <code>Y~poly(X, d)</code> or <code>Y~X+I(X^2)+I(X^3)+...</code></p>
+of the form <code>Y~poly(X, d, raw=TRUE)</code> or <code>Y~X+I(X^2)+I(X^3)+...</code></p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">f1_<span class="dv">1</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1)</a>
-<a class="sourceLine" id="cb178-2" title="2">f1_<span class="dv">3</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">3</span>)) <span class="co"># also: Y~poly(X1, 3)</span></a>
-<a class="sourceLine" id="cb178-3" title="3">f1_<span class="dv">14</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X1, <span class="dv">14</span>))</a></code></pre></div>
-<p>Above we have fitted the polynomials of degrees 1, 3 and 14.
+<a class="sourceLine" id="cb178-2" title="2">f1_<span class="dv">3</span>  &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span>X1<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(X1<span class="op">^</span><span class="dv">3</span>)) <span class="co"># also: Y~poly(X1, 3, raw=TRUE)</span></a>
+<a class="sourceLine" id="cb178-3" title="3">f1_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X1, <span class="dv">10</span>, <span class="dt">raw=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<p>Above we have fitted the polynomials of degrees 1, 3 and 10.
 Note that a polynomial of degree 1 is just a line.</p>
 <p>Let us depict the three models:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">plot</span>(X1, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>)</a>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">plot</span>(X1, Y, <span class="dt">col=</span><span class="st">&quot;#000000aa&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1100</span>))</a>
 <a class="sourceLine" id="cb179-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(X1), <span class="kw">max</span>(X1), <span class="dt">length.out=</span><span class="dv">101</span>)</a>
 <a class="sourceLine" id="cb179-3" title="3"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">1</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb179-4" title="4"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">3</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb179-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">14</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb179-5" title="5"><span class="kw">lines</span>(x, <span class="kw">predict</span>(f1_<span class="dv">10</span>, <span class="kw">data.frame</span>(<span class="dt">X1=</span>x)), <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/poly2-1.svg" alt="Figure 12: Polynomials of different degrees fitted to the Credit dataset" id="fig:poly2" />
 <p class="caption">Figure 12: Polynomials of different degrees fitted to the Credit dataset</p>
 </div>
-<p>From Figure <a href="multiple-regression.html#fig:poly2">12</a> we see that there’s clearly a problem with the degree-14 polynomial.</p>
+<p>From Figure <a href="multiple-regression.html#fig:poly2">12</a> we see that there’s clearly a problem
+with the degree-10 polynomial.</p>
 </div>
 <div id="predictive-vs.-descriptive-power" class="section level3">
 <h3><span class="header-section-number">2.3.4</span> Predictive vs. Descriptive Power</h3>
-<p>The above high-degree polynomial model (<code>f1_14</code>) is a typical instance of a phenomenon called
-an <strong>overfit</strong>.</p>
-<p>Clearly (based on our expert knowledge), the <code>Rating</code> shouldn’t decrease as <code>Balance</code> increases.</p>
-<p>In other words, <code>f1_14</code> gives a better fit to data actually observed,
+<p>The above high-degree polynomial model (<code>f1_10</code>) is a typical instance
+of a phenomenon called an <strong>overfit</strong>.</p>
+<p>Clearly (based on our expert knowledge), the <code>Rating</code> shouldn’t
+decrease as <code>Balance</code> increases.</p>
+<p>In other words, <code>f1_10</code> gives a better fit to data actually observed,
 but fails to produce good results for the points that are yet to come.</p>
 <p>We say that it <strong>generalises</strong> poorly to unseen data.</p>
 <p>Assume our true model is of the form:</p>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">true_model &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="dv">3</span><span class="op">*</span>x<span class="op">^</span><span class="dv">3</span><span class="op">+</span><span class="dv">5</span></a></code></pre></div>
 <p>Let’s generate the following random sample from this model (with <span class="math inline">\(Y\)</span> subject
 to error), see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE1">13</a>:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">n &lt;-<span class="st"> </span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb181-2" title="2">X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb181-3" title="3">Y &lt;-<span class="st"> </span><span class="kw">true_model</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(n, <span class="dt">sd=</span><span class="fl">0.1</span>) <span class="co"># add normally-distributed noise</span></a></code></pre></div>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>) <span class="co"># to assure reproducibility</span></a>
-<a class="sourceLine" id="cb182-2" title="2"><span class="kw">plot</span>(X, Y)</a>
-<a class="sourceLine" id="cb182-3" title="3">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb182-4" title="4"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>) <span class="co"># to assure reproducibility</span></a>
+<a class="sourceLine" id="cb181-2" title="2">n &lt;-<span class="st"> </span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb181-3" title="3">X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb181-4" title="4">Y &lt;-<span class="st"> </span><span class="kw">true_model</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(n, <span class="dt">sd=</span><span class="fl">0.2</span>) <span class="co"># add normally-distributed noise</span></a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">plot</span>(X, Y)</a>
+<a class="sourceLine" id="cb182-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb182-3" title="3"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <div class="figure">
 <img src="02-regression-multiple-figures/figBIASVARIANCE1-1.svg" alt="Figure 13: Synthetic data generated by means of the formula Y=3x^3+5 (+ noise)" id="fig:figBIASVARIANCE1" />
 <p class="caption">Figure 13: Synthetic data generated by means of the formula <span class="math inline">\(Y=3x^3+5\)</span> (<span class="math inline">\(+\)</span> noise)</p>
@@ -1396,11 +1398,11 @@ to error), see Figure <a href="multiple-regression.html#fig:figBIASVARIANCE1">13
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="kw">plot</span>(X, Y)</a>
 <a class="sourceLine" id="cb183-2" title="2"><span class="kw">lines</span>(x, <span class="kw">true_model</span>(x), <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb183-3" title="3"></a>
-<a class="sourceLine" id="cb183-4" title="4">dmax &lt;-<span class="st"> </span><span class="dv">15</span> <span class="co"># maximal polynomial degree</span></a>
+<a class="sourceLine" id="cb183-4" title="4">dmax &lt;-<span class="st"> </span><span class="dv">11</span> <span class="co"># maximal polynomial degree</span></a>
 <a class="sourceLine" id="cb183-5" title="5">MSE_train &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
 <a class="sourceLine" id="cb183-6" title="6">MSE_test  &lt;-<span class="st"> </span><span class="kw">numeric</span>(dmax)</a>
 <a class="sourceLine" id="cb183-7" title="7"><span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>dmax) { <span class="co"># for every polynomial degree</span></a>
-<a class="sourceLine" id="cb183-8" title="8">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X, d)) <span class="co"># fit a d-degree polynomial</span></a>
+<a class="sourceLine" id="cb183-8" title="8">    f &lt;-<span class="st"> </span><span class="kw">lm</span>(Y<span class="op">~</span><span class="kw">poly</span>(X, d, <span class="dt">raw=</span><span class="ot">TRUE</span>)) <span class="co"># fit a d-degree polynomial</span></a>
 <a class="sourceLine" id="cb183-9" title="9">    y &lt;-<span class="st"> </span><span class="kw">predict</span>(f, <span class="kw">data.frame</span>(<span class="dt">X=</span>x))</a>
 <a class="sourceLine" id="cb183-10" title="10">    <span class="kw">lines</span>(x, y, <span class="dt">col=</span>d)</a>
 <a class="sourceLine" id="cb183-11" title="11">    <span class="co"># MSE on given random X,Y:</span></a>
