@@ -386,13 +386,14 @@ is on the same scale.
 However, when dealing with, e.g., physical quantities,
 we often perform conversions of units of measurement (kg → g, feet → m etc.).
 
-Transforming a single feature may drastically change the metric structure of the dataset
+Transforming a single feature may drastically change the metric
+structure of the dataset
 and therefore highly affect the obtained predictions.
 
 
 
 
-To "bring data to the same scale", we often apply a trick called **standardization**.
+To "bring data to the same scale", we often apply a trick called **standardisation**.
 
 Computing the so-called **Z-scores** of the $j$-th feature, $\mathbf{x}_{\cdot,j}$,
 is done by subtracting from each observation the sample mean and dividing the result by the sample
@@ -409,17 +410,27 @@ the other ones.
 
 
 Z-scores are easy to interpret, e.g., 0.5 denotes an observation
-that is 0.5 standard deviations above the mean.
+that is 0.5 standard deviations above the mean
+and -3 informs us that a value is 3 standard deviations below the mean.
+
+Remark.
+
+: (\*) If data are normally distributed (bell-shaped histogram),
+with very high probability, most (expected value is 99.74%) observations
+should have Z-scores between -3 and 3. Those that don't, are
+"suspicious", maybe they are outliers? We should inspect them manually.
 
 
 
 
-Let's compute `Z_train` and `Z_test`, being the standardised versions of `X_train`
+
+Let's compute `Z_train` and `Z_test`,
+being the standardised versions of `X_train`
 and `X_test`, respectively.
 
 ```{r standardise1}
-means <- apply(X, 2, mean) # column means
-sds   <- apply(X, 2, sd)   # column standard deviations
+means <- apply(X_train, 2, mean) # column means
+sds   <- apply(X_train, 2, sd)   # column standard deviations
 Z_train <- X_train # to be done
 Z_test  <- X_test  # to be done
 for (j in 1:ncol(X)) {
@@ -428,8 +439,11 @@ for (j in 1:ncol(X)) {
 }
 ```
 
-
-Alternatively:
+Note that we have transformed the training and test sample in the very same
+way. Computing means and standard deviations separately for these two datasets
+is a common error -- it is the training set that we use in the course of the
+learning process.
+The above can be re-written as:
 
 ```{r standardise2}
 Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))

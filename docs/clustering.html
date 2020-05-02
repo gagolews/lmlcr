@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
 <li class="chapter" data-level="4.3.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
 <li class="chapter" data-level="4.3.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
-<li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function</a></li>
+<li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function-cross-entropy"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function: Cross-entropy</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#remarks-3"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 18:02 (2b85820)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 15:38 (1ede348)</a></li>
 
 </ul>
 
@@ -669,10 +669,10 @@ of nested data partitions.</li>
 by applying the <span class="math inline">\(K\)</span>-means clustering method to find <span class="math inline">\(K=3\)</span> groups
 in the famous Fisher’s <code>iris</code> data set (variables <code>Sepal.Width</code>
 and <code>Petal.Length</code> variables only):</p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</a>
-<a class="sourceLine" id="cb563-2" title="2"><span class="co"># never forget to set nstart&gt;&gt;1!</span></a>
-<a class="sourceLine" id="cb563-3" title="3">km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, <span class="dt">centers=</span><span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb563-4" title="4">km<span class="op">$</span>cluster <span class="co"># labels assigned to each of 150 points:</span></a></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" title="1">X &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris[,<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</a>
+<a class="sourceLine" id="cb567-2" title="2"><span class="co"># never forget to set nstart&gt;&gt;1!</span></a>
+<a class="sourceLine" id="cb567-3" title="3">km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, <span class="dt">centers=</span><span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb567-4" title="4">km<span class="op">$</span>cluster <span class="co"># labels assigned to each of 150 points:</span></a></code></pre></div>
 <pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ##  [30] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 3 3 3 3 3 3
 ##  [59] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 3 3 3 3 3 2 3 3 3
@@ -686,7 +686,7 @@ and <code>Petal.Length</code> variables only):</p>
 </dd>
 </dl>
 <p>Let’s draw a scatter plot that depicts the detected clusters:</p>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb565-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster)</a></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster)</a></code></pre></div>
 <div class="figure">
 <img src="07-clustering-figures/kmeans12-1.svg" alt="Figure 5: 3-means clustering on a projection of the Iris dataset" id="fig:kmeans12" />
 <p class="caption">Figure 5: 3-means clustering on a projection of the Iris dataset</p>
@@ -697,13 +697,13 @@ The left group is clearly well-separated from the other two.</p>
 (in the 1930s), that’d definitely be something ground-breaking.
 Figure <a href="clustering.html#fig:kmeans123">6</a> is a version of the aforementioned scatter plot
 now with the true iris species added.</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species))</a></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">pch=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species))</a></code></pre></div>
 <div class="figure">
 <img src="07-clustering-figures/kmeans123-1.svg" alt="Figure 6: 3-means clustering (colours) vs true Iris species (shapes)" id="fig:kmeans123" />
 <p class="caption">Figure 6: 3-means clustering (colours) vs true Iris species (shapes)</p>
 </div>
 <p>Here is a contingency table for detected clusters vs. true iris species:</p>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" title="1">(C &lt;-<span class="st"> </span><span class="kw">table</span>(km<span class="op">$</span>cluster, iris<span class="op">$</span>Species))</a></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1">(C &lt;-<span class="st"> </span><span class="kw">table</span>(km<span class="op">$</span>cluster, iris<span class="op">$</span>Species))</a></code></pre></div>
 <pre><code>##    
 ##     setosa versicolor virginica
 ##   1     50          0         0
@@ -759,13 +759,13 @@ d(\mathbf{x}_{i,\cdot}, \boldsymbol\mu_{k,\cdot}),
 <span class="math inline">\(k\)</span> that minimises the given expression.</p>
 <p>In the previous example, the three identified cluster centres in <span class="math inline">\(\mathbb{R}^2\)</span>
 are given by (see Figure <a href="clustering.html#fig:kmeans_problem1">7</a> for illustration):</p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" title="1">km<span class="op">$</span>centers</a></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" title="1">km<span class="op">$</span>centers</a></code></pre></div>
 <pre><code>##   Petal.Length Sepal.Width
 ## 1     1.462000    3.428000
 ## 2     5.672093    3.032558
 ## 3     4.328070    2.750877</code></pre>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">asp=</span><span class="dv">1</span>) <span class="co"># asp=1 gives the same scale on both axes</span></a>
-<a class="sourceLine" id="cb571-2" title="2"><span class="kw">points</span>(km<span class="op">$</span>centers, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" title="1"><span class="kw">plot</span>(X, <span class="dt">col=</span>km<span class="op">$</span>cluster, <span class="dt">asp=</span><span class="dv">1</span>) <span class="co"># asp=1 gives the same scale on both axes</span></a>
+<a class="sourceLine" id="cb575-2" title="2"><span class="kw">points</span>(km<span class="op">$</span>centers, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="dv">4</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
 <div class="figure">
 <img src="07-clustering-figures/kmeans_problem1-1.svg" alt="Figure 7: Cluster centres (blue dots) identified by the 3-means algorithm" id="fig:kmeans_problem1" />
 <p class="caption">Figure 7: Cluster centres (blue dots) identified by the 3-means algorithm</p>
@@ -779,9 +779,9 @@ into clusters based on the closeness to the three cluster centres.</p>
 </div>
 <p>To compute the distances between all the points and the cluster centres,
 we may call <code>pdist::pdist()</code>:</p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb572-1" title="1"><span class="kw">library</span>(<span class="st">&quot;pdist&quot;</span>)</a>
-<a class="sourceLine" id="cb572-2" title="2">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, km<span class="op">$</span>centers))<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb572-3" title="3"><span class="kw">head</span>(D)</a></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" title="1"><span class="kw">library</span>(<span class="st">&quot;pdist&quot;</span>)</a>
+<a class="sourceLine" id="cb576-2" title="2">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, km<span class="op">$</span>centers))<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb576-3" title="3"><span class="kw">head</span>(D)</a></code></pre></div>
 <pre><code>##             [,1]     [,2]     [,3]
 ## [1,] 0.009028008 18.46928 9.134779
 ## [2,] 0.187028001 18.25184 8.635656
@@ -793,14 +793,14 @@ we may call <code>pdist::pdist()</code>:</p>
 <span class="math inline">\(\mathbf{x}_{i,\cdot}\)</span> and <span class="math inline">\(\boldsymbol\mu_{k,\cdot}\)</span>.</p>
 <p>The cluster memberships the (<span class="math inline">\(\mathrm{arg}\min\)</span>s)
 can now be determined by:</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" title="1">(idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)) <span class="co"># for every row of D...</span></a></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" title="1">(idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)) <span class="co"># for every row of D...</span></a></code></pre></div>
 <pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ##  [30] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 3 3 3 3 3 3
 ##  [59] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 3 3 3 3 3 2 3 3 3
 ##  [88] 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 3 2 2 2 2 2 2 3 2 2
 ## [117] 2 2 2 3 2 3 2 3 2 2 3 3 2 2 2 2 2 2 2 2 2 2 3 2 2 2 2 2 2
 ## [146] 2 3 2 2 2</code></pre>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" title="1"><span class="kw">all</span>(km<span class="op">$</span>cluster <span class="op">==</span><span class="st"> </span>idx) <span class="co"># sanity check</span></a></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" title="1"><span class="kw">all</span>(km<span class="op">$</span>cluster <span class="op">==</span><span class="st"> </span>idx) <span class="co"># sanity check</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="algorithms-for-the-k-means-problem" class="section level3">
@@ -863,10 +863,10 @@ to all of them, i.e.,</p>
 <p>is exactly these points’ <em>centroid</em> – which is given by
 the componentwise arithmetic means of their coordinates.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" title="1"><span class="kw">colMeans</span>(X[km<span class="op">$</span>cluster <span class="op">==</span><span class="st"> </span><span class="dv">1</span>,]) <span class="co"># centroid of the points in the 1st cluster</span></a></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" title="1"><span class="kw">colMeans</span>(X[km<span class="op">$</span>cluster <span class="op">==</span><span class="st"> </span><span class="dv">1</span>,]) <span class="co"># centroid of the points in the 1st cluster</span></a></code></pre></div>
 <pre><code>## Petal.Length  Sepal.Width 
 ##        1.462        3.428</code></pre>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" title="1">km<span class="op">$</span>centers[<span class="dv">1</span>,] <span class="co"># the centre of the 1st cluster</span></a></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1">km<span class="op">$</span>centers[<span class="dv">1</span>,] <span class="co"># the centre of the 1st cluster</span></a></code></pre></div>
 <pre><code>## Petal.Length  Sepal.Width 
 ##        1.462        3.428</code></pre>
 </dd>
@@ -896,12 +896,12 @@ otherwise stop and return the result.</p></li>
 <p>(*) Here’s an example implementation.
 As the initial cluster centres, let’s pick some “noisy” versions
 of <span class="math inline">\(K\)</span> randomly chosen points in <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" title="1"><span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
-<a class="sourceLine" id="cb582-2" title="2">K &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb582-3" title="3"></a>
-<a class="sourceLine" id="cb582-4" title="4"><span class="co"># Random initial cluster centres:</span></a>
-<a class="sourceLine" id="cb582-5" title="5">M &lt;-<span class="st"> </span><span class="kw">jitter</span>(X[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X), K),])</a>
-<a class="sourceLine" id="cb582-6" title="6">M</a></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" title="1"><span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
+<a class="sourceLine" id="cb586-2" title="2">K &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb586-3" title="3"></a>
+<a class="sourceLine" id="cb586-4" title="4"><span class="co"># Random initial cluster centres:</span></a>
+<a class="sourceLine" id="cb586-5" title="5">M &lt;-<span class="st"> </span><span class="kw">jitter</span>(X[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X), K),])</a>
+<a class="sourceLine" id="cb586-6" title="6">M</a></code></pre></div>
 <pre><code>##      Petal.Length Sepal.Width
 ## [1,]     5.100369    3.081381
 ## [2,]     4.709108    3.186095
@@ -910,33 +910,33 @@ of <span class="math inline">\(K\)</span> randomly chosen points in <span class=
 such that <code>D[i,k]</code> is the distance between the <span class="math inline">\(i\)</span>-th point
 and the <span class="math inline">\(k\)</span>-th centre and a vector such that <code>idx[i]</code>
 denotes the index of the cluster centre closest to the <code>i</code>-th point.</p>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb584-2" title="2">idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a></code></pre></div>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb585-1" title="1"><span class="cf">repeat</span> {</a>
-<a class="sourceLine" id="cb585-2" title="2">    <span class="co"># Determine the new cluster centres:</span></a>
-<a class="sourceLine" id="cb585-3" title="3">    M &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="cf">function</span>(k) {</a>
-<a class="sourceLine" id="cb585-4" title="4">        <span class="co"># the centroid of all points in the k-th cluster:</span></a>
-<a class="sourceLine" id="cb585-5" title="5">        <span class="kw">colMeans</span>(X[idx<span class="op">==</span>k,])</a>
-<a class="sourceLine" id="cb585-6" title="6">    }))</a>
-<a class="sourceLine" id="cb585-7" title="7"></a>
-<a class="sourceLine" id="cb585-8" title="8">    <span class="co"># Store the previous cluster belongingness info:</span></a>
-<a class="sourceLine" id="cb585-9" title="9">    old_idx &lt;-<span class="st"> </span>idx</a>
-<a class="sourceLine" id="cb585-10" title="10"></a>
-<a class="sourceLine" id="cb585-11" title="11">    <span class="co"># Recompute D and idx:</span></a>
-<a class="sourceLine" id="cb585-12" title="12">    D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb585-13" title="13">    idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a>
-<a class="sourceLine" id="cb585-14" title="14"></a>
-<a class="sourceLine" id="cb585-15" title="15">    <span class="co"># Check if converged already:</span></a>
-<a class="sourceLine" id="cb585-16" title="16">    <span class="cf">if</span> (<span class="kw">all</span>(idx <span class="op">==</span><span class="st"> </span>old_idx)) <span class="cf">break</span></a>
-<a class="sourceLine" id="cb585-17" title="17">}</a></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb588-1" title="1">D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb588-2" title="2">idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb589-1" title="1"><span class="cf">repeat</span> {</a>
+<a class="sourceLine" id="cb589-2" title="2">    <span class="co"># Determine the new cluster centres:</span></a>
+<a class="sourceLine" id="cb589-3" title="3">    M &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="cf">function</span>(k) {</a>
+<a class="sourceLine" id="cb589-4" title="4">        <span class="co"># the centroid of all points in the k-th cluster:</span></a>
+<a class="sourceLine" id="cb589-5" title="5">        <span class="kw">colMeans</span>(X[idx<span class="op">==</span>k,])</a>
+<a class="sourceLine" id="cb589-6" title="6">    }))</a>
+<a class="sourceLine" id="cb589-7" title="7"></a>
+<a class="sourceLine" id="cb589-8" title="8">    <span class="co"># Store the previous cluster belongingness info:</span></a>
+<a class="sourceLine" id="cb589-9" title="9">    old_idx &lt;-<span class="st"> </span>idx</a>
+<a class="sourceLine" id="cb589-10" title="10"></a>
+<a class="sourceLine" id="cb589-11" title="11">    <span class="co"># Recompute D and idx:</span></a>
+<a class="sourceLine" id="cb589-12" title="12">    D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">pdist</span>(X, M))<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb589-13" title="13">    idx &lt;-<span class="st"> </span><span class="kw">apply</span>(D, <span class="dv">1</span>, which.min)</a>
+<a class="sourceLine" id="cb589-14" title="14"></a>
+<a class="sourceLine" id="cb589-15" title="15">    <span class="co"># Check if converged already:</span></a>
+<a class="sourceLine" id="cb589-16" title="16">    <span class="cf">if</span> (<span class="kw">all</span>(idx <span class="op">==</span><span class="st"> </span>old_idx)) <span class="cf">break</span></a>
+<a class="sourceLine" id="cb589-17" title="17">}</a></code></pre></div>
 <p>Let’s compare the obtained cluster centres with the ones returned
 by <code>kmeans()</code>:</p>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" title="1">M <span class="co"># our result</span></a></code></pre></div>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb590-1" title="1">M <span class="co"># our result</span></a></code></pre></div>
 <pre><code>##      Petal.Length Sepal.Width
 ## [1,]     5.672093    3.032558
 ## [2,]     4.328070    2.750877
 ## [3,]     1.462000    3.428000</code></pre>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb588-1" title="1">km<span class="op">$</span>center <span class="co"># result of kmeans()</span></a></code></pre></div>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb592-1" title="1">km<span class="op">$</span>center <span class="co"># result of kmeans()</span></a></code></pre></div>
 <pre><code>##   Petal.Length Sepal.Width
 ## 1     1.462000    3.428000
 ## 2     5.672093    3.032558
@@ -946,9 +946,9 @@ by <code>kmeans()</code>:</p>
 <p>The value of the objective function (total within-cluster distances)
 at the identified candidate solution
 is equal to:</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb590-1" title="1"><span class="kw">sum</span>(D[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X),idx)]) <span class="co"># indexing with a 2-column matrix!</span></a></code></pre></div>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb594-1" title="1"><span class="kw">sum</span>(D[<span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(X),idx)]) <span class="co"># indexing with a 2-column matrix!</span></a></code></pre></div>
 <pre><code>## [1] 40.73708</code></pre>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb592-1" title="1">km<span class="op">$</span>tot.withinss <span class="co"># as reported by kmeans()</span></a></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb596-1" title="1">km<span class="op">$</span>tot.withinss <span class="co"># as reported by kmeans()</span></a></code></pre></div>
 <pre><code>## [1] 40.73707</code></pre>
 <p>We would need it if we were to implement the <code>nstart</code> functionality,
 which is left as an:</p>
@@ -992,9 +992,9 @@ the case)?</p>
 <p>Also, the problem with K-means is that there is no guarantee that a
 <span class="math inline">\(K\)</span>-partition is any “similar” to the <span class="math inline">\(K&#39;\)</span>-one for <span class="math inline">\(K\neq K&#39;\)</span>,
 see Figure <a href="clustering.html#fig:kmeans_different_K">10</a>.</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb594-1" title="1">km1 &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, <span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb594-2" title="2">km2 &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, <span class="dv">4</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb594-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span>km1<span class="op">$</span>cluster, <span class="dt">pch=</span>km2<span class="op">$</span>cluster, <span class="dt">asp=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb598-1" title="1">km1 &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, <span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb598-2" title="2">km2 &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, <span class="dv">4</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb598-3" title="3"><span class="kw">plot</span>(X, <span class="dt">col=</span>km1<span class="op">$</span>cluster, <span class="dt">pch=</span>km2<span class="op">$</span>cluster, <span class="dt">asp=</span><span class="dv">1</span>)</a></code></pre></div>
 <div class="figure">
 <img src="07-clustering-figures/kmeans_different_K-1.svg" alt="Figure 10: 3-means (colours) vs. 4-means (symbols) on example data; the “circle” cluster cannot decide if it likes the green or the black one more" id="fig:kmeans_different_K" />
 <p class="caption">Figure 10: 3-means (colours) vs. 4-means (symbols) on example data; the “circle” cluster cannot decide if it likes the green or the black one more</p>
@@ -1019,11 +1019,11 @@ we select (somehow; see below) a pair of clusters to be merged.</p></li>
 agglomerative hierarchical clustering algorithms
 is provided by the <code>hclust()</code> function, which works on a pairwise
 distance matrix.</p>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" title="1"><span class="co"># Euclidean distances between all pairs of points:</span></a>
-<a class="sourceLine" id="cb595-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
-<a class="sourceLine" id="cb595-3" title="3"><span class="co"># Apply Complete Linkage (the default, details below):</span></a>
-<a class="sourceLine" id="cb595-4" title="4">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D) <span class="co"># method=&quot;complete&quot;</span></a>
-<a class="sourceLine" id="cb595-5" title="5"><span class="kw">print</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" title="1"><span class="co"># Euclidean distances between all pairs of points:</span></a>
+<a class="sourceLine" id="cb599-2" title="2">D &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
+<a class="sourceLine" id="cb599-3" title="3"><span class="co"># Apply Complete Linkage (the default, details below):</span></a>
+<a class="sourceLine" id="cb599-4" title="4">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(D) <span class="co"># method=&quot;complete&quot;</span></a>
+<a class="sourceLine" id="cb599-5" title="5"><span class="kw">print</span>(h)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## hclust(d = D)
@@ -1047,7 +1047,7 @@ aim to solve this problem.</p>
 -->
 <p>The obtained hierarchy (<em>tree</em>) can be <em>cut</em> at an arbitrary level
 by applying the <code>cutree()</code> function.</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" title="1"><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>) <span class="co"># extract the 3-partition</span></a></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" title="1"><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>) <span class="co"># extract the 3-partition</span></a></code></pre></div>
 <pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ##  [30] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2
 ##  [59] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
@@ -1060,15 +1060,15 @@ The obtained 3-partition also matches the true Iris species quite well.
 However, now it makes total sense to “zoom” our partitioning in or out
 and investigate how are the subgroups decomposed or aggregated when we change
 <span class="math inline">\(K\)</span>.</p>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb599-2" title="2"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb599-3" title="3"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
-<a class="sourceLine" id="cb599-4" title="4"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb599-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
-<a class="sourceLine" id="cb599-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb599-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
-<a class="sourceLine" id="cb599-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb599-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb603-2" title="2"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">5</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb603-3" title="3"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=5&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb603-4" title="4"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">4</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb603-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=4&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb603-6" title="6"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">3</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb603-7" title="7"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=3&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb603-8" title="8"><span class="kw">plot</span>(X, <span class="dt">col=</span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">2</span>), <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb603-9" title="9"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;k=2&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="07-clustering-figures/complete_linkage_hier5_intro-1.svg" alt="Figure 11: Complete linkage – 4 different cuts" id="fig:complete_linkage_hier5_intro" />
 <p class="caption">Figure 11: Complete linkage – 4 different cuts</p>
@@ -1152,9 +1152,9 @@ in the aforementioned procedure leads to single, complete or average
 linkage-based agglomerative hierarchical clustering algorithms,
 respectively
 (referred to as single linkage etc. for brevity).</p>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb600-1" title="1">hs &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;single&quot;</span>)</a>
-<a class="sourceLine" id="cb600-2" title="2">hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</a>
-<a class="sourceLine" id="cb600-3" title="3">ha &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;average&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" title="1">hs &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;single&quot;</span>)</a>
+<a class="sourceLine" id="cb604-2" title="2">hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</a>
+<a class="sourceLine" id="cb604-3" title="3">ha &lt;-<span class="st"> </span><span class="kw">hclust</span>(D, <span class="dt">method=</span><span class="st">&quot;average&quot;</span>)</a></code></pre></div>
 <p>Figure <a href="clustering.html#fig:linkages_hier52">13</a> compares the 5-, 4- and 3-partitions
 obtained by applying the 3 above linkages. Note that it’s in very nature of
 the single linkage algorithm that it’s highly sensitive to outliers.</p>

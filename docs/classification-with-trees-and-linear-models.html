@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
 <li class="chapter" data-level="4.3.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
 <li class="chapter" data-level="4.3.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
-<li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function</a></li>
+<li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function-cross-entropy"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function: Cross-entropy</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#remarks-3"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 18:02 (2b85820)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 15:38 (1ede348)</a></li>
 
 </ul>
 
@@ -617,8 +617,8 @@ consists of the first 10 numeric variables:</p>
 <a class="sourceLine" id="cb413-8" title="8">Y_test  &lt;-<span class="st"> </span>Y[<span class="op">-</span>train_indices]</a></code></pre></div>
 <p>Let’s also compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
-<a class="sourceLine" id="cb414-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
+<a class="sourceLine" id="cb414-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
 <a class="sourceLine" id="cb414-3" title="3">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
 <a class="sourceLine" id="cb414-4" title="4">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
@@ -648,19 +648,20 @@ and <code>X_test</code>, respectively.</p>
 <a class="sourceLine" id="cb417-5" title="5">    <span class="dt">Knn9s=</span><span class="kw">get_metrics</span>(Y_knn9s, Y_test)</a>
 <a class="sourceLine" id="cb417-6" title="6">)</a></code></pre></div>
 <pre><code>##              Knn5         Knn9        Knn5s        Knn9s
-## Acc     0.8173469    0.8193878    0.9102041    0.9122449
-## Prec    0.3867403    0.3495935    0.8025751    0.8310502
-## Rec     0.2208202    0.1356467    0.5899054    0.5741325
-## F       0.2811245    0.1954545    0.6800000    0.6791045
-## TN   1532.0000000 1563.0000000 1597.0000000 1606.0000000
-## FN    247.0000000  274.0000000  130.0000000  135.0000000
-## FP    111.0000000   80.0000000   46.0000000   37.0000000
-## TP     70.0000000   43.0000000  187.0000000  182.0000000</code></pre>
-<p>In this chapter we discuss the following simple and educational (yet practically useful)
+## Acc     0.8173469    0.8193878    0.9142857    0.9137755
+## Prec    0.3867403    0.3495935    0.8225108    0.8363636
+## Rec     0.2208202    0.1356467    0.5993691    0.5804416
+## F       0.2811245    0.1954545    0.6934307    0.6852886
+## TN   1532.0000000 1563.0000000 1602.0000000 1607.0000000
+## FN    247.0000000  274.0000000  127.0000000  133.0000000
+## FP    111.0000000   80.0000000   41.0000000   36.0000000
+## TP     70.0000000   43.0000000  190.0000000  184.0000000</code></pre>
+<p>In this chapter we discuss the following simple and educational
+(yet practically useful)
 classification algorithms:</p>
 <ul>
 <li><em>decision trees</em>,</li>
-<li><em>logistic regression</em>.</li>
+<li><em>binary logistic regression</em>.</li>
 </ul>
 </div>
 </div>
@@ -924,127 +925,191 @@ see Figure <a href="classification-with-trees-and-linear-models.html#fig:sigmoid
 <p><span class="math display">\[
 Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
 \]</span></p>
-<p>We call it a <strong>generalised linear model</strong> (glm).</p>
-<p>(There are many other possible generalisations)</p>
+<p>It is an instance of a <strong>generalised linear model</strong> (glm)
+(there are of course many other possible generalisations).</p>
 </div>
 <div id="example-in-r-2" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Example in R</h3>
-<p>Let us first fit
-a simple (i.e., <span class="math inline">\(p=1\)</span>) logistic regression model
-using the <code>density</code> variable.</p>
-<dl>
-<dt>Remark.</dt>
-<dd><p>“logit” below denotes the inverse of the logistic sigmoid function.</p>
-</dd>
-</dl>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb437-2" title="2"><span class="kw">summary</span>(f)</a></code></pre></div>
+<p>Let us first fit a simple (i.e., <span class="math inline">\(p=1\)</span>) logistic regression model
+using the <code>density</code> variable. The goodness-of-fit measure used in this
+problem will be discussed a bit later.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1">(f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density, <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>)))</a></code></pre></div>
 <pre><code>## 
-## Call:
-## glm(formula = Y ~ density, family = binomial(&quot;logit&quot;), data = XY_train)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.1591  -0.3653  -0.0934  -0.0154   4.0683  
+## Call:  glm(formula = Y ~ density, family = binomial(&quot;logit&quot;), data = XY_train)
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)  1173.21      55.04   21.32   &lt;2e-16 ***
-## density     -1184.21      55.53  -21.33   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## (Intercept)      density  
+##        1173        -1184  
 ## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 2667.8  on 2937  degrees of freedom
-## Residual deviance: 1418.9  on 2936  degrees of freedom
-## AIC: 1422.9
-## 
-## Number of Fisher Scoring iterations: 7</code></pre>
-<p>Figure <a href="classification-with-trees-and-linear-models.html#fig:glm2">10</a> depicts the obtained probability
-<span class="math inline">\(\Pr(Y=1|\text{density})\)</span>.</p>
+## Degrees of Freedom: 2937 Total (i.e. Null);  2936 Residual
+## Null Deviance:       2668 
+## Residual Deviance: 1419  AIC: 1423</code></pre>
+<p>“logit” above denotes the inverse of the logistic sigmoid function.
+The fitted coefficients are equal to:</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1">f<span class="op">$</span>coefficients</a></code></pre></div>
+<pre><code>## (Intercept)     density 
+##    1173.208   -1184.207</code></pre>
+<p>Figure <a href="classification-with-trees-and-linear-models.html#fig:glm2">10</a> depicts the obtained model, which can be written
+as:
+<span class="math display">\[
+\Pr(Y=1|x)=\displaystyle\frac{1}{1+e^{-\left(
+1173.21-1184.21x
+\right)}
+}
+\]</span>
+with <span class="math inline">\(x=\text{density}\)</span>.</p>
 <div class="figure">
 <img src="04-classification-trees_and_logistic-figures/glm2-1.svg" alt="Figure 10: The probability that a given wine is a high-alcohol one given its density; black and red points denote the actual observed data points from the class 0 and 1, respectively" id="fig:glm2" />
 <p class="caption">Figure 10: The probability that a given wine is a high-alcohol one given its density; black and red points denote the actual observed data points from the class 0 and 1, respectively</p>
 </div>
 <p>Some predicted probabilities:</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="kw">round</span>(<span class="kw">head</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>), <span class="dv">12</span>), <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## 1602 1605 1607 1608 1609 1613 1614 1615 1621 1622 1623 1627 
 ## 0.01 0.01 0.00 0.02 0.03 0.36 0.00 0.31 0.36 0.06 0.03 0.00</code></pre>
 <p>We classify <span class="math inline">\(Y\)</span> as 1 if the corresponding membership probability
 is greater than <span class="math inline">\(0.5\)</span>.</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb441-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb443-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.8979592    0.7276265    0.5899054    0.6515679 
 ##           TN           FN           FP           TP 
 ## 1573.0000000  130.0000000   70.0000000  187.0000000</code></pre>
 <p>And now a fit based on some other input variables:</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1">f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
-<a class="sourceLine" id="cb443-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb443-3" title="3">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb443-4" title="4"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1">(f &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>density<span class="op">+</span>residual.sugar<span class="op">+</span>total.sulfur.dioxide,</a>
+<a class="sourceLine" id="cb445-2" title="2">    <span class="dt">data=</span>XY_train, <span class="dt">family=</span><span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>)))</a></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = Y ~ density + residual.sugar + total.sulfur.dioxide, 
+##     family = binomial(&quot;logit&quot;), data = XY_train)
+## 
+## Coefficients:
+##          (Intercept)               density  
+##            2.504e+03            -2.531e+03  
+##       residual.sugar  total.sulfur.dioxide  
+##            8.582e-01             9.741e-03  
+## 
+## Degrees of Freedom: 2937 Total (i.e. Null);  2934 Residual
+## Null Deviance:       2668 
+## Residual Deviance: 920.2     AIC: 928.2</code></pre>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1">Y_pred &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">predict</span>(f, XY_test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">&gt;</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb447-2" title="2"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
 ##    0.9321429    0.8239437    0.7381703    0.7787022 
 ##           TN           FN           FP           TP 
 ## 1593.0000000   83.0000000   50.0000000  234.0000000</code></pre>
 <div class="exercise"><strong>Exercise.</strong>
-<p>Try fitting the models based on different combinations
-of features.</p>
+<p>Try fitting different models based on other sets of features.</p>
 </div>
 </div>
-<div id="loss-function" class="section level3">
-<h3><span class="header-section-number">4.3.4</span> Loss Function</h3>
+<div id="loss-function-cross-entropy" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> Loss Function: Cross-entropy</h3>
 <p>The fitting of the model can be written as an optimisation task:</p>
 <p><span class="math display">\[
 \min_{\beta_0, \beta_1,\dots, \beta_p\in\mathbb{R}}
 \frac{1}{n} \sum_{i=1}^n
-e\left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}, y_i \right)
+\epsilon\left(\hat{y}_i, y_i \right)
 \]</span></p>
-<p>where <span class="math inline">\(e(\hat{y}, y)\)</span> denotes the penalty that measures the
-“difference” between the true <span class="math inline">\(y\)</span> and its predicted version <span class="math inline">\(\hat{y}\)</span>.</p>
-<p>In the ordinary regression, we use the squared residual <span class="math inline">\(e(\hat{y}, y) = (\hat{y}-y)^2\)</span>.</p>
-<p>In <strong>logistic regression</strong> (the kind of a classifier we are interested in right now), we use
-the <strong>cross-entropy</strong> (a.k.a. <strong>log-loss</strong>),</p>
+<p>where <span class="math inline">\(\epsilon(\hat{y}_i, y_i)\)</span> denotes the penalty that measures the
+“difference” between the true <span class="math inline">\(y_i\)</span> and its predicted version
+<span class="math inline">\(\hat{y}_i=\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)\)</span>.</p>
+<p>In the ordinary regression, we used the squared residual
+<span class="math inline">\(\epsilon(\hat{y}_i, y_i) = (\hat{y}_i-y_i)^2\)</span>.
+In <strong>logistic regression</strong> (the kind of a classifier we are
+interested in right now), we use
+the <strong>cross-entropy</strong> (a.k.a. <strong>log-loss</strong>, binary cross-entropy),</p>
 <p><span class="math display">\[
-e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
+\epsilon(\hat{y}_i,y_i) = - \left(y_i \log \hat{y}_i + (1-y_i) \log(1-\hat{y}_i)\right)
 \]</span></p>
-<p>The corresponding loss function has not only nice statistical properties (**)
+<p>The corresponding loss function has not only
+many nice statistical properties (** related to maximum likelihood
+estimation etc.)
 but also an intuitive interpretation.</p>
-<p>Note that the predicted <span class="math inline">\(\hat{y}\)</span> is in <span class="math inline">\((0,1)\)</span> and the true <span class="math inline">\(y\)</span> equals to either 0 or 1.</p>
-<p>Recall also that <span class="math inline">\(\log t\in(-\infty, 0)\)</span> for <span class="math inline">\(t\in (0,1)\)</span>.</p>
-<p><span class="math display">\[
-e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
-\]</span></p>
+<p>Note that the predicted <span class="math inline">\(\hat{y}_i\)</span> is in <span class="math inline">\((0,1)\)</span> and the true <span class="math inline">\(y_i\)</span>
+equals to either 0 or 1.
+Recall also that <span class="math inline">\(\log t\in(-\infty, 0)\)</span> for <span class="math inline">\(t\in (0,1)\)</span>.
+Therefore, the formula for <span class="math inline">\(\epsilon(\hat{y}_i,y_i)\)</span>
+has a very intuitive behaviour:</p>
 <ul>
-<li><p>if true <span class="math inline">\(y=1\)</span>, then the penalty becomes <span class="math inline">\(e(\hat{y}, 1) = -\log(\hat{y})\)</span></p>
+<li><p>if true <span class="math inline">\(y_i=1\)</span>, then the penalty becomes <span class="math inline">\(\epsilon(\hat{y}_i, 1) = -\log(\hat{y}_i)\)</span></p>
 <ul>
-<li><span class="math inline">\(\hat{y}\)</span> is the probability that the classified input is indeed from class <span class="math inline">\(1\)</span></li>
-<li>we’d be happy if the classifier outputted <span class="math inline">\(\hat{y}\simeq 1\)</span> in this case;
+<li><span class="math inline">\(\hat{y}_i\)</span> is the probability that the classified input is indeed from class <span class="math inline">\(1\)</span></li>
+<li>we’d be happy if the classifier outputted <span class="math inline">\(\hat{y}_i\simeq 1\)</span> in this case;
 this is not penalised as <span class="math inline">\(-\log(t)\to 0\)</span> as <span class="math inline">\(t\to 1\)</span></li>
 <li>however, if the classifier is totally wrong, i.e., it thinks that
-<span class="math inline">\(\hat{y}\simeq 0\)</span>, then the penalty will be very high, as <span class="math inline">\(-\log(t)\to+\infty\)</span>
+<span class="math inline">\(\hat{y}_i\simeq 0\)</span>, then the penalty will be very high, as <span class="math inline">\(-\log(t)\to+\infty\)</span>
 as <span class="math inline">\(t\to 0\)</span></li>
 </ul></li>
-<li><p>if true <span class="math inline">\(y=0\)</span>, then the penalty becomes <span class="math inline">\(e(\hat{y}, 0) = -\log(1-\hat{y})\)</span></p>
+<li><p>if true <span class="math inline">\(y_i=0\)</span>, then the penalty becomes <span class="math inline">\(\epsilon(\hat{y}_i, 0) = -\log(1-\hat{y}_i)\)</span></p>
 <ul>
-<li><span class="math inline">\(1-\hat{y}\)</span> is the predicted probability that the input is from class <span class="math inline">\(0\)</span></li>
-<li>we penalise heavily the case where <span class="math inline">\(1-\hat{y}\)</span> is small (we’d be happy
-if the classifier was sure that <span class="math inline">\(1-\hat{y}\simeq 1\)</span>, because this is the ground-truth)</li>
+<li><span class="math inline">\(1-\hat{y}_i\)</span> is the predicted probability that the input is from class <span class="math inline">\(0\)</span></li>
+<li>we penalise heavily the case where <span class="math inline">\(1-\hat{y}_i\)</span> is small (we’d be happy
+if the classifier was sure that <span class="math inline">\(1-\hat{y}_i\simeq 1\)</span>, because this is the ground-truth)</li>
 </ul></li>
 </ul>
-<dl>
-<dt>Remark.</dt>
-<dd><p>(*) Interestingly, there is no analytical formula
-for the optimal set of parameters (<span class="math inline">\(\beta_0,\beta_1,\dots,\beta_p\)</span>)
-minimising the log-loss.</p>
-</dd>
-<dt>Remark.</dt>
-<dd><p>In the chapter on optimisation, we shall see that
+<div style="margin-top: 1em">
+
+</div>
+<p>(*) Having said that, let’s expand the above formulae.
+The task of minimising cross-entropy in binary logistic regression
+can be written as:</p>
+<p><span class="math display">\[
+\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+-\frac{1}{n} \sum_{i=1}^n
+y_i \log \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)
++ (1-y_i) \log(1-\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta))
+\]</span></p>
+<p>Taking into account that:</p>
+<p><span class="math display">\[
+\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)=
+\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
+\]</span></p>
+<p>we get:</p>
+<p><span class="math display">\[
+\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+-\frac{1}{n}
+\sum_{i=1}^n \left(
+\begin{array}{r}
+y_i \log \displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}\\
++
+(1-y_i) \log \displaystyle\frac{e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
+\end{array}
+\right)
+\]</span></p>
+<p>Logarithms are really practitioner-friendly functions,
+it holds:</p>
+<ul>
+<li><span class="math inline">\(\log 1=0\)</span>,</li>
+<li><span class="math inline">\(\log e=1\)</span> (where <span class="math inline">\(e \simeq 2.71828\)</span> is the Euler constant;
+note that by writing <span class="math inline">\(\log\)</span> we mean the natural a.k.a. base-<span class="math inline">\(e\)</span> logarithm),</li>
+<li><span class="math inline">\(\log xy = \log x + \log y\)</span>,</li>
+<li><span class="math inline">\(\log x^p = p\log x\)</span> (this is <span class="math inline">\(\log (x^p)\)</span>, not <span class="math inline">\((\log x)^p\)</span>).</li>
+</ul>
+<p>These facts imply, amongst others that:</p>
+<ul>
+<li><span class="math inline">\(\log e^x = x \log e = x\)</span>,</li>
+<li><span class="math inline">\(\log \frac{x}{y} = \log x y^{-1} = \log x+\log y^{-1} = \log x - \log y\)</span>
+(of course for <span class="math inline">\(y\neq 0\)</span>),</li>
+<li><span class="math inline">\(\log \frac{1}{y} = -\log y\)</span></li>
+</ul>
+<p>and so forth. Therefore, the above optimisation problem can be rewritten as:</p>
+<p><span class="math display">\[
+\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+\frac{1}{n}
+\sum_{i=1}^n \left(
+(1-y_i)\left(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}\right)
++\log \left(1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}\right)
+\right).
+\]</span></p>
+<p>It turns out that there is no analytical formula
+for the optimal set of parameters (<span class="math inline">\(\beta_0,\beta_1,\dots,\beta_p\)</span>
+minimising the log-loss).
+In the chapter on optimisation, we shall see that
 the solution to the logistic regression can be solved numerically
-by means of quite simple iterative algorithms.</p>
-</dd>
-</dl>
+by means of quite simple iterative algorithms.
+The expanded formula has lost the appealing interpretation
+of the original one, however, it’s more numerically well-behaving,
+see, e.g., the <code>log1p()</code> function in base R or
+<code>fermi_dirac_0()</code> in the <code>gsl</code> package.</p>
+<!-- TODO: cite Goldberg's paper -->
 </div>
 </div>
 <div id="outro-3" class="section level2">

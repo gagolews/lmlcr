@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
 <li class="chapter" data-level="4.3.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
 <li class="chapter" data-level="4.3.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
-<li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function</a></li>
+<li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function-cross-entropy"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function: Cross-entropy</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.4</b> Outro</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#remarks-3"><i class="fa fa-check"></i><b>4.4.1</b> Remarks</a></li>
@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-01 18:02 (2b85820)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 15:38 (1ede348)</a></li>
 
 </ul>
 
@@ -769,9 +769,10 @@ implicitly assumes that every feature (independent variable)
 is on the same scale.</p>
 <p>However, when dealing with, e.g., physical quantities,
 we often perform conversions of units of measurement (kg → g, feet → m etc.).</p>
-<p>Transforming a single feature may drastically change the metric structure of the dataset
+<p>Transforming a single feature may drastically change the metric
+structure of the dataset
 and therefore highly affect the obtained predictions.</p>
-<p>To “bring data to the same scale”, we often apply a trick called <strong>standardization</strong>.</p>
+<p>To “bring data to the same scale”, we often apply a trick called <strong>standardisation</strong>.</p>
 <p>Computing the so-called <strong>Z-scores</strong> of the <span class="math inline">\(j\)</span>-th feature, <span class="math inline">\(\mathbf{x}_{\cdot,j}\)</span>,
 is done by subtracting from each observation the sample mean and dividing the result by the sample
 standard deviation:</p>
@@ -782,18 +783,32 @@ the units are cancelled out).
 This, amongst others, prevents one of the features from dominating
 the other ones.</p>
 <p>Z-scores are easy to interpret, e.g., 0.5 denotes an observation
-that is 0.5 standard deviations above the mean.</p>
-<p>Let’s compute <code>Z_train</code> and <code>Z_test</code>, being the standardised versions of <code>X_train</code>
+that is 0.5 standard deviations above the mean
+and -3 informs us that a value is 3 standard deviations below the mean.</p>
+<dl>
+<dt>Remark.</dt>
+<dd><p>(*) If data are normally distributed (bell-shaped histogram),
+with very high probability, most (expected value is 99.74%) observations
+should have Z-scores between -3 and 3. Those that don’t, are
+“suspicious”, maybe they are outliers? We should inspect them manually.</p>
+</dd>
+</dl>
+<p>Let’s compute <code>Z_train</code> and <code>Z_test</code>,
+being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
-<a class="sourceLine" id="cb309-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
+<a class="sourceLine" id="cb309-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
 <a class="sourceLine" id="cb309-3" title="3">Z_train &lt;-<span class="st"> </span>X_train <span class="co"># to be done</span></a>
 <a class="sourceLine" id="cb309-4" title="4">Z_test  &lt;-<span class="st"> </span>X_test  <span class="co"># to be done</span></a>
 <a class="sourceLine" id="cb309-5" title="5"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(X)) {</a>
 <a class="sourceLine" id="cb309-6" title="6">    Z_train[,j] &lt;-<span class="st"> </span>(Z_train[,j]<span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
 <a class="sourceLine" id="cb309-7" title="7">    Z_test[,j]  &lt;-<span class="st"> </span>(Z_test[,j] <span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
 <a class="sourceLine" id="cb309-8" title="8">}</a></code></pre></div>
-<p>Alternatively:</p>
+<p>Note that we have transformed the training and test sample in the very same
+way. Computing means and standard deviations separately for these two datasets
+is a common error – it is the training set that we use in the course of the
+learning process.
+The above can be re-written as:</p>
 <div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
 <a class="sourceLine" id="cb310-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <p>See Figure <a href="classification-with-k-nearest-neighbours.html#fig:standardise_depict_hist">5</a> for an illustration.
@@ -813,10 +828,10 @@ is right skewed or bimodal, its standardised version will remain as such.</p>
 <p>Let’s compute the accuracy of K-NN classifiers acting on standardised data.</p>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb311-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
-<pre><code>## [1] 0.9102041</code></pre>
+<pre><code>## [1] 0.9142857</code></pre>
 <div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train, Z_test, Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
 <a class="sourceLine" id="cb313-2" title="2"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
-<pre><code>## [1] 0.9122449</code></pre>
+<pre><code>## [1] 0.9137755</code></pre>
 <p>The accuracy is much better.</p>
 <p>Standardisation is an example of <em>feature engineering</em>.</p>
 <p>Good models rarely work well “straight out of the box” – if that was the case,
@@ -840,11 +855,11 @@ when dealing with real-world problems.</p>
 <a class="sourceLine" id="cb315-2" title="2">Y_knn5s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
 <a class="sourceLine" id="cb315-3" title="3">    Y_train, <span class="dt">k=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb315-4" title="4"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn5s) <span class="co"># accuracy</span></a></code></pre></div>
-<pre><code>## [1] 0.9168367</code></pre>
+<pre><code>## [1] 0.9163265</code></pre>
 <div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1">Y_knn9s &lt;-<span class="st"> </span><span class="kw">knn</span>(Z_train[,features], Z_test[,features],</a>
 <a class="sourceLine" id="cb317-2" title="2">    Y_train, <span class="dt">k=</span><span class="dv">9</span>)</a>
 <a class="sourceLine" id="cb317-3" title="3"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_knn9s) <span class="co"># accuracy</span></a></code></pre></div>
-<pre><code>## [1] 0.9255102</code></pre>
+<pre><code>## [1] 0.925</code></pre>
 <div class="exercise"><strong>Exercise.</strong>
 <p>Try to find a combination of 2-4 features (by guessing or applying magic tricks)
 that increases the accuracy of a <span class="math inline">\(K\)</span>-NN classifier on this dataset.</p>
@@ -894,13 +909,13 @@ the correctness of predictions for the whole sample:</p>
 <a class="sourceLine" id="cb319-2" title="2">(C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test))</a></code></pre></div>
 <pre><code>##       Y_test
 ## Y_pred    0    1
-##      0 1606  135
-##      1   37  182</code></pre>
+##      0 1607  133
+##      1   36  184</code></pre>
 <p>For example,</p>
 <div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">C[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># number of TNs</span></a></code></pre></div>
-<pre><code>## [1] 1606</code></pre>
+<pre><code>## [1] 1607</code></pre>
 <div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1">C[<span class="dv">2</span>,<span class="dv">1</span>] <span class="co"># number of FPs</span></a></code></pre></div>
-<pre><code>## [1] 37</code></pre>
+<pre><code>## [1] 36</code></pre>
 <p><strong>Accuracy</strong> is the ratio of the correctly classified instances
 to all the instances.</p>
 <p>In other words, it is the probability of making a correct prediction.</p>
@@ -913,9 +928,9 @@ y_i = \hat{y}_i
 where <span class="math inline">\(\mathbb{I}\)</span> is the indicator function,
 <span class="math inline">\(\mathbb{I}(l)=1\)</span> if logical condition <span class="math inline">\(l\)</span> is true and <span class="math inline">\(0\)</span> otherwise.</p>
 <div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1"><span class="kw">mean</span>(Y_test <span class="op">==</span><span class="st"> </span>Y_pred) <span class="co"># accuracy</span></a></code></pre></div>
-<pre><code>## [1] 0.9122449</code></pre>
+<pre><code>## [1] 0.9137755</code></pre>
 <div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">(C[<span class="dv">1</span>,<span class="dv">1</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">2</span>])<span class="op">/</span><span class="kw">sum</span>(C) <span class="co"># equivalently</span></a></code></pre></div>
-<pre><code>## [1] 0.9122449</code></pre>
+<pre><code>## [1] 0.9137755</code></pre>
 <p>In many applications we are dealing with <strong>unbalanced problems</strong>, where
 the case <span class="math inline">\(y_i=1\)</span> is relatively rare,
 yet predicting it correctly is much more important than being
@@ -943,7 +958,7 @@ aim to address this problem.</p>
 <p>If the classifier outputs <span class="math inline">\(1\)</span>,
 what is the probability that this is indeed true?</p>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># Precision</span></a></code></pre></div>
-<pre><code>## [1] 0.8310502</code></pre>
+<pre><code>## [1] 0.8363636</code></pre>
 <p><strong>Recall</strong> (a.k.a. sensitivity, hit rate or true positive rate)</p>
 <p><span class="math display">\[
 \text{Recall} = \frac{\text{TP}}{\text{TP}+\text{FN}}
@@ -951,7 +966,7 @@ what is the probability that this is indeed true?</p>
 <p>If the true class is <span class="math inline">\(1\)</span>, what is the probability that the classifier
 will detect it?</p>
 <div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span>C[<span class="dv">1</span>,<span class="dv">2</span>]) <span class="co"># Recall</span></a></code></pre></div>
-<pre><code>## [1] 0.5741325</code></pre>
+<pre><code>## [1] 0.5804416</code></pre>
 <dl>
 <dt>Remark.</dt>
 <dd><p>Precision or recall? It depends on an application.
@@ -983,7 +998,7 @@ and recall:</p>
 <p>Show that the above equality holds.</p>
 </div>
 <div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1">C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>(C[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>C[<span class="dv">2</span>,<span class="dv">1</span>]) <span class="co"># F</span></a></code></pre></div>
-<pre><code>## [1] 0.6791045</code></pre>
+<pre><code>## [1] 0.6852886</code></pre>
 <p>The following function can come in handy in the future:</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
 <a class="sourceLine" id="cb335-2" title="2">{</a>
@@ -1000,9 +1015,9 @@ and recall:</p>
 <a class="sourceLine" id="cb335-13" title="13">}</a></code></pre></div>
 <div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1"><span class="kw">get_metrics</span>(Y_pred, Y_test)</a></code></pre></div>
 <pre><code>##          Acc         Prec          Rec            F 
-##    0.9122449    0.8310502    0.5741325    0.6791045 
+##    0.9137755    0.8363636    0.5804416    0.6852886 
 ##           TN           FN           FP           TP 
-## 1606.0000000  135.0000000   37.0000000  182.0000000</code></pre>
+## 1607.0000000  133.0000000   36.0000000  184.0000000</code></pre>
 </div>
 <div id="how-to-choose-k-for-k-nn-classification" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> How to Choose K for K-NN Classification?</h3>
@@ -1388,16 +1403,16 @@ kd-trees.</p>
 <a class="sourceLine" id="cb389-11" title="11">}</a></code></pre></div>
 <div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      brute    kd_tree 
-## 0.29808951 0.01213134</code></pre>
+## 0.29159387 0.01215491</code></pre>
 <div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##      brute    kd_tree 
-## 0.43236915 0.06273565</code></pre>
+<pre><code>##     brute   kd_tree 
+## 0.4240448 0.0617607</code></pre>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-## 0.6641034 0.6511161</code></pre>
+## 0.6571369 0.6444537</code></pre>
 <div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##    brute  kd_tree 
-## 1.279774 5.349479</code></pre>
+## 1.246262 5.215302</code></pre>
 </div>
 <div id="different-metrics" class="section level3">
 <h3><span class="header-section-number">3.4.5</span> Different Metrics (*)</h3>

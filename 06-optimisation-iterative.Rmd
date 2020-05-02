@@ -46,24 +46,24 @@ to selecting the *best* element amongst the set of available alternatives.
 Most frequently "best" is expressed in terms
 of an *error* or *goodness of fit* measure:
 \[
-f:D\to\mathbb{R}
+f:\mathbb{D}\to\mathbb{R}
 \]
 called an **objective function**.
 
-$D$ is  the **search space** (problem domain, feasible set) --
+$\mathbb{D}$ is  the **search space** (problem domain, feasible set) --
 if defines the set of possible candidate solutions.
 
 
-An **optimisation task** deals with finding an element ${x}\in D$
+An **optimisation task** deals with finding an element ${x}\in \mathbb{D}$
 that minimises or maximises $f$:
 
 \[
-\min_{{x}\in D} f({x}) \quad\text{or}\quad\max_{{x}\in D} f({x}),
+\min_{{x}\in \mathbb{D}} f({x}) \quad\text{or}\quad\max_{{x}\in \mathbb{D}} f({x}),
 \]
 
 
 In this chapter, we will deal with **unconstrained continuous optimisation**,
-i.e., we will assume the search space is $D=\mathbb{R}^p$ for some $p$.
+i.e., we will assume the search space is $\mathbb{D}=\mathbb{R}^p$ for some $p$.
 
 
 
@@ -76,16 +76,16 @@ i.e., we will assume the search space is $D=\mathbb{R}^p$ for some $p$.
 In **multiple linear regression** we were minimising
 the sum of squared residuals
 \[
-\min_{\beta_0, \beta_1,\dots, \beta_p\in\mathbb{R}}
+\min_{\boldsymbol\beta\in\mathbb{R}^p}
 \sum_{i=1}^n \left( \beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p} - y_i \right)^2.
 \]
 
 In **binary logistic regression** we were minimising the cross-entropy:
 \[
-\min_{(\beta_0, \beta_1,\dots, \beta_p)\in\mathbb{R}^{(p+1)}}
+\min_{\boldsymbol\beta\in\mathbb{R}^p}
 -\frac{1}{n} \sum_{i=1}^n
-\left(\begin{array}{cc}
-     y_i \log \left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}}}                                                        \right)+\\
+\left(\begin{array}{r}
+     y_i \log \left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}}}                                                        \right)\\
 + (1-y_i)\log \left(\frac{e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}}}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}\right)
 \end{array}\right).
 \]
@@ -100,22 +100,22 @@ In **binary logistic regression** we were minimising the cross-entropy:
 
 Note that minimising $f$ is the same as maximising $\bar{f}=-f$.
 
-In other words, $\min_{{x}\in D} f({x})$
-and $\max_{{x}\in D} -f({x})$ represent the same optimisation problems
+In other words, $\min_{{x}\in \mathbb{D}} f({x})$
+and $\max_{{x}\in \mathbb{D}} -f({x})$ represent the same optimisation problems
 (and hence have identical solutions).
 
 . . .
 
 A **minimum** of $f$ is a point ${x}^*$ such that
-$f({x}^*)\le f({x})$ for all ${x}\in D$.
+$f({x}^*)\le f({x})$ for all ${x}\in \mathbb{D}$.
 
 A **maximum** of $f$ is a point ${x}^*$ such that
-$f({x}^*)\ge f({x})$ for all ${x}\in D$.
+$f({x}^*)\ge f({x})$ for all ${x}\in \mathbb{D}$.
 
 
 
 
-Assuming that $D=\mathbb{R}$, Figure {@fig:f_global_minimum}
+Assuming that $\mathbb{D}=\mathbb{R}$, Figure {@fig:f_global_minimum}
 shows an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
 that has a minimum at ${x}^*=1$
 with $f(x^*)=-2$.
@@ -148,7 +148,7 @@ By definition, a minimum/maximum **might not necessarily be unique**.
 This depends on a problem.
 
 
-Assuming that $D=\mathbb{R}$, Figure {@fig:f_global_minimum_not_unique}
+Assuming that $\mathbb{D}=\mathbb{R}$, Figure {@fig:f_global_minimum_not_unique}
 gives an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
 that has multiple minima; every ${x}^*\in[1-\sqrt{2},1+\sqrt{2}]$
 yields $f(x^*)=0$.
@@ -201,20 +201,20 @@ legend("topleft", lty=1, legend=expression(f(x)*"="*x*(x+1)*(x-1)^2-2), bg="whit
 
 
 We say that $f$ has a **local minimum**
-at $\mathbf{x}^+\in D$,
+at $\mathbf{x}^+\in \mathbb{D}$,
 if for some neighbourhood $B(\mathbf{x}^+)$ of $\mathbf{x}^+$
 it holds $f(\mathbf{x}^+) \le f(\mathbf{x})$ for each
 $\mathbf{x}\in B(\mathbf{x}^+)$.
 
 Definition.
 
-: If $D=\mathbb{R}$, by neighbourhood $B(x)$ of $x$
+: If $\mathbb{D}=\mathbb{R}$, by neighbourhood $B(x)$ of $x$
 we mean an open interval centred at $x$ of width $2r$
 for some small $r>0$, i.e., $(x-r, x+r)$
 
 Definition.
 
-: (\*) If $D=\mathbb{R}^p$ (for any $p\ge 1$), by neighbourhood $B(\mathbf{x})$ of $\mathbf{x}$
+: (\*) If $\mathbb{D}=\mathbb{R}^p$ (for any $p\ge 1$), by neighbourhood $B(\mathbf{x})$ of $\mathbf{x}$
 we mean an *open ball* centred at $\mathbf{x}^+$ of some small radius $r>0$,
 i.e., $\{\mathbf{y}: \|\mathbf{x}-\mathbf{y}\|<r\}$
 (read: the set of all the points with Euclidean distances
@@ -225,7 +225,7 @@ to $\mathbf{x}$ less than $r$).
 
 
 To avoid ambiguity, the "true" minimum (a point ${x}^*$ such that
-$f({x}^*)\le f({x})$ for all ${x}\in D$) is sometimes also referred to as
+$f({x}^*)\le f({x})$ for all ${x}\in \mathbb{D}$) is sometimes also referred to as
 a **global** minimum.
 
 

@@ -164,8 +164,8 @@ Let's also compute `Z_train` and `Z_test`, being the standardised versions of `X
 and `X_test`, respectively.
 
 ```{r load5,dependson='load4',cache=TRUE}
-means <- apply(X, 2, mean) # column means
-sds   <- apply(X, 2, sd)   # column standard deviations
+means <- apply(X_train, 2, mean) # column means
+sds   <- apply(X_train, 2, sd)   # column standard deviations
 Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
 Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
 ```
@@ -219,11 +219,12 @@ cbind(
 ```
 
 
-In this chapter we discuss the following simple and educational (yet practically useful)
+In this chapter we discuss the following simple and educational
+(yet practically useful)
 classification algorithms:
 
 - *decision trees*,
-- *logistic regression*.
+- *binary logistic regression*.
 
 
 
@@ -668,9 +669,8 @@ Hence our model becomes:
 Y=\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)}}
 \]
 
-We call it a **generalised linear model** (glm).
-
-(There are many other possible generalisations)
+It is an instance of a **generalised linear model** (glm)
+(there are of course many other possible generalisations).
 
 
 ### Example in R
@@ -678,24 +678,33 @@ We call it a **generalised linear model** (glm).
 
 
 
-Let us first fit
-a simple  (i.e., $p=1$) logistic regression model
-using the `density` variable.
+Let us first fit a simple  (i.e., $p=1$) logistic regression model
+using the `density` variable. The goodness-of-fit measure used in this
+problem will be discussed a bit later.
 
-
-Remark.
-
-: "logit" below denotes the inverse of the logistic sigmoid function.
 
 
 ```{r glm1}
-f <- glm(Y~density, data=XY_train, family=binomial("logit"))
-summary(f)
+(f <- glm(Y~density, data=XY_train, family=binomial("logit")))
 ```
 
+"logit" above denotes the inverse of the logistic sigmoid function.
+The fitted coefficients are equal to:
 
-Figure {@fig:glm2} depicts the obtained probability
-$\Pr(Y=1|\text{density})$.
+
+```{r glm1b}
+f$coefficients
+```
+
+Figure {@fig:glm2} depicts the obtained model, which can be written
+as:
+\[
+\Pr(Y=1|x)=\displaystyle\frac{1}{1+e^{-\left(
+`r sprintf("%g%+gx", f$coef[1], f$coef[2])`
+\right)}
+}
+\]
+with $x=\text{density}$.
 
 
 ```{r glm2,echo=FALSE,cache=TRUE,eval=TRUE,fig.cap="The probability that a given wine is a high-alcohol one given its density; black and red points denote the actual observed data points from the class 0 and 1, respectively"}
@@ -732,23 +741,22 @@ get_metrics(Y_pred, Y_test)
 And now a fit based on some other input variables:
 
 ```{r}
-f <- glm(Y~density+residual.sugar+total.sulfur.dioxide,
-    data=XY_train, family=binomial("logit"))
+(f <- glm(Y~density+residual.sugar+total.sulfur.dioxide,
+    data=XY_train, family=binomial("logit")))
 Y_pred <- as.numeric(predict(f, XY_test, type="response")>0.5)
 get_metrics(Y_pred, Y_test)
 ```
 
 
 { BEGIN exercise }
-Try fitting the models based on different combinations
-of features.
+Try fitting different models based on other sets of features.
 { END exercise }
 
 
 
 
 
-### Loss Function
+### Loss Function: Cross-entropy
 
 
 
@@ -758,69 +766,136 @@ The fitting of the model can be written as an optimisation task:
 \[
 \min_{\beta_0, \beta_1,\dots, \beta_p\in\mathbb{R}}
 \frac{1}{n} \sum_{i=1}^n
-e\left(\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}, y_i \right)
+\epsilon\left(\hat{y}_i, y_i \right)
 \]
 
-where $e(\hat{y}, y)$ denotes the penalty that measures the
-"difference" between the true $y$ and its predicted version $\hat{y}$.
+where $\epsilon(\hat{y}_i, y_i)$ denotes the penalty that measures the
+"difference" between the true $y_i$ and its predicted version
+$\hat{y}_i=\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)$.
 
-In the ordinary regression, we use the squared residual $e(\hat{y}, y) = (\hat{y}-y)^2$.
-
-In **logistic regression** (the kind of a classifier we are interested in right now), we use
-the **cross-entropy** (a.k.a. **log-loss**),
+In the ordinary regression, we used the squared residual
+$\epsilon(\hat{y}_i, y_i) = (\hat{y}_i-y_i)^2$.
+In **logistic regression** (the kind of a classifier we are
+interested in right now), we use
+the **cross-entropy** (a.k.a. **log-loss**, binary cross-entropy),
 
 \[
-e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
+\epsilon(\hat{y}_i,y_i) = - \left(y_i \log \hat{y}_i + (1-y_i) \log(1-\hat{y}_i)\right)
 \]
 
-The corresponding loss function has not only nice statistical properties (\*\*)
+The corresponding loss function has not only
+many nice statistical properties (\*\* related to maximum likelihood
+estimation etc.)
 but also an intuitive interpretation.
 
 
 
 
-Note that the predicted $\hat{y}$ is in $(0,1)$ and the true $y$ equals to either 0 or 1.
-
+Note that the predicted $\hat{y}_i$ is in $(0,1)$ and the true $y_i$
+equals to either 0 or 1.
 Recall also that $\log t\in(-\infty, 0)$ for $t\in (0,1)$.
+Therefore, the formula for $\epsilon(\hat{y}_i,y_i)$
+has a very intuitive behaviour:
 
+- if true $y_i=1$, then the penalty becomes $\epsilon(\hat{y}_i, 1) = -\log(\hat{y}_i)$
 
-\[
-e(\hat{y},y) = - \left(y\log \hat{y} + (1-y)\log(1-\hat{y})\right)
-\]
-
-
-- if true $y=1$, then the penalty becomes $e(\hat{y}, 1) = -\log(\hat{y})$
-
-    - $\hat{y}$ is the probability that the classified input is indeed from class $1$
-    - we'd be happy if the classifier outputted $\hat{y}\simeq 1$ in this case;
+    - $\hat{y}_i$ is the probability that the classified input is indeed from class $1$
+    - we'd be happy if the classifier outputted $\hat{y}_i\simeq 1$ in this case;
     this is not  penalised as $-\log(t)\to 0$ as $t\to 1$
     - however, if the classifier is totally wrong, i.e., it thinks that
-    $\hat{y}\simeq 0$, then the penalty will be very high, as $-\log(t)\to+\infty$
+    $\hat{y}_i\simeq 0$, then the penalty will be very high, as $-\log(t)\to+\infty$
     as $t\to 0$
 
 
-- if true $y=0$, then the penalty becomes $e(\hat{y}, 0) = -\log(1-\hat{y})$
+- if true $y_i=0$, then the penalty becomes $\epsilon(\hat{y}_i, 0) = -\log(1-\hat{y}_i)$
 
-    - $1-\hat{y}$ is the predicted probability that the input is from class $0$
-    - we penalise heavily the case where $1-\hat{y}$ is small (we'd be happy
-    if the classifier was sure that $1-\hat{y}\simeq 1$, because this is the ground-truth)
-
-
+    - $1-\hat{y}_i$ is the predicted probability that the input is from class $0$
+    - we penalise heavily the case where $1-\hat{y}_i$ is small (we'd be happy
+    if the classifier was sure that $1-\hat{y}_i\simeq 1$, because this is the ground-truth)
 
 
+. . .
 
-Remark.
+(\*) Having said that, let's expand the above formulae.
+The task of minimising cross-entropy in binary logistic regression
+can be written as:
 
-: (\*) Interestingly, there is no analytical formula
-for the optimal set of parameters ($\beta_0,\beta_1,\dots,\beta_p$)
-minimising the log-loss.
+\[
+\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+-\frac{1}{n} \sum_{i=1}^n
+y_i \log \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)
++ (1-y_i) \log(1-\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta))
+\]
+
+Taking into account that:
+
+\[
+\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)=
+\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
+\]
+
+we get:
+
+\[
+\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+-\frac{1}{n}
+\sum_{i=1}^n \left(
+\begin{array}{r}
+y_i \log \displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}\\
++
+(1-y_i) \log \displaystyle\frac{e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
+\end{array}
+\right)
+\]
+
+Logarithms are really practitioner-friendly functions,
+it holds:
+
+* $\log 1=0$,
+* $\log e=1$ (where $e \simeq 2.71828$ is the Euler constant;
+note that by writing $\log$ we mean the natural a.k.a. base-$e$ logarithm),
+* $\log xy = \log x + \log y$,
+* $\log x^p = p\log x$ (this is $\log (x^p)$, not $(\log x)^p$).
+
+These facts imply, amongst others that:
+
+* $\log e^x = x \log e = x$,
+* $\log \frac{x}{y} = \log x y^{-1} = \log x+\log y^{-1} = \log x - \log y$
+(of course for $y\neq 0$),
+* $\log \frac{1}{y} = -\log y$
+
+and so forth. Therefore, the above optimisation problem can be rewritten as:
 
 
-Remark.
+\[
+\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+\frac{1}{n}
+\sum_{i=1}^n \left(
+(1-y_i)\left(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}\right)
++\log \left(1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}\right)
+\right).
+\]
 
-: In the chapter on optimisation, we shall see that
+It turns out that there is no analytical formula
+for the optimal set of parameters ($\beta_0,\beta_1,\dots,\beta_p$
+minimising the log-loss).
+In the chapter on optimisation, we shall see that
 the solution to the logistic regression can be solved numerically
 by means of quite simple iterative algorithms.
+The expanded formula has lost the appealing interpretation
+of the original one, however, it's more numerically well-behaving,
+see, e.g., the `log1p()` function in base R or
+`fermi_dirac_0()` in the `gsl` package.
+
+```{r gsl,echo=FALSE,eval=FALSE}
+library("gsl")
+```
+
+<!-- TODO: cite Goldberg's paper -->
+
+
+
+
 
 ## Outro
 
