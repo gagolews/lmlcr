@@ -1347,7 +1347,25 @@ unlist(lapply(t, mean, na.rm=TRUE))
 ```
 
 
+Of course, we can always pass a custom (self-made) function object as well:
 
+```{r unlistagain2}
+min_mean_max <- function(x) {
+    # the last expression evaluated in the function's body
+    # gives its return value:
+    c(min(x), mean(x), max(x))
+}
+lapply(k, min_mean_max)
+```
+
+or, more concisely (we can skip the curly braces here -- they are
+normally used to group many expressions into one; also, if we don't plan
+to re-use the function again, there's no need to give it a name):
+
+
+```{r unlistagain3}
+lapply(k, function(x) c(min(x), mean(x), max(x)))
+```
 
 
 <!--

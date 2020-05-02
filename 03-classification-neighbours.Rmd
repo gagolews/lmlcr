@@ -431,8 +431,8 @@ and `X_test`, respectively.
 ```{r standardise1}
 means <- apply(X_train, 2, mean) # column means
 sds   <- apply(X_train, 2, sd)   # column standard deviations
-Z_train <- X_train # to be done
-Z_test  <- X_test  # to be done
+Z_train <- X_train # copy
+Z_test  <- X_test  # copy
 for (j in 1:ncol(X)) {
     Z_train[,j] <- (Z_train[,j]-means[j])/sds[j]
     Z_test[,j]  <- (Z_test[,j] -means[j])/sds[j]
@@ -446,8 +446,8 @@ learning process.
 The above can be re-written as:
 
 ```{r standardise2}
-Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
-Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
+Z_train <- t(apply(X_train, 1, function(r) (r-means)/sds))
+Z_test  <- t(apply(X_test,  1, function(r) (r-means)/sds))
 ```
 
 See Figure {@fig:standardise_depict_hist} for an illustration.

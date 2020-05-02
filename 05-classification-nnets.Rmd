@@ -49,13 +49,14 @@ a given input belongs to either of the two classes:
 \Pr(Y=0|\mathbf{X},\boldsymbol\beta)=& 1-\phi(\beta_0 + \beta_1 X_1 + \dots + \beta_p X_p)\\
 \end{array}
 \]
-where $\phi(z) = \frac{1}{1+e^{-z}}$ is the logistic sigmoid function.
+where $\phi(t) = \frac{1}{1+e^{-t}}=\frac{e^t}{1+e^t}$ is the logistic sigmoid function.
 
 It holds:
 \[
 \begin{array}{ll}
-\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=&\displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}\\
-\Pr(Y=0|\mathbf{X},\boldsymbol\beta)=&\displaystyle\frac{e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}\\
+\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=&\displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}},\\
+\Pr(Y=0|\mathbf{X},\boldsymbol\beta)=&
+\displaystyle\frac{1}{1+e^{+(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}=\displaystyle\frac{e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}.\\
 \end{array}
 \]
 

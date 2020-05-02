@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 15:38 (1ede348)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 20:14 (5493d4b)</a></li>
 
 </ul>
 
@@ -798,8 +798,8 @@ being the standardised versions of <code>X_train</code>
 and <code>X_test</code>, respectively.</p>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
 <a class="sourceLine" id="cb309-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
-<a class="sourceLine" id="cb309-3" title="3">Z_train &lt;-<span class="st"> </span>X_train <span class="co"># to be done</span></a>
-<a class="sourceLine" id="cb309-4" title="4">Z_test  &lt;-<span class="st"> </span>X_test  <span class="co"># to be done</span></a>
+<a class="sourceLine" id="cb309-3" title="3">Z_train &lt;-<span class="st"> </span>X_train <span class="co"># copy</span></a>
+<a class="sourceLine" id="cb309-4" title="4">Z_test  &lt;-<span class="st"> </span>X_test  <span class="co"># copy</span></a>
 <a class="sourceLine" id="cb309-5" title="5"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(X)) {</a>
 <a class="sourceLine" id="cb309-6" title="6">    Z_train[,j] &lt;-<span class="st"> </span>(Z_train[,j]<span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
 <a class="sourceLine" id="cb309-7" title="7">    Z_test[,j]  &lt;-<span class="st"> </span>(Z_test[,j] <span class="op">-</span>means[j])<span class="op">/</span>sds[j]</a>
@@ -809,8 +809,8 @@ way. Computing means and standard deviations separately for these two datasets
 is a common error – it is the training set that we use in the course of the
 learning process.
 The above can be re-written as:</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
-<a class="sourceLine" id="cb310-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(r) (r<span class="op">-</span>means)<span class="op">/</span>sds))</a>
+<a class="sourceLine" id="cb310-2" title="2">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(r) (r<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <p>See Figure <a href="classification-with-k-nearest-neighbours.html#fig:standardise_depict_hist">5</a> for an illustration.
 Note that the righthand figures (histograms of standardised variables)
 are on the same scale now.</p>
@@ -1402,17 +1402,17 @@ kd-trees.</p>
 <a class="sourceLine" id="cb389-10" title="10">    <span class="kw">structure</span>(s<span class="op">$</span>min, <span class="dt">names=</span><span class="kw">as.character</span>(s<span class="op">$</span>expr))</a>
 <a class="sourceLine" id="cb389-11" title="11">}</a></code></pre></div>
 <div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">2</span>, <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>##      brute    kd_tree 
-## 0.29159387 0.01215491</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-## 0.4240448 0.0617607</code></pre>
+## 0.2799268 0.0112580</code></pre>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">5</span>, <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##      brute    kd_tree 
+## 0.40672056 0.06012789</code></pre>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##     brute   kd_tree 
-## 0.6571369 0.6444537</code></pre>
+## 0.6241583 0.6178669</code></pre>
 <div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1"><span class="kw">test_speed</span>(<span class="dv">10000</span>, <span class="dv">20</span>, <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##    brute  kd_tree 
-## 1.246262 5.215302</code></pre>
+## 1.206778 5.122032</code></pre>
 </div>
 <div id="different-metrics" class="section level3">
 <h3><span class="header-section-number">3.4.5</span> Different Metrics (*)</h3>

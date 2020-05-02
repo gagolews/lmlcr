@@ -166,8 +166,8 @@ and `X_test`, respectively.
 ```{r load5,dependson='load4',cache=TRUE}
 means <- apply(X_train, 2, mean) # column means
 sds   <- apply(X_train, 2, sd)   # column standard deviations
-Z_train <- t(apply(X_train, 1, function(c) (c-means)/sds))
-Z_test  <- t(apply(X_test,  1, function(c) (c-means)/sds))
+Z_train <- t(apply(X_train, 1, function(r) (r-means)/sds))
+Z_test  <- t(apply(X_test,  1, function(r) (r-means)/sds))
 ```
 
 
@@ -632,7 +632,7 @@ of some function $\phi:\mathbb{R}\to[0,1]$ (preferably S-shaped == sigmoid),
 so as to get:
 
 \[
-\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)
+\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p).
 \]
 
 
@@ -648,7 +648,7 @@ A popular choice is the **logistic sigmoid function**,
 see Figure {@fig:sigmoid}:
 
 \[
-\phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
+\phi(t) = \frac{1}{1+e^{-t}} = \frac{e^t}{1+e^t}.
 \]
 
 ```{r sigmoid,echo=FALSE,cache=TRUE,fig.cap="The logistic sigmoid function, $\\varphi$"}
@@ -817,11 +817,12 @@ has a very intuitive behaviour:
 . . .
 
 (\*) Having said that, let's expand the above formulae.
-The task of minimising cross-entropy in binary logistic regression
-can be written as:
+The task of minimising cross-entropy in the binary logistic regression
+can be written as $\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}} E(\boldsymbol\beta)$
+with:
 
 \[
-\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+E(\boldsymbol\beta)=
 -\frac{1}{n} \sum_{i=1}^n
 y_i \log \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)
 + (1-y_i) \log(1-\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta))
@@ -831,13 +832,13 @@ Taking into account that:
 
 \[
 \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)=
-\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
+\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}},
 \]
 
 we get:
 
 \[
-\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+E(\boldsymbol\beta)=
 -\frac{1}{n}
 \sum_{i=1}^n \left(
 \begin{array}{r}
@@ -845,7 +846,7 @@ y_i \log \displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_
 +
 (1-y_i) \log \displaystyle\frac{e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
 \end{array}
-\right)
+\right).
 \]
 
 Logarithms are really practitioner-friendly functions,
@@ -864,11 +865,27 @@ These facts imply, amongst others that:
 (of course for $y\neq 0$),
 * $\log \frac{1}{y} = -\log y$
 
-and so forth. Therefore, the above optimisation problem can be rewritten as:
-
+and so forth. Therefore,
+based on the fact that
+$1/(1+e^{-x})=e^x/(1+e^x)$,
+the above optimisation problem can be rewritten as:
 
 \[
-\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+E(\boldsymbol\beta)=
+\frac{1}{n}
+\sum_{i=1}^n \left(
+\begin{array}{r}
+y_i \log \left(1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}\right)\\
++
+(1-y_i) \log \left(1+e^{+(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}\right)
+\end{array}
+\right)
+\]
+
+or, if someone prefers:
+
+\[
+E(\boldsymbol\beta)=
 \frac{1}{n}
 \sum_{i=1}^n \left(
 (1-y_i)\left(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}\right)
@@ -882,9 +899,9 @@ minimising the log-loss).
 In the chapter on optimisation, we shall see that
 the solution to the logistic regression can be solved numerically
 by means of quite simple iterative algorithms.
-The expanded formula has lost the appealing interpretation
+The two expanded formulae have lost the appealing interpretation
 of the original one, however, it's more numerically well-behaving,
-see, e.g., the `log1p()` function in base R or
+see, e.g., the `log1p()` function in base R or, even better,
 `fermi_dirac_0()` in the `gsl` package.
 
 ```{r gsl,echo=FALSE,eval=FALSE}

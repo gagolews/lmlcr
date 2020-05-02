@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 15:38 (1ede348)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 20:14 (5493d4b)</a></li>
 
 </ul>
 
@@ -534,12 +534,13 @@ a given input belongs to either of the two classes:</p>
 \Pr(Y=0|\mathbf{X},\boldsymbol\beta)=&amp; 1-\phi(\beta_0 + \beta_1 X_1 + \dots + \beta_p X_p)\\
 \end{array}
 \]</span>
-where <span class="math inline">\(\phi(z) = \frac{1}{1+e^{-z}}\)</span> is the logistic sigmoid function.</p>
+where <span class="math inline">\(\phi(t) = \frac{1}{1+e^{-t}}=\frac{e^t}{1+e^t}\)</span> is the logistic sigmoid function.</p>
 <p>It holds:
 <span class="math display">\[
 \begin{array}{ll}
-\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=&amp;\displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}\\
-\Pr(Y=0|\mathbf{X},\boldsymbol\beta)=&amp;\displaystyle\frac{e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}\\
+\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=&amp;\displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}},\\
+\Pr(Y=0|\mathbf{X},\boldsymbol\beta)=&amp;
+\displaystyle\frac{1}{1+e^{+(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}=\displaystyle\frac{e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}{1+e^{-(\beta_0 + \beta_1 X_1 +  \dots + \beta_p X_p)}}.\\
 \end{array}
 \]</span></p>
 <p>The fitting of the model was performed by minimising the cross-entropy (log-loss):

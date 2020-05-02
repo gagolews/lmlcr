@@ -481,7 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 15:38 (1ede348)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-02 20:14 (5493d4b)</a></li>
 
 </ul>
 
@@ -619,8 +619,8 @@ consists of the first 10 numeric variables:</p>
 and <code>X_test</code>, respectively.</p>
 <div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">means &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, mean) <span class="co"># column means</span></a>
 <a class="sourceLine" id="cb414-2" title="2">sds   &lt;-<span class="st"> </span><span class="kw">apply</span>(X_train, <span class="dv">2</span>, sd)   <span class="co"># column standard deviations</span></a>
-<a class="sourceLine" id="cb414-3" title="3">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a>
-<a class="sourceLine" id="cb414-4" title="4">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(c) (c<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
+<a class="sourceLine" id="cb414-3" title="3">Z_train &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_train, <span class="dv">1</span>, <span class="cf">function</span>(r) (r<span class="op">-</span>means)<span class="op">/</span>sds))</a>
+<a class="sourceLine" id="cb414-4" title="4">Z_test  &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(X_test,  <span class="dv">1</span>, <span class="cf">function</span>(r) (r<span class="op">-</span>means)<span class="op">/</span>sds))</a></code></pre></div>
 <div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">get_metrics &lt;-<span class="st"> </span><span class="cf">function</span>(Y_pred, Y_test)</a>
 <a class="sourceLine" id="cb415-2" title="2">{</a>
 <a class="sourceLine" id="cb415-3" title="3">    C &lt;-<span class="st"> </span><span class="kw">table</span>(Y_pred, Y_test) <span class="co"># confusion matrix</span></a>
@@ -904,7 +904,7 @@ the <strong><em>probability</em> that a given point belongs to class <span class
 of some function <span class="math inline">\(\phi:\mathbb{R}\to[0,1]\)</span> (preferably S-shaped == sigmoid),
 so as to get:</p>
 <p><span class="math display">\[
-\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p)
+\Pr(Y=1|\mathbf{X},\boldsymbol\beta)=\phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p).
 \]</span></p>
 <dl>
 <dt>Remark.</dt>
@@ -915,7 +915,7 @@ and <span class="math inline">\(\boldsymbol\beta\)</span>”.</p>
 <p>A popular choice is the <strong>logistic sigmoid function</strong>,
 see Figure <a href="classification-with-trees-and-linear-models.html#fig:sigmoid">9</a>:</p>
 <p><span class="math display">\[
-\phi(y) = \frac{1}{1+e^{-y}} = \frac{e^y}{1+e^y}
+\phi(t) = \frac{1}{1+e^{-t}} = \frac{e^t}{1+e^t}.
 \]</span></p>
 <div class="figure">
 <img src="04-classification-trees_and_logistic-figures/sigmoid-1.svg" alt="Figure 9: The logistic sigmoid function, \varphi" id="fig:sigmoid" />
@@ -1049,10 +1049,11 @@ if the classifier was sure that <span class="math inline">\(1-\hat{y}_i\simeq 1\
 
 </div>
 <p>(*) Having said that, let’s expand the above formulae.
-The task of minimising cross-entropy in binary logistic regression
-can be written as:</p>
+The task of minimising cross-entropy in the binary logistic regression
+can be written as <span class="math inline">\(\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}} E(\boldsymbol\beta)\)</span>
+with:</p>
 <p><span class="math display">\[
-\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+E(\boldsymbol\beta)=
 -\frac{1}{n} \sum_{i=1}^n
 y_i \log \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)
 + (1-y_i) \log(1-\Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta))
@@ -1060,11 +1061,11 @@ y_i \log \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)
 <p>Taking into account that:</p>
 <p><span class="math display">\[
 \Pr(Y=1|\mathbf{x}_{i,\cdot},\boldsymbol\beta)=
-\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
+\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}},
 \]</span></p>
 <p>we get:</p>
 <p><span class="math display">\[
-\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+E(\boldsymbol\beta)=
 -\frac{1}{n}
 \sum_{i=1}^n \left(
 \begin{array}{r}
@@ -1072,7 +1073,7 @@ y_i \log \displaystyle\frac{1}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_
 +
 (1-y_i) \log \displaystyle\frac{e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}{1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}}
 \end{array}
-\right)
+\right).
 \]</span></p>
 <p>Logarithms are really practitioner-friendly functions,
 it holds:</p>
@@ -1090,9 +1091,24 @@ note that by writing <span class="math inline">\(\log\)</span> we mean the natur
 (of course for <span class="math inline">\(y\neq 0\)</span>),</li>
 <li><span class="math inline">\(\log \frac{1}{y} = -\log y\)</span></li>
 </ul>
-<p>and so forth. Therefore, the above optimisation problem can be rewritten as:</p>
+<p>and so forth. Therefore,
+based on the fact that
+<span class="math inline">\(1/(1+e^{-x})=e^x/(1+e^x)\)</span>,
+the above optimisation problem can be rewritten as:</p>
 <p><span class="math display">\[
-\min_{\boldsymbol\beta\in\mathbb{R}^{p+1}}
+E(\boldsymbol\beta)=
+\frac{1}{n}
+\sum_{i=1}^n \left(
+\begin{array}{r}
+y_i \log \left(1+e^{-(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}\right)\\
++
+(1-y_i) \log \left(1+e^{+(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p})}\right)
+\end{array}
+\right)
+\]</span></p>
+<p>or, if someone prefers:</p>
+<p><span class="math display">\[
+E(\boldsymbol\beta)=
 \frac{1}{n}
 \sum_{i=1}^n \left(
 (1-y_i)\left(\beta_0 + \beta_1 x_{i,1}+\dots+\beta_p x_{i,p}\right)
@@ -1105,9 +1121,9 @@ minimising the log-loss).
 In the chapter on optimisation, we shall see that
 the solution to the logistic regression can be solved numerically
 by means of quite simple iterative algorithms.
-The expanded formula has lost the appealing interpretation
+The two expanded formulae have lost the appealing interpretation
 of the original one, however, it’s more numerically well-behaving,
-see, e.g., the <code>log1p()</code> function in base R or
+see, e.g., the <code>log1p()</code> function in base R or, even better,
 <code>fermi_dirac_0()</code> in the <code>gsl</code> package.</p>
 <!-- TODO: cite Goldberg's paper -->
 </div>
