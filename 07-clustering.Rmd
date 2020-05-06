@@ -58,7 +58,8 @@ In particular, in **dimensionality reduction** we seek a meaningful
 space (think: many variables/columns).
 
 ```{r princomp,echo=FALSE,fig.cap="Principal component analysis (a dimensionality reduction technique) applied on three features of red wines",fig.height=6}
-wines <- read.csv("datasets/winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv",
+    comment.char="#", stringsAsFactors=FALSE)
 wines <- wines[wines$color=='red',]
 p <- princomp(wines[,c(11, 4, 12)])
 biplot(p, col=c("#ff000033",1), pch=1, xlim=c(-0.05, 0.23), main=NA)

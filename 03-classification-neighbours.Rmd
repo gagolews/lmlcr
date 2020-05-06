@@ -106,7 +106,8 @@ white wines only.
 
 
 ```{r input1,cache=TRUE}
-wines <- read.csv("datasets/winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv",
+    comment.char="#", stringsAsFactors=FALSE)
 wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
@@ -1028,7 +1029,8 @@ our_knn <- function(X_train, X_test, Y_train, k=1) {
 Load an example dataset on which we will test our algorithm:
 
 ```{r our_knn2}
-wines <- read.csv("datasets/winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv",
+    comment.char="#", stringsAsFactors=FALSE)
 wines <- wines[wines$color == "white",]
 X <- as.matrix(wines[,1:10])
 Y <- factor(as.character(as.numeric(wines$alcohol >= 12)))

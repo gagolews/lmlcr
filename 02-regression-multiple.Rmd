@@ -1300,7 +1300,7 @@ and compiled into a single file on 3 April 2020.
 
 ```{r factbookA1}
 factbook <- read.csv("datasets/world_factbook_2020.csv",
-    comment="#", stringsAsFactors=FALSE)
+    comment.char="#", stringsAsFactors=FALSE)
 ```
 
 Here is a preview of a few features for 3 selected countries (see `help("%in%")`):
@@ -1519,7 +1519,7 @@ Let's get back to the World Factbook 2020 dataset (`world_factbook_2020.csv`).
 
 ```{r factbookB1}
 factbook <- read.csv("datasets/world_factbook_2020.csv",
-    comment="#", stringsAsFactors=FALSE)
+    comment.char="#", stringsAsFactors=FALSE)
 ```
 
 
@@ -1743,7 +1743,7 @@ Let's revisit the World Factbook 2020 dataset (`world_factbook_2020.csv`).
 
 ```{r factbookC1}
 factbook <- read.csv("datasets/world_factbook_2020.csv",
-    comment="#", stringsAsFactors=FALSE)
+    comment.char="#", stringsAsFactors=FALSE)
 ```
 
 
@@ -1945,7 +1945,7 @@ World is an interesting place, so we're far from being bored with this dataset.
 
 ```{r factbookD1}
 factbook <- read.csv("datasets/world_factbook_2020.csv",
-    comment="#", stringsAsFactors=FALSE)
+    comment.char="#", stringsAsFactors=FALSE)
 ```
 
 Let's restrict ourselves to the following columns, mostly

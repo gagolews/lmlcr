@@ -140,8 +140,9 @@ axis_new <- function (side, at = NULL, labels = TRUE, tick = TRUE, line = -0.25,
     if (is.null(col) && !missing(...) && !is.null(fg <- list(...)$fg))
         col <- fg
     invisible(.External.graphics(C_axis, side, at, as.graphicsAnnot(labels),
-                                 tick, line, pos, outer, font, lty, lwd, lwd.ticks, col,
-                                 col.ticks, hadj, padj, gap.axis, ...))
+                                 tick, line, pos, outer, font, lty, lwd,
+                                 lwd.ticks, col, col.ticks, hadj, padj,
+                                 gap.axis, ...))
 }
 environment(axis_new) <- environment(axis)
 unlockBinding("axis", getNamespace("graphics"))

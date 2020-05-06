@@ -1,4 +1,4 @@
-# \{  {.unnumbered}
+# BEGIN \{  {.unnumbered}
 
 <!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
@@ -93,7 +93,10 @@ and we have much more data, that's it); you don't need to be excited
 about each new product, new toolbox, new algorithms (and don't FOMO!);
 stay calm, it's just an old dog that learned new tricks.
 
-
+instead of finding examples of datasets where ml methods work
+("good datasets are hard to find")
+the author took a few realistic databases and.... well, showed
+how to solve the problems with the methods that don't work ;)
 -->
 
 
@@ -109,8 +112,8 @@ Poland. My main passion is in research -- my primary interests include
 machine learning and optimisation algorithms, data aggregation and clustering,
 statistical modelling and scientific computing.
 *Explaining* of things matters to me more than merely tuning the knobs
-so as to increase some performance metric (with consequences
-to many other ones); the latter belongs to technology and wizardry,
+so as to increase a chosen performance metric (with uncontrollable consequences
+to other ones); the latter belongs to technology and wizardry,
 not science.
 
 I'm an author of more than 70 publications.

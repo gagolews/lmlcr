@@ -98,7 +98,8 @@ For illustration, we'll be considering the Wine Quality dataset
 
 
 ```{r load1,cache=TRUE}
-wines <- read.csv("datasets/winequality-all.csv", comment="#")
+wines <- read.csv("datasets/winequality-all.csv",
+    comment.char="#", stringsAsFactors=FALSE)
 wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
@@ -909,6 +910,909 @@ library("gsl")
 ```
 
 <!-- TODO: cite Goldberg's paper -->
+
+
+
+
+
+
+
+
+## Exercises in R
+
+
+
+
+### EdStats -- Preparing Data
+
+In this exercise, we will prepare the EdStats dataset
+for further analysis.
+The file `edstats_2019.csv` provides us with many
+country-level Education Statistics extracted from the World Bank's Databank,
+see https://databank.worldbank.org/.
+Databank aggregates information from such sources as
+the UNESCO Institute for Statistics,
+OECD Programme for International Student Assessment (PISA)
+etc. The official description reads:
+
+> "The World Bank EdStats Query holds around 2,500 internationally comparable
+education indicators for access, progression, completion, literacy, teachers,
+population, and expenditures. The indicators cover the education cycle from
+pre-primary to tertiary education. The query also holds learning outcome data
+from international learning assessments (PISA, TIMSS, etc.), equity data
+from household surveys, and projection data to 2050."
+
+`edstats_2019.csv` was compiled on 24 April 2020 and lists
+indicators reported between 2010 and 2019.
+First, let's load the dataset:
+
+```{r edstats_wide_1}
+edstats_2019 <- read.csv("datasets/edstats_2019.csv",
+    comment.char="#", stringsAsFactors=FALSE)
+head(edstats_2019)
+```
+
+This data frame is in a "long" format, where each indicator
+for each country is given in its own row. Note that some indicators
+are not surveyed/updated every year.
+
+{ BEGIN exercise }
+Convert `edstats_2019` to a "wide" format (one row per country,
+each indicator in its own column) based on the most recent observed indicators.
+{ END exercise }
+
+{ BEGIN solution }
+First we need a function that returns the last non-missing value in a
+given numeric vector.
+To recall, `na.omit()`, removes all missing values and `tail()` can be
+used to access the last observation easily. Unfortunately, if the vector
+is consists of missing values only, the removal of `NA`s leads
+to an empty sequence. However, the trick we can use is that
+by extracting the first element from an empty vector by using
+`[...]`, we get a `NA`.
+
+
+```{r edstats_wide_2}
+last_non_na <- function(x) tail(na.omit(x), 1)[1]
+last_non_na(c(1, 2, NA, 3,NA,NA)) # example 1
+last_non_na(c(NA,NA,NA,NA,NA,NA)) # example 2
+```
+
+Let's extract the most recent indicator from each row in `edstats_2019`.
+
+```{r edstats_wide_3}
+values <- apply(edstats_2019[-(1:4)], 1, last_non_na)
+head(values)
+```
+
+Now, we shall create a data frame with 3 columns:
+name of the country, indicator code, indicator value.
+Let's order it with respect to the first two columns.
+
+```{r edstats_wide_4}
+edstats_2019 <- edstats_2019[c("CountryName", "Code")]
+# add a new column at the righthand end:
+edstats_2019["Value"] <- values
+edstats_2019 <- edstats_2019[
+    order(edstats_2019$CountryName, edstats_2019$Code), ]
+head(edstats_2019)
+```
+
+
+To convert the data frame to a "wide" format, many readers would choose
+the `pivot_wider()` function from the `tidyr` package
+(amongst others).
+
+
+```{r edstats_wide_5}
+library("tidyr")
+edstats <- as.data.frame(
+    pivot_wider(edstats_2019, names_from="Code", values_from="Value"),
+    stringsAsFactors=FALSE
+)
+edstats[1, 1:7]
+```
+
+. . .
+
+On a side note (\*), the above solution is of course perfectly fine
+and we can now live long and prosper.
+Nevertheless, we are here to learn new skills, so let's note
+that it has the drawback that it required
+us to search for the answer on the internet (and go through many "answers"
+that actually don't work). If we are not converting between the long and the
+wide formats on a daily basis, this might not be worth the hassle
+(moreover, there's no guarantee that this function will work the same
+way in the future, that the package we relied on will provide the same API etc.).
+
+Instead, by relaying on a bit deeper knowledge of R programming
+(which we already have, see Appendices A-D of our book),
+we could implement the relevant procedure manually. The downside is that
+this requires us to get out of our comfort zone and... think.
+
+First, let's generate the list of all countries and indicators:
+
+```{r edstats_wide_6}
+countries  <- unique(edstats_2019$CountryName)
+head(countries)
+indicators <- unique(edstats_2019$Code)
+head(indicators)
+```
+
+Second, note that `edstats_2019` gives all the possible combinations (pairs)
+of the indexes and countries:
+
+```{r edstats_wide_7}
+nrow(edstats_2019) # number of rows in edstats_2019
+length(countries)*length(indicators) # number of pairs
+```
+
+Looking at the numbers in the `Value` column of `edstats_2019`,
+this will exactly provide us with our desired "wide" data matrix,
+if we read it in a rowwise manner. Hence, we can use
+`matrix(..., byrow=TRUE)` to generate it:
+
+```{r edstats_wide_8}
+# edstats_2019 is already sorted w.r.t. CountryName and Code
+edstats2 <- cbind(
+    CountryName=countries, # first column
+    as.data.frame(
+        matrix(edstats_2019$Value,
+            byrow=TRUE,
+            ncol=length(indicators),
+            dimnames=list(NULL, indicators)
+    )), stringsAsFactors=FALSE)
+identical(edstats, edstats2)
+```
+
+{ END solution }
+
+
+
+
+{ BEGIN exercise }
+Export `edstats` to a CSV file.
+{ END exercise }
+
+{ BEGIN solution }
+
+This can be done as follows:
+
+```{r edstats_wide_9,eval=FALSE}
+write.csv(edstats, "edstats_2019_wide.csv", row.names=FALSE)
+```
+
+We didn't export the row names, because they're useless in our case.
+
+{ END solution }
+
+
+
+
+
+{ BEGIN exercise }
+Explore `edstats_meta.csv` to understand the meaning of the
+EdStats indicators.
+{ END exercise }
+
+{ BEGIN solution }
+
+First, let's load the dataset:
+
+```{r edstats_wide_10}
+meta <- read.csv("datasets/edstats_meta.csv", stringsAsFactors=FALSE)
+names(meta) # column names
+```
+
+The `Series` column deciphers each indicator's meaning.
+For instance, `LO.PISA.MAT` gives:
+
+```{r edstats_wide_11}
+meta[meta$Code=="LO.PISA.MAT", "Series"]
+```
+
+To get more information, we can take a look at the `Definition`
+column:
+
+```{r edstats_wide_12,eval=FALSE}
+meta[meta$Code=="LO.PISA.MAT", "Definition"]
+```
+
+which reads:
+*`r meta[meta$Code=="LO.PISA.MAT", "Definition"]`*.
+
+{ END solution }
+
+
+
+
+### EdStats -- Where Girls Are Better at Maths Than Boys?
+
+
+In this task we will consider the "wide" version of the EdStats
+dataset:
+
+```{r girlsboys1}
+edstats <- read.csv("datasets/edstats_2019_wide.csv",
+    comment.char="#", stringsAsFactors=FALSE)
+edstats[1, 1:6]
+meta <- read.csv("datasets/edstats_meta.csv",
+    stringsAsFactors=FALSE)
+```
+
+
+This dataset is small, moreover, we'll be more interested  in the description
+(understanding) of data, not prediction of the response variable
+to unobserved samples. Note that we have the *population* of the World
+countries at hand here (new countries do not arise on a daily basis).
+Therefore, a train-test split won't be performed.
+
+<!--
+```{r}
+#pairs(edstats[c("LO.PISA.MAT", "LO.PISA.SCI", "LO.PISA.REA")])
+```
+-->
+
+
+
+
+{ BEGIN exercise }
+Add a 0/1 factor-type variable `girls_rule_maths` that is equal to 1
+if and only if a country's average score of 15-year-old female students on the PISA
+mathematics scale is greater than the corresponding indicator for the male ones.
+{ END exercise }
+
+{ BEGIN solution }
+
+Recall that a conversion of a logical value to a number
+yields 1 for `TRUE` and `0` for `FALSE`. Hence:
+
+```{r girlsboys2}
+edstats$girls_rule_maths <-
+    factor(as.numeric(
+        edstats$LO.PISA.MAT.FE>edstats$LO.PISA.MAT.MA
+    ))
+head(edstats$girls_rule_maths, 10)
+```
+
+Unfortunately, there are many missing values in the dataset.
+More precisely:
+
+```{r girlsboys3}
+sum(is.na(edstats$girls_rule_maths)) # count
+mean(is.na(edstats$girls_rule_maths)) # proportion
+```
+
+Countries such as Egypt, India, Iran or Venezuela
+are not amongst the 79 members of the Programme for International
+Student Assessment. Thus, we'll have to deal with the data we have.
+
+The percentage of counties where "girls rule" is equal to:
+
+```{r girlsboys4}
+mean(edstats$girls_rule_maths==1, na.rm=TRUE)
+```
+
+Here is the list of those counties:
+
+```{r girlsboys5}
+as.character(na.omit(
+    edstats[edstats$girls_rule_maths==1, "CountryName"]
+))
+```
+
+{ END solution }
+
+
+
+
+{ BEGIN exercise }
+Learn a decision tree that distinguishes between the countries where
+girls are better at maths than boys and assess the quality of this classifier.
+{ END exercise }
+
+{ BEGIN solution }
+
+Let's first create a subset of `edstats` that doesn't include
+the country names as well as the boys' and girls' math scores.
+
+```{r girlsboys6}
+edstats_subset <- edstats[!(names(edstats) %in%
+    c("CountryName", "LO.PISA.MAT.FE", "LO.PISA.MAT.MA"))]
+```
+
+Fitting and plotting (see Figure {@fig:girlsboys7tree})
+of the tree can be performed as follows:
+
+```{r girlsboys7tree,echo=-(1:2),fig.cap="A decision tree explaining the `girls_rule_maths` variable"}
+set.seed(123)
+par(ann=FALSE)
+library("rpart")
+library("rpart.plot")
+tree <- rpart(girls_rule_maths~., data=edstats_subset,
+    method="class", model=TRUE)
+rpart.plot(tree)
+```
+
+The variables included in the model are:
+
+```{r girlsboys8,results='asis',echo=FALSE}
+for (var in levels(tree$frame$var)[-1]) {
+    cat(sprintf("* %s: *%s*\n", var, meta$Series[meta$Code==var]))
+}
+```
+
+Note that the decision rules are well-interpretable, we can make a whole
+story around it. Whether or not it is actually true -- is a different... story.
+
+To compute the basic classifier performance scores,
+let's recall the `get_metrics()` function:
+
+```{r girlsboys9}
+get_metrics <- function(Y_pred, Y_test)
+{
+    C <- table(Y_pred, Y_test) # confusion matrix
+    stopifnot(dim(C) == c(2, 2))
+    c(Acc=(C[1,1]+C[2,2])/sum(C), # accuracy
+      Prec=C[2,2]/(C[2,2]+C[2,1]), # precision
+      Rec=C[2,2]/(C[2,2]+C[1,2]), # recall
+      F=C[2,2]/(C[2,2]+0.5*C[1,2]+0.5*C[2,1]), # F-measure
+      # Confusion matrix items:
+      TN=C[1,1], FN=C[1,2],
+      FP=C[2,1], TP=C[2,2]
+    ) # return a named vector
+}
+```
+
+Now we can judge the tree's character:
+
+```{r girlsboys10}
+Y_pred <- predict(tree, edstats_subset, type="class")
+get_metrics(Y_pred, edstats_subset$girls_rule_maths)
+```
+
+
+
+{ END solution }
+
+
+{ BEGIN exercise }
+Learn a decision tree that this time doesn't rely on any of the PISA indicators.
+{ END exercise }
+
+{ BEGIN solution }
+
+Let's remove the unwanted variables:
+
+```{r girlsboys11,echo=-1,fig.cap="Another decision tree explaining the `girls_rule_maths` variable"}
+set.seed(123)
+edstats_subset <- edstats[!(names(edstats) %in%
+    c("LO.PISA.MAT", "LO.PISA.MAT.FE", "LO.PISA.MAT.MA",
+      "LO.PISA.REA", "LO.PISA.REA.FE", "LO.PISA.REA.MA",
+      "LO.PISA.SCI", "LO.PISA.SCI.FE", "LO.PISA.SCI.MA",
+      "CountryName"))]
+```
+
+On a side note, this could be done more easily by calling, e.g.,
+`stri_startswith_fixed(names(edstats), "LO.PISA")` from the `stringi` package.
+
+Fitting and plotting (see Figure {@fig:girlsboys11tree}) of the tree:
+
+```{r girlsboys11tree,echo=-1,fig.cap="Another decision tree explaining the `girls_rule_maths` variable"}
+par(ann=FALSE)
+tree <- rpart(girls_rule_maths~., data=edstats_subset,
+    method="class", model=TRUE)
+rpart.plot(tree)
+```
+
+Performance metrics:
+
+```{r girlsboys12}
+Y_pred <- predict(tree, edstats, type="class")
+get_metrics(Y_pred, edstats_subset$girls_rule_maths)
+```
+
+It's interesting to note that some of the
+goodness-of-fit measures are actually higher now.
+
+The variables included in the model are:
+
+```{r girlsboys13,results='asis',echo=FALSE}
+for (var in levels(tree$frame$var)[-1]) {
+    cat(sprintf("* %s: *%s*\n", var, meta$Series[meta$Code==var]))
+}
+```
+
+{ END solution }
+
+
+
+### EdStats and World Factbook -- Joining Forces
+
+In the course of our data science journey, we have considered two datasets
+dealing with country-level indicators: the World Factbook and
+World Bank's EdStats.
+
+
+```{r joinedstats1}
+factbook <- read.csv("datasets/world_factbook_2020.csv",
+    comment.char="#", stringsAsFactors=FALSE)
+edstats <- read.csv("datasets/edstats_2019_wide.csv",
+    comment.char="#", stringsAsFactors=FALSE)
+```
+
+Let's combine the information they provide
+and see if we come up with a better model of where
+girls' math scores are higher.
+
+<!--
+#factbook$country[!(factbook$country %in% edstats$CountryName)]
+#edstats$CountryName[!(edstats$CountryName %in% factbook$country)]
+-->
+
+{ BEGIN exercise }
+Some country names in one dataset don't match those in the other
+one, for instance: Czech Republic vs. Czechia,
+Myanmar vs. Burma, etc. Resolve these conflicts as best you can.
+{ END exercise }
+
+{ BEGIN solution }
+To get a list of the mismatched country names, we can call either:
+
+```{r joinedstats2,eval=FALSE}
+factbook$country[!(factbook$country %in% edstats$CountryName)]
+```
+
+or:
+
+```{r joinedstats3,eval=FALSE}
+edstats$CountryName[!(edstats$CountryName %in% factbook$country)]
+```
+
+Unfortunately, the data need to be cleaned manually -- it's a tedious task.
+The following consists of what we hope are the best matches
+between the two datasets (yet, the list is not perfect;
+in particular, the Republic of North Macedonia
+is completely missing in one of the datasets):
+
+```{r joinedstats4}
+from_to <- matrix(ncol=2, byrow=TRUE, c(
+# FROM (edstats)                  # TO (factbook)
+"Brunei Darussalam"             , "Brunei"                            ,
+"Congo, Dem. Rep."              , "Congo, Democratic Republic of the" ,
+"Congo, Rep."                   , "Congo, Republic of the"            ,
+"Czech Republic"                , "Czechia"                           ,
+"Egypt, Arab Rep."              , "Egypt"                             ,
+"Hong Kong SAR, China"          , "Hong Kong"                         ,
+"Iran, Islamic Rep."            , "Iran"                              ,
+"Korea, Dem. People’s Rep."     , "Korea, North"                      ,
+"Korea, Rep."                   , "Korea, South"                      ,
+"Kyrgyz Republic"               , "Kyrgyzstan"                        ,
+"Lao PDR"                       , "Laos"                              ,
+"Macao SAR, China"              , "Macau"                             ,
+"Micronesia, Fed. Sts."         , "Micronesia, Federated States of"   ,
+"Myanmar"                       , "Burma"                             ,
+"Russian Federation"            , "Russia"                            ,
+"Slovak Republic"               , "Slovakia"                          ,
+"St. Kitts and Nevis"           , "Saint Kitts and Nevis"             ,
+"St. Lucia"                     , "Saint Lucia"                       ,
+"St. Martin (French part)"      , "Saint Martin"                      ,
+"St. Vincent and the Grenadines", "Saint Vincent and the Grenadines"  ,
+"Syrian Arab Republic"          , "Syria"                             ,
+"Venezuela, RB"                 , "Venezuela"                         ,
+"Virgin Islands (U.S.)"         , "Virgin Islands"                    ,
+"Yemen, Rep."                   , "Yemen"
+))
+```
+
+Conversion of the names:
+
+```{r joinedstats5}
+for (i in 1:nrow(from_to)) {
+    edstats$CountryName[edstats$CountryName==from_to[i,1]] <- from_to[i,2]
+}
+```
+
+
+On a side note (\*), this could be done with a single call to
+a function in the `stringi` package:
+
+```{r joinedstats6}
+library("stringi")
+edstats$CountryName <- stri_replace_all_fixed(edstats$CountryName,
+    from_to[,1], from_to[,2], vectorize_all=FALSE)
+```
+
+{ END solution }
+
+
+{ BEGIN exercise }
+Merge (join) the two datasets based on the country names.
+{ END exercise }
+
+{ BEGIN solution }
+This can be done by means of the `merge()` function.
+
+```{r joinedstats7}
+edbook <- merge(edstats, factbook, by.x="CountryName", by.y="country")
+ncol(edbook) # how many columns we have now
+```
+
+{ END solution }
+
+
+
+{ BEGIN exercise }
+Learn a decision tree that distinguishes between the countries where
+girls are better at maths than boys and assess the quality of this classifier.
+{ END exercise }
+
+{ BEGIN solution }
+
+We proceed as in one of the previous exercises:
+
+```{r joinedstats8,echo=-1}
+set.seed(123)
+edbook$girls_rule_maths <-
+    factor(as.numeric(
+        edbook$LO.PISA.MAT.FE>edbook$LO.PISA.MAT.MA
+    ))
+edbook_subset <- edbook[!(names(edbook) %in%
+    c("CountryName", "LO.PISA.MAT.FE", "LO.PISA.MAT.MA"))]
+```
+
+Fitting and plotting (see Figure {@fig:joinedstats9}):
+
+```{r joinedstats9,echo=-1,fig.cap="Yet another decision tree explaining the `girls_rule_maths` variable"}
+par(ann=FALSE)
+library("rpart")
+library("rpart.plot")
+tree <- rpart(girls_rule_maths~., data=edbook_subset,
+    method="class", model=TRUE)
+rpart.plot(tree)
+```
+
+Performance metrics:
+
+```{r joinedstats10}
+Y_pred <- predict(tree, edbook_subset, type="class")
+get_metrics(Y_pred, edbook_subset$girls_rule_maths)
+```
+
+
+The variables included in the model are:
+
+```{r joinedstats11,results='asis',echo=FALSE}
+for (var in levels(tree$frame$var)[-1]) {
+    if (length(meta$Series[meta$Code==var])==1)
+        cat(sprintf("* %s: *%s*\n", var, meta$Series[meta$Code==var]))
+    else
+        cat(sprintf("* %s\n", var))
+}
+```
+
+This is... not at all enlightening.
+Rest assured that experts in education
+or econometrics for whom we work in this (imaginary) project
+would raise many questions at this very point. Merely applying
+some computational procedure on a dataset doesn't cut it;
+it's too early to ask for a paycheque.
+Classifiers are just blind *tools* in our gentle yet firm hands;
+new questions are risen, new answers must be sought. Further
+explorations are of course left as an exercise to the kind reader.
+
+{ END solution }
+
+
+
+### EdStats -- Fitting of Binary Logistic Regression Models
+
+
+In this task we're going to
+consider the "wide" version of the EdStats
+dataset again:
+
+```{r edstatslogi1}
+edstats <- read.csv("datasets/edstats_2019_wide.csv",
+    comment.char="#", stringsAsFactors=FALSE)
+```
+
+Let's re-add the `girls_rule_maths` column
+just as in the previous exercise.
+Then, let's create a subset of `edstats` that doesn't include
+the country names as well as the boys' and girls' math scores.
+
+
+```{r edstatslogi2}
+edstats$girls_rule_maths <-
+    factor(as.numeric(
+        edstats$LO.PISA.MAT.FE>edstats$LO.PISA.MAT.MA
+    ))
+edstats_subset <- edstats[!(names(edstats) %in%
+    c("CountryName", "LO.PISA.MAT.FE", "LO.PISA.MAT.MA"))]
+```
+
+{ BEGIN exercise }
+Fit and assess a logistic regression model for `girls_rule_maths` as a function
+of `LO.PISA.REA.MA`+`LO.PISA.SCI`.
+{ END exercise }
+
+
+{ BEGIN solution }
+
+Fitting of the model:
+
+```{r edstatslogi3}
+(f1 <- glm(girls_rule_maths~LO.PISA.REA.MA+LO.PISA.SCI,
+    data=edstats_subset, family=binomial("logit")))
+```
+
+Performance metrics:
+
+```{r edstatslogi4}
+Y_pred <- as.numeric(predict(f1, edstats_subset, type="response")>0.5)
+get_metrics(Y_pred, edstats_subset$girls_rule_maths)
+```
+
+Relate the above numbers to those reported for the fitted decision trees.
+
+Note that the fitted model is nicely interpretable:
+the lower the boys' average result on the Reading Scale
+or the higher the country's result on the Science Scale,
+the higher the probability for `girls_rule_maths`:
+
+```{r edstatslogi5}
+example_X <- data.frame(
+    LO.PISA.REA.MA=c(475, 450, 475, 500),
+    LO.PISA.SCI=   c(525, 525, 550, 500)
+)
+cbind(example_X,
+    `Pr(Y=1)`=predict(f1, example_X, type="response"))
+```
+
+{ END solution }
+
+
+
+
+
+
+
+
+{ BEGIN exercise }
+(\*) Fit and assess a logistic regression model for `girls_rule_maths`
+featuring all `LO.PISA.REA*` and `LO.PISA.SCI*` as independent variables.
+{ END exercise }
+
+{ BEGIN solution }
+
+
+Model fitting:
+
+```{r edstatslogi6}
+(f2 <- glm(girls_rule_maths~LO.PISA.REA+LO.PISA.REA.FE+LO.PISA.REA.MA+
+                            LO.PISA.SCI+LO.PISA.SCI.FE+LO.PISA.SCI.MA,
+    data=edstats_subset, family=binomial("logit")))
+```
+
+The mysterious `fitted probabilities numerically 0 or 1 occurred` warning
+denotes convergence problems of the underlying optimisation (fitting) procedure:
+at least one of the model coefficients has had a fairly large order
+of magnitude and hence the fitted probabilities has come very close to 0 or 1.
+Recall that the probabilities are modelled by means of the logistic sigmoid
+function applied on the output of a linear combination of the dependent variables.
+Moreover, cross-entropy features a logarithm, and $\log 0 = -\infty$.
+
+This can be due to the fact that all the variables in the model are very
+correlated with each other (multicollinearity; an ill-conditioned problem).
+The obtained solution might be unstable -- there might be many local optima
+and hence, different parameter vectors might be equally good.
+Moreover, it is likely that a small change in one of the inputs might
+lead to large change in the estimated  model
+(\* normally, we would attack this problem by employing
+some regularisation techniques).
+
+<!--
+#(f2 <- glm(girls_rule_maths~LO.PISA.REA+LO.PISA.REA.FE+LO.PISA.REA.MA+
+#                            LO.PISA.SCI+LO.PISA.SCI.FE+LO.PISA.SCI.MA,
+#    data=edstats_subset, family=binomial("logit"), start=runif(7,-0.1,0.1)))
+-->
+
+Of course, the model's performance metrics can still be computed,
+but then it's better if we treat it as a black box. Or, even better,
+reduce the number of independent variables and come up with a simpler
+model that serves its purpose better than this one.
+
+```{r edstatslogi7}
+Y_pred <- as.numeric(predict(f2, edstats_subset, type="response")>0.5)
+get_metrics(Y_pred, edstats_subset$girls_rule_maths)
+```
+
+{ END solution }
+
+
+<!--
+
+standardise variables:  [too little benefit for the reader? omit]
+
+```{r edstatslogis1}
+#standardise <- function(x) {
+#    (x-mean(x, na.rm=TRUE))/sd(x, na.rm=TRUE)
+#}
+```
+
+```{r edstatslogis2}
+#sedstats_subset <- edstats_subset # copy
+#for (i in 1:(ncol(sedstats_subset)-1)) {
+#    # standardise every column of sedstats_subset but
+#    # the girls_rule_maths one (it must remain a binary==0/1 variable)
+#    sedstats_subset[[i]] <- standardise(sedstats_subset[[i]])
+#}
+```
+
+```{r edstatslogis3}
+#(f1s <- glm(girls_rule_maths~LO.PISA.REA.MA+LO.PISA.SCI,
+#    data=sedstats_subset, family=binomial("logit")))
+#Y_pred <- as.numeric(predict(f1s, sedstats_subset, type="response")>0.5)
+#get_metrics(Y_pred, sedstats_subset$girls_rule_maths)
+```
+
+```{r edstatslogis4}
+#(f2s <- glm(girls_rule_maths~LO.PISA.REA+LO.PISA.REA.FE+LO.PISA.REA.MA+
+#                            LO.PISA.SCI+LO.PISA.SCI.FE+LO.PISA.SCI.MA,
+#    data=sedstats_subset, family=binomial("logit")))
+#Y_pred <- as.numeric(predict(f2s, sedstats_subset, type="response")>0.5)
+#get_metrics(Y_pred, sedstats_subset$girls_rule_maths)
+```
+
+-->
+
+
+
+
+### EdStats -- Variable Selection in Binary Logistic Regression (\*)
+
+
+Back to our `girls_rule_maths` example, we still  have so much to learn!
+
+```{r edstatsvarsel1}
+edstats <- read.csv("datasets/edstats_2019_wide.csv",
+    comment.char="#", stringsAsFactors=FALSE)
+edstats$girls_rule_maths <-
+    factor(as.numeric(
+        edstats$LO.PISA.MAT.FE>edstats$LO.PISA.MAT.MA
+    ))
+edstats_subset <- edstats[!(names(edstats) %in%
+    c("CountryName", "LO.PISA.MAT.FE", "LO.PISA.MAT.MA"))]
+```
+
+
+{ BEGIN exercise }
+Construct a binary logistic regression model via forward selection
+of variables.
+{ END exercise }
+
+{ BEGIN solution }
+Just as in the linear regression case, we can rely on the `step()` function.
+
+```{r edstatsvarsel5,error=TRUE}
+model_empty <- girls_rule_maths~1
+(model_full <- formula(model.frame(girls_rule_maths~.,
+    data=edstats_subset)))
+f <- step(glm(model_empty, data=edstats_subset, family=binomial("logit")),
+    scope=model_full, direction="forward")
+```
+
+Melbourne, we have a problem!
+Our dataset has too many missing values, and those cannot be present
+in a logistic regression model (it's based on a linear combination of variables,
+and sums/products involving `NA`s yield `NA`s...).
+
+Looking at the manual of `?step`, we see that the default
+`NA` handling is via `na.omit()`, and that, when applied on a data frame,
+results in the removal of all the *rows*, where there is at least one `NA`.
+Sadly, it's too invasive.
+
+We should get rid of the data blanks manually.
+First, definitely, we should remove all the rows where
+`girls_rule_maths` is unknown:
+
+```{r edstatsvarsel2}
+edstats_subset <-
+    edstats_subset[!is.na(edstats_subset$girls_rule_maths),]
+```
+
+We are about to apply the forward selection process, whose purpose is
+to choose variables for a model. Therefore, instead of removing any more
+rows, we should remove the... columns with missing data:
+
+```{r edstatsvarsel3}
+edstats_subset <-
+    edstats_subset[,colSums(sapply(edstats_subset, is.na))==0]
+```
+
+(\*) Alternatively, we could apply some techniques of missing data imputation;
+this is beyond the scope of this book. For instance, `NA`s could be
+replaced by the averages of their respective columns.
+
+
+We are ready now to make use of `step()`.
+
+
+```{r edstatsvarsel6}
+model_empty <- girls_rule_maths~1
+(model_full <- formula(model.frame(girls_rule_maths~.,
+    data=edstats_subset)))
+f <- step(glm(model_empty, data=edstats_subset, family=binomial("logit")),
+    scope=model_full, direction="forward")
+print(f)
+Y_pred <- as.numeric(predict(f, edstats_subset, type="response")>0.5)
+get_metrics(Y_pred, edstats_subset$girls_rule_maths)
+```
+
+
+
+{ END solution }
+
+
+
+
+
+
+
+{ BEGIN exercise }
+Choose a model via backward elimination.
+{ END exercise }
+
+{ BEGIN solution }
+Having a dataset with missing values removed, this is easy now:
+
+
+<!--
+makes no difference:
+
+# standardise <- function(x) {
+#     (x-mean(x, na.rm=TRUE))/sd(x, na.rm=TRUE)
+# }
+# for (i in 1:(ncol(edstats_subset)-1)) {
+#    # standardise every column of sedstats_subset but
+#    # the girls_rule_maths one (it must remain a binary==0/1 variable)
+#    edstats_subset[[i]] <- standardise(edstats_subset[[i]])
+# }
+-->
+
+```{r edstatsvarsel8}
+f <- suppressWarnings( # yeah, yeah, yeah...
+        # fitted probabilities numerically 0 or 1 occurred
+    step(glm(model_full, data=edstats_subset, family=binomial("logit")),
+        scope=model_empty, direction="backward")
+)
+```
+
+The obtained model and its quality metrics:
+
+```{r edstatsvarsel9}
+print(f)
+Y_pred <- as.numeric(predict(f, edstats_subset, type="response")>0.5)
+get_metrics(Y_pred, edstats_subset$girls_rule_maths)
+```
+
+Note that we got a better (lower) AIC than in the forward selection
+case, which means that backward elimination was better this time.
+On the other hand, we needed to suppress the
+`fitted probabilities numerically 0 or 1 occurred` warnings.
+The returned model is perhaps *unstable* as well and consists of too
+many variables.
+
+{ END solution }
+
+
+
+
+
+
+
+
 
 
 

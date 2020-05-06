@@ -419,9 +419,10 @@ See also https://movielens.org/ and [@movielens].
 ---
 
 
-```{r,cache=TRUE}
+```{r read_movies,cache=TRUE}
 options(stringsAsFactors=FALSE)
-movies <- read.csv("datasets/ml-9-2018-small/movies.csv")
+movies <- read.csv("datasets/ml-9-2018-small/movies.csv",
+    comment.char="#", stringsAsFactors=FALSE)
 head(movies, 4)
 nrow(movies)
 ```
@@ -429,8 +430,9 @@ nrow(movies)
 ---
 
 
-```{r,cache=TRUE}
-ratings <- read.csv("datasets/ml-9-2018-small/ratings.csv")
+```{r read_ratings,cache=TRUE}
+ratings <- read.csv("datasets/ml-9-2018-small/ratings.csv",
+    comment.char="#", stringsAsFactors=FALSE)
 head(ratings, 4)
 nrow(ratings)
 table(ratings$rating)
@@ -444,7 +446,7 @@ table(ratings$rating)
 `movieId`s should be re-encoded, as not every film is mentioned/rated in the database.
 We will re-map the `movieId`s to consecutive integers.
 
-```{r,cache=TRUE}
+```{r cleanse_movies,cache=TRUE}
 movieId2 <- unique(ratings$movieId) # the list of all rated movieIds
 (m <- max(ratings$userId)) # max user Id (these could've been cleaned up too)]
 (n <- length(movieId2)) # number of unique movies
