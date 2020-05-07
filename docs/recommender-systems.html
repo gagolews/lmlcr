@@ -339,9 +339,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3.3" data-path="clustering.html"><a href="clustering.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.3</b> Linkage Functions</a></li>
 <li class="chapter" data-level="7.3.4" data-path="clustering.html"><a href="clustering.html#cluster-dendrograms"><i class="fa fa-check"></i><b>7.3.4</b> Cluster Dendrograms</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.4</b> Outro</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.4.1</b> Remarks</a></li>
-<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.4.2</b> Further Reading</a></li>
+<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#clustering-of-the-world-factbook"><i class="fa fa-check"></i><b>7.4.1</b> Clustering of the World Factbook</a></li>
+<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#unbalance-dataset-k-means-needs-multiple-starts"><i class="fa fa-check"></i><b>7.4.2</b> Unbalance Dataset – K-Means Needs Multiple Starts</a></li>
+<li class="chapter" data-level="7.4.3" data-path="clustering.html"><a href="clustering.html#clustering-of-typical-2d-benchmark-datasets"><i class="fa fa-check"></i><b>7.4.3</b> Clustering of Typical 2D Benchmark Datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="7.5.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
@@ -488,7 +493,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-06 14:04 (0ca669b)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-07 15:24 (e393b9f)</a></li>
 
 </ul>
 
@@ -738,24 +743,24 @@ Will Sara enjoy her apple?</p>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" title="1">R &lt;-<span class="st"> </span><span class="kw">matrix</span>(</a>
-<a class="sourceLine" id="cb731-2" title="2">    <span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb731-3" title="3">     <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb731-4" title="4">     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb731-5" title="5">     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb731-6" title="6">     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb731-7" title="7">     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb731-8" title="8">     <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span></a>
-<a class="sourceLine" id="cb731-9" title="9">    ), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb731-10" title="10">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb731-11" title="11">        <span class="kw">c</span>(<span class="st">&quot;Anne&quot;</span>, <span class="st">&quot;Beth&quot;</span>, <span class="st">&quot;John&quot;</span>, <span class="st">&quot;Kate&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Sara&quot;</span>),</a>
-<a class="sourceLine" id="cb731-12" title="12">        <span class="kw">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Sushi&quot;</span>, <span class="st">&quot;Spinach&quot;</span>, <span class="st">&quot;Orange&quot;</span>)</a>
-<a class="sourceLine" id="cb731-13" title="13">    )</a>
-<a class="sourceLine" id="cb731-14" title="14">)</a></code></pre></div>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1">R &lt;-<span class="st"> </span><span class="kw">matrix</span>(</a>
+<a class="sourceLine" id="cb769-2" title="2">    <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb769-3" title="3">     <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb769-4" title="4">     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb769-5" title="5">     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb769-6" title="6">     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb769-7" title="7">     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb769-8" title="8">     <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span></a>
+<a class="sourceLine" id="cb769-9" title="9">    ), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb769-10" title="10">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb769-11" title="11">        <span class="kw">c</span>(<span class="st">&quot;Anne&quot;</span>, <span class="st">&quot;Beth&quot;</span>, <span class="st">&quot;John&quot;</span>, <span class="st">&quot;Kate&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Sara&quot;</span>),</a>
+<a class="sourceLine" id="cb769-12" title="12">        <span class="kw">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Sushi&quot;</span>, <span class="st">&quot;Spinach&quot;</span>, <span class="st">&quot;Orange&quot;</span>)</a>
+<a class="sourceLine" id="cb769-13" title="13">    )</a>
+<a class="sourceLine" id="cb769-14" title="14">)</a></code></pre></div>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" title="1">R</a></code></pre></div>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" title="1">R</a></code></pre></div>
 <pre><code>##      Apple Banana Sushi Spinach Orange
 ## Anne     1      5     5       0      1
 ## Beth     1      1     5       5      1
@@ -780,7 +785,7 @@ S(\mathbf{a},\mathbf{b}) = \frac{ \sum_{i=1}^k a_i b_i
 \sqrt{ \sum_{i=1}^k b_i^2 }
 } \ge 0
 \]</span></p>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb734-1" title="1">cosim &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) <span class="kw">sum</span>(a<span class="op">*</span>b)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(a<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">sum</span>(b<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb772-1" title="1">cosim &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) <span class="kw">sum</span>(a<span class="op">*</span>b)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(a<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">sum</span>(b<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 <p>We call it the <strong>cosine similarity</strong>.</p>
 <blockquote>
 <p>(*) Another frequently considered similarity measure
@@ -800,17 +805,17 @@ between the <span class="math inline">\(i\)</span>-th and the <span class="math 
 <p><span class="math display">\[
 s^U_{i,j} = S(\mathbf{r}_{i,\cdot},\mathbf{r}_{j,\cdot}).
 \]</span></p>
-<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" title="1">SU &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">nrow</span>(R),</a>
-<a class="sourceLine" id="cb735-2" title="2">    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)]) <span class="co"># and empty m*m matrix</span></a>
-<a class="sourceLine" id="cb735-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
-<a class="sourceLine" id="cb735-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
-<a class="sourceLine" id="cb735-5" title="5">        SU[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[i,], R[j,])</a>
-<a class="sourceLine" id="cb735-6" title="6">    }</a>
-<a class="sourceLine" id="cb735-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1">SU &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">nrow</span>(R),</a>
+<a class="sourceLine" id="cb773-2" title="2">    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)]) <span class="co"># and empty m*m matrix</span></a>
+<a class="sourceLine" id="cb773-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
+<a class="sourceLine" id="cb773-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
+<a class="sourceLine" id="cb773-5" title="5">        SU[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[i,], R[j,])</a>
+<a class="sourceLine" id="cb773-6" title="6">    }</a>
+<a class="sourceLine" id="cb773-7" title="7">}</a></code></pre></div>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1"><span class="kw">round</span>(SU, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" title="1"><span class="kw">round</span>(SU, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##      Anne Beth John Kate Mark Sara
 ## Anne 1.00 0.61 0.58 0.61 0.63 0.59
 ## Beth 0.61 1.00 0.29 1.00 0.39 0.19
@@ -843,19 +848,19 @@ the more or a weighted arithmetic mean where weights are proportional to <span c
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb738-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SU[<span class="st">&quot;Sara&quot;</span>,],<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb776-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SU[<span class="st">&quot;Sara&quot;</span>,],<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 6 5 1 3 2 4</code></pre>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" title="1"><span class="co"># sim gives the indices of people in decreasing order</span></a>
-<a class="sourceLine" id="cb740-2" title="2"><span class="co"># of similarity to Sara:</span></a>
-<a class="sourceLine" id="cb740-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim] <span class="co"># the corresponding names</span></a></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" title="1"><span class="co"># sim gives the indices of people in decreasing order</span></a>
+<a class="sourceLine" id="cb778-2" title="2"><span class="co"># of similarity to Sara:</span></a>
+<a class="sourceLine" id="cb778-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim] <span class="co"># the corresponding names</span></a></code></pre></div>
 <pre><code>## [1] &quot;Sara&quot; &quot;Mark&quot; &quot;Anne&quot; &quot;John&quot; &quot;Beth&quot; &quot;Kate&quot;</code></pre>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" title="1"><span class="co"># Remove those who haven&#39;t tried Spinach yet (including Sara):</span></a>
-<a class="sourceLine" id="cb742-2" title="2">sim &lt;-<span class="st"> </span>sim[ R[sim, <span class="st">&quot;Spinach&quot;</span>]<span class="op">&gt;</span><span class="dv">0</span> ]</a>
-<a class="sourceLine" id="cb742-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim]</a></code></pre></div>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb780-1" title="1"><span class="co"># Remove those who haven&#39;t tried Spinach yet (including Sara):</span></a>
+<a class="sourceLine" id="cb780-2" title="2">sim &lt;-<span class="st"> </span>sim[ R[sim, <span class="st">&quot;Spinach&quot;</span>]<span class="op">&gt;</span><span class="dv">0</span> ]</a>
+<a class="sourceLine" id="cb780-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim]</a></code></pre></div>
 <pre><code>## [1] &quot;Mark&quot; &quot;John&quot; &quot;Beth&quot; &quot;Kate&quot;</code></pre>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" title="1"><span class="co"># aggregate the Spinach ratings of the K most similar people:</span></a>
-<a class="sourceLine" id="cb744-2" title="2"><span class="kw">mean</span>(R[sim[<span class="dv">1</span><span class="op">:</span>K], <span class="st">&quot;Spinach&quot;</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1"><span class="co"># aggregate the Spinach ratings of the K most similar people:</span></a>
+<a class="sourceLine" id="cb782-2" title="2"><span class="kw">mean</span>(R[sim[<span class="dv">1</span><span class="op">:</span>K], <span class="st">&quot;Spinach&quot;</span>])</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="item-based-collaborative-filtering" class="section level3">
@@ -869,17 +874,17 @@ item is given by:</p>
 <p><span class="math display">\[
 s^I_{i,j} = S(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}).
 \]</span></p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" title="1">SI &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">ncol</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R),</a>
-<a class="sourceLine" id="cb746-2" title="2">    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)]) <span class="co"># an empty n*n matrix</span></a>
-<a class="sourceLine" id="cb746-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
-<a class="sourceLine" id="cb746-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
-<a class="sourceLine" id="cb746-5" title="5">        SI[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[,i], R[,j])</a>
-<a class="sourceLine" id="cb746-6" title="6">    }</a>
-<a class="sourceLine" id="cb746-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1">SI &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">ncol</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R),</a>
+<a class="sourceLine" id="cb784-2" title="2">    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)]) <span class="co"># an empty n*n matrix</span></a>
+<a class="sourceLine" id="cb784-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
+<a class="sourceLine" id="cb784-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
+<a class="sourceLine" id="cb784-5" title="5">        SI[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[,i], R[,j])</a>
+<a class="sourceLine" id="cb784-6" title="6">    }</a>
+<a class="sourceLine" id="cb784-7" title="7">}</a></code></pre></div>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" title="1"><span class="kw">round</span>(SI, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1"><span class="kw">round</span>(SI, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##         Apple Banana Sushi Spinach Orange
 ## Apple    1.00   0.78  0.32    0.38   0.53
 ## Banana   0.78   1.00  0.45    0.27   0.78
@@ -908,19 +913,19 @@ or the mode.</p>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb749-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SI[<span class="st">&quot;Apple&quot;</span>,],<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb787-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SI[<span class="st">&quot;Apple&quot;</span>,],<span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 1 2 5 4 3</code></pre>
-<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" title="1"><span class="co"># sim gives the indices of items in decreasing order</span></a>
-<a class="sourceLine" id="cb751-2" title="2"><span class="co"># of similarity to Apple:</span></a>
-<a class="sourceLine" id="cb751-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim] <span class="co"># the corresponding item types</span></a></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1"><span class="co"># sim gives the indices of items in decreasing order</span></a>
+<a class="sourceLine" id="cb789-2" title="2"><span class="co"># of similarity to Apple:</span></a>
+<a class="sourceLine" id="cb789-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim] <span class="co"># the corresponding item types</span></a></code></pre></div>
 <pre><code>## [1] &quot;Apple&quot;   &quot;Banana&quot;  &quot;Orange&quot;  &quot;Spinach&quot; &quot;Sushi&quot;</code></pre>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" title="1"><span class="co"># Remove these which Sara haven&#39;t tried yet (e.g.,Apples):</span></a>
-<a class="sourceLine" id="cb753-2" title="2">sim &lt;-<span class="st"> </span>sim[ R[<span class="st">&quot;Sara&quot;</span>, sim]<span class="op">&gt;</span><span class="dv">0</span> ]</a>
-<a class="sourceLine" id="cb753-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim]</a></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1"><span class="co"># Remove these which Sara haven&#39;t tried yet (e.g.,Apples):</span></a>
+<a class="sourceLine" id="cb791-2" title="2">sim &lt;-<span class="st"> </span>sim[ R[<span class="st">&quot;Sara&quot;</span>, sim]<span class="op">&gt;</span><span class="dv">0</span> ]</a>
+<a class="sourceLine" id="cb791-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim]</a></code></pre></div>
 <pre><code>## [1] &quot;Banana&quot; &quot;Orange&quot;</code></pre>
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" title="1"><span class="co"># aggregate Sara&#39;s ratings of the K most similar items:</span></a>
-<a class="sourceLine" id="cb755-2" title="2"><span class="kw">mean</span>(R[<span class="st">&quot;Sara&quot;</span>, sim[<span class="dv">1</span><span class="op">:</span>K]])</a></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" title="1"><span class="co"># aggregate Sara&#39;s ratings of the K most similar items:</span></a>
+<a class="sourceLine" id="cb793-2" title="2"><span class="kw">mean</span>(R[<span class="st">&quot;Sara&quot;</span>, sim[<span class="dv">1</span><span class="op">:</span>K]])</a></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 </div>
 </div>
@@ -945,10 +950,10 @@ we mark them with (*).</p>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb757-2" title="2">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/movies.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb757-3" title="3">    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb757-4" title="4"><span class="kw">head</span>(movies, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb795-2" title="2">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/movies.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb795-3" title="3">    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb795-4" title="4"><span class="kw">head</span>(movies, <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>##   movieId                    title
 ## 1       1         Toy Story (1995)
 ## 2       2           Jumanji (1995)
@@ -959,22 +964,22 @@ we mark them with (*).</p>
 ## 2                  Adventure|Children|Fantasy
 ## 3                              Comedy|Romance
 ## 4                        Comedy|Drama|Romance</code></pre>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb759-1" title="1"><span class="kw">nrow</span>(movies)</a></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1"><span class="kw">nrow</span>(movies)</a></code></pre></div>
 <pre><code>## [1] 9742</code></pre>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" title="1">ratings &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/ratings.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb761-2" title="2">    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb761-3" title="3"><span class="kw">head</span>(ratings, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1">ratings &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/ratings.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb799-2" title="2">    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb799-3" title="3"><span class="kw">head</span>(ratings, <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>##   userId movieId rating timestamp
 ## 1      1       1      4 964982703
 ## 2      1       3      4 964981247
 ## 3      1       6      4 964982224
 ## 4      1      47      5 964983815</code></pre>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb763-1" title="1"><span class="kw">nrow</span>(ratings)</a></code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1"><span class="kw">nrow</span>(ratings)</a></code></pre></div>
 <pre><code>## [1] 100836</code></pre>
-<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb765-1" title="1"><span class="kw">table</span>(ratings<span class="op">$</span>rating)</a></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1"><span class="kw">table</span>(ratings<span class="op">$</span>rating)</a></code></pre></div>
 <pre><code>## 
 ##   0.5     1   1.5     2   2.5     3   3.5     4   4.5     5 
 ##  1370  2811  1791  7551  5550 20047 13136 26818  8551 13211</code></pre>
@@ -986,19 +991,19 @@ we mark them with (*).</p>
 </div>
 <p><code>movieId</code>s should be re-encoded, as not every film is mentioned/rated in the database.
 We will re-map the <code>movieId</code>s to consecutive integers.</p>
-<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" title="1">movieId2 &lt;-<span class="st"> </span><span class="kw">unique</span>(ratings<span class="op">$</span>movieId) <span class="co"># the list of all rated movieIds</span></a>
-<a class="sourceLine" id="cb767-2" title="2">(m &lt;-<span class="st"> </span><span class="kw">max</span>(ratings<span class="op">$</span>userId)) <span class="co"># max user Id (these could&#39;ve been cleaned up too)]</span></a></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1">movieId2 &lt;-<span class="st"> </span><span class="kw">unique</span>(ratings<span class="op">$</span>movieId) <span class="co"># the list of all rated movieIds</span></a>
+<a class="sourceLine" id="cb805-2" title="2">(m &lt;-<span class="st"> </span><span class="kw">max</span>(ratings<span class="op">$</span>userId)) <span class="co"># max user Id (these could&#39;ve been cleaned up too)]</span></a></code></pre></div>
 <pre><code>## [1] 610</code></pre>
-<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1">(n &lt;-<span class="st"> </span><span class="kw">length</span>(movieId2)) <span class="co"># number of unique movies</span></a></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1">(n &lt;-<span class="st"> </span><span class="kw">length</span>(movieId2)) <span class="co"># number of unique movies</span></a></code></pre></div>
 <pre><code>## [1] 9724</code></pre>
-<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1">movies &lt;-<span class="st"> </span>movies[movies<span class="op">$</span>movieId <span class="op">%in%</span><span class="st"> </span>movieId2, ] <span class="co"># remove unrated movies</span></a>
-<a class="sourceLine" id="cb771-2" title="2"><span class="co"># we shall map movieId2[i] to i for each i=1,...,n</span></a>
-<a class="sourceLine" id="cb771-3" title="3">movies<span class="op">$</span>movieId  &lt;-<span class="st"> </span><span class="kw">match</span>(movies<span class="op">$</span>movieId, movieId2)</a>
-<a class="sourceLine" id="cb771-4" title="4">ratings<span class="op">$</span>movieId &lt;-<span class="st"> </span><span class="kw">match</span>(ratings<span class="op">$</span>movieId, movieId2)</a>
-<a class="sourceLine" id="cb771-5" title="5"><span class="co"># order the movies by the new movieId so that</span></a>
-<a class="sourceLine" id="cb771-6" title="6"><span class="co"># the movie with Id=i is at the i-th row.</span></a>
-<a class="sourceLine" id="cb771-7" title="7">movies &lt;-<span class="st"> </span>movies[<span class="kw">order</span>(movies<span class="op">$</span>movieId),]</a>
-<a class="sourceLine" id="cb771-8" title="8"><span class="kw">stopifnot</span>(<span class="kw">all</span>(movies<span class="op">$</span>movieId <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span>n)) <span class="co"># sanity check</span></a></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" title="1">movies &lt;-<span class="st"> </span>movies[movies<span class="op">$</span>movieId <span class="op">%in%</span><span class="st"> </span>movieId2, ] <span class="co"># remove unrated movies</span></a>
+<a class="sourceLine" id="cb809-2" title="2"><span class="co"># we shall map movieId2[i] to i for each i=1,...,n</span></a>
+<a class="sourceLine" id="cb809-3" title="3">movies<span class="op">$</span>movieId  &lt;-<span class="st"> </span><span class="kw">match</span>(movies<span class="op">$</span>movieId, movieId2)</a>
+<a class="sourceLine" id="cb809-4" title="4">ratings<span class="op">$</span>movieId &lt;-<span class="st"> </span><span class="kw">match</span>(ratings<span class="op">$</span>movieId, movieId2)</a>
+<a class="sourceLine" id="cb809-5" title="5"><span class="co"># order the movies by the new movieId so that</span></a>
+<a class="sourceLine" id="cb809-6" title="6"><span class="co"># the movie with Id=i is at the i-th row.</span></a>
+<a class="sourceLine" id="cb809-7" title="7">movies &lt;-<span class="st"> </span>movies[<span class="kw">order</span>(movies<span class="op">$</span>movieId),]</a>
+<a class="sourceLine" id="cb809-8" title="8"><span class="kw">stopifnot</span>(<span class="kw">all</span>(movies<span class="op">$</span>movieId <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span>n)) <span class="co"># sanity check</span></a></code></pre></div>
 <div style="margin-top: 1em">
 
 </div>
@@ -1007,11 +1012,11 @@ to store ratings data. We don’t want to run out of memory!</p>
 <blockquote>
 <p>Sparse == many zeros.</p>
 </blockquote>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb772-1" title="1"><span class="kw">library</span>(<span class="st">&quot;Matrix&quot;</span>)</a>
-<a class="sourceLine" id="cb772-2" title="2">RML &lt;-<span class="st"> </span><span class="kw">Matrix</span>(<span class="fl">0.0</span>, <span class="dt">sparse=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span>m, <span class="dt">ncol=</span>n)</a>
-<a class="sourceLine" id="cb772-3" title="3"><span class="co"># This is a vectorised operation;</span></a>
-<a class="sourceLine" id="cb772-4" title="4"><span class="co"># it is faster than a for loop over each row in ratings:</span></a>
-<a class="sourceLine" id="cb772-5" title="5">RML[<span class="kw">cbind</span>(ratings<span class="op">$</span>userId, ratings<span class="op">$</span>movieId)] &lt;-<span class="st"> </span>ratings<span class="op">$</span>rating</a></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" title="1"><span class="kw">library</span>(<span class="st">&quot;Matrix&quot;</span>)</a>
+<a class="sourceLine" id="cb810-2" title="2">RML &lt;-<span class="st"> </span><span class="kw">Matrix</span>(<span class="fl">0.0</span>, <span class="dt">sparse=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span>m, <span class="dt">ncol=</span>n)</a>
+<a class="sourceLine" id="cb810-3" title="3"><span class="co"># This is a vectorised operation;</span></a>
+<a class="sourceLine" id="cb810-4" title="4"><span class="co"># it is faster than a for loop over each row in ratings:</span></a>
+<a class="sourceLine" id="cb810-5" title="5">RML[<span class="kw">cbind</span>(ratings<span class="op">$</span>userId, ratings<span class="op">$</span>movieId)] &lt;-<span class="st"> </span>ratings<span class="op">$</span>rating</a></code></pre></div>
 <!--# Not every movie is rated - removing:
 RML <- RML[,apply(RML,2,sum)>0]
 # Not each user gave a rating - removing:
@@ -1019,8 +1024,8 @@ RML <- RML[apply(RML,1,sum)>0,]-->
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1"><span class="co"># Preview:</span></a>
-<a class="sourceLine" id="cb773-2" title="2">RML[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">18</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb811-1" title="1"><span class="co"># Preview:</span></a>
+<a class="sourceLine" id="cb811-2" title="2">RML[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">18</span>]</a></code></pre></div>
 <pre><code>## 6 x 18 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                                         
 ## [1,] 4 4 4 5 5 3 5 4 5 5 5 5 3 5 4 5 3 3
@@ -1060,10 +1065,10 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 
 </div>
 <p>Cosine item-item similarities:</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1">norms &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sqrt</span>(<span class="kw">colSums</span>(RML<span class="op">^</span><span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb775-2" title="2">RMLx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">crossprod</span>(RML, RML))</a>
-<a class="sourceLine" id="cb775-3" title="3">SI &lt;-<span class="st"> </span>RMLx<span class="op">/</span><span class="kw">tcrossprod</span>(norms)</a>
-<a class="sourceLine" id="cb775-4" title="4">SI[<span class="kw">is.nan</span>(SI)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># there were some divisions by zero</span></a></code></pre></div>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb813-1" title="1">norms &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sqrt</span>(<span class="kw">colSums</span>(RML<span class="op">^</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb813-2" title="2">RMLx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">crossprod</span>(RML, RML))</a>
+<a class="sourceLine" id="cb813-3" title="3">SI &lt;-<span class="st"> </span>RMLx<span class="op">/</span><span class="kw">tcrossprod</span>(norms)</a>
+<a class="sourceLine" id="cb813-4" title="4">SI[<span class="kw">is.nan</span>(SI)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># there were some divisions by zero</span></a></code></pre></div>
 <p><code>crossprod(A,B)</code> gives <span class="math inline">\(\mathbf{A}^T \mathbf{B}\)</span></p>
 <p><code>tcrossprod(A,B)</code> gives <span class="math inline">\(\mathbf{A} \mathbf{B}^T\)</span></p>
 </div>
@@ -1072,17 +1077,17 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" title="1">recommend &lt;-<span class="st"> </span><span class="cf">function</span>(i, K, SI, movies) {</a>
-<a class="sourceLine" id="cb776-2" title="2">    <span class="co"># get K most similar movies to the i-th one</span></a>
-<a class="sourceLine" id="cb776-3" title="3">    ms &lt;-<span class="st"> </span><span class="kw">order</span>(SI[i,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb776-4" title="4">    tibble<span class="op">::</span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb776-5" title="5">        <span class="dt">Title=</span>movies<span class="op">$</span>title[ms[<span class="dv">1</span><span class="op">:</span>K]],</a>
-<a class="sourceLine" id="cb776-6" title="6">        <span class="dt">SIC=</span>SI[i,ms[<span class="dv">1</span><span class="op">:</span>K]])</a>
-<a class="sourceLine" id="cb776-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb814-1" title="1">recommend &lt;-<span class="st"> </span><span class="cf">function</span>(i, K, SI, movies) {</a>
+<a class="sourceLine" id="cb814-2" title="2">    <span class="co"># get K most similar movies to the i-th one</span></a>
+<a class="sourceLine" id="cb814-3" title="3">    ms &lt;-<span class="st"> </span><span class="kw">order</span>(SI[i,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb814-4" title="4">    tibble<span class="op">::</span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb814-5" title="5">        <span class="dt">Title=</span>movies<span class="op">$</span>title[ms[<span class="dv">1</span><span class="op">:</span>K]],</a>
+<a class="sourceLine" id="cb814-6" title="6">        <span class="dt">SIC=</span>SI[i,ms[<span class="dv">1</span><span class="op">:</span>K]])</a>
+<a class="sourceLine" id="cb814-7" title="7">}</a></code></pre></div>
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1"><span class="kw">recommend</span>(<span class="dv">1215</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb815-1" title="1"><span class="kw">recommend</span>(<span class="dv">1215</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
 <pre><code>## # A tibble: 10 x 2
 ##    Title                                              SIC
 ##    &lt;chr&gt;                                            &lt;dbl&gt;
@@ -1099,7 +1104,7 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 <div style="margin-top: 1em">
 
 </div>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1"><span class="kw">recommend</span>(<span class="dv">1</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" title="1"><span class="kw">recommend</span>(<span class="dv">1</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
 <pre><code>## # A tibble: 10 x 2
 ##    Title                                               SIC
 ##    &lt;chr&gt;                                             &lt;dbl&gt;
@@ -1121,20 +1126,20 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 
 </div>
 <p>A cosine similarity matrix can be turned into a dissimilarity matrix:</p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1">DI &lt;-<span class="st"> </span><span class="fl">1.0</span><span class="op">-</span>SI</a>
-<a class="sourceLine" id="cb781-2" title="2">DI[DI<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="fl">0.0</span> <span class="co"># account for numeric inaccuracies</span></a>
-<a class="sourceLine" id="cb781-3" title="3">DI &lt;-<span class="st"> </span><span class="kw">as.dist</span>(DI)</a></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb819-1" title="1">DI &lt;-<span class="st"> </span><span class="fl">1.0</span><span class="op">-</span>SI</a>
+<a class="sourceLine" id="cb819-2" title="2">DI[DI<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="fl">0.0</span> <span class="co"># account for numeric inaccuracies</span></a>
+<a class="sourceLine" id="cb819-3" title="3">DI &lt;-<span class="st"> </span><span class="kw">as.dist</span>(DI)</a></code></pre></div>
 <p>Which enables us to perform, e.g., the cluster analysis of items:</p>
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1"><span class="kw">library</span>(<span class="st">&quot;genie&quot;</span>)</a>
-<a class="sourceLine" id="cb782-2" title="2">h &lt;-<span class="st"> </span><span class="kw">hclust2</span>(DI)</a>
-<a class="sourceLine" id="cb782-3" title="3">c &lt;-<span class="st"> </span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb820-1" title="1"><span class="kw">library</span>(<span class="st">&quot;genie&quot;</span>)</a>
+<a class="sourceLine" id="cb820-2" title="2">h &lt;-<span class="st"> </span><span class="kw">hclust2</span>(DI)</a>
+<a class="sourceLine" id="cb820-3" title="3">c &lt;-<span class="st"> </span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">20</span>)</a></code></pre></div>
 <div style="margin-top: 1em">
 
 </div>
 <p>Example movies in the 3rd cluster:</p>
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1"><span class="kw">library</span>(<span class="st">&quot;stringi&quot;</span>)</a>
-<a class="sourceLine" id="cb783-2" title="2"><span class="kw">cat</span>(i, <span class="kw">stri_wrap</span>(<span class="kw">stri_paste</span>(<span class="kw">head</span>(movies<span class="op">$</span>title[c<span class="op">==</span><span class="dv">3</span>], <span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb783-3" title="3">    <span class="dt">collapse=</span><span class="st">&quot;, &quot;</span>)), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb821-1" title="1"><span class="kw">library</span>(<span class="st">&quot;stringi&quot;</span>)</a>
+<a class="sourceLine" id="cb821-2" title="2"><span class="kw">cat</span>(i, <span class="kw">stri_wrap</span>(<span class="kw">stri_paste</span>(<span class="kw">head</span>(movies<span class="op">$</span>title[c<span class="op">==</span><span class="dv">3</span>], <span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb821-3" title="3">    <span class="dt">collapse=</span><span class="st">&quot;, &quot;</span>)), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
 <pre><code>## 5
 ## Bottle Rocket (1996), Clerks (1994), Star Wars: Episode
 ## IV - A New Hope (1977), Swingers (1996), Monty Python&#39;s
@@ -1153,8 +1158,8 @@ S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
 
 </div>
 <p>Example movies in the 5th cluster:</p>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1"><span class="kw">cat</span>(i, <span class="kw">stri_wrap</span>(<span class="kw">stri_paste</span>(<span class="kw">head</span>(movies<span class="op">$</span>title[c<span class="op">==</span><span class="dv">5</span>], <span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb785-2" title="2">    <span class="dt">collapse=</span><span class="st">&quot;, &quot;</span>)), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" title="1"><span class="kw">cat</span>(i, <span class="kw">stri_wrap</span>(<span class="kw">stri_paste</span>(<span class="kw">head</span>(movies<span class="op">$</span>title[c<span class="op">==</span><span class="dv">5</span>], <span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb823-2" title="2">    <span class="dt">collapse=</span><span class="st">&quot;, &quot;</span>)), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
 <pre><code>## 5
 ## Blown Away (1994), Flight of the Navigator (1986), Dick
 ## Tracy (1990), Mighty Aphrodite (1995), Postman, The
@@ -1197,7 +1202,7 @@ vs. all possible user-item valuations for the Netflix Prize
 (obviously, it is just a sample of
 the complete dataset that Netflix has):</p>
 </blockquote>
-<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" title="1"><span class="dv">100480507</span><span class="op">/</span>(<span class="dv">480189</span><span class="op">*</span><span class="dv">17770</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb825-1" title="1"><span class="dv">100480507</span><span class="op">/</span>(<span class="dv">480189</span><span class="op">*</span><span class="dv">17770</span>)</a></code></pre></div>
 <pre><code>## [1] 0.01177558</code></pre>
 <p><em>Sparse matrix</em> (many “zeros” = unassigned ratings) data structure is
 often used for storing of and computing over such data effectively.</p>

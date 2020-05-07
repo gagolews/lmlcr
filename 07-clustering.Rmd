@@ -301,8 +301,9 @@ Remark.
 
 : (\*) There are several indices that assess the
 similarity of two partitions, for example the Adjusted Rand Index (ARI)
-or the Normalised Mutual Information Score (NMI),
-see, e.g., [@comparing_paritions].
+the Normalised Mutual Information Score (NMI)
+or set matching-based measures,
+see, e.g., [@comparing_paritions], [@external_cluster_validity].
 
 <!-- genieclust.compare_partitions ? -->
 
@@ -453,8 +454,8 @@ with the methods discussed in the previous chapter.
 The above problem is *hard* to solve (\* more precisely,
 it is an NP-hard problem).
 Therefore, in practice we use various heuristics to solve it.
-The `kmeans()` function itself implements 4 of them:
-the Hartigan-Wong, Lloyd, Forgy and MacQueen algorithms.
+The `kmeans()` function itself implements 3 of them:
+the Hartigan-Wong, Lloyd (a.k.a. Lloyd-Forgy) and MacQueen algorithms.
 
 
 
@@ -980,36 +981,496 @@ legend("topright", legend="average", bg="white")
 
 
 
-<!--Single linkage clustering --
-a {\color{blue2}\bf hierarchical agglomerative clustering algorithm}.
-
-
-\bigskip
-{\color{pwsloneczny}\hrule height 2px}
-\bigskip
-
-\begin{itemize}
-
-
-   \item
+## Exercises in R
 
 
 
 
-   \pause\item
 
 
-% \vspace*{1em}
-\end{itemize}-->
+### Clustering of the World Factbook
 
-<!--Single linkage criterion:
-% -- for some \textit{extension} $\tilde{\mathsf{d}}$ of $\mathsf{d}$ to $2^\mathcal{X}$:
-$
-\displaystyle\argmin_{(u,v), u < v}\ \min\left\{ \mathsf{d}\left(\mathbf{x}^{(i_u)}, \mathbf{x}^{(i_v)}\right):
-\mathbf{x}^{(i_u)}\in C_u^{(j)},
-\mathbf{x}^{(i_v)}\in C_v^{(j)}
-\right\}.
-$-->
+
+Let's perform a cluster analysis of countries
+based on the information contained in the World Factbook dataset:
+
+```{r clustering_factbook1}
+factbook <- read.csv("datasets/world_factbook_2020.csv",
+    comment.char="#", stringsAsFactors=FALSE)
+```
+
+
+{ BEGIN exercise }
+Remove all the columns that consist of more than 40 missing values.
+Then remove all the rows with at least 1 missing value.
+{ END exercise }
+
+{ BEGIN solution }
+
+To remove appropriate columns, we must first count the number
+of `NA`s in them.
+
+```{r clustering_factbook2a}
+count_na_in_columns <- sapply(factbook, function(x) sum(is.na(x)))
+factbook <- factbook[count_na_in_columns <= 40] # column removal
+```
+
+Getting rid of the rows plagued by missing values is as simple as calling
+the `na.omit()` function:
+
+```{r clustering_factbook2b}
+factbook <- na.omit(factbook) # row removal
+dim(factbook) # how many rows and cols remained
+```
+
+Missing value removal is necessary for metric-based
+clustering methods, especially K-means. Otherwise, some of the computed distances
+would be not available.
+
+{ END solution }
+
+
+
+{ BEGIN exercise }
+Standardise all the numeric columns.
+{ END exercise }
+
+{ BEGIN solution }
+
+Distance-based
+methods are very sensitive to the order of magnitude of
+the variables, and our dataset is a mess with regards to this
+(population, GDP, birth rate, oil production etc.) -- standardisation
+of variables is definitely a good idea:
+
+```{r clustering_factbook2}
+for (i in 2:ncol(factbook)) # skip `country`
+    factbook[[i]] <- (factbook[[i]]-mean(factbook[[i]]))/
+                        sd(factbook[[i]])
+```
+
+Recall that Z-scores (values of the standardised variables)
+have a very intuitive interpretation: $0$ is the value equal to the column
+mean, $1$ is one standard deviation above the mean, $-2$ is two standard deviations
+below the mean etc.
+
+{ END solution }
+
+
+{ BEGIN exercise }
+Apply the 2-means algorithm, i.e., K-means with $K=2$.
+Analyse the results.
+{ END exercise }
+
+{ BEGIN solution }
+
+Calling `kmeans()`:
+
+```{r clustering_factbook3,echo=-1}
+set.seed(123)
+km <- kmeans(factbook[-1], 2, nstart=10)
+```
+
+Let's split the country list w.r.t. the obtained cluster labels.
+It turns out that the obtained partition is heavily imbalanced, so we'll
+print only the contents of the first group:
+
+```{r clustering_factbook4}
+km_countries <- split(factbook[[1]], km$cluster)
+km_countries[[1]]
+```
+
+
+With regards to which criteria has the K-means algorithm distinguished
+the countries? Let's inspect the cluster centres to check the average
+Z-scores of all the countries in each cluster:
+
+
+```{r clustering_factbook5}
+t(km$centers) # transposed for readability
+```
+
+Countries in Cluster 2 are... average (Z-scores $\simeq 0$).
+On the other hand, the three countries in Cluster 1
+dominate the others w.r.t. area, population, GDP PPP, labour force etc.
+
+
+{ END solution }
+
+
+
+
+
+
+{ BEGIN exercise }
+Apply the complete linkage agglomerative hierarchical clustering algorithm.
+{ END exercise }
+
+{ BEGIN solution }
+
+Recall that the complete linkage-based method is implemented in the
+`hclust()` function:
+
+```{r clustering_factbook6}
+d <- dist(factbook[-1]) # skip `country`
+h <- hclust(d, method="complete")
+```
+
+
+A "nice" number of clusters to divide our dataset into
+can be read from the dendrogram, see Figure {@fig:clustering_factbook7}.
+
+
+```{r clustering_factbook7,fig.cap="Cluster dendrogram for the World Factbook dataset -- Complete linkage"}
+plot(h, labels=FALSE, ann=FALSE); box()
+```
+
+It seems that a 9-partition might reveal something interesting,
+because it will distinguish two larger country groups.
+However, there will be many singletons if we do so either way.
+
+```{r clustering_factbook8}
+y <- cutree(h, 9)
+h_countries <- split(factbook[[1]], y)
+sapply(h_countries, length) # number of elements in each cluster
+```
+
+Most likely this is not an interesting partitioning of this dataset,
+therefore we'll not be exploring it any further.
+
+
+{ END solution }
+
+
+
+{ BEGIN exercise }
+Apply the Genie  clustering algorithm.
+{ END exercise }
+
+{ BEGIN solution }
+
+The Genie algorithm [@genie] is a hierarchical clustering algorithm
+implemented in R package `genie`. It's interface is compatible with `hclust()`.
+
+```{r clustering_factbook9}
+library("genie")
+d <- dist(factbook[-1])
+g <- hclust2(d)
+```
+
+The cluster dendrogram in Figure {@fig:clustering_factbook10}
+reveals  3 evident clusters.
+
+```{r clustering_factbook10,fig.cap="Cluster dendrogram for the World Factbook dataset -- Genie algorithm"}
+plot(g, labels=FALSE, ann=FALSE); box()
+```
+
+Let's determine the 3-partition of the data set.
+
+```{r clustering_factbook11a}
+y <- cutree(g, 3)
+```
+
+Here are few countries in each cluster:
+
+```{r clustering_factbook11b,echo=-1}
+set.seed(126)
+y <- cutree(g, 3)
+sapply(split(factbook$countr, y), sample, 6)
+```
+
+
+We can draw the countries in each cluster
+on a map by using the `rworldmap` package (see its documentation for more details),
+see Figure {@fig:clustering_factbook12}.
+
+```{r clustering_factbook12,fig.cap="3 clusters discovered by the Genie algorithm",cache=TRUE,message=FALSE,warnings=FALSE,echo=-1}
+par(ann=FALSE)
+library("rworldmap")
+library("RColorBrewer")
+mapdata <- data.frame(country=factbook$country, cluster=y,
+    stringsAsFactors=FALSE)
+# 3 country names must be adjusted to get a match
+mapdata$country[mapdata$country == "Czechia"] <- "Czech Republic"
+mapdata$country[mapdata$country == "Eswatini"] <- "Swaziland"
+mapdata$country[mapdata$country == "Cabo Verde"] <- "Cape Verde"
+mapdata <- joinCountryData2Map(mapdata, joinCode="NAME",
+  nameJoinColumn="country")
+par(mar=c(0,0,0,0))
+mapCountryData(mapdata, nameColumnToPlot="cluster",
+    catMethod="categorical", missingCountryCol="gray",
+    colourPalette=brewer.pal(3, "Set1"),
+    mapTitle="", addLegend=TRUE)
+```
+
+Here are the average Z-scores in each cluster:
+
+```{r clustering_factbook13}
+round(sapply(split(factbook[-1], y), colMeans), 3)
+```
+
+That is really interesting! The interpretation of the above is left
+to the reader.
+
+<!--
+# factbook$country[!(factbook$country %in% mapdata$country)]
+-->
+
+
+
+{ END solution }
+
+
+
+
+
+
+
+
+### Unbalance Dataset -- K-Means Needs Multiple Starts
+
+
+Let us consider a benchmark (artificial) dataset
+proposed in [@external_cluster_validity]:
+
+```{r sipu_unbalance1}
+unbalance <- as.matrix(read.csv("datasets/sipu_unbalance.csv",
+    header=FALSE, sep=" ", comment.char="#",
+    stringsAsFactors=FALSE))
+unbalance <- unbalance/10000-30 # a more user-friendly scale
+```
+
+According to its authors, this dataset is comprised of 8 clusters:
+there are 3 groups on the lefthand side (2000 points each)
+and 5 on the right side (100 each).
+
+
+```{r sipu_unbalance2,fig.cap="`sipu_unbalance` dataset"}
+plot(unbalance, asp=1)
+```
+
+
+{ BEGIN exercise }
+Apply the K-means algorithm with $K=8$.
+{ END exercise }
+
+{ BEGIN solution }
+
+Of course, here by "the" K-means we mean the default method
+available in the `kmeans()` function.
+The clustering results are depicted in Figure {@fig:sipu_unbalance3a}.
+
+```{r sipu_unbalance3a,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset",cache=TRUE}
+set.seed(123)
+km <- kmeans(unbalance, 8, nstart=10)
+plot(unbalance, asp=1, col=km$cluster)
+```
+
+This is far from what we expected.
+The total within-cluster distances are equal to:
+
+```{r sipu_unbalance4a,cache=TRUE}
+km$tot.withinss
+```
+
+
+Increasing the number of restarts even further improves the solution,
+but the local minimum is still far from the global one,
+compare Figure {@fig:sipu_unbalance3b}.
+
+```{r sipu_unbalance3b,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset -- many more restarts",cache=TRUE}
+set.seed(1234)
+km <- suppressWarnings(kmeans(unbalance, 8, nstart=1000, iter.max=1000))
+plot(unbalance, asp=1, col=km$cluster)
+```
+
+```{r sipu_unbalance4b,cache=TRUE}
+km$tot.withinss
+```
+
+
+{ END solution }
+
+
+
+
+{ BEGIN exercise }
+Apply the K-means algorithm starting from a "good" initial guess
+on the true cluster centres.
+{ END exercise }
+
+{ BEGIN solution }
+
+Clustering is -- in its essence -- an unsupervised learning method,
+so what we're going to do now could be called, let's be blunt about it, cheating.
+Luckily, we have an oracle at our disposal -- it has provided us
+with the following educated guesses (by looking at the scatter plot)
+about the localisation of the cluster centres:
+
+```{r sipu_unbalance5,cache=TRUE}
+cntr <- matrix(ncol=2, byrow=TRUE, c(
+   -15,   5,
+   -12,   10,
+   -10,   5,
+    15,   0,
+    15,   10,
+    20,   5,
+    25,   0,
+    25,   10))
+```
+
+Running `kmeans()` yields the clustering depicted in Figure {@fig:sipu_unbalance6}.
+
+```{r sipu_unbalance6,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset -- an educated guess on the cluster centres' locations",cache=TRUE}
+set.seed(123)
+km <- kmeans(unbalance, cntr)
+plot(unbalance, asp=1, col=km$cluster)
+```
+
+The  total within-cluster distances are now equal to:
+
+```{r sipu_unbalance7,cache=TRUE}
+km$tot.withinss
+```
+
+This is finally the globally optimal solution to the K-means problem
+we were asked to solve. Recall that the algorithms implemented in the `kmeans()`
+function are just fast heuristics that are supposed to find
+local optima of the K-means objective function, which is given
+by the within-cluster sum of squared Euclidean distances.
+
+
+
+<!--
+http://cs.joensuu.fi/sipu/datasets/:
+
+cntr <- matrix(ncol=2, byrow=TRUE, c(
+    209948,   349963,
+    539379,   299653,
+    440134,   400135,
+    440754,   298283,
+    491036,   349798,
+    150007,   350104,
+    538884,   400947,
+    179955,   380008))
+-->
+
+
+{ END solution }
+
+
+
+
+
+
+### Clustering of Typical 2D Benchmark Datasets
+
+Let us consider a few clustering benchmark datasets
+available at https://github.com/gagolews/clustering_benchmarks_v1
+and http://cs.joensuu.fi/sipu/datasets/.
+Here is a list of file names together with the
+corresponding numbers of clusters (as given by datasets' authors):
+
+```{r clustering_benchmarks1,cache=TRUE}
+files <- c("datasets/wut_isolation.csv",
+           "datasets/wut_mk2.csv",
+           "datasets/wut_z3.csv",
+           "datasets/sipu_aggregation.csv",
+           "datasets/sipu_pathbased.csv",
+           "datasets/sipu_unbalance.csv")
+Ks <- c(3, 2, 4, 7, 3, 8)
+```
+
+All the datasets are two-dimensional, hence we'll be able to visualise
+the obtained results and assess the sensibility of the obtained clusterings.
+
+{ BEGIN exercise }
+Apply the K-means, the single, average and complete linkage
+and the Genie algorithm on the aforementioned datasets and discuss the results.
+{ END exercise }
+
+{ BEGIN solution }
+
+Apart from a call to the Genie algorithm with the default parameters,
+we will also look at the results it generates when we set
+`giniThreshold` of `0.5`.
+
+The following function is our workhorse that will perform all the computations
+and will draw all the figures for a single dataset:
+
+```{r clustering_benchmarks2,dependson="clustering_benchmarks1",cache=TRUE}
+clusterise <- function(file, K) {
+    X <- read.csv(file,
+        header=FALSE, sep=" ", comment.char="#",
+        stringsAsFactors=FALSE)
+    d <- dist(X)
+    par(mfrow=c(2, 3))
+    par(mar=c(0.5, 0.5, 2, 0.5))
+
+    y <- kmeans(X, K, nstart=10)$cluster
+    plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
+    mtext("K-means", line=0.5)
+
+    y <- cutree(hclust(d, "complete"), K)
+    plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
+    mtext("Complete Linkage", line=0.5)
+
+    y <- cutree(hclust(d, "average"), K)
+    plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
+    mtext("Average Linkage", line=0.5)
+
+    y <- cutree(hclust(d, "single"), K)
+    plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
+    mtext("Single Linkage", line=0.5)
+
+    y <- cutree(genie::hclust2(d), K) # thresholdGini=0.3
+    plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
+    mtext("Genie (default)", line=0.5)
+
+    y <- cutree(genie::hclust2(d, thresholdGini=0.5), K)
+    plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
+    mtext("Genie (g=0.5)", line=0.5)
+}
+```
+
+
+Applying the above as `clusterise(files[i], Ks[i])` yields
+Figures {@fig:clustering_benchmarks_plot1}-{@fig:clustering_benchmarks_plot6}.
+
+```{r clustering_benchmarks_plot1,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_isolation` dataset"}
+suppressWarnings(clusterise(files[1], Ks[1]))
+```
+
+```{r clustering_benchmarks_plot2,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_mk2` dataset"}
+suppressWarnings(clusterise(files[2], Ks[2]))
+```
+
+```{r clustering_benchmarks_plot3,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_z3` dataset"}
+suppressWarnings(clusterise(files[3], Ks[3]))
+```
+
+```{r clustering_benchmarks_plot4,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_aggregation` dataset"}
+suppressWarnings(clusterise(files[4], Ks[4]))
+```
+
+```{r clustering_benchmarks_plot5,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_pathbased` dataset"}
+suppressWarnings(clusterise(files[5], Ks[5]))
+```
+
+```{r clustering_benchmarks_plot6,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_unbalance` dataset"}
+suppressWarnings(clusterise(files[6], Ks[6]))
+```
+
+Note that, by definition, K-means is only able to detect clusters
+of convex shapes. The Genie algorithm, on the other hand, might
+fail to detect clusters of very small sizes amongst the more populous ones.
+Single linkage is very sensitive to outliers in data -- it often outputs
+clusters of cardinality 1.
+
+
+{ END solution }
+
+
 
 
 

@@ -339,9 +339,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3.3" data-path="clustering.html"><a href="clustering.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.3</b> Linkage Functions</a></li>
 <li class="chapter" data-level="7.3.4" data-path="clustering.html"><a href="clustering.html#cluster-dendrograms"><i class="fa fa-check"></i><b>7.3.4</b> Cluster Dendrograms</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.4</b> Outro</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.4.1</b> Remarks</a></li>
-<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.4.2</b> Further Reading</a></li>
+<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#clustering-of-the-world-factbook"><i class="fa fa-check"></i><b>7.4.1</b> Clustering of the World Factbook</a></li>
+<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#unbalance-dataset-k-means-needs-multiple-starts"><i class="fa fa-check"></i><b>7.4.2</b> Unbalance Dataset – K-Means Needs Multiple Starts</a></li>
+<li class="chapter" data-level="7.4.3" data-path="clustering.html"><a href="clustering.html#clustering-of-typical-2d-benchmark-datasets"><i class="fa fa-check"></i><b>7.4.3</b> Clustering of Typical 2D Benchmark Datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="7.5.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
@@ -488,7 +493,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-06 14:04 (0ca669b)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-07 15:24 (e393b9f)</a></li>
 
 </ul>
 
@@ -557,12 +562,12 @@ advanced users.</p>
 we need to install a few packages which we’re going to use during the course
 of this course. Execute the following commands in the R console
 (bottom-left Rstudio pane):</p>
-<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Cairo&quot;</span>, <span class="st">&quot;fastcluster&quot;</span>, <span class="st">&quot;FNN&quot;</span>, <span class="st">&quot;genie&quot;</span>, <span class="st">&quot;ISLR&quot;</span>,</a>
-<a class="sourceLine" id="cb789-2" title="2">    <span class="st">&quot;keras&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;microbenchmark&quot;</span>, <span class="st">&quot;pdist&quot;</span>,</a>
-<a class="sourceLine" id="cb789-3" title="3">    <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;recommenderlab&quot;</span>, <span class="st">&quot;rpart&quot;</span>,</a>
-<a class="sourceLine" id="cb789-4" title="4">    <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;scatterplot3d&quot;</span>, <span class="st">&quot;stringi&quot;</span>, <span class="st">&quot;tensorflow&quot;</span>,</a>
-<a class="sourceLine" id="cb789-5" title="5">    <span class="st">&quot;titanic&quot;</span>, <span class="st">&quot;vioplot&quot;</span>)</a>
-<a class="sourceLine" id="cb789-6" title="6"><span class="kw">install.packages</span>(pkgs)</a></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb827-1" title="1">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Cairo&quot;</span>, <span class="st">&quot;fastcluster&quot;</span>, <span class="st">&quot;FNN&quot;</span>, <span class="st">&quot;genie&quot;</span>, <span class="st">&quot;ISLR&quot;</span>,</a>
+<a class="sourceLine" id="cb827-2" title="2">    <span class="st">&quot;keras&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;microbenchmark&quot;</span>, <span class="st">&quot;pdist&quot;</span>,</a>
+<a class="sourceLine" id="cb827-3" title="3">    <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;recommenderlab&quot;</span>, <span class="st">&quot;rpart&quot;</span>,</a>
+<a class="sourceLine" id="cb827-4" title="4">    <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;scatterplot3d&quot;</span>, <span class="st">&quot;stringi&quot;</span>, <span class="st">&quot;tensorflow&quot;</span>,</a>
+<a class="sourceLine" id="cb827-5" title="5">    <span class="st">&quot;titanic&quot;</span>, <span class="st">&quot;vioplot&quot;</span>)</a>
+<a class="sourceLine" id="cb827-6" title="6"><span class="kw">install.packages</span>(pkgs)</a></code></pre></div>
 <p>What is more, in order to be able to play with neural networks,
 we will need some Python environment, for example
 the Anaconda Distribution Python 3.x, see
@@ -577,8 +582,8 @@ the Anaconda Distribution Python 3.x, see
 This is required for the R packages tensorflow and keras,
 see <a href="https://tensorflow.rstudio.com/installation/" class="uri">https://tensorflow.rstudio.com/installation/</a>.
 Once this is installed, execute the following R commands in the console:</p>
-<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb790-1" title="1"><span class="kw">library</span>(<span class="st">&quot;tensorflow&quot;</span>)</a>
-<a class="sourceLine" id="cb790-2" title="2"><span class="kw">install_tensorflow</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb828-1" title="1"><span class="kw">library</span>(<span class="st">&quot;tensorflow&quot;</span>)</a>
+<a class="sourceLine" id="cb828-2" title="2"><span class="kw">install_tensorflow</span>()</a></code></pre></div>
 </div>
 <div id="first-r-script-in-rstudio" class="section level2">
 <h2><span class="header-section-number">A.4</span> First R Script in RStudio</h2>
@@ -600,18 +605,18 @@ and CTRL+V (Cmd+C and Cmd+V on MacOS) for copy and paste, respectively.</p>
 <p>A list of keyboard shortcuts is available at
 <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts" class="uri">https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts</a></p></li>
 <li><p>Input the following R code into the editor:</p>
-<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1"><span class="co"># My first R script</span></a>
-<a class="sourceLine" id="cb791-2" title="2"><span class="co"># This is a comment</span></a>
-<a class="sourceLine" id="cb791-3" title="3"></a>
-<a class="sourceLine" id="cb791-4" title="4"><span class="co"># Another comment</span></a>
-<a class="sourceLine" id="cb791-5" title="5"></a>
-<a class="sourceLine" id="cb791-6" title="6"><span class="co"># Everything from &#39;#&#39; to the end of the line</span></a>
-<a class="sourceLine" id="cb791-7" title="7"><span class="co">#     is ignored by the R interpreter</span></a>
-<a class="sourceLine" id="cb791-8" title="8"><span class="kw">print</span>(<span class="st">&quot;Hello world&quot;</span>) <span class="co"># prints a given character string</span></a>
-<a class="sourceLine" id="cb791-9" title="9"><span class="kw">print</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">2</span>) <span class="co"># evaluates the expression and prints the result</span></a>
-<a class="sourceLine" id="cb791-10" title="10">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">100</span>) <span class="co"># a new numeric vector</span></a>
-<a class="sourceLine" id="cb791-11" title="11">y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="co"># squares every element in x</span></a>
-<a class="sourceLine" id="cb791-12" title="12"><span class="kw">plot</span>(x, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>) <span class="co"># plots y as a function of x</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb829-1" title="1"><span class="co"># My first R script</span></a>
+<a class="sourceLine" id="cb829-2" title="2"><span class="co"># This is a comment</span></a>
+<a class="sourceLine" id="cb829-3" title="3"></a>
+<a class="sourceLine" id="cb829-4" title="4"><span class="co"># Another comment</span></a>
+<a class="sourceLine" id="cb829-5" title="5"></a>
+<a class="sourceLine" id="cb829-6" title="6"><span class="co"># Everything from &#39;#&#39; to the end of the line</span></a>
+<a class="sourceLine" id="cb829-7" title="7"><span class="co">#     is ignored by the R interpreter</span></a>
+<a class="sourceLine" id="cb829-8" title="8"><span class="kw">print</span>(<span class="st">&quot;Hello world&quot;</span>) <span class="co"># prints a given character string</span></a>
+<a class="sourceLine" id="cb829-9" title="9"><span class="kw">print</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">2</span>) <span class="co"># evaluates the expression and prints the result</span></a>
+<a class="sourceLine" id="cb829-10" title="10">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length.out=</span><span class="dv">100</span>) <span class="co"># a new numeric vector</span></a>
+<a class="sourceLine" id="cb829-11" title="11">y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="co"># squares every element in x</span></a>
+<a class="sourceLine" id="cb829-12" title="12"><span class="kw">plot</span>(x, y, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>) <span class="co"># plots y as a function of x</span></a></code></pre></div></li>
 <li><p>Execute the 5 above commands, line by line,
 by positioning the keyboard cursor accordingly and
 pressing Ctrl+Enter (Cmd+Return on MacOS).</p>

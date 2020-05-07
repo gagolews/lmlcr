@@ -339,9 +339,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3.3" data-path="clustering.html"><a href="clustering.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.3</b> Linkage Functions</a></li>
 <li class="chapter" data-level="7.3.4" data-path="clustering.html"><a href="clustering.html#cluster-dendrograms"><i class="fa fa-check"></i><b>7.3.4</b> Cluster Dendrograms</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.4</b> Outro</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.4.1</b> Remarks</a></li>
-<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.4.2</b> Further Reading</a></li>
+<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#clustering-of-the-world-factbook"><i class="fa fa-check"></i><b>7.4.1</b> Clustering of the World Factbook</a></li>
+<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#unbalance-dataset-k-means-needs-multiple-starts"><i class="fa fa-check"></i><b>7.4.2</b> Unbalance Dataset – K-Means Needs Multiple Starts</a></li>
+<li class="chapter" data-level="7.4.3" data-path="clustering.html"><a href="clustering.html#clustering-of-typical-2d-benchmark-datasets"><i class="fa fa-check"></i><b>7.4.3</b> Clustering of Typical 2D Benchmark Datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="7.5.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
@@ -488,7 +493,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-06 14:04 (0ca669b)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-07 15:24 (e393b9f)</a></li>
 
 </ul>
 
@@ -513,7 +518,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>R <code>data.frame</code>s are similar to matrices in the sense that
 we use them to store tabular data.
 However, in data frames each column can be of different type:</p>
-<div class="sourceCode" id="cb1322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1322-1" title="1"><span class="kw">head</span>(iris)</a></code></pre></div>
+<div class="sourceCode" id="cb1360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1360-1" title="1"><span class="kw">head</span>(iris)</a></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -521,7 +526,7 @@ However, in data frames each column can be of different type:</p>
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb1324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1324-1" title="1"><span class="kw">head</span>(rpart<span class="op">::</span>car90, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1362-1" title="1"><span class="kw">head</span>(rpart<span class="op">::</span>car90, <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##               Country Disp Disp2 Eng.Rev Front.Hd Frt.Leg.Room
 ## Acura Integra   Japan  112   1.8    2935      3.5         41.5
 ## Acura Legend    Japan  163   2.7    2505      2.0         41.5
@@ -544,12 +549,12 @@ However, in data frames each column can be of different type:</p>
 <h2><span class="header-section-number">D.1</span> Creating Data Frames</h2>
 <p>Most frequently, we will be creating data frames
 based on a series of numeric, logical, characters vectors of identical lengths.</p>
-<div class="sourceCode" id="cb1326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1326-1" title="1">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb1326-2" title="2">    <span class="dt">u=</span><span class="kw">runif</span>(<span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb1326-3" title="3">    <span class="dt">v=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">5</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1326-4" title="4">    <span class="dt">w=</span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb1326-5" title="5">)</a>
-<a class="sourceLine" id="cb1326-6" title="6"><span class="kw">print</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1364-1" title="1">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb1364-2" title="2">    <span class="dt">u=</span><span class="kw">runif</span>(<span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb1364-3" title="3">    <span class="dt">v=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">5</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1364-4" title="4">    <span class="dt">w=</span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb1364-5" title="5">)</a>
+<a class="sourceLine" id="cb1364-6" title="6"><span class="kw">print</span>(x)</a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.1815171  TRUE A
 ## 2 0.9197226 FALSE B
@@ -558,33 +563,33 @@ based on a series of numeric, logical, characters vectors of identical lengths.<
 ## 5 0.3964216 FALSE E</code></pre>
 <p>Note that when we create objects of type data frame,
 strings are automatically converted to factors.</p>
-<div class="sourceCode" id="cb1328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1328-1" title="1"><span class="kw">class</span>(x<span class="op">$</span>w)</a></code></pre></div>
+<div class="sourceCode" id="cb1366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1366-1" title="1"><span class="kw">class</span>(x<span class="op">$</span>w)</a></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
 <p>Throughout the history of computing with R, this has caused way too many bugs
 (recall, for instance, what’s the result of calling <code>as.numeric()</code> on a factor).
 In order to change this behaviour, either pass <code>stringsAsFactors=FALSE</code>
 argument to <code>data.frame()</code> or switch this feature off globally (recommended):</p>
-<div class="sourceCode" id="cb1330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1330-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1368-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Some objects, such as matrices, can easily be coerced to data frames:</p>
-<div class="sourceCode" id="cb1331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1331-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb1331-2" title="2">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1331-3" title="3">        <span class="ot">NULL</span>,     <span class="co"># row labels</span></a>
-<a class="sourceLine" id="cb1331-4" title="4">        <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></a>
-<a class="sourceLine" id="cb1331-5" title="5">)))</a></code></pre></div>
+<div class="sourceCode" id="cb1369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1369-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb1369-2" title="2">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb1369-3" title="3">        <span class="ot">NULL</span>,     <span class="co"># row labels</span></a>
+<a class="sourceLine" id="cb1369-4" title="4">        <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></a>
+<a class="sourceLine" id="cb1369-5" title="5">)))</a></code></pre></div>
 <pre><code>##      x  y  z  w
 ## [1,] 1  2  3  4
 ## [2,] 5  6  7  8
 ## [3,] 9 10 11 12</code></pre>
-<div class="sourceCode" id="cb1333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1333-1" title="1"><span class="kw">as.data.frame</span>(A)</a></code></pre></div>
+<div class="sourceCode" id="cb1371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1371-1" title="1"><span class="kw">as.data.frame</span>(A)</a></code></pre></div>
 <pre><code>##   x  y  z  w
 ## 1 1  2  3  4
 ## 2 5  6  7  8
 ## 3 9 10 11 12</code></pre>
 <p>Named lists are amongst other candidates for a meaningful conversion:</p>
-<div class="sourceCode" id="cb1335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1335-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species),</a>
-<a class="sourceLine" id="cb1335-2" title="2">    <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb1335-3" title="3">        <span class="kw">c</span>(<span class="dt">min=</span><span class="kw">min</span>(x), <span class="dt">median=</span><span class="kw">median</span>(x), <span class="dt">mean=</span><span class="kw">mean</span>(x), <span class="dt">max=</span><span class="kw">max</span>(x))</a>
-<a class="sourceLine" id="cb1335-4" title="4">    }))</a></code></pre></div>
+<div class="sourceCode" id="cb1373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1373-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species),</a>
+<a class="sourceLine" id="cb1373-2" title="2">    <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb1373-3" title="3">        <span class="kw">c</span>(<span class="dt">min=</span><span class="kw">min</span>(x), <span class="dt">median=</span><span class="kw">median</span>(x), <span class="dt">mean=</span><span class="kw">mean</span>(x), <span class="dt">max=</span><span class="kw">max</span>(x))</a>
+<a class="sourceLine" id="cb1373-4" title="4">    }))</a></code></pre></div>
 <pre><code>## $setosa
 ##    min median   mean    max 
 ##  4.300  5.000  5.006  5.800 
@@ -596,7 +601,7 @@ argument to <code>data.frame()</code> or switch this feature off globally (recom
 ## $virginica
 ##    min median   mean    max 
 ##  4.900  6.500  6.588  7.900</code></pre>
-<div class="sourceCode" id="cb1337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1337-1" title="1"><span class="kw">as.data.frame</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb1375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1375-1" title="1"><span class="kw">as.data.frame</span>(l)</a></code></pre></div>
 <pre><code>##        setosa versicolor virginica
 ## min     4.300      4.900     4.900
 ## median  5.000      5.900     6.500
@@ -610,16 +615,16 @@ web APIs, SQL databases and so on.</p>
 <p>In particular, <code>read.csv()</code> (see <code>?read.table</code> for a long list
 of tunable parameters) imports data from plain text files
 organised in a tabular manner (such as <em>c</em>omma-<em>s</em>eparated lists of <em>v</em>alues):</p>
-<div class="sourceCode" id="cb1339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1339-1" title="1">f &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file name</span></a>
-<a class="sourceLine" id="cb1339-2" title="2"><span class="kw">write.csv</span>(x, f, <span class="dt">row.names=</span><span class="ot">FALSE</span>) <span class="co"># save data frame to file</span></a>
-<a class="sourceLine" id="cb1339-3" title="3"><span class="kw">cat</span>(<span class="kw">readLines</span>(f), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># print file contents</span></a></code></pre></div>
+<div class="sourceCode" id="cb1377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1377-1" title="1">f &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file name</span></a>
+<a class="sourceLine" id="cb1377-2" title="2"><span class="kw">write.csv</span>(x, f, <span class="dt">row.names=</span><span class="ot">FALSE</span>) <span class="co"># save data frame to file</span></a>
+<a class="sourceLine" id="cb1377-3" title="3"><span class="kw">cat</span>(<span class="kw">readLines</span>(f), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># print file contents</span></a></code></pre></div>
 <pre><code>## &quot;u&quot;,&quot;v&quot;,&quot;w&quot;
 ## 0.181517061544582,TRUE,&quot;A&quot;
 ## 0.919722604798153,FALSE,&quot;B&quot;
 ## 0.31172346835956,FALSE,&quot;C&quot;
 ## 0.0641516039613634,TRUE,&quot;D&quot;
 ## 0.396421572659165,FALSE,&quot;E&quot;</code></pre>
-<div class="sourceCode" id="cb1341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1341-1" title="1"><span class="kw">read.csv</span>(f)</a></code></pre></div>
+<div class="sourceCode" id="cb1379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1379-1" title="1"><span class="kw">read.csv</span>(f)</a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.1815171  TRUE A
 ## 2 0.9197226 FALSE B
@@ -636,29 +641,29 @@ environments, spreadsheets etc.).</p>
 <h3><span class="header-section-number">D.3.1</span> Each Data Frame is a List</h3>
 <p>First of all, we should note that
 each data frame is in fact represented as an ordinary named list:</p>
-<div class="sourceCode" id="cb1343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1343-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1381-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb1345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1345-1" title="1"><span class="kw">typeof</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1383-1" title="1"><span class="kw">typeof</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <p>Each column is stored as a separate list item.
 Having said that, we shouldn’t be surprised that we already know
 how to perform quite a few operations on data frames:</p>
-<div class="sourceCode" id="cb1347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1347-1" title="1"><span class="kw">length</span>(x) <span class="co"># number of columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb1385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1385-1" title="1"><span class="kw">length</span>(x) <span class="co"># number of columns</span></a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb1349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1349-1" title="1"><span class="kw">names</span>(x)  <span class="co"># column labels</span></a></code></pre></div>
+<div class="sourceCode" id="cb1387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1387-1" title="1"><span class="kw">names</span>(x)  <span class="co"># column labels</span></a></code></pre></div>
 <pre><code>## [1] &quot;u&quot; &quot;v&quot; &quot;w&quot;</code></pre>
-<div class="sourceCode" id="cb1351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1351-1" title="1">x<span class="op">$</span>u <span class="co"># accessing column `u` (synonym: x[[&quot;u&quot;]])</span></a></code></pre></div>
+<div class="sourceCode" id="cb1389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1389-1" title="1">x<span class="op">$</span>u <span class="co"># accessing column `u` (synonym: x[[&quot;u&quot;]])</span></a></code></pre></div>
 <pre><code>## [1] 0.1815171 0.9197226 0.3117235 0.0641516 0.3964216</code></pre>
-<div class="sourceCode" id="cb1353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1353-1" title="1">x[[<span class="dv">2</span>]] <span class="co"># 2nd column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1391-1" title="1">x[[<span class="dv">2</span>]] <span class="co"># 2nd column</span></a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb1355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1355-1" title="1">x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># a sub-data.frame</span></a></code></pre></div>
+<div class="sourceCode" id="cb1393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1393-1" title="1">x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># a sub-data.frame</span></a></code></pre></div>
 <pre><code>##           u w
 ## 1 0.1815171 A
 ## 2 0.9197226 B
 ## 3 0.3117235 C
 ## 4 0.0641516 D
 ## 5 0.3964216 E</code></pre>
-<div class="sourceCode" id="cb1357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1357-1" title="1"><span class="kw">sapply</span>(x, class) <span class="co"># apply class() on each column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1395-1" title="1"><span class="kw">sapply</span>(x, class) <span class="co"># apply class() on each column</span></a></code></pre></div>
 <pre><code>##         u         v         w 
 ## &quot;numeric&quot; &quot;logical&quot;  &quot;factor&quot;</code></pre>
 </div>
@@ -666,22 +671,22 @@ how to perform quite a few operations on data frames:</p>
 <h3><span class="header-section-number">D.3.2</span> Each Data Frame is Matrix-like</h3>
 <p>Data frames can be considered as “generalised” matrices.
 Therefore, operations such as subsetting will work in the same manner.</p>
-<div class="sourceCode" id="cb1359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1359-1" title="1"><span class="kw">dim</span>(x) <span class="co"># number of rows and columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb1397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1397-1" title="1"><span class="kw">dim</span>(x) <span class="co"># number of rows and columns</span></a></code></pre></div>
 <pre><code>## [1] 5 3</code></pre>
-<div class="sourceCode" id="cb1361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1361-1" title="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># first two rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb1399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1399-1" title="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># first two rows</span></a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.1815171  TRUE A
 ## 2 0.9197226 FALSE B</code></pre>
-<div class="sourceCode" id="cb1363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1363-1" title="1">x[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># 1st and 3rd column, synonym: x[c(1,3)]</span></a></code></pre></div>
+<div class="sourceCode" id="cb1401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1401-1" title="1">x[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># 1st and 3rd column, synonym: x[c(1,3)]</span></a></code></pre></div>
 <pre><code>##           u w
 ## 1 0.1815171 A
 ## 2 0.9197226 B
 ## 3 0.3117235 C
 ## 4 0.0641516 D
 ## 5 0.3964216 E</code></pre>
-<div class="sourceCode" id="cb1365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1365-1" title="1">x[,<span class="dv">1</span>] <span class="co"># synonym: x[[1]]</span></a></code></pre></div>
+<div class="sourceCode" id="cb1403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1403-1" title="1">x[,<span class="dv">1</span>] <span class="co"># synonym: x[[1]]</span></a></code></pre></div>
 <pre><code>## [1] 0.1815171 0.9197226 0.3117235 0.0641516 0.3964216</code></pre>
-<div class="sourceCode" id="cb1367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1367-1" title="1">x[,<span class="dv">1</span>,drop=<span class="ot">FALSE</span>] <span class="co"># synonym: x[1]</span></a></code></pre></div>
+<div class="sourceCode" id="cb1405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1405-1" title="1">x[,<span class="dv">1</span>,drop=<span class="ot">FALSE</span>] <span class="co"># synonym: x[1]</span></a></code></pre></div>
 <pre><code>##           u
 ## 1 0.1815171
 ## 2 0.9197226
@@ -691,18 +696,18 @@ Therefore, operations such as subsetting will work in the same manner.</p>
 <p>Take a special note of selecting rows based on logical vectors.
 For instance, let’s extract all the rows from <code>x</code> where the values
 in the column named <code>u</code> are between 0.3 and 0.6:</p>
-<div class="sourceCode" id="cb1369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1369-1" title="1">x[x<span class="op">$</span>u<span class="op">&gt;=</span><span class="fl">0.3</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">$</span>u<span class="op">&lt;=</span><span class="fl">0.6</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb1407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1407-1" title="1">x[x<span class="op">$</span>u<span class="op">&gt;=</span><span class="fl">0.3</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">$</span>u<span class="op">&lt;=</span><span class="fl">0.6</span>, ]</a></code></pre></div>
 <pre><code>##           u     v w
 ## 3 0.3117235 FALSE C
 ## 5 0.3964216 FALSE E</code></pre>
-<div class="sourceCode" id="cb1371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1371-1" title="1">x[<span class="op">!</span>(x[,<span class="st">&quot;u&quot;</span>]<span class="op">&lt;</span><span class="fl">0.3</span> <span class="op">|</span><span class="st"> </span>x[,<span class="st">&quot;u&quot;</span>]<span class="op">&gt;</span><span class="fl">0.6</span>), ] <span class="co"># equivalent</span></a></code></pre></div>
+<div class="sourceCode" id="cb1409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1409-1" title="1">x[<span class="op">!</span>(x[,<span class="st">&quot;u&quot;</span>]<span class="op">&lt;</span><span class="fl">0.3</span> <span class="op">|</span><span class="st"> </span>x[,<span class="st">&quot;u&quot;</span>]<span class="op">&gt;</span><span class="fl">0.6</span>), ] <span class="co"># equivalent</span></a></code></pre></div>
 <pre><code>##           u     v w
 ## 3 0.3117235 FALSE C
 ## 5 0.3964216 FALSE E</code></pre>
 <p>Moreover, subsetting based on integer vectors can be used to
 change the order of rows. Here is how we can sort the rows in <code>x</code>
 with respect to the values in column <code>u</code>:</p>
-<div class="sourceCode" id="cb1373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1373-1" title="1">(x_sorted &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x<span class="op">$</span>u),])</a></code></pre></div>
+<div class="sourceCode" id="cb1411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1411-1" title="1">(x_sorted &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x<span class="op">$</span>u),])</a></code></pre></div>
 <pre><code>##           u     v w
 ## 4 0.0641516  TRUE D
 ## 1 0.1815171  TRUE A
@@ -716,8 +721,8 @@ For instance, as far as the last example is concerned, we can
 take a look at the manual of <code>?order</code> and then inspect the result
 of calling <code>order(x$u)</code>.</p>
 <p>On a side note, we can re-set the row names by referring to:</p>
-<div class="sourceCode" id="cb1375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1375-1" title="1"><span class="kw">row.names</span>(x_sorted) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb1375-2" title="2">x_sorted</a></code></pre></div>
+<div class="sourceCode" id="cb1413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1413-1" title="1"><span class="kw">row.names</span>(x_sorted) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb1413-2" title="2">x_sorted</a></code></pre></div>
 <pre><code>##           u     v w
 ## 1 0.0641516  TRUE D
 ## 2 0.1815171  TRUE A
@@ -729,8 +734,8 @@ of calling <code>order(x$u)</code>.</p>
 <div id="common-operations-2" class="section level2">
 <h2><span class="header-section-number">D.4</span> Common Operations</h2>
 <p>We already know how to filter rows based on logical conditions, e.g.:</p>
-<div class="sourceCode" id="cb1377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1377-1" title="1">iris[iris<span class="op">$</span>Petal.Width <span class="op">&gt;=</span><span class="st"> </span><span class="fl">1.2</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Petal.Width <span class="op">&lt;=</span><span class="st"> </span><span class="fl">1.3</span>,</a>
-<a class="sourceLine" id="cb1377-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Petal.Width&quot;</span>, <span class="st">&quot;Species&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb1415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1415-1" title="1">iris[iris<span class="op">$</span>Petal.Width <span class="op">&gt;=</span><span class="st"> </span><span class="fl">1.2</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Petal.Width <span class="op">&lt;=</span><span class="st"> </span><span class="fl">1.3</span>,</a>
+<a class="sourceLine" id="cb1415-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Petal.Width&quot;</span>, <span class="st">&quot;Species&quot;</span>)]</a></code></pre></div>
 <pre><code>##     Petal.Width    Species
 ## 54          1.3 versicolor
 ## 56          1.3 versicolor
@@ -750,7 +755,7 @@ of calling <code>order(x$u)</code>.</p>
 ## 97          1.3 versicolor
 ## 98          1.3 versicolor
 ## 100         1.3 versicolor</code></pre>
-<div class="sourceCode" id="cb1379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1379-1" title="1">iris[iris<span class="op">$</span>Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="fl">6.5</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Species <span class="op">==</span><span class="st"> &quot;versicolor&quot;</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb1417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1417-1" title="1">iris[iris<span class="op">$</span>Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="fl">6.5</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Species <span class="op">==</span><span class="st"> &quot;versicolor&quot;</span>, ]</a></code></pre></div>
 <pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
 ## 51          7.0         3.2          4.7         1.4 versicolor
 ## 53          6.9         3.1          4.9         1.5 versicolor
@@ -761,7 +766,7 @@ of calling <code>order(x$u)</code>.</p>
 ## 78          6.7         3.0          5.0         1.7 versicolor
 ## 87          6.7         3.1          4.7         1.5 versicolor</code></pre>
 <p>and aggregate information in individual columns:</p>
-<div class="sourceCode" id="cb1381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1381-1" title="1"><span class="kw">sapply</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], summary)</a></code></pre></div>
+<div class="sourceCode" id="cb1419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1419-1" title="1"><span class="kw">sapply</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], summary)</a></code></pre></div>
 <pre><code>##         Sepal.Length Sepal.Width Petal.Length Petal.Width
 ## Min.        4.300000    2.000000        1.000    0.100000
 ## 1st Qu.     5.100000    2.800000        1.600    0.300000
@@ -771,19 +776,19 @@ of calling <code>order(x$u)</code>.</p>
 ## Max.        7.900000    4.400000        6.900    2.500000</code></pre>
 <p>Quite frequently, we will be interested
 in summarising data within subgroups generated by a list of factor-like variables.</p>
-<div class="sourceCode" id="cb1383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1383-1" title="1"><span class="kw">aggregate</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], iris[<span class="dv">5</span>], mean)</a></code></pre></div>
+<div class="sourceCode" id="cb1421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1421-1" title="1"><span class="kw">aggregate</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], iris[<span class="dv">5</span>], mean)</a></code></pre></div>
 <pre><code>##      Species Sepal.Length Sepal.Width Petal.Length Petal.Width
 ## 1     setosa        5.006       3.428        1.462       0.246
 ## 2 versicolor        5.936       2.770        4.260       1.326
 ## 3  virginica        6.588       2.974        5.552       2.026</code></pre>
-<div class="sourceCode" id="cb1385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1385-1" title="1">ToothGrowth[<span class="kw">sample</span>(<span class="kw">nrow</span>(ToothGrowth), <span class="dv">5</span>), ] <span class="co"># 5 random rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb1423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1423-1" title="1">ToothGrowth[<span class="kw">sample</span>(<span class="kw">nrow</span>(ToothGrowth), <span class="dv">5</span>), ] <span class="co"># 5 random rows</span></a></code></pre></div>
 <pre><code>##     len supp dose
 ## 12 16.5   VC  1.0
 ## 10  7.0   VC  0.5
 ## 17 13.6   VC  1.0
 ## 50 27.3   OJ  1.0
 ## 60 23.0   OJ  2.0</code></pre>
-<div class="sourceCode" id="cb1387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1387-1" title="1"><span class="kw">aggregate</span>(ToothGrowth[<span class="st">&quot;len&quot;</span>], ToothGrowth[<span class="kw">c</span>(<span class="st">&quot;supp&quot;</span>, <span class="st">&quot;dose&quot;</span>)], median)</a></code></pre></div>
+<div class="sourceCode" id="cb1425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1425-1" title="1"><span class="kw">aggregate</span>(ToothGrowth[<span class="st">&quot;len&quot;</span>], ToothGrowth[<span class="kw">c</span>(<span class="st">&quot;supp&quot;</span>, <span class="st">&quot;dose&quot;</span>)], median)</a></code></pre></div>
 <pre><code>##   supp dose   len
 ## 1   OJ  0.5 12.25
 ## 2   VC  0.5  7.15
@@ -793,24 +798,24 @@ in summarising data within subgroups generated by a list of factor-like variable
 ## 6   VC  2.0 25.95</code></pre>
 <p>Taking into account that <code>split()</code> accepts a data frame input as well,
 we can perform what follows:</p>
-<div class="sourceCode" id="cb1389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1389-1" title="1"><span class="kw">sapply</span>(</a>
-<a class="sourceLine" id="cb1389-2" title="2">    <span class="co"># split iris into 3 sub-data.frames:</span></a>
-<a class="sourceLine" id="cb1389-3" title="3">    <span class="kw">split</span>(iris, iris[<span class="dv">5</span>]),</a>
-<a class="sourceLine" id="cb1389-4" title="4">    <span class="co"># on each sub-data.frame, apply the following function</span></a>
-<a class="sourceLine" id="cb1389-5" title="5">    <span class="cf">function</span>(df) {</a>
-<a class="sourceLine" id="cb1389-6" title="6">        <span class="co"># compute the mean of first four columns:</span></a>
-<a class="sourceLine" id="cb1389-7" title="7">        <span class="kw">sapply</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], mean)</a>
-<a class="sourceLine" id="cb1389-8" title="8">    })</a></code></pre></div>
+<div class="sourceCode" id="cb1427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1427-1" title="1"><span class="kw">sapply</span>(</a>
+<a class="sourceLine" id="cb1427-2" title="2">    <span class="co"># split iris into 3 sub-data.frames:</span></a>
+<a class="sourceLine" id="cb1427-3" title="3">    <span class="kw">split</span>(iris, iris[<span class="dv">5</span>]),</a>
+<a class="sourceLine" id="cb1427-4" title="4">    <span class="co"># on each sub-data.frame, apply the following function</span></a>
+<a class="sourceLine" id="cb1427-5" title="5">    <span class="cf">function</span>(df) {</a>
+<a class="sourceLine" id="cb1427-6" title="6">        <span class="co"># compute the mean of first four columns:</span></a>
+<a class="sourceLine" id="cb1427-7" title="7">        <span class="kw">sapply</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], mean)</a>
+<a class="sourceLine" id="cb1427-8" title="8">    })</a></code></pre></div>
 <pre><code>##              setosa versicolor virginica
 ## Sepal.Length  5.006      5.936     6.588
 ## Sepal.Width   3.428      2.770     2.974
 ## Petal.Length  1.462      4.260     5.552
 ## Petal.Width   0.246      1.326     2.026</code></pre>
-<div class="sourceCode" id="cb1391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1391-1" title="1"><span class="kw">sapply</span>(<span class="kw">split</span>(iris, iris[<span class="dv">5</span>]), <span class="cf">function</span>(df) {</a>
-<a class="sourceLine" id="cb1391-2" title="2">    <span class="kw">c</span>(<span class="dt">Sepal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Sepal.Length),</a>
-<a class="sourceLine" id="cb1391-3" title="3">      <span class="dt">Petal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Petal.Length)</a>
-<a class="sourceLine" id="cb1391-4" title="4">     )</a>
-<a class="sourceLine" id="cb1391-5" title="5">})</a></code></pre></div>
+<div class="sourceCode" id="cb1429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1429-1" title="1"><span class="kw">sapply</span>(<span class="kw">split</span>(iris, iris[<span class="dv">5</span>]), <span class="cf">function</span>(df) {</a>
+<a class="sourceLine" id="cb1429-2" title="2">    <span class="kw">c</span>(<span class="dt">Sepal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Sepal.Length),</a>
+<a class="sourceLine" id="cb1429-3" title="3">      <span class="dt">Petal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Petal.Length)</a>
+<a class="sourceLine" id="cb1429-4" title="4">     )</a>
+<a class="sourceLine" id="cb1429-5" title="5">})</a></code></pre></div>
 <pre><code>##                        setosa versicolor virginica
 ## Sepal.Length.Min.    4.300000   4.300000  4.300000
 ## Sepal.Length.1st Qu. 5.100000   5.100000  5.100000
@@ -841,8 +846,8 @@ that heavily inspired R’s semantics) allows its programmers to apply
 some <em>metaprogramming</em> techniques, that is,
 to write programs that manipulate unevaluated R expressions.</p>
 <p>For instance, take a close look at the following plot:</p>
-<div class="sourceCode" id="cb1393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1393-1" title="1">z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb1393-2" title="2"><span class="kw">plot</span>(z, <span class="kw">sin</span>(z), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1431-1" title="1">z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb1431-2" title="2"><span class="kw">plot</span>(z, <span class="kw">sin</span>(z), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="94-R-data-frames-figures/plotz_metaprogramming-1.svg" alt="Figure 1: Metaprogramming in action: Just take a look at the Y axis label" id="fig:plotz_metaprogramming" />
 <p class="caption">Figure 1: Metaprogramming in action: Just take a look at the Y axis label</p>
@@ -853,11 +858,11 @@ It turns out that, at any time, we not only have access to the value
 of an object (such as the result of evaluating <code>sin(z)</code>, which is
 a vector of 101 reals) but also to the expression that was passed as
 a function’s argument itself.</p>
-<div class="sourceCode" id="cb1394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1394-1" title="1">test_meta &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb1394-2" title="2">    <span class="kw">cat</span>(<span class="st">&quot;x equals to &quot;</span>, x, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># \n == newline</span></a>
-<a class="sourceLine" id="cb1394-3" title="3">    <span class="kw">cat</span>(<span class="st">&quot;x stemmed from &quot;</span>, <span class="kw">deparse</span>(<span class="kw">substitute</span>(x)), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb1394-4" title="4">}</a>
-<a class="sourceLine" id="cb1394-5" title="5"><span class="kw">test_meta</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">7</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1432-1" title="1">test_meta &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb1432-2" title="2">    <span class="kw">cat</span>(<span class="st">&quot;x equals to &quot;</span>, x, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># \n == newline</span></a>
+<a class="sourceLine" id="cb1432-3" title="3">    <span class="kw">cat</span>(<span class="st">&quot;x stemmed from &quot;</span>, <span class="kw">deparse</span>(<span class="kw">substitute</span>(x)), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb1432-4" title="4">}</a>
+<a class="sourceLine" id="cb1432-5" title="5"><span class="kw">test_meta</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">7</span>)</a></code></pre></div>
 <pre><code>## x equals to  9 
 ## x stemmed from  2 + 7</code></pre>
 <p>This is very powerful and yet potentially very confusing to the users, because
@@ -866,7 +871,7 @@ in a way we expect them to (i.e., following the R language specification).
 Each function can constitute a new micro-verse, where with its own rules –
 we should always refer to the documentation.</p>
 <p>For instance, consider the <code>subset()</code> function:</p>
-<div class="sourceCode" id="cb1396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1396-1" title="1"><span class="kw">head</span>(iris)</a></code></pre></div>
+<div class="sourceCode" id="cb1434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1434-1" title="1"><span class="kw">head</span>(iris)</a></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -874,7 +879,7 @@ we should always refer to the documentation.</p>
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb1398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1398-1" title="1"><span class="kw">subset</span>(iris, Sepal.Length<span class="op">&gt;</span><span class="fl">7.5</span>, <span class="dt">select=</span><span class="op">-</span>(Sepal.Width<span class="op">:</span>Petal.Width))</a></code></pre></div>
+<div class="sourceCode" id="cb1436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1436-1" title="1"><span class="kw">subset</span>(iris, Sepal.Length<span class="op">&gt;</span><span class="fl">7.5</span>, <span class="dt">select=</span><span class="op">-</span>(Sepal.Width<span class="op">:</span>Petal.Width))</a></code></pre></div>
 <pre><code>##     Sepal.Length   Species
 ## 106          7.6 virginica
 ## 118          7.7 virginica
@@ -899,13 +904,13 @@ thanks to metaprogramming.
 <em>Formulas</em> are special R objects that consist of two unevaluated
 R expressions separated by a tilde (<code>~</code>).
 For example:</p>
-<div class="sourceCode" id="cb1400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1400-1" title="1">len <span class="op">~</span><span class="st"> </span>supp<span class="op">+</span>dose</a></code></pre></div>
+<div class="sourceCode" id="cb1438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1438-1" title="1">len <span class="op">~</span><span class="st"> </span>supp<span class="op">+</span>dose</a></code></pre></div>
 <pre><code>## len ~ supp + dose</code></pre>
 <p>A formula on its own has no meaning. However, many R functions
 accept formulas as arguments and can interpret them in various different ways.</p>
 <p>For example, the <code>lm()</code> function that fits a linear regression model,
 uses formulas to specify the output and input variables:</p>
-<div class="sourceCode" id="cb1402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1402-1" title="1"><span class="kw">lm</span>(Sepal.Length<span class="op">~</span>Petal.Length<span class="op">+</span>Sepal.Width, <span class="dt">data=</span>iris)</a></code></pre></div>
+<div class="sourceCode" id="cb1440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1440-1" title="1"><span class="kw">lm</span>(Sepal.Length<span class="op">~</span>Petal.Length<span class="op">+</span>Sepal.Width, <span class="dt">data=</span>iris)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Sepal.Length ~ Petal.Length + Sepal.Width, data = iris)
@@ -917,14 +922,14 @@ uses formulas to specify the output and input variables:</p>
 allows for creating
 separate box-and-whisker plots for each subgroup given by a combination
 of factors.</p>
-<div class="sourceCode" id="cb1404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1404-1" title="1"><span class="kw">boxplot</span>(len<span class="op">~</span>supp<span class="op">+</span>dose, <span class="dt">data=</span>ToothGrowth,</a>
-<a class="sourceLine" id="cb1404-2" title="2">    <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1442-1" title="1"><span class="kw">boxplot</span>(len<span class="op">~</span>supp<span class="op">+</span>dose, <span class="dt">data=</span>ToothGrowth,</a>
+<a class="sourceLine" id="cb1442-2" title="2">    <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="94-R-data-frames-figures/boxplot_metaprogramming-1.svg" alt="Figure 2: Example box plot created via the formula interface" id="fig:boxplot_metaprogramming" />
 <p class="caption">Figure 2: Example box plot created via the formula interface</p>
 </div>
 <p>The <code>aggregate()</code> function supports formulas too:</p>
-<div class="sourceCode" id="cb1405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1405-1" title="1"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(Sepal.Length, Sepal.Width)<span class="op">~</span>Species, <span class="dt">data=</span>iris, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb1443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1443-1" title="1"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(Sepal.Length, Sepal.Width)<span class="op">~</span>Species, <span class="dt">data=</span>iris, mean)</a></code></pre></div>
 <pre><code>##      Species Sepal.Length Sepal.Width
 ## 1     setosa        5.006       3.428
 ## 2 versicolor        5.936       2.770

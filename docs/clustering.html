@@ -339,9 +339,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3.3" data-path="clustering.html"><a href="clustering.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.3</b> Linkage Functions</a></li>
 <li class="chapter" data-level="7.3.4" data-path="clustering.html"><a href="clustering.html#cluster-dendrograms"><i class="fa fa-check"></i><b>7.3.4</b> Cluster Dendrograms</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.4</b> Outro</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.4.1</b> Remarks</a></li>
-<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.4.2</b> Further Reading</a></li>
+<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#clustering-of-the-world-factbook"><i class="fa fa-check"></i><b>7.4.1</b> Clustering of the World Factbook</a></li>
+<li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#unbalance-dataset-k-means-needs-multiple-starts"><i class="fa fa-check"></i><b>7.4.2</b> Unbalance Dataset – K-Means Needs Multiple Starts</a></li>
+<li class="chapter" data-level="7.4.3" data-path="clustering.html"><a href="clustering.html#clustering-of-typical-2d-benchmark-datasets"><i class="fa fa-check"></i><b>7.4.3</b> Clustering of Typical 2D Benchmark Datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.5.1</b> Remarks</a></li>
+<li class="chapter" data-level="7.5.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
@@ -488,7 +493,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-06 14:04 (0ca669b)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-07 15:24 (e393b9f)</a></li>
 
 </ul>
 
@@ -730,8 +735,9 @@ it’s a win.</p>
 <dt>Remark.</dt>
 <dd><p>(*) There are several indices that assess the
 similarity of two partitions, for example the Adjusted Rand Index (ARI)
-or the Normalised Mutual Information Score (NMI),
-see, e.g., <span class="citation">(Hubert &amp; Arabie <a href="references.html#ref-comparing_paritions">1985</a>)</span>.</p>
+the Normalised Mutual Information Score (NMI)
+or set matching-based measures,
+see, e.g., <span class="citation">(Hubert &amp; Arabie <a href="references.html#ref-comparing_paritions">1985</a>)</span>, <span class="citation">(Rezaei &amp; Fränti <a href="references.html#ref-external_cluster_validity">2016</a>)</span>.</p>
 </dd>
 </dl>
 <!-- genieclust.compare_partitions ? -->
@@ -839,8 +845,8 @@ with the methods discussed in the previous chapter.</p>
 <p>The above problem is <em>hard</em> to solve (* more precisely,
 it is an NP-hard problem).
 Therefore, in practice we use various heuristics to solve it.
-The <code>kmeans()</code> function itself implements 4 of them:
-the Hartigan-Wong, Lloyd, Forgy and MacQueen algorithms.</p>
+The <code>kmeans()</code> function itself implements 3 of them:
+the Hartigan-Wong, Lloyd (a.k.a. Lloyd-Forgy) and MacQueen algorithms.</p>
 <dl>
 <dt>Remark.</dt>
 <dd><p>(*) Technically, there is no such thing as “<em>the</em> K-means algorithm” –
@@ -1190,41 +1196,403 @@ in the last two last clusters.</p>
 <img src="07-clustering-figures/dendrograms-1.svg" alt="Figure 14: Cluster dendrograms for the single, complete and average linkages" id="fig:dendrograms" />
 <p class="caption">Figure 14: Cluster dendrograms for the single, complete and average linkages</p>
 </div>
-<!--Single linkage clustering --
-a {\color{blue2}\bf hierarchical agglomerative clustering algorithm}.
+</div>
+</div>
+<div id="exercises-in-r-3" class="section level2">
+<h2><span class="header-section-number">7.4</span> Exercises in R</h2>
+<div id="clustering-of-the-world-factbook" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Clustering of the World Factbook</h3>
+<p>Let’s perform a cluster analysis of countries
+based on the information contained in the World Factbook dataset:</p>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/world_factbook_2020.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb702-2" title="2">    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Remove all the columns that consist of more than 40 missing values.
+Then remove all the rows with at least 1 missing value.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>To remove appropriate columns, we must first count the number
+of <code>NA</code>s in them.</p>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" title="1">count_na_in_columns &lt;-<span class="st"> </span><span class="kw">sapply</span>(factbook, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</a>
+<a class="sourceLine" id="cb703-2" title="2">factbook &lt;-<span class="st"> </span>factbook[count_na_in_columns <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span>] <span class="co"># column removal</span></a></code></pre></div>
+<p>Getting rid of the rows plagued by missing values is as simple as calling
+the <code>na.omit()</code> function:</p>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb704-1" title="1">factbook &lt;-<span class="st"> </span><span class="kw">na.omit</span>(factbook) <span class="co"># row removal</span></a>
+<a class="sourceLine" id="cb704-2" title="2"><span class="kw">dim</span>(factbook) <span class="co"># how many rows and cols remained</span></a></code></pre></div>
+<pre><code>## [1] 203  23</code></pre>
+<p>Missing value removal is necessary for metric-based
+clustering methods, especially K-means. Otherwise, some of the computed distances
+would be not available.</p>
+</details>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Standardise all the numeric columns.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>Distance-based
+methods are very sensitive to the order of magnitude of
+the variables, and our dataset is a mess with regards to this
+(population, GDP, birth rate, oil production etc.) – standardisation
+of variables is definitely a good idea:</p>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(factbook)) <span class="co"># skip `country`</span></a>
+<a class="sourceLine" id="cb706-2" title="2">    factbook[[i]] &lt;-<span class="st"> </span>(factbook[[i]]<span class="op">-</span><span class="kw">mean</span>(factbook[[i]]))<span class="op">/</span></a>
+<a class="sourceLine" id="cb706-3" title="3"><span class="st">                        </span><span class="kw">sd</span>(factbook[[i]])</a></code></pre></div>
+<p>Recall that Z-scores (values of the standardised variables)
+have a very intuitive interpretation: <span class="math inline">\(0\)</span> is the value equal to the column
+mean, <span class="math inline">\(1\)</span> is one standard deviation above the mean, <span class="math inline">\(-2\)</span> is two standard deviations
+below the mean etc.</p>
+</details>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Apply the 2-means algorithm, i.e., K-means with <span class="math inline">\(K=2\)</span>.
+Analyse the results.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>Calling <code>kmeans()</code>:</p>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb707-1" title="1">km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(factbook[<span class="op">-</span><span class="dv">1</span>], <span class="dv">2</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a></code></pre></div>
+<p>Let’s split the country list w.r.t. the obtained cluster labels.
+It turns out that the obtained partition is heavily imbalanced, so we’ll
+print only the contents of the first group:</p>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" title="1">km_countries &lt;-<span class="st"> </span><span class="kw">split</span>(factbook[[<span class="dv">1</span>]], km<span class="op">$</span>cluster)</a>
+<a class="sourceLine" id="cb708-2" title="2">km_countries[[<span class="dv">1</span>]]</a></code></pre></div>
+<pre><code>## [1] &quot;China&quot;         &quot;India&quot;         &quot;United States&quot;</code></pre>
+<p>With regards to which criteria has the K-means algorithm distinguished
+the countries? Let’s inspect the cluster centres to check the average
+Z-scores of all the countries in each cluster:</p>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" title="1"><span class="kw">t</span>(km<span class="op">$</span>centers) <span class="co"># transposed for readability</span></a></code></pre></div>
+<pre><code>##                                          1             2
+## area                            3.66158086 -0.0549237128
+## population                      6.98727886 -0.1048091829
+## median_age                      0.47799111 -0.0071698666
+## population_growth_rate         -0.25277353  0.0037916029
+## birth_rate                     -0.50103007  0.0075154511
+## death_rate                      0.15391451 -0.0023087177
+## net_migration_rate              0.23644859 -0.0035467289
+## infant_mortality_rate          -0.13957720  0.0020936580
+## life_expectancy_at_birth        0.25154149 -0.0037731223
+## total_fertility_rate           -0.47271620  0.0070907430
+## gdp_purchasing_power_parity     7.21368074 -0.1082052110
+## gdp_real_growth_rate            0.36949944 -0.0055424916
+## gdp_per_capita_ppp              0.29810328 -0.0044715492
+## labor_force                     6.91431867 -0.1037147800
+## taxes_and_other_revenues       -0.92273508  0.0138410263
+## budget_surplus_or_deficit      -0.01262687  0.0001894031
+## inflation_rate_consumer_prices -0.09662599  0.0014493899
+## exports                         5.34117781 -0.0801176672
+## imports                         5.95653835 -0.0893480753
+## telephones_fixed_lines          5.98985780 -0.0898478671
+## internet_users                  6.99712554 -0.1049568832
+## airports                        4.55183170 -0.0682774755</code></pre>
+<p>Countries in Cluster 2 are… average (Z-scores <span class="math inline">\(\simeq 0\)</span>).
+On the other hand, the three countries in Cluster 1
+dominate the others w.r.t. area, population, GDP PPP, labour force etc.</p>
+</details>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Apply the complete linkage agglomerative hierarchical clustering algorithm.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>Recall that the complete linkage-based method is implemented in the
+<code>hclust()</code> function:</p>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb712-1" title="1">d &lt;-<span class="st"> </span><span class="kw">dist</span>(factbook[<span class="op">-</span><span class="dv">1</span>]) <span class="co"># skip `country`</span></a>
+<a class="sourceLine" id="cb712-2" title="2">h &lt;-<span class="st"> </span><span class="kw">hclust</span>(d, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</a></code></pre></div>
+<p>A “nice” number of clusters to divide our dataset into
+can be read from the dendrogram, see Figure <a href="clustering.html#fig:clustering_factbook7">15</a>.</p>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb713-1" title="1"><span class="kw">plot</span>(h, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>); <span class="kw">box</span>()</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_factbook7-1.svg" alt="Figure 15: Cluster dendrogram for the World Factbook dataset – Complete linkage" id="fig:clustering_factbook7" />
+<p class="caption">Figure 15: Cluster dendrogram for the World Factbook dataset – Complete linkage</p>
+</div>
+<p>It seems that a 9-partition might reveal something interesting,
+because it will distinguish two larger country groups.
+However, there will be many singletons if we do so either way.</p>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb714-1" title="1">y &lt;-<span class="st"> </span><span class="kw">cutree</span>(h, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb714-2" title="2">h_countries &lt;-<span class="st"> </span><span class="kw">split</span>(factbook[[<span class="dv">1</span>]], y)</a>
+<a class="sourceLine" id="cb714-3" title="3"><span class="kw">sapply</span>(h_countries, length) <span class="co"># number of elements in each cluster</span></a></code></pre></div>
+<pre><code>##   1   2   3   4   5   6   7   8   9 
+## 138  56   1   1   3   1   1   1   1</code></pre>
+<p>Most likely this is not an interesting partitioning of this dataset,
+therefore we’ll not be exploring it any further.</p>
+</details>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Apply the Genie clustering algorithm.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>The Genie algorithm <span class="citation">(Gagolewski et al. <a href="references.html#ref-genie">2016</a>)</span> is a hierarchical clustering algorithm
+implemented in R package <code>genie</code>. It’s interface is compatible with <code>hclust()</code>.</p>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" title="1"><span class="kw">library</span>(<span class="st">&quot;genie&quot;</span>)</a>
+<a class="sourceLine" id="cb716-2" title="2">d &lt;-<span class="st"> </span><span class="kw">dist</span>(factbook[<span class="op">-</span><span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb716-3" title="3">g &lt;-<span class="st"> </span><span class="kw">hclust2</span>(d)</a></code></pre></div>
+<p>The cluster dendrogram in Figure <a href="clustering.html#fig:clustering_factbook10">16</a>
+reveals 3 evident clusters.</p>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb717-1" title="1"><span class="kw">plot</span>(g, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>); <span class="kw">box</span>()</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_factbook10-1.svg" alt="Figure 16: Cluster dendrogram for the World Factbook dataset – Genie algorithm" id="fig:clustering_factbook10" />
+<p class="caption">Figure 16: Cluster dendrogram for the World Factbook dataset – Genie algorithm</p>
+</div>
+<p>Let’s determine the 3-partition of the data set.</p>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb718-1" title="1">y &lt;-<span class="st"> </span><span class="kw">cutree</span>(g, <span class="dv">3</span>)</a></code></pre></div>
+<p>Here are few countries in each cluster:</p>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb719-1" title="1">y &lt;-<span class="st"> </span><span class="kw">cutree</span>(g, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb719-2" title="2"><span class="kw">sapply</span>(<span class="kw">split</span>(factbook<span class="op">$</span>countr, y), sample, <span class="dv">6</span>)</a></code></pre></div>
+<pre><code>##      1                    2                                  
+## [1,] &quot;Dominican Republic&quot; &quot;Congo, Republic of the&quot;           
+## [2,] &quot;Venezuela&quot;          &quot;Sao Tome and Principe&quot;            
+## [3,] &quot;Sri Lanka&quot;          &quot;Tanzania&quot;                         
+## [4,] &quot;Malta&quot;              &quot;Botswana&quot;                         
+## [5,] &quot;China&quot;              &quot;Congo, Democratic Republic of the&quot;
+## [6,] &quot;Tajikistan&quot;         &quot;Malawi&quot;                           
+##      3             
+## [1,] &quot;Lithuania&quot;   
+## [2,] &quot;Portugal&quot;    
+## [3,] &quot;Korea, South&quot;
+## [4,] &quot;Bulgaria&quot;    
+## [5,] &quot;Germany&quot;     
+## [6,] &quot;Moldova&quot;</code></pre>
+<p>We can draw the countries in each cluster
+on a map by using the <code>rworldmap</code> package (see its documentation for more details),
+see Figure <a href="clustering.html#fig:clustering_factbook12">17</a>.</p>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb721-1" title="1"><span class="kw">library</span>(<span class="st">&quot;rworldmap&quot;</span>)</a>
+<a class="sourceLine" id="cb721-2" title="2"><span class="kw">library</span>(<span class="st">&quot;RColorBrewer&quot;</span>)</a>
+<a class="sourceLine" id="cb721-3" title="3">mapdata &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">country=</span>factbook<span class="op">$</span>country, <span class="dt">cluster=</span>y,</a>
+<a class="sourceLine" id="cb721-4" title="4">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb721-5" title="5"><span class="co"># 3 country names must be adjusted to get a match</span></a>
+<a class="sourceLine" id="cb721-6" title="6">mapdata<span class="op">$</span>country[mapdata<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Czechia&quot;</span>] &lt;-<span class="st"> &quot;Czech Republic&quot;</span></a>
+<a class="sourceLine" id="cb721-7" title="7">mapdata<span class="op">$</span>country[mapdata<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Eswatini&quot;</span>] &lt;-<span class="st"> &quot;Swaziland&quot;</span></a>
+<a class="sourceLine" id="cb721-8" title="8">mapdata<span class="op">$</span>country[mapdata<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Cabo Verde&quot;</span>] &lt;-<span class="st"> &quot;Cape Verde&quot;</span></a>
+<a class="sourceLine" id="cb721-9" title="9">mapdata &lt;-<span class="st"> </span><span class="kw">joinCountryData2Map</span>(mapdata, <span class="dt">joinCode=</span><span class="st">&quot;NAME&quot;</span>,</a>
+<a class="sourceLine" id="cb721-10" title="10">  <span class="dt">nameJoinColumn=</span><span class="st">&quot;country&quot;</span>)</a></code></pre></div>
+<pre><code>## 203 codes from your data successfully matched countries in the map
+## 0 codes from your data failed to match with a country code in the map
+## 40 codes from the map weren&#39;t represented in your data</code></pre>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" title="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb723-2" title="2"><span class="kw">mapCountryData</span>(mapdata, <span class="dt">nameColumnToPlot=</span><span class="st">&quot;cluster&quot;</span>,</a>
+<a class="sourceLine" id="cb723-3" title="3">    <span class="dt">catMethod=</span><span class="st">&quot;categorical&quot;</span>, <span class="dt">missingCountryCol=</span><span class="st">&quot;gray&quot;</span>,</a>
+<a class="sourceLine" id="cb723-4" title="4">    <span class="dt">colourPalette=</span><span class="kw">brewer.pal</span>(<span class="dv">3</span>, <span class="st">&quot;Set1&quot;</span>),</a>
+<a class="sourceLine" id="cb723-5" title="5">    <span class="dt">mapTitle=</span><span class="st">&quot;&quot;</span>, <span class="dt">addLegend=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_factbook12-1.svg" alt="Figure 17: 3 clusters discovered by the Genie algorithm" id="fig:clustering_factbook12" />
+<p class="caption">Figure 17: 3 clusters discovered by the Genie algorithm</p>
+</div>
+<p>Here are the average Z-scores in each cluster:</p>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb724-1" title="1"><span class="kw">round</span>(<span class="kw">sapply</span>(<span class="kw">split</span>(factbook[<span class="op">-</span><span class="dv">1</span>], y), colMeans), <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>##                                     1      2      3
+## area                            0.124 -0.068 -0.243
+## population                      0.077 -0.058 -0.130
+## median_age                      0.118 -1.219  1.261
+## population_growth_rate         -0.227  1.052 -0.757
+## birth_rate                     -0.316  1.370 -0.930
+## death_rate                     -0.439  0.071  1.075
+## net_migration_rate             -0.123  0.053  0.260
+## infant_mortality_rate          -0.366  1.399 -0.835
+## life_expectancy_at_birth        0.354 -1.356  0.812
+## total_fertility_rate           -0.363  1.332 -0.758
+## gdp_purchasing_power_parity     0.084 -0.213  0.052
+## gdp_real_growth_rate           -0.062  0.126  0.002
+## gdp_per_capita_ppp              0.021 -0.744  0.905
+## labor_force                     0.087 -0.096 -0.107
+## taxes_and_other_revenues       -0.095 -0.584  1.006
+## budget_surplus_or_deficit      -0.113 -0.188  0.543
+## inflation_rate_consumer_prices  0.044 -0.013 -0.099
+## exports                        -0.013 -0.318  0.447
+## imports                         0.007 -0.308  0.379
+## telephones_fixed_lines          0.048 -0.244  0.186
+## internet_users                  0.093 -0.178 -0.016
+## airports                        0.104 -0.131 -0.107</code></pre>
+<p>That is really interesting! The interpretation of the above is left
+to the reader.</p>
+<!--
+# factbook$country[!(factbook$country %in% mapdata$country)]
+-->
+</details>
+</div>
+<div id="unbalance-dataset-k-means-needs-multiple-starts" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> Unbalance Dataset – K-Means Needs Multiple Starts</h3>
+<p>Let us consider a benchmark (artificial) dataset
+proposed in <span class="citation">(Rezaei &amp; Fränti <a href="references.html#ref-external_cluster_validity">2016</a>)</span>:</p>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb726-1" title="1">unbalance &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">read.csv</span>(<span class="st">&quot;datasets/sipu_unbalance.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb726-2" title="2">    <span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">sep=</span><span class="st">&quot; &quot;</span>, <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb726-3" title="3">    <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>))</a>
+<a class="sourceLine" id="cb726-4" title="4">unbalance &lt;-<span class="st"> </span>unbalance<span class="op">/</span><span class="dv">10000-30</span> <span class="co"># a more user-friendly scale</span></a></code></pre></div>
+<p>According to its authors, this dataset is comprised of 8 clusters:
+there are 3 groups on the lefthand side (2000 points each)
+and 5 on the right side (100 each).</p>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb727-1" title="1"><span class="kw">plot</span>(unbalance, <span class="dt">asp=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/sipu_unbalance2-1.svg" alt="Figure 18: sipu_unbalance dataset" id="fig:sipu_unbalance2" />
+<p class="caption">Figure 18: <code>sipu_unbalance</code> dataset</p>
+</div>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Apply the K-means algorithm with <span class="math inline">\(K=8\)</span>.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>Of course, here by “the” K-means we mean the default method
+available in the <code>kmeans()</code> function.
+The clustering results are depicted in Figure <a href="clustering.html#fig:sipu_unbalance3a">19</a>.</p>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb728-1" title="1">km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(unbalance, <span class="dv">8</span>, <span class="dt">nstart=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb728-2" title="2"><span class="kw">plot</span>(unbalance, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>km<span class="op">$</span>cluster)</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/sipu_unbalance3a-1.svg" alt="Figure 19: Results of K-means on the sipu_unbalance dataset" id="fig:sipu_unbalance3a" />
+<p class="caption">Figure 19: Results of K-means on the <code>sipu_unbalance</code> dataset</p>
+</div>
+<p>This is far from what we expected.
+The total within-cluster distances are equal to:</p>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb729-1" title="1">km<span class="op">$</span>tot.withinss</a></code></pre></div>
+<pre><code>## [1] 21713.46</code></pre>
+<p>Increasing the number of restarts even further improves the solution,
+but the local minimum is still far from the global one,
+compare Figure <a href="clustering.html#fig:sipu_unbalance3b">20</a>.</p>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" title="1">km &lt;-<span class="st"> </span><span class="kw">suppressWarnings</span>(<span class="kw">kmeans</span>(unbalance, <span class="dv">8</span>, <span class="dt">nstart=</span><span class="dv">1000</span>, <span class="dt">iter.max=</span><span class="dv">1000</span>))</a>
+<a class="sourceLine" id="cb731-2" title="2"><span class="kw">plot</span>(unbalance, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>km<span class="op">$</span>cluster)</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/sipu_unbalance3b-1.svg" alt="Figure 20: Results of K-means on the sipu_unbalance dataset – many more restarts" id="fig:sipu_unbalance3b" />
+<p class="caption">Figure 20: Results of K-means on the <code>sipu_unbalance</code> dataset – many more restarts</p>
+</div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" title="1">km<span class="op">$</span>tot.withinss</a></code></pre></div>
+<pre><code>## [1] 4378.007</code></pre>
+</details>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Apply the K-means algorithm starting from a “good” initial guess
+on the true cluster centres.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>Clustering is – in its essence – an unsupervised learning method,
+so what we’re going to do now could be called, let’s be blunt about it, cheating.
+Luckily, we have an oracle at our disposal – it has provided us
+with the following educated guesses (by looking at the scatter plot)
+about the localisation of the cluster centres:</p>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb734-1" title="1">cntr &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">ncol=</span><span class="dv">2</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb734-2" title="2">   <span class="dv">-15</span>,   <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb734-3" title="3">   <span class="dv">-12</span>,   <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb734-4" title="4">   <span class="dv">-10</span>,   <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb734-5" title="5">    <span class="dv">15</span>,   <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb734-6" title="6">    <span class="dv">15</span>,   <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb734-7" title="7">    <span class="dv">20</span>,   <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb734-8" title="8">    <span class="dv">25</span>,   <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb734-9" title="9">    <span class="dv">25</span>,   <span class="dv">10</span>))</a></code></pre></div>
+<p>Running <code>kmeans()</code> yields the clustering depicted in Figure <a href="clustering.html#fig:sipu_unbalance6">21</a>.</p>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" title="1">km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(unbalance, cntr)</a>
+<a class="sourceLine" id="cb735-2" title="2"><span class="kw">plot</span>(unbalance, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>km<span class="op">$</span>cluster)</a></code></pre></div>
+<div class="figure">
+<img src="07-clustering-figures/sipu_unbalance6-1.svg" alt="Figure 21: Results of K-means on the sipu_unbalance dataset – an educated guess on the cluster centres’ locations" id="fig:sipu_unbalance6" />
+<p class="caption">Figure 21: Results of K-means on the <code>sipu_unbalance</code> dataset – an educated guess on the cluster centres’ locations</p>
+</div>
+<p>The total within-cluster distances are now equal to:</p>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1">km<span class="op">$</span>tot.withinss</a></code></pre></div>
+<pre><code>## [1] 2144.921</code></pre>
+<p>This is finally the globally optimal solution to the K-means problem
+we were asked to solve. Recall that the algorithms implemented in the <code>kmeans()</code>
+function are just fast heuristics that are supposed to find
+local optima of the K-means objective function, which is given
+by the within-cluster sum of squared Euclidean distances.</p>
+<!--
+http://cs.joensuu.fi/sipu/datasets/:
 
-
-\bigskip
-{\color{pwsloneczny}\hrule height 2px}
-\bigskip
-
-\begin{itemize}
-
-
-   \item
-
-
-
-
-   \pause\item
-
-
-% \vspace*{1em}
-\end{itemize}-->
-<!--Single linkage criterion:
-% -- for some \textit{extension} $\tilde{\mathsf{d}}$ of $\mathsf{d}$ to $2^\mathcal{X}$:
-$
-\displaystyle\argmin_{(u,v), u < v}\ \min\left\{ \mathsf{d}\left(\mathbf{x}^{(i_u)}, \mathbf{x}^{(i_v)}\right):
-\mathbf{x}^{(i_u)}\in C_u^{(j)},
-\mathbf{x}^{(i_v)}\in C_v^{(j)}
-\right\}.
-$-->
+cntr <- matrix(ncol=2, byrow=TRUE, c(
+    209948,   349963,
+    539379,   299653,
+    440134,   400135,
+    440754,   298283,
+    491036,   349798,
+    150007,   350104,
+    538884,   400947,
+    179955,   380008))
+-->
+</details>
+</div>
+<div id="clustering-of-typical-2d-benchmark-datasets" class="section level3">
+<h3><span class="header-section-number">7.4.3</span> Clustering of Typical 2D Benchmark Datasets</h3>
+<p>Let us consider a few clustering benchmark datasets
+available at <a href="https://github.com/gagolews/clustering_benchmarks_v1" class="uri">https://github.com/gagolews/clustering_benchmarks_v1</a>
+and <a href="http://cs.joensuu.fi/sipu/datasets/" class="uri">http://cs.joensuu.fi/sipu/datasets/</a>.
+Here is a list of file names together with the
+corresponding numbers of clusters (as given by datasets’ authors):</p>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1">files &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;datasets/wut_isolation.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb738-2" title="2">           <span class="st">&quot;datasets/wut_mk2.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb738-3" title="3">           <span class="st">&quot;datasets/wut_z3.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb738-4" title="4">           <span class="st">&quot;datasets/sipu_aggregation.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb738-5" title="5">           <span class="st">&quot;datasets/sipu_pathbased.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb738-6" title="6">           <span class="st">&quot;datasets/sipu_unbalance.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb738-7" title="7">Ks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">8</span>)</a></code></pre></div>
+<p>All the datasets are two-dimensional, hence we’ll be able to visualise
+the obtained results and assess the sensibility of the obtained clusterings.</p>
+<div class="exercise"><strong>Exercise.</strong>
+<p>Apply the K-means, the single, average and complete linkage
+and the Genie algorithm on the aforementioned datasets and discuss the results.</p>
+</div>
+<details class="solution"><summary style="color: blue">Click here for a solution.</summary>
+<p>Apart from a call to the Genie algorithm with the default parameters,
+we will also look at the results it generates when we set
+<code>giniThreshold</code> of <code>0.5</code>.</p>
+<p>The following function is our workhorse that will perform all the computations
+and will draw all the figures for a single dataset:</p>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" title="1">clusterise &lt;-<span class="st"> </span><span class="cf">function</span>(file, K) {</a>
+<a class="sourceLine" id="cb739-2" title="2">    X &lt;-<span class="st"> </span><span class="kw">read.csv</span>(file,</a>
+<a class="sourceLine" id="cb739-3" title="3">        <span class="dt">header=</span><span class="ot">FALSE</span>, <span class="dt">sep=</span><span class="st">&quot; &quot;</span>, <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>,</a>
+<a class="sourceLine" id="cb739-4" title="4">        <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb739-5" title="5">    d &lt;-<span class="st"> </span><span class="kw">dist</span>(X)</a>
+<a class="sourceLine" id="cb739-6" title="6">    <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb739-7" title="7">    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb739-8" title="8"></a>
+<a class="sourceLine" id="cb739-9" title="9">    y &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, K, <span class="dt">nstart=</span><span class="dv">10</span>)<span class="op">$</span>cluster</a>
+<a class="sourceLine" id="cb739-10" title="10">    <span class="kw">plot</span>(X, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>y, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb739-11" title="11">    <span class="kw">mtext</span>(<span class="st">&quot;K-means&quot;</span>, <span class="dt">line=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb739-12" title="12"></a>
+<a class="sourceLine" id="cb739-13" title="13">    y &lt;-<span class="st"> </span><span class="kw">cutree</span>(<span class="kw">hclust</span>(d, <span class="st">&quot;complete&quot;</span>), K)</a>
+<a class="sourceLine" id="cb739-14" title="14">    <span class="kw">plot</span>(X, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>y, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb739-15" title="15">    <span class="kw">mtext</span>(<span class="st">&quot;Complete Linkage&quot;</span>, <span class="dt">line=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb739-16" title="16"></a>
+<a class="sourceLine" id="cb739-17" title="17">    y &lt;-<span class="st"> </span><span class="kw">cutree</span>(<span class="kw">hclust</span>(d, <span class="st">&quot;average&quot;</span>), K)</a>
+<a class="sourceLine" id="cb739-18" title="18">    <span class="kw">plot</span>(X, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>y, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb739-19" title="19">    <span class="kw">mtext</span>(<span class="st">&quot;Average Linkage&quot;</span>, <span class="dt">line=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb739-20" title="20"></a>
+<a class="sourceLine" id="cb739-21" title="21">    y &lt;-<span class="st"> </span><span class="kw">cutree</span>(<span class="kw">hclust</span>(d, <span class="st">&quot;single&quot;</span>), K)</a>
+<a class="sourceLine" id="cb739-22" title="22">    <span class="kw">plot</span>(X, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>y, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb739-23" title="23">    <span class="kw">mtext</span>(<span class="st">&quot;Single Linkage&quot;</span>, <span class="dt">line=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb739-24" title="24"></a>
+<a class="sourceLine" id="cb739-25" title="25">    y &lt;-<span class="st"> </span><span class="kw">cutree</span>(genie<span class="op">::</span><span class="kw">hclust2</span>(d), K) <span class="co"># thresholdGini=0.3</span></a>
+<a class="sourceLine" id="cb739-26" title="26">    <span class="kw">plot</span>(X, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>y, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb739-27" title="27">    <span class="kw">mtext</span>(<span class="st">&quot;Genie (default)&quot;</span>, <span class="dt">line=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb739-28" title="28"></a>
+<a class="sourceLine" id="cb739-29" title="29">    y &lt;-<span class="st"> </span><span class="kw">cutree</span>(genie<span class="op">::</span><span class="kw">hclust2</span>(d, <span class="dt">thresholdGini=</span><span class="fl">0.5</span>), K)</a>
+<a class="sourceLine" id="cb739-30" title="30">    <span class="kw">plot</span>(X, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">col=</span>y, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb739-31" title="31">    <span class="kw">mtext</span>(<span class="st">&quot;Genie (g=0.5)&quot;</span>, <span class="dt">line=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb739-32" title="32">}</a></code></pre></div>
+<p>Applying the above as <code>clusterise(files[i], Ks[i])</code> yields
+Figures <a href="clustering.html#fig:clustering_benchmarks_plot1">22</a>-<a href="clustering.html#fig:clustering_benchmarks_plot6">27</a>.</p>
+<div class="figure">
+<img src="07-clustering-figures/clustering_benchmarks_plot1-1.svg" alt="Figure 22: Clustering of the wut_isolation dataset" id="fig:clustering_benchmarks_plot1" />
+<p class="caption">Figure 22: Clustering of the <code>wut_isolation</code> dataset</p>
+</div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_benchmarks_plot2-1.svg" alt="Figure 23: Clustering of the wut_mk2 dataset" id="fig:clustering_benchmarks_plot2" />
+<p class="caption">Figure 23: Clustering of the <code>wut_mk2</code> dataset</p>
+</div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_benchmarks_plot3-1.svg" alt="Figure 24: Clustering of the wut_z3 dataset" id="fig:clustering_benchmarks_plot3" />
+<p class="caption">Figure 24: Clustering of the <code>wut_z3</code> dataset</p>
+</div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_benchmarks_plot4-1.svg" alt="Figure 25: Clustering of the sipu_aggregation dataset" id="fig:clustering_benchmarks_plot4" />
+<p class="caption">Figure 25: Clustering of the <code>sipu_aggregation</code> dataset</p>
+</div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_benchmarks_plot5-1.svg" alt="Figure 26: Clustering of the sipu_pathbased dataset" id="fig:clustering_benchmarks_plot5" />
+<p class="caption">Figure 26: Clustering of the <code>sipu_pathbased</code> dataset</p>
+</div>
+<div class="figure">
+<img src="07-clustering-figures/clustering_benchmarks_plot6-1.svg" alt="Figure 27: Clustering of the sipu_unbalance dataset" id="fig:clustering_benchmarks_plot6" />
+<p class="caption">Figure 27: Clustering of the <code>sipu_unbalance</code> dataset</p>
+</div>
+<p>Note that, by definition, K-means is only able to detect clusters
+of convex shapes. The Genie algorithm, on the other hand, might
+fail to detect clusters of very small sizes amongst the more populous ones.
+Single linkage is very sensitive to outliers in data – it often outputs
+clusters of cardinality 1.</p>
+</details>
 </div>
 </div>
 <div id="outro-6" class="section level2">
-<h2><span class="header-section-number">7.4</span> Outro</h2>
+<h2><span class="header-section-number">7.5</span> Outro</h2>
 <div id="remarks-6" class="section level3">
-<h3><span class="header-section-number">7.4.1</span> Remarks</h3>
+<h3><span class="header-section-number">7.5.1</span> Remarks</h3>
 <p>Unsupervised learning is often performed during the data pre-processing
 and exploration stage.
 Assessing the quality of clustering is particularly challenging as,
@@ -1288,7 +1656,7 @@ spaces (“the curse of dimensionality”). Moreover, some hardcore
 feature engineering might be needed to obtain meaningful results.</p>
 </div>
 <div id="further-reading-6" class="section level3">
-<h3><span class="header-section-number">7.4.2</span> Further Reading</h3>
+<h3><span class="header-section-number">7.5.2</span> Further Reading</h3>
 <p>Recommended further reading: <span class="citation">(James et al. <a href="references.html#ref-islr">2017</a>: Section 10.3)</span></p>
 <p>Other: <span class="citation">(Hastie et al. <a href="references.html#ref-esl">2017</a>: Section 14.3)</span></p>
 <p>Additionally, check out other noteworthy clustering approaches:</p>

@@ -558,6 +558,8 @@ e.g., $n_\text{pop}=128$
 
 ### Example Implementation - GA for K-means
 
+<!-- TODO: check unbalance -->
+
 ---
 
 Initial setup:
