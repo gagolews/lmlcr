@@ -5,37 +5,58 @@
 
 ## Introduction
 
-### What is a Recommender System?
-
----
-
-A **recommender (recommendation) system**
-is a method to predict the rating a **user** would give to an **item**.
+*Recommender (recommendation) systems*
+aim to predict the rating a *user* would give to an *item*.
 
 For example:
 
-- playlist generators at Spotify, YouTube or Netflix,
-- content recommendations on Facebook, Instagram, Twitter or Apple News,
-- product recommendations at Amazon or Alibaba.
+- playlist generators (Spotify, YouTube, Netflix, ...),
+- content recommendations (Facebook, Instagram, Twitter, Apple News, ...),
+- product recommendations (Amazon, Alibaba, ...).
 
 
----
 
-[@ricci_etal] list the following functions of recommender systems:
+
+Implementing recommender systems, according to [@ricci_etal],
+might:
 
 - increase the number of items sold,
-- sell more diverse items,
 - increase users' satisfaction,
 - increase users' fidelity,
-- better understand what users want.
+- allow a company to sell more diverse items,
+- allow to better understand what users want.
+
+{ BEGIN exercise }
+Think of the last time you found some recommendation useful.
+{ END exercise }
+
+
+They can also increase the users' frustration.
+
+{ BEGIN exercise }
+Think of the last time you found a recommendation useless and
+irritating. What might be the reasons why you have been provided
+with such a suggestion?
+{ END exercise }
+
+<!--
+ ("Why does this
+thing keep recommending me those stupid videos? Ah, wait, I remember
+I watched one similar piece that a friend sent me on a chat.")
+-->
+
+
+
+
 
 
 ### The Netflix Prize
 
----
+
 
 In 2006 Netflix (back then a DVD rental company) released one of the most famous
-benchmark sets for recommender systems, which helped boost the research on algorithms in this field.
+benchmark sets for recommender systems, which helped boost the research
+on algorithms in this field.
 
 See https://www.kaggle.com/netflix-inc/netflix-prize-data;
 data archived at
@@ -48,7 +69,6 @@ The dataset consists of:
 - 480,189 users
 - 17,770 movies
 - 100,480,507 ratings in the training sample:
-
     - `MovieID`
     - `CustomerID`
     - `Rating` from 1 to 5
@@ -57,26 +77,28 @@ The dataset consists of:
     - `Date` of rating in the range 1998-11-01 to 2005-12-31
 
 
----
+
 
 The *quiz set* consists of 1,408,342 ratings
 and it was used by the competitors to assess the quality of their
-algorithms and compute leaderboard scores.
+algorithms and compute the leaderboard scores.
 
 Root mean squared error (RMSE) of predicted vs. true rankings was chosen as a
 performance metric.
 
-The *test set* of 1,408,789 ratings was used to determine the winner.
+The *test set* of 1,408,789 ratings (not make publicly available)
+was used to determine the winner.
 
-On 21 Sept. 2009, the grand prize of US\$1,000,000 was given
-to the BellKor's Pragmatic Chaos team which improved over the Netflix's *Cinematch* algorithm  by 10.06%,
+On 21 September 2009, the grand prize of US\$1,000,000 was given
+to the BellKor's Pragmatic Chaos team which improved over
+the Netflix's *Cinematch* algorithm  by 10.06%,
 achieving the winning RMSE of 0.8567 on the test subset.
 
 
 
 ### Main Approaches
 
----
+
 
 Current recommender systems are quite complex and use a fusion
 of various approaches, also those based on external knowledge bases.
@@ -84,38 +106,36 @@ of various approaches, also those based on external knowledge bases.
 However, we may distinguish at least two core approaches,
 see [@ricci_etal] for more:
 
-- *Collaborative Filtering*
-
-    It is based on the assumption that if two people interact with the same product,
+- *Collaborative Filtering* is based on the assumption that if
+two people interact with the same product,
 they're likely to have other interests in common as well.
 
     > John and Mary both like bananas and apples and dislike spinach. John likes
 sushi. Mary hasn't tried sushi yet. It seems they might have similar tastes,
 so we recommend that Mary should give sushi a try.
 
+- *Content-based Filtering* builds users' profiles that represent information
+    about what kind of products they like.
 
-
-- *Content-based Filtering*
-
-    It builds a user's profile that represent information
-of what kind of products does she/he like.
-
-    > We have discovered that John likes fruits but dislikes vegetables.
+    > We have discovered that John likes fruit but dislikes vegetables.
     An orange is a fruit (an item similar to those he liked in the past)
-    with which John is yet to interact. John should
+    with which John is yet to interact. Thus, it is suggested that John should
     give it a try.
 
----
 
-Jim Bennett, vice president of recommendations systems at Netflix
-on the idea behind the original Cinematch algorithm (see https://www.technologyreview.com/s/406637/the-1-million-netflix-challenge/):
+
+Jim Bennett, at that time the vice president of recommendation systems at Netflix
+on the idea behind the original Cinematch algorithm (see https://www.technologyreview.com/s/406637/the-1-million-netflix-challenge/
+and https://web.archive.org/web/20070821194257/http://www.netflixprize.com/faq):
 
 > First, you collect 100 million user ratings for about 18,000 movies. Take any two movies and find the people who have rated both of them. Then look to see if the people who rate one of the movies highly rate the other one highly, if they liked one and not the other, or if they didn’t like either movie. Based on their ratings, Cinematch sees whether there’s a correlation between those people. Now, do this for all possible pairs of 65,000 movies.
 
-See also: https://web.archive.org/web/20070821194257/http://www.netflixprize.com/faq
 
 
-> Is it an example of collaborative or context-based filtering?
+{ BEGIN exercise }
+Is the above an example of the collaborative or context-based filtering?
+{ END exercise }
+
 
 <!--
 How does Cinematch do it?
@@ -129,14 +149,14 @@ Netflix Prize FAQ https://web.archive.org/web/20070821194257/http://www.netflixp
 
 ### Formalism
 
----
-
-Let $\mathcal{U}=\{ U_1,\dots,U_m \}$ denote the set of $m$ users.
-
-Let $\mathcal{I}=\{ I_1,\dots,I_n \}$ denote the set of $n$ items.
 
 
-Let $R\in\mathbb{R}^{m\times n}$ be a user-item matrix such that:
+Let $\mathcal{U}=\{ U_1,\dots,U_n \}$ denote the set of $n$ users.
+
+Let $\mathcal{I}=\{ I_1,\dots,I_p \}$ denote the set of $p$ items.
+
+
+Let $\mathbf{R}\in\mathbb{R}^{n\times p}$ be a user-item matrix such that:
 \[
 r_{u,i}=\left\{
 \begin{array}{ll}
@@ -146,7 +166,9 @@ r & \text{if the $u$-th user ranked the $i$-th item as $r>0$}\\
 \right.
 \]
 
-> Note that here `0` is used to denote a missing value (`NA`)
+
+Remark.
+: Note that `0` is used to denote a missing value (`NA`) here.
 
 
 In particular, we can assume:
@@ -167,18 +189,7 @@ $r_{u,i}=0$.
 
 ### Example
 
----
 
-In **user-based collaborative filtering**, we seek users with similar
-preference profiles/rating patters.
-
-> "User A has similar behavioural patterns as user B, so we should suggest
-    A what B likes."
-
-In **item-based collaborative filtering**, we seek items with similar (dis)likeability
-structure.
-
-> "Users who (dis)liked X also (dis)liked Y".
 
 
    .   | Apple   | Banana  |  Sushi    |  Spinach |  Orange   |
@@ -191,12 +202,25 @@ Mark   |   5     |   5     |   1       |    1     |   5       |
 Sara   |   ?     |   5     |           |    ?     |   5       |
 
 
-> Will Sara enjoy her spinach?
-> Will Sara enjoy her apple?
+In **user-based collaborative filtering**, we seek users with similar
+preference profiles/rating patters.
 
----
+> "User A has similar behavioural patterns as user B, so A should suggested
+    with what B likes."
 
-```{r}
+In **item-based collaborative filtering**, we seek items with similar (dis)likeability
+structure.
+
+> "Users who (dis)liked X also (dis)liked Y".
+
+{ BEGIN exercise }
+Will Sara enjoy her spinach? Will Sara enjoy her apple?
+{ END exercise }
+
+
+An example $\mathbf{R}$ matrix in R:
+
+```{r recommender1}
 R <- matrix(
     c(
      1, 5, 5, 0, 1,
@@ -213,23 +237,22 @@ R <- matrix(
 )
 ```
 
----
 
-```{R}
+
+```{r recommender2}
 R
 ```
 
 
 ### Similarity Measures
 
----
 
 
 
-Assuming $\mathbf{a},\mathbf{b}\in\mathbb{N}^k$
-(in our setting, $k\in\{n,m\}$),
-let $S$ be the following similarity measure between two vectors of identical lengths
-(representing ratings):
+
+Assuming $\mathbf{a},\mathbf{b}$ are two sequences of length $k$
+(in our setting, $k$ is equal to either $n$ or $p$),
+let $S$ be the following similarity measure between two rating vectors:
 
 
 \[
@@ -237,15 +260,18 @@ S(\mathbf{a},\mathbf{b}) = \frac{ \sum_{i=1}^k a_i b_i
 }{
 \sqrt{ \sum_{i=1}^k a_i^2 }
 \sqrt{ \sum_{i=1}^k b_i^2 }
-} \ge 0
+}
 \]
 
-```{r}
+```{r recommender3}
 cosim <- function(a, b) sum(a*b)/sqrt(sum(a^2)*sum(b^2))
 ```
 
 We call it the **cosine similarity**.
-
+We have $S(\mathbf{a},\mathbf{b})\in[-1,1]$,
+where we get $1$ for two identical elements.
+Similarity of 0 is obtained for two unrelated ("orthogonal") vectors.
+For nonnegative sequences, negative similarities are not generated.
 
 > (\*) Another frequently considered similarity measure
 is a version of the Pearson correlation coefficient that
@@ -256,10 +282,10 @@ see also the `use` argument to the `cor()` function.
 
 ### User-Based Collaborative Filtering
 
----
+
 
 **User-based** approaches involve comparing each user against every other user
-(pairwise comparisons of the rows in $R$). This yields a similarity degree
+(pairwise comparisons of the rows in $\mathbf{R}$). This yields a similarity degree
 between the $i$-th and the $j$-th user:
 
 \[
@@ -268,9 +294,9 @@ s^U_{i,j} = S(\mathbf{r}_{i,\cdot},\mathbf{r}_{j,\cdot}).
 
 
 
-```{R}
+```{r recommender4}
 SU <- matrix(0, nrow=nrow(R), ncol=nrow(R),
-    dimnames=dimnames(R)[c(1,1)]) # and empty m*m matrix
+    dimnames=dimnames(R)[c(1,1)]) # and empty n*n matrix
 for (i in 1:nrow(R)) {
     for (j in 1:nrow(R)) {
         SU[i,j] <- cosim(R[i,], R[j,])
@@ -278,37 +304,39 @@ for (i in 1:nrow(R)) {
 }
 ```
 
----
 
-```{R}
+
+```{r recommender5}
 round(SU, 2)
 ```
 
----
+
 
 In order to obtain the previously unobserved
 rating $\hat{r}_{u,i}$ using the user-based approach, we typically
 look for the $K$ most similar users and aggregate their corresponding
 scores (for some $K\ge 1$).
 
-> More formally, let $\{U_{v_1},\dots,U_{v_K}\}\in\mathcal{U}\setminus\{U_u\}$ be the set
-    of users maximising $s^U_{u, v_1}, \dots, s^U_{u, v_K}$
-    and having $r_{v_1, i},\dots,r_{v_K, i}>0$.
-    Then    \[
-    \hat{r}_{u,i} = \frac{1}{K} \sum_{\ell=1}^K r_{v_\ell, i}.
-    \]
+More formally, let $\{U_{v_1},\dots,U_{v_K}\}\in\mathcal{U}\setminus\{U_u\}$ be the set
+of users maximising $s^U_{u, v_1}, \dots, s^U_{u, v_K}$
+and having $r_{v_1, i},\dots,r_{v_K, i}>0$.
+Then:
+\[
+\hat{r}_{u,i} = \frac{1}{K} \sum_{\ell=1}^K r_{v_\ell, i}.
+\]
 
-> The arithmetic mean can be replaced with, e.g.,
+Remark.
+: The arithmetic mean can be replaced with, e.g.,
 the more or a weighted arithmetic mean where weights are proportional to $s^U_{u, v_\ell}$
 
-> This is similar to the $K$-nearest neighbour heuristic.
-
----
+This is very similar to the $K$-nearest neighbour heuristic!
 
 
-```{R}
+
+
+```{r recommender6}
 K <- 2
-(sim <- order(SU["Sara",],decreasing=TRUE))
+(sim <- order(SU["Sara",], decreasing=TRUE))
 # sim gives the indices of people in decreasing order
 # of similarity to Sara:
 dimnames(R)[[1]][sim] # the corresponding names
@@ -323,10 +351,10 @@ mean(R[sim[1:K], "Spinach"])
 
 ### Item-Based Collaborative Filtering
 
----
+
 
 **Item-based** schemes rely on pairwise comparisons between the items
-(columns in $R$). Hence, a similarity degree between the $i$-th and the $j$-th
+(columns in $\mathbf{R}$). Hence, a similarity degree between the $i$-th and the $j$-th
 item is given by:
 
 
@@ -336,9 +364,9 @@ s^I_{i,j} = S(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}).
 
 
 
-```{R}
+```{r recommender7}
 SI <- matrix(0, nrow=ncol(R), ncol=ncol(R),
-    dimnames=dimnames(R)[c(2,2)]) # an empty n*n matrix
+    dimnames=dimnames(R)[c(2,2)]) # an empty p*p matrix
 for (i in 1:ncol(R)) {
     for (j in 1:ncol(R)) {
         SI[i,j] <- cosim(R[,i], R[,j])
@@ -346,42 +374,45 @@ for (i in 1:ncol(R)) {
 }
 ```
 
----
 
-```{R}
+
+```{r recommender8}
 round(SI, 2)
 ```
 
 
----
+
 
 In order to obtain the previously unobserved
 rating $\hat{r}_{u,i}$ using the item-based approach, we typically
 look for the $K$ most similar items and aggregate their corresponding
 scores (for some $K\ge 1$)
 
-> More formally, let $\{I_{j_1},\dots,I_{j_K}\}\in\mathcal{I}\setminus\{I_i\}$ be the set
-    of items maximising $s^I_{i, j_1}, \dots, s^I_{i, j_K}$ and having $r_{u, j_1},\dots,r_{u, j_K}>0$.
-    Then    \[
-    \hat{r}_{u,i} = \frac{1}{K} \sum_{\ell=1}^K r_{u, j_\ell}.
-    \]
+More formally, let $\{I_{j_1},\dots,I_{j_K}\}\in\mathcal{I}\setminus\{I_i\}$ be the set
+of items maximising $s^I_{i, j_1}, \dots, s^I_{i, j_K}$ and having $r_{u, j_1},\dots,r_{u, j_K}>0$.    Then:
 
-> The arithmetic mean can be replaced with, e.g.,
-a weighted arithmetic mean where weights are proportional to $s^I_{i, j_\ell}$
-or the mode.
+\[
+\hat{r}_{u,i} = \frac{1}{K} \sum_{\ell=1}^K r_{u, j_\ell}.
+\]
+
+Remark.
+: Similarly to the previous case,
+the arithmetic mean can be replaced with, e.g.,
+the mode or
+a weighted arithmetic mean where weights are proportional to $s^I_{i, j_\ell}$.
 
 
 
----
 
 
-```{R}
+
+```{r recommender9}
 K <- 2
-(sim <- order(SI["Apple",],decreasing=TRUE))
+(sim <- order(SI["Apple",], decreasing=TRUE))
 # sim gives the indices of items in decreasing order
 # of similarity to Apple:
 dimnames(R)[[2]][sim] # the corresponding item types
-# Remove these which Sara haven't tried yet (e.g.,Apples):
+# Remove these which Sara haven't tried yet (e.g., Apples):
 sim <- sim[ R["Sara", sim]>0 ]
 dimnames(R)[[2]][sim]
 # aggregate Sara's ratings of the K most similar items:
@@ -391,46 +422,48 @@ mean(R["Sara", sim[1:K]])
 
 
 
-## MovieLens Dataset (\*)
+## Exercise: The MovieLens Dataset (\*)
 
 ### Dataset
 
----
 
-Let us make a few recommendations based on the MovieLens-9/2018-Small
+
+Let's make a few recommendations based on the MovieLens-9/2018-Small
 dataset available at
-https://grouplens.org/datasets/movielens/latest/
+https://grouplens.org/datasets/movielens/latest/,
+see also https://movielens.org/ and [@movielens].
 
 The dataset consists of
-ca. 100,000 ratings to 9,000 movies by 600 users. Last updated 9/2018.
+ca. 100,000 ratings to 9,000 movies by 600 users. It was last updated
+on September 2018.
 
 This is already a pretty large dataset! We might run into problems
-with memory usage and run-time.
+with memory usage and high run-time.
 
+<!--
 The following examples are a bit more difficult to follow
 (programming-wise), therefore
 we mark them with (\*).
+-->
 
 
-See also https://movielens.org/ and [@movielens].
 
 
 
----
+
 
 
 ```{r read_movies,cache=TRUE}
-options(stringsAsFactors=FALSE)
 movies <- read.csv("datasets/ml-9-2018-small/movies.csv",
     comment.char="#", stringsAsFactors=FALSE)
 head(movies, 4)
 nrow(movies)
 ```
 
----
 
 
-```{r read_ratings,cache=TRUE}
+
+```{r read_ratings,cache=TRUE,dependson='read_movies'}
 ratings <- read.csv("datasets/ml-9-2018-small/ratings.csv",
     comment.char="#", stringsAsFactors=FALSE)
 head(ratings, 4)
@@ -441,128 +474,153 @@ table(ratings$rating)
 
 ### Data Cleansing
 
----
+
 
 `movieId`s should be re-encoded, as not every film is mentioned/rated in the database.
 We will re-map the `movieId`s to consecutive integers.
 
-```{r cleanse_movies,cache=TRUE}
-movieId2 <- unique(ratings$movieId) # the list of all rated movieIds
-(m <- max(ratings$userId)) # max user Id (these could've been cleaned up too)]
-(n <- length(movieId2)) # number of unique movies
-movies <- movies[movies$movieId %in% movieId2, ] # remove unrated movies
-# we shall map movieId2[i] to i for each i=1,...,n
+```{r cleanse_movies,cache=TRUE,rependson='read_ratings'}
+# the list of all rated movieIds:
+movieId2 <- unique(ratings$movieId)
+# max user Id (these could've been cleaned up too):
+(n <- max(ratings$userId))
+# number of unique movies:
+(p <- length(movieId2))
+# remove unrated movies:
+movies <- movies[movies$movieId %in% movieId2, ]
+```
+
+
+
+```{r cleanse_movies2,cache=TRUE,rependson='cleanse_movies'}
+# we'll map movieId2[i] to i for each i=1,...,p:
 movies$movieId  <- match(movies$movieId, movieId2)
 ratings$movieId <- match(ratings$movieId, movieId2)
 # order the movies by the new movieId so that
-# the movie with Id=i is at the i-th row.
+# the movie with Id==i is in the i-th row:
 movies <- movies[order(movies$movieId),]
-stopifnot(all(movies$movieId == 1:n)) # sanity check
+stopifnot(all(movies$movieId == 1:p)) # sanity check
 ```
 
 
 
 
----
+
 
 We will use a sparse matrix data type (from R package `Matrix`)
-to store ratings data. We don't want to run out of memory!
+to store the ratings data, $\mathbf{R}\in\mathbb{R}^{n\times p}$.
 
-> Sparse == many zeros.
+Remark.
+: *Sparse* matrices contain many zeros. Instead of storing all the
+$np=`r n*p`$ elements, only the lists of non-zero ones are saved,
+$`r nrow(ratings)`$ values in total.
+This way, we might save a lot of memory.
+The drawback is that, amongst others, random access to the elements
+in a sparse matrix takes more time.
 
-```{r,cache=TRUE}
+
+
+```{r movielens1,cache=TRUE,dependson='cleanse_movies2'}
 library("Matrix")
-RML <- Matrix(0.0, sparse=TRUE, nrow=m, ncol=n)
+R <- Matrix(0.0, sparse=TRUE, nrow=n, ncol=p)
 # This is a vectorised operation;
-# it is faster than a for loop over each row in ratings:
-RML[cbind(ratings$userId, ratings$movieId)] <- ratings$rating
+# it is faster than a for loop over each row
+# in the ratings matrix:
+R[cbind(ratings$userId, ratings$movieId)] <- ratings$rating
 ```
 
 
 <!--# Not every movie is rated - removing:
-RML <- RML[,apply(RML,2,sum)>0]
+R <- R[,apply(R,2,sum)>0]
 # Not each user gave a rating - removing:
-RML <- RML[apply(RML,1,sum)>0,]-->
+R <- R[apply(R,1,sum)>0,]-->
 
----
 
-```{r,cache=TRUE}
-# Preview:
-RML[1:6, 1:18]
+
+Let's preview a few first rows and columns:
+
+```{r movielens2,cache=TRUE,dependson='movielens1'}
+R[1:6, 1:18]
 ```
 
 
 ### Item-Item Similarities
 
----
 
-To recall, the cosine similarity between $\mathbf{a},\mathbf{b}\in\mathbb{R}^m$
+
+To recall, the cosine similarity between
+$\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}\in\mathbb{R}^n$
 is given by:
 
 \[
-S_C(\mathbf{a},\mathbf{b}) = \frac{\sum_{i=1}^m a_i b_i}{
-    \sqrt{\sum_{i=1}^m a_i^2}\sqrt{\sum_{i=1}^m b_i^2}
+s_{i,j}^I = S_C(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}) = \frac{\sum_{k=1}^n r_{k,i} \, r_{k,j}}{
+    \sqrt{\sum_{k=1}^n r_{k,i}^2}\sqrt{\sum_{k=1}^n r_{k,j}^2}
 }
 \]
 
-In vector/matrix algebra notation (have you noticed this
-section is marked with (\*)?), this is:
+In vector/matrix algebra notation, this is:
 
 \[
-S_C(\mathbf{a},\mathbf{b}) = \frac{\mathbf{a}^T \mathbf{b}}{
-\sqrt{{\mathbf{a}^T \mathbf{a}}} \sqrt{{\mathbf{b}^T \mathbf{b}}}
+s_{i,j}^I = S_C(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}) = \frac{\mathbf{r}_{\cdot,i}^T\, \mathbf{r}_{\cdot,j}}{
+\sqrt{{\mathbf{r}_{\cdot,i}^T\, \mathbf{r}_{\cdot,i}}} \sqrt{{\mathbf{r}_{\cdot,j}^T\, \mathbf{r}_{\cdot,j}}}
 }
 \]
 
-If $\mathbf{A}\in\mathbb{R}^{m\times n}$
-we can "almost" compute the all the $n$ cosine similarities at once by applying:
+As $\mathbf{R}\in\mathbb{R}^{n\times p}$,
+we can "almost" compute all the $p\times p$ cosine similarities
+at once by applying:
 
 \[
-S_C(\mathbf{a},\mathbf{B}) = \frac{\mathbf{A}^T \mathbf{A}}{
+\mathbf{S}^I = \frac{\mathbf{R}^T \mathbf{R}}{
 \dots
 }
 \]
 
----
 
-Cosine item-item similarities:
 
-```{r,cache=TRUE}
-norms <- as.matrix(sqrt(colSums(RML^2)))
-RMLx <- as.matrix(crossprod(RML, RML))
-SI <- RMLx/tcrossprod(norms)
+Cosine similarities for item-item comparisons:
+
+```{r movielens3,dependson='movielens2',cache=TRUE}
+norms <- as.matrix(sqrt(colSums(R^2)))
+Rx <- as.matrix(crossprod(R, R))
+SI <- Rx/tcrossprod(norms)
 SI[is.nan(SI)] <- 0 # there were some divisions by zero
 ```
 
-`crossprod(A,B)` gives $\mathbf{A}^T \mathbf{B}$
+Remark.
 
-`tcrossprod(A,B)` gives $\mathbf{A} \mathbf{B}^T$
+: `crossprod(A,B)` gives $\mathbf{A}^T \mathbf{B}$
+and `tcrossprod(A,B)` gives $\mathbf{A} \mathbf{B}^T$.
 
 
 ### Example Recommendations
 
----
 
-```{r,cache=TRUE}
+
+```{r movielens4,dependson='movielens3',cache=TRUE}
 recommend <- function(i, K, SI, movies) {
     # get K most similar movies to the i-th one
     ms <- order(SI[i,], decreasing=TRUE)
-    tibble::tibble(
+    data.frame(
         Title=movies$title[ms[1:K]],
-        SIC=SI[i,ms[1:K]])
+        SIC=SI[i,ms[1:K]],
+        stringsAsFactors=FALSE
+    )
 }
 ```
 
 
----
 
-```{r,cache=TRUE}
+
+```{r movielens5,dependson='movielens4',cache=TRUE}
+movies$title[1215]
 recommend(1215, 10, SI, movies)
 ```
 
----
 
-```{r,cache=TRUE}
+
+```{r movielens6,dependson='movielens5',cache=TRUE}
+movies$title[1]
 recommend(1, 10, SI, movies)
 ```
 
@@ -571,48 +629,55 @@ recommend(1, 10, SI, movies)
 
 ### Clustering
 
----
 
-A cosine similarity matrix can be turned into a dissimilarity matrix:
 
-```{r,cache=TRUE}
+All our ratings are $r_{i,j}\ge 0$, therefore the cosine similarity is
+$s_{i,j}^I\ge 0$. Moreover, it holds $s_{i,j}^I\le 1$.
+Thus, a cosine similarity matrix can be turned into
+a dissimilarity matrix:
+
+```{r movielens7,dependson='movielens6',cache=TRUE}
 DI <- 1.0-SI
 DI[DI<0] <- 0.0 # account for numeric inaccuracies
 DI <- as.dist(DI)
 ```
 
-Which enables us to perform, e.g., the cluster analysis of items:
 
-```{r,cache=TRUE}
+
+
+This enables us to perform, e.g., the cluster analysis of items:
+
+```{r movielens8,dependson='movielens7',cache=TRUE,fig.cap="Cluster dendrogram for the movies"}
 library("genie")
 h <- hclust2(DI)
-c <- cutree(h, k=20)
+plot(h, labels=FALSE, ann=FALSE); box()
 ```
 
----
+
+A 14-partition might look nice, let's give it a try:
+
+```{r movielens9,dependson='movielens8',cache=TRUE}
+c <- cutree(h, k=14)
+```
+
+
 
 
 Example movies in the 3rd cluster:
 
-```{r,cache=TRUE}
-library("stringi")
-cat(i, stri_wrap(stri_paste(head(movies$title[c==3], 20),
-    collapse=", ")), sep="\n")
-```
+`r paste(head(movies$title[c==3], 20), collapse=", ")`
+
+The definitely have something in common!
 
 
 
----
+
+Example movies in the 1st cluster:
+
+`r paste(head(movies$title[c==1], 20), collapse=", ")`
 
 
-Example movies in the 5th cluster:
-
-```{r,cache=TRUE}
-cat(i, stri_wrap(stri_paste(head(movies$title[c==5], 20),
-    collapse=", ")), sep="\n")
-```
-
-
+... and so forth.
 
 
 
@@ -620,7 +685,7 @@ cat(i, stri_wrap(stri_paste(head(movies$title[c==5], 20),
 
 ### Remarks
 
----
+
 
 Good recommender systems are perfect tools to increase the revenue
 of any user-centric enterprise.
@@ -632,39 +697,41 @@ information of the Netflix Prize winners.
 Recommender systems are an interesting fusion of the techniques we
 have already studied -- linear models, K-nearest neighbours etc.
 
-### Issues
 
----
+
 
 Building recommender systems is challenging, because
-data is large yet often sparse;
-
-> Here is the ratio of available ratings
+data is large yet often sparse.
+For instance, the ratio of available ratings
 vs. all possible user-item valuations for the Netflix Prize
 (obviously, it is just a sample of
-the complete dataset that Netflix has):
+the complete dataset that Netflix has) is equal to:
 
-```{r}
+```{r netflix_count}
 100480507/(480189*17770)
 ```
 
-*Sparse matrix* (many "zeros" = unassigned ratings) data structure is
+A *sparse matrix* (see R package `Matrix`) data structure is
 often used for storing of and computing over such data  effectively.
 
----
 
-Some users are *biased* in the sense that they are more critical or enthusiastic than
+
+
+Note that some users are *biased* in the sense that they are more critical or
+enthusiastic than
 average users.
 
-> Is 3 stars a "bad", "fair enough" or "good" rating for you?
-> Would you go to a bar/restaurant ranked 3.0 by you favourite Maps app community?
+{ BEGIN exercise }
+Is 3 stars a "bad", "fair enough" or "good" rating for you?
+Would you go to a bar/restaurant ranked 3.0 by you favourite Maps app community?
+{ END exercise }
 
 It is particularly challenging to predict the preferences of users
 that cast few ratings, e.g., those who just signed up (*the cold start problem*).
 
 
 
----
+
 
 
 
@@ -684,23 +751,17 @@ to promote or inhibit selected items.
 
 ### Further Reading
 
-#### {.allowframebreaks .unnumbered}
-
-```{R,echo=FALSE,message=FALSE}
+```{r recommenderlab,eval=FALSE,echo=FALSE}
 library("recommenderlab")
 ```
 
 Recommended further reading:
-
-- [@herlocker_etal]
-- [@ricci_etal]
-- [@lu_etal]
-- [@movielens]
-
-Other:
-
-- [@bellkor_netflix]
-- [@bigchaos_netflix]
-- [@pragmatictheory_netflix]
-
-Also don't forget to take a look at the R package `recommenderlab` (amongst others).
+[@herlocker_etal],
+[@ricci_etal],
+[@lu_etal],
+[@movielens].
+See also the Netflix prize winners: [@bellkor_netflix],
+[@bigchaos_netflix],
+[@pragmatictheory_netflix].
+Also don't forget to take a look at
+the R package `recommenderlab` (amongst others).

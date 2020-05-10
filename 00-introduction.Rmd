@@ -97,6 +97,14 @@ instead of finding examples of datasets where ml methods work
 ("good datasets are hard to find")
 the author took a few realistic databases and.... well, showed
 how to solve the problems with the methods that don't work ;)
+
+
+you might want to become a ML engineer or data analyst/scientist
+or use the methods in your research
+
+greedy companies store a lot of data about their customers --
+you might want to understand the principles behind the methods they use
+to recommend you that ad or product
 -->
 
 

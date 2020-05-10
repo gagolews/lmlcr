@@ -23,6 +23,8 @@ etc. == and so forth (Latin: *et cetera*)
 
 AI == artificial intelligence
 
+API == application programming interface
+
 GA == genetic algorithm
 
 GD == gradient descent
