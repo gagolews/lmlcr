@@ -36,7 +36,7 @@ i.e., we assumed the search space is $\mathbb{D}=\mathbb{R}^p$ for some $p$.
 
 Example problems of this kind: minimising mean squared error
 in linear regression
-or cross-entropy in logistic regression.
+or minimising cross-entropy in logistic regression.
 
 
 ---
@@ -149,12 +149,11 @@ spread randomly in every possible direction with scale factor $s$.
 
 Two example clusters in $\mathbb{R}^2$:
 
-```{r,dependson='gendata',gendata_example,cache=TRUE,echo=-(1:2)}
+```{r,dependson='gendata',gendata_example,cache=TRUE,echo=-1}
 set.seed(1243)
-par(mar=c(2,2,0.5,0.5))
 # plot the "black" cluster
 plot(gen_cluster(500, 2, c(0, 0), 1), col="#00000022", pch=16,
-    xlim=c(-3, 4), ylim=c(-3, 4), asp=1, ann=FALSE, las=1)
+    xlim=c(-3, 4), ylim=c(-3, 4), asp=1, ann=FALSE)
 # plot the "red" cluster
 points(gen_cluster(250, 2, c(1.5, 1), 0.5), col="#ff000022", pch=16)
 ```
@@ -177,6 +176,103 @@ X <- lapply(1:K, function(k)
 X <- do.call(rbind, X) # rbind(X[[1]], X[[2]], X[[3]])
 ```
 
+
+
+<!--
+X <- as.matrix(read.csv("datasets/sipu_unbalance.csv",
+    header=FALSE, sep=" ", comment.char="#",
+    stringsAsFactors=FALSE))
+X <- X/10000-30 # a more user-friendly scale
+K <- 8
+p <- 2
+
+library("FNN")
+get_fitness <- function(mu, X) {
+    # For each point in X,
+    # get the index of the closest point in mu:
+    memb <- FNN::get.knnx(mu, X, 1)$nn.index
+
+    # compute the sum of squared distances
+    # between each point and its closes cluster centre:
+    sum((X-mu[memb,])^2)
+}
+
+Storn R, Price K (1997). “Differential Evolution – A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.”Journal of Global Optimization,11(4), 341–359.
+
+Mullen K, Ardia D, Gil D, Windover D, Cline J (2011). “DEoptim:  An R Package for GlobalOptimization by Differential Evolution.”Journal of Statistical Software,40(6), 1–26. URLhttp://www.jstatsoft.org/v40/i06/
+
+library("DEoptim")
+obj <- function(mu) {
+            get_fitness(matrix(mu, nrow=K), X)
+        }
+res <- DEoptim(fn=obj,
+        lower=rep(apply(X, 2, min), each=K),
+        upper=rep(apply(X, 2, max), each=K)
+        #control=list(itermax=1000)
+        )
+
+mu_res <- matrix(res$optim$bestmem, nrow=K)
+plot(X)
+points(mu_res, col=2,cex=3)
+get_fitness(mu_res, X)
+km <- kmeans(X, mu_res)
+get_fitness(km$centers, X)
+
+
+
+
+res <- optim(X[sample(nrow(X), K),],
+    fn=obj,
+        #lower=rep(apply(X, 2, min), each=K),
+        #upper=rep(apply(X, 2, max), each=K),
+        method="SANN",
+        control = list(maxit = 20000)
+        )
+
+mu_res <- matrix(res$par, nrow=K)
+plot(X)
+points(mu_res, col=2,cex=3)
+get_fitness(mu_res, X)
+km <- kmeans(X, mu_res)
+get_fitness(km$centers, X)
+
+Zambrano-Bigiarini, M., Rojas, R. (2013). “A model-independent Particle Swarm Optimisation software for model calibration.” Environmental Modelling & Software, 43, 5-25. doi: 10.1016/j.envsoft.2013.01.004, http://dx.doi.org/10.1016/j.envsoft.2013.01.004.
+
+library("hydroPSO")
+res <- hydroPSO(fn=obj,
+        lower=rep(apply(X, 2, min), each=K),
+        upper=rep(apply(X, 2, max), each=K)
+        #control=list(itermax=1000)
+        )
+
+mu_res <- matrix(res$par, nrow=K)
+plot(X)
+points(mu_res, col=2,cex=3)
+get_fitness(mu_res, X)
+km <- kmeans(X, mu_res)
+get_fitness(km$centers, X)
+
+
+
+
+cntr <- matrix(ncol=2, byrow=TRUE, c( # initial guess
+   -15,   5,
+   -12,   10,
+   -10,   5,
+    15,   0,
+    15,   10,
+    20,   5,
+    25,   0,
+    25,   10))
+km <- kmeans(X, cntr)
+get_fitness(km$centers, X)
+
+km <- kmeans(X, K, nstart=10)
+get_fitness(km$centers, X)
+
+-->
+
+
 ---
 
 The objective function for the K-means clustering problem:
@@ -193,6 +289,10 @@ get_fitness <- function(mu, X) {
     sum((X-mu[memb,])^2)
 }
 ```
+
+
+
+
 
 ---
 
@@ -220,7 +320,7 @@ min_optim <- function(mu0, X)
 
 Running the simulation:
 
-```{r,dependson='gendata3b',gendata4,cache=TRUE}
+```{r,dependson='gendata3b',gendata4,cache=TRUE,warning=FALSE}
 nstart <- 100
 set.seed(123)
 res <- replicate(nstart, {
@@ -240,9 +340,8 @@ res <- replicate(nstart, {
 Notice a considerable variability of the
 objective function at the local minima found:
 
-```{r,dependson='gendata4',gendata5,cache=TRUE}
-par(mar=c(2, 6.5, 0.5, 0.5)) # figure margins
-boxplot(as.data.frame(t(res)), horizontal=TRUE, las=1)
+```{r gendata5,dependson='gendata4',cache=TRUE}
+boxplot(as.data.frame(t(res)), horizontal=TRUE, col="white")
 ```
 
 
@@ -312,10 +411,9 @@ print(get_fitness(res_tried_very_hard, X))
 Is it good enough?
 
 > It depends what we'd like to do with this. Does it make your boss happy?
-Does it generate revenue? Does it help solve any other problem? Is it useful anyhow?
+Does it generate revenue? Does it help solve any other problem?
+Is it useful anyhow?
 Are you really looking for the global minimum?
-
-
 
 
 
@@ -337,8 +435,7 @@ that can serve this purpose.
 
 Most of them rely on clever randomised search.
 
-They are slow to run and don't guarantee anything, but yet they still might be useful -- better
-a solution than no solution at all.
+They are slow to run and don't guarantee anything, but yet they still might be useful -- some claim that **a** solution is better than no solution at all.
 
 ---
 
@@ -382,7 +479,8 @@ All of these sound fancy, but the general ideas behind them are pretty simple.
 
 Genetic algorithms (GAs) are amongst the most popular evolutionary approaches.
 
-They are based on Charles Darwin's work on evolution by natural selection.
+They are based on Charles Darwin's work on evolution by natural selection;
+first proposed by  John Holland in the 1960s.
 
 See (Goldberg, 1989) for a comprehensive overview
 and (Simon, 2013) for extensions.
@@ -396,7 +494,7 @@ over a given domain $D$.
 ---
 
 1. Generate a random initial population of individuals -- $n_\text{pop}$ points in $D$,
-e.g., $n_\text{pop}=128$
+e.g., $n_\text{pop}=32$
 
 2. Repeat until some convergence criterion is not met:
 
@@ -464,7 +562,11 @@ selection <- function(cur_fitness) {
 
 An example crossover combines each cluster centre
 in such a way that we take a few coordinates of the "left" parent
-and the remaining ones from the "right" parent (see below for an illustration):
+and the remaining ones from the "right" parent:
+
+![](figures/crossover){#fig:crossover width=75%}
+
+---
 
 
 ```{r,dependson='genetic2',genetic3,cache=TRUE}
@@ -485,10 +587,6 @@ crossover <- function(pop, pairs, K, p) {
 
 ---
 
-![](figures/crossover){#fig:crossover width=75%}
-
----
-
 Mutation (occurring with a very small probability)
 substitutes some cluster centre with a random vector from the input dataset.
 
@@ -496,10 +594,10 @@ substitutes some cluster centre with a random vector from the input dataset.
 ```{r,dependson='genetic3',genetic4,cache=TRUE}
 mutate <- function(pop, X, K) {
     for (j in 1:length(pop)) {
-        if (runif(1) < 0.025) {
-            szw <- sample(1:K, 1)
-            pop[[j]][szw,] <- X[sample(nrow(X), length(szw)),]
-        }
+       if (runif(1) < 0.025) {
+          szw <- sample(1:K, 1)
+          pop[[j]][szw,] <- X[sample(nrow(X), length(szw)),]
+       }
     }
     pop
 }
@@ -678,10 +776,10 @@ Other interesting algorithms:
 * Simulated annealing
 * CMA-ES
 * Tabu search
-* Particle swarm optimisation
+* Particle swarm optimisation (e.g, `hydroPSO` package)
 * Artificial bee/ant colony optimisation
 * Cuckoo Search
-
+* Differential Evolution (e.g., `DEoptim` package)
 
 ### Further Reading
 
@@ -694,3 +792,6 @@ Recommended further reading:
 Other:
 
 - [@evolution]
+
+
+See also package `GA`.

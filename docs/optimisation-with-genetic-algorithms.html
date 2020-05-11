@@ -486,7 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-11 15:28 (06e493d)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-11 22:28 (16b9c8d)</a></li>
 
 </ul>
 
@@ -537,7 +537,7 @@ i.e., we assumed the search space is <span class="math inline">\(\mathbb{D}=\mat
 </p>
 <p>Example problems of this kind: minimising mean squared error
 in linear regression
-or cross-entropy in logistic regression.</p>
+or minimising cross-entropy in logistic regression.</p>
 <div style="margin-top: 1em">
 
 </div>
@@ -627,7 +627,7 @@ spread randomly in every possible direction with scale factor <span class="math 
 <p>Two example clusters in <span class="math inline">\(\mathbb{R}^2\)</span>:</p>
 <div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" title="1"><span class="co"># plot the &quot;black&quot; cluster</span></a>
 <a class="sourceLine" id="cb742-2" title="2"><span class="kw">plot</span>(<span class="kw">gen_cluster</span>(<span class="dv">500</span>, <span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dv">1</span>), <span class="dt">col=</span><span class="st">&quot;#00000022&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>,</a>
-<a class="sourceLine" id="cb742-3" title="3">    <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb742-3" title="3">    <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb742-4" title="4"><span class="co"># plot the &quot;red&quot; cluster</span></a>
 <a class="sourceLine" id="cb742-5" title="5"><span class="kw">points</span>(<span class="kw">gen_cluster</span>(<span class="dv">250</span>, <span class="dv">2</span>, <span class="kw">c</span>(<span class="fl">1.5</span>, <span class="dv">1</span>), <span class="fl">0.5</span>), <span class="dt">col=</span><span class="st">&quot;#ff000022&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</a></code></pre></div>
 <div class="figure">
@@ -649,6 +649,99 @@ that consists of three clusters in a high-dimensional space.</p>
 <a class="sourceLine" id="cb743-8" title="8">X &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="cf">function</span>(k)</a>
 <a class="sourceLine" id="cb743-9" title="9">    <span class="kw">gen_cluster</span>(Ns[k], p, <span class="kw">rep</span>(Ms[k], p), s))</a>
 <a class="sourceLine" id="cb743-10" title="10">X &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, X) <span class="co"># rbind(X[[1]], X[[2]], X[[3]])</span></a></code></pre></div>
+<!--
+X <- as.matrix(read.csv("datasets/sipu_unbalance.csv",
+    header=FALSE, sep=" ", comment.char="#",
+    stringsAsFactors=FALSE))
+X <- X/10000-30 # a more user-friendly scale
+K <- 8
+p <- 2
+
+library("FNN")
+get_fitness <- function(mu, X) {
+    # For each point in X,
+    # get the index of the closest point in mu:
+    memb <- FNN::get.knnx(mu, X, 1)$nn.index
+
+    # compute the sum of squared distances
+    # between each point and its closes cluster centre:
+    sum((X-mu[memb,])^2)
+}
+
+Storn R, Price K (1997). “Differential Evolution – A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.”Journal of Global Optimization,11(4), 341–359.
+
+Mullen K, Ardia D, Gil D, Windover D, Cline J (2011). “DEoptim:  An R Package for GlobalOptimization by Differential Evolution.”Journal of Statistical Software,40(6), 1–26. URLhttp://www.jstatsoft.org/v40/i06/
+
+library("DEoptim")
+obj <- function(mu) {
+            get_fitness(matrix(mu, nrow=K), X)
+        }
+res <- DEoptim(fn=obj,
+        lower=rep(apply(X, 2, min), each=K),
+        upper=rep(apply(X, 2, max), each=K)
+        #control=list(itermax=1000)
+        )
+
+mu_res <- matrix(res$optim$bestmem, nrow=K)
+plot(X)
+points(mu_res, col=2,cex=3)
+get_fitness(mu_res, X)
+km <- kmeans(X, mu_res)
+get_fitness(km$centers, X)
+
+
+
+
+res <- optim(X[sample(nrow(X), K),],
+    fn=obj,
+        #lower=rep(apply(X, 2, min), each=K),
+        #upper=rep(apply(X, 2, max), each=K),
+        method="SANN",
+        control = list(maxit = 20000)
+        )
+
+mu_res <- matrix(res$par, nrow=K)
+plot(X)
+points(mu_res, col=2,cex=3)
+get_fitness(mu_res, X)
+km <- kmeans(X, mu_res)
+get_fitness(km$centers, X)
+
+Zambrano-Bigiarini, M., Rojas, R. (2013). “A model-independent Particle Swarm Optimisation software for model calibration.” Environmental Modelling & Software, 43, 5-25. doi: 10.1016/j.envsoft.2013.01.004, http://dx.doi.org/10.1016/j.envsoft.2013.01.004.
+
+library("hydroPSO")
+res <- hydroPSO(fn=obj,
+        lower=rep(apply(X, 2, min), each=K),
+        upper=rep(apply(X, 2, max), each=K)
+        #control=list(itermax=1000)
+        )
+
+mu_res <- matrix(res$par, nrow=K)
+plot(X)
+points(mu_res, col=2,cex=3)
+get_fitness(mu_res, X)
+km <- kmeans(X, mu_res)
+get_fitness(km$centers, X)
+
+
+
+
+cntr <- matrix(ncol=2, byrow=TRUE, c( # initial guess
+   -15,   5,
+   -12,   10,
+   -10,   5,
+    15,   0,
+    15,   10,
+    20,   5,
+    25,   0,
+    25,   10))
+km <- kmeans(X, cntr)
+get_fitness(km$centers, X)
+
+km <- kmeans(X, K, nstart=10)
+get_fitness(km$centers, X)
+
+-->
 <div style="margin-top: 1em">
 
 </div>
@@ -701,8 +794,7 @@ that consists of three clusters in a high-dimensional space.</p>
 </div>
 <p>Notice a considerable variability of the
 objective function at the local minima found:</p>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" title="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">6.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)) <span class="co"># figure margins</span></a>
-<a class="sourceLine" id="cb747-2" title="2"><span class="kw">boxplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">t</span>(res)), <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">las=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" title="1"><span class="kw">boxplot</span>(<span class="kw">as.data.frame</span>(<span class="kw">t</span>(res)), <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div class="figure">
 <img src="08-optimisation-genetic-figures/gendata5-1.svg" alt="Figure 2: plot of chunk gendata5" id="fig:gendata5" />
 <p class="caption">Figure 2: plot of chunk gendata5</p>
@@ -775,7 +867,8 @@ is the most reliable one of the three:</p>
 <p>Is it good enough?</p>
 <blockquote>
 <p>It depends what we’d like to do with this. Does it make your boss happy?
-Does it generate revenue? Does it help solve any other problem? Is it useful anyhow?
+Does it generate revenue? Does it help solve any other problem?
+Is it useful anyhow?
 Are you really looking for the global minimum?</p>
 </blockquote>
 </div>
@@ -793,8 +886,7 @@ any custom solver for the task at hand?</p>
 <p>There are a couple of useful <em>metaheuristics</em> in the literature
 that can serve this purpose.</p>
 <p>Most of them rely on clever randomised search.</p>
-<p>They are slow to run and don’t guarantee anything, but yet they still might be useful – better
-a solution than no solution at all.</p>
+<p>They are slow to run and don’t guarantee anything, but yet they still might be useful – some claim that <strong>a</strong> solution is better than no solution at all.</p>
 <div style="margin-top: 1em">
 
 </div>
@@ -840,7 +932,8 @@ other to generate new “offspring” solutions.</p>
 
 </div>
 <p>Genetic algorithms (GAs) are amongst the most popular evolutionary approaches.</p>
-<p>They are based on Charles Darwin’s work on evolution by natural selection.</p>
+<p>They are based on Charles Darwin’s work on evolution by natural selection;
+first proposed by John Holland in the 1960s.</p>
 <p>See (Goldberg, 1989) for a comprehensive overview
 and (Simon, 2013) for extensions.</p>
 <p>Here is the general idea of a GA (there might be many)
@@ -851,7 +944,7 @@ over a given domain <span class="math inline">\(D\)</span>.</p>
 </div>
 <ol style="list-style-type: decimal">
 <li><p>Generate a random initial population of individuals – <span class="math inline">\(n_\text{pop}\)</span> points in <span class="math inline">\(D\)</span>,
-e.g., <span class="math inline">\(n_\text{pop}=128\)</span></p></li>
+e.g., <span class="math inline">\(n_\text{pop}=32\)</span></p></li>
 <li><p>Repeat until some convergence criterion is not met:</p>
 <ol style="list-style-type: lower-alpha">
 <li>evaluate the fitness of each individual</li>
@@ -906,7 +999,14 @@ probabilities proportional to their fitness.</p>
 </div>
 <p>An example crossover combines each cluster centre
 in such a way that we take a few coordinates of the “left” parent
-and the remaining ones from the “right” parent (see below for an illustration):</p>
+and the remaining ones from the “right” parent:</p>
+<div class="figure">
+<img src="figures/crossover.svg" alt="Figure 3: " id="fig:crossover" style="width:75.0%" />
+<p class="caption">Figure 3: </p>
+</div>
+<div style="margin-top: 1em">
+
+</div>
 <div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1">crossover &lt;-<span class="st"> </span><span class="cf">function</span>(pop, pairs, K, p) {</a>
 <a class="sourceLine" id="cb760-2" title="2">    old_pop &lt;-<span class="st"> </span>pop</a>
 <a class="sourceLine" id="cb760-3" title="3">    pop &lt;-<span class="st"> </span>pop[pairs[,<span class="dv">2</span>]]</a>
@@ -921,21 +1021,14 @@ and the remaining ones from the “right” parent (see below for an illustratio
 <div style="margin-top: 1em">
 
 </div>
-<div class="figure">
-<img src="figures/crossover.svg" alt="Figure 3: " id="fig:crossover" style="width:75.0%" />
-<p class="caption">Figure 3: </p>
-</div>
-<div style="margin-top: 1em">
-
-</div>
 <p>Mutation (occurring with a very small probability)
 substitutes some cluster centre with a random vector from the input dataset.</p>
 <div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" title="1">mutate &lt;-<span class="st"> </span><span class="cf">function</span>(pop, X, K) {</a>
 <a class="sourceLine" id="cb761-2" title="2">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pop)) {</a>
-<a class="sourceLine" id="cb761-3" title="3">        <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.025</span>) {</a>
-<a class="sourceLine" id="cb761-4" title="4">            szw &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb761-5" title="5">            pop[[j]][szw,] &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), <span class="kw">length</span>(szw)),]</a>
-<a class="sourceLine" id="cb761-6" title="6">        }</a>
+<a class="sourceLine" id="cb761-3" title="3">       <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.025</span>) {</a>
+<a class="sourceLine" id="cb761-4" title="4">          szw &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>K, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb761-5" title="5">          pop[[j]][szw,] &lt;-<span class="st"> </span>X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), <span class="kw">length</span>(szw)),]</a>
+<a class="sourceLine" id="cb761-6" title="6">       }</a>
 <a class="sourceLine" id="cb761-7" title="7">    }</a>
 <a class="sourceLine" id="cb761-8" title="8">    pop</a>
 <a class="sourceLine" id="cb761-9" title="9">}</a></code></pre></div>
@@ -1094,9 +1187,10 @@ in multiple regression – finding the subset of features optimising the AIC
 <li>Simulated annealing</li>
 <li>CMA-ES</li>
 <li>Tabu search</li>
-<li>Particle swarm optimisation</li>
+<li>Particle swarm optimisation (e.g, <code>hydroPSO</code> package)</li>
 <li>Artificial bee/ant colony optimisation</li>
 <li>Cuckoo Search</li>
+<li>Differential Evolution (e.g., <code>DEoptim</code> package)</li>
 </ul>
 </div>
 <div id="further-reading-7" class="section level3">
@@ -1111,6 +1205,7 @@ in multiple regression – finding the subset of features optimising the AIC
 <ul>
 <li><span class="citation">(Simon <a href="references.html#ref-evolution">2013</a>)</span></li>
 </ul>
+<p>See also package <code>GA</code>.</p>
 
 </div>
 </div>

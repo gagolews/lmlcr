@@ -1794,9 +1794,12 @@ good intuitions here.
 Keep in mind that with methods such as GD or SGD, there is no guarantee we reach a minimum,
 but an approximate solution is better than no solution at all.
 Also sometimes (especially in ML applications)
-we don't really need the actual minimum (with respect to the train set).
+we don't really need the actual minimum (e.g., when optimising
+the error with respect to the train set).
 Those "mathematically pure" will find that a bit... unaesthetic,
-but here we are. Better *a* solution than no solution at all, remember?
+but here we are.  Maybe the solution makes your boss or client happy,
+maybe it generates revenue. Maybe it helps solve some other problem.
+Some claim that *a* solution is better than no solution at all, remember?
 But... is it really always the case though?
 
 
