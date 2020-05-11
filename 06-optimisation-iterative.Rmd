@@ -48,22 +48,23 @@ of an *error* or *goodness of fit* measure:
 \[
 f:\mathbb{D}\to\mathbb{R}
 \]
-called an **objective function**.
-
-$\mathbb{D}$ is  the **search space** (problem domain, feasible set) --
-if defines the set of possible candidate solutions.
+called an **objective function**, where
+$\mathbb{D}$ is  the **search space** (problem domain, feasible set).
 
 
-An **optimisation task** deals with finding an element ${x}\in \mathbb{D}$
+An **optimisation task** deals with finding an element $\mathbf{x}\in \mathbb{D}$
+amongst the set of possible candidate solutions,
 that minimises or maximises $f$:
 
 \[
-\min_{{x}\in \mathbb{D}} f({x}) \quad\text{or}\quad\max_{{x}\in \mathbb{D}} f({x}),
+\min_{\mathbf{x}\in \mathbb{D}} f(\mathbf{x})
+\quad\text{or}\quad\max_{\mathbf{x}\in \mathbb{D}} f(\mathbf{x}),
 \]
 
 
-In this chapter, we will deal with **unconstrained continuous optimisation**,
-i.e., we will assume the search space is $\mathbb{D}=\mathbb{R}^p$ for some $p$.
+In this chapter we will deal with **unconstrained continuous optimisation**,
+i.e., we will assume the search space is $\mathbb{D}=\mathbb{R}^p$ for some $p$ --
+we'll be optimising over $p$ real-valued parameters.
 
 
 
@@ -95,22 +96,20 @@ In **binary logistic regression** we were minimising the cross-entropy:
 ### Types of Minima and Maxima
 
 
-
-
-
 Note that minimising $f$ is the same as maximising $\bar{f}=-f$.
 
-In other words, $\min_{{x}\in \mathbb{D}} f({x})$
-and $\max_{{x}\in \mathbb{D}} -f({x})$ represent the same optimisation problems
+In other words, $\min_{\mathbf{x}\in \mathbb{D}} f(\mathbf{x})$
+and $\max_{\mathbf{x}\in \mathbb{D}} -f(\mathbf{x})$
+represent the same optimisation problems
 (and hence have identical solutions).
 
-. . .
 
-A **minimum** of $f$ is a point ${x}^*$ such that
-$f({x}^*)\le f({x})$ for all ${x}\in \mathbb{D}$.
+Definition.
 
-A **maximum** of $f$ is a point ${x}^*$ such that
-$f({x}^*)\ge f({x})$ for all ${x}\in \mathbb{D}$.
+: A **minimum** of $f$ is a point $\mathbf{x}^*$ such that
+$f(\mathbf{x}^*)\le f(\mathbf{x})$ for all $\mathbf{x}\in \mathbb{D}$.
+On the other hand, a **maximum** of $f$ is a point $\mathbf{x}^*$ such that
+$f(\mathbf{x}^*)\ge f(\mathbf{x})$ for all $\mathbf{x}\in \mathbb{D}$.
 
 
 
@@ -119,6 +118,9 @@ Assuming that $\mathbb{D}=\mathbb{R}$, Figure {@fig:f_global_minimum}
 shows an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
 that has a minimum at ${x}^*=1$
 with $f(x^*)=-2$.
+
+
+
 
 
 ```{r f_global_minimum,echo=FALSE,fig.cap="A function with the global minimum at ${x}^*=1$"}
@@ -132,19 +134,20 @@ text(5, -2, expression(f(x^"*")), pos=1)
 legend("topleft", lty=1, legend=expression(f(x)*"="*(x-1)^2-2), bg="white")
 ```
 
-$\min_{x\in \mathbb{R}} f(x)=-2$ (value of $f$ at the minimum)
 
-$\mathrm{arg}\min_{x\in \mathbb{R}} f(x)=1$ (location of the minimum)
+Remark.
 
+: We can denote these two facts as follows:
 
-
-
-
-
-
+    * $(\min_{x\in \mathbb{R}} f(x))=-2$ (value of $f$ at the minimum is $-2$),
+    * $(\mathrm{arg}\min_{x\in \mathbb{R}} f(x))=1$ (location of the minimum,
+    i.e., *argument minimum*, is $1$).
 
 
-By definition, a minimum/maximum **might not necessarily be unique**.
+
+
+
+By definition, a minimum/maximum *might not necessarily be unique*.
 This depends on a problem.
 
 
@@ -179,7 +182,7 @@ and hence many equivalent explanations of the same phenomenon.
 
 
 
-Moreover, it may happen that a function has **multiple local minima**,
+Moreover, it may happen that a function has *multiple local minima*,
 compare Figure {@fig:f_global_local_minima}.
 
 
@@ -200,17 +203,20 @@ legend("topleft", lty=1, legend=expression(f(x)*"="*x*(x+1)*(x-1)^2-2), bg="whit
 
 
 
-We say that $f$ has a **local minimum**
+Definition.
+
+: We say that $f$ has a **local minimum**
 at $\mathbf{x}^+\in \mathbb{D}$,
 if for some neighbourhood $B(\mathbf{x}^+)$ of $\mathbf{x}^+$
 it holds $f(\mathbf{x}^+) \le f(\mathbf{x})$ for each
 $\mathbf{x}\in B(\mathbf{x}^+)$.
 
-Definition.
-
 : If $\mathbb{D}=\mathbb{R}$, by neighbourhood $B(x)$ of $x$
 we mean an open interval centred at $x$ of width $2r$
 for some small $r>0$, i.e., $(x-r, x+r)$
+
+
+
 
 Definition.
 
@@ -224,8 +230,9 @@ to $\mathbf{x}$ less than $r$).
 
 
 
-To avoid ambiguity, the "true" minimum (a point ${x}^*$ such that
-$f({x}^*)\le f({x})$ for all ${x}\in \mathbb{D}$) is sometimes also referred to as
+To avoid ambiguity, the "true" minimum (a point $\mathbf{x}^*$ such that
+$f(\mathbf{x}^*)\le f({x})$ for all $\mathbf{x}\in \mathbb{D}$)
+is sometimes also referred to as
 a **global** minimum.
 
 
@@ -323,7 +330,7 @@ knitr::kable(local_minima_g)
 ```
 
 
-The global minimum is at $(x_1^*, x_2^*)$ as below:
+The global minimum is at $\mathbf{x}^*=(x_1^*, x_2^*)$ as below:
 
 ```{r local_minima_g2}
 g(-1.542255693195422641930153, 2.156405289793087261832605)
@@ -331,7 +338,7 @@ g(-1.542255693195422641930153, 2.156405289793087261832605)
 
 
 
-Let's explore various ways of depicting $f$.
+Let's explore various ways of depicting $f$ first.
 A contour plot and a heat map
 are given in Figure {@fig:contour_g}.
 
@@ -392,9 +399,11 @@ Golden section search
 
 Many optimisation algorithms are built around the following scheme:
 
-*starting from a random point, perform a walk,
+> *Starting from a random point, perform a walk,
 in each step deciding where to go based on the  idea
-of where the location of the minimum seems to be.*
+of where the location of the minimum might be.*
+
+
 
 Example.
 
@@ -408,7 +417,7 @@ we'll have to ask many people along the way, but we'll eventually
 
 
 More formally, we are interested in iterative
-algorithms that operate in a greedy-like fashion:
+algorithms that operate in a greedy-like manner:
 
 
 1. $\mathbf{x}^{(0)}$ -- initial guess (e.g., generated at random)
@@ -424,16 +433,16 @@ algorithms that operate in a greedy-like fashion:
 
 Note that there are two stopping criteria, based on:
 
-* $M$ = maximum number of iterations
-* $\varepsilon$ = tolerance, e.g, $10^{-8}$
+* $M$ = maximum number of iterations,
+* $\varepsilon$ = tolerance, e.g, $10^{-8}$.
+
+
+
 
 
 
 
 ### Example in R
-
-
-
 
 
 R has a built-in function, `optim()`, that provides an implementation
@@ -511,7 +520,8 @@ see Figure {@fig:gbfgsvisit}.
 Remark.
 
 : (\*) Technically, the algorithm needs to evaluate a few more points
-in order to make the decision on where to go next (BFGS approximates the Hessian matrix).
+in order to make the decision on where to go next (BFGS approximates the
+gradient and the Hessian matrix).
 
 ```{r gbfgsvisit,echo=-1,warning=FALSE,cache=TRUE,fig.cap="Each plotting symbol marks a point where the objective function was evaluated by the BFGS method"}
 set.seed(123)
@@ -569,7 +579,7 @@ hist(res_value, col="white", breaks=100, main=NA); box()
 Figure {@fig:bfgs_multi_where} depicts all the random starting points and where
 do we converge from them.
 
-```{r bfgs_multi_where,echo=FALSE,cache=TRUE,fig.cap="Each line segment connect a starting point to the point of BFGS's convergence"}
+```{r bfgs_multi_where,echo=FALSE,cache=TRUE,fig.cap="Each line segment connect a starting point to the point of BFGS's convergence; note that by starting in the neighbourhood of $(0,-4)$ we can actually end up in any of the 4 local minima"}
 set.seed(123)
 res <- replicate(1000, {
     # this will be iterated 100 times
@@ -630,7 +640,7 @@ optim_with_restarts(function() runif(2, -5, 5),
 
 { BEGIN exercise }
 Food for thought:
-Can we guarantee that the global minimum will be found within $N$ tries?
+Can we really really guarantee that the global minimum will be found within $N$ tries?
 { END exercise }
 
 { BEGIN solution }
@@ -794,35 +804,56 @@ grad_g_vectorised(c(-1.542255693, 2.15640528979))
 ```
 
 
-BTW, there is also the `grad()` function in package `numDeriv`
+By the way, there is also the `grad()` function in package `numDeriv`
 that might be a little more accurate (uses a different approximation
 formula).
 
 
 
 
-
-
-Fact 2a.
+Fact 2.
 
 : The gradient of $f$ at $\mathbf{x}$, $\nabla f(\mathbf{x})$,
 is a vector that points in the direction of the steepest slope.
+On the other hand, minus gradient, $-\nabla f(\mathbf{x})$, is the direction where the function decreases the fastest.
 
 
 
-Fact 2b.
 
-: Minus gradient, $-\nabla f(\mathbf{x})$, is the direction where the function decreases the fastest.
 
 Remark.
 
 : (\*) This can be shown by considering a function's first-order Taylor series approximation.  <!-- TODO: write how? -->
 
 
+
+Each gradient is a vector, therefore it can be depicted as an arrow.
+Figure {@fig:gradplots} illustrates a few scaled gradients of the $g$
+function at different points  -- each arrow connects a point
+$\mathbf{x}$ to $\mathbf{x}\pm 0.1\nabla f(\mathbf{x})$.
+
+
+```{r gradplots,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef1',fig.cap="Scaled radients (pink arrows) and minus gradients (blue arrows) of $g(x_1,x_2)$ at different points"}
+contour(x1, x2, y, nlevels=25, xlim=c(-3, -1), ylim=c(1, 3))
+XXXX <- matrix(ncol=2,byrow=TRUE, c(
+    -2, 2,
+    -2, 1.5,
+    -1.5, 2.75,
+    -1, 1.5,
+    -1.5, 1.5,
+    -1.0, 2.5
+))
+for (i in 1:nrow(XXXX)) {
+    grrrr <- grad_g_vectorised(XXXX[i,])*0.1
+    arrows(XXXX[i,1], XXXX[i,2],  XXXX[i,1]+grrrr[1], XXXX[i,2]+grrrr[2], col="pink")
+    arrows(XXXX[i,1], XXXX[i,2],  XXXX[i,1]-grrrr[1], XXXX[i,2]-grrrr[2], col="blue")
+}
+```
+
+Note that the blue arrows point more or less in the direction of the local minimum.
 Therefore, in our iterative algorithm,
 we may try taking the direction of the minus gradient!
-
-How far in that direction? Well, a bit.
+How far should we go in that direction? Well, a bit.
 We will refer to the desired step size as the **learning rate**, $\eta$.
 
 . . .
@@ -1006,7 +1037,7 @@ and minimise oscillations.
 
 { BEGIN exercise }
 Try implementing at least the first of the above
-heuristics yourself. You can set `eta <- eta*0.9` in every iteration
+heuristics yourself. You can set `eta <- eta*0.95` in every iteration
 of the gradient descent procedure.
 { END exercise }
 
@@ -1346,13 +1377,15 @@ E(\mathbf{B}) \simeq
 \]
 
 where $b$ is some fixed batch size.
+Such an approach is often called **stochastic gradient descent**.
 
-Such a scheme is often called **stochastic gradient descent**.
+
 
 Remark.
 
-: Technically, this is sometimes referred to as **mini-batch** gradient descent;
-there are a few variations popular in the literature, we pick the most intuitive now.
+: This scheme is sometimes referred to as **mini-batch** gradient descent
+in the literature; some researchers reserve the term "stochastic"
+only for batches of size 1.
 
 
 
@@ -1515,6 +1548,176 @@ Draw conclusions.
 
 
 
+## A Note on Convex Optimisation (\*)
+
+
+
+Are there any cases where we are sure that
+a local minimum is the global minimum?
+It turns out that the answer to this is positive;
+for example, when we minimise objective functions
+that fulfil a special property defined below.
+
+First let's note that given two points
+$\mathbf{x}_{1},\mathbf{x}_{2}\in \mathbb{R}^p$,
+by taking any $\theta\in[0,1]$, the point defined as:
+
+\[
+\mathbf{t} = \theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2}
+\]
+
+lies on a (straight) line segment between $\mathbf{x}_1$ and $\mathbf{x}_2$.
+
+
+
+Definition.
+
+: We say that a function $f:\mathbb{R}^p\to\mathbb{R}$ is *convex*, whenever:
+\[
+(\forall \mathbf{x}_{1},\mathbf{x}_{2}\in \mathbb{R}^p)
+(\forall \theta\in [0,1])\quad
+f(\theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2})\leq \theta f(\mathbf{x}_{1})+(1-\theta)f(\mathbf{x}_{2})
+\]
+
+In other words, the function's value at any convex combination of two points
+is not greater than that combination of the function values at these two points.
+See Figure {@fig:convex_function} for a graphical illustration of the above.
+
+
+![An illustration of the definition of a convex function](figures/convex_function){#fig:convex_function width=75%}
+
+
+
+
+
+The following result addresses the question we posed at the beginning
+of this section.
+
+
+Theorem.
+
+: For any *convex* function $f$, if $f$ has a local minimum at $\mathbf{x}^+$
+then $\mathbf{x}^+$ is also its global minimum.
+
+
+
+Convex functions are ubiquitous in machine learning, but of course not every
+objective function we are going to deal with will fulfil this property.
+Here are some basic examples of convex functions and how they come into being,
+see, e.g., [@boyd_vandenberghe]  for more:
+
+
+* the functions mapping $x$ to $x, x^2, |x|, e^x$ are all convex,
+* $f(x)=|x|^p$ is convex for all $p\ge 1$,
+* if $f$ is convex, then $-f$ is concave,
+* if $f_1$ and $f_2$ are convex, then $w_1 f_1 + w_2 f_2$ are convex for any
+$w_1,w_2\ge 0$,
+* if $f_1$ and $f_2$ are convex, then $\max\{f_1, f_2\}$ is convex,
+* if $f$ and $g$ are convex and $g$ is non-decreasing, then $g(f(x))$ is convex.
+
+The above feature the building blocks of our error measures in supervised
+learning problems! In particular, sum of squared residuals in linear regression
+is a convex function of the underlying parameters. Also,
+cross-entropy in logistic regression  is a convex function
+of the underlying parameters.
+
+
+Theorem.
+
+: (\*\*\*) If a function is twice differentiable,
+then its convexity can be judged based on the positive-definiteness
+of its Hessian matrix.
+
+
+Note that optimising convex functions is *relatively* easy,
+especially if they are differentiable.
+This is because they are quite well-behaving.
+However, it doesn't mean that we an analytic solution to the problem
+of their minimisation.
+Methods such as gradient descent or BFGS should work well
+(unless there are vast regions where a function is constant or
+the function's is defined over a large number of parameters).
+
+
+
+
+Remark.
+
+: (\*\*) There is a special class of constrained optimisation
+problems called linear and, more generally, quadratic programming that involves
+convex functions.
+Moreover, the Karush–Kuhn–Tucker (KKT) conditions address the more
+general problem of minimisation with constraints (i.e., not over the whole
+$\mathbb{R}^p$ set); see [@nocedal_wright;@fletcher] for more details.
+
+
+Remark.
+
+: Not only functions, but also sets can be said to be convex.
+We say that $C\subseteq \mathbb{R}^p$ is a *convex set*,
+whenever the line segment joining any two points in $C$
+is fully included in $C$. More formally,
+for every $\mathbf{x}_1\in C$ and $\mathbf{x}_2\in C$,
+it holds $\theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2} \in C$ for
+all $\theta\in [0,1]$; see Figure {@fig:convex_set} for an illustration.
+
+
+![A convex and a non-convex set](figures/convex_set){#fig:convex_set width=75%}
+
+
+<!--
+
+It turns out that the notion "$\theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2}$
+for any $\theta\in[0,1]$" represents what we call a convex combination
+of two points. Here is how we can generalise it to any number of inputs.
+
+
+
+
+Definition.
+
+: A *convex combination* of a set of points
+$\mathbf{x}_1,\dots,\mathbf{x}_n\in \mathbb{R}^p$
+is a *linear combination*
+\[
+\theta_1 \mathbf{x}_1 + \theta_2 \mathbf{x}_2 + \dots + \theta_n \mathbf{x}_n
+\]
+for some $\theta_1,\theta_2,\dots,\theta_n$
+that fulfils $\theta_1,\theta_2,\dots,\theta_n\ge 0$
+and $\theta_1+\theta_2+\dots+\theta_n=1$.
+
+Think of this as a weighted arithmetic mean of these points.
+For example:
+
+
+
+* For $p>1$, the set of all convex combinations of 3 points yields a triangle
+with vertices in these points.
+
+* More generally, we get the *convex hull* of a set of points --
+the smallest set $C$ enclosing all the points that is *convex* (in two
+dimensions, think of a rubber band stretched around all the points like a fence).
+
+-->
+
+
+<!--
+
+*Concave* functions are defined as ones that fulfill
+$f(\theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2})\geq \theta f(\mathbf{x}_{1})+(1-\theta)f(\mathbf{x}_{2})$ for every $\mathbf{x}_1,\mathbf{x}_2$
+and $\theta\in[0,1]$, see Figure {@fig:convex_concave}.
+Of course, there are functions that are neither convex nor concave.
+Moreover, linear functions are both convex and concave.
+Also, if $f$ is convex, then $-f$ is concave and vice versa.
+
+
+![(non-)convex vs. (non-)concave functions](figures/convex_concave){#fig:convex_concave width=75%}
+
+-->
+
+
+
+
 ## Outro
 
 ### Remarks
@@ -1575,12 +1778,11 @@ https://keras.io/optimizers/:
 
 * `RMSprop` -- divides the gradient by a running average of its recent magnitude,
 
-* `Adam` -- adaptive momentum
+* `Adam` -- adaptive momentum,
 
 and so on. These are all non-complicated variations of the pure stochastic GD.
-Some of them are just tricks that work well in some examples
-and destroy the convergence
-on other ones.
+Some of them are just tricks that work well in some examples and destroy
+the convergence on many other ones.
 You can get into their details in a dedicated book/course aimed at covering
 neural networks  (see, e.g., [@aifaq], [@deeplearn]),
 but we  have already developed some
@@ -1627,4 +1829,5 @@ problem can be:
 
 ### Further Reading
 
-Recommended further reading: [@nocedal_wright] and [@fletcher].
+Recommended further reading: [@nocedal_wright], [@boyd_vandenberghe],
+[@fletcher].

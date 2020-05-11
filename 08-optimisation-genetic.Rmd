@@ -20,17 +20,17 @@ tabu search???
 
 ---
 
-Recall that an **optimisation task** deals with finding an element ${x}$
-in a **search space** $D$,
-that minimises or maximises an **objective function** $f:D\to\mathbb{R}$:
+Recall that an **optimisation task** deals with finding an element $\mathbf{x}$
+in a **search space** $\mathbb{D}$,
+that minimises or maximises an **objective function** $f:\mathbb{D}\to\mathbb{R}$:
 \[
-\min_{{x}\in D} f({x}) \quad\text{or}\quad\max_{{x}\in D} f({x}),
+\min_{\mathbf{x}\in \mathbb{D}} f(\mathbf{x}) \quad\text{or}\quad\max_{\mathbf{x}\in \mathbb{D}} f(\mathbf{x}),
 \]
 
 
 In one of the previous chapters, we were dealing with
 **unconstrained continuous optimisation**,
-i.e., we assumed the search space is $D=\mathbb{R}^p$ for some $p$.
+i.e., we assumed the search space is $\mathbb{D}=\mathbb{R}^p$ for some $p$.
 
 \ \
 
@@ -314,153 +314,6 @@ Is it good enough?
 > It depends what we'd like to do with this. Does it make your boss happy?
 Does it generate revenue? Does it help solve any other problem? Is it useful anyhow?
 Are you really looking for the global minimum?
-
-
-
-
-
-
-
-
-## A Note on Convex Optimisation (\*)
-
-### Introduction
-
----
-
-Are there cases where we are sure that a local minimum is the global minimum?
-
-Yes. For example when we minimise *convex objective functions*.
-
-> Here is just a very brief overview of the topic for the interested,
-see also [@boyd_vandenberghe] for more.
-
-For example, the linear regression or the logistic regression
-have convex objectives -- they are very well-behaving.
-
-Note that this doesn't mean that we know an **analytic solution**.
-
-
-
-### Convex Combinations (\*)
-
----
-
-A **convex combination** of a set of points $x_1,\dots,x_n\in D$
-is a *linear combination*
-\[
-\theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n
-\]
-for some $\theta_1,\theta_2,\dots,\theta_n$
-that fulfils $\theta_1,\theta_2,\dots,\theta_n\ge 0$
-and $\theta_1+\theta_2+\dots+\theta_n=1$.
-
-> Think of this as a weighted arithmetic mean of these points.
-
----
-
-![](figures/combination1){#fig:combination1 width=50%}
-
-The set of all convex combinations of two points $x_1,x_2\in D$:
-\[\{\theta x_{1}+(1-\theta)x_{2}: \theta\in [0,1]\}\]
-is just the line segment between these two points.
-
----
-
-
-
-![](figures/combination2){#fig:combination2 width=50%}
-
-The set of all convex combinations
-of 3 points yields a triangle
-(unless $D$ is one-dimensional).
-
----
-
-
-![](figures/combination3){#fig:combination3 width=50%}
-
-More generally, we get the *convex hull* of a set of points --
-the smallest set $C$ enclosing all the points that is convex,
-i.e., a line segment between any two points in $C$ is fully
-included in $C$.
-
-
-> In two dimensions, think of a rubber band stretched around all the points
-like a fence.
-
----
-
-
-![](figures/convex_set){#fig:convex_set width=75%}
-
-
-
-### Convex Functions (\*)
-
-
----
-
-We call a function $f:D\to\mathbb{R}$ **convex**, whenever:
-\[
-(\forall x_{1},x_{2}\in D) (\forall \theta\in [0,1])\quad
-f(\theta x_{1}+(1-\theta)x_{2})\leq \theta f(x_{1})+(1-\theta)f(x_{2})
-\]
-
-
-![](figures/convex_function){#fig:convex_function width=75%}
-
-(function value at any convex combination of two points
-is not greater than that combination of the function values at these two points)
-
----
-
-![](figures/convex_concave){#fig:convex_concave width=75%}
-
-
-Convex: $f(\theta x_{1}+(1-\theta)x_{2})\leq \theta f(x_{1})+(1-\theta)f(x_{2})$
-
-Concave: $f(\theta x_{1}+(1-\theta)x_{2})\geq \theta f(x_{1})+(1-\theta)f(x_{2})$
-
-
----
-
-Theorem
-
-: For any convex function $f$, if $f$ has a local minimum at $x$
-then $x$ is also its global minimum.
-
-
-Optimising convex functions is *relatively* easy, especially if they are differentiable.
-
-Methods such as gradient descent or BFGS should work very well
-(unless there are large regions where a function is constant...).
-
-\ \
-
-
-> (\*\*) There is a special class of constrained optimisation problems called linear
-and quadratic programming that involves convex functions, see [@nocedal_wright;@fletcher].
-
-> (\*\*\*) See also the Karush–Kuhn–Tucker (KKT) conditions
-for a more general problem of minimisation with constraints.
-
-
-
-
-### Examples
-
----
-
-* $x^2, |x|, e^x$ are all convex.
-* $|x|^p$ is convex for all $p\ge 1$.
-* if $f$ is convex, then $-f$ is concave.
-* if $f_1$ and $f_2$ are convex, then $w_1 f_1 + w_2 f_2$ are convex for any
-$w_1,w_2\ge 0$.
-* if $f_1$ and $f_2$ are convex, then $\max\{f_1, f_2\}$ is convex.
-* if $f$ and $g$ are convex and $g$ is non-decreasing, then $g(f(x))$ is convex.
-* Sum of squared residuals in linear regression is a convex function of the underlying parameters.
-* Cross-entropy in logistic regression  is a convex function of the underlying parameters.
 
 
 
@@ -764,30 +617,38 @@ of all the input points belonging to that cluster.
 
 For any $p\ge 1$, the search space type determines the problem class:
 
-- $D\subseteq\mathbb{R}^p$ -- **continuous optimisation**
+- $\mathbb{D}\subseteq\mathbb{R}^p$ -- **continuous optimisation**
 
     In particular:
-    - $D=\mathbb{R}^p$ -- continuous unconstrained
-    - $D=[a_1,b_1]\times\dots\times[a_n,b_n]$ -- continuous with box constraints
+
+    - $\mathbb{D}=\mathbb{R}^p$ -- continuous unconstrained
+    - $\mathbb{D}=[a_1,b_1]\times\dots\times[a_n,b_n]$ -- continuous with box constraints
     - constrained with $k$ linear inequality constraints
 
-        $a_{1,1} x_1 + \dots + a_{1,p} x_p \le b_1$, ...,
-        $a_{k,1} x_1 + \dots + a_{k,p} x_p \le b_k$
+        \[
+        \left\{
+        \begin{array}{lll}
+        a_{1,1} x_1 + \dots + a_{1,p} x_p &\le& b_1 \\
+        &\vdots&\\
+        a_{k,1} x_1 + \dots + a_{k,p} x_p &\le& b_k \\
+        \end{array}
+        \right.
+        \]
 
 ---
 
 However, there are other possibilities as well:
 
-- $D\subseteq\mathbb{Z}^p$ ($\mathbb{Z}$ -- the set of integers) -- **discrete optimisation**
+- $\mathbb{D}\subseteq\mathbb{Z}^p$ ($\mathbb{Z}$ -- the set of integers) -- **discrete optimisation**
 
     In particular:
-    - $D=\{0,1\}^p$ -- 0--1 optimisation (hard!)
+    - $\mathbb{D}=\{0,1\}^p$ -- 0--1 optimisation (hard!)
 
 
-- $D$ is finite (but perhaps large, its objects can be enumerated) -- **combination optimisation**
+- $\mathbb{D}$ is finite (but perhaps large, its objects can be enumerated) -- **combination optimisation**
 
     For example:
-    - $D=$ all possible routes between two points on a map.
+    - $\mathbb{D}=$ all possible routes between two points on a map.
 
 > These  optimisation tasks tend to be much harder than the continuous ones.
 
@@ -833,4 +694,3 @@ Recommended further reading:
 Other:
 
 - [@evolution]
-- [@boyd_vandenberghe]
