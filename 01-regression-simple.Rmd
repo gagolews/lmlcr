@@ -1433,10 +1433,10 @@ calling the `predict()` function.
 
 
 ```{r anscombe_resid}
-y_pred1 <- predict(f1, ans1)
-y_pred2 <- predict(f2, ans2)
-y_pred3 <- predict(f3, ans3)
-y_pred4 <- predict(f4, ans4)
+y_pred1 <- f1$fitted.values # predict(f1, ans1)
+y_pred2 <- f2$fitted.values # predict(f2, ans2)
+y_pred3 <- f3$fitted.values # predict(f3, ans3)
+y_pred4 <- f4$fitted.values # predict(f4, ans4)
 ```
 
 Plots of residuals as a function of the predicted (fitted) values

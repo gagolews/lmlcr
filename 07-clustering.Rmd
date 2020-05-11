@@ -1518,8 +1518,9 @@ to obtain a "fine grained" compressed representation of data and then
 combine the (sub)clusters into more meaningful groups
 using other methods (such as the hierarchical ones).
 
-Iterative K-means algorithms are very fast (e.g., there is a mini-batch
-version of the algorithm) even for large data sets,
+Iterative K-means algorithms are very fast (e.g., a mini-batch
+version of the algorithm can be implement to speed up the optimisation
+process) even for large data sets,
 but they may fail to find a desirable solution, especially if clusters
 are unbalanced.
 

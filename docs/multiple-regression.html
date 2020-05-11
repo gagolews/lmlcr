@@ -491,7 +491,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-10 13:17 (5b4cb84)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-11 12:18 (94d7716)</a></li>
 
 </ul>
 
@@ -763,7 +763,7 @@ Therefore, we need a different metric.</p>
 assume <span class="math inline">\(p=1\)</span> just as in the previous chapter and note that <span class="math inline">\(\hat{y}_i=a x_i+b\)</span>.</p>
 </div>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1"><span class="kw">mean</span>(f12<span class="op">$</span>residuals) <span class="co"># almost zero numerically</span></a></code></pre></div>
-<pre><code>## [1] 4.444473e-16</code></pre>
+<pre><code>## [1] -2.086704e-16</code></pre>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1"><span class="kw">all.equal</span>(<span class="kw">mean</span>(f12<span class="op">$</span>residuals), <span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>We noted that sum of squared residuals (SSR) is not interpretable,
@@ -988,9 +988,9 @@ and the residuals.</p>
 (predicted <span class="math inline">\(\hat{y}_i\)</span> minus
 true <span class="math inline">\(y_i\)</span>) as a function of the predicted
 <span class="math inline">\(\hat{y}_i=f(\mathbf{x}_{i,\cdot})\)</span>, see Figure <a href="multiple-regression.html#fig:resid_vs_fitted">9</a>.</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">Y_pred12 &lt;-<span class="st"> </span><span class="kw">predict</span>(f12, <span class="kw">data.frame</span>(X1, X2))</a>
-<a class="sourceLine" id="cb160-2" title="2">Y_pred1  &lt;-<span class="st"> </span><span class="kw">predict</span>(f1, <span class="kw">data.frame</span>(X1))</a>
-<a class="sourceLine" id="cb160-3" title="3">Y_pred2  &lt;-<span class="st"> </span><span class="kw">predict</span>(f2, <span class="kw">data.frame</span>(X2))</a>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">Y_pred12 &lt;-<span class="st"> </span>f12<span class="op">$</span>fitted.values <span class="co"># predict(f12, data.frame(X1, X2))</span></a>
+<a class="sourceLine" id="cb160-2" title="2">Y_pred1  &lt;-<span class="st"> </span>f1<span class="op">$</span>fitted.values  <span class="co"># predict(f1, data.frame(X1))</span></a>
+<a class="sourceLine" id="cb160-3" title="3">Y_pred2  &lt;-<span class="st"> </span>f2<span class="op">$</span>fitted.values  <span class="co"># predict(f2, data.frame(X2))</span></a>
 <a class="sourceLine" id="cb160-4" title="4"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb160-5" title="5"><span class="kw">plot</span>(Y_pred12, Y_pred12<span class="op">-</span>Y)</a>
 <a class="sourceLine" id="cb160-6" title="6"><span class="kw">plot</span>(Y_pred1,  Y_pred1 <span class="op">-</span>Y)</a>
