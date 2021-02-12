@@ -24,6 +24,7 @@ sed -i -e 's/^\. \. \.$/\\bigskip/g' "${outfile}"
 sed -i -r 's/^\{ BEGIN ([a-z]+) \}$/```{=latex}\n\\begin{\1}\n```/g'  "${outfile}"
 sed -i -r 's/^\{ END ([a-z]+) \}$/```{=latex}\n\\end{\1}\n```/g'  "${outfile}"
 
+
 sed -i -r 's/^\{ LATEX (.+) \}$/```{=latex}\n\1\n```/g'  "${outfile}"
 
 dir_fig_in="${1/%.md/}-figures"

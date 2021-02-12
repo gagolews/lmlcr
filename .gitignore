@@ -1,4 +1,6 @@
 datasets/ml-9-2018-small
+datasets/mnist_*.rds
+datasets/mnist_*.h5
 tmp-*
 out-*
 *.nav

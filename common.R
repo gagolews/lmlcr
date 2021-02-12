@@ -1,9 +1,10 @@
 options(encoding="UTF-8")
 set.seed(666)
-options(width=64)
-options(digits=7)
-
-
+options(width=72)
+options(digits=5)
+options(stringsAsFactors=FALSE) # default in R 4.0
+options(useFancyQuotes=FALSE)
+options(max.print=99)
 reticulate::use_python("/opt/anaconda3/bin/python")
 
 
@@ -17,10 +18,11 @@ hook_plot_md_pandoc_new <- function (x, options)
     if (options$fig.show == "animate")
         return(hook_plot_html(x, options))
     file <- stri_replace_first_regex(x, "\\.(pdf|png|jpg|svg)", "")
-    base = opts_knit$get("base.url") %n% ""
-    cap = .img.cap(options)
-    at = paste(c(
-        sprintf("#fig:%s", options[["label"]]),  # Marek's hack
+    base <- opts_knit$get("base.url") %n% ""
+    cap <- .img.cap(options)
+    cap <- sprintf("(\\#fig:%s) %s", options[["label"]], cap)
+    at <- paste(c(
+        #sprintf("#fig:%s", options[["label"]]),  # Marek's hack
         sprintf("width=%s", options[["out.width"]]),
         sprintf("height=%s", options[["out.height"]]), options[["out.extra"]]),
         collapse = " ")
@@ -70,25 +72,43 @@ knit_hooks$set(plot=knitr:::hook_plot_md_pandoc)
 
 
 
-################################################################################
-# Marek's R graphics package style hacks                                       #
-# aka "you don't need ggplot2 to look cool"                                    #
+# ############################################################################ #
+#   Marek's R graphics package style hacks                                     #
+#   aka "you don't need ggplot2 to look cool"                                  #
 #                                                                              #
-# Copyright (C) 2020, Marek Gagolewski <https://www.gagolewski.com>            #
+#   Don't try this at home, kids!!!                                            #
 #                                                                              #
-# Don't try this at home, kids!!!                                              #
-################################################################################
+#   Copyleft (C) 2020, Marek Gagolewski <https://www.gagolewski.com>           #
+#                                                                              #
+#                                                                              #
+#   This program is free software: you can redistribute it and/or modify       #
+#   it under the terms of the GNU Affero General Public License                #
+#   Version 3, 19 November 2007, published by the Free Software Foundation.    #
+#   This program is distributed in the hope that it will be useful,            #
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               #
+#   GNU Affero General Public License Version 3 for more details.              #
+#   You should have received a copy of the License along with this program.    #
+#   If this is not the case, refer to <https://www.gnu.org/licenses/>.         #
+#                                                                              #
+# ############################################################################ #
 
 
 library("Cairo")
+# CairoFonts(
+#     regular="Ubuntu Condensed:style=Regular",
+#     bold="Ubuntu:style=Medium",
+#     italic="Ubuntu:style=Light Italic",
+#     bolditalic="Ubuntu:style=Medium Italic",
+#     symbol="Ubuntu Condensed"
+# )
 CairoFonts(
-    regular="Ubuntu Condensed:style=Regular",
-    bold="Ubuntu:style=Medium",
-    italic="Ubuntu:style=Light Italic",
-    bolditalic="Ubuntu:style=Medium Italic",
-    symbol="Ubuntu Condensed"
+    regular="Alegreya Sans:style=Regular",
+    italic="Alegreya Sans:style=Italic",
+    bold="Alegreya Sans:style=Medium",
+    bolditalic="Alegreya Sans:style=Medium Italic",
+    symbol="TeX Gyre Pagella:style=Regular"
 )
-
 
 setHook("before.plot.new", function() {
     if (all(par("mar") == c(5.1, 4.1, 4.1, 2.1))) {

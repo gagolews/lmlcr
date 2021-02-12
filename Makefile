@@ -62,9 +62,9 @@ purge:
 
 PDF_OUTPUTS=$(patsubst %.svgz,%.pdf,$(FILES_SVGZ))
 SVG_OUTPUTS=$(patsubst %.svgz,%.svg,$(FILES_SVGZ))
+PNG_OUTPUTS=$(patsubst %.svgz,%.png,$(FILES_SVGZ))
 
-
-figures: $(PDF_OUTPUTS) $(SVG_OUTPUTS)
+figures: $(PDF_OUTPUTS) $(SVG_OUTPUTS) $(PNG_OUTPUTS)
 
 figures/%.svg: figures/%.svgz
 	inkscape "$<" --without-gui --export-plain-svg="$@"
@@ -72,7 +72,8 @@ figures/%.svg: figures/%.svgz
 figures/%.pdf: figures/%.svgz
 	inkscape "$<" --without-gui --export-pdf="$@"
 
-
+figures/%.png: figures/%.svgz
+	inkscape "$<" --without-gui --export-dpi=300 --export-png="$@"
 
 TMP_MD=$(patsubst %.Rmd,tmp-md/%.md,$(FILES_RMD))
 TMP_LATEX=$(patsubst tmp-md/%.md,tmp-latex/%.Rmd,$(TMP_MD))

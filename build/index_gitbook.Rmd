@@ -2,17 +2,24 @@
 title: "Lightweight Machine Learning Classics with R"
 author: "Marek Gagolewski"
 date: "@DATE@"
-site: bookdown::bookdown_site
+site: bookdown.marek.mods::bookdown_site
 output:
-    bookdown::gitbook:
-        pandoc_args: ["--default-image-extension=.svg",
+    bookdown.marek.mods::gitbook:
+        pandoc_args: ["--default-image-extension=.png",
             "--highlight-style=tango", "--email-obfuscation=none",
-            "--section-divs", "--csl=bibstyle.csl",
-            "--filter=/usr/local/bin/pandoc-fignos"]
-        fig_caption: false
+            "--section-divs", "--csl=bibstyle.csl", "--katex"]
+        fig_caption: true
         includes:
             in_header: preamble.html
         config:
+            sharing:
+                facebook: no
+                github: yes
+                twitter: no
+                linkedin: no
+                weibo: no
+                instapaper: no
+                vk: no
             download: ["lmlcr.pdf"]
             fontsettings:
                 family: serif
@@ -22,9 +29,8 @@ output:
                 before: |
                     <li style='font-style: italic' ><a href="./">LMLCR</a></li>
                     <li style='font-size: smaller' ><a href="https://www.gagolewski.com">Marek Gagolewski</a></li>
-                after: |
-                    <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
                     <li style='font-size: smaller' ><a href="./">@DATE@</a></li>
+                    <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
 documentclass: book
 bibliography: [bibliography.bib]
 biblio-style: apalike

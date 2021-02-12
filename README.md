@@ -6,12 +6,13 @@
 
 Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you're yet to be fluent with university-level linear algebra, calculus and probability theory or you've forgotten all the maths you've ever learned, and are seeking a gentle, albeit thorough, introduction to the topic.
 
-> This is a draft version of the forthcoming textbook (ETA 2022)
+> This is a slightly older version of the forthcoming textbook (ETA 2022)
 preliminarily entitled *Machine Learning in R from Scratch*
-by [Marek Gagolewski][1]. Here is its older draft, which is now undergoing
-a major revision. What you see here is still quite readable, though.
-There will be not much on-going in this repository anymore, as the
-work has moved elsewhere. I will share a new draft once it's ripe.
+by [Marek Gagolewski][1], which is now undergoing
+a major revision (when I am not busy with other projects).
+What you see here is still quite readable, though.
+There will be not much work on-going in this repository anymore, as its
+sources have moved elsewhere. I will share a new draft once it's ripe.
 Stay tuned.
 
 
@@ -27,8 +28,12 @@ You can read it at:
 
 ## About the Author
 
-[Marek][1] is currently a Senior Lecturer in Applied AI at Deakin University
-in Melbourne, VIC, Australia.
+[Marek Gagolewski][1] (pronounced like Mark Gaggle-Eve-Ski 🙃)
+is currently a Senior Lecturer in Applied
+AI at Deakin University in Melbourne, VIC, Australia
+and an Associate Professor in Data Science (on long-term leave)
+at Faculty of Mathematics and Information Science, Warsaw University
+of Technology, Poland.
 
 He is actively involved in developing *usable* free (libre) and open source
 software, with particular focus on data science and machine learning.
@@ -42,7 +47,8 @@ He's an author of more than 75 publications on machine learning and
 optimisation algorithms, data aggregation and clustering, statistical
 modelling, and scientific computing. Moreover, Marek taught various courses
 related to R and Python programming, algorithms, data science,
-and machine learning.
+and machine learning in Australia, Poland, and Germany
+(e.g., at [Data Science Retreat](https://datascienceretreat.com)).
 
 
 --------------------------------------------------------------------------------

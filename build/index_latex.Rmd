@@ -2,17 +2,31 @@
 title: "Lightweight Machine Learning Classics with R"
 author: "Marek Gagolewski"
 date: "@DATE@"
-site: bookdown::bookdown_site
+site: bookdown.marek.mods::bookdown_site
 output:
-    bookdown::pdf_book:
+    bookdown.marek.mods::pdf_book:
         pandoc_args: ["--default-image-extension=.pdf",
             "--toc-depth=3",
             "--csl=bibstyle.csl",
-            "--filter=/usr/local/bin/pandoc-fignos"]
+            "--top-level-division=chapter"]
         includes:
             in_header: preamble.tex
-        fig_caption: false
-documentclass: book
+            before_body: before_body.tex
+            after_body: after_body.tex
+        toc_unnumbered: no
+        toc_appendix: yes
+        keep_tex: yes
+        template: null
+        latex_engine: xelatex
+        highlight_bw: yes
+        quote_footer: ["\\VA{", "}{}"]
+documentclass: krantz
+classoption:
+    - 10pt
+    - b5paper
+    - krantz1
+lot: yes
+lof: yes
 bibliography: [bibliography.bib]
 biblio-style: apalike
 link-citations: yes
