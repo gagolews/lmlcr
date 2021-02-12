@@ -1,4 +1,4 @@
-# (C) 2020 Marek Gagolewski, https://www.gagolewski.com
+# (C) 2020-2021 Marek Gagolewski, https://www.gagolewski.com
 
 FILES_RMD = \
     00-introduction.Rmd                          \
