@@ -6,14 +6,9 @@ This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 
 # Preface  {.unnumbered}
 
-
-
-> This is a slightly older version of the forthcoming textbook (ETA 2022)
-preliminarily entitled *Machine Learning in R from Scratch*
-by [Marek Gagolewski](https://www.gagolewski.com), which is now undergoing
-a major revision (when I am not busy with other projects).
-What you see here is still quite readable, though.
-I will share a new draft once it's ripe. Stay tuned.
+```{r chapter-header-motd,echo=FALSE,results="asis"}
+cat(readLines("chapter-header-motd.md"), sep="\n")
+```
 
 
 Copyright (C) 2020-2021, [Marek Gagolewski](https://www.gagolewski.com).

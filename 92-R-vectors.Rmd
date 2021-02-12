@@ -6,7 +6,9 @@ This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 
 # Vector Algebra in R
 
-
+```{r chapter-header-motd,echo=FALSE,results="asis"}
+cat(readLines("chapter-header-motd.md"), sep="\n")
+```
 
 This chapter is a step-by-step guide to vector computations in R.
 It also explains the basic mathematical notation around vectors.

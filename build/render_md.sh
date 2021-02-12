@@ -8,6 +8,7 @@ cd tmp-md/
 
 cp -f ../bibstyle.csl .
 cp -f ../bibliography.bib .
+cp -f ../chapter-header-motd.md .
 
 mkdir -p figures/
 cp -f ../figures/*.pdf figures

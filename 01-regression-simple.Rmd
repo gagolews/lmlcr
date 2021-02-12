@@ -11,7 +11,9 @@ This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 { LATEX \renewcommand{\boldsymbol}[1]{\mathbfit{#1}} }
 
 
-
+```{r chapter-header-motd,echo=FALSE,results="asis"}
+cat(readLines("chapter-header-motd.md"), sep="\n")
+```
 
 
 

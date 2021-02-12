@@ -6,7 +6,9 @@ This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 
 # Data Frame Wrangling in R
 
-
+```{r chapter-header-motd,echo=FALSE,results="asis"}
+cat(readLines("chapter-header-motd.md"), sep="\n")
+```
 
 
 R `data.frame`s are similar to matrices in the sense that

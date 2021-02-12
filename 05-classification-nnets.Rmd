@@ -6,7 +6,9 @@ This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 
 # Shallow and Deep Neural Networks
 
-
+```{r chapter-header-motd,echo=FALSE,results="asis"}
+cat(readLines("chapter-header-motd.md"), sep="\n")
+```
 
 
 ## Introduction

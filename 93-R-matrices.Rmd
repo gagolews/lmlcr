@@ -6,6 +6,9 @@ This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 
 # Matrix Algebra in R
 
+```{r chapter-header-motd,echo=FALSE,results="asis"}
+cat(readLines("chapter-header-motd.md"), sep="\n")
+```
 
 Vectors are one-dimensional objects -- they represent "flat" sequences of values.
 Matrices, on the other hand, are two-dimensional -- they represent tabular data,
