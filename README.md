@@ -6,13 +6,15 @@
 
 Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you're yet to be fluent with university-level linear algebra, calculus and probability theory or you've forgotten all the maths you've ever learned, and are seeking a gentle, albeit thorough, introduction to the topic.
 
-> This is a slightly older version of the forthcoming textbook (ETA 2022)
+> This is a slightly older (distributed in the hope that it will be useful)
+version of the forthcoming textbook (ETA 2022)
 preliminarily entitled *Machine Learning in R from Scratch*
-by [Marek Gagolewski][1], which is now undergoing
-a major revision (when I am not busy with other projects).
-What you see here is still quite readable, though.
-There will be not much work on-going in this repository anymore, as its
-sources have moved elsewhere. I will share a new draft once it's ripe.
+by [Marek Gagolewski][1], which is now undergoing a major revision
+(when I am not busy with other projects). There will be not much work on-going
+in this repository anymore, as its sources have moved elsewhere;
+however, if you happen to find any bugs or typos, please drop me an
+[email][5].
+I will share a new draft once it's ripe.
 Stay tuned.
 
 
@@ -64,3 +66,4 @@ This material is licensed under the Creative Commons
 [2]: https://creativecommons.org/licenses/by-nc-nd/4.0/
 [3]: https://genieclust.gagolewski.com
 [4]: https://stringi.gagolewski.com
+[5]: CODE_OF_CONDUCT.md
