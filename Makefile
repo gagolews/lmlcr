@@ -61,13 +61,13 @@ purge:
 
 
 PDF_OUTPUTS=$(patsubst %.svgz,%.pdf,$(FILES_SVGZ))
-SVG_OUTPUTS=$(patsubst %.svgz,%.svg,$(FILES_SVGZ))
+# SVG_OUTPUTS=$(patsubst %.svgz,%.svg,$(FILES_SVGZ))
 PNG_OUTPUTS=$(patsubst %.svgz,%.png,$(FILES_SVGZ))
 
-figures: $(PDF_OUTPUTS) $(SVG_OUTPUTS) $(PNG_OUTPUTS)
+figures: $(PDF_OUTPUTS) $(PNG_OUTPUTS) #$(SVG_OUTPUTS)
 
-figures/%.svg: figures/%.svgz
-	inkscape "$<" --without-gui --export-plain-svg="$@"
+#figures/%.svg: figures/%.svgz
+#	inkscape "$<" --without-gui --export-plain-svg="$@"
 
 figures/%.pdf: figures/%.svgz
 	inkscape "$<" --without-gui --export-pdf="$@"

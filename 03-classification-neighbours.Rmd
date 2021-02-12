@@ -1,6 +1,11 @@
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+
 # Classification with K-Nearest Neighbours
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
 
@@ -71,13 +76,13 @@ we assume that each $y_i$ takes more than two possible values.
 
 
 Example plot of a synthetic dataset
-with the reference binary $y$s is given in Figure {@fig:classify_intro}.
+with the reference binary $y$s is given in Figure \@ref(fig:classify-intro).
 The "true" decision boundary is at $X_1=0$ but the classes
 slightly overlap (the dataset is a bit noisy).
 
 
 
-```{r classify_intro,echo=FALSE,fig.cap="A synthetic 2D dataset with the true decision boundary at $X_1=0$"}
+```{r classify-intro,echo=FALSE,fig.cap="A synthetic 2D dataset with the true decision boundary at $X_1=0$"}
 set.seed(123)
 n0 <- 50 # n0 points in class 0
 n1 <- 50 # n1 points in class 1
@@ -107,7 +112,7 @@ white wines only.
 
 ```{r input1,cache=TRUE}
 wines <- read.csv("datasets/winequality-all.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
@@ -277,7 +282,7 @@ denoted $\mathbf{x}_{i_1,\cdot}, \dots, \mathbf{x}_{i_K,\cdot}$:
 
 
 Here is how $K$-NN classifier works on a synthetic 2D dataset.
-Firstly let's consider $K=1$, see Figure {@fig:fig_plot_knn1}.
+Firstly let's consider $K=1$, see Figure \@ref(fig:fig-plot-knn1).
 Gray and pink regions depict how new points would be classified.
 In particular 1-NN is "greedy" in the sense that we just
 locate the nearest point.
@@ -285,7 +290,7 @@ locate the nearest point.
 
 
 
-```{r plot_knn,echo=FALSE,cache=TRUE}
+```{r plot-knn,echo=FALSE,cache=TRUE}
 plot_knn <- function(K) {
     xx1 <- seq(-4, 4, length.out=250)
     xx2 <- seq(-4, 4, length.out=250)
@@ -302,7 +307,7 @@ plot_knn <- function(K) {
 
 
 
-```{r fig_plot_knn1,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="1-NN class bounds for our 2D synthetic dataset"}
+```{r fig-plot-knn1,echo=FALSE,cache=TRUE,dependson='plot-knn',fig.cap="1-NN class bounds for our 2D synthetic dataset"}
 plot_knn(1)
 ```
 
@@ -317,20 +322,20 @@ on a dataset's so-called Voronoi diagram.
 
 Increasing $K$ somehow smoothens the decision boundary (this makes it
 less "local" and more "global").
-Figure {@fig:fig_plot_knn3} depicts the $K=3$ case.
+Figure \@ref(fig:fig-plot-knn3) depicts the $K=3$ case.
 
-```{r fig_plot_knn3,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="3-NN class bounds for our 2D synthetic dataset"}
+```{r fig-plot-knn3,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="3-NN class bounds for our 2D synthetic dataset"}
 plot_knn(3)
 ```
 
 
 
-```{r fig_plot_knn25,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="25-NN class bounds for our 2D synthetic dataset"}
+```{r fig-plot-knn25,echo=FALSE,cache=TRUE,dependson='plot_knn',fig.cap="25-NN class bounds for our 2D synthetic dataset"}
 plot_knn(25)
 ```
 
 Recall that the "true" decision boundary for this synthetic dataset
-is at $X_1=0$. The 25-NN classifier did quite a good job, see  Figure {@fig:fig_plot_knn25}.
+is at $X_1=0$. The 25-NN classifier did quite a good job, see  Figure \@ref(fig:fig-plot-knn25).
 
 
 
@@ -451,11 +456,11 @@ Z_train <- t(apply(X_train, 1, function(r) (r-means)/sds))
 Z_test  <- t(apply(X_test,  1, function(r) (r-means)/sds))
 ```
 
-See Figure {@fig:standardise_depict_hist} for an illustration.
+See Figure \@ref(fig:standardise-depict-hist) for an illustration.
 Note that the righthand figures (histograms of standardised variables)
 are on the same scale now.
 
-```{r standardise_depict_hist,echo=FALSE,fi.height=6,fig.cap="Empirical distribution of two variables (pH on the top, fixed.acidity on the bottom) before (left) and after (right) standardising"}
+```{r standardise-depict-hist,echo=FALSE,fig.height=6,fig.cap="Empirical distribution of two variables (pH on the top, fixed.acidity on the bottom) before (left) and after (right) standardising"}
 par(mfrow=c(2,2))
 hist(X_train[,"pH"], col="white", main=NA, xlim=c(-11,11)); box()
 hist(Z_train[,"pH"], col="white", main=NA, xlim=c(-11,11)); box()
@@ -829,7 +834,7 @@ Example results:
 round(cbind(K=Ks, Ps), 2)
 ```
 
-Figure {@fig:whichK5} is worth a thousand tables though (see `?matplot` in R). The reader is kindly asked to draw conclusions themself.
+Figure \@ref(fig:whichK5) is worth a thousand tables though (see `?matplot` in R). The reader is kindly asked to draw conclusions themself.
 
 
 
@@ -1030,7 +1035,7 @@ Load an example dataset on which we will test our algorithm:
 
 ```{r our_knn2}
 wines <- read.csv("datasets/winequality-all.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 wines <- wines[wines$color == "white",]
 X <- as.matrix(wines[,1:10])
 Y <- factor(as.character(as.numeric(wines$alcohol >= 12)))
@@ -1556,7 +1561,7 @@ y25 <- knn.reg(Xc, x, Yc, k=25)$pred
 ```
 
 
-The three models are depicted in Figure {@fig:knnreg3}.
+The three models are depicted in Figure \@ref(fig:knnreg3).
 Again, the higher the $K$, the smoother the curve. On the other hand, for
 small $K$ we adapt better to what's in a point's neighbourhood.
 

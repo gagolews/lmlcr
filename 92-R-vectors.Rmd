@@ -1,6 +1,11 @@
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+
 # Vector Algebra in R
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
 This chapter is a step-by-step guide to vector computations in R.
@@ -37,7 +42,7 @@ Vector and matrix algebra operations are supported by every
 major programming language -- either natively
 (e.g., R, Matlab, GNU Octave, Mathematica)
 or via an additional library/package
-(e.g, Python with numpy, tensorflow or pytorch;
+(e.g, Python with numpy, tensorflow, or pytorch;
 C++ with Eigen/Armadillo; C, C++ or Fortran with LAPACK).
 
 By using matrix notation, we generate more concise and readable code.
@@ -264,9 +269,9 @@ runif(5, 0, 1) # a,b,c,d,e again!
 Note the difference between the uniform distribution on $[0,1]$
 and the normal distribution with expected value of $0$ and standard deviation
 of $1$ (also called the standard normal distribution),
-see Figure {@fig:runif_vs_rnorm}.
+see Figure \@ref(fig:runif-vs-rnorm).
 
-```{r runif_vs_rnorm,cache=TRUE,fig.cap="Uniformly vs. normally distributed random variables"}
+```{r runif-vs-rnorm,cache=TRUE,fig.cap="Uniformly vs. normally distributed random variables"}
 par(mfrow=c(1, 2)) # align plots in one row and two columns
 hist(runif(10000, 0, 1), col="white", ylim=c(0, 2500)); box()
 hist(rnorm(10000, 0, 1), col="white", ylim=c(0, 2500)); box()
@@ -457,7 +462,7 @@ sqrt(1:9)
 
 
 Vectorisation is super-convenient when it comes to, for instance,
-plotting (see Figure {@fig:sincos}).
+plotting (see Figure \@ref(fig:sincos)).
 
 ```{r sincos,fig.cap="An example plot of the sine and cosine functions"}
 x <- seq(-2*pi, 6*pi, length.out=51)
@@ -568,7 +573,7 @@ vectors, i.e., such that their lengths are equal to 1.
 
 
 For example, the two vectors `u` and `v` defined above
-can be depicted as in Figure {@fig:vectorplot}.
+can be depicted as in Figure \@ref(fig:vectorplot).
 
 ```{r vectorplot,echo=FALSE,fig.cap="Example vectors in 2D"}
 plot(rbind(u,v), xlim=c(-0.5, 1.5), ylim=c(-0.5, 1.5), ann=FALSE, asp=1)
@@ -1049,11 +1054,21 @@ sort, rank, unique
 
 ## Factors
 
+
 Factors are *special* kinds of vectors that are frequently used to
 store qualitative data, e.g., species, groups, types.
 Factors are convenient in situations where we have many observations,
 but the number
 of distinct (unique) values is relatively small.
+
+
+> Since R 4.0, the global option `stringsAsFactors` defaults to `FALSE`.
+> Before that, functions such as `data.frame()` and `read.csv()`
+> used to convert character vectors to factors automatically,
+> which could lead to some unpleasant, hard to find bugs.
+> Luckily, this is no longer the case.
+> However, factor objects are still useful.
+
 
 ### Creating Factors
 
@@ -1155,7 +1170,7 @@ is an object of type `data.frame`, see below).
 Flowers are of different Species, and we wish to indicate which point belongs
 to which class:
 
-```{r irisplot_factors,fig.cap="`as.numeric()` on factors can be used to create different plotting styles"}
+```{r irisplot-factors,fig.cap="`as.numeric()` on factors can be used to create different plotting styles"}
 which_preview <- c(1, 11, 51, 69, 101) # indexes we show below
 iris$Sepal.Length[which_preview]
 iris$Petal.Width[which_preview]
@@ -1168,7 +1183,7 @@ plot(iris$Sepal.Length, # x (it's a vector)
 )
 ```
 
-The above  (see Figure {@fig:irisplot_factors})
+The above  (see Figure \@ref(fig:irisplot-factors))
 was possible because the Species column is a factor object
 with:
 

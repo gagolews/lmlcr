@@ -1,6 +1,10 @@
-# Recommender Systems
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+# Recommender Systems
 
 
 ## Introduction
@@ -455,7 +459,7 @@ we mark them with (\*).
 
 ```{r read_movies,cache=TRUE}
 movies <- read.csv("datasets/ml-9-2018-small/movies.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 head(movies, 4)
 nrow(movies)
 ```
@@ -465,7 +469,7 @@ nrow(movies)
 
 ```{r read_ratings,cache=TRUE,dependson='read_movies'}
 ratings <- read.csv("datasets/ml-9-2018-small/ratings.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 head(ratings, 4)
 nrow(ratings)
 table(ratings$rating)
@@ -603,8 +607,7 @@ recommend <- function(i, K, SI, movies) {
     ms <- order(SI[i,], decreasing=TRUE)
     data.frame(
         Title=movies$title[ms[1:K]],
-        SIC=SI[i,ms[1:K]],
-        stringsAsFactors=FALSE
+        SIC=SI[i,ms[1:K]]
     )
 }
 ```

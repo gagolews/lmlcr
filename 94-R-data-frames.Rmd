@@ -1,6 +1,12 @@
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+
 # Data Frame Wrangling in R
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+
 
 
 R `data.frame`s are similar to matrices in the sense that
@@ -18,32 +24,14 @@ head(rpart::car90, 2)
 Most frequently, we will be creating data frames
 based on a series of numeric, logical, characters vectors of identical lengths.
 
-```{r df2,echo=-(1:2)}
+```{r df2,echo=-1}
 set.seed(1236)
-options(stringsAsFactors=TRUE)
 x <- data.frame(
     u=runif(5),
     v=sample(c(TRUE, FALSE), 5, replace=TRUE),
     w=LETTERS[1:5]
 )
 print(x)
-```
-
-
-Note that when we create objects of type data frame,
-strings are automatically converted to factors.
-
-```{r df3}
-class(x$w)
-```
-
-Throughout the history of computing with R, this has caused way too many bugs
-(recall, for instance, what's the result of calling `as.numeric()` on a factor).
-In order to change this behaviour, either pass `stringsAsFactors=FALSE`
-argument to `data.frame()` or switch this feature off globally (recommended):
-
-```{r df4}
-options(stringsAsFactors=FALSE)
 ```
 
 
@@ -238,13 +226,13 @@ to write programs that manipulate unevaluated R expressions.
 
 For instance, take a close look at the following plot:
 
-```{r plotz_metaprogramming,fig.cap="Metaprogramming in action: Just take a look at the Y axis label"}
+```{r plotz-metaprogramming,fig.cap="Metaprogramming in action: Just take a look at the Y axis label"}
 z <- seq(-2*pi, 2*pi, length.out=101)
 plot(z, sin(z), type="l")
 ```
 
 How did the `plot()` function know that we are plotting `sin` of `z`
-(see Figure {@fig:plotz_metaprogramming})?
+(see Figure \@ref(fig:plotz-metaprogramming))?
 It turns out that, at any time, we not only have access to the value
 of an object (such as the result of evaluating `sin(z)`, which is
 a vector of 101 reals) but also to the expression that was passed as
@@ -305,12 +293,12 @@ uses formulas to specify the output and input variables:
 lm(Sepal.Length~Petal.Length+Sepal.Width, data=iris)
 ```
 
-On the other hand, `boxplot()` (see Figure {@fig:boxplot_metaprogramming})
+On the other hand, `boxplot()` (see Figure \@ref(fig:boxplot-metaprogramming))
 allows for creating
 separate box-and-whisker plots for each subgroup given by a combination
 of factors.
 
-```{r boxplot_metaprogramming,fig.cap="Example box plot created via the formula interface"}
+```{r boxplot-metaprogramming,fig.cap="Example box plot created via the formula interface"}
 boxplot(len~supp+dose, data=ToothGrowth,
     horizontal=TRUE, col="white")
 ```
@@ -340,9 +328,9 @@ Recommended further reading: [@Rintro]
 
 Other: [@rprogdatascience], [@r4ds]
 
-R packages dplyr and data.table implement the most common
+R packages `dplyr` and `data.table` implement the most common
 data frame wrangling procedures. You may find them very useful.
 Moreover, they are very fast even for large data sets.
-Additionally, the magrittr package provides a pipe operator, `%>%`,
+Additionally, the `magrittr` package provides a pipe operator, `%>%`,
 that simplifies the writing of complex, nested function calls.
 Do note that not everyone is a big fan of these, however.

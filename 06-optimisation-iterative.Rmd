@@ -1,6 +1,10 @@
-# Continuous Optimisation with Iterative Algorithms
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+# Continuous Optimisation with Iterative Algorithms
 
 
 <!--
@@ -114,7 +118,7 @@ $f(\mathbf{x}^*)\ge f(\mathbf{x})$ for all $\mathbf{x}\in \mathbb{D}$.
 
 
 
-Assuming that $\mathbb{D}=\mathbb{R}$, Figure {@fig:f_global_minimum}
+Assuming that $\mathbb{D}=\mathbb{R}$, Figure \@ref(fig:f-global-minimum)
 shows an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
 that has a minimum at ${x}^*=1$
 with $f(x^*)=-2$.
@@ -123,7 +127,7 @@ with $f(x^*)=-2$.
 
 
 
-```{r f_global_minimum,echo=FALSE,fig.cap="A function with the global minimum at ${x}^*=1$"}
+```{r f-global-minimum,echo=FALSE,fig.cap="A function with the global minimum at ${x}^*=1$"}
 x <- seq(-2, 5, length.out=101)
 y <- (x-1)^2-2
 plot(x, y, type='l', xlab='x', ylab='f(x)', ylim=c(-5, 8))
@@ -151,14 +155,14 @@ By definition, a minimum/maximum *might not necessarily be unique*.
 This depends on a problem.
 
 
-Assuming that $\mathbb{D}=\mathbb{R}$, Figure {@fig:f_global_minimum_not_unique}
+Assuming that $\mathbb{D}=\mathbb{R}$, Figure \@ref(fig:f-global-minimum-not-unique)
 gives an example objective function, $f:\mathbb{D}\to\mathbb{R}$,
 that has multiple minima; every ${x}^*\in[1-\sqrt{2},1+\sqrt{2}]$
 yields $f(x^*)=0$.
 
 
 
-```{r f_global_minimum_not_unique,echo=FALSE,fig.cap="A function that has multiple minima"}
+```{r f-global-minimum-not-unique,echo=FALSE,fig.cap="A function that has multiple minima"}
 x <- seq(-2, 5, length.out=101)
 y <- pmax(0, (x-1)^2-2)
 plot(x, y, type='l', xlab='x', ylab='f(x)', ylim=c(-5, 8))
@@ -183,10 +187,10 @@ and hence many equivalent explanations of the same phenomenon.
 
 
 Moreover, it may happen that a function has *multiple local minima*,
-compare Figure {@fig:f_global_local_minima}.
+compare Figure \@ref(fig:f-global-local-minima).
 
 
-```{r f_global_local_minima,echo=FALSE,fig.cap="A function with two local minima"}
+```{r f-global-local-minima,echo=FALSE,fig.cap="A function with two local minima"}
 x <- seq(-2, 3, length.out=101)
 ff <- function(x) x*(x+1)*(x-1)^2-2
 plot(x, ff(x), type='l', xlab='x', ylab='f(x)', ylim=c(-5, 8))
@@ -250,7 +254,7 @@ and fail to return the global one.
 Moreover, we  cannot often be sure if the result returned by an algorithm
 is indeed a global minimum. Maybe there exists a better solution
 that hasn't been considered yet? Or maybe the function
-is very noisy (see Figure {@fig:smooth_vs_nonsmooth})?
+is very noisy (see Figure \@ref(fig:smooth-vs-nonsmooth))?
 
 
 
@@ -261,7 +265,7 @@ is very noisy (see Figure {@fig:smooth_vs_nonsmooth})?
 
 
 
-```{r smooth_vs_nonsmooth,echo=FALSE,fig.cap="Smooth vs. non-smooth vs. noisy objective functions"}
+```{r smooth-vs-nonsmooth,echo=FALSE,fig.cap="Smooth vs. non-smooth vs. noisy objective functions"}
 x <- seq(-2, 5, length.out=250)
 set.seed(123)
 xx <- seq(-2, 5, length.out=66)
@@ -340,9 +344,9 @@ g(-1.542255693195422641930153, 2.156405289793087261832605)
 
 Let's explore various ways of depicting $f$ first.
 A contour plot and a heat map
-are given in Figure {@fig:contour_g}.
+are given in Figure \@ref(fig:contour-g).
 
-```{r contour_g,fig.cap="A contour plot and a heat map of $g(x_1,x_2)$"}
+```{r contour-g,fig.cap="A contour plot and a heat map of $g(x_1,x_2)$"}
 par(mfrow=c(1,2)) # 2 in 1
 # lefthand plot:
 contour(x1, x2, y, nlevels=25)
@@ -356,9 +360,9 @@ contour(x1, x2, y, add=TRUE)
 
 
 Two perspective plots (views from different angles) are given
-in Figure {@fig:perspective_g}.
+in Figure \@ref(fig:perspective-g).
 
-```{r perspective_g,fig.cap="Perspective plots of $g(x_1,x_2)$",echo=-1}
+```{r perspective-g,fig.cap="Perspective plots of $g(x_1,x_2)$",echo=-1}
 par(mar=c(0,0,0,0))
 par(mfrow=c(1,2)) # 2 in 1
 persp(x1, x2, y, phi=30, theta=-5, shade=2, border=NA)
@@ -514,7 +518,7 @@ $|f(\mathbf{x}^{(i)})-f(\mathbf{x}^{(i-1)})| < \varepsilon$ condition).
 
 
 We can even depict the points that the algorithm is "visiting",
-see Figure {@fig:gbfgsvisit}.
+see Figure \@ref(fig:gbfgsvisit).
 
 
 Remark.
@@ -562,13 +566,13 @@ table(round(res_value,3))
 ```
 
 Unfortunately, we find the global minimum only in $\sim 25\%$ cases,
-compare Figure {@fig:bfgs_multi_hist}.
+compare Figure \@ref(fig:bfgs-multi-hist).
 
 
 
 
 
-```{r bfgs_multi_hist,cache=TRUE,fig.cap="A histogram of the objective function's value at the local minimum found when using a random initial guess"}
+```{r bfgs-multi-hist,cache=TRUE,fig.cap="A histogram of the objective function's value at the local minimum found when using a random initial guess"}
 hist(res_value, col="white", breaks=100, main=NA); box()
 ```
 
@@ -576,10 +580,10 @@ hist(res_value, col="white", breaks=100, main=NA); box()
 
 
 
-Figure {@fig:bfgs_multi_where} depicts all the random starting points and where
+Figure \@ref(fig:bfgs-multi-where) depicts all the random starting points and where
 do we converge from them.
 
-```{r bfgs_multi_where,echo=FALSE,cache=TRUE,fig.cap="Each line segment connect a starting point to the point of BFGS's convergence; note that by starting in the neighbourhood of $(0,-4)$ we can actually end up in any of the 4 local minima"}
+```{r bfgs-multi-where,echo=FALSE,cache=TRUE,fig.cap="Each line segment connect a starting point to the point of BFGS's convergence; note that by starting in the neighbourhood of $(0,-4)$ we can actually end up in any of the 4 local minima"}
 set.seed(123)
 res <- replicate(1000, {
     # this will be iterated 100 times
@@ -828,7 +832,7 @@ Remark.
 
 
 Each gradient is a vector, therefore it can be depicted as an arrow.
-Figure {@fig:gradplots} illustrates a few scaled gradients of the $g$
+Figure \@ref(fig:gradplots) illustrates a few scaled gradients of the $g$
 function at different points  -- each arrow connects a point
 $\mathbf{x}$ to $\mathbf{x}\pm 0.1\nabla f(\mathbf{x})$.
 
@@ -948,7 +952,7 @@ optim_gd <- function(par, fn, gr, eta=0.01,
 
 Tests of the $g$ function.
 First, let's try $\eta=0.01$.
-Figure {@fig:etastepplot} zooms in the contour plot so that we can see
+Figure \@ref(fig:etastepplot) zooms in the contour plot so that we can see
 the actual path the algorithm has taken.
 
 
@@ -982,7 +986,7 @@ str(res)
 
 With an increased step size, the algorithm needed
 many more iterations (3 times as many),
-see Figure {@fig:etadef2f} for the path taken.
+see Figure \@ref(fig:etadef2f) for the path taken.
 
 ```{r etadef2f,warning=FALSE,echo=FALSE,cache=TRUE,dependson='etadef2',fig.cap="Path taken by the gradient descent algorithm with $\\eta=0.05$"}
 <<etastepplot>>
@@ -990,7 +994,7 @@ see Figure {@fig:etadef2f} for the path taken.
 
 
 
-And now for something completely different: $\eta=0.1$, see Figure {@fig:etadef3f}.
+And now for something completely different: $\eta=0.1$, see Figure \@ref(fig:etadef3f).
 
 
 
@@ -1463,13 +1467,13 @@ accuracy(Y_test2,  nn_predict(B, X_test1))
 
 Bingo! Let's take a closer look at how the train/test error
 behaves in each iteration for different batch sizes.
-Figures {@fig:mnist_sgd} and {@fig:mnist_sgd2b} depict
+Figures \@ref(fig:mnist-sgd) and \@ref(fig:mnist-sgd2b) depict
 the cases of `batch_size` of 32 and 128, respectively.
 
 
 
 
-```{r cache=TRUE,mnist_sgd1,dependson='mnist_download6',echo=FALSE}
+```{r cache=TRUE,mnist-sgd1,dependson='mnist_download6',echo=FALSE}
 eta <- 0.1
 maxit <- 10000
 batch_size <- 32
@@ -1477,7 +1481,7 @@ batch_size <- 32
 
 The time needed to go through 10000 iterations with batch size of 32 is:
 
-```{r mnist_sgd,cache=TRUE,dependson='mnist_sgd1',echo=FALSE,fig.cap="Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 32"}
+```{r mnist-sgd,cache=TRUE,dependson='mnist-sgd1',echo=FALSE,fig.cap="Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 32"}
 set.seed(123)
 # random matrix of size 785x10 - initial guess
 B <- matrix(rnorm(ncol(X_train1)*ncol(Y_train2)), nrow=ncol(X_train1))
@@ -1525,7 +1529,7 @@ legend("bottom", ncol=2, bg="white",
 
 
 
-```{r cache=TRUE,mnist_sgd2,dependson='mnist_download6',echo=FALSE}
+```{r cache=TRUE,mnist-sgd2,dependson='mnist_download6',echo=FALSE}
 eta <- 0.1
 maxit <- 10000
 batch_size <- 128
@@ -1533,8 +1537,8 @@ batch_size <- 128
 
 What's more, batch size of 128 takes:
 
-```{r cache=TRUE,mnist_sgd2b,dependson='mnist_sgd2',echo=FALSE,fig.cap="Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 128"}
-<<mnist_sgd>>
+```{r mnist-sgd2b,cache=TRUE,dependson='mnist-sgd2',echo=FALSE,fig.cap="Cross-entropy and accuracy on the train and test set in each iteration of SGD; batch size of 128"}
+<<mnist-sgd>>
 ```
 
 { BEGIN exercise }
@@ -1581,12 +1585,10 @@ f(\theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2})\leq \theta f(\mathbf{x}_{1})+(
 
 In other words, the function's value at any convex combination of two points
 is not greater than that combination of the function values at these two points.
-See Figure {@fig:convex_function} for a graphical illustration of the above.
+See Figure \@ref(fig:convex-function) for a graphical illustration of the above.
 
 
-![An illustration of the definition of a convex function](figures/convex_function){#fig:convex_function width=75%}
-
-
+![(\#fig:convex-function) An illustration of the definition of a convex function](figures/convex_function)
 
 
 
@@ -1659,10 +1661,10 @@ whenever the line segment joining any two points in $C$
 is fully included in $C$. More formally,
 for every $\mathbf{x}_1\in C$ and $\mathbf{x}_2\in C$,
 it holds $\theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2} \in C$ for
-all $\theta\in [0,1]$; see Figure {@fig:convex_set} for an illustration.
+all $\theta\in [0,1]$; see Figure \@ref(fig:convex-set) for an illustration.
 
 
-![A convex and a non-convex set](figures/convex_set){#fig:convex_set width=75%}
+![(\#fig:convex-set) A convex and a non-convex set](figures/convex_set)
 
 
 <!--
@@ -1705,13 +1707,13 @@ dimensions, think of a rubber band stretched around all the points like a fence)
 
 *Concave* functions are defined as ones that fulfill
 $f(\theta \mathbf{x}_{1}+(1-\theta)\mathbf{x}_{2})\geq \theta f(\mathbf{x}_{1})+(1-\theta)f(\mathbf{x}_{2})$ for every $\mathbf{x}_1,\mathbf{x}_2$
-and $\theta\in[0,1]$, see Figure {@fig:convex_concave}.
+and $\theta\in[0,1]$, see Figure \@ref(fig:convex-concave).
 Of course, there are functions that are neither convex nor concave.
 Moreover, linear functions are both convex and concave.
 Also, if $f$ is convex, then $-f$ is concave and vice versa.
 
 
-![(non-)convex vs. (non-)concave functions](figures/convex_concave){#fig:convex_concave width=75%}
+![(\#fig:convex-concave) (non-)convex vs. (non-)concave functions](figures/convex_concave)
 
 -->
 

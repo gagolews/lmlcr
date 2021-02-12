@@ -4,24 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>D Data Frame Wrangling in R | Lightweight Machine Learning Classics with R</title>
+  <title>E Data Frame Wrangling in R | Lightweight Machine Learning Classics with R</title>
   <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="pandoc, pandoc-citeproc, knitr, bookdown (custom), GitBook, and many more" />
 
-  <meta property="og:title" content="D Data Frame Wrangling in R | Lightweight Machine Learning Classics with R" />
+  <meta property="og:title" content="E Data Frame Wrangling in R | Lightweight Machine Learning Classics with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://lmlcr.gagolewski.com" />
   
   <meta property="og:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   <meta name="github-repo" content="gagolews/lmlcr" />
 
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="D Data Frame Wrangling in R | Lightweight Machine Learning Classics with R" />
-  
-  <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
-  
-
-<meta name="author" content="Marek Gagolewski" />
+  <meta name="author" content="Marek Gagolewski" />
 
 
 
@@ -32,6 +26,7 @@
   
 <link rel="prev" href="matrix-algebra-in-r.html"/>
 <link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,6 +44,9 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <style type="text/css">
 div.exercise {
     font-style: italic;
@@ -62,29 +60,62 @@ details.solution {
     margin-bottom: 2em;
 }
 
+div.remark {
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+div.definition {
+    font-style: italic;
+    border-left: 2px solid #550000;
+    padding-left: 1em;
+}
+
+</style>
+
+
+<!-- Use KaTeX -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<!-- /Use KaTeX -->
+
+<style type="text/css">
+/* Marek's custom CSS */
+
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans:400,500,600,700,800,900,400italic,500italic,600italic,700italic,800italic,900italic");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,600,700,400italic,600italic,700italic");
+
+span.katex {
+    font-size: 100%;
+}
+
 </style>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -93,9 +124,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -142,60 +173,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li style='font-style: italic' ><a href="./">LMLCR</a></li>
 <li style='font-size: smaller' ><a href="https://www.gagolewski.com">Marek Gagolewski</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2.1 2021-02-12 18:56 (727245f)</a></li>
+<li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>BEGIN {</a></li>
-<li class="chapter" data-level="1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression</a><ul>
-<li class="chapter" data-level="1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#machine-learning"><i class="fa fa-check"></i><b>1.1</b> Machine Learning</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#machine-learning"><i class="fa fa-check"></i><b>1.1</b> Machine Learning</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#what-is-machine-learning"><i class="fa fa-check"></i><b>1.1.1</b> What is Machine Learning?</a></li>
 <li class="chapter" data-level="1.1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#main-types-of-machine-learning-problems"><i class="fa fa-check"></i><b>1.1.2</b> Main Types of Machine Learning Problems</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#supervised-learning"><i class="fa fa-check"></i><b>1.2</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#supervised-learning"><i class="fa fa-check"></i><b>1.2</b> Supervised Learning</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#formalism"><i class="fa fa-check"></i><b>1.2.1</b> Formalism</a></li>
 <li class="chapter" data-level="1.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#desired-outputs"><i class="fa fa-check"></i><b>1.2.2</b> Desired Outputs</a></li>
 <li class="chapter" data-level="1.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#types-of-supervised-learning-problems"><i class="fa fa-check"></i><b>1.2.3</b> Types of Supervised Learning Problems</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-regression"><i class="fa fa-check"></i><b>1.3</b> Simple Regression</a><ul>
+<li class="chapter" data-level="1.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-regression"><i class="fa fa-check"></i><b>1.3</b> Simple Regression</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#introduction"><i class="fa fa-check"></i><b>1.3.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#search-space-and-objective"><i class="fa fa-check"></i><b>1.3.2</b> Search Space and Objective</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="1.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#introduction-1"><i class="fa fa-check"></i><b>1.4.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.4.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#solution-in-r"><i class="fa fa-check"></i><b>1.4.2</b> Solution in R</a></li>
 <li class="chapter" data-level="1.4.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analytic-solution"><i class="fa fa-check"></i><b>1.4.3</b> Analytic Solution</a></li>
 <li class="chapter" data-level="1.4.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.4</b> Derivation of the Solution (**)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-in-r"><i class="fa fa-check"></i><b>1.5</b> Exercises in R</a><ul>
+<li class="chapter" data-level="1.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-in-r"><i class="fa fa-check"></i><b>1.5</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#the-anscombe-quartet"><i class="fa fa-check"></i><b>1.5.1</b> The Anscombe Quartet</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#outro"><i class="fa fa-check"></i><b>1.6</b> Outro</a><ul>
+<li class="chapter" data-level="1.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#outro"><i class="fa fa-check"></i><b>1.6</b> Outro</a>
+<ul>
 <li class="chapter" data-level="1.6.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#remarks"><i class="fa fa-check"></i><b>1.6.1</b> Remarks</a></li>
 <li class="chapter" data-level="1.6.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#further-reading"><i class="fa fa-check"></i><b>1.6.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>2</b> Multiple Regression</a><ul>
-<li class="chapter" data-level="2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#introduction-2"><i class="fa fa-check"></i><b>2.1</b> Introduction</a><ul>
+<li class="chapter" data-level="2" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>2</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#introduction-2"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="multiple-regression.html"><a href="multiple-regression.html#formalism-1"><i class="fa fa-check"></i><b>2.1.1</b> Formalism</a></li>
 <li class="chapter" data-level="2.1.2" data-path="multiple-regression.html"><a href="multiple-regression.html#simple-linear-regression---recap"><i class="fa fa-check"></i><b>2.1.2</b> Simple Linear Regression - Recap</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>2.2</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>2.2</b> Multiple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#problem-formulation"><i class="fa fa-check"></i><b>2.2.1</b> Problem Formulation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-linear-model-in-r"><i class="fa fa-check"></i><b>2.2.2</b> Fitting a Linear Model in R</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="multiple-regression.html"><a href="multiple-regression.html#finding-the-best-model"><i class="fa fa-check"></i><b>2.3</b> Finding the Best Model</a><ul>
+<li class="chapter" data-level="2.3" data-path="multiple-regression.html"><a href="multiple-regression.html#finding-the-best-model"><i class="fa fa-check"></i><b>2.3</b> Finding the Best Model</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
 <li class="chapter" data-level="2.3.4" data-path="multiple-regression.html"><a href="multiple-regression.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="multiple-regression.html"><a href="multiple-regression.html#exercises-in-r-1"><i class="fa fa-check"></i><b>2.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="2.4" data-path="multiple-regression.html"><a href="multiple-regression.html#exercises-in-r-1"><i class="fa fa-check"></i><b>2.4</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#anscombes-quartet-revisited"><i class="fa fa-check"></i><b>2.4.1</b> Anscombe’s Quartet Revisited</a></li>
 <li class="chapter" data-level="2.4.2" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-simple-models-involving-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.2</b> Countries of the World – Simple models involving the GDP per capita</a></li>
 <li class="chapter" data-level="2.4.3" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-most-correlated-variables"><i class="fa fa-check"></i><b>2.4.3</b> Countries of the World – Most correlated variables (*)</a></li>
 <li class="chapter" data-level="2.4.4" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-a-non-linear-model-based-on-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.4</b> Countries of the World – A non-linear model based on the GDP per capita</a></li>
 <li class="chapter" data-level="2.4.5" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-a-multiple-regression-model-for-the-per-capita-gdp"><i class="fa fa-check"></i><b>2.4.5</b> Countries of the World – A multiple regression model for the per capita GDP</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="multiple-regression.html"><a href="multiple-regression.html#outro-1"><i class="fa fa-check"></i><b>2.5</b> Outro</a><ul>
+<li class="chapter" data-level="2.5" data-path="multiple-regression.html"><a href="multiple-regression.html#outro-1"><i class="fa fa-check"></i><b>2.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#remarks-1"><i class="fa fa-check"></i><b>2.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="2.5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#other-methods-for-regression"><i class="fa fa-check"></i><b>2.5.2</b> Other Methods for Regression</a></li>
 <li class="chapter" data-level="2.5.3" data-path="multiple-regression.html"><a href="multiple-regression.html#derivation-of-the-solution-1"><i class="fa fa-check"></i><b>2.5.3</b> Derivation of the Solution (**)</a></li>
@@ -204,70 +250,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.6" data-path="multiple-regression.html"><a href="multiple-regression.html#further-reading-1"><i class="fa fa-check"></i><b>2.5.6</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a><ul>
-<li class="chapter" data-level="3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#classification-task"><i class="fa fa-check"></i><b>3.1.1</b> Classification Task</a></li>
 <li class="chapter" data-level="3.1.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
 <li class="chapter" data-level="3.1.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.3</b> Training and Test Sets</a></li>
 <li class="chapter" data-level="3.1.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.4</b> Discussed Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#k-nearest-neighbour-classifier"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a><ul>
+<li class="chapter" data-level="3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#k-nearest-neighbour-classifier"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-4"><i class="fa fa-check"></i><b>3.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#example-in-r"><i class="fa fa-check"></i><b>3.2.2</b> Example in R</a></li>
 <li class="chapter" data-level="3.2.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#feature-engineering"><i class="fa fa-check"></i><b>3.2.3</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#model-assessment-and-selection"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a><ul>
+<li class="chapter" data-level="3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#model-assessment-and-selection"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#performance-metrics"><i class="fa fa-check"></i><b>3.3.1</b> Performance Metrics</a></li>
 <li class="chapter" data-level="3.3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>3.3.2</b> How to Choose K for K-NN Classification?</a></li>
 <li class="chapter" data-level="3.3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>3.3.3</b> Training, Validation and Test sets</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#implementing-a-k-nn-classifier"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a><ul>
+<li class="chapter" data-level="3.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#implementing-a-k-nn-classifier"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#factor-data-type"><i class="fa fa-check"></i><b>3.4.1</b> Factor Data Type</a></li>
 <li class="chapter" data-level="3.4.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#main-routine"><i class="fa fa-check"></i><b>3.4.2</b> Main Routine (*)</a></li>
 <li class="chapter" data-level="3.4.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#mode"><i class="fa fa-check"></i><b>3.4.3</b> Mode</a></li>
 <li class="chapter" data-level="3.4.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#nn-search-routines"><i class="fa fa-check"></i><b>3.4.4</b> NN Search Routines (*)</a></li>
 <li class="chapter" data-level="3.4.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#different-metrics"><i class="fa fa-check"></i><b>3.4.5</b> Different Metrics (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#outro-2"><i class="fa fa-check"></i><b>3.5</b> Outro</a><ul>
+<li class="chapter" data-level="3.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#outro-2"><i class="fa fa-check"></i><b>3.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="3.5.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#remarks-2"><i class="fa fa-check"></i><b>3.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="3.5.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.5.2</b> Side Note: K-NN Regression</a></li>
 <li class="chapter" data-level="3.5.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#further-reading-2"><i class="fa fa-check"></i><b>3.5.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-5"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-5"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#classification-task-1"><i class="fa fa-check"></i><b>4.1.1</b> Classification Task</a></li>
 <li class="chapter" data-level="4.1.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#data-1"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#decision-trees"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a><ul>
+<li class="chapter" data-level="4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#decision-trees"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-6"><i class="fa fa-check"></i><b>4.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-1"><i class="fa fa-check"></i><b>4.2.2</b> Example in R</a></li>
 <li class="chapter" data-level="4.2.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.2.3</b> A Note on Decision Tree Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#binary-logistic-regression"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a><ul>
+<li class="chapter" data-level="4.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#binary-logistic-regression"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
 <li class="chapter" data-level="4.3.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
 <li class="chapter" data-level="4.3.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
 <li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function-cross-entropy"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function: Cross-entropy</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#exercises-in-r-2"><i class="fa fa-check"></i><b>4.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#exercises-in-r-2"><i class="fa fa-check"></i><b>4.4</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-preparing-data"><i class="fa fa-check"></i><b>4.4.1</b> EdStats – Preparing Data</a></li>
 <li class="chapter" data-level="4.4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-where-girls-are-better-at-maths-than-boys"><i class="fa fa-check"></i><b>4.4.2</b> EdStats – Where Girls Are Better at Maths Than Boys?</a></li>
 <li class="chapter" data-level="4.4.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-and-world-factbook-joining-forces"><i class="fa fa-check"></i><b>4.4.3</b> EdStats and World Factbook – Joining Forces</a></li>
 <li class="chapter" data-level="4.4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-fitting-of-binary-logistic-regression-models"><i class="fa fa-check"></i><b>4.4.4</b> EdStats – Fitting of Binary Logistic Regression Models</a></li>
 <li class="chapter" data-level="4.4.5" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-variable-selection-in-binary-logistic-regression"><i class="fa fa-check"></i><b>4.4.5</b> EdStats – Variable Selection in Binary Logistic Regression (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.5</b> Outro</a><ul>
+<li class="chapter" data-level="4.5" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#remarks-3"><i class="fa fa-check"></i><b>4.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="4.5.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#further-reading-3"><i class="fa fa-check"></i><b>4.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a><ul>
-<li class="chapter" data-level="5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-7"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-7"><i class="fa fa-check"></i><b>5.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#binary-logistic-regression-recap"><i class="fa fa-check"></i><b>5.1.1</b> Binary Logistic Regression: Recap</a></li>
 <li class="chapter" data-level="5.1.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#data-2"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.2</b> Multinomial Logistic Regression</a><ul>
+<li class="chapter" data-level="5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.2</b> Multinomial Logistic Regression</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#a-note-on-data-representation"><i class="fa fa-check"></i><b>5.2.1</b> A Note on Data Representation</a></li>
 <li class="chapter" data-level="5.2.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#extending-logistic-regression"><i class="fa fa-check"></i><b>5.2.2</b> Extending Logistic Regression</a></li>
 <li class="chapter" data-level="5.2.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#softmax-function"><i class="fa fa-check"></i><b>5.2.3</b> Softmax Function</a></li>
@@ -275,42 +336,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#cross-entropy-revisited"><i class="fa fa-check"></i><b>5.2.5</b> Cross-entropy Revisited</a></li>
 <li class="chapter" data-level="5.2.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#problem-formulation-in-matrix-form"><i class="fa fa-check"></i><b>5.2.6</b> Problem Formulation in Matrix Form (**)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neural-networks"><i class="fa fa-check"></i><b>5.3</b> Artificial Neural Networks</a><ul>
+<li class="chapter" data-level="5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neural-networks"><i class="fa fa-check"></i><b>5.3</b> Artificial Neural Networks</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neuron"><i class="fa fa-check"></i><b>5.3.1</b> Artificial Neuron</a></li>
 <li class="chapter" data-level="5.3.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#logistic-regression-as-a-neural-network"><i class="fa fa-check"></i><b>5.3.2</b> Logistic Regression as a Neural Network</a></li>
 <li class="chapter" data-level="5.3.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r-3"><i class="fa fa-check"></i><b>5.3.3</b> Example in R</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#deep-neural-networks"><i class="fa fa-check"></i><b>5.4</b> Deep Neural Networks</a><ul>
+<li class="chapter" data-level="5.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#deep-neural-networks"><i class="fa fa-check"></i><b>5.4</b> Deep Neural Networks</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-8"><i class="fa fa-check"></i><b>5.4.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.4.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#activation-functions"><i class="fa fa-check"></i><b>5.4.2</b> Activation Functions</a></li>
 <li class="chapter" data-level="5.4.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r---2-layers"><i class="fa fa-check"></i><b>5.4.3</b> Example in R - 2 Layers</a></li>
 <li class="chapter" data-level="5.4.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r---6-layers"><i class="fa fa-check"></i><b>5.4.4</b> Example in R - 6 Layers</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#preprocessing-of-data"><i class="fa fa-check"></i><b>5.5</b> Preprocessing of Data</a><ul>
+<li class="chapter" data-level="5.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#preprocessing-of-data"><i class="fa fa-check"></i><b>5.5</b> Preprocessing of Data</a>
+<ul>
 <li class="chapter" data-level="5.5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-9"><i class="fa fa-check"></i><b>5.5.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#image-deskewing"><i class="fa fa-check"></i><b>5.5.2</b> Image Deskewing</a></li>
 <li class="chapter" data-level="5.5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#summary-of-all-the-models-considered"><i class="fa fa-check"></i><b>5.5.3</b> Summary of All the Models Considered</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#outro-4"><i class="fa fa-check"></i><b>5.6</b> Outro</a><ul>
+<li class="chapter" data-level="5.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#outro-4"><i class="fa fa-check"></i><b>5.6</b> Outro</a>
+<ul>
 <li class="chapter" data-level="5.6.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#remarks-4"><i class="fa fa-check"></i><b>5.6.1</b> Remarks</a></li>
 <li class="chapter" data-level="5.6.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#beyond-mnist"><i class="fa fa-check"></i><b>5.6.2</b> Beyond MNIST</a></li>
 <li class="chapter" data-level="5.6.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#further-reading-4"><i class="fa fa-check"></i><b>5.6.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>6</b> Continuous Optimisation with Iterative Algorithms</a><ul>
-<li class="chapter" data-level="6.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-10"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>6</b> Continuous Optimisation with Iterative Algorithms</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-10"><i class="fa fa-check"></i><b>6.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#optimisation-problems"><i class="fa fa-check"></i><b>6.1.1</b> Optimisation Problems</a></li>
 <li class="chapter" data-level="6.1.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-optimisation-problems-in-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Example Optimisation Problems in Machine Learning</a></li>
 <li class="chapter" data-level="6.1.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#types-of-minima-and-maxima"><i class="fa fa-check"></i><b>6.1.3</b> Types of Minima and Maxima</a></li>
 <li class="chapter" data-level="6.1.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-objective-over-a-2d-domain"><i class="fa fa-check"></i><b>6.1.4</b> Example Objective over a 2D Domain</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#iterative-methods"><i class="fa fa-check"></i><b>6.2</b> Iterative Methods</a><ul>
+<li class="chapter" data-level="6.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#iterative-methods"><i class="fa fa-check"></i><b>6.2</b> Iterative Methods</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-11"><i class="fa fa-check"></i><b>6.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="6.2.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-in-r-4"><i class="fa fa-check"></i><b>6.2.2</b> Example in R</a></li>
 <li class="chapter" data-level="6.2.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#convergence-to-local-optima"><i class="fa fa-check"></i><b>6.2.3</b> Convergence to Local Optima</a></li>
 <li class="chapter" data-level="6.2.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#random-restarts"><i class="fa fa-check"></i><b>6.2.4</b> Random Restarts</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent"><i class="fa fa-check"></i><b>6.3</b> Gradient Descent</a><ul>
+<li class="chapter" data-level="6.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent"><i class="fa fa-check"></i><b>6.3</b> Gradient Descent</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#function-gradient"><i class="fa fa-check"></i><b>6.3.1</b> Function Gradient (*)</a></li>
 <li class="chapter" data-level="6.3.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#three-facts-on-the-gradient"><i class="fa fa-check"></i><b>6.3.2</b> Three Facts on the Gradient</a></li>
 <li class="chapter" data-level="6.3.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent-algorithm-gd"><i class="fa fa-check"></i><b>6.3.3</b> Gradient Descent Algorithm (GD)</a></li>
@@ -318,176 +387,203 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.5" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#stochastic-gradient-descent-sgd"><i class="fa fa-check"></i><b>6.3.5</b> Stochastic Gradient Descent (SGD) (*)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#a-note-on-convex-optimisation"><i class="fa fa-check"></i><b>6.4</b> A Note on Convex Optimisation (*)</a></li>
-<li class="chapter" data-level="6.5" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#outro-5"><i class="fa fa-check"></i><b>6.5</b> Outro</a><ul>
+<li class="chapter" data-level="6.5" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#outro-5"><i class="fa fa-check"></i><b>6.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="6.5.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#remarks-5"><i class="fa fa-check"></i><b>6.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="6.5.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#further-reading-5"><i class="fa fa-check"></i><b>6.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a><ul>
-<li class="chapter" data-level="7.1" data-path="clustering.html"><a href="clustering.html#unsupervised-learning"><i class="fa fa-check"></i><b>7.1</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="clustering.html"><a href="clustering.html#unsupervised-learning"><i class="fa fa-check"></i><b>7.1</b> Unsupervised Learning</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="clustering.html"><a href="clustering.html#introduction-12"><i class="fa fa-check"></i><b>7.1.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.1.2" data-path="clustering.html"><a href="clustering.html#main-types-of-unsupervised-learning-problems"><i class="fa fa-check"></i><b>7.1.2</b> Main Types of Unsupervised Learning Problems</a></li>
 <li class="chapter" data-level="7.1.3" data-path="clustering.html"><a href="clustering.html#definitions"><i class="fa fa-check"></i><b>7.1.3</b> Definitions</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>7.2</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="7.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>7.2</b> K-means Clustering</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="clustering.html"><a href="clustering.html#example-in-r-5"><i class="fa fa-check"></i><b>7.2.1</b> Example in R</a></li>
 <li class="chapter" data-level="7.2.2" data-path="clustering.html"><a href="clustering.html#problem-statement"><i class="fa fa-check"></i><b>7.2.2</b> Problem Statement</a></li>
 <li class="chapter" data-level="7.2.3" data-path="clustering.html"><a href="clustering.html#algorithms-for-the-k-means-problem"><i class="fa fa-check"></i><b>7.2.3</b> Algorithms for the K-means Problem</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="clustering.html"><a href="clustering.html#agglomerative-hierarchical-clustering"><i class="fa fa-check"></i><b>7.3</b> Agglomerative Hierarchical Clustering</a><ul>
+<li class="chapter" data-level="7.3" data-path="clustering.html"><a href="clustering.html#agglomerative-hierarchical-clustering"><i class="fa fa-check"></i><b>7.3</b> Agglomerative Hierarchical Clustering</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="clustering.html"><a href="clustering.html#introduction-13"><i class="fa fa-check"></i><b>7.3.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.3.2" data-path="clustering.html"><a href="clustering.html#example-in-r-6"><i class="fa fa-check"></i><b>7.3.2</b> Example in R</a></li>
 <li class="chapter" data-level="7.3.3" data-path="clustering.html"><a href="clustering.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.3</b> Linkage Functions</a></li>
 <li class="chapter" data-level="7.3.4" data-path="clustering.html"><a href="clustering.html#cluster-dendrograms"><i class="fa fa-check"></i><b>7.3.4</b> Cluster Dendrograms</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#clustering-of-the-world-factbook"><i class="fa fa-check"></i><b>7.4.1</b> Clustering of the World Factbook</a></li>
 <li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#unbalance-dataset-k-means-needs-multiple-starts"><i class="fa fa-check"></i><b>7.4.2</b> Unbalance Dataset – K-Means Needs Multiple Starts</a></li>
 <li class="chapter" data-level="7.4.3" data-path="clustering.html"><a href="clustering.html#clustering-of-typical-2d-benchmark-datasets"><i class="fa fa-check"></i><b>7.4.3</b> Clustering of Typical 2D Benchmark Datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a><ul>
+<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="7.5.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="7.5.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
-<li class="chapter" data-level="8.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-14"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-14"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
 <li class="chapter" data-level="8.1.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#genetic-algorithms"><i class="fa fa-check"></i><b>8.2</b> Genetic Algorithms</a><ul>
+<li class="chapter" data-level="8.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#genetic-algorithms"><i class="fa fa-check"></i><b>8.2</b> Genetic Algorithms</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="8.2.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#overview-of-the-method"><i class="fa fa-check"></i><b>8.2.2</b> Overview of the Method</a></li>
 <li class="chapter" data-level="8.2.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#example-implementation---ga-for-k-means"><i class="fa fa-check"></i><b>8.2.3</b> Example Implementation - GA for K-means</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#outro-7"><i class="fa fa-check"></i><b>8.3</b> Outro</a><ul>
+<li class="chapter" data-level="8.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#outro-7"><i class="fa fa-check"></i><b>8.3</b> Outro</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#remarks-7"><i class="fa fa-check"></i><b>8.3.1</b> Remarks</a></li>
 <li class="chapter" data-level="8.3.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#further-reading-7"><i class="fa fa-check"></i><b>8.3.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="recommender-systems.html"><a href="recommender-systems.html"><i class="fa fa-check"></i><b>9</b> Recommender Systems</a><ul>
-<li class="chapter" data-level="9.1" data-path="recommender-systems.html"><a href="recommender-systems.html#introduction-16"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9" data-path="recommender-systems.html"><a href="recommender-systems.html"><i class="fa fa-check"></i><b>9</b> Recommender Systems</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="recommender-systems.html"><a href="recommender-systems.html#introduction-16"><i class="fa fa-check"></i><b>9.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="recommender-systems.html"><a href="recommender-systems.html#the-netflix-prize"><i class="fa fa-check"></i><b>9.1.1</b> The Netflix Prize</a></li>
 <li class="chapter" data-level="9.1.2" data-path="recommender-systems.html"><a href="recommender-systems.html#main-approaches"><i class="fa fa-check"></i><b>9.1.2</b> Main Approaches</a></li>
 <li class="chapter" data-level="9.1.3" data-path="recommender-systems.html"><a href="recommender-systems.html#formalism-2"><i class="fa fa-check"></i><b>9.1.3</b> Formalism</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="recommender-systems.html"><a href="recommender-systems.html#collaborative-filtering"><i class="fa fa-check"></i><b>9.2</b> Collaborative Filtering</a><ul>
+<li class="chapter" data-level="9.2" data-path="recommender-systems.html"><a href="recommender-systems.html#collaborative-filtering"><i class="fa fa-check"></i><b>9.2</b> Collaborative Filtering</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="recommender-systems.html"><a href="recommender-systems.html#example"><i class="fa fa-check"></i><b>9.2.1</b> Example</a></li>
 <li class="chapter" data-level="9.2.2" data-path="recommender-systems.html"><a href="recommender-systems.html#similarity-measures"><i class="fa fa-check"></i><b>9.2.2</b> Similarity Measures</a></li>
 <li class="chapter" data-level="9.2.3" data-path="recommender-systems.html"><a href="recommender-systems.html#user-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.3</b> User-Based Collaborative Filtering</a></li>
 <li class="chapter" data-level="9.2.4" data-path="recommender-systems.html"><a href="recommender-systems.html#item-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.4</b> Item-Based Collaborative Filtering</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="recommender-systems.html"><a href="recommender-systems.html#exercise-the-movielens-dataset"><i class="fa fa-check"></i><b>9.3</b> Exercise: The MovieLens Dataset (*)</a><ul>
+<li class="chapter" data-level="9.3" data-path="recommender-systems.html"><a href="recommender-systems.html#exercise-the-movielens-dataset"><i class="fa fa-check"></i><b>9.3</b> Exercise: The MovieLens Dataset (*)</a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="recommender-systems.html"><a href="recommender-systems.html#dataset"><i class="fa fa-check"></i><b>9.3.1</b> Dataset</a></li>
 <li class="chapter" data-level="9.3.2" data-path="recommender-systems.html"><a href="recommender-systems.html#data-cleansing"><i class="fa fa-check"></i><b>9.3.2</b> Data Cleansing</a></li>
 <li class="chapter" data-level="9.3.3" data-path="recommender-systems.html"><a href="recommender-systems.html#item-item-similarities"><i class="fa fa-check"></i><b>9.3.3</b> Item-Item Similarities</a></li>
 <li class="chapter" data-level="9.3.4" data-path="recommender-systems.html"><a href="recommender-systems.html#example-recommendations"><i class="fa fa-check"></i><b>9.3.4</b> Example Recommendations</a></li>
 <li class="chapter" data-level="9.3.5" data-path="recommender-systems.html"><a href="recommender-systems.html#clustering-1"><i class="fa fa-check"></i><b>9.3.5</b> Clustering</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="recommender-systems.html"><a href="recommender-systems.html#outro-8"><i class="fa fa-check"></i><b>9.4</b> Outro</a><ul>
+<li class="chapter" data-level="9.4" data-path="recommender-systems.html"><a href="recommender-systems.html#outro-8"><i class="fa fa-check"></i><b>9.4</b> Outro</a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="recommender-systems.html"><a href="recommender-systems.html#remarks-8"><i class="fa fa-check"></i><b>9.4.1</b> Remarks</a></li>
 <li class="chapter" data-level="9.4.2" data-path="recommender-systems.html"><a href="recommender-systems.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="end.html"><a href="end.html"><i class="fa fa-check"></i>} END</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
-<li class="chapter" data-level="A.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
-<li class="chapter" data-level="A.2" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-an-ide"><i class="fa fa-check"></i><b>A.2</b> Installing an IDE</a></li>
-<li class="chapter" data-level="A.3" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-recommended-packages"><i class="fa fa-check"></i><b>A.3</b> Installing Recommended Packages</a></li>
-<li class="chapter" data-level="A.4" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#first-r-script-in-rstudio"><i class="fa fa-check"></i><b>A.4</b> First R Script in RStudio</a></li>
+<li class="chapter" data-level="A" data-path="appendix-convention.html"><a href="appendix-convention.html"><i class="fa fa-check"></i><b>A</b> Notation Convention</a></li>
+<li class="chapter" data-level="B" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>B</b> Setting Up the R Environment</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>B.1</b> Installing R</a></li>
+<li class="chapter" data-level="B.2" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-an-ide"><i class="fa fa-check"></i><b>B.2</b> Installing an IDE</a></li>
+<li class="chapter" data-level="B.3" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-recommended-packages"><i class="fa fa-check"></i><b>B.3</b> Installing Recommended Packages</a></li>
+<li class="chapter" data-level="B.4" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#first-r-script-in-rstudio"><i class="fa fa-check"></i><b>B.4</b> First R Script in RStudio</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>B</b> Vector Algebra in R</a><ul>
-<li class="chapter" data-level="B.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#motivation-1"><i class="fa fa-check"></i><b>B.1</b> Motivation</a></li>
-<li class="chapter" data-level="B.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#numeric-vectors"><i class="fa fa-check"></i><b>B.2</b> Numeric Vectors</a><ul>
-<li class="chapter" data-level="B.2.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-numeric-vectors"><i class="fa fa-check"></i><b>B.2.1</b> Creating Numeric Vectors</a></li>
-<li class="chapter" data-level="B.2.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-scalar-operations"><i class="fa fa-check"></i><b>B.2.2</b> Vector-Scalar Operations</a></li>
-<li class="chapter" data-level="B.2.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-vector-operations"><i class="fa fa-check"></i><b>B.2.3</b> Vector-Vector Operations</a></li>
-<li class="chapter" data-level="B.2.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions"><i class="fa fa-check"></i><b>B.2.4</b> Aggregation Functions</a></li>
-<li class="chapter" data-level="B.2.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#special-functions"><i class="fa fa-check"></i><b>B.2.5</b> Special Functions</a></li>
-<li class="chapter" data-level="B.2.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#norms-and-distances"><i class="fa fa-check"></i><b>B.2.6</b> Norms and Distances</a></li>
-<li class="chapter" data-level="B.2.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#dot-product"><i class="fa fa-check"></i><b>B.2.7</b> Dot Product (*)</a></li>
-<li class="chapter" data-level="B.2.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#missing-and-other-special-values"><i class="fa fa-check"></i><b>B.2.8</b> Missing and Other Special Values</a></li>
+<li class="chapter" data-level="C" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>C</b> Vector Algebra in R</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#motivation-1"><i class="fa fa-check"></i><b>C.1</b> Motivation</a></li>
+<li class="chapter" data-level="C.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#numeric-vectors"><i class="fa fa-check"></i><b>C.2</b> Numeric Vectors</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-numeric-vectors"><i class="fa fa-check"></i><b>C.2.1</b> Creating Numeric Vectors</a></li>
+<li class="chapter" data-level="C.2.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-scalar-operations"><i class="fa fa-check"></i><b>C.2.2</b> Vector-Scalar Operations</a></li>
+<li class="chapter" data-level="C.2.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-vector-operations"><i class="fa fa-check"></i><b>C.2.3</b> Vector-Vector Operations</a></li>
+<li class="chapter" data-level="C.2.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions"><i class="fa fa-check"></i><b>C.2.4</b> Aggregation Functions</a></li>
+<li class="chapter" data-level="C.2.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#special-functions"><i class="fa fa-check"></i><b>C.2.5</b> Special Functions</a></li>
+<li class="chapter" data-level="C.2.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#norms-and-distances"><i class="fa fa-check"></i><b>C.2.6</b> Norms and Distances</a></li>
+<li class="chapter" data-level="C.2.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#dot-product"><i class="fa fa-check"></i><b>C.2.7</b> Dot Product (*)</a></li>
+<li class="chapter" data-level="C.2.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#missing-and-other-special-values"><i class="fa fa-check"></i><b>C.2.8</b> Missing and Other Special Values</a></li>
 </ul></li>
-<li class="chapter" data-level="B.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-vectors"><i class="fa fa-check"></i><b>B.3</b> Logical Vectors</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-logical-vectors"><i class="fa fa-check"></i><b>B.3.1</b> Creating Logical Vectors</a></li>
-<li class="chapter" data-level="B.3.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-operations"><i class="fa fa-check"></i><b>B.3.2</b> Logical Operations</a></li>
-<li class="chapter" data-level="B.3.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#comparison-operations"><i class="fa fa-check"></i><b>B.3.3</b> Comparison Operations</a></li>
-<li class="chapter" data-level="B.3.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions-1"><i class="fa fa-check"></i><b>B.3.4</b> Aggregation Functions</a></li>
+<li class="chapter" data-level="C.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-vectors"><i class="fa fa-check"></i><b>C.3</b> Logical Vectors</a>
+<ul>
+<li class="chapter" data-level="C.3.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-logical-vectors"><i class="fa fa-check"></i><b>C.3.1</b> Creating Logical Vectors</a></li>
+<li class="chapter" data-level="C.3.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-operations"><i class="fa fa-check"></i><b>C.3.2</b> Logical Operations</a></li>
+<li class="chapter" data-level="C.3.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#comparison-operations"><i class="fa fa-check"></i><b>C.3.3</b> Comparison Operations</a></li>
+<li class="chapter" data-level="C.3.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions-1"><i class="fa fa-check"></i><b>C.3.4</b> Aggregation Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="B.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#character-vectors"><i class="fa fa-check"></i><b>B.4</b> Character Vectors</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-character-vectors"><i class="fa fa-check"></i><b>B.4.1</b> Creating Character Vectors</a></li>
-<li class="chapter" data-level="B.4.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#concatenating-character-vectors"><i class="fa fa-check"></i><b>B.4.2</b> Concatenating Character Vectors</a></li>
-<li class="chapter" data-level="B.4.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#collapsing-character-vectors"><i class="fa fa-check"></i><b>B.4.3</b> Collapsing Character Vectors</a></li>
+<li class="chapter" data-level="C.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#character-vectors"><i class="fa fa-check"></i><b>C.4</b> Character Vectors</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-character-vectors"><i class="fa fa-check"></i><b>C.4.1</b> Creating Character Vectors</a></li>
+<li class="chapter" data-level="C.4.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#concatenating-character-vectors"><i class="fa fa-check"></i><b>C.4.2</b> Concatenating Character Vectors</a></li>
+<li class="chapter" data-level="C.4.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#collapsing-character-vectors"><i class="fa fa-check"></i><b>C.4.3</b> Collapsing Character Vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="B.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-subsetting"><i class="fa fa-check"></i><b>B.5</b> Vector Subsetting</a><ul>
-<li class="chapter" data-level="B.5.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-positive-indices"><i class="fa fa-check"></i><b>B.5.1</b> Subsetting with Positive Indices</a></li>
-<li class="chapter" data-level="B.5.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-negative-indices"><i class="fa fa-check"></i><b>B.5.2</b> Subsetting with Negative Indices</a></li>
-<li class="chapter" data-level="B.5.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-logical-vectors"><i class="fa fa-check"></i><b>B.5.3</b> Subsetting with Logical Vectors</a></li>
-<li class="chapter" data-level="B.5.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#replacing-elements"><i class="fa fa-check"></i><b>B.5.4</b> Replacing Elements</a></li>
-<li class="chapter" data-level="B.5.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#other-functions"><i class="fa fa-check"></i><b>B.5.5</b> Other Functions</a></li>
+<li class="chapter" data-level="C.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-subsetting"><i class="fa fa-check"></i><b>C.5</b> Vector Subsetting</a>
+<ul>
+<li class="chapter" data-level="C.5.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-positive-indices"><i class="fa fa-check"></i><b>C.5.1</b> Subsetting with Positive Indices</a></li>
+<li class="chapter" data-level="C.5.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-negative-indices"><i class="fa fa-check"></i><b>C.5.2</b> Subsetting with Negative Indices</a></li>
+<li class="chapter" data-level="C.5.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-logical-vectors"><i class="fa fa-check"></i><b>C.5.3</b> Subsetting with Logical Vectors</a></li>
+<li class="chapter" data-level="C.5.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#replacing-elements"><i class="fa fa-check"></i><b>C.5.4</b> Replacing Elements</a></li>
+<li class="chapter" data-level="C.5.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#other-functions"><i class="fa fa-check"></i><b>C.5.5</b> Other Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="B.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-vectors"><i class="fa fa-check"></i><b>B.6</b> Named Vectors</a><ul>
-<li class="chapter" data-level="B.6.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-named-vectors"><i class="fa fa-check"></i><b>B.6.1</b> Creating Named Vectors</a></li>
-<li class="chapter" data-level="B.6.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-named-vectors-with-character-string-indices"><i class="fa fa-check"></i><b>B.6.2</b> Subsetting Named Vectors with Character String Indices</a></li>
+<li class="chapter" data-level="C.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-vectors"><i class="fa fa-check"></i><b>C.6</b> Named Vectors</a>
+<ul>
+<li class="chapter" data-level="C.6.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-named-vectors"><i class="fa fa-check"></i><b>C.6.1</b> Creating Named Vectors</a></li>
+<li class="chapter" data-level="C.6.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-named-vectors-with-character-string-indices"><i class="fa fa-check"></i><b>C.6.2</b> Subsetting Named Vectors with Character String Indices</a></li>
 </ul></li>
-<li class="chapter" data-level="B.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#factors"><i class="fa fa-check"></i><b>B.7</b> Factors</a><ul>
-<li class="chapter" data-level="B.7.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-factors"><i class="fa fa-check"></i><b>B.7.1</b> Creating Factors</a></li>
-<li class="chapter" data-level="B.7.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#levels"><i class="fa fa-check"></i><b>B.7.2</b> Levels</a></li>
-<li class="chapter" data-level="B.7.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#internal-representation"><i class="fa fa-check"></i><b>B.7.3</b> Internal Representation (*)</a></li>
+<li class="chapter" data-level="C.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#factors"><i class="fa fa-check"></i><b>C.7</b> Factors</a>
+<ul>
+<li class="chapter" data-level="C.7.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-factors"><i class="fa fa-check"></i><b>C.7.1</b> Creating Factors</a></li>
+<li class="chapter" data-level="C.7.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#levels"><i class="fa fa-check"></i><b>C.7.2</b> Levels</a></li>
+<li class="chapter" data-level="C.7.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#internal-representation"><i class="fa fa-check"></i><b>C.7.3</b> Internal Representation (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="B.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#lists"><i class="fa fa-check"></i><b>B.8</b> Lists</a><ul>
-<li class="chapter" data-level="B.8.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-lists"><i class="fa fa-check"></i><b>B.8.1</b> Creating Lists</a></li>
-<li class="chapter" data-level="B.8.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-lists"><i class="fa fa-check"></i><b>B.8.2</b> Named Lists</a></li>
-<li class="chapter" data-level="B.8.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-and-extracting-from-lists"><i class="fa fa-check"></i><b>B.8.3</b> Subsetting and Extracting From Lists</a></li>
-<li class="chapter" data-level="B.8.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#common-operations"><i class="fa fa-check"></i><b>B.8.4</b> Common Operations</a></li>
+<li class="chapter" data-level="C.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#lists"><i class="fa fa-check"></i><b>C.8</b> Lists</a>
+<ul>
+<li class="chapter" data-level="C.8.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-lists"><i class="fa fa-check"></i><b>C.8.1</b> Creating Lists</a></li>
+<li class="chapter" data-level="C.8.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-lists"><i class="fa fa-check"></i><b>C.8.2</b> Named Lists</a></li>
+<li class="chapter" data-level="C.8.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-and-extracting-from-lists"><i class="fa fa-check"></i><b>C.8.3</b> Subsetting and Extracting From Lists</a></li>
+<li class="chapter" data-level="C.8.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#common-operations"><i class="fa fa-check"></i><b>C.8.4</b> Common Operations</a></li>
 </ul></li>
-<li class="chapter" data-level="B.9" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#further-reading-9"><i class="fa fa-check"></i><b>B.9</b> Further Reading</a></li>
+<li class="chapter" data-level="C.9" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#further-reading-9"><i class="fa fa-check"></i><b>C.9</b> Further Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="C" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>C</b> Matrix Algebra in R</a><ul>
-<li class="chapter" data-level="C.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#creating-matrices"><i class="fa fa-check"></i><b>C.1</b> Creating Matrices</a><ul>
-<li class="chapter" data-level="C.1.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix"><i class="fa fa-check"></i><b>C.1.1</b> <code>matrix()</code></a></li>
-<li class="chapter" data-level="C.1.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#stacking-vectors"><i class="fa fa-check"></i><b>C.1.2</b> Stacking Vectors</a></li>
-<li class="chapter" data-level="C.1.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#beyond-numeric-matrices"><i class="fa fa-check"></i><b>C.1.3</b> Beyond Numeric Matrices</a></li>
-<li class="chapter" data-level="C.1.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#naming-rows-and-columns"><i class="fa fa-check"></i><b>C.1.4</b> Naming Rows and Columns</a></li>
-<li class="chapter" data-level="C.1.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#other-methods"><i class="fa fa-check"></i><b>C.1.5</b> Other Methods</a></li>
-<li class="chapter" data-level="C.1.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#internal-representation-1"><i class="fa fa-check"></i><b>C.1.6</b> Internal Representation (*)</a></li>
+<li class="chapter" data-level="D" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>D</b> Matrix Algebra in R</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#creating-matrices"><i class="fa fa-check"></i><b>D.1</b> Creating Matrices</a>
+<ul>
+<li class="chapter" data-level="D.1.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix"><i class="fa fa-check"></i><b>D.1.1</b> <code>matrix()</code></a></li>
+<li class="chapter" data-level="D.1.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#stacking-vectors"><i class="fa fa-check"></i><b>D.1.2</b> Stacking Vectors</a></li>
+<li class="chapter" data-level="D.1.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#beyond-numeric-matrices"><i class="fa fa-check"></i><b>D.1.3</b> Beyond Numeric Matrices</a></li>
+<li class="chapter" data-level="D.1.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#naming-rows-and-columns"><i class="fa fa-check"></i><b>D.1.4</b> Naming Rows and Columns</a></li>
+<li class="chapter" data-level="D.1.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#other-methods"><i class="fa fa-check"></i><b>D.1.5</b> Other Methods</a></li>
+<li class="chapter" data-level="D.1.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#internal-representation-1"><i class="fa fa-check"></i><b>D.1.6</b> Internal Representation (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="C.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#common-operations-1"><i class="fa fa-check"></i><b>C.2</b> Common Operations</a><ul>
-<li class="chapter" data-level="C.2.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-transpose"><i class="fa fa-check"></i><b>C.2.1</b> Matrix Transpose</a></li>
-<li class="chapter" data-level="C.2.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>C.2.2</b> Matrix-Scalar Operations</a></li>
-<li class="chapter" data-level="C.2.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>C.2.3</b> Matrix-Matrix Operations</a></li>
-<li class="chapter" data-level="C.2.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-multiplication"><i class="fa fa-check"></i><b>C.2.4</b> Matrix Multiplication (*)</a></li>
-<li class="chapter" data-level="C.2.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#aggregation-of-rows-and-columns"><i class="fa fa-check"></i><b>C.2.5</b> Aggregation of Rows and Columns</a></li>
-<li class="chapter" data-level="C.2.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#vectorised-special-functions"><i class="fa fa-check"></i><b>C.2.6</b> Vectorised Special Functions</a></li>
-<li class="chapter" data-level="C.2.7" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-vector-operations"><i class="fa fa-check"></i><b>C.2.7</b> Matrix-Vector Operations</a></li>
+<li class="chapter" data-level="D.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#common-operations-1"><i class="fa fa-check"></i><b>D.2</b> Common Operations</a>
+<ul>
+<li class="chapter" data-level="D.2.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-transpose"><i class="fa fa-check"></i><b>D.2.1</b> Matrix Transpose</a></li>
+<li class="chapter" data-level="D.2.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>D.2.2</b> Matrix-Scalar Operations</a></li>
+<li class="chapter" data-level="D.2.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>D.2.3</b> Matrix-Matrix Operations</a></li>
+<li class="chapter" data-level="D.2.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-multiplication"><i class="fa fa-check"></i><b>D.2.4</b> Matrix Multiplication (*)</a></li>
+<li class="chapter" data-level="D.2.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#aggregation-of-rows-and-columns"><i class="fa fa-check"></i><b>D.2.5</b> Aggregation of Rows and Columns</a></li>
+<li class="chapter" data-level="D.2.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#vectorised-special-functions"><i class="fa fa-check"></i><b>D.2.6</b> Vectorised Special Functions</a></li>
+<li class="chapter" data-level="D.2.7" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-vector-operations"><i class="fa fa-check"></i><b>D.2.7</b> Matrix-Vector Operations</a></li>
 </ul></li>
-<li class="chapter" data-level="C.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-subsetting"><i class="fa fa-check"></i><b>C.3</b> Matrix Subsetting</a><ul>
-<li class="chapter" data-level="C.3.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-individual-elements"><i class="fa fa-check"></i><b>C.3.1</b> Selecting Individual Elements</a></li>
-<li class="chapter" data-level="C.3.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-rows-and-columns"><i class="fa fa-check"></i><b>C.3.2</b> Selecting Rows and Columns</a></li>
-<li class="chapter" data-level="C.3.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-submatrices"><i class="fa fa-check"></i><b>C.3.3</b> Selecting Submatrices</a></li>
-<li class="chapter" data-level="C.3.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-logical-vectors-and-matrices"><i class="fa fa-check"></i><b>C.3.4</b> Selecting Based on Logical Vectors and Matrices</a></li>
-<li class="chapter" data-level="C.3.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-two-column-matrices"><i class="fa fa-check"></i><b>C.3.5</b> Selecting Based on Two-Column Matrices</a></li>
+<li class="chapter" data-level="D.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-subsetting"><i class="fa fa-check"></i><b>D.3</b> Matrix Subsetting</a>
+<ul>
+<li class="chapter" data-level="D.3.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-individual-elements"><i class="fa fa-check"></i><b>D.3.1</b> Selecting Individual Elements</a></li>
+<li class="chapter" data-level="D.3.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-rows-and-columns"><i class="fa fa-check"></i><b>D.3.2</b> Selecting Rows and Columns</a></li>
+<li class="chapter" data-level="D.3.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-submatrices"><i class="fa fa-check"></i><b>D.3.3</b> Selecting Submatrices</a></li>
+<li class="chapter" data-level="D.3.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-logical-vectors-and-matrices"><i class="fa fa-check"></i><b>D.3.4</b> Selecting Based on Logical Vectors and Matrices</a></li>
+<li class="chapter" data-level="D.3.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-two-column-matrices"><i class="fa fa-check"></i><b>D.3.5</b> Selecting Based on Two-Column Matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="C.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#further-reading-10"><i class="fa fa-check"></i><b>C.4</b> Further Reading</a></li>
+<li class="chapter" data-level="D.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#further-reading-10"><i class="fa fa-check"></i><b>D.4</b> Further Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>D</b> Data Frame Wrangling in R</a><ul>
-<li class="chapter" data-level="D.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#creating-data-frames"><i class="fa fa-check"></i><b>D.1</b> Creating Data Frames</a></li>
-<li class="chapter" data-level="D.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#importing-data-frames"><i class="fa fa-check"></i><b>D.2</b> Importing Data Frames</a></li>
-<li class="chapter" data-level="D.3" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#data-frame-subsetting"><i class="fa fa-check"></i><b>D.3</b> Data Frame Subsetting</a><ul>
-<li class="chapter" data-level="D.3.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-a-list"><i class="fa fa-check"></i><b>D.3.1</b> Each Data Frame is a List</a></li>
-<li class="chapter" data-level="D.3.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-matrix-like"><i class="fa fa-check"></i><b>D.3.2</b> Each Data Frame is Matrix-like</a></li>
+<li class="chapter" data-level="E" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>E</b> Data Frame Wrangling in R</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#creating-data-frames"><i class="fa fa-check"></i><b>E.1</b> Creating Data Frames</a></li>
+<li class="chapter" data-level="E.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#importing-data-frames"><i class="fa fa-check"></i><b>E.2</b> Importing Data Frames</a></li>
+<li class="chapter" data-level="E.3" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#data-frame-subsetting"><i class="fa fa-check"></i><b>E.3</b> Data Frame Subsetting</a>
+<ul>
+<li class="chapter" data-level="E.3.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-a-list"><i class="fa fa-check"></i><b>E.3.1</b> Each Data Frame is a List</a></li>
+<li class="chapter" data-level="E.3.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-matrix-like"><i class="fa fa-check"></i><b>E.3.2</b> Each Data Frame is Matrix-like</a></li>
 </ul></li>
-<li class="chapter" data-level="D.4" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#common-operations-2"><i class="fa fa-check"></i><b>D.4</b> Common Operations</a></li>
-<li class="chapter" data-level="D.5" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#metaprogramming-and-formulas"><i class="fa fa-check"></i><b>D.5</b> Metaprogramming and Formulas (*)</a></li>
-<li class="chapter" data-level="D.6" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#further-reading-11"><i class="fa fa-check"></i><b>D.6</b> Further Reading</a></li>
+<li class="chapter" data-level="E.4" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#common-operations-2"><i class="fa fa-check"></i><b>E.4</b> Common Operations</a></li>
+<li class="chapter" data-level="E.5" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#metaprogramming-and-formulas"><i class="fa fa-check"></i><b>E.5</b> Metaprogramming and Formulas (*)</a></li>
+<li class="chapter" data-level="E.6" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#further-reading-11"><i class="fa fa-check"></i><b>E.6</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-11 22:28 (16b9c8d)</a></li>
-
 </ul>
 
       </nav>
@@ -505,13 +601,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-frame-wrangling-in-r" class="section level1">
-<h1><span class="header-section-number">D</span> Data Frame Wrangling in R</h1>
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+<div id="data-frame-wrangling-in-r" class="section level1" number="14">
+<h1><span class="header-section-number">E</span> Data Frame Wrangling in R</h1>
 <p>R <code>data.frame</code>s are similar to matrices in the sense that
 we use them to store tabular data.
 However, in data frames each column can be of different type:</p>
-<div class="sourceCode" id="cb1362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1362-1" title="1"><span class="kw">head</span>(iris)</a></code></pre></div>
+<div class="sourceCode" id="cb1353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1353-1"><a href="data-frame-wrangling-in-r.html#cb1353-1" aria-hidden="true"></a><span class="kw">head</span>(iris)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -519,70 +614,58 @@ However, in data frames each column can be of different type:</p>
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb1364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1364-1" title="1"><span class="kw">head</span>(rpart<span class="op">::</span>car90, <span class="dv">2</span>)</a></code></pre></div>
-<pre><code>##               Country Disp Disp2 Eng.Rev Front.Hd Frt.Leg.Room
-## Acura Integra   Japan  112   1.8    2935      3.5         41.5
-## Acura Legend    Japan  163   2.7    2505      2.0         41.5
-##               Frt.Shld Gear.Ratio Gear2  HP HP.revs Height
-## Acura Integra     53.0       3.26  3.21 130    6000   47.5
-## Acura Legend      55.5       2.95  3.02 160    5900   50.0
-##               Length Luggage Mileage Model2 Price Rear.Hd
-## Acura Integra    177      16      NA        11950     1.5
-## Acura Legend     191      14      20        24760     2.0
-##               Rear.Seating RearShld Reliability Rim Sratio.m
-## Acura Integra         26.5     52.0 Much better R14       NA
-## Acura Legend          28.5     55.5 Much better R15       NA
-##               Sratio.p Steering Tank  Tires Trans1 Trans2
-## Acura Integra     0.86    power 13.2 195/60  man.5 auto.4
-## Acura Legend      0.96    power 18.0 205/60  man.5 auto.4
-##               Turning   Type Weight Wheel.base Width
-## Acura Integra      37  Small   2700        102    67
-## Acura Legend       42 Medium   3265        109    69</code></pre>
-<div id="creating-data-frames" class="section level2">
-<h2><span class="header-section-number">D.1</span> Creating Data Frames</h2>
+<div class="sourceCode" id="cb1355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1355-1"><a href="data-frame-wrangling-in-r.html#cb1355-1" aria-hidden="true"></a><span class="kw">head</span>(rpart<span class="op">::</span>car90, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##               Country Disp Disp2 Eng.Rev Front.Hd Frt.Leg.Room Frt.Shld
+## Acura Integra   Japan  112   1.8    2935      3.5         41.5     53.0
+## Acura Legend    Japan  163   2.7    2505      2.0         41.5     55.5
+##               Gear.Ratio Gear2  HP HP.revs Height Length Luggage
+## Acura Integra       3.26  3.21 130    6000   47.5    177      16
+## Acura Legend        2.95  3.02 160    5900   50.0    191      14
+##               Mileage Model2 Price Rear.Hd Rear.Seating RearShld
+## Acura Integra      NA        11950     1.5         26.5     52.0
+## Acura Legend       20        24760     2.0         28.5     55.5
+##               Reliability Rim Sratio.m Sratio.p Steering Tank  Tires
+## Acura Integra Much better R14       NA     0.86    power 13.2 195/60
+## Acura Legend  Much better R15       NA     0.96    power 18.0 205/60
+##               Trans1 Trans2 Turning   Type Weight Wheel.base Width
+## Acura Integra  man.5 auto.4      37  Small   2700        102    67
+## Acura Legend   man.5 auto.4      42 Medium   3265        109    69</code></pre>
+<div id="creating-data-frames" class="section level2" number="14.1">
+<h2><span class="header-section-number">E.1</span> Creating Data Frames</h2>
 <p>Most frequently, we will be creating data frames
 based on a series of numeric, logical, characters vectors of identical lengths.</p>
-<div class="sourceCode" id="cb1366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1366-1" title="1">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb1366-2" title="2">    <span class="dt">u=</span><span class="kw">runif</span>(<span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb1366-3" title="3">    <span class="dt">v=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">5</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1366-4" title="4">    <span class="dt">w=</span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb1366-5" title="5">)</a>
-<a class="sourceLine" id="cb1366-6" title="6"><span class="kw">print</span>(x)</a></code></pre></div>
-<pre><code>##           u     v w
-## 1 0.1815171  TRUE A
-## 2 0.9197226 FALSE B
-## 3 0.3117235 FALSE C
-## 4 0.0641516  TRUE D
-## 5 0.3964216 FALSE E</code></pre>
-<p>Note that when we create objects of type data frame,
-strings are automatically converted to factors.</p>
-<div class="sourceCode" id="cb1368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1368-1" title="1"><span class="kw">class</span>(x<span class="op">$</span>w)</a></code></pre></div>
-<pre><code>## [1] &quot;factor&quot;</code></pre>
-<p>Throughout the history of computing with R, this has caused way too many bugs
-(recall, for instance, what’s the result of calling <code>as.numeric()</code> on a factor).
-In order to change this behaviour, either pass <code>stringsAsFactors=FALSE</code>
-argument to <code>data.frame()</code> or switch this feature off globally (recommended):</p>
-<div class="sourceCode" id="cb1370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1370-1" title="1"><span class="kw">options</span>(<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1357-1"><a href="data-frame-wrangling-in-r.html#cb1357-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb1357-2"><a href="data-frame-wrangling-in-r.html#cb1357-2" aria-hidden="true"></a>    <span class="dt">u=</span><span class="kw">runif</span>(<span class="dv">5</span>),</span>
+<span id="cb1357-3"><a href="data-frame-wrangling-in-r.html#cb1357-3" aria-hidden="true"></a>    <span class="dt">v=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dv">5</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>),</span>
+<span id="cb1357-4"><a href="data-frame-wrangling-in-r.html#cb1357-4" aria-hidden="true"></a>    <span class="dt">w=</span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span>
+<span id="cb1357-5"><a href="data-frame-wrangling-in-r.html#cb1357-5" aria-hidden="true"></a>)</span>
+<span id="cb1357-6"><a href="data-frame-wrangling-in-r.html#cb1357-6" aria-hidden="true"></a><span class="kw">print</span>(x)</span></code></pre></div>
+<pre><code>##          u     v w
+## 1 0.181517  TRUE A
+## 2 0.919723 FALSE B
+## 3 0.311723 FALSE C
+## 4 0.064152  TRUE D
+## 5 0.396422 FALSE E</code></pre>
 <p>Some objects, such as matrices, can easily be coerced to data frames:</p>
-<div class="sourceCode" id="cb1371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1371-1" title="1">(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb1371-2" title="2">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1371-3" title="3">        <span class="ot">NULL</span>,     <span class="co"># row labels</span></a>
-<a class="sourceLine" id="cb1371-4" title="4">        <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></a>
-<a class="sourceLine" id="cb1371-5" title="5">)))</a></code></pre></div>
+<div class="sourceCode" id="cb1359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1359-1"><a href="data-frame-wrangling-in-r.html#cb1359-1" aria-hidden="true"></a>(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>,</span>
+<span id="cb1359-2"><a href="data-frame-wrangling-in-r.html#cb1359-2" aria-hidden="true"></a>    <span class="dt">dimnames=</span><span class="kw">list</span>(</span>
+<span id="cb1359-3"><a href="data-frame-wrangling-in-r.html#cb1359-3" aria-hidden="true"></a>        <span class="ot">NULL</span>,     <span class="co"># row labels</span></span>
+<span id="cb1359-4"><a href="data-frame-wrangling-in-r.html#cb1359-4" aria-hidden="true"></a>        <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="co"># column labels</span></span>
+<span id="cb1359-5"><a href="data-frame-wrangling-in-r.html#cb1359-5" aria-hidden="true"></a>)))</span></code></pre></div>
 <pre><code>##      x  y  z  w
 ## [1,] 1  2  3  4
 ## [2,] 5  6  7  8
 ## [3,] 9 10 11 12</code></pre>
-<div class="sourceCode" id="cb1373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1373-1" title="1"><span class="kw">as.data.frame</span>(A)</a></code></pre></div>
+<div class="sourceCode" id="cb1361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1361-1"><a href="data-frame-wrangling-in-r.html#cb1361-1" aria-hidden="true"></a><span class="kw">as.data.frame</span>(A)</span></code></pre></div>
 <pre><code>##   x  y  z  w
 ## 1 1  2  3  4
 ## 2 5  6  7  8
 ## 3 9 10 11 12</code></pre>
 <p>Named lists are amongst other candidates for a meaningful conversion:</p>
-<div class="sourceCode" id="cb1375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1375-1" title="1">(l &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species),</a>
-<a class="sourceLine" id="cb1375-2" title="2">    <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb1375-3" title="3">        <span class="kw">c</span>(<span class="dt">min=</span><span class="kw">min</span>(x), <span class="dt">median=</span><span class="kw">median</span>(x), <span class="dt">mean=</span><span class="kw">mean</span>(x), <span class="dt">max=</span><span class="kw">max</span>(x))</a>
-<a class="sourceLine" id="cb1375-4" title="4">    }))</a></code></pre></div>
+<div class="sourceCode" id="cb1363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1363-1"><a href="data-frame-wrangling-in-r.html#cb1363-1" aria-hidden="true"></a>(l &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">split</span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Species),</span>
+<span id="cb1363-2"><a href="data-frame-wrangling-in-r.html#cb1363-2" aria-hidden="true"></a>    <span class="cf">function</span>(x) {</span>
+<span id="cb1363-3"><a href="data-frame-wrangling-in-r.html#cb1363-3" aria-hidden="true"></a>        <span class="kw">c</span>(<span class="dt">min=</span><span class="kw">min</span>(x), <span class="dt">median=</span><span class="kw">median</span>(x), <span class="dt">mean=</span><span class="kw">mean</span>(x), <span class="dt">max=</span><span class="kw">max</span>(x))</span>
+<span id="cb1363-4"><a href="data-frame-wrangling-in-r.html#cb1363-4" aria-hidden="true"></a>    }))</span></code></pre></div>
 <pre><code>## $setosa
 ##    min median   mean    max 
 ##  4.300  5.000  5.006  5.800 
@@ -594,119 +677,119 @@ argument to <code>data.frame()</code> or switch this feature off globally (recom
 ## $virginica
 ##    min median   mean    max 
 ##  4.900  6.500  6.588  7.900</code></pre>
-<div class="sourceCode" id="cb1377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1377-1" title="1"><span class="kw">as.data.frame</span>(l)</a></code></pre></div>
+<div class="sourceCode" id="cb1365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1365-1"><a href="data-frame-wrangling-in-r.html#cb1365-1" aria-hidden="true"></a><span class="kw">as.data.frame</span>(l)</span></code></pre></div>
 <pre><code>##        setosa versicolor virginica
 ## min     4.300      4.900     4.900
 ## median  5.000      5.900     6.500
 ## mean    5.006      5.936     6.588
 ## max     5.800      7.000     7.900</code></pre>
 </div>
-<div id="importing-data-frames" class="section level2">
-<h2><span class="header-section-number">D.2</span> Importing Data Frames</h2>
+<div id="importing-data-frames" class="section level2" number="14.2">
+<h2><span class="header-section-number">E.2</span> Importing Data Frames</h2>
 <p>Many interesting data frames come from external sources, such as csv files,
 web APIs, SQL databases and so on.</p>
 <p>In particular, <code>read.csv()</code> (see <code>?read.table</code> for a long list
 of tunable parameters) imports data from plain text files
 organised in a tabular manner (such as <em>c</em>omma-<em>s</em>eparated lists of <em>v</em>alues):</p>
-<div class="sourceCode" id="cb1379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1379-1" title="1">f &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file name</span></a>
-<a class="sourceLine" id="cb1379-2" title="2"><span class="kw">write.csv</span>(x, f, <span class="dt">row.names=</span><span class="ot">FALSE</span>) <span class="co"># save data frame to file</span></a>
-<a class="sourceLine" id="cb1379-3" title="3"><span class="kw">cat</span>(<span class="kw">readLines</span>(f), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># print file contents</span></a></code></pre></div>
+<div class="sourceCode" id="cb1367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1367-1"><a href="data-frame-wrangling-in-r.html#cb1367-1" aria-hidden="true"></a>f &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># temporary file name</span></span>
+<span id="cb1367-2"><a href="data-frame-wrangling-in-r.html#cb1367-2" aria-hidden="true"></a><span class="kw">write.csv</span>(x, f, <span class="dt">row.names=</span><span class="ot">FALSE</span>) <span class="co"># save data frame to file</span></span>
+<span id="cb1367-3"><a href="data-frame-wrangling-in-r.html#cb1367-3" aria-hidden="true"></a><span class="kw">cat</span>(<span class="kw">readLines</span>(f), <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># print file contents</span></span></code></pre></div>
 <pre><code>## &quot;u&quot;,&quot;v&quot;,&quot;w&quot;
 ## 0.181517061544582,TRUE,&quot;A&quot;
 ## 0.919722604798153,FALSE,&quot;B&quot;
 ## 0.31172346835956,FALSE,&quot;C&quot;
 ## 0.0641516039613634,TRUE,&quot;D&quot;
 ## 0.396421572659165,FALSE,&quot;E&quot;</code></pre>
-<div class="sourceCode" id="cb1381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1381-1" title="1"><span class="kw">read.csv</span>(f)</a></code></pre></div>
-<pre><code>##           u     v w
-## 1 0.1815171  TRUE A
-## 2 0.9197226 FALSE B
-## 3 0.3117235 FALSE C
-## 4 0.0641516  TRUE D
-## 5 0.3964216 FALSE E</code></pre>
+<div class="sourceCode" id="cb1369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1369-1"><a href="data-frame-wrangling-in-r.html#cb1369-1" aria-hidden="true"></a><span class="kw">read.csv</span>(f)</span></code></pre></div>
+<pre><code>##          u     v w
+## 1 0.181517  TRUE A
+## 2 0.919723 FALSE B
+## 3 0.311723 FALSE C
+## 4 0.064152  TRUE D
+## 5 0.396422 FALSE E</code></pre>
 <p>Note that CSV is by far the most portable format for exchanging matrix-like
 objects between different programs (statistical or numeric computing
 environments, spreadsheets etc.).</p>
 </div>
-<div id="data-frame-subsetting" class="section level2">
-<h2><span class="header-section-number">D.3</span> Data Frame Subsetting</h2>
-<div id="each-data-frame-is-a-list" class="section level3">
-<h3><span class="header-section-number">D.3.1</span> Each Data Frame is a List</h3>
+<div id="data-frame-subsetting" class="section level2" number="14.3">
+<h2><span class="header-section-number">E.3</span> Data Frame Subsetting</h2>
+<div id="each-data-frame-is-a-list" class="section level3" number="14.3.1">
+<h3><span class="header-section-number">E.3.1</span> Each Data Frame is a List</h3>
 <p>First of all, we should note that
 each data frame is in fact represented as an ordinary named list:</p>
-<div class="sourceCode" id="cb1383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1383-1" title="1"><span class="kw">class</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1371-1"><a href="data-frame-wrangling-in-r.html#cb1371-1" aria-hidden="true"></a><span class="kw">class</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb1385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1385-1" title="1"><span class="kw">typeof</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb1373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1373-1"><a href="data-frame-wrangling-in-r.html#cb1373-1" aria-hidden="true"></a><span class="kw">typeof</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <p>Each column is stored as a separate list item.
 Having said that, we shouldn’t be surprised that we already know
 how to perform quite a few operations on data frames:</p>
-<div class="sourceCode" id="cb1387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1387-1" title="1"><span class="kw">length</span>(x) <span class="co"># number of columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb1375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1375-1"><a href="data-frame-wrangling-in-r.html#cb1375-1" aria-hidden="true"></a><span class="kw">length</span>(x) <span class="co"># number of columns</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb1389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1389-1" title="1"><span class="kw">names</span>(x)  <span class="co"># column labels</span></a></code></pre></div>
+<div class="sourceCode" id="cb1377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1377-1"><a href="data-frame-wrangling-in-r.html#cb1377-1" aria-hidden="true"></a><span class="kw">names</span>(x)  <span class="co"># column labels</span></span></code></pre></div>
 <pre><code>## [1] &quot;u&quot; &quot;v&quot; &quot;w&quot;</code></pre>
-<div class="sourceCode" id="cb1391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1391-1" title="1">x<span class="op">$</span>u <span class="co"># accessing column `u` (synonym: x[[&quot;u&quot;]])</span></a></code></pre></div>
-<pre><code>## [1] 0.1815171 0.9197226 0.3117235 0.0641516 0.3964216</code></pre>
-<div class="sourceCode" id="cb1393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1393-1" title="1">x[[<span class="dv">2</span>]] <span class="co"># 2nd column</span></a></code></pre></div>
+<div class="sourceCode" id="cb1379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1379-1"><a href="data-frame-wrangling-in-r.html#cb1379-1" aria-hidden="true"></a>x<span class="op">$</span>u <span class="co"># accessing column `u` (synonym: x[[&quot;u&quot;]])</span></span></code></pre></div>
+<pre><code>## [1] 0.181517 0.919723 0.311723 0.064152 0.396422</code></pre>
+<div class="sourceCode" id="cb1381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1381-1"><a href="data-frame-wrangling-in-r.html#cb1381-1" aria-hidden="true"></a>x[[<span class="dv">2</span>]] <span class="co"># 2nd column</span></span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb1395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1395-1" title="1">x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># a sub-data.frame</span></a></code></pre></div>
-<pre><code>##           u w
-## 1 0.1815171 A
-## 2 0.9197226 B
-## 3 0.3117235 C
-## 4 0.0641516 D
-## 5 0.3964216 E</code></pre>
-<div class="sourceCode" id="cb1397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1397-1" title="1"><span class="kw">sapply</span>(x, class) <span class="co"># apply class() on each column</span></a></code></pre></div>
-<pre><code>##         u         v         w 
-## &quot;numeric&quot; &quot;logical&quot;  &quot;factor&quot;</code></pre>
+<div class="sourceCode" id="cb1383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1383-1"><a href="data-frame-wrangling-in-r.html#cb1383-1" aria-hidden="true"></a>x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># a sub-data.frame</span></span></code></pre></div>
+<pre><code>##          u w
+## 1 0.181517 A
+## 2 0.919723 B
+## 3 0.311723 C
+## 4 0.064152 D
+## 5 0.396422 E</code></pre>
+<div class="sourceCode" id="cb1385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1385-1"><a href="data-frame-wrangling-in-r.html#cb1385-1" aria-hidden="true"></a><span class="kw">sapply</span>(x, class) <span class="co"># apply class() on each column</span></span></code></pre></div>
+<pre><code>##           u           v           w 
+##   &quot;numeric&quot;   &quot;logical&quot; &quot;character&quot;</code></pre>
 </div>
-<div id="each-data-frame-is-matrix-like" class="section level3">
-<h3><span class="header-section-number">D.3.2</span> Each Data Frame is Matrix-like</h3>
+<div id="each-data-frame-is-matrix-like" class="section level3" number="14.3.2">
+<h3><span class="header-section-number">E.3.2</span> Each Data Frame is Matrix-like</h3>
 <p>Data frames can be considered as “generalised” matrices.
 Therefore, operations such as subsetting will work in the same manner.</p>
-<div class="sourceCode" id="cb1399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1399-1" title="1"><span class="kw">dim</span>(x) <span class="co"># number of rows and columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb1387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1387-1"><a href="data-frame-wrangling-in-r.html#cb1387-1" aria-hidden="true"></a><span class="kw">dim</span>(x) <span class="co"># number of rows and columns</span></span></code></pre></div>
 <pre><code>## [1] 5 3</code></pre>
-<div class="sourceCode" id="cb1401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1401-1" title="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># first two rows</span></a></code></pre></div>
-<pre><code>##           u     v w
-## 1 0.1815171  TRUE A
-## 2 0.9197226 FALSE B</code></pre>
-<div class="sourceCode" id="cb1403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1403-1" title="1">x[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># 1st and 3rd column, synonym: x[c(1,3)]</span></a></code></pre></div>
-<pre><code>##           u w
-## 1 0.1815171 A
-## 2 0.9197226 B
-## 3 0.3117235 C
-## 4 0.0641516 D
-## 5 0.3964216 E</code></pre>
-<div class="sourceCode" id="cb1405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1405-1" title="1">x[,<span class="dv">1</span>] <span class="co"># synonym: x[[1]]</span></a></code></pre></div>
-<pre><code>## [1] 0.1815171 0.9197226 0.3117235 0.0641516 0.3964216</code></pre>
-<div class="sourceCode" id="cb1407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1407-1" title="1">x[,<span class="dv">1</span>,drop=<span class="ot">FALSE</span>] <span class="co"># synonym: x[1]</span></a></code></pre></div>
-<pre><code>##           u
-## 1 0.1815171
-## 2 0.9197226
-## 3 0.3117235
-## 4 0.0641516
-## 5 0.3964216</code></pre>
+<div class="sourceCode" id="cb1389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1389-1"><a href="data-frame-wrangling-in-r.html#cb1389-1" aria-hidden="true"></a>x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># first two rows</span></span></code></pre></div>
+<pre><code>##         u     v w
+## 1 0.18152  TRUE A
+## 2 0.91972 FALSE B</code></pre>
+<div class="sourceCode" id="cb1391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1391-1"><a href="data-frame-wrangling-in-r.html#cb1391-1" aria-hidden="true"></a>x[,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)] <span class="co"># 1st and 3rd column, synonym: x[c(1,3)]</span></span></code></pre></div>
+<pre><code>##          u w
+## 1 0.181517 A
+## 2 0.919723 B
+## 3 0.311723 C
+## 4 0.064152 D
+## 5 0.396422 E</code></pre>
+<div class="sourceCode" id="cb1393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1393-1"><a href="data-frame-wrangling-in-r.html#cb1393-1" aria-hidden="true"></a>x[,<span class="dv">1</span>] <span class="co"># synonym: x[[1]]</span></span></code></pre></div>
+<pre><code>## [1] 0.181517 0.919723 0.311723 0.064152 0.396422</code></pre>
+<div class="sourceCode" id="cb1395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1395-1"><a href="data-frame-wrangling-in-r.html#cb1395-1" aria-hidden="true"></a>x[,<span class="dv">1</span>,drop=<span class="ot">FALSE</span>] <span class="co"># synonym: x[1]</span></span></code></pre></div>
+<pre><code>##          u
+## 1 0.181517
+## 2 0.919723
+## 3 0.311723
+## 4 0.064152
+## 5 0.396422</code></pre>
 <p>Take a special note of selecting rows based on logical vectors.
 For instance, let’s extract all the rows from <code>x</code> where the values
 in the column named <code>u</code> are between 0.3 and 0.6:</p>
-<div class="sourceCode" id="cb1409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1409-1" title="1">x[x<span class="op">$</span>u<span class="op">&gt;=</span><span class="fl">0.3</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">$</span>u<span class="op">&lt;=</span><span class="fl">0.6</span>, ]</a></code></pre></div>
-<pre><code>##           u     v w
-## 3 0.3117235 FALSE C
-## 5 0.3964216 FALSE E</code></pre>
-<div class="sourceCode" id="cb1411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1411-1" title="1">x[<span class="op">!</span>(x[,<span class="st">&quot;u&quot;</span>]<span class="op">&lt;</span><span class="fl">0.3</span> <span class="op">|</span><span class="st"> </span>x[,<span class="st">&quot;u&quot;</span>]<span class="op">&gt;</span><span class="fl">0.6</span>), ] <span class="co"># equivalent</span></a></code></pre></div>
-<pre><code>##           u     v w
-## 3 0.3117235 FALSE C
-## 5 0.3964216 FALSE E</code></pre>
+<div class="sourceCode" id="cb1397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1397-1"><a href="data-frame-wrangling-in-r.html#cb1397-1" aria-hidden="true"></a>x[x<span class="op">$</span>u<span class="op">&gt;=</span><span class="fl">0.3</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">$</span>u<span class="op">&lt;=</span><span class="fl">0.6</span>, ]</span></code></pre></div>
+<pre><code>##         u     v w
+## 3 0.31172 FALSE C
+## 5 0.39642 FALSE E</code></pre>
+<div class="sourceCode" id="cb1399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1399-1"><a href="data-frame-wrangling-in-r.html#cb1399-1" aria-hidden="true"></a>x[<span class="op">!</span>(x[,<span class="st">&quot;u&quot;</span>]<span class="op">&lt;</span><span class="fl">0.3</span> <span class="op">|</span><span class="st"> </span>x[,<span class="st">&quot;u&quot;</span>]<span class="op">&gt;</span><span class="fl">0.6</span>), ] <span class="co"># equivalent</span></span></code></pre></div>
+<pre><code>##         u     v w
+## 3 0.31172 FALSE C
+## 5 0.39642 FALSE E</code></pre>
 <p>Moreover, subsetting based on integer vectors can be used to
 change the order of rows. Here is how we can sort the rows in <code>x</code>
 with respect to the values in column <code>u</code>:</p>
-<div class="sourceCode" id="cb1413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1413-1" title="1">(x_sorted &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x<span class="op">$</span>u),])</a></code></pre></div>
-<pre><code>##           u     v w
-## 4 0.0641516  TRUE D
-## 1 0.1815171  TRUE A
-## 3 0.3117235 FALSE C
-## 5 0.3964216 FALSE E
-## 2 0.9197226 FALSE B</code></pre>
+<div class="sourceCode" id="cb1401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1401-1"><a href="data-frame-wrangling-in-r.html#cb1401-1" aria-hidden="true"></a>(x_sorted &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x<span class="op">$</span>u),])</span></code></pre></div>
+<pre><code>##          u     v w
+## 4 0.064152  TRUE D
+## 1 0.181517  TRUE A
+## 3 0.311723 FALSE C
+## 5 0.396422 FALSE E
+## 2 0.919723 FALSE B</code></pre>
 <p>Let’s stress that the programming style we emphasise on here is very
 transparent. If we don’t understand how a complex operation is being executed,
 we can always decompose it into smaller chunks that can be studied separately.
@@ -714,21 +797,21 @@ For instance, as far as the last example is concerned, we can
 take a look at the manual of <code>?order</code> and then inspect the result
 of calling <code>order(x$u)</code>.</p>
 <p>On a side note, we can re-set the row names by referring to:</p>
-<div class="sourceCode" id="cb1415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1415-1" title="1"><span class="kw">row.names</span>(x_sorted) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb1415-2" title="2">x_sorted</a></code></pre></div>
-<pre><code>##           u     v w
-## 1 0.0641516  TRUE D
-## 2 0.1815171  TRUE A
-## 3 0.3117235 FALSE C
-## 4 0.3964216 FALSE E
-## 5 0.9197226 FALSE B</code></pre>
+<div class="sourceCode" id="cb1403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1403-1"><a href="data-frame-wrangling-in-r.html#cb1403-1" aria-hidden="true"></a><span class="kw">row.names</span>(x_sorted) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb1403-2"><a href="data-frame-wrangling-in-r.html#cb1403-2" aria-hidden="true"></a>x_sorted</span></code></pre></div>
+<pre><code>##          u     v w
+## 1 0.064152  TRUE D
+## 2 0.181517  TRUE A
+## 3 0.311723 FALSE C
+## 4 0.396422 FALSE E
+## 5 0.919723 FALSE B</code></pre>
 </div>
 </div>
-<div id="common-operations-2" class="section level2">
-<h2><span class="header-section-number">D.4</span> Common Operations</h2>
+<div id="common-operations-2" class="section level2" number="14.4">
+<h2><span class="header-section-number">E.4</span> Common Operations</h2>
 <p>We already know how to filter rows based on logical conditions, e.g.:</p>
-<div class="sourceCode" id="cb1417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1417-1" title="1">iris[iris<span class="op">$</span>Petal.Width <span class="op">&gt;=</span><span class="st"> </span><span class="fl">1.2</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Petal.Width <span class="op">&lt;=</span><span class="st"> </span><span class="fl">1.3</span>,</a>
-<a class="sourceLine" id="cb1417-2" title="2">    <span class="kw">c</span>(<span class="st">&quot;Petal.Width&quot;</span>, <span class="st">&quot;Species&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb1405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1405-1"><a href="data-frame-wrangling-in-r.html#cb1405-1" aria-hidden="true"></a>iris[iris<span class="op">$</span>Petal.Width <span class="op">&gt;=</span><span class="st"> </span><span class="fl">1.2</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Petal.Width <span class="op">&lt;=</span><span class="st"> </span><span class="fl">1.3</span>,</span>
+<span id="cb1405-2"><a href="data-frame-wrangling-in-r.html#cb1405-2" aria-hidden="true"></a>    <span class="kw">c</span>(<span class="st">&quot;Petal.Width&quot;</span>, <span class="st">&quot;Species&quot;</span>)]</span></code></pre></div>
 <pre><code>##     Petal.Width    Species
 ## 54          1.3 versicolor
 ## 56          1.3 versicolor
@@ -748,7 +831,7 @@ of calling <code>order(x$u)</code>.</p>
 ## 97          1.3 versicolor
 ## 98          1.3 versicolor
 ## 100         1.3 versicolor</code></pre>
-<div class="sourceCode" id="cb1419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1419-1" title="1">iris[iris<span class="op">$</span>Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="fl">6.5</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Species <span class="op">==</span><span class="st"> &quot;versicolor&quot;</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb1407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1407-1"><a href="data-frame-wrangling-in-r.html#cb1407-1" aria-hidden="true"></a>iris[iris<span class="op">$</span>Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="fl">6.5</span> <span class="op">&amp;</span><span class="st"> </span>iris<span class="op">$</span>Species <span class="op">==</span><span class="st"> &quot;versicolor&quot;</span>, ]</span></code></pre></div>
 <pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
 ## 51          7.0         3.2          4.7         1.4 versicolor
 ## 53          6.9         3.1          4.9         1.5 versicolor
@@ -759,29 +842,29 @@ of calling <code>order(x$u)</code>.</p>
 ## 78          6.7         3.0          5.0         1.7 versicolor
 ## 87          6.7         3.1          4.7         1.5 versicolor</code></pre>
 <p>and aggregate information in individual columns:</p>
-<div class="sourceCode" id="cb1421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1421-1" title="1"><span class="kw">sapply</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], summary)</a></code></pre></div>
+<div class="sourceCode" id="cb1409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1409-1"><a href="data-frame-wrangling-in-r.html#cb1409-1" aria-hidden="true"></a><span class="kw">sapply</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], summary)</span></code></pre></div>
 <pre><code>##         Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Min.        4.300000    2.000000        1.000    0.100000
-## 1st Qu.     5.100000    2.800000        1.600    0.300000
-## Median      5.800000    3.000000        4.350    1.300000
-## Mean        5.843333    3.057333        3.758    1.199333
-## 3rd Qu.     6.400000    3.300000        5.100    1.800000
-## Max.        7.900000    4.400000        6.900    2.500000</code></pre>
+## Min.          4.3000      2.0000        1.000      0.1000
+## 1st Qu.       5.1000      2.8000        1.600      0.3000
+## Median        5.8000      3.0000        4.350      1.3000
+## Mean          5.8433      3.0573        3.758      1.1993
+## 3rd Qu.       6.4000      3.3000        5.100      1.8000
+## Max.          7.9000      4.4000        6.900      2.5000</code></pre>
 <p>Quite frequently, we will be interested
 in summarising data within subgroups generated by a list of factor-like variables.</p>
-<div class="sourceCode" id="cb1423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1423-1" title="1"><span class="kw">aggregate</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], iris[<span class="dv">5</span>], mean)</a></code></pre></div>
+<div class="sourceCode" id="cb1411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1411-1"><a href="data-frame-wrangling-in-r.html#cb1411-1" aria-hidden="true"></a><span class="kw">aggregate</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], iris[<span class="dv">5</span>], mean)</span></code></pre></div>
 <pre><code>##      Species Sepal.Length Sepal.Width Petal.Length Petal.Width
 ## 1     setosa        5.006       3.428        1.462       0.246
 ## 2 versicolor        5.936       2.770        4.260       1.326
 ## 3  virginica        6.588       2.974        5.552       2.026</code></pre>
-<div class="sourceCode" id="cb1425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1425-1" title="1">ToothGrowth[<span class="kw">sample</span>(<span class="kw">nrow</span>(ToothGrowth), <span class="dv">5</span>), ] <span class="co"># 5 random rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb1413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1413-1"><a href="data-frame-wrangling-in-r.html#cb1413-1" aria-hidden="true"></a>ToothGrowth[<span class="kw">sample</span>(<span class="kw">nrow</span>(ToothGrowth), <span class="dv">5</span>), ] <span class="co"># 5 random rows</span></span></code></pre></div>
 <pre><code>##     len supp dose
 ## 12 16.5   VC  1.0
 ## 10  7.0   VC  0.5
 ## 17 13.6   VC  1.0
 ## 50 27.3   OJ  1.0
 ## 60 23.0   OJ  2.0</code></pre>
-<div class="sourceCode" id="cb1427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1427-1" title="1"><span class="kw">aggregate</span>(ToothGrowth[<span class="st">&quot;len&quot;</span>], ToothGrowth[<span class="kw">c</span>(<span class="st">&quot;supp&quot;</span>, <span class="st">&quot;dose&quot;</span>)], median)</a></code></pre></div>
+<div class="sourceCode" id="cb1415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1415-1"><a href="data-frame-wrangling-in-r.html#cb1415-1" aria-hidden="true"></a><span class="kw">aggregate</span>(ToothGrowth[<span class="st">&quot;len&quot;</span>], ToothGrowth[<span class="kw">c</span>(<span class="st">&quot;supp&quot;</span>, <span class="st">&quot;dose&quot;</span>)], median)</span></code></pre></div>
 <pre><code>##   supp dose   len
 ## 1   OJ  0.5 12.25
 ## 2   VC  0.5  7.15
@@ -791,37 +874,37 @@ in summarising data within subgroups generated by a list of factor-like variable
 ## 6   VC  2.0 25.95</code></pre>
 <p>Taking into account that <code>split()</code> accepts a data frame input as well,
 we can perform what follows:</p>
-<div class="sourceCode" id="cb1429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1429-1" title="1"><span class="kw">sapply</span>(</a>
-<a class="sourceLine" id="cb1429-2" title="2">    <span class="co"># split iris into 3 sub-data.frames:</span></a>
-<a class="sourceLine" id="cb1429-3" title="3">    <span class="kw">split</span>(iris, iris[<span class="dv">5</span>]),</a>
-<a class="sourceLine" id="cb1429-4" title="4">    <span class="co"># on each sub-data.frame, apply the following function</span></a>
-<a class="sourceLine" id="cb1429-5" title="5">    <span class="cf">function</span>(df) {</a>
-<a class="sourceLine" id="cb1429-6" title="6">        <span class="co"># compute the mean of first four columns:</span></a>
-<a class="sourceLine" id="cb1429-7" title="7">        <span class="kw">sapply</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], mean)</a>
-<a class="sourceLine" id="cb1429-8" title="8">    })</a></code></pre></div>
+<div class="sourceCode" id="cb1417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1417-1"><a href="data-frame-wrangling-in-r.html#cb1417-1" aria-hidden="true"></a><span class="kw">sapply</span>(</span>
+<span id="cb1417-2"><a href="data-frame-wrangling-in-r.html#cb1417-2" aria-hidden="true"></a>    <span class="co"># split iris into 3 sub-data.frames:</span></span>
+<span id="cb1417-3"><a href="data-frame-wrangling-in-r.html#cb1417-3" aria-hidden="true"></a>    <span class="kw">split</span>(iris, iris[<span class="dv">5</span>]),</span>
+<span id="cb1417-4"><a href="data-frame-wrangling-in-r.html#cb1417-4" aria-hidden="true"></a>    <span class="co"># on each sub-data.frame, apply the following function</span></span>
+<span id="cb1417-5"><a href="data-frame-wrangling-in-r.html#cb1417-5" aria-hidden="true"></a>    <span class="cf">function</span>(df) {</span>
+<span id="cb1417-6"><a href="data-frame-wrangling-in-r.html#cb1417-6" aria-hidden="true"></a>        <span class="co"># compute the mean of first four columns:</span></span>
+<span id="cb1417-7"><a href="data-frame-wrangling-in-r.html#cb1417-7" aria-hidden="true"></a>        <span class="kw">sapply</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], mean)</span>
+<span id="cb1417-8"><a href="data-frame-wrangling-in-r.html#cb1417-8" aria-hidden="true"></a>    })</span></code></pre></div>
 <pre><code>##              setosa versicolor virginica
 ## Sepal.Length  5.006      5.936     6.588
 ## Sepal.Width   3.428      2.770     2.974
 ## Petal.Length  1.462      4.260     5.552
 ## Petal.Width   0.246      1.326     2.026</code></pre>
-<div class="sourceCode" id="cb1431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1431-1" title="1"><span class="kw">sapply</span>(<span class="kw">split</span>(iris, iris[<span class="dv">5</span>]), <span class="cf">function</span>(df) {</a>
-<a class="sourceLine" id="cb1431-2" title="2">    <span class="kw">c</span>(<span class="dt">Sepal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Sepal.Length),</a>
-<a class="sourceLine" id="cb1431-3" title="3">      <span class="dt">Petal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Petal.Length)</a>
-<a class="sourceLine" id="cb1431-4" title="4">     )</a>
-<a class="sourceLine" id="cb1431-5" title="5">})</a></code></pre></div>
-<pre><code>##                        setosa versicolor virginica
-## Sepal.Length.Min.    4.300000   4.300000  4.300000
-## Sepal.Length.1st Qu. 5.100000   5.100000  5.100000
-## Sepal.Length.Median  5.800000   5.800000  5.800000
-## Sepal.Length.Mean    5.843333   5.843333  5.843333
-## Sepal.Length.3rd Qu. 6.400000   6.400000  6.400000
-## Sepal.Length.Max.    7.900000   7.900000  7.900000
-## Petal.Length.Min.    1.000000   1.000000  1.000000
-## Petal.Length.1st Qu. 1.600000   1.600000  1.600000
-## Petal.Length.Median  4.350000   4.350000  4.350000
-## Petal.Length.Mean    3.758000   3.758000  3.758000
-## Petal.Length.3rd Qu. 5.100000   5.100000  5.100000
-## Petal.Length.Max.    6.900000   6.900000  6.900000</code></pre>
+<div class="sourceCode" id="cb1419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1419-1"><a href="data-frame-wrangling-in-r.html#cb1419-1" aria-hidden="true"></a><span class="kw">sapply</span>(<span class="kw">split</span>(iris, iris[<span class="dv">5</span>]), <span class="cf">function</span>(df) {</span>
+<span id="cb1419-2"><a href="data-frame-wrangling-in-r.html#cb1419-2" aria-hidden="true"></a>    <span class="kw">c</span>(<span class="dt">Sepal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Sepal.Length),</span>
+<span id="cb1419-3"><a href="data-frame-wrangling-in-r.html#cb1419-3" aria-hidden="true"></a>      <span class="dt">Petal.Length=</span><span class="kw">summary</span>(iris<span class="op">$</span>Petal.Length)</span>
+<span id="cb1419-4"><a href="data-frame-wrangling-in-r.html#cb1419-4" aria-hidden="true"></a>     )</span>
+<span id="cb1419-5"><a href="data-frame-wrangling-in-r.html#cb1419-5" aria-hidden="true"></a>})</span></code></pre></div>
+<pre><code>##                      setosa versicolor virginica
+## Sepal.Length.Min.    4.3000     4.3000    4.3000
+## Sepal.Length.1st Qu. 5.1000     5.1000    5.1000
+## Sepal.Length.Median  5.8000     5.8000    5.8000
+## Sepal.Length.Mean    5.8433     5.8433    5.8433
+## Sepal.Length.3rd Qu. 6.4000     6.4000    6.4000
+## Sepal.Length.Max.    7.9000     7.9000    7.9000
+## Petal.Length.Min.    1.0000     1.0000    1.0000
+## Petal.Length.1st Qu. 1.6000     1.6000    1.6000
+## Petal.Length.Median  4.3500     4.3500    4.3500
+## Petal.Length.Mean    3.7580     3.7580    3.7580
+## Petal.Length.3rd Qu. 5.1000     5.1000    5.1000
+## Petal.Length.Max.    6.9000     6.9000    6.9000</code></pre>
 <p>The above syntax is not super-convenient,
 but it only uses the building blocks that we have already mastered!
 That should be very appealing to the minimalists.
@@ -832,30 +915,30 @@ They simplify the most common data wrangling tasks. Moreover,
 they have been optimised for speed – they can handle much larger data sets
 efficiently.</p>
 </div>
-<div id="metaprogramming-and-formulas" class="section level2">
-<h2><span class="header-section-number">D.5</span> Metaprogramming and Formulas (*)</h2>
+<div id="metaprogramming-and-formulas" class="section level2" number="14.5">
+<h2><span class="header-section-number">E.5</span> Metaprogramming and Formulas (*)</h2>
 <p>R (together with a few other programming languages such as Lisp and Scheme,
 that heavily inspired R’s semantics) allows its programmers to apply
 some <em>metaprogramming</em> techniques, that is,
 to write programs that manipulate unevaluated R expressions.</p>
 <p>For instance, take a close look at the following plot:</p>
-<div class="sourceCode" id="cb1433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1433-1" title="1">z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb1433-2" title="2"><span class="kw">plot</span>(z, <span class="kw">sin</span>(z), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<div class="figure">
-<img src="94-R-data-frames-figures/plotz_metaprogramming-1.svg" alt="Figure 1: Metaprogramming in action: Just take a look at the Y axis label" id="fig:plotz_metaprogramming" />
-<p class="caption">Figure 1: Metaprogramming in action: Just take a look at the Y axis label</p>
+<div class="sourceCode" id="cb1421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1421-1"><a href="data-frame-wrangling-in-r.html#cb1421-1" aria-hidden="true"></a>z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out=</span><span class="dv">101</span>)</span>
+<span id="cb1421-2"><a href="data-frame-wrangling-in-r.html#cb1421-2" aria-hidden="true"></a><span class="kw">plot</span>(z, <span class="kw">sin</span>(z), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:plotz-metaprogramming"></span>
+<img src="94-R-data-frames-figures/plotz-metaprogramming-1.png" alt="" />
+<p class="caption">Figure E.1:  Metaprogramming in action: Just take a look at the Y axis label</p>
 </div>
 <p>How did the <code>plot()</code> function know that we are plotting <code>sin</code> of <code>z</code>
-(see Figure <a href="data-frame-wrangling-in-r.html#fig:plotz_metaprogramming">1</a>)?
+(see Figure <a href="data-frame-wrangling-in-r.html#fig:plotz-metaprogramming">E.1</a>)?
 It turns out that, at any time, we not only have access to the value
 of an object (such as the result of evaluating <code>sin(z)</code>, which is
 a vector of 101 reals) but also to the expression that was passed as
 a function’s argument itself.</p>
-<div class="sourceCode" id="cb1434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1434-1" title="1">test_meta &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb1434-2" title="2">    <span class="kw">cat</span>(<span class="st">&quot;x equals to &quot;</span>, x, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># \n == newline</span></a>
-<a class="sourceLine" id="cb1434-3" title="3">    <span class="kw">cat</span>(<span class="st">&quot;x stemmed from &quot;</span>, <span class="kw">deparse</span>(<span class="kw">substitute</span>(x)), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb1434-4" title="4">}</a>
-<a class="sourceLine" id="cb1434-5" title="5"><span class="kw">test_meta</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">7</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1422-1"><a href="data-frame-wrangling-in-r.html#cb1422-1" aria-hidden="true"></a>test_meta &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb1422-2"><a href="data-frame-wrangling-in-r.html#cb1422-2" aria-hidden="true"></a>    <span class="kw">cat</span>(<span class="st">&quot;x equals to &quot;</span>, x, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="co"># \n == newline</span></span>
+<span id="cb1422-3"><a href="data-frame-wrangling-in-r.html#cb1422-3" aria-hidden="true"></a>    <span class="kw">cat</span>(<span class="st">&quot;x stemmed from &quot;</span>, <span class="kw">deparse</span>(<span class="kw">substitute</span>(x)), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1422-4"><a href="data-frame-wrangling-in-r.html#cb1422-4" aria-hidden="true"></a>}</span>
+<span id="cb1422-5"><a href="data-frame-wrangling-in-r.html#cb1422-5" aria-hidden="true"></a><span class="kw">test_meta</span>(<span class="dv">2</span><span class="op">+</span><span class="dv">7</span>)</span></code></pre></div>
 <pre><code>## x equals to  9 
 ## x stemmed from  2 + 7</code></pre>
 <p>This is very powerful and yet potentially very confusing to the users, because
@@ -864,7 +947,7 @@ in a way we expect them to (i.e., following the R language specification).
 Each function can constitute a new micro-verse, where with its own rules –
 we should always refer to the documentation.</p>
 <p>For instance, consider the <code>subset()</code> function:</p>
-<div class="sourceCode" id="cb1436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1436-1" title="1"><span class="kw">head</span>(iris)</a></code></pre></div>
+<div class="sourceCode" id="cb1424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1424-1"><a href="data-frame-wrangling-in-r.html#cb1424-1" aria-hidden="true"></a><span class="kw">head</span>(iris)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -872,7 +955,7 @@ we should always refer to the documentation.</p>
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb1438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1438-1" title="1"><span class="kw">subset</span>(iris, Sepal.Length<span class="op">&gt;</span><span class="fl">7.5</span>, <span class="dt">select=</span><span class="op">-</span>(Sepal.Width<span class="op">:</span>Petal.Width))</a></code></pre></div>
+<div class="sourceCode" id="cb1426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1426-1"><a href="data-frame-wrangling-in-r.html#cb1426-1" aria-hidden="true"></a><span class="kw">subset</span>(iris, Sepal.Length<span class="op">&gt;</span><span class="fl">7.5</span>, <span class="dt">select=</span><span class="op">-</span>(Sepal.Width<span class="op">:</span>Petal.Width))</span></code></pre></div>
 <pre><code>##     Sepal.Length   Species
 ## 106          7.6 virginica
 ## 118          7.7 virginica
@@ -897,32 +980,32 @@ thanks to metaprogramming.
 <em>Formulas</em> are special R objects that consist of two unevaluated
 R expressions separated by a tilde (<code>~</code>).
 For example:</p>
-<div class="sourceCode" id="cb1440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1440-1" title="1">len <span class="op">~</span><span class="st"> </span>supp<span class="op">+</span>dose</a></code></pre></div>
+<div class="sourceCode" id="cb1428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1428-1"><a href="data-frame-wrangling-in-r.html#cb1428-1" aria-hidden="true"></a>len <span class="op">~</span><span class="st"> </span>supp<span class="op">+</span>dose</span></code></pre></div>
 <pre><code>## len ~ supp + dose</code></pre>
 <p>A formula on its own has no meaning. However, many R functions
 accept formulas as arguments and can interpret them in various different ways.</p>
 <p>For example, the <code>lm()</code> function that fits a linear regression model,
 uses formulas to specify the output and input variables:</p>
-<div class="sourceCode" id="cb1442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1442-1" title="1"><span class="kw">lm</span>(Sepal.Length<span class="op">~</span>Petal.Length<span class="op">+</span>Sepal.Width, <span class="dt">data=</span>iris)</a></code></pre></div>
+<div class="sourceCode" id="cb1430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1430-1"><a href="data-frame-wrangling-in-r.html#cb1430-1" aria-hidden="true"></a><span class="kw">lm</span>(Sepal.Length<span class="op">~</span>Petal.Length<span class="op">+</span>Sepal.Width, <span class="dt">data=</span>iris)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Sepal.Length ~ Petal.Length + Sepal.Width, data = iris)
 ## 
 ## Coefficients:
 ##  (Intercept)  Petal.Length   Sepal.Width  
-##       2.2491        0.4719        0.5955</code></pre>
-<p>On the other hand, <code>boxplot()</code> (see Figure <a href="data-frame-wrangling-in-r.html#fig:boxplot_metaprogramming">2</a>)
+##        2.249         0.472         0.596</code></pre>
+<p>On the other hand, <code>boxplot()</code> (see Figure <a href="data-frame-wrangling-in-r.html#fig:boxplot-metaprogramming">E.2</a>)
 allows for creating
 separate box-and-whisker plots for each subgroup given by a combination
 of factors.</p>
-<div class="sourceCode" id="cb1444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1444-1" title="1"><span class="kw">boxplot</span>(len<span class="op">~</span>supp<span class="op">+</span>dose, <span class="dt">data=</span>ToothGrowth,</a>
-<a class="sourceLine" id="cb1444-2" title="2">    <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
-<div class="figure">
-<img src="94-R-data-frames-figures/boxplot_metaprogramming-1.svg" alt="Figure 2: Example box plot created via the formula interface" id="fig:boxplot_metaprogramming" />
-<p class="caption">Figure 2: Example box plot created via the formula interface</p>
+<div class="sourceCode" id="cb1432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1432-1"><a href="data-frame-wrangling-in-r.html#cb1432-1" aria-hidden="true"></a><span class="kw">boxplot</span>(len<span class="op">~</span>supp<span class="op">+</span>dose, <span class="dt">data=</span>ToothGrowth,</span>
+<span id="cb1432-2"><a href="data-frame-wrangling-in-r.html#cb1432-2" aria-hidden="true"></a>    <span class="dt">horizontal=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:boxplot-metaprogramming"></span>
+<img src="94-R-data-frames-figures/boxplot-metaprogramming-1.png" alt="" />
+<p class="caption">Figure E.2:  Example box plot created via the formula interface</p>
 </div>
 <p>The <code>aggregate()</code> function supports formulas too:</p>
-<div class="sourceCode" id="cb1445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1445-1" title="1"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(Sepal.Length, Sepal.Width)<span class="op">~</span>Species, <span class="dt">data=</span>iris, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb1433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1433-1"><a href="data-frame-wrangling-in-r.html#cb1433-1" aria-hidden="true"></a><span class="kw">aggregate</span>(<span class="kw">cbind</span>(Sepal.Length, Sepal.Width)<span class="op">~</span>Species, <span class="dt">data=</span>iris, mean)</span></code></pre></div>
 <pre><code>##      Species Sepal.Length Sepal.Width
 ## 1     setosa        5.006       3.428
 ## 2 versicolor        5.936       2.770
@@ -936,17 +1019,34 @@ TODO: Add OnTrack exercises
 
 -->
 </div>
-<div id="further-reading-11" class="section level2">
-<h2><span class="header-section-number">D.6</span> Further Reading</h2>
-<p>Recommended further reading: <span class="citation">(Venables et al. <a href="references.html#ref-Rintro">2020</a>)</span></p>
-<p>Other: <span class="citation">(Peng <a href="references.html#ref-rprogdatascience">2019</a>)</span>, <span class="citation">(Wickham &amp; Grolemund <a href="references.html#ref-r4ds">2017</a>)</span></p>
-<p>R packages dplyr and data.table implement the most common
+<div id="further-reading-11" class="section level2" number="14.6">
+<h2><span class="header-section-number">E.6</span> Further Reading</h2>
+<p>Recommended further reading: <span class="citation">(Venables et al. <a href="#ref-Rintro" role="doc-biblioref">2021</a>)</span></p>
+<p>Other: <span class="citation">(Peng <a href="#ref-rprogdatascience" role="doc-biblioref">2019</a>)</span>, <span class="citation">(Wickham &amp; Grolemund <a href="#ref-r4ds" role="doc-biblioref">2017</a>)</span></p>
+<p>R packages <code>dplyr</code> and <code>data.table</code> implement the most common
 data frame wrangling procedures. You may find them very useful.
 Moreover, they are very fast even for large data sets.
-Additionally, the magrittr package provides a pipe operator, <code>%&gt;%</code>,
+Additionally, the <code>magrittr</code> package provides a pipe operator, <code>%&gt;%</code>,
 that simplifies the writing of complex, nested function calls.
 Do note that not everyone is a big fan of these, however.</p>
 
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski, https://www.gagolewski.com
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-rprogdatascience">
+<p>Peng RD (2019) <em>R programming for data science</em>. <a href="https://bookdown.org/rdpeng/rprogdatascience/">https://bookdown.org/rdpeng/rprogdatascience/</a>.</p>
+</div>
+<div id="ref-Rintro">
+<p>Venables WN, Smith DM, R Core Team (2021) <em>An introduction to R</em>. <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf</a>.</p>
+</div>
+<div id="ref-r4ds">
+<p>Wickham H, Grolemund G (2017) <em>R for data science</em>. O’Reilly <a href="https://r4ds.had.co.nz/">https://r4ds.had.co.nz/</a>.</p>
 </div>
 </div>
             </section>
@@ -971,9 +1071,9 @@ Do note that not everyone is a big fan of these, however.</p>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
+"github": true,
+"facebook": false,
+"twitter": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
@@ -1006,20 +1106,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

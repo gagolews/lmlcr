@@ -1,6 +1,11 @@
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+
 # Optimisation with Genetic Algorithms
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
 <!--
@@ -180,8 +185,7 @@ X <- do.call(rbind, X) # rbind(X[[1]], X[[2]], X[[3]])
 
 <!--
 X <- as.matrix(read.csv("datasets/sipu_unbalance.csv",
-    header=FALSE, sep=" ", comment.char="#",
-    stringsAsFactors=FALSE))
+    header=FALSE, sep=" ", comment.char="#"))
 X <- X/10000-30 # a more user-friendly scale
 K <- 8
 p <- 2
@@ -564,7 +568,7 @@ An example crossover combines each cluster centre
 in such a way that we take a few coordinates of the "left" parent
 and the remaining ones from the "right" parent:
 
-![](figures/crossover){#fig:crossover width=75%}
+![(\#fig:crossover) Crossover](figures/crossover)
 
 ---
 

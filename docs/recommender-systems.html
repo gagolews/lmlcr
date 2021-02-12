@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9 Recommender Systems | Lightweight Machine Learning Classics with R</title>
   <meta name="description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="pandoc, pandoc-citeproc, knitr, bookdown (custom), GitBook, and many more" />
 
   <meta property="og:title" content="9 Recommender Systems | Lightweight Machine Learning Classics with R" />
   <meta property="og:type" content="book" />
@@ -15,13 +15,7 @@
   <meta property="og:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
   <meta name="github-repo" content="gagolews/lmlcr" />
 
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Recommender Systems | Lightweight Machine Learning Classics with R" />
-  
-  <meta name="twitter:description" content="Explore some of the most fundamental algorithms which have stood the test of time and provide the basis for innovative solutions in data-driven AI. Learn how to use the R language for implementing various stages of data processing and modelling activities. Appreciate mathematics as the universal language for formalising data-intense problems and communicating their solutions. The book is for you if you’re yet to be fluent with university-level linear algebra, calculus and probability theory or you’ve forgotten all the maths you’ve ever learned, and are seeking a gentle, yet thorough, introduction to the topic." />
-  
-
-<meta name="author" content="Marek Gagolewski" />
+  <meta name="author" content="Marek Gagolewski" />
 
 
 
@@ -31,7 +25,8 @@
   
   
 <link rel="prev" href="optimisation-with-genetic-algorithms.html"/>
-<link rel="next" href="end.html"/>
+<link rel="next" href="appendix-convention.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,6 +44,9 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <style type="text/css">
 div.exercise {
     font-style: italic;
@@ -62,29 +60,62 @@ details.solution {
     margin-bottom: 2em;
 }
 
+div.remark {
+    border-left: 2px solid gray;
+    padding-left: 1em;
+}
+
+div.definition {
+    font-style: italic;
+    border-left: 2px solid #550000;
+    padding-left: 1em;
+}
+
+</style>
+
+
+<!-- Use KaTeX -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<!-- /Use KaTeX -->
+
+<style type="text/css">
+/* Marek's custom CSS */
+
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans:400,500,600,700,800,900,400italic,500italic,600italic,700italic,800italic,900italic");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,600,700,400italic,600italic,700italic");
+
+span.katex {
+    font-size: 100%;
+}
+
 </style>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -93,9 +124,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -142,60 +173,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li style='font-style: italic' ><a href="./">LMLCR</a></li>
 <li style='font-size: smaller' ><a href="https://www.gagolewski.com">Marek Gagolewski</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2.1 2021-02-12 18:56 (727245f)</a></li>
+<li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>BEGIN {</a></li>
-<li class="chapter" data-level="1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression</a><ul>
-<li class="chapter" data-level="1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#machine-learning"><i class="fa fa-check"></i><b>1.1</b> Machine Learning</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>1</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#machine-learning"><i class="fa fa-check"></i><b>1.1</b> Machine Learning</a>
+<ul>
 <li class="chapter" data-level="1.1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#what-is-machine-learning"><i class="fa fa-check"></i><b>1.1.1</b> What is Machine Learning?</a></li>
 <li class="chapter" data-level="1.1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#main-types-of-machine-learning-problems"><i class="fa fa-check"></i><b>1.1.2</b> Main Types of Machine Learning Problems</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#supervised-learning"><i class="fa fa-check"></i><b>1.2</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#supervised-learning"><i class="fa fa-check"></i><b>1.2</b> Supervised Learning</a>
+<ul>
 <li class="chapter" data-level="1.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#formalism"><i class="fa fa-check"></i><b>1.2.1</b> Formalism</a></li>
 <li class="chapter" data-level="1.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#desired-outputs"><i class="fa fa-check"></i><b>1.2.2</b> Desired Outputs</a></li>
 <li class="chapter" data-level="1.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#types-of-supervised-learning-problems"><i class="fa fa-check"></i><b>1.2.3</b> Types of Supervised Learning Problems</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-regression"><i class="fa fa-check"></i><b>1.3</b> Simple Regression</a><ul>
+<li class="chapter" data-level="1.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-regression"><i class="fa fa-check"></i><b>1.3</b> Simple Regression</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#introduction"><i class="fa fa-check"></i><b>1.3.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#search-space-and-objective"><i class="fa fa-check"></i><b>1.3.2</b> Search Space and Objective</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a><ul>
+<li class="chapter" data-level="1.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-1"><i class="fa fa-check"></i><b>1.4</b> Simple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#introduction-1"><i class="fa fa-check"></i><b>1.4.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.4.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#solution-in-r"><i class="fa fa-check"></i><b>1.4.2</b> Solution in R</a></li>
 <li class="chapter" data-level="1.4.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analytic-solution"><i class="fa fa-check"></i><b>1.4.3</b> Analytic Solution</a></li>
 <li class="chapter" data-level="1.4.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#derivation-of-the-solution"><i class="fa fa-check"></i><b>1.4.4</b> Derivation of the Solution (**)</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-in-r"><i class="fa fa-check"></i><b>1.5</b> Exercises in R</a><ul>
+<li class="chapter" data-level="1.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-in-r"><i class="fa fa-check"></i><b>1.5</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#the-anscombe-quartet"><i class="fa fa-check"></i><b>1.5.1</b> The Anscombe Quartet</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#outro"><i class="fa fa-check"></i><b>1.6</b> Outro</a><ul>
+<li class="chapter" data-level="1.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#outro"><i class="fa fa-check"></i><b>1.6</b> Outro</a>
+<ul>
 <li class="chapter" data-level="1.6.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#remarks"><i class="fa fa-check"></i><b>1.6.1</b> Remarks</a></li>
 <li class="chapter" data-level="1.6.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#further-reading"><i class="fa fa-check"></i><b>1.6.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>2</b> Multiple Regression</a><ul>
-<li class="chapter" data-level="2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#introduction-2"><i class="fa fa-check"></i><b>2.1</b> Introduction</a><ul>
+<li class="chapter" data-level="2" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>2</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#introduction-2"><i class="fa fa-check"></i><b>2.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="multiple-regression.html"><a href="multiple-regression.html#formalism-1"><i class="fa fa-check"></i><b>2.1.1</b> Formalism</a></li>
 <li class="chapter" data-level="2.1.2" data-path="multiple-regression.html"><a href="multiple-regression.html#simple-linear-regression---recap"><i class="fa fa-check"></i><b>2.1.2</b> Simple Linear Regression - Recap</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>2.2</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>2.2</b> Multiple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#problem-formulation"><i class="fa fa-check"></i><b>2.2.1</b> Problem Formulation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-linear-model-in-r"><i class="fa fa-check"></i><b>2.2.2</b> Fitting a Linear Model in R</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="multiple-regression.html"><a href="multiple-regression.html#finding-the-best-model"><i class="fa fa-check"></i><b>2.3</b> Finding the Best Model</a><ul>
+<li class="chapter" data-level="2.3" data-path="multiple-regression.html"><a href="multiple-regression.html#finding-the-best-model"><i class="fa fa-check"></i><b>2.3</b> Finding the Best Model</a>
+<ul>
 <li class="chapter" data-level="2.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#model-diagnostics"><i class="fa fa-check"></i><b>2.3.1</b> Model Diagnostics</a></li>
 <li class="chapter" data-level="2.3.2" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-selection"><i class="fa fa-check"></i><b>2.3.2</b> Variable Selection</a></li>
 <li class="chapter" data-level="2.3.3" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-transformation"><i class="fa fa-check"></i><b>2.3.3</b> Variable Transformation</a></li>
 <li class="chapter" data-level="2.3.4" data-path="multiple-regression.html"><a href="multiple-regression.html#predictive-vs.-descriptive-power"><i class="fa fa-check"></i><b>2.3.4</b> Predictive vs. Descriptive Power</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="multiple-regression.html"><a href="multiple-regression.html#exercises-in-r-1"><i class="fa fa-check"></i><b>2.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="2.4" data-path="multiple-regression.html"><a href="multiple-regression.html#exercises-in-r-1"><i class="fa fa-check"></i><b>2.4</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#anscombes-quartet-revisited"><i class="fa fa-check"></i><b>2.4.1</b> Anscombe’s Quartet Revisited</a></li>
 <li class="chapter" data-level="2.4.2" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-simple-models-involving-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.2</b> Countries of the World – Simple models involving the GDP per capita</a></li>
 <li class="chapter" data-level="2.4.3" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-most-correlated-variables"><i class="fa fa-check"></i><b>2.4.3</b> Countries of the World – Most correlated variables (*)</a></li>
 <li class="chapter" data-level="2.4.4" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-a-non-linear-model-based-on-the-gdp-per-capita"><i class="fa fa-check"></i><b>2.4.4</b> Countries of the World – A non-linear model based on the GDP per capita</a></li>
 <li class="chapter" data-level="2.4.5" data-path="multiple-regression.html"><a href="multiple-regression.html#countries-of-the-world-a-multiple-regression-model-for-the-per-capita-gdp"><i class="fa fa-check"></i><b>2.4.5</b> Countries of the World – A multiple regression model for the per capita GDP</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="multiple-regression.html"><a href="multiple-regression.html#outro-1"><i class="fa fa-check"></i><b>2.5</b> Outro</a><ul>
+<li class="chapter" data-level="2.5" data-path="multiple-regression.html"><a href="multiple-regression.html#outro-1"><i class="fa fa-check"></i><b>2.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#remarks-1"><i class="fa fa-check"></i><b>2.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="2.5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#other-methods-for-regression"><i class="fa fa-check"></i><b>2.5.2</b> Other Methods for Regression</a></li>
 <li class="chapter" data-level="2.5.3" data-path="multiple-regression.html"><a href="multiple-regression.html#derivation-of-the-solution-1"><i class="fa fa-check"></i><b>2.5.3</b> Derivation of the Solution (**)</a></li>
@@ -204,70 +250,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.6" data-path="multiple-regression.html"><a href="multiple-regression.html#further-reading-1"><i class="fa fa-check"></i><b>2.5.6</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a><ul>
-<li class="chapter" data-level="3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html"><i class="fa fa-check"></i><b>3</b> Classification with K-Nearest Neighbours</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-3"><i class="fa fa-check"></i><b>3.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#classification-task"><i class="fa fa-check"></i><b>3.1.1</b> Classification Task</a></li>
 <li class="chapter" data-level="3.1.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#data"><i class="fa fa-check"></i><b>3.1.2</b> Data</a></li>
 <li class="chapter" data-level="3.1.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#training-and-test-sets"><i class="fa fa-check"></i><b>3.1.3</b> Training and Test Sets</a></li>
 <li class="chapter" data-level="3.1.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#discussed-methods"><i class="fa fa-check"></i><b>3.1.4</b> Discussed Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#k-nearest-neighbour-classifier"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a><ul>
+<li class="chapter" data-level="3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#k-nearest-neighbour-classifier"><i class="fa fa-check"></i><b>3.2</b> K-nearest Neighbour Classifier</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#introduction-4"><i class="fa fa-check"></i><b>3.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#example-in-r"><i class="fa fa-check"></i><b>3.2.2</b> Example in R</a></li>
 <li class="chapter" data-level="3.2.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#feature-engineering"><i class="fa fa-check"></i><b>3.2.3</b> Feature Engineering</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#model-assessment-and-selection"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a><ul>
+<li class="chapter" data-level="3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#model-assessment-and-selection"><i class="fa fa-check"></i><b>3.3</b> Model Assessment and Selection</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#performance-metrics"><i class="fa fa-check"></i><b>3.3.1</b> Performance Metrics</a></li>
 <li class="chapter" data-level="3.3.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#how-to-choose-k-for-k-nn-classification"><i class="fa fa-check"></i><b>3.3.2</b> How to Choose K for K-NN Classification?</a></li>
 <li class="chapter" data-level="3.3.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#training-validation-and-test-sets"><i class="fa fa-check"></i><b>3.3.3</b> Training, Validation and Test sets</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#implementing-a-k-nn-classifier"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a><ul>
+<li class="chapter" data-level="3.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#implementing-a-k-nn-classifier"><i class="fa fa-check"></i><b>3.4</b> Implementing a K-NN Classifier (*)</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#factor-data-type"><i class="fa fa-check"></i><b>3.4.1</b> Factor Data Type</a></li>
 <li class="chapter" data-level="3.4.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#main-routine"><i class="fa fa-check"></i><b>3.4.2</b> Main Routine (*)</a></li>
 <li class="chapter" data-level="3.4.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#mode"><i class="fa fa-check"></i><b>3.4.3</b> Mode</a></li>
 <li class="chapter" data-level="3.4.4" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#nn-search-routines"><i class="fa fa-check"></i><b>3.4.4</b> NN Search Routines (*)</a></li>
 <li class="chapter" data-level="3.4.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#different-metrics"><i class="fa fa-check"></i><b>3.4.5</b> Different Metrics (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#outro-2"><i class="fa fa-check"></i><b>3.5</b> Outro</a><ul>
+<li class="chapter" data-level="3.5" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#outro-2"><i class="fa fa-check"></i><b>3.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="3.5.1" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#remarks-2"><i class="fa fa-check"></i><b>3.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="3.5.2" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#side-note-k-nn-regression"><i class="fa fa-check"></i><b>3.5.2</b> Side Note: K-NN Regression</a></li>
 <li class="chapter" data-level="3.5.3" data-path="classification-with-k-nearest-neighbours.html"><a href="classification-with-k-nearest-neighbours.html#further-reading-2"><i class="fa fa-check"></i><b>3.5.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a><ul>
-<li class="chapter" data-level="4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-5"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html"><i class="fa fa-check"></i><b>4</b> Classification with Trees and Linear Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-5"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#classification-task-1"><i class="fa fa-check"></i><b>4.1.1</b> Classification Task</a></li>
 <li class="chapter" data-level="4.1.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#data-1"><i class="fa fa-check"></i><b>4.1.2</b> Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#decision-trees"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a><ul>
+<li class="chapter" data-level="4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#decision-trees"><i class="fa fa-check"></i><b>4.2</b> Decision Trees</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#introduction-6"><i class="fa fa-check"></i><b>4.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-1"><i class="fa fa-check"></i><b>4.2.2</b> Example in R</a></li>
 <li class="chapter" data-level="4.2.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#a-note-on-decision-tree-learning"><i class="fa fa-check"></i><b>4.2.3</b> A Note on Decision Tree Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#binary-logistic-regression"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a><ul>
+<li class="chapter" data-level="4.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#binary-logistic-regression"><i class="fa fa-check"></i><b>4.3</b> Binary Logistic Regression</a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#motivation"><i class="fa fa-check"></i><b>4.3.1</b> Motivation</a></li>
 <li class="chapter" data-level="4.3.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#logistic-model"><i class="fa fa-check"></i><b>4.3.2</b> Logistic Model</a></li>
 <li class="chapter" data-level="4.3.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#example-in-r-2"><i class="fa fa-check"></i><b>4.3.3</b> Example in R</a></li>
 <li class="chapter" data-level="4.3.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#loss-function-cross-entropy"><i class="fa fa-check"></i><b>4.3.4</b> Loss Function: Cross-entropy</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#exercises-in-r-2"><i class="fa fa-check"></i><b>4.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#exercises-in-r-2"><i class="fa fa-check"></i><b>4.4</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-preparing-data"><i class="fa fa-check"></i><b>4.4.1</b> EdStats – Preparing Data</a></li>
 <li class="chapter" data-level="4.4.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-where-girls-are-better-at-maths-than-boys"><i class="fa fa-check"></i><b>4.4.2</b> EdStats – Where Girls Are Better at Maths Than Boys?</a></li>
 <li class="chapter" data-level="4.4.3" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-and-world-factbook-joining-forces"><i class="fa fa-check"></i><b>4.4.3</b> EdStats and World Factbook – Joining Forces</a></li>
 <li class="chapter" data-level="4.4.4" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-fitting-of-binary-logistic-regression-models"><i class="fa fa-check"></i><b>4.4.4</b> EdStats – Fitting of Binary Logistic Regression Models</a></li>
 <li class="chapter" data-level="4.4.5" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#edstats-variable-selection-in-binary-logistic-regression"><i class="fa fa-check"></i><b>4.4.5</b> EdStats – Variable Selection in Binary Logistic Regression (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.5</b> Outro</a><ul>
+<li class="chapter" data-level="4.5" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#outro-3"><i class="fa fa-check"></i><b>4.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#remarks-3"><i class="fa fa-check"></i><b>4.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="4.5.2" data-path="classification-with-trees-and-linear-models.html"><a href="classification-with-trees-and-linear-models.html#further-reading-3"><i class="fa fa-check"></i><b>4.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a><ul>
-<li class="chapter" data-level="5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-7"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html"><i class="fa fa-check"></i><b>5</b> Shallow and Deep Neural Networks</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-7"><i class="fa fa-check"></i><b>5.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#binary-logistic-regression-recap"><i class="fa fa-check"></i><b>5.1.1</b> Binary Logistic Regression: Recap</a></li>
 <li class="chapter" data-level="5.1.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#data-2"><i class="fa fa-check"></i><b>5.1.2</b> Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.2</b> Multinomial Logistic Regression</a><ul>
+<li class="chapter" data-level="5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.2</b> Multinomial Logistic Regression</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#a-note-on-data-representation"><i class="fa fa-check"></i><b>5.2.1</b> A Note on Data Representation</a></li>
 <li class="chapter" data-level="5.2.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#extending-logistic-regression"><i class="fa fa-check"></i><b>5.2.2</b> Extending Logistic Regression</a></li>
 <li class="chapter" data-level="5.2.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#softmax-function"><i class="fa fa-check"></i><b>5.2.3</b> Softmax Function</a></li>
@@ -275,42 +336,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#cross-entropy-revisited"><i class="fa fa-check"></i><b>5.2.5</b> Cross-entropy Revisited</a></li>
 <li class="chapter" data-level="5.2.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#problem-formulation-in-matrix-form"><i class="fa fa-check"></i><b>5.2.6</b> Problem Formulation in Matrix Form (**)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neural-networks"><i class="fa fa-check"></i><b>5.3</b> Artificial Neural Networks</a><ul>
+<li class="chapter" data-level="5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neural-networks"><i class="fa fa-check"></i><b>5.3</b> Artificial Neural Networks</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#artificial-neuron"><i class="fa fa-check"></i><b>5.3.1</b> Artificial Neuron</a></li>
 <li class="chapter" data-level="5.3.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#logistic-regression-as-a-neural-network"><i class="fa fa-check"></i><b>5.3.2</b> Logistic Regression as a Neural Network</a></li>
 <li class="chapter" data-level="5.3.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r-3"><i class="fa fa-check"></i><b>5.3.3</b> Example in R</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#deep-neural-networks"><i class="fa fa-check"></i><b>5.4</b> Deep Neural Networks</a><ul>
+<li class="chapter" data-level="5.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#deep-neural-networks"><i class="fa fa-check"></i><b>5.4</b> Deep Neural Networks</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-8"><i class="fa fa-check"></i><b>5.4.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.4.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#activation-functions"><i class="fa fa-check"></i><b>5.4.2</b> Activation Functions</a></li>
 <li class="chapter" data-level="5.4.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r---2-layers"><i class="fa fa-check"></i><b>5.4.3</b> Example in R - 2 Layers</a></li>
 <li class="chapter" data-level="5.4.4" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#example-in-r---6-layers"><i class="fa fa-check"></i><b>5.4.4</b> Example in R - 6 Layers</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#preprocessing-of-data"><i class="fa fa-check"></i><b>5.5</b> Preprocessing of Data</a><ul>
+<li class="chapter" data-level="5.5" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#preprocessing-of-data"><i class="fa fa-check"></i><b>5.5</b> Preprocessing of Data</a>
+<ul>
 <li class="chapter" data-level="5.5.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#introduction-9"><i class="fa fa-check"></i><b>5.5.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.5.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#image-deskewing"><i class="fa fa-check"></i><b>5.5.2</b> Image Deskewing</a></li>
 <li class="chapter" data-level="5.5.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#summary-of-all-the-models-considered"><i class="fa fa-check"></i><b>5.5.3</b> Summary of All the Models Considered</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#outro-4"><i class="fa fa-check"></i><b>5.6</b> Outro</a><ul>
+<li class="chapter" data-level="5.6" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#outro-4"><i class="fa fa-check"></i><b>5.6</b> Outro</a>
+<ul>
 <li class="chapter" data-level="5.6.1" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#remarks-4"><i class="fa fa-check"></i><b>5.6.1</b> Remarks</a></li>
 <li class="chapter" data-level="5.6.2" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#beyond-mnist"><i class="fa fa-check"></i><b>5.6.2</b> Beyond MNIST</a></li>
 <li class="chapter" data-level="5.6.3" data-path="shallow-and-deep-neural-networks.html"><a href="shallow-and-deep-neural-networks.html#further-reading-4"><i class="fa fa-check"></i><b>5.6.3</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>6</b> Continuous Optimisation with Iterative Algorithms</a><ul>
-<li class="chapter" data-level="6.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-10"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html"><i class="fa fa-check"></i><b>6</b> Continuous Optimisation with Iterative Algorithms</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-10"><i class="fa fa-check"></i><b>6.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#optimisation-problems"><i class="fa fa-check"></i><b>6.1.1</b> Optimisation Problems</a></li>
 <li class="chapter" data-level="6.1.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-optimisation-problems-in-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Example Optimisation Problems in Machine Learning</a></li>
 <li class="chapter" data-level="6.1.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#types-of-minima-and-maxima"><i class="fa fa-check"></i><b>6.1.3</b> Types of Minima and Maxima</a></li>
 <li class="chapter" data-level="6.1.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-objective-over-a-2d-domain"><i class="fa fa-check"></i><b>6.1.4</b> Example Objective over a 2D Domain</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#iterative-methods"><i class="fa fa-check"></i><b>6.2</b> Iterative Methods</a><ul>
+<li class="chapter" data-level="6.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#iterative-methods"><i class="fa fa-check"></i><b>6.2</b> Iterative Methods</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#introduction-11"><i class="fa fa-check"></i><b>6.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="6.2.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#example-in-r-4"><i class="fa fa-check"></i><b>6.2.2</b> Example in R</a></li>
 <li class="chapter" data-level="6.2.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#convergence-to-local-optima"><i class="fa fa-check"></i><b>6.2.3</b> Convergence to Local Optima</a></li>
 <li class="chapter" data-level="6.2.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#random-restarts"><i class="fa fa-check"></i><b>6.2.4</b> Random Restarts</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent"><i class="fa fa-check"></i><b>6.3</b> Gradient Descent</a><ul>
+<li class="chapter" data-level="6.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent"><i class="fa fa-check"></i><b>6.3</b> Gradient Descent</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#function-gradient"><i class="fa fa-check"></i><b>6.3.1</b> Function Gradient (*)</a></li>
 <li class="chapter" data-level="6.3.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#three-facts-on-the-gradient"><i class="fa fa-check"></i><b>6.3.2</b> Three Facts on the Gradient</a></li>
 <li class="chapter" data-level="6.3.3" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#gradient-descent-algorithm-gd"><i class="fa fa-check"></i><b>6.3.3</b> Gradient Descent Algorithm (GD)</a></li>
@@ -318,176 +387,203 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.5" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#stochastic-gradient-descent-sgd"><i class="fa fa-check"></i><b>6.3.5</b> Stochastic Gradient Descent (SGD) (*)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#a-note-on-convex-optimisation"><i class="fa fa-check"></i><b>6.4</b> A Note on Convex Optimisation (*)</a></li>
-<li class="chapter" data-level="6.5" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#outro-5"><i class="fa fa-check"></i><b>6.5</b> Outro</a><ul>
+<li class="chapter" data-level="6.5" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#outro-5"><i class="fa fa-check"></i><b>6.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="6.5.1" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#remarks-5"><i class="fa fa-check"></i><b>6.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="6.5.2" data-path="continuous-optimisation-with-iterative-algorithms.html"><a href="continuous-optimisation-with-iterative-algorithms.html#further-reading-5"><i class="fa fa-check"></i><b>6.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a><ul>
-<li class="chapter" data-level="7.1" data-path="clustering.html"><a href="clustering.html#unsupervised-learning"><i class="fa fa-check"></i><b>7.1</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="clustering.html"><a href="clustering.html#unsupervised-learning"><i class="fa fa-check"></i><b>7.1</b> Unsupervised Learning</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="clustering.html"><a href="clustering.html#introduction-12"><i class="fa fa-check"></i><b>7.1.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.1.2" data-path="clustering.html"><a href="clustering.html#main-types-of-unsupervised-learning-problems"><i class="fa fa-check"></i><b>7.1.2</b> Main Types of Unsupervised Learning Problems</a></li>
 <li class="chapter" data-level="7.1.3" data-path="clustering.html"><a href="clustering.html#definitions"><i class="fa fa-check"></i><b>7.1.3</b> Definitions</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>7.2</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="7.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>7.2</b> K-means Clustering</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="clustering.html"><a href="clustering.html#example-in-r-5"><i class="fa fa-check"></i><b>7.2.1</b> Example in R</a></li>
 <li class="chapter" data-level="7.2.2" data-path="clustering.html"><a href="clustering.html#problem-statement"><i class="fa fa-check"></i><b>7.2.2</b> Problem Statement</a></li>
 <li class="chapter" data-level="7.2.3" data-path="clustering.html"><a href="clustering.html#algorithms-for-the-k-means-problem"><i class="fa fa-check"></i><b>7.2.3</b> Algorithms for the K-means Problem</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="clustering.html"><a href="clustering.html#agglomerative-hierarchical-clustering"><i class="fa fa-check"></i><b>7.3</b> Agglomerative Hierarchical Clustering</a><ul>
+<li class="chapter" data-level="7.3" data-path="clustering.html"><a href="clustering.html#agglomerative-hierarchical-clustering"><i class="fa fa-check"></i><b>7.3</b> Agglomerative Hierarchical Clustering</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="clustering.html"><a href="clustering.html#introduction-13"><i class="fa fa-check"></i><b>7.3.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.3.2" data-path="clustering.html"><a href="clustering.html#example-in-r-6"><i class="fa fa-check"></i><b>7.3.2</b> Example in R</a></li>
 <li class="chapter" data-level="7.3.3" data-path="clustering.html"><a href="clustering.html#linkage-functions"><i class="fa fa-check"></i><b>7.3.3</b> Linkage Functions</a></li>
 <li class="chapter" data-level="7.3.4" data-path="clustering.html"><a href="clustering.html#cluster-dendrograms"><i class="fa fa-check"></i><b>7.3.4</b> Cluster Dendrograms</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a><ul>
+<li class="chapter" data-level="7.4" data-path="clustering.html"><a href="clustering.html#exercises-in-r-3"><i class="fa fa-check"></i><b>7.4</b> Exercises in R</a>
+<ul>
 <li class="chapter" data-level="7.4.1" data-path="clustering.html"><a href="clustering.html#clustering-of-the-world-factbook"><i class="fa fa-check"></i><b>7.4.1</b> Clustering of the World Factbook</a></li>
 <li class="chapter" data-level="7.4.2" data-path="clustering.html"><a href="clustering.html#unbalance-dataset-k-means-needs-multiple-starts"><i class="fa fa-check"></i><b>7.4.2</b> Unbalance Dataset – K-Means Needs Multiple Starts</a></li>
 <li class="chapter" data-level="7.4.3" data-path="clustering.html"><a href="clustering.html#clustering-of-typical-2d-benchmark-datasets"><i class="fa fa-check"></i><b>7.4.3</b> Clustering of Typical 2D Benchmark Datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a><ul>
+<li class="chapter" data-level="7.5" data-path="clustering.html"><a href="clustering.html#outro-6"><i class="fa fa-check"></i><b>7.5</b> Outro</a>
+<ul>
 <li class="chapter" data-level="7.5.1" data-path="clustering.html"><a href="clustering.html#remarks-6"><i class="fa fa-check"></i><b>7.5.1</b> Remarks</a></li>
 <li class="chapter" data-level="7.5.2" data-path="clustering.html"><a href="clustering.html#further-reading-6"><i class="fa fa-check"></i><b>7.5.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a><ul>
-<li class="chapter" data-level="8.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-14"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html"><i class="fa fa-check"></i><b>8</b> Optimisation with Genetic Algorithms</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-14"><i class="fa fa-check"></i><b>8.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#recap"><i class="fa fa-check"></i><b>8.1.1</b> Recap</a></li>
 <li class="chapter" data-level="8.1.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#k-means-revisited"><i class="fa fa-check"></i><b>8.1.2</b> K-means Revisited</a></li>
 <li class="chapter" data-level="8.1.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#optim-vs.-kmeans"><i class="fa fa-check"></i><b>8.1.3</b> optim() vs. kmeans()</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#genetic-algorithms"><i class="fa fa-check"></i><b>8.2</b> Genetic Algorithms</a><ul>
+<li class="chapter" data-level="8.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#genetic-algorithms"><i class="fa fa-check"></i><b>8.2</b> Genetic Algorithms</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#introduction-15"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
 <li class="chapter" data-level="8.2.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#overview-of-the-method"><i class="fa fa-check"></i><b>8.2.2</b> Overview of the Method</a></li>
 <li class="chapter" data-level="8.2.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#example-implementation---ga-for-k-means"><i class="fa fa-check"></i><b>8.2.3</b> Example Implementation - GA for K-means</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#outro-7"><i class="fa fa-check"></i><b>8.3</b> Outro</a><ul>
+<li class="chapter" data-level="8.3" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#outro-7"><i class="fa fa-check"></i><b>8.3</b> Outro</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#remarks-7"><i class="fa fa-check"></i><b>8.3.1</b> Remarks</a></li>
 <li class="chapter" data-level="8.3.2" data-path="optimisation-with-genetic-algorithms.html"><a href="optimisation-with-genetic-algorithms.html#further-reading-7"><i class="fa fa-check"></i><b>8.3.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="recommender-systems.html"><a href="recommender-systems.html"><i class="fa fa-check"></i><b>9</b> Recommender Systems</a><ul>
-<li class="chapter" data-level="9.1" data-path="recommender-systems.html"><a href="recommender-systems.html#introduction-16"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9" data-path="recommender-systems.html"><a href="recommender-systems.html"><i class="fa fa-check"></i><b>9</b> Recommender Systems</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="recommender-systems.html"><a href="recommender-systems.html#introduction-16"><i class="fa fa-check"></i><b>9.1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="recommender-systems.html"><a href="recommender-systems.html#the-netflix-prize"><i class="fa fa-check"></i><b>9.1.1</b> The Netflix Prize</a></li>
 <li class="chapter" data-level="9.1.2" data-path="recommender-systems.html"><a href="recommender-systems.html#main-approaches"><i class="fa fa-check"></i><b>9.1.2</b> Main Approaches</a></li>
 <li class="chapter" data-level="9.1.3" data-path="recommender-systems.html"><a href="recommender-systems.html#formalism-2"><i class="fa fa-check"></i><b>9.1.3</b> Formalism</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="recommender-systems.html"><a href="recommender-systems.html#collaborative-filtering"><i class="fa fa-check"></i><b>9.2</b> Collaborative Filtering</a><ul>
+<li class="chapter" data-level="9.2" data-path="recommender-systems.html"><a href="recommender-systems.html#collaborative-filtering"><i class="fa fa-check"></i><b>9.2</b> Collaborative Filtering</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="recommender-systems.html"><a href="recommender-systems.html#example"><i class="fa fa-check"></i><b>9.2.1</b> Example</a></li>
 <li class="chapter" data-level="9.2.2" data-path="recommender-systems.html"><a href="recommender-systems.html#similarity-measures"><i class="fa fa-check"></i><b>9.2.2</b> Similarity Measures</a></li>
 <li class="chapter" data-level="9.2.3" data-path="recommender-systems.html"><a href="recommender-systems.html#user-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.3</b> User-Based Collaborative Filtering</a></li>
 <li class="chapter" data-level="9.2.4" data-path="recommender-systems.html"><a href="recommender-systems.html#item-based-collaborative-filtering"><i class="fa fa-check"></i><b>9.2.4</b> Item-Based Collaborative Filtering</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="recommender-systems.html"><a href="recommender-systems.html#exercise-the-movielens-dataset"><i class="fa fa-check"></i><b>9.3</b> Exercise: The MovieLens Dataset (*)</a><ul>
+<li class="chapter" data-level="9.3" data-path="recommender-systems.html"><a href="recommender-systems.html#exercise-the-movielens-dataset"><i class="fa fa-check"></i><b>9.3</b> Exercise: The MovieLens Dataset (*)</a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="recommender-systems.html"><a href="recommender-systems.html#dataset"><i class="fa fa-check"></i><b>9.3.1</b> Dataset</a></li>
 <li class="chapter" data-level="9.3.2" data-path="recommender-systems.html"><a href="recommender-systems.html#data-cleansing"><i class="fa fa-check"></i><b>9.3.2</b> Data Cleansing</a></li>
 <li class="chapter" data-level="9.3.3" data-path="recommender-systems.html"><a href="recommender-systems.html#item-item-similarities"><i class="fa fa-check"></i><b>9.3.3</b> Item-Item Similarities</a></li>
 <li class="chapter" data-level="9.3.4" data-path="recommender-systems.html"><a href="recommender-systems.html#example-recommendations"><i class="fa fa-check"></i><b>9.3.4</b> Example Recommendations</a></li>
 <li class="chapter" data-level="9.3.5" data-path="recommender-systems.html"><a href="recommender-systems.html#clustering-1"><i class="fa fa-check"></i><b>9.3.5</b> Clustering</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="recommender-systems.html"><a href="recommender-systems.html#outro-8"><i class="fa fa-check"></i><b>9.4</b> Outro</a><ul>
+<li class="chapter" data-level="9.4" data-path="recommender-systems.html"><a href="recommender-systems.html#outro-8"><i class="fa fa-check"></i><b>9.4</b> Outro</a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="recommender-systems.html"><a href="recommender-systems.html#remarks-8"><i class="fa fa-check"></i><b>9.4.1</b> Remarks</a></li>
 <li class="chapter" data-level="9.4.2" data-path="recommender-systems.html"><a href="recommender-systems.html#further-reading-8"><i class="fa fa-check"></i><b>9.4.2</b> Further Reading</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="end.html"><a href="end.html"><i class="fa fa-check"></i>} END</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>A</b> Setting Up the R Environment</a><ul>
-<li class="chapter" data-level="A.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>A.1</b> Installing R</a></li>
-<li class="chapter" data-level="A.2" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-an-ide"><i class="fa fa-check"></i><b>A.2</b> Installing an IDE</a></li>
-<li class="chapter" data-level="A.3" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-recommended-packages"><i class="fa fa-check"></i><b>A.3</b> Installing Recommended Packages</a></li>
-<li class="chapter" data-level="A.4" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#first-r-script-in-rstudio"><i class="fa fa-check"></i><b>A.4</b> First R Script in RStudio</a></li>
+<li class="chapter" data-level="A" data-path="appendix-convention.html"><a href="appendix-convention.html"><i class="fa fa-check"></i><b>A</b> Notation Convention</a></li>
+<li class="chapter" data-level="B" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html"><i class="fa fa-check"></i><b>B</b> Setting Up the R Environment</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-r"><i class="fa fa-check"></i><b>B.1</b> Installing R</a></li>
+<li class="chapter" data-level="B.2" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-an-ide"><i class="fa fa-check"></i><b>B.2</b> Installing an IDE</a></li>
+<li class="chapter" data-level="B.3" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#installing-recommended-packages"><i class="fa fa-check"></i><b>B.3</b> Installing Recommended Packages</a></li>
+<li class="chapter" data-level="B.4" data-path="setting-up-the-r-environment.html"><a href="setting-up-the-r-environment.html#first-r-script-in-rstudio"><i class="fa fa-check"></i><b>B.4</b> First R Script in RStudio</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>B</b> Vector Algebra in R</a><ul>
-<li class="chapter" data-level="B.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#motivation-1"><i class="fa fa-check"></i><b>B.1</b> Motivation</a></li>
-<li class="chapter" data-level="B.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#numeric-vectors"><i class="fa fa-check"></i><b>B.2</b> Numeric Vectors</a><ul>
-<li class="chapter" data-level="B.2.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-numeric-vectors"><i class="fa fa-check"></i><b>B.2.1</b> Creating Numeric Vectors</a></li>
-<li class="chapter" data-level="B.2.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-scalar-operations"><i class="fa fa-check"></i><b>B.2.2</b> Vector-Scalar Operations</a></li>
-<li class="chapter" data-level="B.2.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-vector-operations"><i class="fa fa-check"></i><b>B.2.3</b> Vector-Vector Operations</a></li>
-<li class="chapter" data-level="B.2.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions"><i class="fa fa-check"></i><b>B.2.4</b> Aggregation Functions</a></li>
-<li class="chapter" data-level="B.2.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#special-functions"><i class="fa fa-check"></i><b>B.2.5</b> Special Functions</a></li>
-<li class="chapter" data-level="B.2.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#norms-and-distances"><i class="fa fa-check"></i><b>B.2.6</b> Norms and Distances</a></li>
-<li class="chapter" data-level="B.2.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#dot-product"><i class="fa fa-check"></i><b>B.2.7</b> Dot Product (*)</a></li>
-<li class="chapter" data-level="B.2.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#missing-and-other-special-values"><i class="fa fa-check"></i><b>B.2.8</b> Missing and Other Special Values</a></li>
+<li class="chapter" data-level="C" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html"><i class="fa fa-check"></i><b>C</b> Vector Algebra in R</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#motivation-1"><i class="fa fa-check"></i><b>C.1</b> Motivation</a></li>
+<li class="chapter" data-level="C.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#numeric-vectors"><i class="fa fa-check"></i><b>C.2</b> Numeric Vectors</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-numeric-vectors"><i class="fa fa-check"></i><b>C.2.1</b> Creating Numeric Vectors</a></li>
+<li class="chapter" data-level="C.2.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-scalar-operations"><i class="fa fa-check"></i><b>C.2.2</b> Vector-Scalar Operations</a></li>
+<li class="chapter" data-level="C.2.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-vector-operations"><i class="fa fa-check"></i><b>C.2.3</b> Vector-Vector Operations</a></li>
+<li class="chapter" data-level="C.2.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions"><i class="fa fa-check"></i><b>C.2.4</b> Aggregation Functions</a></li>
+<li class="chapter" data-level="C.2.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#special-functions"><i class="fa fa-check"></i><b>C.2.5</b> Special Functions</a></li>
+<li class="chapter" data-level="C.2.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#norms-and-distances"><i class="fa fa-check"></i><b>C.2.6</b> Norms and Distances</a></li>
+<li class="chapter" data-level="C.2.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#dot-product"><i class="fa fa-check"></i><b>C.2.7</b> Dot Product (*)</a></li>
+<li class="chapter" data-level="C.2.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#missing-and-other-special-values"><i class="fa fa-check"></i><b>C.2.8</b> Missing and Other Special Values</a></li>
 </ul></li>
-<li class="chapter" data-level="B.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-vectors"><i class="fa fa-check"></i><b>B.3</b> Logical Vectors</a><ul>
-<li class="chapter" data-level="B.3.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-logical-vectors"><i class="fa fa-check"></i><b>B.3.1</b> Creating Logical Vectors</a></li>
-<li class="chapter" data-level="B.3.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-operations"><i class="fa fa-check"></i><b>B.3.2</b> Logical Operations</a></li>
-<li class="chapter" data-level="B.3.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#comparison-operations"><i class="fa fa-check"></i><b>B.3.3</b> Comparison Operations</a></li>
-<li class="chapter" data-level="B.3.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions-1"><i class="fa fa-check"></i><b>B.3.4</b> Aggregation Functions</a></li>
+<li class="chapter" data-level="C.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-vectors"><i class="fa fa-check"></i><b>C.3</b> Logical Vectors</a>
+<ul>
+<li class="chapter" data-level="C.3.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-logical-vectors"><i class="fa fa-check"></i><b>C.3.1</b> Creating Logical Vectors</a></li>
+<li class="chapter" data-level="C.3.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#logical-operations"><i class="fa fa-check"></i><b>C.3.2</b> Logical Operations</a></li>
+<li class="chapter" data-level="C.3.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#comparison-operations"><i class="fa fa-check"></i><b>C.3.3</b> Comparison Operations</a></li>
+<li class="chapter" data-level="C.3.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#aggregation-functions-1"><i class="fa fa-check"></i><b>C.3.4</b> Aggregation Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="B.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#character-vectors"><i class="fa fa-check"></i><b>B.4</b> Character Vectors</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-character-vectors"><i class="fa fa-check"></i><b>B.4.1</b> Creating Character Vectors</a></li>
-<li class="chapter" data-level="B.4.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#concatenating-character-vectors"><i class="fa fa-check"></i><b>B.4.2</b> Concatenating Character Vectors</a></li>
-<li class="chapter" data-level="B.4.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#collapsing-character-vectors"><i class="fa fa-check"></i><b>B.4.3</b> Collapsing Character Vectors</a></li>
+<li class="chapter" data-level="C.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#character-vectors"><i class="fa fa-check"></i><b>C.4</b> Character Vectors</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-character-vectors"><i class="fa fa-check"></i><b>C.4.1</b> Creating Character Vectors</a></li>
+<li class="chapter" data-level="C.4.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#concatenating-character-vectors"><i class="fa fa-check"></i><b>C.4.2</b> Concatenating Character Vectors</a></li>
+<li class="chapter" data-level="C.4.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#collapsing-character-vectors"><i class="fa fa-check"></i><b>C.4.3</b> Collapsing Character Vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="B.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-subsetting"><i class="fa fa-check"></i><b>B.5</b> Vector Subsetting</a><ul>
-<li class="chapter" data-level="B.5.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-positive-indices"><i class="fa fa-check"></i><b>B.5.1</b> Subsetting with Positive Indices</a></li>
-<li class="chapter" data-level="B.5.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-negative-indices"><i class="fa fa-check"></i><b>B.5.2</b> Subsetting with Negative Indices</a></li>
-<li class="chapter" data-level="B.5.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-logical-vectors"><i class="fa fa-check"></i><b>B.5.3</b> Subsetting with Logical Vectors</a></li>
-<li class="chapter" data-level="B.5.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#replacing-elements"><i class="fa fa-check"></i><b>B.5.4</b> Replacing Elements</a></li>
-<li class="chapter" data-level="B.5.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#other-functions"><i class="fa fa-check"></i><b>B.5.5</b> Other Functions</a></li>
+<li class="chapter" data-level="C.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#vector-subsetting"><i class="fa fa-check"></i><b>C.5</b> Vector Subsetting</a>
+<ul>
+<li class="chapter" data-level="C.5.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-positive-indices"><i class="fa fa-check"></i><b>C.5.1</b> Subsetting with Positive Indices</a></li>
+<li class="chapter" data-level="C.5.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-negative-indices"><i class="fa fa-check"></i><b>C.5.2</b> Subsetting with Negative Indices</a></li>
+<li class="chapter" data-level="C.5.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-with-logical-vectors"><i class="fa fa-check"></i><b>C.5.3</b> Subsetting with Logical Vectors</a></li>
+<li class="chapter" data-level="C.5.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#replacing-elements"><i class="fa fa-check"></i><b>C.5.4</b> Replacing Elements</a></li>
+<li class="chapter" data-level="C.5.5" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#other-functions"><i class="fa fa-check"></i><b>C.5.5</b> Other Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="B.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-vectors"><i class="fa fa-check"></i><b>B.6</b> Named Vectors</a><ul>
-<li class="chapter" data-level="B.6.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-named-vectors"><i class="fa fa-check"></i><b>B.6.1</b> Creating Named Vectors</a></li>
-<li class="chapter" data-level="B.6.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-named-vectors-with-character-string-indices"><i class="fa fa-check"></i><b>B.6.2</b> Subsetting Named Vectors with Character String Indices</a></li>
+<li class="chapter" data-level="C.6" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-vectors"><i class="fa fa-check"></i><b>C.6</b> Named Vectors</a>
+<ul>
+<li class="chapter" data-level="C.6.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-named-vectors"><i class="fa fa-check"></i><b>C.6.1</b> Creating Named Vectors</a></li>
+<li class="chapter" data-level="C.6.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-named-vectors-with-character-string-indices"><i class="fa fa-check"></i><b>C.6.2</b> Subsetting Named Vectors with Character String Indices</a></li>
 </ul></li>
-<li class="chapter" data-level="B.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#factors"><i class="fa fa-check"></i><b>B.7</b> Factors</a><ul>
-<li class="chapter" data-level="B.7.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-factors"><i class="fa fa-check"></i><b>B.7.1</b> Creating Factors</a></li>
-<li class="chapter" data-level="B.7.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#levels"><i class="fa fa-check"></i><b>B.7.2</b> Levels</a></li>
-<li class="chapter" data-level="B.7.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#internal-representation"><i class="fa fa-check"></i><b>B.7.3</b> Internal Representation (*)</a></li>
+<li class="chapter" data-level="C.7" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#factors"><i class="fa fa-check"></i><b>C.7</b> Factors</a>
+<ul>
+<li class="chapter" data-level="C.7.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-factors"><i class="fa fa-check"></i><b>C.7.1</b> Creating Factors</a></li>
+<li class="chapter" data-level="C.7.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#levels"><i class="fa fa-check"></i><b>C.7.2</b> Levels</a></li>
+<li class="chapter" data-level="C.7.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#internal-representation"><i class="fa fa-check"></i><b>C.7.3</b> Internal Representation (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="B.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#lists"><i class="fa fa-check"></i><b>B.8</b> Lists</a><ul>
-<li class="chapter" data-level="B.8.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-lists"><i class="fa fa-check"></i><b>B.8.1</b> Creating Lists</a></li>
-<li class="chapter" data-level="B.8.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-lists"><i class="fa fa-check"></i><b>B.8.2</b> Named Lists</a></li>
-<li class="chapter" data-level="B.8.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-and-extracting-from-lists"><i class="fa fa-check"></i><b>B.8.3</b> Subsetting and Extracting From Lists</a></li>
-<li class="chapter" data-level="B.8.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#common-operations"><i class="fa fa-check"></i><b>B.8.4</b> Common Operations</a></li>
+<li class="chapter" data-level="C.8" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#lists"><i class="fa fa-check"></i><b>C.8</b> Lists</a>
+<ul>
+<li class="chapter" data-level="C.8.1" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#creating-lists"><i class="fa fa-check"></i><b>C.8.1</b> Creating Lists</a></li>
+<li class="chapter" data-level="C.8.2" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#named-lists"><i class="fa fa-check"></i><b>C.8.2</b> Named Lists</a></li>
+<li class="chapter" data-level="C.8.3" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#subsetting-and-extracting-from-lists"><i class="fa fa-check"></i><b>C.8.3</b> Subsetting and Extracting From Lists</a></li>
+<li class="chapter" data-level="C.8.4" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#common-operations"><i class="fa fa-check"></i><b>C.8.4</b> Common Operations</a></li>
 </ul></li>
-<li class="chapter" data-level="B.9" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#further-reading-9"><i class="fa fa-check"></i><b>B.9</b> Further Reading</a></li>
+<li class="chapter" data-level="C.9" data-path="vector-algebra-in-r.html"><a href="vector-algebra-in-r.html#further-reading-9"><i class="fa fa-check"></i><b>C.9</b> Further Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="C" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>C</b> Matrix Algebra in R</a><ul>
-<li class="chapter" data-level="C.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#creating-matrices"><i class="fa fa-check"></i><b>C.1</b> Creating Matrices</a><ul>
-<li class="chapter" data-level="C.1.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix"><i class="fa fa-check"></i><b>C.1.1</b> <code>matrix()</code></a></li>
-<li class="chapter" data-level="C.1.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#stacking-vectors"><i class="fa fa-check"></i><b>C.1.2</b> Stacking Vectors</a></li>
-<li class="chapter" data-level="C.1.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#beyond-numeric-matrices"><i class="fa fa-check"></i><b>C.1.3</b> Beyond Numeric Matrices</a></li>
-<li class="chapter" data-level="C.1.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#naming-rows-and-columns"><i class="fa fa-check"></i><b>C.1.4</b> Naming Rows and Columns</a></li>
-<li class="chapter" data-level="C.1.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#other-methods"><i class="fa fa-check"></i><b>C.1.5</b> Other Methods</a></li>
-<li class="chapter" data-level="C.1.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#internal-representation-1"><i class="fa fa-check"></i><b>C.1.6</b> Internal Representation (*)</a></li>
+<li class="chapter" data-level="D" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html"><i class="fa fa-check"></i><b>D</b> Matrix Algebra in R</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#creating-matrices"><i class="fa fa-check"></i><b>D.1</b> Creating Matrices</a>
+<ul>
+<li class="chapter" data-level="D.1.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix"><i class="fa fa-check"></i><b>D.1.1</b> <code>matrix()</code></a></li>
+<li class="chapter" data-level="D.1.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#stacking-vectors"><i class="fa fa-check"></i><b>D.1.2</b> Stacking Vectors</a></li>
+<li class="chapter" data-level="D.1.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#beyond-numeric-matrices"><i class="fa fa-check"></i><b>D.1.3</b> Beyond Numeric Matrices</a></li>
+<li class="chapter" data-level="D.1.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#naming-rows-and-columns"><i class="fa fa-check"></i><b>D.1.4</b> Naming Rows and Columns</a></li>
+<li class="chapter" data-level="D.1.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#other-methods"><i class="fa fa-check"></i><b>D.1.5</b> Other Methods</a></li>
+<li class="chapter" data-level="D.1.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#internal-representation-1"><i class="fa fa-check"></i><b>D.1.6</b> Internal Representation (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="C.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#common-operations-1"><i class="fa fa-check"></i><b>C.2</b> Common Operations</a><ul>
-<li class="chapter" data-level="C.2.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-transpose"><i class="fa fa-check"></i><b>C.2.1</b> Matrix Transpose</a></li>
-<li class="chapter" data-level="C.2.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>C.2.2</b> Matrix-Scalar Operations</a></li>
-<li class="chapter" data-level="C.2.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>C.2.3</b> Matrix-Matrix Operations</a></li>
-<li class="chapter" data-level="C.2.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-multiplication"><i class="fa fa-check"></i><b>C.2.4</b> Matrix Multiplication (*)</a></li>
-<li class="chapter" data-level="C.2.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#aggregation-of-rows-and-columns"><i class="fa fa-check"></i><b>C.2.5</b> Aggregation of Rows and Columns</a></li>
-<li class="chapter" data-level="C.2.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#vectorised-special-functions"><i class="fa fa-check"></i><b>C.2.6</b> Vectorised Special Functions</a></li>
-<li class="chapter" data-level="C.2.7" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-vector-operations"><i class="fa fa-check"></i><b>C.2.7</b> Matrix-Vector Operations</a></li>
+<li class="chapter" data-level="D.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#common-operations-1"><i class="fa fa-check"></i><b>D.2</b> Common Operations</a>
+<ul>
+<li class="chapter" data-level="D.2.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-transpose"><i class="fa fa-check"></i><b>D.2.1</b> Matrix Transpose</a></li>
+<li class="chapter" data-level="D.2.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-scalar-operations"><i class="fa fa-check"></i><b>D.2.2</b> Matrix-Scalar Operations</a></li>
+<li class="chapter" data-level="D.2.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-matrix-operations"><i class="fa fa-check"></i><b>D.2.3</b> Matrix-Matrix Operations</a></li>
+<li class="chapter" data-level="D.2.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-multiplication"><i class="fa fa-check"></i><b>D.2.4</b> Matrix Multiplication (*)</a></li>
+<li class="chapter" data-level="D.2.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#aggregation-of-rows-and-columns"><i class="fa fa-check"></i><b>D.2.5</b> Aggregation of Rows and Columns</a></li>
+<li class="chapter" data-level="D.2.6" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#vectorised-special-functions"><i class="fa fa-check"></i><b>D.2.6</b> Vectorised Special Functions</a></li>
+<li class="chapter" data-level="D.2.7" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-vector-operations"><i class="fa fa-check"></i><b>D.2.7</b> Matrix-Vector Operations</a></li>
 </ul></li>
-<li class="chapter" data-level="C.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-subsetting"><i class="fa fa-check"></i><b>C.3</b> Matrix Subsetting</a><ul>
-<li class="chapter" data-level="C.3.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-individual-elements"><i class="fa fa-check"></i><b>C.3.1</b> Selecting Individual Elements</a></li>
-<li class="chapter" data-level="C.3.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-rows-and-columns"><i class="fa fa-check"></i><b>C.3.2</b> Selecting Rows and Columns</a></li>
-<li class="chapter" data-level="C.3.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-submatrices"><i class="fa fa-check"></i><b>C.3.3</b> Selecting Submatrices</a></li>
-<li class="chapter" data-level="C.3.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-logical-vectors-and-matrices"><i class="fa fa-check"></i><b>C.3.4</b> Selecting Based on Logical Vectors and Matrices</a></li>
-<li class="chapter" data-level="C.3.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-two-column-matrices"><i class="fa fa-check"></i><b>C.3.5</b> Selecting Based on Two-Column Matrices</a></li>
+<li class="chapter" data-level="D.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#matrix-subsetting"><i class="fa fa-check"></i><b>D.3</b> Matrix Subsetting</a>
+<ul>
+<li class="chapter" data-level="D.3.1" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-individual-elements"><i class="fa fa-check"></i><b>D.3.1</b> Selecting Individual Elements</a></li>
+<li class="chapter" data-level="D.3.2" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-rows-and-columns"><i class="fa fa-check"></i><b>D.3.2</b> Selecting Rows and Columns</a></li>
+<li class="chapter" data-level="D.3.3" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-submatrices"><i class="fa fa-check"></i><b>D.3.3</b> Selecting Submatrices</a></li>
+<li class="chapter" data-level="D.3.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-logical-vectors-and-matrices"><i class="fa fa-check"></i><b>D.3.4</b> Selecting Based on Logical Vectors and Matrices</a></li>
+<li class="chapter" data-level="D.3.5" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#selecting-based-on-two-column-matrices"><i class="fa fa-check"></i><b>D.3.5</b> Selecting Based on Two-Column Matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="C.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#further-reading-10"><i class="fa fa-check"></i><b>C.4</b> Further Reading</a></li>
+<li class="chapter" data-level="D.4" data-path="matrix-algebra-in-r.html"><a href="matrix-algebra-in-r.html#further-reading-10"><i class="fa fa-check"></i><b>D.4</b> Further Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>D</b> Data Frame Wrangling in R</a><ul>
-<li class="chapter" data-level="D.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#creating-data-frames"><i class="fa fa-check"></i><b>D.1</b> Creating Data Frames</a></li>
-<li class="chapter" data-level="D.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#importing-data-frames"><i class="fa fa-check"></i><b>D.2</b> Importing Data Frames</a></li>
-<li class="chapter" data-level="D.3" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#data-frame-subsetting"><i class="fa fa-check"></i><b>D.3</b> Data Frame Subsetting</a><ul>
-<li class="chapter" data-level="D.3.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-a-list"><i class="fa fa-check"></i><b>D.3.1</b> Each Data Frame is a List</a></li>
-<li class="chapter" data-level="D.3.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-matrix-like"><i class="fa fa-check"></i><b>D.3.2</b> Each Data Frame is Matrix-like</a></li>
+<li class="chapter" data-level="E" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html"><i class="fa fa-check"></i><b>E</b> Data Frame Wrangling in R</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#creating-data-frames"><i class="fa fa-check"></i><b>E.1</b> Creating Data Frames</a></li>
+<li class="chapter" data-level="E.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#importing-data-frames"><i class="fa fa-check"></i><b>E.2</b> Importing Data Frames</a></li>
+<li class="chapter" data-level="E.3" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#data-frame-subsetting"><i class="fa fa-check"></i><b>E.3</b> Data Frame Subsetting</a>
+<ul>
+<li class="chapter" data-level="E.3.1" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-a-list"><i class="fa fa-check"></i><b>E.3.1</b> Each Data Frame is a List</a></li>
+<li class="chapter" data-level="E.3.2" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#each-data-frame-is-matrix-like"><i class="fa fa-check"></i><b>E.3.2</b> Each Data Frame is Matrix-like</a></li>
 </ul></li>
-<li class="chapter" data-level="D.4" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#common-operations-2"><i class="fa fa-check"></i><b>D.4</b> Common Operations</a></li>
-<li class="chapter" data-level="D.5" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#metaprogramming-and-formulas"><i class="fa fa-check"></i><b>D.5</b> Metaprogramming and Formulas (*)</a></li>
-<li class="chapter" data-level="D.6" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#further-reading-11"><i class="fa fa-check"></i><b>D.6</b> Further Reading</a></li>
+<li class="chapter" data-level="E.4" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#common-operations-2"><i class="fa fa-check"></i><b>E.4</b> Common Operations</a></li>
+<li class="chapter" data-level="E.5" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#metaprogramming-and-formulas"><i class="fa fa-check"></i><b>E.5</b> Metaprogramming and Formulas (*)</a></li>
+<li class="chapter" data-level="E.6" data-path="data-frame-wrangling-in-r.html"><a href="data-frame-wrangling-in-r.html#further-reading-11"><i class="fa fa-check"></i><b>E.6</b> Further Reading</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2 2020-05-11 22:28 (16b9c8d)</a></li>
-
 </ul>
 
       </nav>
@@ -505,10 +601,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="recommender-systems" class="section level1">
+<div id="recommender-systems" class="section level1" number="9">
 <h1><span class="header-section-number">9</span> Recommender Systems</h1>
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
-<div id="introduction-16" class="section level2">
+<div id="introduction-16" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Introduction</h2>
 <p><em>Recommender (recommendation) systems</em>
 aim to predict the rating a <em>user</em> would give to an <em>item</em>.</p>
@@ -518,7 +613,7 @@ aim to predict the rating a <em>user</em> would give to an <em>item</em>.</p>
 <li>content recommendations (Facebook, Instagram, Twitter, Apple News, …),</li>
 <li>product recommendations (Amazon, Alibaba, …).</li>
 </ul>
-<p>Implementing recommender systems, according to <span class="citation">(Ricci et al. <a href="references.html#ref-ricci_etal">2011</a>)</span>,
+<p>Implementing recommender systems, according to <span class="citation">(Ricci et al. <a href="#ref-ricci_etal" role="doc-biblioref">2011</a>)</span>,
 might:</p>
 <ul>
 <li>increase the number of items sold,</li>
@@ -541,7 +636,7 @@ with such a suggestion?</p>
 thing keep recommending me those stupid videos? Ah, wait, I remember
 I watched one similar piece that a friend sent me on a chat.")
 -->
-<div id="the-netflix-prize" class="section level3">
+<div id="the-netflix-prize" class="section level3" number="9.1.1">
 <h3><span class="header-section-number">9.1.1</span> The Netflix Prize</h3>
 <p>In 2006 Netflix (back then a DVD rental company) released one of the most famous
 benchmark sets for recommender systems, which helped boost the research
@@ -576,12 +671,12 @@ to the BellKor’s Pragmatic Chaos team which improved over
 the Netflix’s <em>Cinematch</em> algorithm by 10.06%,
 achieving the winning RMSE of 0.8567 on the test subset.</p>
 </div>
-<div id="main-approaches" class="section level3">
+<div id="main-approaches" class="section level3" number="9.1.2">
 <h3><span class="header-section-number">9.1.2</span> Main Approaches</h3>
 <p>Current recommender systems are quite complex and use a fusion
 of various approaches, also those based on external knowledge bases.</p>
 <p>However, we may distinguish at least two core approaches,
-see <span class="citation">(Ricci et al. <a href="references.html#ref-ricci_etal">2011</a>)</span> for more:</p>
+see <span class="citation">(Ricci et al. <a href="#ref-ricci_etal" role="doc-biblioref">2011</a>)</span> for more:</p>
 <ul>
 <li><p><em>Collaborative Filtering</em> is based on the assumption that if
 two people interact with the same product,
@@ -616,7 +711,7 @@ Straightforward statistical linear models with a lot of data conditioning. But a
 
 Netflix Prize FAQ https://web.archive.org/web/20070821194257/http://www.netflixprize.com/faq-->
 </div>
-<div id="formalism-2" class="section level3">
+<div id="formalism-2" class="section level3" number="9.1.3">
 <h3><span class="header-section-number">9.1.3</span> Formalism</h3>
 <p>Let <span class="math inline">\(\mathcal{U}=\{ U_1,\dots,U_n \}\)</span> denote the set of <span class="math inline">\(n\)</span> users.</p>
 <p>Let <span class="math inline">\(\mathcal{I}=\{ I_1,\dots,I_p \}\)</span> denote the set of <span class="math inline">\(p\)</span> items.</p>
@@ -644,9 +739,9 @@ that the <span class="math inline">\(u\)</span>-th user would give to the <span 
 <span class="math inline">\(r_{u,i}=0\)</span>.</p>
 </div>
 </div>
-<div id="collaborative-filtering" class="section level2">
+<div id="collaborative-filtering" class="section level2" number="9.2">
 <h2><span class="header-section-number">9.2</span> Collaborative Filtering</h2>
-<div id="example" class="section level3">
+<div id="example" class="section level3" number="9.2.1">
 <h3><span class="header-section-number">9.2.1</span> Example</h3>
 <table>
 <thead>
@@ -725,21 +820,21 @@ structure.</p>
 <p>Will Sara enjoy her spinach? Will Sara enjoy her apple?</p>
 </div>
 <p>An example <span class="math inline">\(\mathbf{R}\)</span> matrix in R:</p>
-<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1">R &lt;-<span class="st"> </span><span class="kw">matrix</span>(</a>
-<a class="sourceLine" id="cb769-2" title="2">    <span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb769-3" title="3">     <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb769-4" title="4">     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb769-5" title="5">     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb769-6" title="6">     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb769-7" title="7">     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb769-8" title="8">     <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span></a>
-<a class="sourceLine" id="cb769-9" title="9">    ), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb769-10" title="10">    <span class="dt">dimnames=</span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb769-11" title="11">        <span class="kw">c</span>(<span class="st">&quot;Anne&quot;</span>, <span class="st">&quot;Beth&quot;</span>, <span class="st">&quot;John&quot;</span>, <span class="st">&quot;Kate&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Sara&quot;</span>),</a>
-<a class="sourceLine" id="cb769-12" title="12">        <span class="kw">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Sushi&quot;</span>, <span class="st">&quot;Spinach&quot;</span>, <span class="st">&quot;Orange&quot;</span>)</a>
-<a class="sourceLine" id="cb769-13" title="13">    )</a>
-<a class="sourceLine" id="cb769-14" title="14">)</a></code></pre></div>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" title="1">R</a></code></pre></div>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="recommender-systems.html#cb758-1" aria-hidden="true"></a>R &lt;-<span class="st"> </span><span class="kw">matrix</span>(</span>
+<span id="cb758-2"><a href="recommender-systems.html#cb758-2" aria-hidden="true"></a>    <span class="kw">c</span>(</span>
+<span id="cb758-3"><a href="recommender-systems.html#cb758-3" aria-hidden="true"></a>     <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>,</span>
+<span id="cb758-4"><a href="recommender-systems.html#cb758-4" aria-hidden="true"></a>     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</span>
+<span id="cb758-5"><a href="recommender-systems.html#cb758-5" aria-hidden="true"></a>     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</span>
+<span id="cb758-6"><a href="recommender-systems.html#cb758-6" aria-hidden="true"></a>     <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>,</span>
+<span id="cb758-7"><a href="recommender-systems.html#cb758-7" aria-hidden="true"></a>     <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>,</span>
+<span id="cb758-8"><a href="recommender-systems.html#cb758-8" aria-hidden="true"></a>     <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span></span>
+<span id="cb758-9"><a href="recommender-systems.html#cb758-9" aria-hidden="true"></a>    ), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">6</span>, <span class="dt">ncol=</span><span class="dv">5</span>,</span>
+<span id="cb758-10"><a href="recommender-systems.html#cb758-10" aria-hidden="true"></a>    <span class="dt">dimnames=</span><span class="kw">list</span>(</span>
+<span id="cb758-11"><a href="recommender-systems.html#cb758-11" aria-hidden="true"></a>        <span class="kw">c</span>(<span class="st">&quot;Anne&quot;</span>, <span class="st">&quot;Beth&quot;</span>, <span class="st">&quot;John&quot;</span>, <span class="st">&quot;Kate&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Sara&quot;</span>),</span>
+<span id="cb758-12"><a href="recommender-systems.html#cb758-12" aria-hidden="true"></a>        <span class="kw">c</span>(<span class="st">&quot;Apple&quot;</span>, <span class="st">&quot;Banana&quot;</span>, <span class="st">&quot;Sushi&quot;</span>, <span class="st">&quot;Spinach&quot;</span>, <span class="st">&quot;Orange&quot;</span>)</span>
+<span id="cb758-13"><a href="recommender-systems.html#cb758-13" aria-hidden="true"></a>    )</span>
+<span id="cb758-14"><a href="recommender-systems.html#cb758-14" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="recommender-systems.html#cb759-1" aria-hidden="true"></a>R</span></code></pre></div>
 <pre><code>##      Apple Banana Sushi Spinach Orange
 ## Anne     1      5     5       0      1
 ## Beth     1      1     5       5      1
@@ -748,7 +843,7 @@ structure.</p>
 ## Mark     5      5     1       1      5
 ## Sara     0      5     0       0      5</code></pre>
 </div>
-<div id="similarity-measures" class="section level3">
+<div id="similarity-measures" class="section level3" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Similarity Measures</h3>
 <p>Assuming <span class="math inline">\(\mathbf{a},\mathbf{b}\)</span> are two sequences of length <span class="math inline">\(k\)</span>
 (in our setting, <span class="math inline">\(k\)</span> is equal to either <span class="math inline">\(n\)</span> or <span class="math inline">\(p\)</span>),
@@ -760,7 +855,7 @@ S(\mathbf{a},\mathbf{b}) = \frac{ \sum_{i=1}^k a_i b_i
 \sqrt{ \sum_{i=1}^k b_i^2 }
 }
 \]</span></p>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb772-1" title="1">cosim &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) <span class="kw">sum</span>(a<span class="op">*</span>b)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(a<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">sum</span>(b<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="recommender-systems.html#cb761-1" aria-hidden="true"></a>cosim &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) <span class="kw">sum</span>(a<span class="op">*</span>b)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(a<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">sum</span>(b<span class="op">^</span><span class="dv">2</span>))</span></code></pre></div>
 <p>We call it the <strong>cosine similarity</strong>.
 We have <span class="math inline">\(S(\mathbf{a},\mathbf{b})\in[-1,1]\)</span>,
 where we get <span class="math inline">\(1\)</span> for two identical elements.
@@ -773,7 +868,7 @@ ignores all <span class="math inline">\(0\)</span>-valued observations,
 see also the <code>use</code> argument to the <code>cor()</code> function.</p>
 </blockquote>
 </div>
-<div id="user-based-collaborative-filtering" class="section level3">
+<div id="user-based-collaborative-filtering" class="section level3" number="9.2.3">
 <h3><span class="header-section-number">9.2.3</span> User-Based Collaborative Filtering</h3>
 <p><strong>User-based</strong> approaches involve comparing each user against every other user
 (pairwise comparisons of the rows in <span class="math inline">\(\mathbf{R}\)</span>). This yields a similarity degree
@@ -781,14 +876,14 @@ between the <span class="math inline">\(i\)</span>-th and the <span class="math 
 <p><span class="math display">\[
 s^U_{i,j} = S(\mathbf{r}_{i,\cdot},\mathbf{r}_{j,\cdot}).
 \]</span></p>
-<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1">SU &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">nrow</span>(R),</a>
-<a class="sourceLine" id="cb773-2" title="2">    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)]) <span class="co"># and empty n*n matrix</span></a>
-<a class="sourceLine" id="cb773-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
-<a class="sourceLine" id="cb773-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</a>
-<a class="sourceLine" id="cb773-5" title="5">        SU[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[i,], R[j,])</a>
-<a class="sourceLine" id="cb773-6" title="6">    }</a>
-<a class="sourceLine" id="cb773-7" title="7">}</a></code></pre></div>
-<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" title="1"><span class="kw">round</span>(SU, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="recommender-systems.html#cb762-1" aria-hidden="true"></a>SU &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">nrow</span>(R), <span class="dt">ncol=</span><span class="kw">nrow</span>(R),</span>
+<span id="cb762-2"><a href="recommender-systems.html#cb762-2" aria-hidden="true"></a>    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)]) <span class="co"># and empty n*n matrix</span></span>
+<span id="cb762-3"><a href="recommender-systems.html#cb762-3" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</span>
+<span id="cb762-4"><a href="recommender-systems.html#cb762-4" aria-hidden="true"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(R)) {</span>
+<span id="cb762-5"><a href="recommender-systems.html#cb762-5" aria-hidden="true"></a>        SU[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[i,], R[j,])</span>
+<span id="cb762-6"><a href="recommender-systems.html#cb762-6" aria-hidden="true"></a>    }</span>
+<span id="cb762-7"><a href="recommender-systems.html#cb762-7" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="recommender-systems.html#cb763-1" aria-hidden="true"></a><span class="kw">round</span>(SU, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      Anne Beth John Kate Mark Sara
 ## Anne 1.00 0.61 0.58 0.61 0.63 0.59
 ## Beth 0.61 1.00 0.29 1.00 0.39 0.19
@@ -814,22 +909,22 @@ the more or a weighted arithmetic mean where weights are proportional to <span c
 </dd>
 </dl>
 <p>This is very similar to the <span class="math inline">\(K\)</span>-nearest neighbour heuristic!</p>
-<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb776-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SU[<span class="st">&quot;Sara&quot;</span>,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="recommender-systems.html#cb765-1" aria-hidden="true"></a>K &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb765-2"><a href="recommender-systems.html#cb765-2" aria-hidden="true"></a>(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SU[<span class="st">&quot;Sara&quot;</span>,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>## [1] 6 5 1 3 2 4</code></pre>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" title="1"><span class="co"># sim gives the indices of people in decreasing order</span></a>
-<a class="sourceLine" id="cb778-2" title="2"><span class="co"># of similarity to Sara:</span></a>
-<a class="sourceLine" id="cb778-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim] <span class="co"># the corresponding names</span></a></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="recommender-systems.html#cb767-1" aria-hidden="true"></a><span class="co"># sim gives the indices of people in decreasing order</span></span>
+<span id="cb767-2"><a href="recommender-systems.html#cb767-2" aria-hidden="true"></a><span class="co"># of similarity to Sara:</span></span>
+<span id="cb767-3"><a href="recommender-systems.html#cb767-3" aria-hidden="true"></a><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim] <span class="co"># the corresponding names</span></span></code></pre></div>
 <pre><code>## [1] &quot;Sara&quot; &quot;Mark&quot; &quot;Anne&quot; &quot;John&quot; &quot;Beth&quot; &quot;Kate&quot;</code></pre>
-<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb780-1" title="1"><span class="co"># Remove those who haven&#39;t tried Spinach yet (including Sara):</span></a>
-<a class="sourceLine" id="cb780-2" title="2">sim &lt;-<span class="st"> </span>sim[ R[sim, <span class="st">&quot;Spinach&quot;</span>]<span class="op">&gt;</span><span class="dv">0</span> ]</a>
-<a class="sourceLine" id="cb780-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim]</a></code></pre></div>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="recommender-systems.html#cb769-1" aria-hidden="true"></a><span class="co"># Remove those who haven&#39;t tried Spinach yet (including Sara):</span></span>
+<span id="cb769-2"><a href="recommender-systems.html#cb769-2" aria-hidden="true"></a>sim &lt;-<span class="st"> </span>sim[ R[sim, <span class="st">&quot;Spinach&quot;</span>]<span class="op">&gt;</span><span class="dv">0</span> ]</span>
+<span id="cb769-3"><a href="recommender-systems.html#cb769-3" aria-hidden="true"></a><span class="kw">dimnames</span>(R)[[<span class="dv">1</span>]][sim]</span></code></pre></div>
 <pre><code>## [1] &quot;Mark&quot; &quot;John&quot; &quot;Beth&quot; &quot;Kate&quot;</code></pre>
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1"><span class="co"># aggregate the Spinach ratings of the K most similar people:</span></a>
-<a class="sourceLine" id="cb782-2" title="2"><span class="kw">mean</span>(R[sim[<span class="dv">1</span><span class="op">:</span>K], <span class="st">&quot;Spinach&quot;</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="recommender-systems.html#cb771-1" aria-hidden="true"></a><span class="co"># aggregate the Spinach ratings of the K most similar people:</span></span>
+<span id="cb771-2"><a href="recommender-systems.html#cb771-2" aria-hidden="true"></a><span class="kw">mean</span>(R[sim[<span class="dv">1</span><span class="op">:</span>K], <span class="st">&quot;Spinach&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
-<div id="item-based-collaborative-filtering" class="section level3">
+<div id="item-based-collaborative-filtering" class="section level3" number="9.2.4">
 <h3><span class="header-section-number">9.2.4</span> Item-Based Collaborative Filtering</h3>
 <p><strong>Item-based</strong> schemes rely on pairwise comparisons between the items
 (columns in <span class="math inline">\(\mathbf{R}\)</span>). Hence, a similarity degree between the <span class="math inline">\(i\)</span>-th and the <span class="math inline">\(j\)</span>-th
@@ -837,14 +932,14 @@ item is given by:</p>
 <p><span class="math display">\[
 s^I_{i,j} = S(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}).
 \]</span></p>
-<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1">SI &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">ncol</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R),</a>
-<a class="sourceLine" id="cb784-2" title="2">    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)]) <span class="co"># an empty p*p matrix</span></a>
-<a class="sourceLine" id="cb784-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
-<a class="sourceLine" id="cb784-4" title="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</a>
-<a class="sourceLine" id="cb784-5" title="5">        SI[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[,i], R[,j])</a>
-<a class="sourceLine" id="cb784-6" title="6">    }</a>
-<a class="sourceLine" id="cb784-7" title="7">}</a></code></pre></div>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1"><span class="kw">round</span>(SI, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="recommender-systems.html#cb773-1" aria-hidden="true"></a>SI &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="kw">ncol</span>(R), <span class="dt">ncol=</span><span class="kw">ncol</span>(R),</span>
+<span id="cb773-2"><a href="recommender-systems.html#cb773-2" aria-hidden="true"></a>    <span class="dt">dimnames=</span><span class="kw">dimnames</span>(R)[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)]) <span class="co"># an empty p*p matrix</span></span>
+<span id="cb773-3"><a href="recommender-systems.html#cb773-3" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</span>
+<span id="cb773-4"><a href="recommender-systems.html#cb773-4" aria-hidden="true"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(R)) {</span>
+<span id="cb773-5"><a href="recommender-systems.html#cb773-5" aria-hidden="true"></a>        SI[i,j] &lt;-<span class="st"> </span><span class="kw">cosim</span>(R[,i], R[,j])</span>
+<span id="cb773-6"><a href="recommender-systems.html#cb773-6" aria-hidden="true"></a>    }</span>
+<span id="cb773-7"><a href="recommender-systems.html#cb773-7" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="recommender-systems.html#cb774-1" aria-hidden="true"></a><span class="kw">round</span>(SI, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##         Apple Banana Sushi Spinach Orange
 ## Apple    1.00   0.78  0.32    0.38   0.53
 ## Banana   0.78   1.00  0.45    0.27   0.78
@@ -868,30 +963,30 @@ the mode or
 a weighted arithmetic mean where weights are proportional to <span class="math inline">\(s^I_{i, j_\ell}\)</span>.
 </dd>
 </dl>
-<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" title="1">K &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb787-2" title="2">(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SI[<span class="st">&quot;Apple&quot;</span>,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="recommender-systems.html#cb776-1" aria-hidden="true"></a>K &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb776-2"><a href="recommender-systems.html#cb776-2" aria-hidden="true"></a>(sim &lt;-<span class="st"> </span><span class="kw">order</span>(SI[<span class="st">&quot;Apple&quot;</span>,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>## [1] 1 2 5 4 3</code></pre>
-<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1"><span class="co"># sim gives the indices of items in decreasing order</span></a>
-<a class="sourceLine" id="cb789-2" title="2"><span class="co"># of similarity to Apple:</span></a>
-<a class="sourceLine" id="cb789-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim] <span class="co"># the corresponding item types</span></a></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="recommender-systems.html#cb778-1" aria-hidden="true"></a><span class="co"># sim gives the indices of items in decreasing order</span></span>
+<span id="cb778-2"><a href="recommender-systems.html#cb778-2" aria-hidden="true"></a><span class="co"># of similarity to Apple:</span></span>
+<span id="cb778-3"><a href="recommender-systems.html#cb778-3" aria-hidden="true"></a><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim] <span class="co"># the corresponding item types</span></span></code></pre></div>
 <pre><code>## [1] &quot;Apple&quot;   &quot;Banana&quot;  &quot;Orange&quot;  &quot;Spinach&quot; &quot;Sushi&quot;</code></pre>
-<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1"><span class="co"># Remove these which Sara haven&#39;t tried yet (e.g., Apples):</span></a>
-<a class="sourceLine" id="cb791-2" title="2">sim &lt;-<span class="st"> </span>sim[ R[<span class="st">&quot;Sara&quot;</span>, sim]<span class="op">&gt;</span><span class="dv">0</span> ]</a>
-<a class="sourceLine" id="cb791-3" title="3"><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim]</a></code></pre></div>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="recommender-systems.html#cb780-1" aria-hidden="true"></a><span class="co"># Remove these which Sara haven&#39;t tried yet (e.g., Apples):</span></span>
+<span id="cb780-2"><a href="recommender-systems.html#cb780-2" aria-hidden="true"></a>sim &lt;-<span class="st"> </span>sim[ R[<span class="st">&quot;Sara&quot;</span>, sim]<span class="op">&gt;</span><span class="dv">0</span> ]</span>
+<span id="cb780-3"><a href="recommender-systems.html#cb780-3" aria-hidden="true"></a><span class="kw">dimnames</span>(R)[[<span class="dv">2</span>]][sim]</span></code></pre></div>
 <pre><code>## [1] &quot;Banana&quot; &quot;Orange&quot;</code></pre>
-<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" title="1"><span class="co"># aggregate Sara&#39;s ratings of the K most similar items:</span></a>
-<a class="sourceLine" id="cb793-2" title="2"><span class="kw">mean</span>(R[<span class="st">&quot;Sara&quot;</span>, sim[<span class="dv">1</span><span class="op">:</span>K]])</a></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="recommender-systems.html#cb782-1" aria-hidden="true"></a><span class="co"># aggregate Sara&#39;s ratings of the K most similar items:</span></span>
+<span id="cb782-2"><a href="recommender-systems.html#cb782-2" aria-hidden="true"></a><span class="kw">mean</span>(R[<span class="st">&quot;Sara&quot;</span>, sim[<span class="dv">1</span><span class="op">:</span>K]])</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 </div>
 </div>
-<div id="exercise-the-movielens-dataset" class="section level2">
+<div id="exercise-the-movielens-dataset" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> Exercise: The MovieLens Dataset (*)</h2>
-<div id="dataset" class="section level3">
+<div id="dataset" class="section level3" number="9.3.1">
 <h3><span class="header-section-number">9.3.1</span> Dataset</h3>
 <p>Let’s make a few recommendations based on the MovieLens-9/2018-Small
 dataset available at
 <a href="https://grouplens.org/datasets/movielens/latest/" class="uri">https://grouplens.org/datasets/movielens/latest/</a>,
-see also <a href="https://movielens.org/" class="uri">https://movielens.org/</a> and <span class="citation">(Harper &amp; Konstan <a href="references.html#ref-movielens">2015</a>)</span>.</p>
+see also <a href="https://movielens.org/" class="uri">https://movielens.org/</a> and <span class="citation">(Harper &amp; Konstan <a href="#ref-movielens" role="doc-biblioref">2015</a>)</span>.</p>
 <p>The dataset consists of
 ca. 100,000 ratings to 9,000 movies by 600 users. It was last updated
 on September 2018.</p>
@@ -902,9 +997,9 @@ The following examples are a bit more difficult to follow
 (programming-wise), therefore
 we mark them with (\*).
 -->
-<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" title="1">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/movies.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb795-2" title="2">    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb795-3" title="3"><span class="kw">head</span>(movies, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="recommender-systems.html#cb784-1" aria-hidden="true"></a>movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/movies.csv&quot;</span>,</span>
+<span id="cb784-2"><a href="recommender-systems.html#cb784-2" aria-hidden="true"></a>    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>)</span>
+<span id="cb784-3"><a href="recommender-systems.html#cb784-3" aria-hidden="true"></a><span class="kw">head</span>(movies, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##   movieId                    title
 ## 1       1         Toy Story (1995)
 ## 2       2           Jumanji (1995)
@@ -915,44 +1010,44 @@ we mark them with (\*).
 ## 2                  Adventure|Children|Fantasy
 ## 3                              Comedy|Romance
 ## 4                        Comedy|Drama|Romance</code></pre>
-<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1"><span class="kw">nrow</span>(movies)</a></code></pre></div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb786-1"><a href="recommender-systems.html#cb786-1" aria-hidden="true"></a><span class="kw">nrow</span>(movies)</span></code></pre></div>
 <pre><code>## [1] 9742</code></pre>
-<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1">ratings &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/ratings.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb799-2" title="2">    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb799-3" title="3"><span class="kw">head</span>(ratings, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb788-1"><a href="recommender-systems.html#cb788-1" aria-hidden="true"></a>ratings &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;datasets/ml-9-2018-small/ratings.csv&quot;</span>,</span>
+<span id="cb788-2"><a href="recommender-systems.html#cb788-2" aria-hidden="true"></a>    <span class="dt">comment.char=</span><span class="st">&quot;#&quot;</span>)</span>
+<span id="cb788-3"><a href="recommender-systems.html#cb788-3" aria-hidden="true"></a><span class="kw">head</span>(ratings, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##   userId movieId rating timestamp
 ## 1      1       1      4 964982703
 ## 2      1       3      4 964981247
 ## 3      1       6      4 964982224
 ## 4      1      47      5 964983815</code></pre>
-<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1"><span class="kw">nrow</span>(ratings)</a></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="recommender-systems.html#cb790-1" aria-hidden="true"></a><span class="kw">nrow</span>(ratings)</span></code></pre></div>
 <pre><code>## [1] 100836</code></pre>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1"><span class="kw">table</span>(ratings<span class="op">$</span>rating)</a></code></pre></div>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="recommender-systems.html#cb792-1" aria-hidden="true"></a><span class="kw">table</span>(ratings<span class="op">$</span>rating)</span></code></pre></div>
 <pre><code>## 
 ##   0.5     1   1.5     2   2.5     3   3.5     4   4.5     5 
 ##  1370  2811  1791  7551  5550 20047 13136 26818  8551 13211</code></pre>
 </div>
-<div id="data-cleansing" class="section level3">
+<div id="data-cleansing" class="section level3" number="9.3.2">
 <h3><span class="header-section-number">9.3.2</span> Data Cleansing</h3>
 <p><code>movieId</code>s should be re-encoded, as not every film is mentioned/rated in the database.
 We will re-map the <code>movieId</code>s to consecutive integers.</p>
-<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1"><span class="co"># the list of all rated movieIds:</span></a>
-<a class="sourceLine" id="cb805-2" title="2">movieId2 &lt;-<span class="st"> </span><span class="kw">unique</span>(ratings<span class="op">$</span>movieId)</a>
-<a class="sourceLine" id="cb805-3" title="3"><span class="co"># max user Id (these could&#39;ve been cleaned up too):</span></a>
-<a class="sourceLine" id="cb805-4" title="4">(n &lt;-<span class="st"> </span><span class="kw">max</span>(ratings<span class="op">$</span>userId))</a></code></pre></div>
+<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="recommender-systems.html#cb794-1" aria-hidden="true"></a><span class="co"># the list of all rated movieIds:</span></span>
+<span id="cb794-2"><a href="recommender-systems.html#cb794-2" aria-hidden="true"></a>movieId2 &lt;-<span class="st"> </span><span class="kw">unique</span>(ratings<span class="op">$</span>movieId)</span>
+<span id="cb794-3"><a href="recommender-systems.html#cb794-3" aria-hidden="true"></a><span class="co"># max user Id (these could&#39;ve been cleaned up too):</span></span>
+<span id="cb794-4"><a href="recommender-systems.html#cb794-4" aria-hidden="true"></a>(n &lt;-<span class="st"> </span><span class="kw">max</span>(ratings<span class="op">$</span>userId))</span></code></pre></div>
 <pre><code>## [1] 610</code></pre>
-<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1"><span class="co"># number of unique movies:</span></a>
-<a class="sourceLine" id="cb807-2" title="2">(p &lt;-<span class="st"> </span><span class="kw">length</span>(movieId2))</a></code></pre></div>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="recommender-systems.html#cb796-1" aria-hidden="true"></a><span class="co"># number of unique movies:</span></span>
+<span id="cb796-2"><a href="recommender-systems.html#cb796-2" aria-hidden="true"></a>(p &lt;-<span class="st"> </span><span class="kw">length</span>(movieId2))</span></code></pre></div>
 <pre><code>## [1] 9724</code></pre>
-<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" title="1"><span class="co"># remove unrated movies:</span></a>
-<a class="sourceLine" id="cb809-2" title="2">movies &lt;-<span class="st"> </span>movies[movies<span class="op">$</span>movieId <span class="op">%in%</span><span class="st"> </span>movieId2, ]</a></code></pre></div>
-<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" title="1"><span class="co"># we&#39;ll map movieId2[i] to i for each i=1,...,p:</span></a>
-<a class="sourceLine" id="cb810-2" title="2">movies<span class="op">$</span>movieId  &lt;-<span class="st"> </span><span class="kw">match</span>(movies<span class="op">$</span>movieId, movieId2)</a>
-<a class="sourceLine" id="cb810-3" title="3">ratings<span class="op">$</span>movieId &lt;-<span class="st"> </span><span class="kw">match</span>(ratings<span class="op">$</span>movieId, movieId2)</a>
-<a class="sourceLine" id="cb810-4" title="4"><span class="co"># order the movies by the new movieId so that</span></a>
-<a class="sourceLine" id="cb810-5" title="5"><span class="co"># the movie with Id==i is in the i-th row:</span></a>
-<a class="sourceLine" id="cb810-6" title="6">movies &lt;-<span class="st"> </span>movies[<span class="kw">order</span>(movies<span class="op">$</span>movieId),]</a>
-<a class="sourceLine" id="cb810-7" title="7"><span class="kw">stopifnot</span>(<span class="kw">all</span>(movies<span class="op">$</span>movieId <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span>p)) <span class="co"># sanity check</span></a></code></pre></div>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="recommender-systems.html#cb798-1" aria-hidden="true"></a><span class="co"># remove unrated movies:</span></span>
+<span id="cb798-2"><a href="recommender-systems.html#cb798-2" aria-hidden="true"></a>movies &lt;-<span class="st"> </span>movies[movies<span class="op">$</span>movieId <span class="op">%in%</span><span class="st"> </span>movieId2, ]</span></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb799-1"><a href="recommender-systems.html#cb799-1" aria-hidden="true"></a><span class="co"># we&#39;ll map movieId2[i] to i for each i=1,...,p:</span></span>
+<span id="cb799-2"><a href="recommender-systems.html#cb799-2" aria-hidden="true"></a>movies<span class="op">$</span>movieId  &lt;-<span class="st"> </span><span class="kw">match</span>(movies<span class="op">$</span>movieId, movieId2)</span>
+<span id="cb799-3"><a href="recommender-systems.html#cb799-3" aria-hidden="true"></a>ratings<span class="op">$</span>movieId &lt;-<span class="st"> </span><span class="kw">match</span>(ratings<span class="op">$</span>movieId, movieId2)</span>
+<span id="cb799-4"><a href="recommender-systems.html#cb799-4" aria-hidden="true"></a><span class="co"># order the movies by the new movieId so that</span></span>
+<span id="cb799-5"><a href="recommender-systems.html#cb799-5" aria-hidden="true"></a><span class="co"># the movie with Id==i is in the i-th row:</span></span>
+<span id="cb799-6"><a href="recommender-systems.html#cb799-6" aria-hidden="true"></a>movies &lt;-<span class="st"> </span>movies[<span class="kw">order</span>(movies<span class="op">$</span>movieId),]</span>
+<span id="cb799-7"><a href="recommender-systems.html#cb799-7" aria-hidden="true"></a><span class="kw">stopifnot</span>(<span class="kw">all</span>(movies<span class="op">$</span>movieId <span class="op">==</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span>p)) <span class="co"># sanity check</span></span></code></pre></div>
 <p>We will use a sparse matrix data type (from R package <code>Matrix</code>)
 to store the ratings data, <span class="math inline">\(\mathbf{R}\in\mathbb{R}^{n\times p}\)</span>.</p>
 <dl>
@@ -965,28 +1060,32 @@ The drawback is that, amongst others, random access to the elements
 in a sparse matrix takes more time.
 </dd>
 </dl>
-<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb811-1" title="1"><span class="kw">library</span>(<span class="st">&quot;Matrix&quot;</span>)</a>
-<a class="sourceLine" id="cb811-2" title="2">R &lt;-<span class="st"> </span><span class="kw">Matrix</span>(<span class="fl">0.0</span>, <span class="dt">sparse=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</a>
-<a class="sourceLine" id="cb811-3" title="3"><span class="co"># This is a vectorised operation;</span></a>
-<a class="sourceLine" id="cb811-4" title="4"><span class="co"># it is faster than a for loop over each row</span></a>
-<a class="sourceLine" id="cb811-5" title="5"><span class="co"># in the ratings matrix:</span></a>
-<a class="sourceLine" id="cb811-6" title="6">R[<span class="kw">cbind</span>(ratings<span class="op">$</span>userId, ratings<span class="op">$</span>movieId)] &lt;-<span class="st"> </span>ratings<span class="op">$</span>rating</a></code></pre></div>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="recommender-systems.html#cb800-1" aria-hidden="true"></a><span class="kw">library</span>(<span class="st">&quot;Matrix&quot;</span>)</span>
+<span id="cb800-2"><a href="recommender-systems.html#cb800-2" aria-hidden="true"></a>R &lt;-<span class="st"> </span><span class="kw">Matrix</span>(<span class="fl">0.0</span>, <span class="dt">sparse=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span>n, <span class="dt">ncol=</span>p)</span>
+<span id="cb800-3"><a href="recommender-systems.html#cb800-3" aria-hidden="true"></a><span class="co"># This is a vectorised operation;</span></span>
+<span id="cb800-4"><a href="recommender-systems.html#cb800-4" aria-hidden="true"></a><span class="co"># it is faster than a for loop over each row</span></span>
+<span id="cb800-5"><a href="recommender-systems.html#cb800-5" aria-hidden="true"></a><span class="co"># in the ratings matrix:</span></span>
+<span id="cb800-6"><a href="recommender-systems.html#cb800-6" aria-hidden="true"></a>R[<span class="kw">cbind</span>(ratings<span class="op">$</span>userId, ratings<span class="op">$</span>movieId)] &lt;-<span class="st"> </span>ratings<span class="op">$</span>rating</span></code></pre></div>
 <!--# Not every movie is rated - removing:
 R <- R[,apply(R,2,sum)>0]
 # Not each user gave a rating - removing:
 R <- R[apply(R,1,sum)>0,]-->
 <p>Let’s preview a few first rows and columns:</p>
-<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb812-1" title="1">R[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">18</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="recommender-systems.html#cb801-1" aria-hidden="true"></a>R[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">18</span>]</span></code></pre></div>
 <pre><code>## 6 x 18 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                                         
 ## [1,] 4 4 4 5 5 3 5 4 5 5 5 5 3 5 4 5 3 3
 ## [2,] . . . . . . . . . . . . . . . . . .
 ## [3,] . . . . . . . . . . . . . . . . . .
-## [4,] . . . 2 . . . . . . . . . . 2 5 1 .
+## 
+##  ..............................
+##  ........suppressing 1 rows in show(); maybe adjust &#39;options(max.print= *, width = *)&#39;
+##  ..............................
+##                                         
 ## [5,] 4 . . . 4 . . 4 . . . . . . . . 5 2
 ## [6,] . 5 4 4 1 . . 5 4 . 3 4 . 3 . . 2 5</code></pre>
 </div>
-<div id="item-item-similarities" class="section level3">
+<div id="item-item-similarities" class="section level3" number="9.3.3">
 <h3><span class="header-section-number">9.3.3</span> Item-Item Similarities</h3>
 <p>To recall, the cosine similarity between
 <span class="math inline">\(\mathbf{r}_{\cdot,i},\mathbf{r}_{\cdot,j}\in\mathbb{R}^n\)</span>
@@ -1011,10 +1110,10 @@ at once by applying:</p>
 }
 \]</span></p>
 <p>Cosine similarities for item-item comparisons:</p>
-<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb814-1" title="1">norms &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sqrt</span>(<span class="kw">colSums</span>(R<span class="op">^</span><span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb814-2" title="2">Rx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">crossprod</span>(R, R))</a>
-<a class="sourceLine" id="cb814-3" title="3">SI &lt;-<span class="st"> </span>Rx<span class="op">/</span><span class="kw">tcrossprod</span>(norms)</a>
-<a class="sourceLine" id="cb814-4" title="4">SI[<span class="kw">is.nan</span>(SI)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># there were some divisions by zero</span></a></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="recommender-systems.html#cb803-1" aria-hidden="true"></a>norms &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sqrt</span>(<span class="kw">colSums</span>(R<span class="op">^</span><span class="dv">2</span>)))</span>
+<span id="cb803-2"><a href="recommender-systems.html#cb803-2" aria-hidden="true"></a>Rx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">crossprod</span>(R, R))</span>
+<span id="cb803-3"><a href="recommender-systems.html#cb803-3" aria-hidden="true"></a>SI &lt;-<span class="st"> </span>Rx<span class="op">/</span><span class="kw">tcrossprod</span>(norms)</span>
+<span id="cb803-4"><a href="recommender-systems.html#cb803-4" aria-hidden="true"></a>SI[<span class="kw">is.nan</span>(SI)] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># there were some divisions by zero</span></span></code></pre></div>
 <dl>
 <dt>Remark.</dt>
 <dd><p><code>crossprod(A,B)</code> gives <span class="math inline">\(\mathbf{A}^T \mathbf{B}\)</span>
@@ -1022,66 +1121,66 @@ and <code>tcrossprod(A,B)</code> gives <span class="math inline">\(\mathbf{A} \m
 </dd>
 </dl>
 </div>
-<div id="example-recommendations" class="section level3">
+<div id="example-recommendations" class="section level3" number="9.3.4">
 <h3><span class="header-section-number">9.3.4</span> Example Recommendations</h3>
-<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb815-1" title="1">recommend &lt;-<span class="st"> </span><span class="cf">function</span>(i, K, SI, movies) {</a>
-<a class="sourceLine" id="cb815-2" title="2">    <span class="co"># get K most similar movies to the i-th one</span></a>
-<a class="sourceLine" id="cb815-3" title="3">    ms &lt;-<span class="st"> </span><span class="kw">order</span>(SI[i,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb815-4" title="4">    <span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb815-5" title="5">        <span class="dt">Title=</span>movies<span class="op">$</span>title[ms[<span class="dv">1</span><span class="op">:</span>K]],</a>
-<a class="sourceLine" id="cb815-6" title="6">        <span class="dt">SIC=</span>SI[i,ms[<span class="dv">1</span><span class="op">:</span>K]],</a>
-<a class="sourceLine" id="cb815-7" title="7">        <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb815-8" title="8">    )</a>
-<a class="sourceLine" id="cb815-9" title="9">}</a></code></pre></div>
-<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb816-1" title="1">movies<span class="op">$</span>title[<span class="dv">1215</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="recommender-systems.html#cb804-1" aria-hidden="true"></a>recommend &lt;-<span class="st"> </span><span class="cf">function</span>(i, K, SI, movies) {</span>
+<span id="cb804-2"><a href="recommender-systems.html#cb804-2" aria-hidden="true"></a>    <span class="co"># get K most similar movies to the i-th one</span></span>
+<span id="cb804-3"><a href="recommender-systems.html#cb804-3" aria-hidden="true"></a>    ms &lt;-<span class="st"> </span><span class="kw">order</span>(SI[i,], <span class="dt">decreasing=</span><span class="ot">TRUE</span>)</span>
+<span id="cb804-4"><a href="recommender-systems.html#cb804-4" aria-hidden="true"></a>    <span class="kw">data.frame</span>(</span>
+<span id="cb804-5"><a href="recommender-systems.html#cb804-5" aria-hidden="true"></a>        <span class="dt">Title=</span>movies<span class="op">$</span>title[ms[<span class="dv">1</span><span class="op">:</span>K]],</span>
+<span id="cb804-6"><a href="recommender-systems.html#cb804-6" aria-hidden="true"></a>        <span class="dt">SIC=</span>SI[i,ms[<span class="dv">1</span><span class="op">:</span>K]]</span>
+<span id="cb804-7"><a href="recommender-systems.html#cb804-7" aria-hidden="true"></a>    )</span>
+<span id="cb804-8"><a href="recommender-systems.html#cb804-8" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="recommender-systems.html#cb805-1" aria-hidden="true"></a>movies<span class="op">$</span>title[<span class="dv">1215</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;Monty Python&#39;s The Meaning of Life (1983)&quot;</code></pre>
-<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb818-1" title="1"><span class="kw">recommend</span>(<span class="dv">1215</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
-<pre><code>##                                               Title       SIC
-## 1         Monty Python&#39;s The Meaning of Life (1983) 1.0000000
-## 2               Monty Python&#39;s Life of Brian (1979) 0.6109703
-## 3            Monty Python and the Holy Grail (1975) 0.5141460
-## 4  House of Flying Daggers (Shi mian mai fu) (2004) 0.4932248
-## 5      Hitchhiker&#39;s Guide to the Galaxy, The (2005) 0.4548209
-## 6                      Bowling for Columbine (2002) 0.4505143
-## 7                          Shaun of the Dead (2004) 0.4456638
-## 8                 O Brother, Where Art Thou? (2000) 0.4454142
-## 9                                Ghost World (2001) 0.4441552
-## 10                         Full Metal Jacket (1987) 0.4428534</code></pre>
-<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb820-1" title="1">movies<span class="op">$</span>title[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="recommender-systems.html#cb807-1" aria-hidden="true"></a><span class="kw">recommend</span>(<span class="dv">1215</span>, <span class="dv">10</span>, SI, movies)</span></code></pre></div>
+<pre><code>##                                               Title     SIC
+## 1         Monty Python&#39;s The Meaning of Life (1983) 1.00000
+## 2               Monty Python&#39;s Life of Brian (1979) 0.61097
+## 3            Monty Python and the Holy Grail (1975) 0.51415
+## 4  House of Flying Daggers (Shi mian mai fu) (2004) 0.49322
+## 5      Hitchhiker&#39;s Guide to the Galaxy, The (2005) 0.45482
+## 6                      Bowling for Columbine (2002) 0.45051
+## 7                          Shaun of the Dead (2004) 0.44566
+## 8                 O Brother, Where Art Thou? (2000) 0.44541
+## 9                                Ghost World (2001) 0.44416
+## 10                         Full Metal Jacket (1987) 0.44285</code></pre>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="recommender-systems.html#cb809-1" aria-hidden="true"></a>movies<span class="op">$</span>title[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;Toy Story (1995)&quot;</code></pre>
-<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb822-1" title="1"><span class="kw">recommend</span>(<span class="dv">1</span>, <span class="dv">10</span>, SI, movies)</a></code></pre></div>
-<pre><code>##                                                Title       SIC
-## 1                                   Toy Story (1995) 1.0000000
-## 2                                 Toy Story 2 (1999) 0.5726013
-## 3                               Jurassic Park (1993) 0.5656368
-## 4               Independence Day (a.k.a. ID4) (1996) 0.5642617
-## 5          Star Wars: Episode IV - A New Hope (1977) 0.5573882
-## 6                                Forrest Gump (1994) 0.5470959
-## 7                              Lion King, The (1994) 0.5411453
-## 8  Star Wars: Episode VI - Return of the Jedi (1983) 0.5410893
-## 9                         Mission: Impossible (1996) 0.5389128
-## 10                              Groundhog Day (1993) 0.5341688</code></pre>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="recommender-systems.html#cb811-1" aria-hidden="true"></a><span class="kw">recommend</span>(<span class="dv">1</span>, <span class="dv">10</span>, SI, movies)</span></code></pre></div>
+<pre><code>##                                                Title     SIC
+## 1                                   Toy Story (1995) 1.00000
+## 2                                 Toy Story 2 (1999) 0.57260
+## 3                               Jurassic Park (1993) 0.56564
+## 4               Independence Day (a.k.a. ID4) (1996) 0.56426
+## 5          Star Wars: Episode IV - A New Hope (1977) 0.55739
+## 6                                Forrest Gump (1994) 0.54710
+## 7                              Lion King, The (1994) 0.54115
+## 8  Star Wars: Episode VI - Return of the Jedi (1983) 0.54109
+## 9                         Mission: Impossible (1996) 0.53891
+## 10                              Groundhog Day (1993) 0.53417</code></pre>
 <p>…and so on.</p>
 </div>
-<div id="clustering-1" class="section level3">
+<div id="clustering-1" class="section level3" number="9.3.5">
 <h3><span class="header-section-number">9.3.5</span> Clustering</h3>
 <p>All our ratings are <span class="math inline">\(r_{i,j}\ge 0\)</span>, therefore the cosine similarity is
 <span class="math inline">\(s_{i,j}^I\ge 0\)</span>. Moreover, it holds <span class="math inline">\(s_{i,j}^I\le 1\)</span>.
 Thus, a cosine similarity matrix can be turned into
 a dissimilarity matrix:</p>
-<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb824-1" title="1">DI &lt;-<span class="st"> </span><span class="fl">1.0</span><span class="op">-</span>SI</a>
-<a class="sourceLine" id="cb824-2" title="2">DI[DI<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="fl">0.0</span> <span class="co"># account for numeric inaccuracies</span></a>
-<a class="sourceLine" id="cb824-3" title="3">DI &lt;-<span class="st"> </span><span class="kw">as.dist</span>(DI)</a></code></pre></div>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="recommender-systems.html#cb813-1" aria-hidden="true"></a>DI &lt;-<span class="st"> </span><span class="fl">1.0</span><span class="op">-</span>SI</span>
+<span id="cb813-2"><a href="recommender-systems.html#cb813-2" aria-hidden="true"></a>DI[DI<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="fl">0.0</span> <span class="co"># account for numeric inaccuracies</span></span>
+<span id="cb813-3"><a href="recommender-systems.html#cb813-3" aria-hidden="true"></a>DI &lt;-<span class="st"> </span><span class="kw">as.dist</span>(DI)</span></code></pre></div>
 <p>This enables us to perform, e.g., the cluster analysis of items:</p>
-<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb825-1" title="1"><span class="kw">library</span>(<span class="st">&quot;genie&quot;</span>)</a>
-<a class="sourceLine" id="cb825-2" title="2">h &lt;-<span class="st"> </span><span class="kw">hclust2</span>(DI)</a>
-<a class="sourceLine" id="cb825-3" title="3"><span class="kw">plot</span>(h, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>); <span class="kw">box</span>()</a></code></pre></div>
-<div class="figure">
-<img src="09-recommenders-figures/movielens8-1.svg" alt="Figure 1: Cluster dendrogram for the movies" id="fig:movielens8" />
-<p class="caption">Figure 1: Cluster dendrogram for the movies</p>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="recommender-systems.html#cb814-1" aria-hidden="true"></a><span class="kw">library</span>(<span class="st">&quot;genie&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: genieclust</code></pre>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="recommender-systems.html#cb816-1" aria-hidden="true"></a>h &lt;-<span class="st"> </span><span class="kw">hclust2</span>(DI)</span>
+<span id="cb816-2"><a href="recommender-systems.html#cb816-2" aria-hidden="true"></a><span class="kw">plot</span>(h, <span class="dt">labels=</span><span class="ot">FALSE</span>, <span class="dt">ann=</span><span class="ot">FALSE</span>); <span class="kw">box</span>()</span></code></pre></div>
+<div class="figure"><span id="fig:movielens8"></span>
+<img src="09-recommenders-figures/movielens8-1.png" alt="" />
+<p class="caption">Figure 9.1:  Cluster dendrogram for the movies</p>
 </div>
 <p>A 14-partition might look nice, let’s give it a try:</p>
-<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb826-1" title="1">c &lt;-<span class="st"> </span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">14</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="recommender-systems.html#cb817-1" aria-hidden="true"></a>c &lt;-<span class="st"> </span><span class="kw">cutree</span>(h, <span class="dt">k=</span><span class="dv">14</span>)</span></code></pre></div>
 <p>Example movies in the 3rd cluster:</p>
 <p>Bottle Rocket (1996), Clerks (1994), Star Wars: Episode IV - A New Hope (1977), Swingers (1996), Monty Python’s Life of Brian (1979), E.T. the Extra-Terrestrial (1982), Monty Python and the Holy Grail (1975), Star Wars: Episode V - The Empire Strikes Back (1980), Princess Bride, The (1987), Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981), Star Wars: Episode VI - Return of the Jedi (1983), Blues Brothers, The (1980), Duck Soup (1933), Groundhog Day (1993), Back to the Future (1985), Young Frankenstein (1974), Indiana Jones and the Last Crusade (1989), Grosse Pointe Blank (1997), Austin Powers: International Man of Mystery (1997), Men in Black (a.k.a. MIB) (1997)</p>
 <p>The definitely have something in common!</p>
@@ -1090,9 +1189,9 @@ a dissimilarity matrix:</p>
 <p>… and so forth.</p>
 </div>
 </div>
-<div id="outro-8" class="section level2">
+<div id="outro-8" class="section level2" number="9.4">
 <h2><span class="header-section-number">9.4</span> Outro</h2>
-<div id="remarks-8" class="section level3">
+<div id="remarks-8" class="section level3" number="9.4.1">
 <h3><span class="header-section-number">9.4.1</span> Remarks</h3>
 <p>Good recommender systems are perfect tools to increase the revenue
 of any user-centric enterprise.</p>
@@ -1107,8 +1206,8 @@ For instance, the ratio of available ratings
 vs. all possible user-item valuations for the Netflix Prize
 (obviously, it is just a sample of
 the complete dataset that Netflix has) is equal to:</p>
-<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb827-1" title="1"><span class="dv">100480507</span><span class="op">/</span>(<span class="dv">480189</span><span class="op">*</span><span class="dv">17770</span>)</a></code></pre></div>
-<pre><code>## [1] 0.01177558</code></pre>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="recommender-systems.html#cb818-1" aria-hidden="true"></a><span class="dv">100480507</span><span class="op">/</span>(<span class="dv">480189</span><span class="op">*</span><span class="dv">17770</span>)</span></code></pre></div>
+<pre><code>## [1] 0.011776</code></pre>
 <p>A <em>sparse matrix</em> (see R package <code>Matrix</code>) data structure is
 often used for storing of and computing over such data effectively.</p>
 <p>Note that some users are <em>biased</em> in the sense that they are more critical or
@@ -1121,7 +1220,7 @@ Would you go to a bar/restaurant ranked 3.0 by you favourite Maps app community?
 <p>It is particularly challenging to predict the preferences of users
 that cast few ratings, e.g., those who just signed up (<em>the cold start problem</em>).</p>
 <blockquote>
-<p>“Hill et al. [1995] have shown that users provide inconsistent ratings when asked to rate the same movie at different times. They suggest that an algorithm cannot be more accurate than the variance in a user’s ratings for the same item.” <span class="citation">(Herlocker et al. <a href="references.html#ref-herlocker_etal">2004</a>: p. 6)</span></p>
+<p>“Hill et al. [1995] have shown that users provide inconsistent ratings when asked to rate the same movie at different times. They suggest that an algorithm cannot be more accurate than the variance in a user’s ratings for the same item.” <span class="citation">(Herlocker et al. <a href="#ref-herlocker_etal" role="doc-biblioref">2004</a>: p. 6)</span></p>
 </blockquote>
 <p>It is good to take into account the temporal (time-based) characteristics of data
 as well as external knowledge
@@ -1130,20 +1229,53 @@ what is a film’s genre).</p>
 <p>The presented approaches are vulnerable to attacks – bots may be used
 to promote or inhibit selected items.</p>
 </div>
-<div id="further-reading-8" class="section level3">
+<div id="further-reading-8" class="section level3" number="9.4.2">
 <h3><span class="header-section-number">9.4.2</span> Further Reading</h3>
 <p>Recommended further reading:
-<span class="citation">(Herlocker et al. <a href="references.html#ref-herlocker_etal">2004</a>)</span>,
-<span class="citation">(Ricci et al. <a href="references.html#ref-ricci_etal">2011</a>)</span>,
-<span class="citation">(Lü &amp; others <a href="references.html#ref-lu_etal">2012</a>)</span>,
-<span class="citation">(Harper &amp; Konstan <a href="references.html#ref-movielens">2015</a>)</span>.
-See also the Netflix prize winners: <span class="citation">(Koren <a href="references.html#ref-bellkor_netflix">2009</a>)</span>,
-<span class="citation">(Töscher et al. <a href="references.html#ref-bigchaos_netflix">2009</a>)</span>,
-<span class="citation">(Piotte &amp; Chabbert <a href="references.html#ref-pragmatictheory_netflix">2009</a>)</span>.
+<span class="citation">(Herlocker et al. <a href="#ref-herlocker_etal" role="doc-biblioref">2004</a>)</span>,
+<span class="citation">(Ricci et al. <a href="#ref-ricci_etal" role="doc-biblioref">2011</a>)</span>,
+<span class="citation">(Lü &amp; others <a href="#ref-lu_etal" role="doc-biblioref">2012</a>)</span>,
+<span class="citation">(Harper &amp; Konstan <a href="#ref-movielens" role="doc-biblioref">2015</a>)</span>.
+See also the Netflix prize winners: <span class="citation">(Koren <a href="#ref-bellkor_netflix" role="doc-biblioref">2009</a>)</span>,
+<span class="citation">(Töscher et al. <a href="#ref-bigchaos_netflix" role="doc-biblioref">2009</a>)</span>,
+<span class="citation">(Piotte &amp; Chabbert <a href="#ref-pragmatictheory_netflix" role="doc-biblioref">2009</a>)</span>.
 Also don’t forget to take a look at
 the R package <code>recommenderlab</code> (amongst others).</p>
 
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+<!-- Start appendix now: -->
 </div>
+</div>
+</div>
+
+
+
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-movielens">
+<p>Harper FM, Konstan JA (2015) The MovieLens datasets: History and context. <em>ACM Transactions on Interactive Intelligent Systems</em> 5, 19:1–19:19.</p>
+</div>
+<div id="ref-herlocker_etal">
+<p>Herlocker JL, Konstan JA, Terveen LG, Riedl JT (2004) Evaluating collaborative filtering recommender systems. <em>ACM Transactions on Information Systems</em> 22, 5–53. <a href="https://web.archive.org/web/20070306161407/http://web.engr.oregonstate.edu/~herlock/papers/eval_tois.pdf">https://web.archive.org/web/20070306161407/http://web.engr.oregonstate.edu/~herlock/papers/eval_tois.pdf</a>.</p>
+</div>
+<div id="ref-bellkor_netflix">
+<p>Koren Y (2009) <em>The BellKor solution to the Netflix grand prize</em>. <a href="https://netflixprize.com/assets/GrandPrize2009_BPC_BellKor.pdf">https://netflixprize.com/assets/GrandPrize2009_BPC_BellKor.pdf</a>.</p>
+</div>
+<div id="ref-lu_etal">
+<p>Lü L, others (2012) Recommender systems. <em>Physics Reports</em> 519, 1–49. <a href="https://arxiv.org/pdf/1202.1112.pdf">https://arxiv.org/pdf/1202.1112.pdf</a>.</p>
+</div>
+<div id="ref-pragmatictheory_netflix">
+<p>Piotte M, Chabbert M (2009) <em>The Pragmatic Theory solution to the Netflix grand prize</em>. <a href="https://netflixprize.com/assets/GrandPrize2009_BPC_PragmaticTheory.pdf">https://netflixprize.com/assets/GrandPrize2009_BPC_PragmaticTheory.pdf</a>.</p>
+</div>
+<div id="ref-ricci_etal">
+<p>Ricci F, Rokach L, Shapira B, Kantor P (eds) (2011) <em>Recommender systems handbook</em>. Springer <a href="http://www.inf.unibz.it/~ricci/papers/intro-rec-sys-handbook.pdf">http://www.inf.unibz.it/~ricci/papers/intro-rec-sys-handbook.pdf</a>.</p>
+</div>
+<div id="ref-bigchaos_netflix">
+<p>Töscher A, Jahrer M, Bell RM (2009) <em>The BigChaos solution to the Netflix grand prize</em>. <a href="https://netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf">https://netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf</a>.</p>
 </div>
 </div>
             </section>
@@ -1152,7 +1284,7 @@ the R package <code>recommenderlab</code> (amongst others).</p>
         </div>
       </div>
 <a href="optimisation-with-genetic-algorithms.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="end.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="appendix-convention.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1168,9 +1300,9 @@ the R package <code>recommenderlab</code> (amongst others).</p>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
+"github": true,
+"facebook": false,
+"twitter": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
@@ -1203,20 +1335,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

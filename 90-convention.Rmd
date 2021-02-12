@@ -1,7 +1,16 @@
-# \} END {.unnumbered}
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
+<!-- Start appendix now: -->
+
+# (APPENDIX) Appendix {-}
+
+
+# Notation Convention  {#appendix:convention}
 
 
 #### Abbreviations  {.allowframebreaks .unnumbered}
@@ -309,8 +318,3 @@ $r(\boldsymbol{x},\boldsymbol{y})$ Pearson's $r$ -- linear correlation coefficie
 
 
 
-
-
-<!-- Start appendix now: -->
-
-# (APPENDIX) Appendix {-}

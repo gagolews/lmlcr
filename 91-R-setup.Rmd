@@ -1,6 +1,11 @@
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+
 # Setting Up the R Environment
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
 <!--

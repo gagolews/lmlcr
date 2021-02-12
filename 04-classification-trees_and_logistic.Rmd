@@ -1,6 +1,10 @@
-# Classification with Trees and Linear Models
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+# Classification with Trees and Linear Models
 
 
 ## Introduction
@@ -63,7 +67,7 @@ healthy | ill
 
 
 Let's recall the synthetic 2D dataset from the previous chapter
-(true decision boundary is at $X_1=0$), see Figure {@fig:synthetic}.
+(true decision boundary is at $X_1=0$), see Figure \@ref(fig:synthetic).
 
 
 ```{r synthetic,echo=FALSE,fig.cap="A synthetic 2D dataset with the true decision boundary at $X_1=0$"}
@@ -99,7 +103,7 @@ For illustration, we'll be considering the Wine Quality dataset
 
 ```{r load1,cache=TRUE}
 wines <- read.csv("datasets/winequality-all.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 wines <- wines[wines$color == "white",]
 (n <- nrow(wines)) # number of samples
 ```
@@ -294,7 +298,7 @@ rpart.plot(ts)
 ```
 
 
-Figure {@fig:plot_rpart2} depicts a very simple decision tree
+Figure \@ref(fig:plot-rpart2) depicts a very simple decision tree
 for the aforementioned synthetic dataset.
 There is only one decision boundary (based on $X_1$) that splits
 data into the "left" and "right" sides.
@@ -307,13 +311,13 @@ Each tree node reports 3 pieces of information:
 
 
 
-Figures {@fig:plot_rpart2} and {@fig:plot_rpart3} depict
+Figures \@ref(fig:plot-rpart2) and \@ref(fig:plot-rpart3) depict
 trees with more decision rules.
 Take a moment to contemplate how the corresponding decision boundaries
 changed with the introduction of new decision rules.
 
 
-```{r plot_rpart2,echo=FALSE,fig.cap="A more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries"}
+```{r plot-rpart2,echo=FALSE,fig.cap="A more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries"}
 cp <- 0.01
 ts <- rpart(Y~., data=XYs, method="class", cp=cp)
 par(mfrow=c(1,2))
@@ -326,7 +330,7 @@ rpart.plot(ts)
 
 
 
-```{r plot_rpart3,echo=FALSE,fig.cap="An even more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries"}
+```{r plot-rpart3,echo=FALSE,fig.cap="An even more complicated decision tree for the synthetic 2D dataset and the corresponding decision boundaries"}
 cp <- 0.001
 control <- list(minsplit=1, minbucket=5)
 ts <- rpart(Y~., data=XYs, method="class", cp=cp, control=control)
@@ -370,9 +374,9 @@ XY_test <- cbind(as.data.frame(X_test), Y=Y_test)
 
 
 
-Fit and plot a decision tree, see Figure {@fig:plot_rpart1}.
+Fit and plot a decision tree, see Figure \@ref(fig:plot-rpart1).
 
-```{r plot_rpart1,fig.height=5,echo=-(1:2),fig.cap="A decision tree for the `wines` dataset"}
+```{r plot-rpart1,fig.height=5,echo=-(1:2),fig.cap="A decision tree for the `wines` dataset"}
 par(mar=c(0,0,0,0))
 par(ann=FALSE)
 t1 <- rpart(Y~., data=XY_train, method="class")
@@ -381,10 +385,10 @@ rpart.plot(t1, tweak=1.1, fallen.leaves=FALSE, digits=3)
 
 
 We can build  less or more complex trees by playing
-with the `cp` parameter, see Figures {@fig:plot_rpart222}
-and {@fig:tree333}.
+with the `cp` parameter, see Figures \@ref(fig:plot-rpart222)
+and \@ref(fig:tree333).
 
-```{r plot_rpart222,echo=-(1:2),fig.cap="A (simpler) decision tree for the `wines` dataset"}
+```{r plot-rpart222,echo=-(1:2),fig.cap="A (simpler) decision tree for the `wines` dataset"}
 par(mar=c(0,0,0,0))
 par(ann=FALSE)
 # cp = complexity parameter, smaller → more complex tree
@@ -588,7 +592,7 @@ Remark.
 
 : (\*) The threshold $T=0.5$  could even be treated as a free parameter
 we optimise for (w.r.t. different metrics over the validation sample),
-see Figure {@fig:lm3b}.
+see Figure \@ref(fig:lm3b).
 
 ```{r lm3b,echo=FALSE,cache=TRUE,dependson='lm3',cache=TRUE,fig.cap="Quality metrics for a binary classifier \"Classify X as 1 if $f(X)>T$ and as 0 if $f(X)\\le T$\""}
 set.seed(123)
@@ -646,7 +650,7 @@ and $\boldsymbol\beta$".
 
 
 A popular choice is the **logistic sigmoid function**,
-see Figure {@fig:sigmoid}:
+see Figure \@ref(fig:sigmoid):
 
 \[
 \phi(t) = \frac{1}{1+e^{-t}} = \frac{e^t}{1+e^t}.
@@ -697,7 +701,7 @@ The fitted coefficients are equal to:
 f$coefficients
 ```
 
-Figure {@fig:glm2} depicts the obtained model, which can be written
+Figure \@ref(fig:glm2) depicts the obtained model, which can be written
 as:
 \[
 \Pr(Y=1|x)=\displaystyle\frac{1}{1+e^{-\left(
@@ -948,7 +952,7 @@ First, let's load the dataset:
 
 ```{r edstats_wide_1}
 edstats_2019 <- read.csv("datasets/edstats_2019.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 head(edstats_2019)
 ```
 
@@ -1007,8 +1011,7 @@ the `pivot_wider()` function from the `tidyr` package
 ```{r edstats_wide_5}
 library("tidyr")
 edstats <- as.data.frame(
-    pivot_wider(edstats_2019, names_from="Code", values_from="Value"),
-    stringsAsFactors=FALSE
+    pivot_wider(edstats_2019, names_from="Code", values_from="Value")
 )
 edstats[1, 1:7]
 ```
@@ -1061,7 +1064,7 @@ edstats2 <- cbind(
             byrow=TRUE,
             ncol=length(indicators),
             dimnames=list(NULL, indicators)
-    )), stringsAsFactors=FALSE)
+    )))
 identical(edstats, edstats2)
 ```
 
@@ -1100,7 +1103,7 @@ EdStats indicators.
 First, let's load the dataset:
 
 ```{r edstats_wide_10}
-meta <- read.csv("datasets/edstats_meta.csv", stringsAsFactors=FALSE)
+meta <- read.csv("datasets/edstats_meta.csv")
 names(meta) # column names
 ```
 
@@ -1134,10 +1137,9 @@ dataset:
 
 ```{r girlsboys1}
 edstats <- read.csv("datasets/edstats_2019_wide.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 edstats[1, 1:6]
-meta <- read.csv("datasets/edstats_meta.csv",
-    stringsAsFactors=FALSE)
+meta <- read.csv("datasets/edstats_meta.csv")
 ```
 
 
@@ -1221,7 +1223,7 @@ edstats_subset <- edstats[!(names(edstats) %in%
     c("CountryName", "LO.PISA.MAT.FE", "LO.PISA.MAT.MA"))]
 ```
 
-Fitting and plotting (see Figure {@fig:girlsboys7tree})
+Fitting and plotting (see Figure \@ref(fig:girlsboys7tree))
 of the tree can be performed as follows:
 
 ```{r girlsboys7tree,echo=-(1:2),fig.cap="A decision tree explaining the `girls_rule_maths` variable"}
@@ -1296,7 +1298,7 @@ edstats_subset <- edstats[!(names(edstats) %in%
 On a side note, this could be done more easily by calling, e.g.,
 `stri_startswith_fixed(names(edstats), "LO.PISA")` from the `stringi` package.
 
-Fitting and plotting (see Figure {@fig:girlsboys11tree}) of the tree:
+Fitting and plotting (see Figure \@ref(fig:girlsboys11tree)) of the tree:
 
 ```{r girlsboys11tree,echo=-1,fig.cap="Another decision tree explaining the `girls_rule_maths` variable"}
 par(ann=FALSE)
@@ -1336,9 +1338,9 @@ World Bank's EdStats.
 
 ```{r joinedstats1}
 factbook <- read.csv("datasets/world_factbook_2020.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 edstats <- read.csv("datasets/edstats_2019_wide.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 ```
 
 Let's combine the information they provide
@@ -1461,7 +1463,7 @@ edbook_subset <- edbook[!(names(edbook) %in%
     c("CountryName", "LO.PISA.MAT.FE", "LO.PISA.MAT.MA"))]
 ```
 
-Fitting and plotting (see Figure {@fig:joinedstats9}):
+Fitting and plotting (see Figure \@ref(fig:joinedstats9)):
 
 ```{r joinedstats9,echo=-1,fig.cap="Yet another decision tree explaining the `girls_rule_maths` variable"}
 par(ann=FALSE)
@@ -1514,7 +1516,7 @@ dataset again:
 
 ```{r edstatslogi1}
 edstats <- read.csv("datasets/edstats_2019_wide.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 ```
 
 Let's re-add the `girls_rule_maths` column
@@ -1677,7 +1679,7 @@ Back to our `girls_rule_maths` example, we still  have so much to learn!
 
 ```{r edstatsvarsel1}
 edstats <- read.csv("datasets/edstats_2019_wide.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 edstats$girls_rule_maths <-
     factor(as.numeric(
         edstats$LO.PISA.MAT.FE>edstats$LO.PISA.MAT.MA

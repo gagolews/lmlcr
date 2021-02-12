@@ -1,6 +1,11 @@
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+
 # Clustering
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
 
@@ -26,7 +31,7 @@ Exercise: implement MDS with optim?
 
 In **unsupervised learning** (learning without a teacher),
 the input data points $\mathbf{x}_{1,\cdot},\dots,\mathbf{x}_{n,\cdot}$
-are not assigned any reference labels (compare Figure {@fig:unsupervised}).
+are not assigned any reference labels (compare Figure \@ref(fig:unsupervised)).
 
 
 
@@ -59,13 +64,13 @@ space (think: many variables/columns).
 
 ```{r princomp,echo=FALSE,fig.cap="Principal component analysis (a dimensionality reduction technique) applied on three features of red wines",fig.height=6}
 wines <- read.csv("datasets/winequality-all.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 wines <- wines[wines$color=='red',]
 p <- princomp(wines[,c(11, 4, 12)])
 biplot(p, col=c("#ff000033",1), pch=1, xlim=c(-0.05, 0.23), main=NA)
 ```
 
-For instance, Figure {@fig:princomp} reveals that the
+For instance, Figure \@ref(fig:princomp) reveals that the
 "alcohol", "response" and "residual.sugar" dimensions of the Wine Quality
 dataset that we have studied earlier on can actually be nicely depicted (with
 no much loss of information) on a two-dimensional plot.
@@ -102,13 +107,13 @@ points(iris[idx,3], iris[idx,2], cex=3, pch=4, col=2)
 . . .
 
 Finally, the aim of **clustering** is to automatically discover some *naturally occurring*
-subgroups in the data set, compare Figure {@fig:clustering_illustration}.
+subgroups in the data set, compare Figure \@ref(fig:clustering-illustration).
 For example, these may be customers having different shopping patterns
 (such as "young parents", "students", "boomers").
 
 
 
-```{r clustering_illustration,echo=FALSE,cache=TRUE,fig.cap="NEWS FLASH! SCIENTISTS SHOWED (by writing about it) THAT SOME VERY IMPORTANT THING (Iris dataset) COMES IN THREE DIFFERENT FLAVOURS (by applying the 3-means clustering algorithm)!"}
+```{r clustering-illustration,echo=FALSE,cache=TRUE,fig.cap="NEWS FLASH! SCIENTISTS SHOWED (by writing about it) THAT SOME VERY IMPORTANT THING (Iris dataset) COMES IN THREE DIFFERENT FLAVOURS (by applying the 3-means clustering algorithm)!"}
 km <- kmeans(iris[,c(3,2)], centers=3, nstart=10)
 plot(iris[,3], iris[,2], ann=FALSE,
     col=km$cluster, pch=km$cluster)
@@ -262,13 +267,13 @@ Let's draw a scatter plot that depicts the detected clusters:
 plot(X, col=km$cluster)
 ```
 
-The colours in Figure {@fig:kmeans12} indicate the detected clusters.
+The colours in Figure \@ref(fig:kmeans12) indicate the detected clusters.
 The left group is clearly well-separated from the other two.
 
 
 What can we do with this information? Well, if we were experts on plants
 (in the 1930s), that'd definitely be something ground-breaking.
-Figure {@fig:kmeans123} is a version of the aforementioned scatter plot
+Figure \@ref(fig:kmeans123) is a version of the aforementioned scatter plot
 now with the true iris species added.
 
 ```{r kmeans123, fig.cap="3-means clustering (colours) vs true Iris species (shapes)"}
@@ -357,9 +362,9 @@ $k$ that minimises the given expression.
 
 
 In the previous example, the three identified cluster centres in $\mathbb{R}^2$
-are given by (see Figure {@fig:kmeans_problem1} for illustration):
+are given by (see Figure \@ref(fig:kmeans-problem1) for illustration):
 
-```{r kmeans_problem1,fig.cap="Cluster centres (blue dots) identified by the 3-means algorithm"}
+```{r kmeans-problem1,fig.cap="Cluster centres (blue dots) identified by the 3-means algorithm"}
 km$centers
 plot(X, col=km$cluster, asp=1) # asp=1 gives the same scale on both axes
 points(km$centers, cex=2, col=4, pch=16)
@@ -369,11 +374,11 @@ points(km$centers, cex=2, col=4, pch=16)
 
 
 
-Figure {@fig:kmeans_problem2} depicts the partition
+Figure \@ref(fig:kmeans-problem2) depicts the partition
 of the whole $\mathbb{R}^2$ space
 into clusters based on the closeness to the three cluster centres.
 
-```{r kmeans_problem2,echo=FALSE,fig.cap="The division of the whole space into three sets based on the proximity to cluster centres (a so-called Voronoi diagram)"}
+```{r kmeans-problem2,echo=FALSE,fig.cap="The division of the whole space into three sets based on the proximity to cluster centres (a so-called Voronoi diagram)"}
 x <- seq(0, 8, length.out=250)
 y <- seq(1.0, 5.1, length.out=250)
 z <- matrix(NA_real_, length(x), length(y))
@@ -608,7 +613,7 @@ with a similar look-and-feel as the original `kmeans()`.
 
 
 
-```{r kmeanimpl_plot,echo=FALSE,warning=FALSE,fig.cap="The arrows denote the cluster centres in each iteration of the Lloyd algorithm"}
+```{r kmeanimpl-plot,echo=FALSE,warning=FALSE,fig.cap="The arrows denote the cluster centres in each iteration of the Lloyd algorithm"}
 set.seed(12345)
 K <- 3
 M <- jitter(X[sample(1:nrow(X), K),])
@@ -640,7 +645,7 @@ repeat {
 
 On a side note, our algorithm needed ```r {it}```
 iterations to identify the (locally optimal) cluster centres.
-Figure {@fig:kmeanimpl_plot} depicts its quest for the clustering grail.
+Figure \@ref(fig:kmeanimpl-plot) depicts its quest for the clustering grail.
 
 
 <!--
@@ -675,10 +680,10 @@ the case)?
 
 Also, the problem with K-means is that there is no guarantee that a
 $K$-partition is any "similar" to the $K'$-one for $K\neq K'$,
-see Figure {@fig:kmeans_different_K}.
+see Figure \@ref(fig:kmeans-different-K).
 
 
-```{r kmeans_different_K,fig.cap="3-means (colours) vs. 4-means (symbols) on example data; the \"circle\" cluster cannot decide if it likes the green or the black one more"}
+```{r kmeans-different-K,fig.cap="3-means (colours) vs. 4-means (symbols) on example data; the \"circle\" cluster cannot decide if it likes the green or the black one more"}
 km1 <- kmeans(X, 3, nstart=10)
 km2 <- kmeans(X, 4, nstart=10)
 plot(X, col=km1$cluster, pch=km2$cluster, asp=1)
@@ -729,7 +734,7 @@ Remark.
 Don't try calling `dist()` on large data matrices.
 Already $n=100{,}000$ points consumes 40 GB of available memory
 (assuming that each distance is stored as an 8-byte double-precision floating
-point number); packages `fastcluster` and `genie`, among other,
+point number); packages `fastcluster` and `genieclust`, among other,
 aim to solve this problem.
 
 <!--
@@ -747,7 +752,7 @@ cutree(h, k=3) # extract the 3-partition
 
 
 The cuts of the hierarchy at different levels
-are depicted in Figure {@fig:complete_linkage_hier5_intro}.
+are depicted in Figure \@ref(fig:complete-linkage-hier5-intro).
 The obtained 3-partition also matches the true Iris species quite well.
 However, now it makes total sense to "zoom" our partitioning in or out
 and investigate how are the subgroups decomposed or aggregated when we change
@@ -755,7 +760,7 @@ $K$.
 
 
 
-```{r complete_linkage_hier5_intro,fig.height=6,fig.cap="Complete linkage -- 4 different cuts"}
+```{r complete-linkage-hier5-intro,fig.height=6,fig.cap="Complete linkage -- 4 different cuts"}
 par(mfrow=c(2,2))
 plot(X, col=cutree(h, k=5), ann=FALSE)
 legend("top", legend="k=5", bg="white")
@@ -849,7 +854,7 @@ choices of $d^*$ (which in the context of hierarchical clustering we call
 
 
 An illustration of the way different linkages are computed
-is given in Figure {@fig:linkages}.
+is given in Figure \@ref(fig:linkages).
 
 ```{r linkages,echo=FALSE,fig.cap="In single linkage, we find the closest pair of points; in complete linkage, we seek the pair furthest away from each other; in average linkage, we determine the arithmetic mean of all pairwise distances"}
 set.seed(123)
@@ -923,11 +928,11 @@ hc <- hclust(D, method="complete")
 ha <- hclust(D, method="average")
 ```
 
-Figure {@fig:linkages_hier52} compares the 5-, 4- and 3-partitions
+Figure \@ref(fig:linkages-hier52) compares the 5-, 4- and 3-partitions
 obtained by applying the 3 above linkages. Note that it's in very nature of
 the single linkage algorithm that it's highly sensitive to outliers.
 
-```{r linkages_hier52,fig.height=6,fig.cap="3 cuts of 3 different hierarchies",echo=FALSE}
+```{r linkages-hier52,fig.height=6,fig.cap="3 cuts of 3 different hierarchies",echo=FALSE}
 #par(c(1,1,0.5,0.5))
 par(mfrow=c(3,3))
 for (k in 5:3) {
@@ -955,7 +960,7 @@ of the agglomerative procedure.
 This can provide us with some insight into the underlying data structure
 as well as with hits about at which level the tree could be cut.
 
-Figure {@fig:dendrograms} depicts the three dendrograms
+Figure \@ref(fig:dendrograms) depicts the three dendrograms
 that correspond to the clusterings  obtained by applying different linkages.
 Each tree has 150 leaves (at the bottom) that represent the 150 points
 in our example dataset. Each "edge" (joint) represents a group of points
@@ -996,7 +1001,7 @@ based on the information contained in the World Factbook dataset:
 
 ```{r clustering_factbook1}
 factbook <- read.csv("datasets/world_factbook_2020.csv",
-    comment.char="#", stringsAsFactors=FALSE)
+    comment.char="#")
 ```
 
 
@@ -1118,10 +1123,10 @@ h <- hclust(d, method="complete")
 
 
 A "nice" number of clusters to divide our dataset into
-can be read from the dendrogram, see Figure {@fig:clustering_factbook7}.
+can be read from the dendrogram, see Figure \@ref(fig:clustering-factbook7).
 
 
-```{r clustering_factbook7,fig.cap="Cluster dendrogram for the World Factbook dataset -- Complete linkage"}
+```{r clustering-factbook7,fig.cap="Cluster dendrogram for the World Factbook dataset -- Complete linkage"}
 plot(h, labels=FALSE, ann=FALSE); box()
 ```
 
@@ -1150,18 +1155,19 @@ Apply the Genie  clustering algorithm.
 { BEGIN solution }
 
 The Genie algorithm [@genie] is a hierarchical clustering algorithm
-implemented in R package `genie`. It's interface is compatible with `hclust()`.
+implemented in R package [`genieclust`](https://genieclust.gagolewski.com/).
+It's interface is compatible with `hclust()`.
 
 ```{r clustering_factbook9}
-library("genie")
+library("genieclust")
 d <- dist(factbook[-1])
-g <- hclust2(d)
+g <- gclust(d)
 ```
 
-The cluster dendrogram in Figure {@fig:clustering_factbook10}
+The cluster dendrogram in Figure \@ref(fig:clustering-factbook10)
 reveals  3 evident clusters.
 
-```{r clustering_factbook10,fig.cap="Cluster dendrogram for the World Factbook dataset -- Genie algorithm"}
+```{r clustering-factbook10,fig.cap="Cluster dendrogram for the World Factbook dataset -- Genie algorithm"}
 plot(g, labels=FALSE, ann=FALSE); box()
 ```
 
@@ -1182,14 +1188,13 @@ sapply(split(factbook$countr, y), sample, 6)
 
 We can draw the countries in each cluster
 on a map by using the `rworldmap` package (see its documentation for more details),
-see Figure {@fig:clustering_factbook12}.
+see Figure \@ref(fig:clustering-factbook12).
 
-```{r clustering_factbook12,fig.cap="3 clusters discovered by the Genie algorithm",cache=TRUE,message=FALSE,warnings=FALSE,echo=-1}
+```{r clustering-factbook12,fig.cap="3 clusters discovered by the Genie algorithm",cache=TRUE,message=FALSE,warnings=FALSE,echo=-1}
 par(ann=FALSE)
 library("rworldmap")
 library("RColorBrewer")
-mapdata <- data.frame(country=factbook$country, cluster=y,
-    stringsAsFactors=FALSE)
+mapdata <- data.frame(country=factbook$country, cluster=y)
 # 3 country names must be adjusted to get a match
 mapdata$country[mapdata$country == "Czechia"] <- "Czech Republic"
 mapdata$country[mapdata$country == "Eswatini"] <- "Swaziland"
@@ -1235,8 +1240,7 @@ proposed in [@external_cluster_validity]:
 
 ```{r sipu_unbalance1}
 unbalance <- as.matrix(read.csv("datasets/sipu_unbalance.csv",
-    header=FALSE, sep=" ", comment.char="#",
-    stringsAsFactors=FALSE))
+    header=FALSE, sep=" ", comment.char="#"))
 unbalance <- unbalance/10000-30 # a more user-friendly scale
 ```
 
@@ -1258,9 +1262,9 @@ Apply the K-means algorithm with $K=8$.
 
 Of course, here by "the" K-means we mean the default method
 available in the `kmeans()` function.
-The clustering results are depicted in Figure {@fig:sipu_unbalance3a}.
+The clustering results are depicted in Figure \@ref(fig:sipu-unbalance3a).
 
-```{r sipu_unbalance3a,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset",cache=TRUE}
+```{r sipu-unbalance3a,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset",cache=TRUE}
 set.seed(123)
 km <- kmeans(unbalance, 8, nstart=10)
 plot(unbalance, asp=1, col=km$cluster)
@@ -1276,9 +1280,9 @@ km$tot.withinss
 
 Increasing the number of restarts even further improves the solution,
 but the local minimum is still far from the global one,
-compare Figure {@fig:sipu_unbalance3b}.
+compare Figure \@ref(fig:sipu-unbalance3b).
 
-```{r sipu_unbalance3b,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset -- many more restarts",cache=TRUE}
+```{r sipu-unbalance3b,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset -- many more restarts",cache=TRUE}
 set.seed(1234)
 km <- suppressWarnings(kmeans(unbalance, 8, nstart=1000, iter.max=1000))
 plot(unbalance, asp=1, col=km$cluster)
@@ -1319,9 +1323,9 @@ cntr <- matrix(ncol=2, byrow=TRUE, c(
     25,   10))
 ```
 
-Running `kmeans()` yields the clustering depicted in Figure {@fig:sipu_unbalance6}.
+Running `kmeans()` yields the clustering depicted in Figure \@ref(fig:sipu-unbalance6).
 
-```{r sipu_unbalance6,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset -- an educated guess on the cluster centres' locations",cache=TRUE}
+```{r sipu-unbalance6,echo=-1,fig.cap="Results of K-means on the `sipu_unbalance` dataset -- an educated guess on the cluster centres' locations",cache=TRUE}
 set.seed(123)
 km <- kmeans(unbalance, cntr)
 plot(unbalance, asp=1, col=km$cluster)
@@ -1401,8 +1405,7 @@ and will draw all the figures for a single dataset:
 ```{r clustering_benchmarks2,dependson="clustering_benchmarks1",cache=TRUE}
 clusterise <- function(file, K) {
     X <- read.csv(file,
-        header=FALSE, sep=" ", comment.char="#",
-        stringsAsFactors=FALSE)
+        header=FALSE, sep=" ", comment.char="#")
     d <- dist(X)
     par(mfrow=c(2, 3))
     par(mar=c(0.5, 0.5, 2, 0.5))
@@ -1423,11 +1426,11 @@ clusterise <- function(file, K) {
     plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
     mtext("Single Linkage", line=0.5)
 
-    y <- cutree(genie::hclust2(d), K) # thresholdGini=0.3
+    y <- cutree(genieclust::gclust(d), K) # gini_threshold=0.3
     plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
     mtext("Genie (default)", line=0.5)
 
-    y <- cutree(genie::hclust2(d, thresholdGini=0.5), K)
+    y <- cutree(genieclust::gclust(d, gini_threshold=0.5), K)
     plot(X, asp=1, col=y, ann=FALSE, axes=FALSE)
     mtext("Genie (g=0.5)", line=0.5)
 }
@@ -1435,29 +1438,29 @@ clusterise <- function(file, K) {
 
 
 Applying the above as `clusterise(files[i], Ks[i])` yields
-Figures {@fig:clustering_benchmarks_plot1}-{@fig:clustering_benchmarks_plot6}.
+Figures \@ref(fig:clustering-benchmarks-plot1)-\@ref(fig:clustering-benchmarks-plot6).
 
-```{r clustering_benchmarks_plot1,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_isolation` dataset"}
+```{r clustering-benchmarks-plot1,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_isolation` dataset"}
 suppressWarnings(clusterise(files[1], Ks[1]))
 ```
 
-```{r clustering_benchmarks_plot2,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_mk2` dataset"}
+```{r clustering-benchmarks-plot2,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_mk2` dataset"}
 suppressWarnings(clusterise(files[2], Ks[2]))
 ```
 
-```{r clustering_benchmarks_plot3,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_z3` dataset"}
+```{r clustering-benchmarks-plot3,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `wut_z3` dataset"}
 suppressWarnings(clusterise(files[3], Ks[3]))
 ```
 
-```{r clustering_benchmarks_plot4,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_aggregation` dataset"}
+```{r clustering-benchmarks-plot4,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_aggregation` dataset"}
 suppressWarnings(clusterise(files[4], Ks[4]))
 ```
 
-```{r clustering_benchmarks_plot5,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_pathbased` dataset"}
+```{r clustering-benchmarks-plot5,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_pathbased` dataset"}
 suppressWarnings(clusterise(files[5], Ks[5]))
 ```
 
-```{r clustering_benchmarks_plot6,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_unbalance` dataset"}
+```{r clustering-benchmarks-plot6,dependson="clustering_benchmarks2",cache=TRUE,echo=FALSE,fig.height=4,fig.cap="Clustering of the `sipu_unbalance` dataset"}
 suppressWarnings(clusterise(files[6], Ks[6]))
 ```
 
@@ -1547,13 +1550,13 @@ Remark.
 : Note that the `fastcluster` package provides a more efficient
 and memory-saving
 implementation of some methods available via a call to `hclust()`.
-See also the `genie` package for a super-robust version of the single linkage
+See also the `genieclust` package for a super-robust version of the single linkage
 algorithm based on the datasets's Euclidean minimum spanning tree,
 which can be computed quite quickly.
 
 ```{r eval=FALSE,echo=FALSE}
 library("fastcluster")
-library("genie")
+library("genieclust")
 ```
 
 
@@ -1578,7 +1581,7 @@ Other: [@esl: Section 14.3]
 
 Additionally, check out other noteworthy clustering approaches:
 
-- Genie (see R package `genie`) [@genie; @genieowa]
+- Genie (see R package `genieclust`) [@genie; @genieowa]
 - ITM [@itm]
 - DBSCAN, HDBSCAN* [@pre_dbscan; @dbscan; @hdbscan]
 - K-medoids, K-medians

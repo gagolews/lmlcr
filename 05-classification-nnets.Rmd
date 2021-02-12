@@ -1,6 +1,11 @@
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
+
 # Shallow and Deep Neural Networks
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
 
 
 
@@ -168,9 +173,9 @@ It consists of 28×28 pixel images of handwritten digits:
 
 
 A few image instances from each class are depicted in
-Figure {@fig:mnist_demo}.
+Figure \@ref(fig:mnist-demo).
 
-```{r mnist_demo,cache=TRUE,echo=FALSE,fig.height=3,fig.cap="Example images in the MNIST database"}
+```{r mnist-demo,cache=TRUE,echo=FALSE,fig.height=3,fig.cap="Example images in the MNIST database"}
 library("keras")
 mnist <- dataset_mnist()
 par(mar=c(0,0,0,0))
@@ -281,10 +286,10 @@ table(Y_test)  # label distribution in the test sample
 ```
 
 
-Here is how we can plot one of the digits (see Figure {@fig:mnist_info2b}):
+Here is how we can plot one of the digits (see Figure \@ref(fig:mnist-info2b)):
 
 
-```{r mnist_info2b,cache=TRUE,echo=-(1:2),fig.cap="Example image from the MNIST dataset"}
+```{r mnist-info2b,cache=TRUE,echo=-(1:2),fig.cap="Example image from the MNIST dataset"}
 par(mar=c(0,0,0,0))
 par(ann=FALSE)
 id <- 123 # image ID to show
@@ -596,9 +601,9 @@ E(\mathbf{B}) =
 \]
 The smaller the probability corresponding to the ground-truth class
 outputted by the classifier, the higher the penalty, see
-Figure {@fig:cross_entropy_revisited_example3}.
+Figure \@ref(fig:cross-entropy-revisited-example3).
 
-```{r cross_entropy_revisited_example3,echo=FALSE,fig.cap="The less the classifier is confident about the prediction of the actually true label, the greater the penalty"}
+```{r cross-entropy-revisited-example3,echo=FALSE,fig.cap="The less the classifier is confident about the prediction of the actually true label, the greater the penalty"}
 x <- seq(0.1, 1, length.out=101)
 y <- -log(x)
 plot(x, y, xlab="probability outputted by the classifier",
@@ -758,21 +763,21 @@ will be discussed in the next chapter.
 
 
 A neuron can be thought of as a mathematical function,
-see Figure {@fig:neuron}, which has its specific inputs
+see Figure \@ref(fig:neuron), which has its specific inputs
 and an output.
 
-![Neuron as a mathematical (black box) function; image based on: https://en.wikipedia.org/wiki/File:Neuron3.png by Egm4313.s12 at English Wikipedia, licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuron){#fig:neuron width="50%"}
+![(\#fig:neuron) Neuron as a mathematical (black box) function; image based on: https://en.wikipedia.org/wiki/File:Neuron3.png by Egm4313.s12 at English Wikipedia, licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license](figures/neuron)
 
 The Linear Threshold Unit (McCulloch and Pitts, 1940s),
 the Perceptron (Rosenblatt, 1958) and the Adaptive Linear Neuron
 (Widrow and Hoff, 1960) were amongst the first
 models of an artificial neuron that could be used
-for the purpose of pattern recognition, see Figure {@fig:perceptron}.
+for the purpose of pattern recognition, see Figure \@ref(fig:perceptron).
 They can be thought of as processing units that compute
 a weighted sum of the inputs,
 which is then transformed by means of a nonlinear "activation" function.
 
-![A simple model of an artificial neuron](figures/perceptron){#fig:perceptron width="72%"}
+![(\#fig:perceptron) A simple model of an artificial neuron](figures/perceptron)
 
 
 
@@ -783,16 +788,16 @@ which is then transformed by means of a nonlinear "activation" function.
 The above resembles our binary logistic regression model,
 where we determine a linear combination (a weighted sum) of $p$ inputs
 and then transform it using the logistic sigmoid "activation" function.
-We can easily depict it in the Figure {@fig:neuron}-style,
-see Figure {@fig:logistic_regression_binary}.
+We can easily depict it in the Figure \@ref(fig:neuron)-style,
+see Figure \@ref(fig:logistic-regression-binary).
 
 
-![Binary logistic regression](figures/logistic_regression_binary){#fig:logistic_regression_binary width="75%"}
+![(\#fig:logistic-regression-binary) Binary logistic regression](figures/logistic_regression_binary)
 
 
 
 On the other hand, a multiclass logistic regression can be depicted as
-in Figure {@fig:logistic_regression_multiclass}.
+in Figure \@ref(fig:logistic-regression-multiclass).
 In fact, we can consider it as an instance of a:
 
 - **single layer** (there is only one processing step that consists of 10 units),
@@ -802,7 +807,7 @@ In fact, we can consider it as an instance of a:
 *artificial* **neural network**
 that uses the softmax as the activation function.
 
-![Multinomial logistic regression](figures/logistic_regression_multiclass){#fig:logistic_regression_multiclass width="75%"}
+![(\#fig:logistic-regression-multiclass) Multinomial logistic regression](figures/logistic_regression_multiclass)
 
 
 ### Example in R
@@ -901,7 +906,7 @@ mean(Y_test == Y_pred)
 
 
 
-Performance metrics for each digit separately (see also Figure {@fig:logistic6}):
+Performance metrics for each digit separately (see also Figure \@ref(fig:logistic6)):
 
 ```{r logistic4,cache=TRUE,dependson='logistic3',echo=FALSE}
 res_logistic <- data.frame(t(sapply(0:9, function(i) {
@@ -943,9 +948,9 @@ plot_metrics_digits(res_logistic, mean(Y_test == Y_pred), "Multinomial Logistic 
 
 In a brain, a neuron's output is an input a bunch of other neurons.
 We could try aligning neurons into many interconnected layers.
-This leads to a structure like the one in Figure {@fig:nnet}.
+This leads to a structure like the one in Figure \@ref(fig:nnet).
 
-![A multi-layer neural network](figures/nnet){#fig:nnet width="75%"}
+![(\#fig:nnet) A multi-layer neural network](figures/nnet)
 
 
 
@@ -1017,7 +1022,7 @@ mean(Y_test == Y_pred) # accuracy on the test set
 
 
 Performance metrics for each digit separately,
-see also Figure {@fig:deep23}:
+see also Figure \@ref(fig:deep23):
 
 ```{r deep22,cache=TRUE,dependson='deep21',echo=FALSE}
 res_2 <- data.frame(t(sapply(0:9, function(i) {
@@ -1071,7 +1076,7 @@ mean(Y_test == Y_pred) # accuracy on the test set
 
 
 Performance metrics for each digit separately,
-see also Figure {@fig:deep63}.
+see also Figure \@ref(fig:deep63).
 
 ```{r deep62,cache=TRUE,dependson='deep61',echo=FALSE}
 res_6 <- data.frame(t(sapply(0:9, function(i) {
@@ -1172,7 +1177,7 @@ for (i in 0:9) {
 }
 ```
 
-Let's take a look at Figure {@fig:deskew2}.
+Let's take a look at Figure \@ref(fig:deskew2).
 In each pair, the left image (black background) is the original one,
 and the right image (palette inverted for purely dramatic effects)
 is its deskewed version.
@@ -1244,7 +1249,7 @@ mean(Y_test == Y_pred) # accuracy on the test set
 
 
 Performance metrics for each digit separately,
-see also Figure {@fig:deskew6}.
+see also Figure \@ref(fig:deskew6).
 
 ```{r deskew5,cache=TRUE,dependson='deskew4',echo=FALSE}
 res_logistic_deskewed <- data.frame(t(sapply(0:9, function(i) {
@@ -1321,7 +1326,7 @@ res_6_deskewed <- data.frame(t(sapply(0:9, function(i) {
 
 
 Let's summarise the quality of all the considered classifiers.
-Figure {@fig:globalsum} gives the F-measures, for each digit
+Figure \@ref(fig:globalsum) gives the F-measures, for each digit
 separately.
 
 ```{r globalsum,cache=TRUE,dependson=c('deep_deskew','deskew6','deep63','deep23','logistic6'),echo=FALSE,fig.cap="Summary of F-measures for each classified digit and every method"}
@@ -1353,7 +1358,7 @@ the prediction accuracy.
 
 
 The same information can also be included on a heat map
-which is depicted in Figure {@fig:globalsum2}
+which is depicted in Figure \@ref(fig:globalsum2)
 (see the `image()` function in R).
 
 ```{r globalsum2,cache=TRUE,dependson='globalsum',echo=FALSE,fig.cap="A heat map of F-measures for each classified digit and each method"}

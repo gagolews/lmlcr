@@ -1,6 +1,10 @@
-# Matrix Algebra in R
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
+# Matrix Algebra in R
 
 
 Vectors are one-dimensional objects -- they represent "flat" sequences of values.
@@ -477,9 +481,9 @@ round(1/A, 2) # rounds every element in 1/A
 
 
 An example plot of the absolute values of sine and cosine functions
-depicted using the `matplot()` function (see Figure {@fig:matplot_sincos}).
+depicted using the `matplot()` function (see Figure \@ref(fig:matplot-sincos)).
 
-```{r matplot_sincos,fig.cap="Example plot with `matplot()`"}
+```{r matplot-sincos,fig.cap="Example plot with `matplot()`"}
 x <- seq(-2*pi, 6*pi, by=pi/100)
 Y <- cbind(sin(x), cos(x)) # a matrix with two columns
 Y <- abs(Y) # take the absolute value of every element in Y

@@ -1,18 +1,23 @@
-# BEGIN \{  {.unnumbered}
+<!--
+kate: indent-width 4; word-wrap-column 74; default-dictionary en_AU
+Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
+This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
+-->
 
-<!-- (C) 2020 Marek Gagolewski, https://www.gagolewski.com -->
-
-
-> **This is a draft version (distributed in the hope that it will be useful)
-of the book *Lightweight Machine Learning Classics with R*
-by [Marek Gagolewski](https://www.gagolewski.com).**
-
-> **Please submit any feature requests, remarks and bug fixes
-via the project site at [github](https://github.com/gagolews/lmlcr/issues)
-or by [email](https://www.gagolewski.com). Thanks!**
+# Preface  {.unnumbered}
 
 
-Copyright (C) 2020, [Marek Gagolewski](https://www.gagolewski.com).
+
+> This is a slightly older version of the forthcoming textbook (ETA 2022)
+preliminarily entitled *Machine Learning in R from Scratch*
+by [Marek Gagolewski](https://www.gagolewski.com), which is now undergoing
+a major revision (when I am not busy with other projects).
+What you see here is still quite readable, though.
+I will share a new draft once it's ripe. Stay tuned.
+
+
+Copyright (C) 2020-2021, [Marek Gagolewski](https://www.gagolewski.com).
+
 This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 License (CC BY-NC-ND 4.0).
@@ -34,14 +39,14 @@ You can access this book at:
 Machine learning has numerous exciting real-world applications,
 including stock market prediction, speech recognition,
 computer-aided medical diagnosis, content and product recommendation,
-anomaly detection in security camera footages, game playing,
-autonomous vehicle operation and many others.
+anomaly detection in security camera footage, game playing,
+autonomous vehicle operation, and many others.
 
 In this book we will take an unpretentious glance at the most fundamental
 algorithms that have stood the test of time and which  form
 the basis for state-of-the-art solutions of modern AI,
 which is principally (big) data-driven.
-We will learn how to use the R language [@rpoject]
+We will learn how to use the R language [@rproject]
 for implementing various stages
 of data processing and modelling activities.
 For a more in-depth treatment of R, refer to this book's Appendices
@@ -49,7 +54,7 @@ and, for instance, [@Rintro; @rprogdatascience; @r4ds].
 
 These pages contain solid underpinnings for further studies
 related to statistical learning, machine learning
-data science, data analytics and artificial intelligence,
+data science, data analytics, and artificial intelligence,
 including [@islr; @esl; @bishop].
 We will also appreciate the vital role of mathematics as a universal
 language for formalising data-intense problems and communicating their
@@ -110,30 +115,40 @@ to recommend you that ad or product
 
 
 
-#### About Me  {.unnumbered}
+#### About the Author  {.unnumbered}
 
+[Marek Gagolewski](https://www.gagolewski.com)
+(pronounced like Mark Gaggle-Eve-Ski)
+is currently a Senior Lecturer in Applied
+AI at Deakin University in Melbourne, VIC, Australia
+and an Associate Professor in Data Science (on long-term leave)
+at Faculty of Mathematics and Information Science, Warsaw University
+of Technology, Poland.
 
-I'm currently a Senior Lecturer (equivalent to Associate Professor in the US)
-in Applied AI at Deakin University in Melbourne, VIC, Australia
-and an Associate Professor in Data Science at Warsaw University of Technology,
-Poland. My main passion is in research -- my primary interests include
-machine learning and optimisation algorithms, data aggregation and clustering,
-statistical modelling and scientific computing.
-*Explaining* of things matters to me more than merely tuning the knobs
+He is actively involved in developing *usable* free (libre) and open source
+software, with particular focus on data science and machine learning.
+He is the main author and maintainer of
+[stringi](https://stringi.gagolewski.com) – one of the most often
+downloaded R packages (with over 33,000,000 downloads) that aims at natural
+language and string processing as well as the Python and R package
+[genieclust](https://genieclust.gagolewski.com) implementing
+the fast and robust hierarchical clustering
+algorithm *Genie* with noise point detection.
+
+He's an author of more than 75 publications on machine learning and
+optimisation algorithms, data aggregation and clustering, statistical
+modelling, and scientific computing.
+*Explaining* of things matters to him more than merely tuning the knobs
 so as to increase a chosen performance metric (with uncontrollable consequences
 to other ones); the latter belongs to technology and wizardry,
 not science.
 
-I'm an author of more than 70 publications.
-I've developed several open source R and Python packages, including
-[stringi](http://www.gagolewski.com/software/stringi/),
-which is among the most often downloaded R extensions.
+Moreover, Marek taught various courses
+related to R and Python programming, algorithms, data science,
+and machine learning in Australia, Poland, and Germany
+(e.g., at [Data Science Retreat](https://datascienceretreat.com)).
 
-On top of that, I teach various courses related to
-R and Python programming, algorithms,
-data science and machine learning -- and I'm good at it.
-This book was also influenced by my teaching experience at
-[Data Science Retreat](https://datascienceretreat.com) in Berlin, Germany.
+
 
 
 
@@ -141,9 +156,9 @@ This book was also influenced by my teaching experience at
 
 #### Acknowledgements  {.unnumbered}
 
-This book has been prepared with pandoc, Markdown and GitBook.
+This book has been prepared with pandoc, Markdown, and GitBook.
 R code chunks have been processed with knitr.
-A little help of bookdown, good ol' Makefiles and shell scripts
+A little help of bookdown, good ol' Makefiles, and shell scripts
 did the trick.
 
 
@@ -162,4 +177,9 @@ The following R packages are used or referred to in the text:
 
 During the writing of this book, I've been listening to the music
 featuring John Coltrane, Krzysztof Komeda,
-Henry Threadgill, Albert Ayler, Paco de Lucia and Tomatito.
+Henry Threadgill, Albert Ayler, Paco de Lucia, and Tomatito.
+
+
+
+{ LATEX \mainmatter }
+
