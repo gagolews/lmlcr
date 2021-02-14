@@ -4,7 +4,7 @@ Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com>
 This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 -->
 
-# Continuous Optimisation with Iterative Algorithms
+# Continuous Optimisation with Iterative Algorithms (\*)
 
 ```{r chapter-header-motd,echo=FALSE,results="asis"}
 cat(readLines("chapter-header-motd.md"), sep="\n")

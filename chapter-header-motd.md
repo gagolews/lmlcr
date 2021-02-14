@@ -7,4 +7,4 @@ not much work on-going in this repository anymore, as its sources have
 moved elsewhere; however, if you happen to find any bugs or typos,
 please drop me an
 [email](https://github.com/gagolews/lmlcr/blob/master/CODE_OF_CONDUCT.md).
-I will share a new draft once it's ripe. Stay tuned.
+I will share a new draft once it is ripe. Stay tuned.
