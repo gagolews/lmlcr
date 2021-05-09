@@ -26,7 +26,7 @@
   
 <link rel="prev" href="clustering.html"/>
 <link rel="next" href="recommender-systems.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -45,8 +45,6 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <style type="text/css">
 div.exercise {
     font-style: italic;
@@ -173,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li style='font-style: italic' ><a href="./">LMLCR</a></li>
 <li style='font-size: smaller' ><a href="https://www.gagolewski.com">Marek Gagolewski</a></li>
-<li style='font-size: smaller' ><a href="./">DRAFT v0.2.1 2021-02-14 12:04 (f679dfc)</a></li>
+<li style='font-size: smaller' ><a href="./">DRAFT v0.2.1 2021-05-10 09:49 (f981ede)</a></li>
 <li style='font-size: smaller' ><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Licensed under CC BY-NC-ND 4.0</a></li>
 
 <li class="divider"></li>
@@ -764,7 +762,7 @@ K <- 8
 p <- 2
 
 library("FNN")
-get_fitness <- function(mu, X) {
+get_loss <- function(mu, X) {
     # For each point in X,
     # get the index of the closest point in mu:
     memb <- FNN::get.knnx(mu, X, 1)$nn.index
@@ -780,7 +778,7 @@ Mullen K, Ardia D, Gil D, Windover D, Cline J (2011). “DEoptim:  An R Package 
 
 library("DEoptim")
 obj <- function(mu) {
-            get_fitness(matrix(mu, nrow=K), X)
+            get_loss(matrix(mu, nrow=K), X)
         }
 res <- DEoptim(fn=obj,
         lower=rep(apply(X, 2, min), each=K),
@@ -791,9 +789,9 @@ res <- DEoptim(fn=obj,
 mu_res <- matrix(res$optim$bestmem, nrow=K)
 plot(X)
 points(mu_res, col=2,cex=3)
-get_fitness(mu_res, X)
+get_loss(mu_res, X)
 km <- kmeans(X, mu_res)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 
 
@@ -809,9 +807,9 @@ res <- optim(X[sample(nrow(X), K),],
 mu_res <- matrix(res$par, nrow=K)
 plot(X)
 points(mu_res, col=2,cex=3)
-get_fitness(mu_res, X)
+get_loss(mu_res, X)
 km <- kmeans(X, mu_res)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 Zambrano-Bigiarini, M., Rojas, R. (2013). “A model-independent Particle Swarm Optimisation software for model calibration.” Environmental Modelling & Software, 43, 5-25. doi: 10.1016/j.envsoft.2013.01.004, http://dx.doi.org/10.1016/j.envsoft.2013.01.004.
 
@@ -825,9 +823,9 @@ res <- hydroPSO(fn=obj,
 mu_res <- matrix(res$par, nrow=K)
 plot(X)
 points(mu_res, col=2,cex=3)
-get_fitness(mu_res, X)
+get_loss(mu_res, X)
 km <- kmeans(X, mu_res)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 
 
@@ -842,10 +840,10 @@ cntr <- matrix(ncol=2, byrow=TRUE, c( # initial guess
     25,   0,
     25,   10))
 km <- kmeans(X, cntr)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 km <- kmeans(X, K, nstart=10)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 -->
 <div style="margin-top: 1em">
@@ -853,7 +851,7 @@ get_fitness(km$centers, X)
 </div>
 <p>The objective function for the K-means clustering problem:</p>
 <div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="optimisation-with-genetic-algorithms.html#cb733-1" aria-hidden="true"></a><span class="kw">library</span>(<span class="st">&quot;FNN&quot;</span>)</span>
-<span id="cb733-2"><a href="optimisation-with-genetic-algorithms.html#cb733-2" aria-hidden="true"></a>get_fitness &lt;-<span class="st"> </span><span class="cf">function</span>(mu, X) {</span>
+<span id="cb733-2"><a href="optimisation-with-genetic-algorithms.html#cb733-2" aria-hidden="true"></a>get_loss &lt;-<span class="st"> </span><span class="cf">function</span>(mu, X) {</span>
 <span id="cb733-3"><a href="optimisation-with-genetic-algorithms.html#cb733-3" aria-hidden="true"></a>    <span class="co"># For each point in X,</span></span>
 <span id="cb733-4"><a href="optimisation-with-genetic-algorithms.html#cb733-4" aria-hidden="true"></a>    <span class="co"># get the index of the closest point in mu:</span></span>
 <span id="cb733-5"><a href="optimisation-with-genetic-algorithms.html#cb733-5" aria-hidden="true"></a>    memb &lt;-<span class="st"> </span>FNN<span class="op">::</span><span class="kw">get.knnx</span>(mu, X, <span class="dv">1</span>)<span class="op">$</span>nn.index</span>
@@ -867,18 +865,18 @@ get_fitness(km$centers, X)
 </div>
 <p>Setting up the solvers:</p>
 <div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="optimisation-with-genetic-algorithms.html#cb734-1" aria-hidden="true"></a>min_HartiganWong &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</span>
-<span id="cb734-2"><a href="optimisation-with-genetic-algorithms.html#cb734-2" aria-hidden="true"></a>    <span class="kw">get_fitness</span>(</span>
+<span id="cb734-2"><a href="optimisation-with-genetic-algorithms.html#cb734-2" aria-hidden="true"></a>    <span class="kw">get_loss</span>(</span>
 <span id="cb734-3"><a href="optimisation-with-genetic-algorithms.html#cb734-3" aria-hidden="true"></a>        <span class="co"># algorithm=&quot;Hartigan-Wong&quot;</span></span>
 <span id="cb734-4"><a href="optimisation-with-genetic-algorithms.html#cb734-4" aria-hidden="true"></a>        <span class="kw">kmeans</span>(X, mu0, <span class="dt">iter.max=</span><span class="dv">100</span>)<span class="op">$</span>centers,</span>
 <span id="cb734-5"><a href="optimisation-with-genetic-algorithms.html#cb734-5" aria-hidden="true"></a>    X)</span>
 <span id="cb734-6"><a href="optimisation-with-genetic-algorithms.html#cb734-6" aria-hidden="true"></a>min_Lloyd &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</span>
-<span id="cb734-7"><a href="optimisation-with-genetic-algorithms.html#cb734-7" aria-hidden="true"></a>    <span class="kw">get_fitness</span>(</span>
+<span id="cb734-7"><a href="optimisation-with-genetic-algorithms.html#cb734-7" aria-hidden="true"></a>    <span class="kw">get_loss</span>(</span>
 <span id="cb734-8"><a href="optimisation-with-genetic-algorithms.html#cb734-8" aria-hidden="true"></a>        <span class="kw">kmeans</span>(X, mu0, <span class="dt">iter.max=</span><span class="dv">100</span>, <span class="dt">algorithm=</span><span class="st">&quot;Lloyd&quot;</span>)<span class="op">$</span>centers,</span>
 <span id="cb734-9"><a href="optimisation-with-genetic-algorithms.html#cb734-9" aria-hidden="true"></a>    X)</span>
 <span id="cb734-10"><a href="optimisation-with-genetic-algorithms.html#cb734-10" aria-hidden="true"></a>min_optim &lt;-<span class="st"> </span><span class="cf">function</span>(mu0, X)</span>
 <span id="cb734-11"><a href="optimisation-with-genetic-algorithms.html#cb734-11" aria-hidden="true"></a>    <span class="kw">optim</span>(mu0,</span>
 <span id="cb734-12"><a href="optimisation-with-genetic-algorithms.html#cb734-12" aria-hidden="true"></a>        <span class="cf">function</span>(mu, X) {</span>
-<span id="cb734-13"><a href="optimisation-with-genetic-algorithms.html#cb734-13" aria-hidden="true"></a>            <span class="kw">get_fitness</span>(<span class="kw">matrix</span>(mu, <span class="dt">nrow=</span><span class="kw">nrow</span>(mu0)), X)</span>
+<span id="cb734-13"><a href="optimisation-with-genetic-algorithms.html#cb734-13" aria-hidden="true"></a>            <span class="kw">get_loss</span>(<span class="kw">matrix</span>(mu, <span class="dt">nrow=</span><span class="kw">nrow</span>(mu0)), X)</span>
 <span id="cb734-14"><a href="optimisation-with-genetic-algorithms.html#cb734-14" aria-hidden="true"></a>        }, <span class="dt">X=</span>X, <span class="dt">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="dt">control=</span><span class="kw">list</span>(<span class="dt">reltol=</span><span class="fl">1e-16</span>)</span>
 <span id="cb734-15"><a href="optimisation-with-genetic-algorithms.html#cb734-15" aria-hidden="true"></a>    )<span class="op">$</span>val</span></code></pre></div>
 <div style="margin-top: 1em">
@@ -947,13 +945,13 @@ is the most reliable one of the three:</p>
 <span id="cb741-8"><a href="optimisation-with-genetic-algorithms.html#cb741-8" aria-hidden="true"></a>    <span class="dt">times=</span><span class="dv">10</span></span>
 <span id="cb741-9"><a href="optimisation-with-genetic-algorithms.html#cb741-9" aria-hidden="true"></a>), <span class="dt">unit=</span><span class="st">&quot;relative&quot;</span>)</span></code></pre></div>
 <pre><code>##           expr       min        lq      mean    median        uq
-## 1 HartiganWong    1.1217    1.1606    1.2086    1.2639    1.2042
+## 1 HartiganWong    1.1066    1.1052    1.1774    1.1984    1.1716
 ## 2        Lloyd    1.0000    1.0000    1.0000    1.0000    1.0000
-## 3        optim 1674.7145 1670.7761 1588.3809 1652.1037 1444.0736
+## 3        optim 1637.6214 1639.4981 1577.0414 1612.6708 1503.2987
 ##         max neval
-## 1    1.3029    10
+## 1    1.3662    10
 ## 2    1.0000    10
-## 3 1549.7281    10</code></pre>
+## 3 1516.5368    10</code></pre>
 <div style="margin-top: 1em">
 
 </div>
@@ -968,7 +966,7 @@ is the most reliable one of the three:</p>
 <p>Well, maybe. We can try more random restarts:</p>
 </blockquote>
 <div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb745-1"><a href="optimisation-with-genetic-algorithms.html#cb745-1" aria-hidden="true"></a>res_tried_very_hard &lt;-<span class="st"> </span><span class="kw">kmeans</span>(X, K, <span class="dt">nstart=</span><span class="dv">100000</span>, <span class="dt">iter.max=</span><span class="dv">10000</span>)<span class="op">$</span>centers</span>
-<span id="cb745-2"><a href="optimisation-with-genetic-algorithms.html#cb745-2" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">get_fitness</span>(res_tried_very_hard, X))</span></code></pre></div>
+<span id="cb745-2"><a href="optimisation-with-genetic-algorithms.html#cb745-2" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">get_loss</span>(res_tried_very_hard, X))</span></code></pre></div>
 <pre><code>## [1] 421889</code></pre>
 <p>Is it good enough?</p>
 <blockquote>
@@ -1020,7 +1018,7 @@ other to generate new “offspring” solutions.</p>
 <li>ant colony</li>
 <li>bees</li>
 <li>cuckoo search</li>
-<li>particle sward</li>
+<li>particle swarm</li>
 <li>krill herd</li>
 </ul></li>
 <li><p>other metaheuristics:</p>
@@ -1043,7 +1041,7 @@ first proposed by John Holland in the 1960s.</p>
 <p>See (Goldberg, 1989) for a comprehensive overview
 and (Simon, 2013) for extensions.</p>
 <p>Here is the general idea of a GA (there might be many)
-to minimise a given objective/fitness function <span class="math inline">\(f\)</span>
+to minimise a given objective/loss function <span class="math inline">\(f\)</span>
 over a given domain <span class="math inline">\(D\)</span>.</p>
 <div style="margin-top: 1em">
 
@@ -1053,7 +1051,8 @@ over a given domain <span class="math inline">\(D\)</span>.</p>
 e.g., <span class="math inline">\(n_\text{pop}=32\)</span></p></li>
 <li><p>Repeat until some convergence criterion is not met:</p>
 <ol style="list-style-type: lower-alpha">
-<li>evaluate the fitness of each individual</li>
+<li>evaluate the fitness of each individual
+(the smaller the loss, the greater its fitness)</li>
 <li>select the pairs of the individuals for reproduction, the fitter
 should be selected more eagerly</li>
 <li>apply crossover operations to create offspring</li>
@@ -1078,23 +1077,23 @@ should be selected more eagerly</li>
 <span id="cb747-7"><a href="optimisation-with-genetic-algorithms.html#cb747-7" aria-hidden="true"></a><span class="co"># randomly generate an initial population of size `npop`:</span></span>
 <span id="cb747-8"><a href="optimisation-with-genetic-algorithms.html#cb747-8" aria-hidden="true"></a>pop &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span>npop, <span class="cf">function</span>(i) X[<span class="kw">sample</span>(<span class="kw">nrow</span>(X), K),])</span>
 <span id="cb747-9"><a href="optimisation-with-genetic-algorithms.html#cb747-9" aria-hidden="true"></a></span>
-<span id="cb747-10"><a href="optimisation-with-genetic-algorithms.html#cb747-10" aria-hidden="true"></a><span class="co"># evaluate fitness of each individual:</span></span>
-<span id="cb747-11"><a href="optimisation-with-genetic-algorithms.html#cb747-11" aria-hidden="true"></a>cur_fitness &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_fitness, X)</span>
-<span id="cb747-12"><a href="optimisation-with-genetic-algorithms.html#cb747-12" aria-hidden="true"></a>cur_best_fitness &lt;-<span class="st"> </span><span class="kw">min</span>(cur_fitness)</span>
-<span id="cb747-13"><a href="optimisation-with-genetic-algorithms.html#cb747-13" aria-hidden="true"></a>best_fitness &lt;-<span class="st"> </span>cur_best_fitness</span></code></pre></div>
+<span id="cb747-10"><a href="optimisation-with-genetic-algorithms.html#cb747-10" aria-hidden="true"></a><span class="co"># evaluate loss for each individual:</span></span>
+<span id="cb747-11"><a href="optimisation-with-genetic-algorithms.html#cb747-11" aria-hidden="true"></a>cur_loss &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_loss, X)</span>
+<span id="cb747-12"><a href="optimisation-with-genetic-algorithms.html#cb747-12" aria-hidden="true"></a>cur_best_loss &lt;-<span class="st"> </span><span class="kw">min</span>(cur_loss)</span>
+<span id="cb747-13"><a href="optimisation-with-genetic-algorithms.html#cb747-13" aria-hidden="true"></a>best_loss &lt;-<span class="st"> </span>cur_best_loss</span></code></pre></div>
 <p>Each individual in the population is just the set of <span class="math inline">\(K\)</span>
 candidate cluster centres represented as a matrix in <span class="math inline">\(\mathbb{R}^{K\times p}\)</span>.</p>
 <div style="margin-top: 1em">
 
 </div>
-<p>Let’s assume that the fitness of each individual should be a function of
+<p>Let’s assume that the loss for each individual should be a function of
 the rank of the objective function’s value
-(smallest objective == highest rank == best fit).</p>
+(smallest objective/loss == highest rank/utility/fitness == best fit).</p>
 <p>For the crossover, we will sample pairs of individuals with
-probabilities proportional to their fitness.</p>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="optimisation-with-genetic-algorithms.html#cb748-1" aria-hidden="true"></a>selection &lt;-<span class="st"> </span><span class="cf">function</span>(cur_fitness) {</span>
-<span id="cb748-2"><a href="optimisation-with-genetic-algorithms.html#cb748-2" aria-hidden="true"></a>    npop &lt;-<span class="st"> </span><span class="kw">length</span>(cur_fitness)</span>
-<span id="cb748-3"><a href="optimisation-with-genetic-algorithms.html#cb748-3" aria-hidden="true"></a>    probs &lt;-<span class="st"> </span><span class="kw">rank</span>(<span class="op">-</span>cur_fitness)</span>
+probabilities inversely proportional to their losses.</p>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="optimisation-with-genetic-algorithms.html#cb748-1" aria-hidden="true"></a>selection &lt;-<span class="st"> </span><span class="cf">function</span>(cur_loss) {</span>
+<span id="cb748-2"><a href="optimisation-with-genetic-algorithms.html#cb748-2" aria-hidden="true"></a>    npop &lt;-<span class="st"> </span><span class="kw">length</span>(cur_loss)</span>
+<span id="cb748-3"><a href="optimisation-with-genetic-algorithms.html#cb748-3" aria-hidden="true"></a>    probs &lt;-<span class="st"> </span><span class="kw">rank</span>(<span class="op">-</span>cur_loss)</span>
 <span id="cb748-4"><a href="optimisation-with-genetic-algorithms.html#cb748-4" aria-hidden="true"></a>    probs &lt;-<span class="st"> </span>probs<span class="op">/</span><span class="kw">sum</span>(probs)</span>
 <span id="cb748-5"><a href="optimisation-with-genetic-algorithms.html#cb748-5" aria-hidden="true"></a>    left  &lt;-<span class="st"> </span><span class="kw">sample</span>(npop, npop, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>probs)</span>
 <span id="cb748-6"><a href="optimisation-with-genetic-algorithms.html#cb748-6" aria-hidden="true"></a>    right &lt;-<span class="st"> </span><span class="kw">sample</span>(npop, npop, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span>probs)</span>
@@ -1176,18 +1175,18 @@ of the closest points, just like in Lloyd’s algorithm, to speed up convergence
 </div>
 <p>We are ready to build our genetic algorithm to solve the K-means clustering problem:</p>
 <div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="optimisation-with-genetic-algorithms.html#cb752-1" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>niter) {</span>
-<span id="cb752-2"><a href="optimisation-with-genetic-algorithms.html#cb752-2" aria-hidden="true"></a>    pairs &lt;-<span class="st"> </span><span class="kw">selection</span>(cur_fitness)</span>
+<span id="cb752-2"><a href="optimisation-with-genetic-algorithms.html#cb752-2" aria-hidden="true"></a>    pairs &lt;-<span class="st"> </span><span class="kw">selection</span>(cur_loss)</span>
 <span id="cb752-3"><a href="optimisation-with-genetic-algorithms.html#cb752-3" aria-hidden="true"></a>    pop &lt;-<span class="st"> </span><span class="kw">crossover</span>(pop, pairs, K, p)</span>
 <span id="cb752-4"><a href="optimisation-with-genetic-algorithms.html#cb752-4" aria-hidden="true"></a>    pop &lt;-<span class="st"> </span><span class="kw">mutate</span>(pop, X, K)</span>
 <span id="cb752-5"><a href="optimisation-with-genetic-algorithms.html#cb752-5" aria-hidden="true"></a>    pop &lt;-<span class="st"> </span><span class="kw">recompute_mus</span>(pop, X, K)</span>
-<span id="cb752-6"><a href="optimisation-with-genetic-algorithms.html#cb752-6" aria-hidden="true"></a>    <span class="co"># re-evaluate fitness:</span></span>
-<span id="cb752-7"><a href="optimisation-with-genetic-algorithms.html#cb752-7" aria-hidden="true"></a>    cur_fitness &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_fitness, X)</span>
-<span id="cb752-8"><a href="optimisation-with-genetic-algorithms.html#cb752-8" aria-hidden="true"></a>    cur_best_fitness &lt;-<span class="st"> </span><span class="kw">min</span>(cur_fitness)</span>
+<span id="cb752-6"><a href="optimisation-with-genetic-algorithms.html#cb752-6" aria-hidden="true"></a>    <span class="co"># re-evaluate losses:</span></span>
+<span id="cb752-7"><a href="optimisation-with-genetic-algorithms.html#cb752-7" aria-hidden="true"></a>    cur_loss &lt;-<span class="st"> </span><span class="kw">sapply</span>(pop, get_loss, X)</span>
+<span id="cb752-8"><a href="optimisation-with-genetic-algorithms.html#cb752-8" aria-hidden="true"></a>    cur_best_loss &lt;-<span class="st"> </span><span class="kw">min</span>(cur_loss)</span>
 <span id="cb752-9"><a href="optimisation-with-genetic-algorithms.html#cb752-9" aria-hidden="true"></a>    <span class="co"># give feedback on what&#39;s going on:</span></span>
-<span id="cb752-10"><a href="optimisation-with-genetic-algorithms.html#cb752-10" aria-hidden="true"></a>    <span class="cf">if</span> (cur_best_fitness <span class="op">&lt;</span><span class="st"> </span>best_fitness) {</span>
-<span id="cb752-11"><a href="optimisation-with-genetic-algorithms.html#cb752-11" aria-hidden="true"></a>        best_fitness &lt;-<span class="st"> </span>cur_best_fitness</span>
-<span id="cb752-12"><a href="optimisation-with-genetic-algorithms.html#cb752-12" aria-hidden="true"></a>        best_mu &lt;-<span class="st"> </span>pop[[<span class="kw">which.min</span>(cur_fitness)]]</span>
-<span id="cb752-13"><a href="optimisation-with-genetic-algorithms.html#cb752-13" aria-hidden="true"></a>        <span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%5d: f_best=%10.5f</span><span class="ch">\n</span><span class="st">&quot;</span>, i, best_fitness))</span>
+<span id="cb752-10"><a href="optimisation-with-genetic-algorithms.html#cb752-10" aria-hidden="true"></a>    <span class="cf">if</span> (cur_best_loss <span class="op">&lt;</span><span class="st"> </span>best_loss) {</span>
+<span id="cb752-11"><a href="optimisation-with-genetic-algorithms.html#cb752-11" aria-hidden="true"></a>        best_loss &lt;-<span class="st"> </span>cur_best_loss</span>
+<span id="cb752-12"><a href="optimisation-with-genetic-algorithms.html#cb752-12" aria-hidden="true"></a>        best_mu &lt;-<span class="st"> </span>pop[[<span class="kw">which.min</span>(cur_loss)]]</span>
+<span id="cb752-13"><a href="optimisation-with-genetic-algorithms.html#cb752-13" aria-hidden="true"></a>        <span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%5d: f_best=%10.5f</span><span class="ch">\n</span><span class="st">&quot;</span>, i, best_loss))</span>
 <span id="cb752-14"><a href="optimisation-with-genetic-algorithms.html#cb752-14" aria-hidden="true"></a>    }</span>
 <span id="cb752-15"><a href="optimisation-with-genetic-algorithms.html#cb752-15" aria-hidden="true"></a>}</span></code></pre></div>
 <div style="margin-top: 1em">
@@ -1198,9 +1197,9 @@ of the closest points, just like in Lloyd’s algorithm, to speed up convergence
 ##     4: f_best=428438.45125
 ##     6: f_best=422277.99136
 ##     8: f_best=421889.46265</code></pre>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="optimisation-with-genetic-algorithms.html#cb754-1" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">get_fitness</span>(best_mu, X))</span></code></pre></div>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="optimisation-with-genetic-algorithms.html#cb754-1" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">get_loss</span>(best_mu, X))</span></code></pre></div>
 <pre><code>## [1] 421889</code></pre>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="optimisation-with-genetic-algorithms.html#cb756-1" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">get_fitness</span>(res_tried_very_hard, X))</span></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="optimisation-with-genetic-algorithms.html#cb756-1" aria-hidden="true"></a><span class="kw">print</span>(<span class="kw">get_loss</span>(res_tried_very_hard, X))</span></code></pre></div>
 <pre><code>## [1] 421889</code></pre>
 <p>It works! :)</p>
 <!--

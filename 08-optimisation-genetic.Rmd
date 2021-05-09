@@ -193,7 +193,7 @@ K <- 8
 p <- 2
 
 library("FNN")
-get_fitness <- function(mu, X) {
+get_loss <- function(mu, X) {
     # For each point in X,
     # get the index of the closest point in mu:
     memb <- FNN::get.knnx(mu, X, 1)$nn.index
@@ -209,7 +209,7 @@ Mullen K, Ardia D, Gil D, Windover D, Cline J (2011). “DEoptim:  An R Package 
 
 library("DEoptim")
 obj <- function(mu) {
-            get_fitness(matrix(mu, nrow=K), X)
+            get_loss(matrix(mu, nrow=K), X)
         }
 res <- DEoptim(fn=obj,
         lower=rep(apply(X, 2, min), each=K),
@@ -220,9 +220,9 @@ res <- DEoptim(fn=obj,
 mu_res <- matrix(res$optim$bestmem, nrow=K)
 plot(X)
 points(mu_res, col=2,cex=3)
-get_fitness(mu_res, X)
+get_loss(mu_res, X)
 km <- kmeans(X, mu_res)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 
 
@@ -238,9 +238,9 @@ res <- optim(X[sample(nrow(X), K),],
 mu_res <- matrix(res$par, nrow=K)
 plot(X)
 points(mu_res, col=2,cex=3)
-get_fitness(mu_res, X)
+get_loss(mu_res, X)
 km <- kmeans(X, mu_res)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 Zambrano-Bigiarini, M., Rojas, R. (2013). “A model-independent Particle Swarm Optimisation software for model calibration.” Environmental Modelling & Software, 43, 5-25. doi: 10.1016/j.envsoft.2013.01.004, http://dx.doi.org/10.1016/j.envsoft.2013.01.004.
 
@@ -254,9 +254,9 @@ res <- hydroPSO(fn=obj,
 mu_res <- matrix(res$par, nrow=K)
 plot(X)
 points(mu_res, col=2,cex=3)
-get_fitness(mu_res, X)
+get_loss(mu_res, X)
 km <- kmeans(X, mu_res)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 
 
@@ -271,10 +271,10 @@ cntr <- matrix(ncol=2, byrow=TRUE, c( # initial guess
     25,   0,
     25,   10))
 km <- kmeans(X, cntr)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 km <- kmeans(X, K, nstart=10)
-get_fitness(km$centers, X)
+get_loss(km$centers, X)
 
 -->
 
@@ -285,7 +285,7 @@ The objective function for the K-means clustering problem:
 
 ```{r,dependson='gendata2',gendata3,cache=TRUE}
 library("FNN")
-get_fitness <- function(mu, X) {
+get_loss <- function(mu, X) {
     # For each point in X,
     # get the index of the closest point in mu:
     memb <- FNN::get.knnx(mu, X, 1)$nn.index
@@ -306,18 +306,18 @@ Setting up the solvers:
 
 ```{r,dependson='gendata3',gendata3b,cache=TRUE}
 min_HartiganWong <- function(mu0, X)
-    get_fitness(
+    get_loss(
         # algorithm="Hartigan-Wong"
         kmeans(X, mu0, iter.max=100)$centers,
     X)
 min_Lloyd <- function(mu0, X)
-    get_fitness(
+    get_loss(
         kmeans(X, mu0, iter.max=100, algorithm="Lloyd")$centers,
     X)
 min_optim <- function(mu0, X)
     optim(mu0,
         function(mu, X) {
-            get_fitness(matrix(mu, nrow=nrow(mu0)), X)
+            get_loss(matrix(mu, nrow=nrow(mu0)), X)
         }, X=X, method="BFGS", control=list(reltol=1e-16)
     )$val
 ```
@@ -411,7 +411,7 @@ Did we put enough effort to find it?
 
 ```{r,dependson='gendata6',gendata7,cache=TRUE}
 res_tried_very_hard <- kmeans(X, K, nstart=100000, iter.max=10000)$centers
-print(get_fitness(res_tried_very_hard, X))
+print(get_loss(res_tried_very_hard, X))
 ```
 
 Is it good enough?
@@ -466,7 +466,7 @@ see, e.g, [@evolution]:
     * ant colony
     * bees
     * cuckoo search
-    * particle sward
+    * particle swarm
     * krill herd
 
 * other metaheuristics:
@@ -493,7 +493,7 @@ and (Simon, 2013) for extensions.
 
 
 Here is the general idea of  a GA (there might be many)
-to minimise a given objective/fitness function $f$
+to minimise a given objective/loss function $f$
 over a given domain $D$.
 
 
@@ -505,6 +505,7 @@ e.g., $n_\text{pop}=32$
 2. Repeat until some convergence criterion is not met:
 
     a. evaluate the fitness of each individual
+    (the smaller the loss, the greater its fitness)
     b. select the pairs of the individuals for reproduction, the fitter
     should be selected more eagerly
     c. apply crossover operations to create offspring
@@ -531,10 +532,10 @@ niter <- 100
 # randomly generate an initial population of size `npop`:
 pop <- lapply(1:npop, function(i) X[sample(nrow(X), K),])
 
-# evaluate fitness of each individual:
-cur_fitness <- sapply(pop, get_fitness, X)
-cur_best_fitness <- min(cur_fitness)
-best_fitness <- cur_best_fitness
+# evaluate loss for each individual:
+cur_loss <- sapply(pop, get_loss, X)
+cur_best_loss <- min(cur_loss)
+best_loss <- cur_best_loss
 ```
 
 Each individual in the population is just the set of $K$
@@ -543,17 +544,17 @@ candidate cluster centres represented as a matrix in $\mathbb{R}^{K\times p}$.
 ---
 
 
-Let's assume that the fitness of each individual should be a function of
+Let's assume that the loss for each individual should be a function of
 the rank of the objective function's value
-(smallest objective == highest rank == best fit).
+(smallest objective/loss == highest rank/utility/fitness == best fit).
 
 For the crossover, we will sample pairs of individuals with
-probabilities proportional to their fitness.
+probabilities inversely proportional to their losses.
 
 ```{r,dependson='genetic1',genetic2,cache=TRUE}
-selection <- function(cur_fitness) {
-    npop <- length(cur_fitness)
-    probs <- rank(-cur_fitness)
+selection <- function(cur_loss) {
+    npop <- length(cur_loss)
+    probs <- rank(-cur_loss)
     probs <- probs/sum(probs)
     left  <- sample(npop, npop, replace=TRUE, prob=probs)
     right <- sample(npop, npop, replace=TRUE, prob=probs)
@@ -655,18 +656,18 @@ We are ready to build our genetic algorithm to solve the K-means clustering  pro
 
 ```{r,dependson='genetic4b',genetic5,cache=TRUE,eval=FALSE}
 for (i in 1:niter) {
-    pairs <- selection(cur_fitness)
+    pairs <- selection(cur_loss)
     pop <- crossover(pop, pairs, K, p)
     pop <- mutate(pop, X, K)
     pop <- recompute_mus(pop, X, K)
-    # re-evaluate fitness:
-    cur_fitness <- sapply(pop, get_fitness, X)
-    cur_best_fitness <- min(cur_fitness)
+    # re-evaluate losses:
+    cur_loss <- sapply(pop, get_loss, X)
+    cur_best_loss <- min(cur_loss)
     # give feedback on what's going on:
-    if (cur_best_fitness < best_fitness) {
-        best_fitness <- cur_best_fitness
-        best_mu <- pop[[which.min(cur_fitness)]]
-        cat(sprintf("%5d: f_best=%10.5f\n", i, best_fitness))
+    if (cur_best_loss < best_loss) {
+        best_loss <- cur_best_loss
+        best_mu <- pop[[which.min(cur_loss)]]
+        cat(sprintf("%5d: f_best=%10.5f\n", i, best_loss))
     }
 }
 ```
@@ -678,8 +679,8 @@ for (i in 1:niter) {
 ```
 
 ```{r,dependson='genetic6',genetic7,cache=TRUE}
-print(get_fitness(best_mu, X))
-print(get_fitness(res_tried_very_hard, X))
+print(get_loss(best_mu, X))
+print(get_loss(res_tried_very_hard, X))
 ```
 
 It works! :)

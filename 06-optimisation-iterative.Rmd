@@ -182,7 +182,7 @@ legend("topleft", lty=1, legend=expression(f(x)*"="*"max(0,"*(x-1)^2-2*")"), bg=
 
 Remark.
 
-: If this was the case of some machine learning problem, it'd mean
+: If this was the case of some machine learning problem, it would mean
 that we could have many equally well-performing models,
 and hence many equivalent explanations of the same phenomenon.
 
