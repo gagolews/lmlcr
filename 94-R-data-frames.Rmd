@@ -62,7 +62,7 @@ as.data.frame(l)
 
 ## Importing Data Frames
 
-Many interesting data frames come from external sources, such as csv files,
+Many interesting data frames come from external sources, such as CSV files,
 web APIs, SQL databases and so on.
 
 In particular, `read.csv()` (see `?read.table` for a long list
@@ -80,6 +80,7 @@ Note that CSV is by far the most portable format for exchanging matrix-like
 objects between different programs (statistical or numeric computing
 environments, spreadsheets etc.).
 
+<!-- TODO: relative vs absolute paths -->
 
 
 
@@ -188,6 +189,16 @@ ToothGrowth[sample(nrow(ToothGrowth), 5), ] # 5 random rows
 aggregate(ToothGrowth["len"], ToothGrowth[c("supp", "dose")], median)
 ```
 
+Note that the second argument to `aggregate()` must be a list
+(or a data frame), not an atomic vector.
+This is why we have written `iris[5]` and not `iris[[5]]` or
+`iris[, 5]` (although we could have used the `iris[, 5, drop=FALSE]`
+notation).
+
+Further arguments can be passed to the function being called,
+e.g., using the notation like `aggregate(X, y, mean, na.rm=TRUE)`.
+
+
 Taking into account that `split()` accepts a data frame input as well,
 we can perform what follows:
 
@@ -207,16 +218,24 @@ sapply(split(iris, iris[5]), function(df) {
 })
 ```
 
-The above syntax is not super-convenient,
-but it only uses the building blocks that we have already mastered!
-That should be very appealing to the minimalists.
-Note that R packages such as data.table and dplyr offer more convenient
-substitutes -- you can always learn them on your own
-(which takes time, but it's worth the hassle).
-They simplify the most common data wrangling tasks. Moreover,
-they have been optimised for speed -- they can handle much larger data sets
-efficiently.
+The above syntax solely relies on the building blocks that we have
+already mastered! This should be very appealing to the minimalists.
 
+Note that R packages `data.table` and `dplyr` provide us with
+reimplementations  of the most important functions for the processing
+of data frames. We ​only cover the classic/base functions here,
+because they have existed since the very beginning of R. These are known
+to every R user and are likely to work this way forever.
+Having said this, we should acknowledge that some users might find
+`dplyr` or `data.table` more convenient
+(oftentimes they are faster or handle big data better) in many contexts.
+The problem, though, is that when faced with less typical problems
+(as a future AI/ML engineer/data scientist we'll be particularly
+exposed to them), we'll have to fall back to base R anyway,
+because it is more powerful and gives us more transferable skills
+(also with regards to objects of different types, e.g., matrices).
+This is exactly why we prefer functions like `aggregate()`
+subsetting like `df[,]`, etc.
 
 
 ## Metaprogramming and Formulas (\*)

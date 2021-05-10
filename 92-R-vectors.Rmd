@@ -10,6 +10,16 @@ This material is licensed under the Creative Commons BY-NC-ND 4.0 License.
 cat(readLines("chapter-header-motd.md"), sep="\n")
 ```
 
+
+<!--
+scan()  - where does it look for the file?
+getwd()
+directory where the R session was started
+for reports - this is where the report is
+-->
+
+
+
 This chapter is a step-by-step guide to vector computations in R.
 It also explains the basic mathematical notation around vectors.
 
