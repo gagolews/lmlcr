@@ -321,7 +321,7 @@ for $i=1,\dots,n$.
 
 
 I know how to summarise data on the residuals!
-Of course I should compute their arithmetic mean and I'm done with that shtask!
+Of course I should compute their arithmetic mean and I'm done with that task!
 Interestingly, the mean of residuals (this can be shown analytically)
 in the least squared fit is always equal to $0$:
 \[
